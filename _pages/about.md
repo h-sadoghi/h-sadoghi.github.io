@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: [Ferdowsi University of Mashhad, Mashahd, Iran](https://maps.google.com/?q=Ferdowsi%20University%20of%20Mashhad,%20Mashhad,%20Iran,%20P.%20O.%20Box:%2091779-48974), P. O. Box: 91779-48974
+subtitle: Ferdowsi University of Mashhad, Mashahd, Iran, P. O. Box: 91779-48974
 
 profile:
   align: right
