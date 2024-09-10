@@ -1,0 +1,1 @@
+Yahya Forghani is currently an Associate Professor of Computer Engineering at Azad University of Mashhad, Iran. He earned his Ph.D. degree in Artificial Intelligence under the supervision of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad.
