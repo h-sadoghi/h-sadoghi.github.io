@@ -169,4 +169,20 @@ profiles:
       <p></p>
       <p></p>
       <p></p>       
+  - align: right
+    image: Nasiri.jpg
+    content: Nasiri.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>
+  - align: left
+    image: Ghazikhani.jpg
+    content: Ghazikhani.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>
 ---
