@@ -49,7 +49,7 @@ profiles:
       <p></p>
       <p></p>
       <p></p>
-  - align: right
+  - align: left
     image: Izanloo.jpg
     content: Izanloo.md
     image_circular: false # crops the image to make it circular
@@ -57,5 +57,13 @@ profiles:
       <p></p>
       <p></p>
       <p></p>
+  - align: right
+    image: Razavi_Mahnaz.jpg
+    content: Razavi_Mahnaz.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>  
 ---
 
