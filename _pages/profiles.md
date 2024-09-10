@@ -153,7 +153,7 @@ profiles:
       <p></p>
       <p></p>
       <p></p>
-  - align: left
+  - align: right
     image: HomaForoughi.jpg
     content: HomaForoughi.md
     image_circular: false # crops the image to make it circular
@@ -161,7 +161,7 @@ profiles:
       <p></p>
       <p></p>
       <p></p> 
-  - align: right
+  - align: left
     image: Farahi.jpg
     content: Farahi.md
     image_circular: false # crops the image to make it circular
