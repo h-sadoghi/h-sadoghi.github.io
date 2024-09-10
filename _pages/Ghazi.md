@@ -1,0 +1,1 @@
+Ghazi is currently an Ph.D. student of Computer Engineering at AmirKabir University. She earned his Master degree in Artificial Intelligence under the consultant of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad.

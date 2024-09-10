@@ -81,6 +81,21 @@ profiles:
       <p></p>
       <p></p>
       <p></p>  
-
+  - align: left
+    image: Keshvari.jpg
+    content: Keshvari.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p> 
+  - align: right
+    image: Ghazi.jpg
+    content: Ghazi.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p> 
 ---
 
