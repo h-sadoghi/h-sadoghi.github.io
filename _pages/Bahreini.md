@@ -1,0 +1,1 @@
+Bahreini is currently an Asistance Professor. She earned his Ph.D. degree inElectrical Engineering under the consultant of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad. Her research interests include Hyperspectral denoising, Machine Learning, Statistical Learning Theory, Pattern Recognition.
