@@ -33,6 +33,13 @@ profiles:
       <p></p>
       <p></p>
       <p></p>
-
+  - align: left
+    image: Ashkezari.jpg
+    content: Ashkezari.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p>ashkezari@um.ac.ir</p>
+      <p></p>
+      <p></p>
 ---
 
