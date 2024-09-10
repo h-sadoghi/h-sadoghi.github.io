@@ -105,5 +105,14 @@ profiles:
       <p></p>
       <p></p>
       <p></p>       
+  - align: right
+    image: Hamedani.jpg
+    content: Hamedani.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>       
+
 ---
 
