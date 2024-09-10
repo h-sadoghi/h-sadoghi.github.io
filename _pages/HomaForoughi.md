@@ -1,0 +1,1 @@
+Dr. Homa Foroughi is a Head of Machine Learning @ ecobee | PhD in Computer Science ecobee University of Alberta Vancouver, British Columbia, Canada. She earned his Masters degree in Artificial Intelligence from Ferdowsi University of Mashhad, Iran, under the consultant of Prof. Sadoghi Yazdi.
