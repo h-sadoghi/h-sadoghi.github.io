@@ -41,5 +41,13 @@ profiles:
       <p>ashkezari@um.ac.ir</p>
       <p></p>
       <p></p>
+  - align: right
+    image: Shams.jpg
+    content: Shams.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>
 ---
 
