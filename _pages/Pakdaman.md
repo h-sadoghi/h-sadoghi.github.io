@@ -1,0 +1,1 @@
+Dr. Morteza Pakdaman is an Assistant Professor in the mathematical Science Department at Atmospheric Science and Meteorological Research Center (ASMERC), Climatological Research Center (CRI), Mashhad, Iran. He works with PR Lab in Artificial Intelligence Feild at Ferdowsi University of Mashhad under the supervision of Professor Sadoghi Yazdi. 
