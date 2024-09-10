@@ -6,7 +6,7 @@ subtitle: <a href='#'>Ferdowsi University of Mashhad </a>.
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: Sadoghi.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>Phone: +98-51-38805117</p>
