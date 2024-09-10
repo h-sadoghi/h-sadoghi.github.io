@@ -1,0 +1,1 @@
+Zabihzadeh is currently an Associate Professor of Computer Engineering at Hakim Sabzevari University, Iran. He earned his Ph.D. degree in Artificial Intelligence under the Consultant of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad.
