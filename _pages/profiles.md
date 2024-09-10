@@ -121,5 +121,13 @@ profiles:
       <p></p>
       <p></p>
       <p></p>    
+  - align: left
+    image: Mahmoodi.jpg
+    content: Mahmoodi.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>  
 ---
 
