@@ -1,0 +1,1 @@
+Gharib is currently an Asistance Professor. She earned his Ph.D. degree in Artificial Intelligence from Ferdowsi University of Mashhad, Iran, under the supervision of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad. Her research interests include Machine Learning, Statistical Learning Theory, Pattern Recognition.
