@@ -1,0 +1,1 @@
+Mohammad Kamel currently works at Sapienza University of Rome | la sapienza · Department of Computer Science. He earned his B.S.C degree in Software under the Consultant of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad.
