@@ -1,0 +1,1 @@
+Mona Zamiri is currently a Ph.D. Candidate in Computer Science at Wayne State University. Her doctoral studies are in the field of Information Retrieval and Natural Language Processing. She earned her Master degree in AI under the Consultant of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad.
