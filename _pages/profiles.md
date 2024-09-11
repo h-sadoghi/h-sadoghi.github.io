@@ -225,4 +225,44 @@ profiles:
       <p></p>
       <p></p>
       <p></p> 
+  - align: left
+    image: Mirghasemi.jpg
+    content: Mirghasemi.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p> 
+  - align: right
+    image: Ghasemigol.jpg
+    content: Ghasemigol.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p> 
+  - align: right
+    image: Kamel.jpg
+    content: Kamel.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p> 
+  - align: right
+    image: Kamel.jpg
+    content: Kamel.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p> 
+  - align: right
+    image: Kamel.jpg
+    content: Kamel.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p> 
 ---
