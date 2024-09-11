@@ -218,8 +218,8 @@ profiles:
       <p></p>
       <p></p>            
   - align: right
-    image: kamel.jpg
-    content: kamel.md
+    image: Kamel.jpg
+    content: Kamel.md
     image_circular: false # crops the image to make it circular
     more_info: >
       <p></p>
