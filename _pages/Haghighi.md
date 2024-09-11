@@ -1,0 +1,1 @@
+Dr. Mehdi Salkhordeh is currently an Associate Professor of Computer Engineering at Sadjad University. He earned his Ph.D. degree in Artificial Intelligence under the consultant of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad.

@@ -241,25 +241,25 @@ profiles:
       <p></p>
       <p></p>
       <p></p> 
-  - align: right
-    image: Kamel.jpg
-    content: Kamel.md
+  - align: left
+    image: Javidi.jpg
+    content: Javidi.md
     image_circular: false # crops the image to make it circular
     more_info: >
       <p></p>
       <p></p>
       <p></p> 
   - align: right
-    image: Kamel.jpg
-    content: Kamel.md
+    image: Haghighi.jpg
+    content: Haghighi.md
     image_circular: false # crops the image to make it circular
     more_info: >
       <p></p>
       <p></p>
       <p></p> 
-  - align: right
-    image: Kamel.jpg
-    content: Kamel.md
+  - align: left
+    image: Sabzekar.jpg
+    content: Sabzekar.md
     image_circular: false # crops the image to make it circular
     more_info: >
       <p></p>
