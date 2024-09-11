@@ -1,0 +1,1 @@
+Maryam Baradaran is currently an Assistance Professor of Computer Engineering at Shandiz University, Iran. She earned her Ph.D. degree in Artificial Intelligence under the Consultant of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad.

@@ -193,4 +193,28 @@ profiles:
       <p></p>
       <p></p>
       <p></p>
+  - align: left
+    image: MaryamBaradaran.jpg
+    content: MaryamBaradaran.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>
+  - align: right
+    image: Shekofteh.jpg
+    content: Shekofteh.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>]
+  - align: left
+    image: Rahgooy.jpg
+    content: Rahgooy.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>            
 ---

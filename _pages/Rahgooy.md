@@ -1,0 +1,1 @@
+Taher Rahgooy currently works at the Department Of Computer Science, Tulane University. Taher does research in Machine learning and Natural Language Processing. Their most recent publication is 'CLEF 2017: Multimodal Spatial Role Labeling Task Working Notes. He earned his Ph.D. degree in Software under the Consultant of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad.
