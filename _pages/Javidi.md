@@ -1,0 +1,3 @@
+Dr. Malihe Javidi received all degrees from Ferdowsi University of Mashhad (FUM) as a distinguished student. She admitted as a direct graduate student to FUM. She is currently an Assistant Professor at Quchan University of Technology, Quchan, Khorasan Razavi, Iran. Her research interests include Machine Vision, Machine Learning, Medical Image Processing and Sparse Analysis and Representation.
+
+She earned her Master degree in AI under the Consultant of Prof. Sadoghi Yazdi from Ferdowsi University of Mashhad.
