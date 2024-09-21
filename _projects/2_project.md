@@ -61,8 +61,6 @@ Locations of Wi-Fi access points installed as part of the Indoor Positioning Sys
     Wifi Locations
 </div>
 
-
-
 ## The Proposed Method
 
 ### Software Contributions
@@ -88,7 +86,9 @@ Once the signals are captured, users can send the recorded data to the server. T
 
 Communication between the mobile app and server is facilitated through a *Flask API*, and upon receipt, the data is stored in a *SQLite database*.
 
-$$dBm = 10 \times \log_{10}\left(\frac{P}{1 mW}\right)$$
+$$
+dBm = 10 \times \log_{10}\left(\frac{P}{1 mW}\right)
+$$
 
 
 
@@ -96,14 +96,7 @@ $$dBm = 10 \times \log_{10}\left(\frac{P}{1 mW}\right)$$
 {% raw %}
 
 ```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
+
 ```
 
 {% endraw %}
