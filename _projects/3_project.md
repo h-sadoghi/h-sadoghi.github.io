@@ -59,12 +59,18 @@ A smart mirror is an innovative device that merges the traditional functionality
     <div class="col-sm-8 mt-3 mt-md-0">
         {% include figure.liquid path="assets/img/SmartMirror_Hotel.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
+</div>
+<div class="caption">
+    Smart Mirror Installed in Maedeh Hotel
+</div>
+
+<div class="row justify-content-sm-center">
     <div class="col-sm-4 mt-3 mt-md-0">
         {% include figure.liquid path="assets/img/SmartMirror_DaroSsalam.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Smart Mirror Installed in Maedeh Hotel, Holy Shrine of Imam Reza
+    Smart Mirror Installed in Holy Shrine of Imam Reza
 </div>
 
 ### Conclusion  
