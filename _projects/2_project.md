@@ -1,7 +1,7 @@
 ---
 layout: page
 title: IPS project
-description: Indoor positioning System for Engineering Department of Ferdowsi University of Mashhad
+description: Indoor positioning System for Engineering Department of Ferdowsi University of Mashhad, Iran
 img: assets/img/EngineeringFUM.jpg
 importance: 2
 category: work
@@ -28,14 +28,15 @@ The machine learning component employs the **fingerprinting method** for positio
         {% include figure.liquid loading="eager" path="assets/img/EngineeringFUM.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/wideep.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/FingerprintingDiagram.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/mobileapppic2.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
+  **Left to right:** Map of the Engineering Department at Ferdowsi University of Mashhad, Designed System for FUM, Mobile App
+
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
