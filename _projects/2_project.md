@@ -40,33 +40,58 @@ The machine learning component employs the **fingerprinting method** for positio
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/ENG_FUM.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    This image can also have a caption. It's like magic.
+   IPS applied at the Engineering Department of Ferdowsi University of Mashhad, Iran 
 </div>
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+Locations of Wi-Fi access points installed as part of the Indoor Positioning System (IPS). These access points are strategically placed to ensure optimal signal coverage and accurate positioning throughout the building. Their placement is crucial for minimizing dead zones and improving the overall precision of the system.
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/ComputerGroup_ENG_FUM.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/WiFiLocation.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
+    Wifi Locations
 </div>
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+
+
+## The Proposed Method
+
+### Software Contributions
+
+#### Indoor Mapping
+Indoor positioning using **fingerprinting** relies on **supervised learning**, which requires **labeled data** to train the model. Many studies emphasize the modeling process, often overlooking the critical role of labeling in ensuring the system's comprehensiveness and usability. Traditionally, the positioning task is treated as a classification problem, with predefined reference points where signals are collected. While this method works well in controlled settings, it is not feasible in more dynamic environments like a university campus. To address these challenges, a **mobile-compatible map format** was necessary.
+
+The original map, available in AutoCAD format, was unsuitable for mobile applications due to its proprietary nature. After considering several alternatives, ***GeoJSON*** was selected due to its open-standard and broad compatibility with modern software platforms. Consequently, the indoor map of all floors and corridors of the Faculty of Engineering at Ferdowsi University of Mashhad was converted into GeoJSON format. This approach allowed for the precise identification of all points on the map, across multiple floors, using **geographical coordinates (latitude and longitude)**, making them ideal as labels for the learning model.
+
+
+*Faculty of Engineering Indoor Map*
+
+#### Mobile Application and Server-Side Code
+An **Android application** was developed using the *Flutter* framework to facilitate positioning. The app’s main feature is an interactive indoor map, allowing users to navigate easily through touch gestures—zooming, panning, and rotating the map. Additional features like switching between floors and displaying room names and hallways further enhance the user experience, enabling users to locate their desired destination.
+
+The app serves two key functions:
+1. **Recording Wi-Fi signals for training data** and transmitting this data to the server.
+2. **Capturing Wi-Fi signals during testing**, sending them to the server, and **displaying the predicted location** on the map, as determined by the learning model.
+
+*Mobile App*
+
+Once the signals are captured, users can send the recorded data to the server. This data includes the **timestamp**, **device model**, **latitude and longitude** of the signal capture, **floor number**, and a list of detected Wi-Fi signals. For each Wi-Fi access point, the list records the **SSID**, **BSSID**, and **received signal strength** in ***dBm (decibel-milliwatts)***.
+
+Communication between the mobile app and server is facilitated through a *Flask API*, and upon receipt, the data is stored in a *SQLite database*.
+
+$$dBm = 10 \times \log_{10}\left(\frac{P}{1 mW}\right)$$
+
+
+
 
 {% raw %}
 
