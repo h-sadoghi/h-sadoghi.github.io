@@ -19,19 +19,12 @@ social: true # includes social icons at the bottom of the page
 ---
 
 **Hadi Sadoghi Yazdi**  
-Professor, Ferdowsi University of Mashhad
+Professor of Electrical and Computer Engineering, Ferdowsi University of Mashhad
 
 **Contact Information:**  
 Phone: +98-51-38805117  
 Park Square, Ferdowsi University of Mashhad  
 Mashhad, Iran
-
----
-
-**Education:**  
-PhD in Electronic Engineering, Tarbiat Modares University, Tehran — 2005  
-Master of Electronic Engineering, Tarbiat Modares University, Tehran — 1996  
-Bachelor of Electronic Engineering, Ferdowsi University of Mashhad, Tehran — 1994
 
 ---
 
@@ -53,7 +46,7 @@ I invite collaborators and students to propose projects that can further the res
 ---
 
 **Roles at Ferdowsi University:**  
-• Academic Staff, 
+• Academic Staff 
 • Director of the Pattern Recognition Laboratory
 
 ---
