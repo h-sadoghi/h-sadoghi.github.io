@@ -1,11 +1,12 @@
 ---
 layout: page
-title: Air Pollution Monitoring System 
+title: Air Pollution Monitoring  
 description: Mobile Sensor-Based Environmental Air Pollution Monitoring System
 img: assets/img/AirPolution_Sensor.jpg
 importance: 3
 category: Project
 ---
+
 #### Project Overview  
 The "Mobile Sensor-Based Environmental Air Pollution Monitoring System" is an innovative project aimed at revolutionizing how we monitor and manage air quality in urban environments. By utilizing mobile sensors mounted on city buses, cars, and other vehicles, this system captures real-time data on air pollution levels across various locations. The gathered data not only provides immediate insights to the public but also aids in long-term environmental planning and health management.  
   
@@ -68,8 +69,6 @@ The proposed system includes several key components:
 #### Conclusion  
 The "Mobile Sensor-Based Environmental Air Pollution Monitoring System" represents a significant advancement in urban air quality management. By integrating mobile sensing technology with real-time data analysis and public accessibility, this system offers a proactive solution to one of the most pressing environmental challenges. Embrace the future of air quality monitoring and contribute to a healthier, more sustainable urban environment.  
   
-For more information, contact the project lead at [University Contact Information]
-
 
 {% raw %}
 
