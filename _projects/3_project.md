@@ -1,81 +1,80 @@
 ---
 layout: page
-title: project 3 with very long name
-description: a project that redirects to another website
-img: assets/img/7.jpg
-redirect: https://unsplash.com
+title: Smart Mirror
+description: Advanced AI-Powered Interactive Solution for Modern Living  
+img: assets/img/SmartMirrorMain.jpg
+redirect: 
 importance: 3
 category: work
 ---
 
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
+#### What is a Smart Mirror?  
+A smart mirror is an innovative device that merges the traditional functionality of a mirror with cutting-edge digital technology, making it a powerful tool for modern living. Beyond reflecting your image, it displays real-time information such as weather updates, calendar events, traffic reports, and news. Leveraging artificial intelligence (AI), smart mirrors offer personalized content tailored to individual preferences, ensuring a unique and enhanced user experience.  
+  
+#### Key Features and AI Integration  
+1. **Personalized Content Display**: The smart mirror adapts the information shown based on the user’s profile, such as age, gender, and preferences. It can display news, entertainment, or other relevant content, ensuring a unique experience for each user.  
+2. **Music and News Customization**: Using AI, the mirror learns user preferences for music and news, curating content based on previous interactions. Over time, it refines its recommendations to suit the user’s tastes better.  
+3. **Facial Recognition and Gesture Control**: AI-powered cameras detect the user’s presence and respond to gestures, enabling hands-free interaction. This feature is ideal for fitness routines or when the user’s hands are occupied.  
+4. **Health Monitoring**: In fitness settings, the mirror tracks workouts, provides feedback, and offers personalized health suggestions. It can analyze data such as heart rate and calories burned to optimize fitness routines.  
+5. **Energy Efficiency**: Equipped with motion sensors, the smart mirror only activates when someone is nearby, conserving energy when not in use.  
+6. **Seamless Connectivity**: The smart mirror connects to the internet via Wi-Fi, providing real-time access to news, weather, and more. It integrates with smart home systems, allowing users to control various devices from the mirror interface.  
+7. **Smart Advertising and Engagement**: In commercial spaces, the mirror can display tailored advertisements based on user demographics, enhancing customer engagement with targeted promotions.  
+  
+#### Applications of Smart Mirrors  
+1. **Home Use**: Enhance daily life with personalized updates on weather, calendar events, and entertainment. Tailored news and music cater to your preferences, making mornings more enjoyable.  
+2. **Retail and Hospitality**: Serve as interactive tools in stores and hotels, offering personalized product recommendations and services. Adjust content based on demographic information like age or gender for an optimized user experience.  
+3. **Fitness and Health**: Provide real-time workout feedback, track progress, and display health metrics. AI enhances the experience by offering personalized fitness suggestions based on the user’s performance.  
+4. **Elevators**: Display real-time building information, advertisements, or safety instructions. Content is customized to the demographic profile of users, making their experience more engaging and informative.  
 
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
-
-    ---
-    layout: page
-    title: project
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/SmartMirrorMain.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/SmartMirror_1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/SmartMirrorColor.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
+    Three type of Showing using Smart Mirror
 </div>
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/SmartMirror_Construction.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    This image can also have a caption. It's like magic.
+    Construction Body of Smart Mirror.
 </div>
 
-You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+#### Deployed Locations  
+- **Holy Shrine of Imam Reza (Haram-e Razavi)**: Installed in key locations within the shrine, displaying both offline and online information such as prayer times, weather updates, and crowd management data. These mirrors enhance the visitor experience by providing crucial information in real time.  
+- **Maedeh Hotel**: Act as interactive information stands, offering guests personalized services like weather updates and city guides. Equipped with touch-screen interfaces to collect feedback and display tailored content based on guest preferences. 
+
 
 <div class="row justify-content-sm-center">
     <div class="col-sm-8 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/SmartMirror_Hotel.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
     <div class="col-sm-4 mt-3 mt-md-0">
-        {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid path="assets/img/SmartMirror_DaroSsalam.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
+    Smart Mirror Installed in Maedeh Hotel, Holy Shrine of Imam Reza
 </div>
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+### Conclusion  
+Smart mirrors represent a sophisticated fusion of AI technology, real-time data, and user-friendly interaction to elevate everyday life. Whether in homes, hotels, fitness centers, or elevators, smart mirrors provide personalized and engaging experiences that adapt to the user’s needs. With deployments in high-profile locations such as the Holy Shrine of Imam Reza and Maedeh Hotel, smart mirrors are revolutionizing how we interact with digital content in both personal and public spaces. Embrace the future with smart mirrors and transform your daily routine into an intelligent, connected experience.  
+
 
 {% raw %}
 
 ```html
-<div class="row justify-content-sm-center">
-  <div class="col-sm-8 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-  <div class="col-sm-4 mt-3 mt-md-0">
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  </div>
-</div>
+
 ```
 
 {% endraw %}
