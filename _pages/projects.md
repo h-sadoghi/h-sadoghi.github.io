@@ -8,7 +8,6 @@ nav_order: 3
 display_categories: [work, fun]
 horizontal: false
 ---
-![Pattern Group](../assets/img/PR_Goup.jpg)
 
 <!-- pages/projects.md -->
 <div class="projects">
@@ -64,3 +63,6 @@ horizontal: false
   {% endif %}
 {% endif %}
 </div>
+
+## Pattern Recognition Team
+![Pattern Group](../assets/img/PR_Goup.jpg)
