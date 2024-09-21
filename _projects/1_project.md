@@ -2,7 +2,7 @@
 layout: page
 title: Interactive wall
 description: Augmented Reality (AR)
-img: assets/img/catalog-front-new.jpg
+img: assets/img/InteractiveWall_1.jpg
 importance: 1
 category: work
 related_publications: true
@@ -101,7 +101,20 @@ Interactive Smart Wall:
     Game for children in Ferdowsi University of Mashhad
 </div>
 
+**Location of Execution:**
+Mashhad Municipality, participation in exhibitions, Ferdowsi University.
 
+<div class="row justify-content-sm-center">
+    <div class="col-sm-8 mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/InteractiveWall_4.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm-4 mt-3 mt-md-0">
+        {% include figure.liquid path="assets/img/InteractiveWall_5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Capabilities: Games and entertainment, Education, Interactive advertising
+</div>
 
 {% raw %}
 
