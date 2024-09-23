@@ -34,6 +34,22 @@ The "Mobile Sensor-Based Environmental Air Pollution Monitoring System" is an in
 The project is spearheaded by the Pattern Recognition Laboratory at Ferdowsi University of Mashhad, leveraging cutting-edge research and technology. This initiative is supported by comprehensive studies and pilot implementations, ensuring the system's reliability and effectiveness.  
 
 
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/AirPolution_Sensor.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/SavingRealTimeSensor.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/ApplyingTocity.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+    Air polution systemSensor
+</div>
+
+
 {% raw %}
 
 ```html
