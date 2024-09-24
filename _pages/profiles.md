@@ -26,30 +26,6 @@ profiles:
       <p></p>
       <p></p>
   - align: right
-    image: Shams.jpg
-    content: Shams.md
-    image_circular: false # crops the image to make it circular
-    more_info: >
-      <p></p>
-      <p></p>
-      <p></p>  
-- align: left
-    image: Hosseini_40.jpg
-    content: Hosseini_40.md
-    image_circular: false # crops the image to make it circular
-    more_info: >
-      <p></p>
-      <p></p>
-      <p></p>        
-  - align: right
-    image: Ashkezari.jpg
-    content: Ashkezari.md
-    image_circular: false # crops the image to make it circular
-    more_info: >
-      <p>ashkezari@um.ac.ir</p>
-      <p></p>
-      <p></p>
-  - align: left
     image: Hamidzadeh.jpg
     content: Hamidzadeh.md
     image_circular: false # crops the image to make it circular
@@ -57,7 +33,23 @@ profiles:
       <p></p>
       <p></p>
       <p></p>
+  - align: left
+    image: Ashkezari.jpg
+    content: Ashkezari.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p>ashkezari@um.ac.ir</p>
+      <p></p>
+      <p></p>
   - align: right
+    image: Shams.jpg
+    content: Shams.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>
+  - align: left
     image: Izanloo.jpg
     content: Izanloo.md
     image_circular: false # crops the image to make it circular
@@ -65,6 +57,14 @@ profiles:
       <p></p>
       <p></p>
       <p></p>
+  - align: right
+    image: Razavi_Mahnaz.jpg
+    content: Razavi_Mahnaz.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>  
   - align: left
     image: Bahreini.jpg
     content: Bahreini.md
@@ -268,14 +268,6 @@ profiles:
   - align: right
     image: MonaZamiri.jpg
     content: MonaZamiri.md
-    image_circular: false # crops the image to make it circular
-    more_info: >
-      <p></p>
-      <p></p>
-      <p></p> 
-  - align: left
-    image: Razavi_Mahnaz.jpg
-    content: Razavi_Mahnaz.md
     image_circular: false # crops the image to make it circular
     more_info: >
       <p></p>
