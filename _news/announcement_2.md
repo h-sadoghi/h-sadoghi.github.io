@@ -6,7 +6,6 @@ inline: false
 related_posts: false
 ---
 
-### Instruction of Homework and Mini-Project
 
 Your homework and mini-project should meet the following criteria:
 
