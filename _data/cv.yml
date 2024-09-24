@@ -12,21 +12,15 @@
   type: time_table
   contents:
     - title: PhD
-      institution: Ferdowsi University of Mashhad, Iran
-      year: 2008
+      institution: Tarbiat Modaress University, Tehran, Iran
+      year: 2005   July  9   , Saturday
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
+        - In my PhD thesis, the research focused on video analysis for anomaly detection without the need for prior training. The method was built on the assumption that anomalies are rare events, and the goal was to detect these anomalies within traffic scenes. The approach leverages the rarity of such occurrences to differentiate them from regular patterns of behavior. This framework allows for efficient detection without relying on extensive labeled datasets, making it a practical solution for real-world applications in traffic monitoring and other similar domains.
+    - title: MsC
+      institution: Tarbiat Modaress University, Tehran, Iran
+      year: 1994
       description:
-        - Description 1.
-        - Description 2.
+        - In my MSc thesis, the research focused on **Optical Character Recognition (OCR) in Farsi**, specifically on preprocessing and text extraction from distorted images. The project involved developing techniques to enhance image quality, correct distortions, and accurately extract Farsi text from challenging inputs. By improving the preprocessing stage, the accuracy of the OCR system was significantly enhanced, making it more robust when dealing with noisy or disturbed images. This work contributed to the development of OCR systems capable of handling Farsi script in real-world applications.
 
 - title: Experience
   type: time_table
