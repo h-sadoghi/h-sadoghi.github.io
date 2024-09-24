@@ -48,5 +48,21 @@
       description:
         - After completing my education, I became a **faculty member**, focusing on research and teaching in the areas of **Artificial Intelligence, Machine Learning, and Computer Vision**. My academic career has allowed me to further explore advanced topics, guide students in their research, and contribute to both theoretical advancements and practical applications in these fields. Additionally, I have been actively involved in publishing research papers, supervising student projects, and developing new courses to stay at the forefront of technological developments.
     
+- title : Responsibility
+  type: time_table
+  contents:
+    - title: Responsibility of the Dean of the Faculty 
+      institution: Hakim Sabzevari University, Sabzevar, Iran
+      year: 2006-7
+      description: 
+    - title: Responsibility of Associate Dean of the Faculty
+      institution: Ferdowsi University of Mashhad, Mashhad, Iran
+      year: 2022-23
+      description:
+
+      
+
+
+
 
 
