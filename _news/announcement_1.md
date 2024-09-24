@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2024-09-24 
 inline: true
 related_posts: false
 ---
 
-A simple inline announcement.
+Congratulations on the start of the 2024 academic year and the opportunity to meet passionate young students for education and research, and to accompany them in reaching the heights of success 😊!.
