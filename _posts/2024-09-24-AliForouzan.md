@@ -1,6 +1,6 @@
 ---
 layout: post
-title: What is in progress 
+title: Ali Forouzan near the end 
 date: 2024-09-24 
 description: Highlights ongoing efforts, developments
 tags: formatting images
