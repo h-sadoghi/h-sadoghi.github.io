@@ -1,0 +1,1 @@
+Ali Mehrizi earned his Ph.D. under the supervision of Professor Hadi Sadoghi Yazdi at Ferdowsi University of Mashhad. He is currently a lecturer in the Computer Engineering Department at Ferdowsi University of Mashhad. His areas of expertise include distributed adaptive learning, probabilistic hypothesis-based learning, and time series analysis.
