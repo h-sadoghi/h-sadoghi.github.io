@@ -1,0 +1,2 @@
+Mohammad Ali Majidi is a Ph.D. candidate in Artificial Intelligence at the Faculty of Computer Engineering, Ferdowsi University of Mashhad. His research interests span adaptive filtering and model-based learning methods, including Bayesian filters and Kalman filters. Under the guidance of Professor Hadi Sadoghi Yazdi, both during his master's and Ph.D. studies, Majidi has focused on developing novel algorithms for adaptive systems and their applications in intelligent systems.
+
