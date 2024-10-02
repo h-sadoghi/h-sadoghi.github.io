@@ -31,11 +31,11 @@ Throughout their lives, whether consciously or unconsciously, humans think about
     </div>
 </div>
 
-## **Types of Loss Functions**
+# **Types of Loss Functions**
  
 Loss functions are a key component in machine learning and statistical models, used to quantify the difference between predicted and actual values. They guide optimization algorithms to minimize error and improve model performance. Different types of loss functions are designed to handle various data characteristics and objectives, such as absolute errors, squared errors, or more robust alternatives like *Pseudo-Huber* and *LnCosh*, which manage outliers and non-differentiability effectively.
 
-### absolute error loss function
+# absolute error loss function
 
 In the absolute error loss function, a sample may fall in different directions relative to the reference index, resulting in positive or negative errors if we think in scalar terms. The loss that affects us generally takes the form of an absolute value. A widely used loss function in many applications is the *Absolute Error* loss function. Essentially, we place a function between the loss and error, transforming the concept of error into loss. If we introduce some degree of leniency into the loss function, a region of insensitivity to error can be added. Naturally, to achieve this, we lower the absolute value slightly by subtracting an amount of $$ \epsilon $$. The region of insensitivity is created using the function $$ \text{max}(e - \epsilon, 0) $$. However, calculating the absolute error index, which is not differentiable and has an insensitive region, presents challenges.
 
@@ -56,7 +56,7 @@ To make the absolute error differentiable, *LnCosh* or *Pseudo-Huber* is used. T
 
 # Robust Absolout Error
 
-The absolute function becomes smooth and differentiable with *lncosh*, and in clustering, *lncosh* can be modified, for instance, by adding the concept of fairness. This prevents outliers (very large errors) from skewing the decision-making system. From a data processing perspective, outliers are significant and can negatively affect the estimation of relevant parameters. The solution to dealing with outliers is to strengthen the function. The loss function, in a combination of *lncosh* and cross-entropy, is expressed as $$ 1 - e^{-\alpha \ln(\cosh(e))} $$. As seen in Figure 12, excessive increases in large errors do not distort the system.
+The absolute function becomes smooth and differentiable with *lncosh*, and in clustering, *lncosh* can be modified, for instance, by adding the concept of fairness. This prevents outliers (very large errors) from skewing the decision-making system. From a data processing perspective, outliers are significant and can negatively affect the estimation of relevant parameters. The solution to dealing with outliers is to strengthen the function. The loss function, in a combination of *lncosh* and cross-entropy, is expressed as $$ 1 - e^{-\alpha \ln(\cosh(e))} $$. As seen in Figure , excessive increases in large errors do not distort the system.
 
 
 <div class="row mt-3">
