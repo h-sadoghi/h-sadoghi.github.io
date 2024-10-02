@@ -54,6 +54,64 @@ To make the absolute error differentiable, *LnCosh* or *Pseudo-Huber* is used. T
     </div>
 </div>
 
-### Robust Absolout Error
+# Robust Absolout Error
 
 The absolute function becomes smooth and differentiable with *lncosh*, and in clustering, *lncosh* can be modified, for instance, by adding the concept of fairness. This prevents outliers (very large errors) from skewing the decision-making system. From a data processing perspective, outliers are significant and can negatively affect the estimation of relevant parameters. The solution to dealing with outliers is to strengthen the function. The loss function, in a combination of *lncosh* and cross-entropy, is expressed as $$ 1 - e^{-\alpha \ln(\cosh(e))} $$. As seen in Figure 12, excessive increases in large errors do not distort the system.
+
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/Robust_lncos.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+
+
+# **Pinball Loss Function**  
+
+From a socialist perspective, the transition from equality to equity emphasizes the need to address systemic disparities rather than merely treating everyone the same. While equality advocates for uniform treatment and access, equity recognizes that individuals come from diverse backgrounds and circumstances, necessitating tailored support to achieve true fairness. This shift aims to dismantle structural inequalities and ensure that resources and opportunities are distributed based on need, promoting a more just and inclusive society.
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/Equality_Equity1.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+
+
+One of the commonly used loss functions that is also non-differentiable is the pinball loss function. This loss function is used when the error distribution is not symmetric. It is employed to transition from the concept of equality to equity. In this function, the errors are weighted in such a way that the positive errors are amplified while the negative errors are reduced.The angle coefficient of the pinball loss can vary, allowing the right and left sides to be adjusted.
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/PinBall_Loss.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+
+Certain terms such as under-prediction, over-prediction, and non-normal error distribution may lead to the use of the pinball loss function. For instance, we might consider using the Pinball Loss Function in scenarios where we want to predict stock prices based on data such as news information, social information, and the mental state of people in society. This approach allows us to control the parameter τ externally, resulting in more accurate predictions.
+
+Similarly, in determining an index, we may want to bias it in a certain direction based on available information. This information can be gathered either from the data itself or from higher-level insights to control the angle coefficient of the Pinball Loss. Additionally, we might incorporate the concept of insensitivity into the Pinball loss function.
+
+# Concept of Inequality Equality Justice Equity
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/Inequality_Equality_Justice_Equity.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
+    </div>
+</div>
+
+
+# **Inequality**
+
+**Inequality** inherently exists in the model. For example, when data is represented and summarized by a single parameter, the error of each sample will naturally differ from one another based on its distance from the index. Similarly, when the data is modeled with a single plane, not all samples will lie on that plane, leading to inequality introduced by the model used. If we desire a model that perfectly fits the data, it would require a complex model that is not easily presented and lacks generalizability.
+
+Inequality can be viewed as a type of noise in the modeling process, sometimes resembling the effects of system looseness that contributes to stability. This is similar to the looseness used in bridges, which dampens the effects of temperature changes or sudden forces.
+
+# Equality
+
+Equality means providing opportunities so that everyone is treated equally from the system's perspective. This does not imply that the system provides equal resources for each individual. Therefore, the loss function acts like a filter that is applied uniformly to all, but some may pass through while others may not. It utilizes a loss function that aggregates all into a cost function with equal weights, similar to:
+
+$$ 
+L_{\text{equality}} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 
+$$
+
+
+
+
