@@ -37,16 +37,16 @@ Loss functions are a key component in machine learning and statistical models, u
 
 ### absolute error loss function
 
-In the absolute error loss function, a sample may fall in different directions relative to the reference index, resulting in positive or negative errors if we think in scalar terms. The loss that affects us generally takes the form of an absolute value. A widely used loss function in many applications is the *Absolute Error* loss function. Essentially, we place a function between the loss and error, transforming the concept of error into loss. If we introduce some degree of leniency into the loss function, a region of insensitivity to error can be added. Naturally, to achieve this, we lower the absolute value slightly by subtracting an amount of $ \epsilon $. The region of insensitivity is created using the function $ \text{max}(e - \epsilon, 0) $. However, calculating the absolute error index, which is not differentiable and has an insensitive region, presents challenges.
+In the absolute error loss function, a sample may fall in different directions relative to the reference index, resulting in positive or negative errors if we think in scalar terms. The loss that affects us generally takes the form of an absolute value. A widely used loss function in many applications is the *Absolute Error* loss function. Essentially, we place a function between the loss and error, transforming the concept of error into loss. If we introduce some degree of leniency into the loss function, a region of insensitivity to error can be added. Naturally, to achieve this, we lower the absolute value slightly by subtracting an amount of $$ \epsilon $$. The region of insensitivity is created using the function $$ \text{max}(e - \epsilon, 0) $$. However, calculating the absolute error index, which is not differentiable and has an insensitive region, presents challenges.
 
-$ e = x - \mu $
+$$ e = x - \mu $$
 
 Where:
-- $ e $ = error
-- $ x $ = sample
-- $ \mu $ = reference index
+- $$ e $$ = error
+- $$ x $$ = sample
+- $$ \mu $$ = reference index
 
-To make the absolute error differentiable, *LnCosh* or *Pseudo-Huber* is used. To create an insensitivity region, the function $ \text{max}(e^2 - \epsilon, 0) $ is applied. Of course, solving this issue, where the absolute value is non-differentiable and creates an insensitive region, introduces difficulties in calculating $ \mu $, such as making the absolute value differentiable. For this, methods like *LnCosh* or *Pseudo-Huber* are employed. This helps when differentiation is needed in computations, allowing us to reach an optimal $ \mu $. Alternatively, magnifying the error function by using the sum of squared errors $ e^2 $ can also be applied. By subtracting an amount of $ \epsilon $ and using $ \text{max}(e^2 - \epsilon, 0) $, an insensitive region is created. This illustrates that by adding a degree of leniency or relaxation, the system becomes more robust to error changes.
+To make the absolute error differentiable, *LnCosh* or *Pseudo-Huber* is used. To create an insensitivity region, the function $$ \text{max}(e^2 - \epsilon, 0) $$ is applied. Of course, solving this issue, where the absolute value is non-differentiable and creates an insensitive region, introduces difficulties in calculating $$ \mu $$, such as making the absolute value differentiable. For this, methods like *LnCosh* or *Pseudo-Huber* are employed. This helps when differentiation is needed in computations, allowing us to reach an optimal $$ \mu $$. Alternatively, magnifying the error function by using the sum of squared errors $$ e^2 $$ can also be applied. By subtracting an amount of $$ \epsilon $$ and using $$ \text{max}(e^2 - \epsilon, 0) $$, an insensitive region is created. This illustrates that by adding a degree of leniency or relaxation, the system becomes more robust to error changes.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
@@ -56,4 +56,4 @@ To make the absolute error differentiable, *LnCosh* or *Pseudo-Huber* is used. T
 
 ### Robust Absolout Error
 
-The absolute function becomes smooth and differentiable with *lncosh*, and in clustering, *lncosh* can be modified, for instance, by adding the concept of fairness. This prevents outliers (very large errors) from skewing the decision-making system. From a data processing perspective, outliers are significant and can negatively affect the estimation of relevant parameters. The solution to dealing with outliers is to strengthen the function. The loss function, in a combination of *lncosh* and cross-entropy, is expressed as $ 1 - e^{-\alpha \ln(\cosh(e))} $. As seen in Figure 12, excessive increases in large errors do not distort the system.
+The absolute function becomes smooth and differentiable with *lncosh*, and in clustering, *lncosh* can be modified, for instance, by adding the concept of fairness. This prevents outliers (very large errors) from skewing the decision-making system. From a data processing perspective, outliers are significant and can negatively affect the estimation of relevant parameters. The solution to dealing with outliers is to strengthen the function. The loss function, in a combination of *lncosh* and cross-entropy, is expressed as $$ 1 - e^{-\alpha \ln(\cosh(e))} $$. As seen in Figure 12, excessive increases in large errors do not distort the system.
