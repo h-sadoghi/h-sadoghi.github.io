@@ -313,7 +313,7 @@ profiles:
       <p></p>
       <p></p>
       <p></p>                
-  - align: left
+  - align: right
     image: Bagherzadeh.jpg
     content: Bagherzadeh.md
     image_circular: false # crops the image to make it circular
