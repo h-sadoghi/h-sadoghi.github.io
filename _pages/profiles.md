@@ -17,17 +17,9 @@ profiles:
       <p> P.O. Box: 111-14115 </p>
       <p> +98-21 82880, Nasr Bridge</p>
       <p>Jalal Al-e-Ahmad Street, Tehran</p>
-  - align: right
+  - align: left
     image: lotfizad.jpg
     content: lotfizad.md
-    image_circular: false # crops the image to make it circular
-    more_info: >
-      <p></p>
-      <p></p>
-      <p></p>
-  - align: left
-    image: Bagherzadeh.jpg
-    content: Bagherzadeh.md
     image_circular: false # crops the image to make it circular
     more_info: >
       <p></p>
@@ -321,4 +313,12 @@ profiles:
       <p></p>
       <p></p>
       <p></p>                
+  - align: left
+    image: Bagherzadeh.jpg
+    content: Bagherzadeh.md
+    image_circular: false # crops the image to make it circular
+    more_info: >
+      <p></p>
+      <p></p>
+      <p></p>
 ---
