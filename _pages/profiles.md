@@ -19,7 +19,7 @@ profiles:
       <p>Jalal Al-e-Ahmad Street, Tehran</p>
   - align: left
     image: lotfizad.jpg
-    content: about_kabir.md
+    content: lotfizad.md
     image_circular: false # crops the image to make it circular
     more_info: >
       <p></p>
