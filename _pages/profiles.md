@@ -18,7 +18,7 @@ profiles:
       <p> +98-21 82880, Nasr Bridge</p>
       <p>Jalal Al-e-Ahmad Street, Tehran</p>
   - align: left
-    image: Kabir.jpg
+    image: lotfizad.jpg
     content: about_kabir.md
     image_circular: false # crops the image to make it circular
     more_info: >
