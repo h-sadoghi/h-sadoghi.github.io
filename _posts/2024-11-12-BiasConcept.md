@@ -5,7 +5,7 @@ date: 2024-11-12
 description: This lecture guide for better understanding of bias
 tags: formatting images
 categories: sample-posts
-thumbnail: assets/img/Blog/LossBlog/biasInGeneral.png
+thumbnail: assets/img/Blog/LossBlog/biasInGeneral.jpg
 ---
 
 # Bias
@@ -21,7 +21,7 @@ Humans use shortcuts and simplifications to make quick decisions and avoid confu
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/biasInGeneral.png" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/biasInGeneral.jpg" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
 <div class="caption">
@@ -34,7 +34,7 @@ One of the key issues that needs attention in AI to avoid errors is bias. Bias c
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/biasExampleAI.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/biasExampleAI.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -54,7 +54,7 @@ Examples of confirmation bias are abundant and are often reminded to audiences i
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/confirmation-bias.webp" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/confirmation-bias.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -63,7 +63,7 @@ Occurs when you use your past observations and experiences with an individual as
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/Attribution-Bias.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/Attribution-Bias.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -86,7 +86,7 @@ The halo effect occurs when you become aware of an outstanding feature or issue 
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/Halo-effect-1.webp" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/Halo-effect-1.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -104,7 +104,7 @@ This bias in the workplace leads to having a positive or negative view solely ba
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/agebias.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/agebias.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -113,7 +113,7 @@ Research on “implicit bias” suggests that people can act on the basis of pre
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/bias.webp" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/bias.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -123,7 +123,7 @@ Occurs when one feature is overrepresented in data collection compared to others
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/sampling_bias.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/sampling_bias.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div>
 
@@ -164,7 +164,7 @@ These errors can harm individuals and businesses, reduce trust in AI technology,
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/bias.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/bias.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div> 
 
@@ -193,7 +193,7 @@ The model is no longer a black box because users (like doctors) can understand w
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/pneumonia_Grad.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/pneumonia_Grad.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div> 
 
@@ -269,6 +269,6 @@ When the dataset consists of 35% abnormal images and 65% normal images, the mode
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/chest_x_ray.png" class="img-fluid rounded z-depth-1" zoomable=true %}
+        {% include figure.liquid loading="eager" path="assets/img/Blog/LossBlog/chest_x_ray.jpg" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
 </div> 
