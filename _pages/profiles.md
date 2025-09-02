@@ -18,11 +18,9 @@ profiles:
       <p> +98-21 82880, Nasr Bridge</p>
       <p>Jalal Al-e-Ahmad Street, Tehran</p>
   - align: left
-    image: Drlotfizad.jpg
-    content: Drlotfizad.md
+    image: Bagherzadeh.jpg
+    content: Bagherzadeh.md
     image_circular: false # crops the image to make it circular
     more_info: >
-      <p></p>
-      <p></p>
-      <p></p>
+      
 ---
