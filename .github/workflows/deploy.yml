@@ -79,6 +79,19 @@ jobs:
           valueFile: "_config.yml"
           propertyPath: "giscus.repo"
           value: ${{ github.repository }}
+      - name: Install and verify ImageMagick WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          command -v convert
+          convert -version
+          convert -list format | grep -E '^[[:space:]]*WEBP\*?[[:space:]]'
+          webp_test="$(mktemp "${RUNNER_TEMP}/imagemagick-XXXXXX.webp")"
+          trap 'rm -f "$webp_test"' EXIT
+          convert -size 1x1 xc:white "$webp_test"
+          test -s "$webp_test"
       - name: Install and Build 🔧
         run: |
           pip3 install --upgrade jupyter
@@ -88,6 +101,61 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
+      - name: Verify generated WebP images
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s _site/assets/img/Sadoghi-800.webp
+          test -s _site/assets/img/Kabir-800.webp
+      - name: Check PR built site links
+        id: pr_link_check
+        if: github.event_name == 'pull_request'
+        uses: lycheeverse/lychee-action@v1.9.0
+        with:
+          fail: true
+          # Match the independent site's offline checker exactly.
+          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --verbose --no-progress '_site/**/*.html'
+      - name: Record PR validation evidence
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        shell: bash
+        env:
+          LINK_CHECK_OUTCOME: ${{ steps.pr_link_check.outcome }}
+          LINK_CHECK_EXIT_CODE: ${{ steps.pr_link_check.outputs.exit_code }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, re, subprocess
+          from pathlib import Path
+          report_path = Path('lychee/out.md')
+          report = report_path.read_text() if report_path.is_file() else ''
+          sentinels = ['Sadoghi-800.webp', 'Kabir-800.webp']
+          summary = {
+              'event_name': os.environ['GITHUB_EVENT_NAME'],
+              'run_id': os.environ['GITHUB_RUN_ID'],
+              'run_attempt': os.environ['GITHUB_RUN_ATTEMPT'],
+              'pr_head_sha': os.environ['PR_HEAD_SHA'],
+              'workflow_sha': os.environ['GITHUB_SHA'],
+              'checkout_sha': subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip(),
+              'link_check_outcome': os.environ['LINK_CHECK_OUTCOME'],
+              'link_check_exit_code': os.environ['LINK_CHECK_EXIT_CODE'],
+              'lychee_counts': {k: int(v) for k, v in re.findall(r'\b(Total|Successful|Errors|Excluded)\s*\|\s*(\d+)', report)},
+              'html_file_count': len(list(Path('_site').rglob('*.html'))),
+              'sentinel_bytes': {name: (p.stat().st_size if p.is_file() else None) for name in sentinels for p in [Path('_site/assets/img') / name]},
+          }
+          Path('pr-validation').mkdir(exist_ok=True)
+          Path('pr-validation/summary.json').write_text(json.dumps(summary, indent=2))
+          print(json.dumps(summary, indent=2))
+          PY
+      - name: Upload PR HTML and validation summary
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-pipeline-pr-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            _site/**/*.html
+            pr-validation/summary.json
+          retention-days: 7
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4

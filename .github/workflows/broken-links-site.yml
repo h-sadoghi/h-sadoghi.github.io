@@ -29,6 +29,19 @@ jobs:
               "giscus.repo": "${{ github.repository }}",
               "baseurl": ""
             }
+      - name: Install and verify ImageMagick WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          command -v convert
+          convert -version
+          convert -list format | grep -E '^[[:space:]]*WEBP\*?[[:space:]]'
+          webp_test="$(mktemp "${RUNNER_TEMP}/imagemagick-XXXXXX.webp")"
+          trap 'rm -f "$webp_test"' EXIT
+          convert -size 1x1 xc:white "$webp_test"
+          test -s "$webp_test"
       - name: Install and Build 🔧
         run: |
           pip3 install --upgrade jupyter
