@@ -64,5 +64,14 @@ horizontal: false
 {% endif %}
 </div>
 
+## Research concepts and materials
+
+- [AI-assisted patient guidance]({{ '/resources/projects-patientguidbyai/' | relative_url }}) — a data-free summary of a research proposal.
+- [Orthopedic team allocation]({{ '/resources/projects-smartallocationorthopedicteamspoweredbyai/' | relative_url }}) — an archived scheduling concept, without clinical case data.
+- [Constructive imbalance in composite decision systems]({{ '/resources/publicationcode-jmlr-code-result-readme/' | relative_url }}) — a provisional research artifact with code and numerical results.
+
+See [presentations]({{ '/presentations/' | relative_url }}) for additional engineering proposals.
+
 ## Pattern Recognition Team
-![Pattern Group](../assets/img/PR_Goup.jpg)
+
+{% include figure.liquid path="assets/img/PR_Goup.jpg" class="img-fluid" loading="lazy" alt="Pattern Recognition Laboratory team" %}

@@ -1,0 +1,47 @@
+---
+layout: page
+---
+<p class="small text-muted">
+  Archived academic material · <a href="{{ page.legacy_source }}">Original source</a> ·
+  <a href="{{ '/resources/' | relative_url }}">Resource library</a>
+</p>
+{% if page.legacy_group == 'Presentations and proposals' or page.description contains 'project archive' or page.description contains 'project —' %}
+  <p class="small text-muted">
+    This archived description records a research concept or project as presented in the source. Proposed outcomes and implementation status have not
+    been independently verified.
+  </p>
+{% endif %}
+<div class="legacy-content" dir="{{ page.legacy_dir | default: 'auto' }}" lang="{{ page.lang | default: site.lang }}" markdown="1">
+  {{ content }}
+</div>
+<style>
+  .legacy-content {
+    overflow-wrap: anywhere;
+  }
+  .legacy-content img,
+  .legacy-content svg,
+  .legacy-content video,
+  .legacy-content iframe {
+    max-width: 100%;
+    height: auto;
+  }
+  .legacy-content pre,
+  .legacy-content code {
+    direction: ltr;
+    text-align: left;
+    unicode-bidi: isolate;
+  }
+  .legacy-content pre {
+    overflow-x: auto;
+  }
+  .legacy-content table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  .legacy-content h2,
+  .legacy-content h3,
+  .legacy-content h4 {
+    scroll-margin-top: 5rem;
+  }
+</style>

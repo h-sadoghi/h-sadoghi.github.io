@@ -1,0 +1,1336 @@
+- topic: Machine Learning and Pattern Recognition
+  papers:
+    - key: izanloo2016kalman
+      title: Kalman filtering based on the maximum correntropy criterion in the presence
+        of non-Gaussian noise
+      year: "2016"
+      doi: ""
+      publication_type: inproceedings
+    - key: nasiri2009ecg
+      title: ECG arrhythmia classification with support vector machines and genetic
+        algorithm
+      year: "2009"
+      doi: ""
+      publication_type: inproceedings
+    - key: hamidzadeh2015irahc
+      title: "IRAHC: Instance Reduction Algorithm using Hyperrectangle Clustering"
+      year: "2015"
+      doi: 10.1016/j.patcog.2014.11.005
+      publication_type: article
+    - key: ghazikhani2013ensemble
+      title: Ensemble of online neural networks for non-stationary and imbalanced data
+        streams
+      year: "2013"
+      doi: ""
+      publication_type: article
+    - key: ghazikhani2014online
+      title: Online neural network model for non-stationary and imbalanced data stream
+        classification
+      year: "2014"
+      doi: ""
+      publication_type: article
+    - key: legacy_ghazikhani2012_ba9212
+      title: Class imbalance handling using wrapper-based random oversampling
+      year: "2012"
+      doi: 10.1109/iraniancee.2012.6292428
+      publication_type: inproceedings
+    - key: ashkezari2019emotional
+      title: Emotional maps based on social networks data to analyze cities emotional
+        structure and measure their emotional similarity
+      year: "2019"
+      doi: 10.1016/j.cities.2018.09.009
+      publication_type: article
+    - key: farahi2020probabilistic
+      title: Probabilistic Kalman filter for moving object tracking
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: khalkhali2019multi
+      title: Multi-target state estimation using interactive Kalman filter for multi-vehicle
+        tracking
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: legacy_sadoghiyazdi2011_b0340b
+      title: Unsupervised kernel least mean square algorithm for solving ordinary differential
+        equations
+      year: "2011"
+      doi: 10.1016/j.neucom.2010.12.026
+      publication_type: article
+    - key: legacy_ghazikhani2013_fb89fc
+      title: Recursive least square perceptron model for non-stationary and imbalanced
+        data stream classification
+      year: "2013"
+      doi: 10.1007/s12530-013-9076-7
+      publication_type: article
+    - key: legacy_ghazikhani2013_86cfc5
+      title: Online cost-sensitive neural network classifiers for non-stationary and
+        imbalanced data streams
+      year: "2013"
+      doi: 10.1007/s00521-012-1071-6
+      publication_type: article
+    - key: legacy_sadoghiyazdi2012_accd0d
+      title: Calibration of Soil Model Parameters Using Particle Swarm Optimization
+      year: "2012"
+      doi: 10.1061/(asce)gm.1943-5622.0000142
+      publication_type: article
+    - key: yazdi2010unsupervised
+      title: Unsupervised adaptive neural-fuzzy inference system for solving differential
+        equations
+      year: "2010"
+      doi: ""
+      publication_type: article
+    - key: legacy_yazdi2013_ef6aa3
+      title: Prediction of Elastic Modulus of Concrete Using Support Vector Committee
+        Method
+      year: "2013"
+      doi: 10.1061/(asce)mt.1943-5533.0000507
+      publication_type: article
+    - key: legacy_mirghasemi2012_aee8f5
+      title: A target-based color space for sea target detection
+      year: "2012"
+      doi: 10.1007/s10489-011-0307-y
+      publication_type: article
+    - key: ghafarian2020identifying
+      title: Identifying crisis-related informative tweets using learning on distributions
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: ashkezari2019robust
+      title: Robust diffusion LMS over adaptive networks
+      year: "2019"
+      doi: 10.1016/j.sigpro.2019.01.004
+      publication_type: article
+    - key: legacy_ghasemigol2010_da4b37
+      title: A New Hierarchical Clustering Algorithm on Fuzzy Data (FHCA)
+      year: "2010"
+      doi: 10.7763/ijcee.2010.v2.126
+      publication_type: article
+    - key: hamidzadeh2014lmira
+      title: "LMIRA: Large Margin Instance Reduction Algorithm"
+      year: "2014"
+      doi: 10.1016/j.neucom.2014.05.006
+      publication_type: article
+    - key: mansourkhaki2017non
+      title: Non-stationary concept of accident prediction
+      year: "2017"
+      doi: ""
+      publication_type: inproceedings
+    - key: legacy_haghighi2011_59f624
+      title: Creating and measuring diversity in multiple classifier systems using support
+        vector data description
+      year: "2011"
+      doi: 10.1016/j.asoc.2011.06.006
+      publication_type: article
+    - key: legacy_nasiri2009_14d9bf
+      title: Intelligent Arrhythmia Detection Using Genetic Algorithm and Emphatic SVM
+        (ESVM)
+      year: "2009"
+      doi: 10.1109/ems.2009.116
+      publication_type: inproceedings
+    - key: zamiri2021image
+      title: Image annotation based on multi-view robust spectral clustering
+      year: "2021"
+      doi: ""
+      publication_type: article
+    - key: mansourkhaki2017introducing
+      title: Introducing prior knowledge for a hybrid accident prediction model
+      year: "2017"
+      doi: ""
+      publication_type: article
+    - key: legacy_salehimoghaddami2011_067f48
+      title: Correlation based splitting criterionin multi branch decision tree
+      year: "2011"
+      doi: 10.2478/s13537-011-0017-x
+      publication_type: article
+    - key: barani2021convergence
+      title: Convergence behavior of diffusion stochastic gradient descent algorithm
+      year: "2021"
+      doi: ""
+      publication_type: article
+    - key: sadigh2021diversity
+      title: Diversity-based diffusion robust RLS using adaptive forgetting factor
+      year: "2021"
+      doi: 10.1016/j.sigpro.2020.107950
+      publication_type: article
+    - key: legacy_shafigh2013_77c96b
+      title: Gravitation based classification
+      year: "2013"
+      doi: 10.1016/j.ins.2012.07.033
+      publication_type: article
+    - key: s00521-011-0762-8
+      title: " DDC: distance-based decision classifier"
+      year: "2012"
+      doi: 10.1007/s00521-011-0762-8
+      publication_type: article
+    - key: legacy_ghasemigol2009_4462e3
+      title: Ellipse Support Vector Data Description
+      year: "2009"
+      doi: 10.1007/978-3-642-03969-0_24
+      publication_type: incollection
+    - key: forghani2014robust
+      title: Robust support vector machine-trained fuzzy system
+      year: "2014"
+      doi: ""
+      publication_type: article
+    - key: pakdaman2020kernel
+      title: A kernel least mean square algorithm for fuzzy differential equations and
+        its application in earth’s energy balance model and climate
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: legacy_dblp_fb04849ee2d4
+      title: "Improved DAG SVM: A New Method for Multi-Class SVM Classification"
+      year: "2009"
+      doi: ""
+      publication_type: inproceedings
+    - key: legacy_sabzekar2011_5d0635
+      title: Relaxed constraints support vector machines for noisy data
+      year: "2011"
+      doi: 10.1007/s00521-010-0409-1
+      publication_type: article
+    - key: legacy_modaghegh2009_ae3c65
+      title: A new modeling algorithm - Normalized Kernel Least Mean Square
+      year: "2009"
+      doi: 10.1109/iit.2009.5413373
+      publication_type: inproceedings
+    - key: legacy_yazdi2007_96e31b
+      title: The probabilistic constraints in the support vector machine
+      year: "2007"
+      doi: 10.1016/j.amc.2007.04.109
+      publication_type: article
+    - key: azimpour2021hyperspectral
+      title: Hyperspectral image denoising via clustering-based latent variable in variational
+        Bayesian framework
+      year: "2021"
+      doi: ""
+      publication_type: article
+    - key: yazdi2020drift
+      title: A drift aware adaptive method based on minimum uncertainty for anomaly
+        detection in social networking
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: hamidzadeh2016large
+      title: Large symmetric margin instance selection algorithm
+      year: "2016"
+      doi: 10.1007/s13042-014-0239-z
+      publication_type: article
+    - key: monsefi2019sparse
+      title: Sparse Bayesian approach for metric learning in latent space
+      year: "2019"
+      doi: 10.1016/j.knosys.2019.04.009
+      publication_type: article
+    - key: allahyar2015constrained
+      title: Constrained semi-supervised growing self-organizing map
+      year: "2015"
+      doi: ""
+      publication_type: article
+    - key: legacy_forghani2012_d4bd50
+      title: An extension to fuzzy support vector data description (FSVDD*)
+      year: "2012"
+      doi: 10.1007/s10044-011-0208-z
+      publication_type: article
+    - key: ghasemigol2015anomaly
+      title: Anomaly detection and foresight response strategy for wireless sensor networks
+      year: "2015"
+      doi: ""
+      publication_type: article
+    - key: legacy_yazdi2014_ae7b66
+      title: Hierarchical tree clustering of fuzzy number
+      year: "2014"
+      doi: 10.3233/ifs-120710
+      publication_type: article
+    - key: forghani2015fuzzy
+      title: Fuzzy min--max neural network for learning a classifier with symmetric
+        margin
+      year: "2015"
+      doi: ""
+      publication_type: article
+    - key: legacy_effati2013_96be89
+      title: Fuzzy clustering algorithm for fuzzy data based on α-cuts
+      year: "2013"
+      doi: 10.3233/ifs-2012-0528
+      publication_type: article
+    - key: legacy_hadi2013_7ef3e4
+      title: Vector fuzzy C-means
+      year: "2013"
+      doi: 10.3233/ifs-2012-0561
+      publication_type: article
+    - key: legacy_sabzekar2012_2c91fb
+      title: Relaxed constraints support vector machine
+      year: "2012"
+      doi: 10.1111/j.1468-0394.2011.00611.x
+      publication_type: article
+    - key: legacy_forghani2011_0533ed
+      title: Fuzzy support vector regression
+      year: "2011"
+      doi: 10.1109/iccke.2011.6413319
+      publication_type: inproceedings
+    - key: legacy_allahyari2012_qsvdd
+      title: Quasi Support Vector Data Description (QSVDD)
+      year: "2012"
+      doi: ""
+      publication_type: article
+    - key: legacy_mansouri2011_171b15
+      title: Classification of imprecise data using interval Fisher discriminator
+      year: "2011"
+      doi: 10.1002/int.20490
+      publication_type: article
+    - key: legacy_sabzekar2009_c40dc1
+      title: Emphatic Constraints Support Vector Machines for Multi-class Classification
+      year: "2009"
+      doi: 10.1109/ems.2009.61
+      publication_type: inproceedings
+    - key: gharib2020robust
+      title: Robust Heterogeneous C-means
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: Mehrizi2018_RobustGSOM
+      title: Robust semi-supervised growing self-organizing map
+      year: "2018"
+      doi: 10.1016/j.eswa.2018.03.046
+      publication_type: article
+    - key: bakhtiari2018bayesian
+      title: Bayesian filter based on the wisdom of crowds
+      year: "2018"
+      doi: ""
+      publication_type: article
+    - key: esmaeily2016hierarchical
+      title: Hierarchical cooperation of experts in learning from crowds
+      year: "2016"
+      doi: ""
+      publication_type: inproceedings
+    - key: sadoghi2016semi
+      title: Semi-supervised GSOM integrated with extreme learning machine
+      year: "2016"
+      doi: 10.3233/ida-160859
+      publication_type: article
+    - key: legacy_khandan2013_8b13d3
+      title: A Novel Neuron in Kernel Domain
+      year: "2013"
+      doi: 10.1155/2013/748914
+      publication_type: article
+    - key: legacy_forghani2013_c5aa31
+      title: Classification of fuzzy data based on the support vector machines
+      year: "2013"
+      doi: 10.1111/j.1468-0394.2012.00645.x
+      publication_type: article
+    - key: legacy_abbassi2013_8745f1
+      title: "Constrained classifier: a novel approach to nonlinear classification"
+      year: "2013"
+      doi: 10.1007/s00521-012-1194-9
+      publication_type: article
+    - key: legacy_ghazikhani2012_5c5a81
+      title: "SVBO: Support Vector-Based Oversampling for handling class imbalance in
+        k-NN"
+      year: "2012"
+      doi: 10.1109/iraniancee.2012.6292427
+      publication_type: inproceedings
+    - key: legacy_abbassi2012_2d66eb
+      title: Constraint excluded classifier
+      year: "2012"
+      doi: 10.1109/aisp.2012.6313707
+      publication_type: inproceedings
+    - key: legacy_ghazizadehahsaee2011_bbf1ed
+      title: Shell fitting space for classification
+      year: "2011"
+      doi: 10.1016/j.eswa.2010.09.127
+      publication_type: article
+    - key: legacy_ghazizadehahsaee2011_bdb278
+      title: Curve fitting space for classification
+      year: "2011"
+      doi: 10.1007/s00521-010-0383-7
+      publication_type: article
+    - key: legacy_forghani2011_74b320
+      title: Support vector regression with fuzzy target output
+      year: "2011"
+      doi: 10.1109/iccke.2011.6413324
+      publication_type: inproceedings
+    - key: legacy_vahedian2011_2b76b0
+      title: Fuzzy cost support vector regression on the fuzzy samples
+      year: "2011"
+      doi: 10.1007/s10489-010-0232-5
+      publication_type: article
+    - key: legacy_sadoghiyazdi2010_6edd4d
+      title: Constraint learning using adaptive neural‐fuzzy inference system
+      year: "2010"
+      doi: 10.1108/17563781011049197
+      publication_type: article
+    - key: legacy_sabzekar2010_d0a066
+      title: Emphatic Constraints Support Vector Machine
+      year: "2010"
+      doi: 10.7763/ijcee.2010.v2.152
+      publication_type: article
+    - key: legacy_ghasemigol2010_e04a0e
+      title: Intrusion Detection by Ellipsoid Boundary
+      year: "2010"
+      doi: 10.1007/s10922-010-9165-x
+      publication_type: article
+    - key: legacy_ghasemigol2010_911079
+      title: A New Support Vector Data Description with Fuzzy Constraints
+      year: "2010"
+      doi: 10.1109/isms.2010.13
+      publication_type: inproceedings
+    - key: legacy_yazdi2009_63db26
+      title: Fuzzy Bayesian Classification of LR Fuzzy Numbers
+      year: "2009"
+      doi: 10.7763/ijet.2009.v1.78
+      publication_type: article
+    - key: legacy_dblp_96a7bb8c0bc6
+      title: Designing Kernel Scheme for Classifiers Fusion
+      year: "2009"
+      doi: 10.48550/arxiv.0912.1007
+      publication_type: preprint
+    - key: legacy_ghafarian2010_0965b8
+      title: Kernel Least Mean Square Features for HMM-Based Signal Recognition
+      year: "2010"
+      doi: 10.7763/ijcte.2010.v2.153
+      publication_type: article
+    - key: legacy_ghasemigol2010_98e3d2
+      title: Intrusion Detection by New Data Description Method
+      year: "2010"
+      doi: 10.1109/isms.2010.11
+      publication_type: inproceedings
+    - key: legacy_dblp_ce95658ac12f
+      title: A New Tree Clustering Algorithm for Fuzzy Data Based on Alpha-Cuts
+      year: "2009"
+      doi: ""
+      publication_type: inproceedings
+    - key: forghani2015robust
+      title: Robust Support Vector Machines with Low Test Time
+      year: "2015"
+      doi: ""
+      publication_type: article
+    - key: j.eswa.2022.116811
+      title: Robust classification via clipping-based kernel recursive least lncosh
+        of error
+      year: "2022"
+      doi: 10.1016/j.eswa.2022.116811
+      publication_type: article
+    - key: aghajanzadeh2023task
+      title: Task weighting based on particle filter in deep multi-task learning with
+        a view to uncertainty and performance
+      year: "2023"
+      doi: ""
+      publication_type: article
+    - key: j.engappai.2024.107928
+      title: Semantic labeling of social big media using distributed online robust classification
+      year: "2024"
+      doi: 10.1016/j.engappai.2024.107928
+      publication_type: article
+    - key: keshvari2024self
+      title: A Self-Distilled Learning to Rank Model for Ad-hoc Retrieval
+      year: "2024"
+      doi: ""
+      publication_type: article
+    - key: keshvari2022listmap
+      title: "ListMAP: Listwise learning to rank as maximum a posteriori estimation"
+      year: "2022"
+      doi: ""
+      publication_type: article
+    - key: hajiabadi2019relf
+      title: "relf: robust regression extended with ensemble loss function"
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: hajiabadi2020combination
+      title: Combination of loss functions for deep text classification
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: nayyeri2017universal
+      title: Universal approximation by using the correntropy objective function
+      year: "2017"
+      doi: ""
+      publication_type: article
+    - key: salehi2018sparse
+      title: Sparse online feature maps
+      year: "2018"
+      doi: ""
+      publication_type: article
+    - key: javidi2018fuzzy
+      title: Fuzzy Relevance Feedback in the Semantic Image Retrieval.
+      year: "2018"
+      doi: ""
+      publication_type: article
+    - key: bagherzadeh2016outlier
+      title: Outlier absorbing based on a Bayesian approach
+      year: "2016"
+      doi: ""
+      publication_type: article
+    - key: hassanzadeh2016fuzzy
+      title: Fuzzy Constraints Linear Discriminant Analysis
+      year: "2016"
+      doi: ""
+      publication_type: article
+    - key: bagherzadeh2017label
+      title: Label denoising based on Bayesian aggregation
+      year: "2017"
+      doi: ""
+      publication_type: article
+    - key: ghafarian2016active
+      title: Active robust learning
+      year: "2016"
+      doi: ""
+      publication_type: article
+- topic: Signal and Image Processing
+  papers:
+    - key: foroughi2008eigenspace
+      title: An eigenspace-based approach for human fall detection using integrated
+        time motion image and neural network
+      year: "2008"
+      doi: ""
+      publication_type: inproceedings
+    - key: legacy_foroughi2008_b4eef3
+      title: An eigenspace-based approach for human fall detection using Integrated
+        Time Motion Image and multi-class Support Vector Machine
+      year: "2008"
+      doi: 10.1109/iccp.2008.4648358
+      publication_type: inproceedings
+    - key: legacy_yazdi2006_b9d2cf
+      title: Car tracking by quantised input LMS, QX-LMS algorithm in traffic scenes
+      year: "2006"
+      doi: 10.1049/ip-vis:20045043
+      publication_type: article
+    - key: khalkhali2020vehicle
+      title: Vehicle tracking with Kalman filter using online situation assessment
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: legacy_zamiri2021_35de19
+      title: "MVDF-RSC: Multi-view data fusion via robust spectral clustering for geo-tagged
+        image tagging"
+      year: "2021"
+      doi: 10.1016/j.eswa.2021.114657
+      publication_type: article
+    - key: shekofteh2019ccuda
+      title: "cCUDA: Effective co-scheduling of concurrent kernels on GPUs"
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: ghafari2021robustness
+      title: Robustness of convolutional neural network models in hyperspectral noisy
+        datasets with loss functions
+      year: "2021"
+      doi: ""
+      publication_type: article
+    - key: bahraini2021modified
+      title: Modified-mean-shift-based noisy label detection for hyperspectral image
+        classification
+      year: "2021"
+      doi: ""
+      publication_type: article
+    - key: legacy_lotfizad2005_1899ed
+      title: Modified Clipped LMS Algorithm
+      year: "2005"
+      doi: 10.1155/asp.2005.1229
+      publication_type: article
+    - key: legacy_yazdi2013_8f06d7
+      title: Investigation on the Effect of Data Imbalance on Prediction of Liquefaction
+      year: "2013"
+      doi: 10.1061/(asce)gm.1943-5622.0000217
+      publication_type: article
+    - key: legacy_sadoghiyazdi2012_5ec681
+      title: Prediction of liquefaction potential based on CPT up-sampling
+      year: "2012"
+      doi: 10.1016/j.cageo.2012.03.025
+      publication_type: article
+    - key: khalkhali2021situation
+      title: Situation assessment-augmented interactive Kalman filter for multi-vehicle
+        tracking
+      year: "2021"
+      doi: ""
+      publication_type: article
+    - key: j.sigpro.2020.107482
+      title: "Analysis of robust recursive least squares: Convergence and tracking"
+      year: "2021"
+      doi: 10.1016/j.sigpro.2020.107482
+      publication_type: article
+    - key: razavi2019crowd
+      title: Crowd analysis using bayesian risk kernel density estimation
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: legacy_sadoghiyazdi2012_e270a7
+      title: Ordinary differential equations solution in kernel space
+      year: "2012"
+      doi: 10.1007/s00521-011-0621-7
+      publication_type: article
+    - key: s00034-018-0792-x
+      title: Kalman Filter Reinforced by Least Mean Square for Systems with Unknown
+        Inputs
+      year: "2018"
+      doi: 10.1007/s00034-018-0792-x
+      publication_type: article
+    - key: zamiri2014temporal
+      title: Temporal and spatial monitoring and prediction of epidemic outbreaks
+      year: "2014"
+      doi: ""
+      publication_type: article
+    - key: legacy_javadi2013_3ba0a0
+      title: Activity Recognition In Smart Home Using Weighted Dempster-Shafer Theory
+      year: "2013"
+      doi: 10.14257/ijsh.2013.7.6.03
+      publication_type: article
+    - key: legacy_forghani2011_fd01d3
+      title: Support Vector Data Description by using hyper-ellipse instead of hyper-sphere
+      year: "2011"
+      doi: 10.1109/iccke.2011.6413318
+      publication_type: inproceedings
+    - key: toussi2011feature
+      title: Feature selection in spectral clustering
+      year: "2011"
+      doi: ""
+      publication_type: article
+    - key: legacy_yazdi2010_97f815
+      title: The Wheatstone bridge-based analog adaptive filter with application in
+        echo cancellation
+      year: "2010"
+      doi: 10.1007/s10470-009-9384-9
+      publication_type: article
+    - key: legacy_kashani2010_ae4e08
+      title: A Novel Approach in Video Scene Background Estimation
+      year: "2010"
+      doi: 10.7763/ijcte.2010.v2.152
+      publication_type: article
+    - key: legacy_hosseini2009_bd6320
+      title: Best Clustering Around the Color Images
+      year: "2009"
+      doi: 10.7763/ijcee.2009.v1.4
+      publication_type: article
+    - key: legacy_nasiri2008_596250
+      title: A PSO Tuning Approach for Lip Detection on Color Images
+      year: "2008"
+      doi: 10.1109/ems.2008.98
+      publication_type: inproceedings
+    - key: alhaidery2022cloning
+      title: Cloning detection scheme based on linear and curvature scale space with
+        new false positive removal filters
+      year: "2022"
+      doi: ""
+      publication_type: article
+    - key: bahraini2022density
+      title: Density-oriented linear discriminant analysis
+      year: "2022"
+      doi: ""
+      publication_type: article
+    - key: tarnik2020minimum
+      title: Minimum variance based-Bayes Combination for prediction of soil properties
+        on Vis-NIR reflectance spectroscopy
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: j.isatra.2020.05.025
+      title: Convergence and performance analysis of kernel regularized robust recursive
+        least squares
+      year: "2020"
+      doi: 10.1016/j.isatra.2020.05.025
+      publication_type: article
+    - key: kamel2019robust
+      title: Robust sentiment fusion on distribution of news
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: legacy_kashani2011_06f6e1
+      title: BACKGROUND ESTIMATION IN KERNEL SPACE
+      year: "2011"
+      doi: 10.1142/s0218001411008464
+      publication_type: article
+    - key: legacy_yazdi2009_405304
+      title: Active noise cancellation of variable frequency narrow band noise using
+        mixture of RLS and LMS algorithms
+      year: "2009"
+      doi: 10.1504/ijsise.2009.033757
+      publication_type: article
+    - key: bahraini2022edge
+      title: Edge preserving range image smoothing using hybrid locally kernel-based
+        weighted least square
+      year: "2022"
+      doi: ""
+      publication_type: article
+    - key: abad2016efficient
+      title: Efficient Land-cover segmentation using Meta fusion
+      year: "2016"
+      doi: ""
+      publication_type: article
+    - key: ghaffari2014multiclass
+      title: Multiclass classifier based on boundary complexity
+      year: "2014"
+      doi: ""
+      publication_type: article
+    - key: ansari2023diffusion
+      title: Diffusion-based Kalman iterative thresholding for compressed sampling recovery
+        over network
+      year: "2023"
+      doi: ""
+      publication_type: article
+    - key: ghafarian2019functional
+      title: Functional gradient approach to probabilistic minimax active learning
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: gholinejad2017improving
+      title: Improving signal subspace identification using weighted graph structure
+        of data
+      year: "2017"
+      doi: ""
+      publication_type: article
+    - key: mashreghi2014recursive
+      title: A recursive algorithm for optimizing differentiation
+      year: "2014"
+      doi: ""
+      publication_type: article
+    - key: bahraini2022bayesian
+      title: Bayesian framework selection for hyperspectral image denoising
+      year: "2022"
+      doi: ""
+      publication_type: article
+    - key: bahraini2021variational
+      title: Variational Bayesian inference in Noise Removal from Hyperspectral Images
+        Using Cluster-Based Latent Variables
+      year: "2021"
+      doi: ""
+      publication_type: article
+    - key: ashkezari2019incorporating
+      title: Incorporating Nonparametric Knowledge to the Least Mean Square Adaptive
+        Filter
+      year: "2019"
+      doi: 10.1007/s00034-018-0954-x
+      publication_type: article
+    - key: razavi2020automated
+      title: Automated Detection of Region of Interest using Non-Parametric Distribution
+        Based on Bayesian Risk
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: forghani2019cautious
+      title: Cautious Classification of Hyper Rectangular, Hyper Circular, and Hyper
+        Oval with a Maximum Symmetric Margin Relative to the Data Edge
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: rikabi2019automatic
+      title: Automatic Image Annotation by Block Principal Pivoting
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: haeri2016particle
+      title: Particle Filter with Adaptive Observation Model
+      year: "2016"
+      doi: ""
+      publication_type: article
+    - key: pourmasoumi2016sentiment
+      title: Sentiment Analysis of Persian Documents using Optimal Transform Domain
+      year: "2016"
+      doi: ""
+      publication_type: article
+    - key: sadoghi2018geometrical
+      title: Geometrical Self-Organizing Map Classifier Based on Active Learning for
+        Steganalysis in the Video Environment by Spending at Least a Label
+      year: "2018"
+      doi: ""
+      publication_type: article
+    - key: bahraini2018handover
+      title: Handover Management between Femtocell and Macrocell Using Geo-Based Spectral
+        Clustering
+      year: "2018"
+      doi: ""
+      publication_type: article
+    - key: mortazavi2020blind
+      title: Blind Video Steganalysis by Semi-Supervised Approach for Motion Vectors
+        Based Steganography Algorithms
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: mehrizi2020semi
+      title: Semi-Supervised Learning Based on Extreme Learning
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: legacy_ghafarian2010_0965b8
+      title: Kernel Least Mean Square Features for HMM-Based Signal Recognition
+      year: "2010"
+      doi: 10.7763/ijcte.2010.v2.153
+      publication_type: article
+    - key: legacy_mirghasemi2010_ac80bd
+      title: Linear and Quadratic PSO Based Color Space Conversion for Sea Target Detection
+      year: "2010"
+      doi: 10.7763/ijcee.2010.v2.123
+      publication_type: article
+    - key: legacy_hosseini2009_3acac7
+      title: A Novel Color Space Creating Method Applied to Skin Color Detection
+      year: "2009"
+      doi: 10.1109/icdip.2009.16
+      publication_type: inproceedings
+    - key: legacy_yazdi2006_c59ea5
+      title: Duct Modeling Using the Generalized RBF Neural Network for Active Cancellation
+        of Variable Frequency Narrow Band Noise
+      year: "2006"
+      doi: 10.1155/2007/41679
+      publication_type: article
+    - key: legacy_yazdi2005_77d847
+      title: Clipped Input RLS Applied to Vehicle Tracking
+      year: "2005"
+      doi: 10.1155/asp.2005.1221
+      publication_type: article
+    - key: legacy_yazdi2004_93b43f
+      title: Vehicle Tracking at Traffic Scene with Modified RLS
+      year: "2004"
+      doi: 10.1007/978-3-540-30126-4_76
+      publication_type: incollection
+    - key: ansari2020new
+      title: A New and Robust AMP Algorithm for Non IID Matrices Based on Bayesian Theory
+        in Compressed Sensing
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: kamel2018sentimental
+      title: Sentimental content analysis and knowledge extraction from news articles
+      year: "2018"
+      doi: ""
+      publication_type: article
+    - key: legacy_allahyar2014_f8097c
+      title: Online discriminative component analysis feature extraction from stream
+        data with domain knowledge
+      year: "2014"
+      doi: 10.3233/ida-140676
+      publication_type: article
+    - key: legacy_javidi2010_02bcda
+      title: A Semantic Feedback Framework for Image Retrieval
+      year: "2010"
+      doi: 10.7763/ijcee.2010.v2.171
+      publication_type: article
+    - key: legacy_imandoost2010_e5ee8d
+      title: Image semantic retrieval using image fuzzification based on weighted relevance
+        feedback
+      year: "2010"
+      doi: 10.1109/iraniancee.2010.5507023
+      publication_type: inproceedings
+    - key: legacy_yazdi2009_15d47b
+      title: SVM-based Relevance Feedback for semantic video retrieval
+      year: "2009"
+      doi: 10.1504/ijsise.2009.033722
+      publication_type: article
+    - key: legacy_mowlawi2009_845b6e
+      title: SURFACE EFFECT CORRECTION OF MOISTURE DETERMINATION BY NEUTRON PROBE USING
+        PSO TECHNIQUE AND MCNP
+      year: "2009"
+      doi: 10.1142/s0219876209001802
+      publication_type: article
+    - key: legacy_nasiri2008_e7b988
+      title: An Efficient Parallel Eye Detection Algorithm on Facial Color Images
+      year: "2008"
+      doi: 10.1109/snpd.2008.24
+      publication_type: inproceedings
+    - key: legacy_hosseini2007_e0742d
+      title: Quantum Corrections in the Drift-Diffusion Model
+      year: "2007"
+      doi: 10.1143/jjap.46.7247
+      publication_type: article
+    - key: pourreza2008short
+      title: A Short Term and Long Term Learning Based on Fuzzy Transaction Repository
+        and Feature Re-Weighting
+      year: "2008"
+      doi: ""
+      publication_type: inproceedings
+    - key: legacy_sadeghi2025_08fb94
+      title: Reliable Vehicle Detection and Tracking on Highways Using the Geo-Heinz
+        Corner Response, Density-Based Clustering
+      year: "2025"
+      doi: 10.2139/ssrn.5187561
+      publication_type: preprint
+- topic: Neural Networks and Fuzzy Systems
+  papers:
+    - key: rahgooy2009fuzzy
+      title: Fuzzy complex system of linear EquationsApplied to circuit analysis
+      year: "2009"
+      doi: ""
+      publication_type: article
+    - key: legacy_alipoor2009_353c35
+      title: Fuzzy Temperature Control in a Batch Polymerization Reactor Using ANFIS
+        Method
+      year: "2009"
+      doi: 10.7763/ijet.2009.v1.2
+      publication_type: article
+    - key: legacy_yazdi2010_a8c508
+      title: Neuro-fuzzy based constraint programming
+      year: "2010"
+      doi: 10.1016/j.apm.2010.03.005
+      publication_type: article
+    - key: NikKhorasani_Mehrizi_2024_RobustHybridLearning
+      title: Robust hybrid learning approach for adaptive neuro-fuzzy inference systems
+      year: "2024"
+      doi: 10.1016/j.fss.2024.108890
+      publication_type: article
+    - key: forghani2015fuzzy
+      title: Fuzzy min--max neural network for learning a classifier with symmetric
+        margin
+      year: "2015"
+      doi: ""
+      publication_type: article
+    - key: legacy_moradi2012_71c9d8
+      title: Going Concern Prediction of Iranian Companies by Using Fuzzy C-Means
+      year: "2012"
+      doi: 10.4236/ojacct.2012.12005
+      publication_type: article
+    - key: nayyeri2024correntropy
+      title: Correntropy-based constructive one hidden layer neural network
+      year: "2024"
+      doi: ""
+      publication_type: article
+    - key: legacy_khosravir2011_0077b7
+      title: "FCM-fuzzy rule base: A new rule extraction mechanism"
+      year: "2011"
+      doi: 10.1109/innovations.2011.5893829
+      publication_type: inproceedings
+    - key: legacy_sadoghiyazdi2010_6edd4d
+      title: Constraint learning using adaptive neural‐fuzzy inference system
+      year: "2010"
+      doi: 10.1108/17563781011049197
+      publication_type: article
+    - key: legacy_yazdi2009_06cd4a
+      title: A recurrent neural network-based method for training probabilistic Support
+        Vector Machine
+      year: "2009"
+      doi: 10.1504/ijsise.2009.029330
+      publication_type: article
+    - key: legacy_sadoghiyazdi2008_cc1288
+      title: Pedestrian tracking using single camera with new extended Kalman filter
+      year: "2008"
+      doi: 10.1108/17563780810893464
+      publication_type: article
+    - key: legacy_hosseinabadmahdipour2012_f3cc51
+      title: Model-based fuzzy c-shells clustering
+      year: "2012"
+      doi: 10.1007/s00521-011-0571-0
+      publication_type: article
+- topic: Tracking and Detection Systems
+  papers:
+    - key: farahi2020probabilistic
+      title: Probabilistic Kalman filter for moving object tracking
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: khalkhali2019multi
+      title: Multi-target state estimation using interactive Kalman filter for multi-vehicle
+        tracking
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: legacy_yazdi2006_b9d2cf
+      title: Car tracking by quantised input LMS, QX-LMS algorithm in traffic scenes
+      year: "2006"
+      doi: 10.1049/ip-vis:20045043
+      publication_type: article
+    - key: khalkhali2020vehicle
+      title: Vehicle tracking with Kalman filter using online situation assessment
+      year: "2020"
+      doi: ""
+      publication_type: article
+    - key: khalkhali2021situation
+      title: Situation assessment-augmented interactive Kalman filter for multi-vehicle
+        tracking
+      year: "2021"
+      doi: ""
+      publication_type: article
+    - key: legacy_yazdi2004_93b43f
+      title: Vehicle Tracking at Traffic Scene with Modified RLS
+      year: "2004"
+      doi: 10.1007/978-3-540-30126-4_76
+      publication_type: incollection
+    - key: legacy_yazdi2005_77d847
+      title: Clipped Input RLS Applied to Vehicle Tracking
+      year: "2005"
+      doi: 10.1155/asp.2005.1221
+      publication_type: article
+    - key: legacy_sadoghiyazdi2008_cc1288
+      title: Pedestrian tracking using single camera with new extended Kalman filter
+      year: "2008"
+      doi: 10.1108/17563780810893464
+      publication_type: article
+    - key: legacy_sadoghiyazdi2012_04095a
+      title: Gait Recognition Based on Invariant Leg Classification Using a Neuro-Fuzzy
+        Algorithm as the Fusion Method
+      year: "2012"
+      doi: 10.5402/2012/289721
+      publication_type: article
+    - key: legacy_jalali2025_f913e5
+      title: Robust scene aware multi-object tracking for surveillance videos
+      year: "2025"
+      doi: 10.1016/j.neucom.2025.130114
+      publication_type: article
+    - key: Mehrizi2024_EnhancingMultiTargetTracking
+      title: Enhancing multi-target tracking stability using knowledge graph integration
+        within the Gaussian Mixture Probability Hypothesis Density Filter
+      year: "2024"
+      doi: 10.1007/s11042-024-20180-4
+      publication_type: article
+    - key: legacy_mehrizi2024_4bb311
+      title: Robust Multi-Target Tracking with Integrated Knowledge Model, Graph Structures,
+        and Statistical Analysis in Unobservable Environments
+      year: "2024"
+      doi: 10.21203/rs.3.rs-4354545/v1
+      publication_type: preprint
+    - key: legacy_mehrizi2024_5ec47e
+      title: Integrated Knowledge Graph Model and Statistical Analysis for Multi-Target
+        Tracking with Prediction of Non-Identical Periodic Events and Unobservable Environments
+      year: "2024"
+      doi: 10.2139/ssrn.4826650
+      publication_type: preprint
+- topic: Other Topics (e.g., Optimization, Compression, Miscellaneous)
+  papers:
+    - key: legacy_moradi2013_617675
+      title: Financial Distress Prediction of Iranian Companies Using Data Mining Techniques
+      year: "2013"
+      doi: 10.2478/orga-2013-0003
+      publication_type: article
+    - key: legacy_moradi2012_71c9d8
+      title: Going Concern Prediction of Iranian Companies by Using Fuzzy C-Means
+      year: "2012"
+      doi: 10.4236/ojacct.2012.12005
+      publication_type: article
+    - key: legacy_gorgani2010_6f2f14
+      title: An Empirical Modeling of Companies Using Support Vector Data Description
+      year: "2010"
+      doi: 10.7763/ijtef.2010.v1.41
+      publication_type: article
+    - key: legacy_amintoosi2007_a4bfe4
+      title: Using pattern matching for tiling and packing problems
+      year: "2007"
+      doi: 10.1016/j.ejor.2006.02.029
+      publication_type: article
+    - key: legacy_yazdi2007_cbc974
+      title: Eigenvalue spread criteria in the particle swarm optimization algorithm
+        for solving of constraint parametric problems
+      year: "2007"
+      doi: 10.1016/j.amc.2007.02.152
+      publication_type: article
+    - key: legacy_yazdi2009_b44248
+      title: Particle Swarm Optimization-Based Rectangular Microstrip Antenna Designing
+      year: "2009"
+      doi: 10.7763/ijcee.2009.v1.73
+      publication_type: article
+    - key: shekofteh2019metric
+      title: Metric selection for gpu kernel classification
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: shekofteh2017enhancing
+      title: Enhancing performance of graphics processing units through better scheduling
+        of concurrent kernels
+      year: "2017"
+      doi: ""
+      publication_type: inproceedings
+    - key: legacy_mohajerzadeh2009_f495f2
+      title: A fair routing protocol using generic utility based approach in Wireless
+        Sensor Networks
+      year: "2009"
+      doi: 10.1109/icumt.2009.5345348
+      publication_type: inproceedings
+    - key: legacy_grailu2009_bbd588
+      title: 1-D chaincode pattern matching for compression of Bi-level printed farsi
+        and arabic textual images
+      year: "2009"
+      doi: 10.1016/j.imavis.2009.04.006
+      publication_type: article
+    - key: legacy_grailu2009_503fc7
+      title: A lossy/lossless compression method for printed typeset bi-level text images
+        based on improved pattern matching
+      year: "2009"
+      doi: 10.1007/s10032-008-0075-3
+      publication_type: article
+    - key: legacy_grailu2009_cd916d
+      title: Farsi and Arabic document images lossy compression based on the mixed raster
+        content model
+      year: "2009"
+      doi: 10.1007/s10032-009-0088-6
+      publication_type: article
+    - key: legacy_grailu2009_4529f2
+      title: An improved pattern matching technique for lossy/lossless compression of
+        binary printed Farsi and Arabic textual images
+      year: "2009"
+      doi: 10.1108/17563780910939273
+      publication_type: article
+    - key: soltani2019event
+      title: Event reconstruction using temporal pattern of file system modification
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: legacy_shakeri2011_0e2ae6
+      title: Computing trust resultant using intervals
+      year: "2011"
+      doi: 10.1109/iscisc.2011.6062343
+      publication_type: inproceedings
+    - key: legacy_khosraviroshkhari2011_bd60df
+      title: SIP Header based Feature Extraction for SPIT Attacks in a Comprehensive
+        ANTI-SPIT Framework
+      year: "2011"
+      doi: 10.2316/p.2011.735-009
+      publication_type: inproceedings
+    - key: legacy_ghasemigol2010_e04a0e
+      title: Intrusion Detection by Ellipsoid Boundary
+      year: "2010"
+      doi: 10.1007/s10922-010-9165-x
+      publication_type: article
+    - key: legacy_ghorbanipour2023_33db69
+      title: Portfolio Management Based on Well-Behaved Shares with Markowitz's Mean-Variance
+        Approach
+      year: "2023"
+      doi: 10.2139/ssrn.4579069
+      publication_type: preprint
+    - key: legacy_mowlawi2009_845b6e
+      title: SURFACE EFFECT CORRECTION OF MOISTURE DETERMINATION BY NEUTRON PROBE USING
+        PSO TECHNIQUE AND MCNP
+      year: "2009"
+      doi: 10.1142/s0219876209001802
+      publication_type: article
+    - key: legacy_amiri2007_71ee10
+      title: A New Quantized Input RLS, QI-RLS, Algorithm
+      year: "2007"
+      doi: 10.1007/978-3-540-74484-9_43
+      publication_type: incollection
+    - key: legacy_hosseini2007_e0742d
+      title: Quantum Corrections in the Drift-Diffusion Model
+      year: "2007"
+      doi: 10.1143/jjap.46.7247
+      publication_type: article
+    - key: legacy_mohammadi2008_48805a
+      title: "Biomechanical Ingredients Measurement: A New Vision-Based Approach (P102)"
+      year: "2008"
+      doi: 10.1007/978-2-287-09411-8_62
+      publication_type: incollection
+    - key: legacy_yazdi2025_4833b3
+      title: "CSRWA: Covert and Severe Attacks Resistant Watermarking Algorithm"
+      year: "2025"
+      doi: 10.32604/cmc.2024.059789
+      publication_type: article
+    - key: barani2024distributed
+      title: A distributed learning based on robust diffusion SGD over adaptive networks
+        with noisy output data
+      year: "2024"
+      doi: ""
+      publication_type: article
+    - key: ghafarian2021prepare
+      title: "Prepare for the worst, hope for the best: Active robust learning on distributions"
+      year: "2021"
+      doi: ""
+      publication_type: article
+    - key: gharib2023management
+      title: Management of the optimizer's curse concept in single-task diffusion networks
+      year: "2023"
+      doi: ""
+      publication_type: article
+    - key: nayyeri2023randomized
+      title: Randomized Constructive Neural Network Based on Regularized Minimum Error
+        Entropy
+      year: "2023"
+      doi: ""
+      publication_type: incollection
+    - key: eghdami2022sparsity
+      title: Sparsity-aware support vector data description reinforced by expectation
+        maximization
+      year: "2022"
+      doi: ""
+      publication_type: article
+    - key: bakhtiari2019collaborative
+      title: Collaborative linear dynamical system identification by scarce relevant/irrelevant
+        observations
+      year: "2019"
+      doi: ""
+      publication_type: article
+    - key: zabihzadeh2018sparse
+      title: Sparse Bayesian similarity learning based on posterior distribution of
+        data
+      year: "2018"
+      doi: ""
+      publication_type: article
+    - key: legacy_salkhordehhaghighi2012_f0ac63
+      title: Making Diversity Enhancement Based on Multiple Classifier System by Weight
+        Tuning
+      year: "2012"
+      doi: 10.1007/s11063-011-9204-y
+      publication_type: article
+    - key: legacy_shafigh2013_77c96b
+      title: Gravitation based classification
+      year: "2013"
+      doi: 10.1016/j.ins.2012.07.033
+      publication_type: article
+    - key: legacy_haghighi2011_0f447a
+      title: Extended decision template presentation for combining classifiers
+      year: "2011"
+      doi: 10.1016/j.eswa.2011.01.036
+      publication_type: article
+    - key: legacy_haghighi2011_084395
+      title: Extending Dempster Shafer method by multilayer decision template in classifier
+        fusion
+      year: "2011"
+      doi: 10.1109/isias.2011.6122807
+      publication_type: inproceedings
+    - key: legacy_haghighi2009_e2f305
+      title: A Hierarchical Possibilistic Clustering
+      year: "2009"
+      doi: 10.7763/ijcte.2009.v1.76
+      publication_type: article
+    - key: legacy_nasiri2008_e7b988
+      title: An Efficient Parallel Eye Detection Algorithm on Facial Color Images
+      year: "2008"
+      doi: 10.1109/snpd.2008.24
+      publication_type: inproceedings
+    - key: legacy_hosseinabadmahdipour2012_f3cc51
+      title: Model-based fuzzy c-shells clustering
+      year: "2012"
+      doi: 10.1007/s00521-011-0571-0
+      publication_type: article
+    - key: legacy_toussi2011_1b0090
+      title: Eigenvector selection in spectral clustering using Tabu Search
+      year: "2011"
+      doi: 10.1109/iccke.2011.6413328
+      publication_type: inproceedings
+    - key: legacy_khosravir2011_0077b7
+      title: "FCM-fuzzy rule base: A new rule extraction mechanism"
+      year: "2011"
+      doi: 10.1109/innovations.2011.5893829
+      publication_type: inproceedings
+    - key: yazdi2011edge
+      title: Edge/corner programming
+      year: "2011"
+      doi: ""
+      publication_type: article
+    - key: legacy_javidi2010_02bcda
+      title: A Semantic Feedback Framework for Image Retrieval
+      year: "2010"
+      doi: 10.7763/ijcee.2010.v2.171
+      publication_type: article
+    - key: legacy_mirghasemi2010_ac80bd
+      title: Linear and Quadratic PSO Based Color Space Conversion for Sea Target Detection
+      year: "2010"
+      doi: 10.7763/ijcee.2010.v2.123
+      publication_type: article
+    - key: legacy_ghafarian2010_0965b8
+      title: Kernel Least Mean Square Features for HMM-Based Signal Recognition
+      year: "2010"
+      doi: 10.7763/ijcte.2010.v2.153
+      publication_type: article
+    - key: legacy_modaghegh2009_ae3c65
+      title: A new modeling algorithm - Normalized Kernel Least Mean Square
+      year: "2009"
+      doi: 10.1109/iit.2009.5413373
+      publication_type: inproceedings
+    - key: legacy_rajaei2009_dabb30
+      title: Fisher over Fuzzy Samples
+      year: "2009"
+      doi: 10.7763/ijcte.2009.v1.102
+      publication_type: article
+    - key: legacy_hosseini2009_bd6320
+      title: Best Clustering Around the Color Images
+      year: "2009"
+      doi: 10.7763/ijcee.2009.v1.4
+      publication_type: article
+    - key: legacy_yazdi2009_15d47b
+      title: SVM-based Relevance Feedback for semantic video retrieval
+      year: "2009"
+      doi: 10.1504/ijsise.2009.033722
+      publication_type: article
+    - key: nasiri2009ecg
+      title: ECG arrhythmia classification with support vector machines and genetic
+        algorithm
+      year: "2009"
+      doi: ""
+      publication_type: inproceedings
+    - key: legacy_dblp_ce95658ac12f
+      title: A New Tree Clustering Algorithm for Fuzzy Data Based on Alpha-Cuts
+      year: "2009"
+      doi: ""
+      publication_type: inproceedings
+    - key: legacy_yazdi2009_06cd4a
+      title: A recurrent neural network-based method for training probabilistic Support
+        Vector Machine
+      year: "2009"
+      doi: 10.1504/ijsise.2009.029330
+      publication_type: article
+    - key: legacy_alipoor2009_353c35
+      title: Fuzzy Temperature Control in a Batch Polymerization Reactor Using ANFIS
+        Method
+      year: "2009"
+      doi: 10.7763/ijet.2009.v1.2
+      publication_type: article
+    - key: legacy_yazdi2009_63db26
+      title: Fuzzy Bayesian Classification of LR Fuzzy Numbers
+      year: "2009"
+      doi: 10.7763/ijet.2009.v1.78
+      publication_type: article
+    - key: legacy_yazdi2009_405304
+      title: Active noise cancellation of variable frequency narrow band noise using
+        mixture of RLS and LMS algorithms
+      year: "2009"
+      doi: 10.1504/ijsise.2009.033757
+      publication_type: article
+    - key: legacy_dblp_96a7bb8c0bc6
+      title: Designing Kernel Scheme for Classifiers Fusion
+      year: "2009"
+      doi: 10.48550/arxiv.0912.1007
+      publication_type: preprint
+    - key: legacy_hosseini2009_3acac7
+      title: A Novel Color Space Creating Method Applied to Skin Color Detection
+      year: "2009"
+      doi: 10.1109/icdip.2009.16
+      publication_type: inproceedings
+    - key: legacy_sabzekar2010_d0a066
+      title: Emphatic Constraints Support Vector Machine
+      year: "2010"
+      doi: 10.7763/ijcee.2010.v2.152
+      publication_type: article
+    - key: legacy_keshvari2023_18f8d7
+      title: The Median Loss Function
+      year: "2023"
+      doi: 10.2139/ssrn.4519474
+      publication_type: preprint
+    - key: legacy_forouzan2025_2c76f3
+      title: Elastic matching through the lens of probability and divergence in time
+        series prediction
+      year: "2025"
+      doi: 10.1007/s10044-025-01507-9
+      publication_type: article
+    - key: legacy_mehrizi2025_e369f0
+      title: Distributed Learning Framework for Multi-timeframe Data Modelling in Financial
+        Multi-step Forecasting
+      year: "2025"
+      doi: 10.1080/1540496x.2025.2467821
+      publication_type: article
+    - key: legacy_dblp_aa552d071983
+      title: Adaptive Locally Linear Embedding
+      year: "2025"
+      doi: 10.48550/arxiv.2504.06829
+      publication_type: preprint
+    - key: legacy_sadoghiyazdi2025_76aa87
+      title: Preserving data distribution in sampling and instance selection with Renyi’s
+        divergence
+      year: "2025"
+      doi: 10.1007/s10115-024-02302-4
+      publication_type: article
+    - key: legacy_hosseini2024_6cefff
+      title: "Adaptive-A-GCRNN: Enhancing Real-Time Multi-Band Spectrum Prediction Through
+        Attention-Based Spatial-Temporal Modeling"
+      year: "2024"
+      doi: 10.1109/iccke65377.2024.10874534
+      publication_type: inproceedings
+    - key: legacy_sadoghiyazdi2024_0ad9a0
+      title: CPT-Based Liquefaction Probabilistic Triggering Using a New Adaptive Kernel
+        Density Estimation Method
+      year: "2024"
+      doi: 10.1061/9780784485316.038
+      publication_type: inproceedings
+    - key: legacy_mehrizi2024_cadd74
+      title: Information Diffusion Across Multi-Scale Time Series for Expanding Forecasting
+        Horizons
+      year: "2024"
+      doi: 10.2139/ssrn.4812290
+      publication_type: preprint
+    - key: legacy_mehrizi2023_ab6803
+      title: "Information Diffusion Across Multiple Time Frames: A Comprehensive Analysis
+        in Time Series Forecasting"
+      year: "2023"
+      doi: 10.2139/ssrn.4622859
+      publication_type: preprint

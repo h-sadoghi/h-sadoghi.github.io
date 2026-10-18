@@ -16,6 +16,13 @@ pagination:
     after: 3 # The number of links after the current page
 ---
 
+<style>
+@media (max-width: 575px) {
+  .header-bar h1 { font-size: 2.5rem; overflow-wrap: anywhere; }
+  .header-bar h2 { font-size: 1.125rem; }
+}
+</style>
+
 <div class="post">
 
 {% assign blog_name_size = site.blog_name | size %}
