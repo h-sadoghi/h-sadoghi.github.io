@@ -2,7 +2,7 @@
 layout: page
 permalink: /repositories/
 title: repositories
-description: 
+description:
 nav: true
 nav_order: 4
 ---
@@ -33,6 +33,15 @@ nav_order: 4
 
 {% endfor %}
 {% endif %}
+
+## Research and teaching code
+
+- [Laboratory Pattern Recognition on GitHub](https://github.com/LaboratoryPatternRecognition)
+- [Constructive imbalance: research artifact]({{ '/resources/publicationcode-jmlr-code-result-readme/' | relative_url }})
+- [RC filter design: implementation notes]({{ '/resources/teaching-circuiteffort-wiseeda-rc-filter-readme/' | relative_url }})
+- [Location-wizard source archive](https://github.com/hadisadoghiyazdi1971/hadisadoghiyazdi1971.github.io/tree/master/fingerprinter-multi-modal-location-wizard)
+
+The source archive links to code as originally published; it is separate from the running academic website.
 {% endif %}
 
 {% if site.data.repositories.github_repos %}

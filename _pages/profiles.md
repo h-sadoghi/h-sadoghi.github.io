@@ -64,7 +64,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>  
+      <p></p>
   - align: left
     image: Bahreini.JPG
     content: Bahreini.md
@@ -72,7 +72,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>  
+      <p></p>
   - align: right
     image: Gharib.JPG
     content: Gharib.md
@@ -80,7 +80,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>  
+      <p></p>
   - align: left
     image: Keshvari.JPG
     content: Keshvari.md
@@ -88,7 +88,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: right
     image: Ghazi.JPG
     content: Ghazi.md
@@ -96,7 +96,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: left
     image: Nayyeri.JPG
     content: Nayyeri.md
@@ -104,7 +104,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>       
+      <p></p>
   - align: right
     image: Hamedani.jpg
     content: Hamedani.md
@@ -112,7 +112,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>       
+      <p></p>
   - align: left
     image: Naeimi.JPG
     content: Naeimi.md
@@ -120,7 +120,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>    
+      <p></p>
   - align: right
     image: Mahmoodi.JPG
     content: Mahmoodi.md
@@ -128,7 +128,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>  
+      <p></p>
   - align: left
     image: Forghani.JPG
     content: Forghani.md
@@ -136,7 +136,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>  
+      <p></p>
   - align: right
     image: Aghajanzadeh.JPG
     content: Aghajanzadeh.md
@@ -160,7 +160,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: left
     image: Farahi.JPG
     content: Farahi.md
@@ -168,7 +168,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>       
+      <p></p>
   - align: right
     image: Nasiri.jpg
     content: Nasiri.md
@@ -216,7 +216,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>            
+      <p></p>
   - align: right
     image: Kamel.JPG
     content: Kamel.md
@@ -224,7 +224,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: left
     image: Mirghasemi.JPG
     content: Mirghasemi.md
@@ -232,7 +232,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: right
     image: Ghasemigol.JPG
     content: Ghasemigol.md
@@ -240,7 +240,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: left
     image: Javidi.JPG
     content: Javidi.md
@@ -248,7 +248,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: right
     image: Haghighi.JPG
     content: Haghighi.md
@@ -256,7 +256,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: left
     image: Sabzekar.JPG
     content: Sabzekar.md
@@ -264,7 +264,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: right
     image: MonaZamiri.JPG
     content: MonaZamiri.md
@@ -272,7 +272,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: left
     image: Hamidzadeh.jpg
     content: Hamidzadeh.md
@@ -280,7 +280,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p> 
+      <p></p>
   - align: right
     image: Mehrizi.jpg
     content: Mehrizi.md
@@ -312,7 +312,7 @@ profiles:
     more_info: >
       <p></p>
       <p></p>
-      <p></p>                
+      <p></p>
   - align: right
     image: Bagherzadeh.jpg
     content: Bagherzadeh.md
@@ -322,3 +322,7 @@ profiles:
       <p></p>
       <p></p>
 ---
+
+See the [graduate research archive]({{ '/student-research/' | relative_url }}) for dated thesis and dissertation topics. These historical records do not imply current enrollment or employment.
+
+[Historical laboratory photographs]({{ "/laboratory-gallery/" | relative_url }}).

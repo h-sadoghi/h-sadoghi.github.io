@@ -72,6 +72,19 @@
           {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
+      {%- for resource in site.data.legacy_resources -%}
+        {%- unless resource.mode == 'project_article' -%}
+          {
+            id: {{ resource.destination_url | prepend: 'resource-' | jsonify }},
+            title: {{ resource.title | jsonify }},
+            description: {{ resource.group | append: ' ' | append: resource.search_terms | jsonify }},
+            section: "Resources",
+            handler: () => {
+              window.location.href = {{ resource.destination_url | relative_url | jsonify }};
+            },
+          },
+        {%- endunless -%}
+      {%- endfor -%}
       {%- for post in site.posts -%}
         {
           {%- assign title = post.title | escape | strip -%}

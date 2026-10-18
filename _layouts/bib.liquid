@@ -46,6 +46,9 @@
 
   <!-- Entry bib key -->
   <div id="{{ entry.key }}" class="{% if site.enable_publication_thumbnails %}col-sm-8{% else %}col-sm-10{% endif %}">
+    {% for alias in site.data.publication_aliases %}
+      {% if alias[1] == entry.key %}<span id="{{ alias[0] }}"></span>{% endif %}
+    {% endfor %}
     <!-- Title -->
     <div class="title">{{ entry.title }}</div>
     <!-- Author -->

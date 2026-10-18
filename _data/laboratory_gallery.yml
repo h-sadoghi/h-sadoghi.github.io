@@ -1,0 +1,54 @@
+- image: assets/img/legacy/gallery-sabzevar1-6dbbf6f20a.jpg
+  caption: دانشجویان دوست داشتنی حکیم سبزواری
+  source_path: assets/studentimages/sabzevar1.jpg
+  sha256: 6dbbf6f20a6735e27ad7c5ea744bedc03ad6707589064953b1513d6b9a1e96e0
+- image: assets/img/legacy/gallery-img-0037-5b012c7b79.jpg
+  caption: دیدار با تعدادی از دانشجویان دوست داشتنی حکیم سبزواری
+  source_path: assets/studentimages/IMG_0037.jpg
+  sha256: 5b012c7b79a426c91b0ef53f7b97a28f0bbf0cc42704988d18ac0337687d678f
+- image: assets/img/legacy/gallery-img-0035-f7b27191b0.jpg
+  caption: دیدار با تعدادی از دانشجویان دوست داشتنی حکیم سبزواری
+  source_path: assets/studentimages/IMG_0035.jpg
+  sha256: f7b27191b091dcc537e4a3ce7d718e911e1fae7d1e5bd24de57201e6ecd216fd
+- image: assets/img/legacy/gallery-dsc03571-a00c9c5068.jpg
+  caption: دانشجویان دوست داشتنی حکیم سبزواری
+  source_path: assets/studentimages/DSC03571.jpg
+  sha256: a00c9c5068339b5a9ada5fc5cf23ef84f872ee21c36855f5fea98ce91360026f
+- image: assets/img/legacy/gallery-bahreini-gharib-ansari-c08cc6683e.jpg
+  caption: دفاع خانم دکتر بحرینی -دانشجویان تصویر- خانم دکتر غریب-خانم دکتر انصاری
+  source_path: assets/studentimages/bahreini_gharib_ansari.jpg
+  sha256: c08cc6683eec885cb855d23bdde07f6a1fb7a3dd07aed559259f41a6e8321b1b
+- image: assets/img/legacy/gallery-ashkezari-5908b15a71.jpg
+  caption: آماده سازی کوادکوپتر
+  source_path: assets/studentimages/ashkezari.jpg
+  sha256: 5908b15a71dddd600d6d16fff099647e88f5d65e1c2f26f8bb349f326463ef13
+- image: assets/img/legacy/gallery-mortezapour-hosseini-23ebc01a5c.jpg
+  caption: کار میدانی دانشجویان در  راهاندازی کوادکوپتر
+  source_path: assets/studentimages/mortezapour_hosseini.jpg
+  sha256: 23ebc01a5c82ca7f70b35d04484875706a01eb5f189df20906676c8e1868bfe7
+- image: assets/img/legacy/gallery-shams-nayyeri-bahrami-32c27552ca.jpg
+  caption: مهندس شمس-دکتر نیری-مهندس بهرامی
+  source_path: assets/studentimages/shams_nayyeri_bahrami.jpg
+  sha256: 32c27552ca7e501c77949602de6456931573ed14dc711c1fca90123aa1ed5491
+- image: assets/img/legacy/gallery-hosseini-interactivewall-114cb829ab.jpg
+  caption: مهندس حسینی در پروژه دیوار تعاملی
+  source_path: assets/studentimages/hosseini_InteractiveWall.jpg
+  sha256: 114cb829abc4eef106a82035d370f9faefdbd071a708e18046b31dbc3e190e81
+- image: assets/img/legacy/gallery-fatahosseini-3e270baa4d.jpg
+  caption: بازدید پلیس فتای استان از آزمایشگاه شناسایی الگو-باهمت بچه های خوب الگو
+  source_path: assets/studentimages/FataHosseini.jpg
+  sha256: 3e270baa4dfca4a7b7f2c17687893a72cc9d26fa9de4b82c9390f115c97aa2b2
+- image: assets/img/legacy/gallery-fata2-055f7a6c54.jpg
+  caption: بازدید پلیس فتای استان به همراه اساتید دوست داشتنی گروه کامپیوتر از آزمایشگاه
+    شناسایی الگو-باهمت بچه های خوب الگو
+  source_path: assets/studentimages/Fata2.jpg
+  sha256: 055f7a6c5402475df3442c8f430523728949de7ae0d69853201bb4c5e23b2db3
+- image: assets/img/legacy/gallery-interactivewall-decd2497f3.jpg
+  caption: اجرای اولین دیوار تعاملی در نمایشگاه کودکان-باهمت بچه های خوب الگو
+  source_path: assets/studentimages/InteractiveWall.jpg
+  sha256: decd2497f32b979ccc4dd48f38631d7526d10e060aeea7a85c7c649faecc346c
+- image: assets/img/legacy/gallery-farhangi-6d633b7f74.jpg
+  caption: بازدید مدیر فرهنگی، مدیر ارتباطات و مدیر رسانه های نوین آستان قدس از آزمایشگاه
+    شناسایی الگو-باهمت بچه های خوب الگو آقایان مهندس حسینی و مرتضی پور
+  source_path: assets/studentimages/Farhangi.jpg
+  sha256: 6d633b7f7498311395ef26b7e068c0042b543fa6668e5695213bc2e88bccc09f

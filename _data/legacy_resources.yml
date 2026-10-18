@@ -1,0 +1,933 @@
+- source_path: presentation/bowtie.md
+  destination_path: _pages/resources/presentation-bowtie.md
+  destination_url: /resources/presentation-bowtie/
+  title: روش پاپیونی (Bow-Tie) در مدیریت ریسک
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: 27866cc77fbd0eeafc69d6d386645ae067e724e7700cdc0a23ab5d31272eb238
+- source_path: presentation/DataBase_MediacalUniversity.md
+  destination_path: _pages/resources/presentation-database-mediacaluniversity.md
+  destination_url: /resources/presentation-database-mediacaluniversity/
+  title: پلتفرم مدیریت و بهره‌برداری از داده‌های پژوهشی و بالینی
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: 755340e6e8a22011cd5e779e7a929d204b616dc68d53391e338c8011db7b3e86
+- source_path: presentation/datalake1.md
+  destination_path: _pages/resources/presentation-datalake1.md
+  destination_url: /resources/presentation-datalake1/
+  title: Data lakes and artificial intelligence for the power sector
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: 691106e58410a2f01eedbf2655ee19282ab4a50a4b25f9f71e8c4bbbdd2703f3
+- source_path: presentation/EliteNetwork.md
+  destination_path: _pages/resources/presentation-elitenetwork.md
+  destination_url: /resources/presentation-elitenetwork/
+  title: شبکهٔ خبرگان و همکاری پژوهشی
+  group: Presentations and proposals
+  mode: public_concept_summary
+  body_sha256: b9fd5e3bd6fd2379cd3c2dd281c1c38dd230fb01bdbb88a66805b6ac9459b5a8
+- source_path: presentation/EmkanAI.md
+  destination_path: _pages/resources/presentation-emkanai.md
+  destination_url: /resources/presentation-emkanai/
+  title: پروژه امکان؛ از آموزش هوش مصنوعی تا مهارت، نمونه‌کار و استقلال حرفه‌ای
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: b3480dddfe095fdbf80ce535c0cd70f4e01ed3d87d7970b6c0db706d04759781
+- source_path: presentation/Exe_Psycho_HDT.md
+  destination_path: _pages/resources/presentation-exe-psycho-hdt.md
+  destination_url: /resources/presentation-exe-psycho-hdt/
+  title: معماری نمونهٔ دوقلوی دیجیتال انسان
+  group: Presentations and proposals
+  mode: public_concept_summary
+  body_sha256: 9058b44da4f27c33ff6602cd09f849f069f39a117d457ee2239caf3227ced19f
+- source_path: presentation/helpbowtie.md
+  destination_path: _pages/resources/presentation-helpbowtie.md
+  destination_url: /resources/presentation-helpbowtie/
+  title: Bow-Tie risk diagram — teaching example
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: 91c3de35cde78a15a2fca95e162afee240f9181c731db2b9c17776b7717730ad
+- source_path: presentation/HumanDT.md
+  destination_path: _pages/resources/presentation-humandt.md
+  destination_url: /resources/presentation-humandt/
+  title: دوقلوی دیجیتال انسان
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: f79d61d0f5aec8c2b6997877a926069e4bfda7d5af5eb67835e275eb93525172
+- source_path: presentation/MaintenanceAware.md
+  destination_path: _pages/resources/presentation-maintenanceaware.md
+  destination_url: /resources/presentation-maintenanceaware/
+  title: سیستم تعمیر-آگاه
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: 70740554b5423808328f97ad6647f5a38a2c64a6f044831fe79f1554870a514f
+- source_path: presentation/PowerSectorRepairingOptimize.md
+  destination_path: _pages/resources/presentation-powersectorrepairingoptimize.md
+  destination_url: /resources/presentation-powersectorrepairingoptimize/
+  title: سیستم هوش مصنوعی برای برنامه‌ریزی، زمان‌بندی و مسیریابی گروه‌های تعمیراتی
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: 2afa40fdd5bf44a2b03cc50043413c5e7ad2982142fc00ef3f3409941c3fb4d4
+- source_path: presentation/prison.md
+  destination_path: _pages/resources/presentation-prison.md
+  destination_url: /resources/presentation-prison/
+  title: Detection of Anomalous Behavior in Prisoner Gatherings Using Surveillance
+    Cameras
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: c2d26a2bbdb57731e4e07ca025c246d76b193af17cb7e7c731fe955bf3460f54
+- source_path: presentation/Psycho_HDT.md
+  destination_path: _pages/resources/presentation-psycho-hdt.md
+  destination_url: /resources/presentation-psycho-hdt/
+  title: دوقلوی دیجیتال انسان — طرح پژوهشی
+  group: Presentations and proposals
+  mode: public_concept_summary
+  body_sha256: 3b363ae7666f0ae9acffcbef6f1d0b55e564c52294dd54f4c08df28682066fce
+- source_path: presentation/RAG_Industry.md
+  destination_path: _pages/resources/presentation-rag-industry.md
+  destination_url: /resources/presentation-rag-industry/
+  title: دستیار هوشمند برای ارتباط با صنعت دانشگاه فردوسی مشهد
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: a86133f754cb853f4af0d696c61714a2196e1da2d25563f431aa57a24ae42285
+- source_path: presentation/RefineryDT.md
+  destination_path: _pages/resources/presentation-refinerydt.md
+  destination_url: /resources/presentation-refinerydt/
+  title: دوقلوی دیجیتال صنعت نفت
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: 8b1fc786452b91e58e53bdeec07b54ab45e644730640e235bdd1b138a4ecc042
+- source_path: presentation/WaterOptimizing.md
+  destination_path: _pages/resources/presentation-wateroptimizing.md
+  destination_url: /resources/presentation-wateroptimizing/
+  title: "مدیریت هوشمند پروژه‌های آبی: بهینه‌سازی زمان، هزینه، ماشین‌آلات و نیروی
+    انسانی با هوش مصنوعی"
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: 1645049704f15731fc3cee1f9c19a929ed9bb223b6adf8507072a112e46ce97f
+- source_path: presentation/waterRAG.md
+  destination_path: _pages/resources/presentation-waterrag.md
+  destination_url: /resources/presentation-waterrag/
+  title: تحلیل هوشمند و پاسخگویی خودکار به سوالات کارشناسی با بهره‌گیری از آمار و
+    گزارش‌های شرکت آب منطقه ای خراسان رضوی
+  group: Presentations and proposals
+  mode: full_article
+  body_sha256: ef53aec7a788ffd71c4201e60283a2d6788d334601ba0a8e4251ca12b4f5a15b
+- source_path: projects/AIBasedBowtieRAG.md
+  destination_path: _projects/legacy-aibasedbowtierag.md
+  destination_url: /projects/legacy-aibasedbowtierag/
+  title: AI-based Bow-Tie with retrieval-augmented generation
+  group: Engineering projects
+  mode: project_article
+  body_sha256: 29219a0f41b29429f45bec117d6941eb24058af8d081f58392bb8294af13f3e0
+- source_path: projects/PatientGuidbyAI.md
+  destination_path: _pages/resources/projects-patientguidbyai.md
+  destination_url: /resources/projects-patientguidbyai/
+  title: AI-assisted patient guidance — research concept
+  group: Health research concepts
+  mode: public_concept_summary
+  body_sha256: 0eb21813f89ad98b786bcd19bb4e8f02800f733c539e7eec99085816aa36027d
+- source_path: projects/repairprogramming.md
+  destination_path: _projects/legacy-repairprogramming.md
+  destination_url: /projects/legacy-repairprogramming/
+  title: Intelligent maintenance scheduling for power networks
+  group: Engineering projects
+  mode: project_article
+  body_sha256: 02a043ef50d2bf2169984562dae93a1a121a824e63d5ba0189b97ebc69bd58f0
+- source_path: projects/SmartAllocationOrthopedicTeamsPoweredbyAI.md
+  destination_path: _pages/resources/projects-smartallocationorthopedicteamspoweredbyai.md
+  destination_url: /resources/projects-smartallocationorthopedicteamspoweredbyai/
+  title: Orthopedic team allocation — research concept
+  group: Health research concepts
+  mode: public_concept_summary
+  body_sha256: b3e01bdf3cf198a6dc9437b98e074d09740f09d6153eb8f45823ab7009827362
+- source_path: projects/smartindustryfum.md
+  destination_path: _projects/legacy-smartindustryfum.md
+  destination_url: /projects/legacy-smartindustryfum/
+  title: University–industry knowledge assistant
+  group: Engineering projects
+  mode: project_article
+  body_sha256: 2986beabd88390aa857eca36268060c6e1e0b05aa67d9b1f4888212eff10512b
+- source_path: _pages/project-1.md
+  destination_path: _projects/legacy-project-1.md
+  destination_url: /projects/legacy-project-1/
+  title: Firefighter locator and vital-sign recorder
+  group: Engineering projects
+  mode: project_article
+  body_sha256: 03fd1a0da5fda5a31eed2c7a5785ff83197cb0815f57ff9c5dcdff5e3cde3cb8
+- source_path: _pages/project-2.md
+  destination_path: _projects/legacy-project-2.md
+  destination_url: /projects/legacy-project-2/
+  title: Street-lighting control with AMI meter clocks
+  group: Engineering projects
+  mode: project_article
+  body_sha256: ad2568b8a019f5b21eee6ff362796bcba4340e360d12053dea5c1c302f0d0c0b
+- source_path: _pages/project-9.md
+  destination_path: _projects/legacy-project-9.md
+  destination_url: /projects/legacy-project-9/
+  title: Smart coaching and pose analysis
+  group: Engineering projects
+  mode: project_article
+  body_sha256: 241fd37497dae9c3832c0918bf5c9c1413a697d037f8515565866e1f90714f41
+- source_path: projects/smartindustrysaifum/balasary.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-balasary.md
+  destination_url: /resources/projects-smartindustrysaifum-balasary/
+  title: دستورالعمل اجرایی نحوه هزینه‌کرد بالاسری طرح‌های برون دانشگاهی توسط دانشکده‌ها/واحدهای
+    پژوهشی
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 627938dfb0116450075d8a3a8f6d95e924efc861b0265c4b85a40789f9ab29f9
+- source_path: projects/smartindustrysaifum/emtiaz.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-emtiaz.md
+  destination_url: /resources/projects-smartindustrysaifum-emtiaz/
+  title: دستورالعمل امتیازدهی به فعالیت‌های ارتباط با صنعت و جامعه اعضای هیات علمی
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 1671443133894e1d739e3a50a0264d1bd1fa1941c18e87db4f8a1c34edeb043f
+- source_path: projects/smartindustrysaifum/fannavari.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-fannavari.md
+  destination_url: /resources/projects-smartindustrysaifum-fannavari/
+  title: آیین‌نامه کمیسیون تخصصی فناوری و نوآوری شورای پژوهش و فناوری دانشگاه فردوسی
+    مشهد
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 4a6b8bf43a47ef243c30721a3cc96a10aa4f2681375fb96e8295698af2b8c1f4
+- source_path: projects/smartindustrysaifum/forsatstudy.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-forsatstudy.md
+  destination_url: /resources/projects-smartindustrysaifum-forsatstudy/
+  title: دستورالعمل اجرایی فرصت مطالعاتی اعضای هیأت علمی در جامعه و صنعت
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 9352543c59dac9875d3ae6e0ca348ab4efc4dc78d16c54b363304965dee5a7ea
+- source_path: projects/smartindustrysaifum/infosaifum.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-infosaifum.md
+  destination_url: /resources/projects-smartindustrysaifum-infosaifum/
+  title: معرفی سایفوم
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 2563e56ec6f07dee77e497b5aa386a42f25514c8859a494b7519b7cf918bd728
+- source_path: projects/smartindustrysaifum/karamoozi.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-karamoozi.md
+  destination_url: /resources/projects-smartindustrysaifum-karamoozi/
+  title: آیین‌نامه دوره کارآموزی بلندمدت دانشگاه فردوسی مشهد
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 9171ae2f0464974ce21fcae3b7f70266a1a82da38865886c2ba568c721513df4
+- source_path: projects/smartindustrysaifum/Practicalguide.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-practicalguide.md
+  destination_url: /resources/projects-smartindustrysaifum-practicalguide/
+  title: راهنمای عملی دانشجوی کارشناسی و کاردانی
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 7fa1d7188316471d2501205d5b61f9665b31166edf43893b29ede45be4ed2645
+- source_path: projects/smartindustrysaifum/ResearchGlobalview.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-researchglobalview.md
+  destination_url: /resources/projects-smartindustrysaifum-researchglobalview/
+  title: چارچوب کلان پژوهش
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 57e0d8dd5eb5cacbae05d1319b9a61490227335d8aa52056b5e3737fb303d2cf
+- source_path: projects/smartindustrysaifum/ResearchProcess.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-researchprocess.md
+  destination_url: /resources/projects-smartindustrysaifum-researchprocess/
+  title: فرآیند پژوهش و عالی‌ترین مدارج
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 438a9ef05238ec40ed848fb8484bbaf20420d9f96a4fc014d42052e16b0ba0f4
+- source_path: projects/smartindustrysaifum/saifumlaw.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-saifumlaw.md
+  destination_url: /resources/projects-smartindustrysaifum-saifumlaw/
+  title: قوانین نهفته در سایفوم
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: 7787b4c1f4807e855e42d2ea843cb23f430663bb8a42c20be5218b8766ce0dcc
+- source_path: projects/smartindustrysaifum/saifumReport.md
+  destination_path: _pages/resources/projects-smartindustrysaifum-saifumreport.md
+  destination_url: /resources/projects-smartindustrysaifum-saifumreport/
+  title: گزارش کار با سایفوم
+  group: University–industry reference archive
+  mode: full_article
+  body_sha256: ace42211692669d59140eff8165167e5fc4f89c7bcb6c515debd4d074f36c616
+- source_path: PublicationCode/JMLR_Code_Result/ReadMe.md
+  destination_path: _pages/resources/publicationcode-jmlr-code-result-readme.md
+  destination_url: /resources/publicationcode-jmlr-code-result-readme/
+  title: "Capability-Aware Imbalance in Composite Decision Systems: An Optimal Transport
+    View"
+  group: Research artifacts
+  mode: research_artifact
+  body_sha256: 78fb918bf5dcdf264e85ba4afe2a29296af7d659962ff23939e4ffe25dde20ba
+- source_path: teaching/AI_HS/introduction.md
+  destination_path: _pages/resources/teaching-ai-hs-introduction.md
+  destination_url: /resources/teaching-ai-hs-introduction/
+  title: هوش مصنوعی برای دانش‌آموزان دبیرستانی
+  group: Data engineering and AI education
+  mode: full_article
+  body_sha256: 801631607dcb0016559ddd9379640291d6ac1d2bd023c11794adf187925d798e
+- source_path: teaching/circuiteffort/AC-Analysis-of-Electronic-Circuits-Using-NgSpice.md
+  destination_path: _pages/resources/teaching-circuiteffort-ac-analysis-of-electronic-circuits-using-ngspice.md
+  destination_url: /resources/teaching-circuiteffort-ac-analysis-of-electronic-circuits-using-ngspice/
+  title: تحلیل AC مدارهای الکترونیکی با استفاده از NgSpice و بررسی عملی PySpice
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: b6ad48f77e5385a9354286e00fd9650de70e4edbd0169a3e1e1d798553e3a01a
+- source_path: teaching/circuiteffort/ACTODC.md
+  destination_path: _pages/resources/teaching-circuiteffort-actodc.md
+  destination_url: /resources/teaching-circuiteffort-actodc/
+  title: AC-to-DC conversion — English notes
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 2c2d013d5b32de30b48331d3d65c408b4d7fa0108644873e2eeed7d9bbe24c47
+- source_path: teaching/circuiteffort/ACTODCFARSI.md
+  destination_path: _pages/resources/teaching-circuiteffort-actodcfarsi.md
+  destination_url: /resources/teaching-circuiteffort-actodcfarsi/
+  title: مبدل AC به DC — یادداشت فارسی
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 2f5d950ebbda6dfc6bf841076eeec83df02fc56f4e54fa02ab9f14bc8724fe3c
+- source_path: teaching/circuiteffort/ACTODCPRESENTATION.md
+  destination_path: _pages/resources/teaching-circuiteffort-actodcpresentation.md
+  destination_url: /resources/teaching-circuiteffort-actodcpresentation/
+  title: مبدل AC به DC — نسخهٔ ارائه
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 346764cdbe3b28ec522ab45f13e0082b7b49a1a9041e79c4670d4c84b6a606a3
+- source_path: teaching/circuiteffort/Analysis_and_reduction_of_electromagnetic_interference_in_buck_converters.md
+  destination_path: _pages/resources/teaching-circuiteffort-analysis-and-reduction-of-electromagnetic-interference-in-buck-converters.md
+  destination_url: /resources/teaching-circuiteffort-analysis-and-reduction-of-electromagnetic-interference-in-buck-converters/
+  title: تحلیل و کاهش تداخل الکترومغناطیسی در مبدل‌های سوئیچینگ
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 6f73ae134ffbfacddf797f19a211a33b7b7ed29852b13694649314673ac7fb65
+- source_path: teaching/circuiteffort/Analysis_and_reduction_of_electromagnetic_interference_in_buck_converters_2.md
+  destination_path: _pages/resources/teaching-circuiteffort-analysis-and-reduction-of-electromagnetic-interference-in-buck-converters-2.md
+  destination_url: /resources/teaching-circuiteffort-analysis-and-reduction-of-electromagnetic-interference-in-buck-converters-2/
+  title: تحلیل و کاهش تداخل الکترومغناطیسی در مبدل‌های سوئیچینگ ادامه
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: c5a740abcc898aa10a41327d6524a3c8bb246d25cbfe340348e8f0acdca1b980
+- source_path: teaching/circuiteffort/batterymodel.md
+  destination_path: _pages/resources/teaching-circuiteffort-batterymodel.md
+  destination_url: /resources/teaching-circuiteffort-batterymodel/
+  title: مدل‌های باتری
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 9cdf41d92ce75f6baf1b58198b289615058540a93aaca4b20e307045236470f6
+- source_path: teaching/circuiteffort/Bias_Point_Analysis.md
+  destination_path: _pages/resources/teaching-circuiteffort-bias-point-analysis.md
+  destination_url: /resources/teaching-circuiteffort-bias-point-analysis/
+  title: Bias Point Analysis
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 24694691169953f4e598b39ecf59f3d16bee347a41d42e3ba11f47545305b44c
+- source_path: teaching/circuiteffort/capacitor.md
+  destination_path: _pages/resources/teaching-circuiteffort-capacitor.md
+  destination_url: /resources/teaching-circuiteffort-capacitor/
+  title: خازن فصل 2
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 30e121c703f3b486a64a680f0529b3fef4ebd36800af2b1799b33d8a6361866e
+- source_path: teaching/circuiteffort/capacitor0.md
+  destination_path: _pages/resources/teaching-circuiteffort-capacitor0.md
+  destination_url: /resources/teaching-circuiteffort-capacitor0/
+  title: خازن فصل 1
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: ef1009f1c7264da1a43303b43c0f67bcbcf889adeed8bc2040f84cec053c2a4b
+- source_path: teaching/circuiteffort/circuit-elements-guide.md
+  destination_path: _pages/resources/teaching-circuiteffort-circuit-elements-guide.md
+  destination_url: /resources/teaching-circuiteffort-circuit-elements-guide/
+  title: کتابچه المان‌های مدار برای دانش‌آموزان
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: c51577228ac5ca8b1a1021baf67b4eadc991e862ad6696c0f06c9f783a35fb60
+- source_path: teaching/circuiteffort/Circuit_Schematic_Drawing_Project.md
+  destination_path: _pages/resources/teaching-circuiteffort-circuit-schematic-drawing-project.md
+  destination_url: /resources/teaching-circuiteffort-circuit-schematic-drawing-project/
+  title: رسم شماتیک مدار
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: b6ea77f08a66d9c2152390f36c54a5713ede80f83c6743ab8edfb69400fbf8d1
+- source_path: teaching/circuiteffort/DC_Motor_en_fixed_DC_Motor.md
+  destination_path: _pages/resources/teaching-circuiteffort-dc-motor-en-fixed-dc-motor.md
+  destination_url: /resources/teaching-circuiteffort-dc-motor-en-fixed-dc-motor/
+  title: DC Motor
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 1eed8fbc3fd0f799e491c712c5f117b7d11a0d05893b309690f4c4049931940c
+- source_path: teaching/circuiteffort/DC_Motor_fa_fixed_toc_DC_Motor.md
+  destination_path: _pages/resources/teaching-circuiteffort-dc-motor-fa-fixed-toc-dc-motor.md
+  destination_url: /resources/teaching-circuiteffort-dc-motor-fa-fixed-toc-dc-motor/
+  title: موتور جریان مستقیم (DC Motor)
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 096fcea54c2b6182108439f3808d374872fdc3cabafc62fa86b1690c8ddc0574
+- source_path: teaching/circuiteffort/Diode_sensitivity_Analysis.md
+  destination_path: _pages/resources/teaching-circuiteffort-diode-sensitivity-analysis.md
+  destination_url: /resources/teaching-circuiteffort-diode-sensitivity-analysis/
+  title: تحلیل حساسیت در مدارات دیودی
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 8163cac179de5c8525c1f745fa1789e8f223cec28f781131da9f58785fb753cb
+- source_path: teaching/circuiteffort/earthing.md
+  destination_path: _pages/resources/teaching-circuiteffort-earthing.md
+  destination_url: /resources/teaching-circuiteffort-earthing/
+  title: زمین کردن
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 9e15ceb2b3521a592e15ad91a4101ee3d9ee74654493322c083262dc78e828f9
+- source_path: teaching/circuiteffort/Edge_processing_in_smart_devices.md
+  destination_path: _pages/resources/teaching-circuiteffort-edge-processing-in-smart-devices.md
+  destination_url: /resources/teaching-circuiteffort-edge-processing-in-smart-devices/
+  title: edge computing
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 42f1c75baf4271cf957da8ed7cce9b7ab21c67988458c4a5e1e808732d713037
+- source_path: teaching/circuiteffort/Introduction_Thyristors.md
+  destination_path: _pages/resources/teaching-circuiteffort-introduction-thyristors.md
+  destination_url: /resources/teaching-circuiteffort-introduction-thyristors/
+  title: Thyristors
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: f895ef9ffb00edf5555030352641dc800445692781afead430dd1f4f995cfa33
+- source_path: teaching/circuiteffort/iot-system.md
+  destination_path: _pages/resources/teaching-circuiteffort-iot-system.md
+  destination_url: /resources/teaching-circuiteffort-iot-system/
+  title: اینترنت اشیا
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: ae053af39ffd6a87fada3eca5749dc7598cde42ef86368db57b24855dae2711b
+- source_path: teaching/circuiteffort/iot_enabled_gas_leakage_detector.md
+  destination_path: _pages/resources/teaching-circuiteffort-iot-enabled-gas-leakage-detector.md
+  destination_url: /resources/teaching-circuiteffort-iot-enabled-gas-leakage-detector/
+  title: IoT-Enabled Gas Leakage Detector
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 66b6ad0babca65d93a4e579123824741dcb4a9a89b193ffd0c73bf7a289bfcfa
+- source_path: teaching/circuiteffort/llm_pid.md
+  destination_path: _pages/resources/teaching-circuiteffort-llm-pid.md
+  destination_url: /resources/teaching-circuiteffort-llm-pid/
+  title: مدل زبانی در حلقهٔ تنظیم PID — معرفی پژوهشی
+  group: Circuits and electronics
+  mode: public_concept_summary
+  body_sha256: eada1acf787674dc26d836737edd2e326df1a93d6ff9a766da55bc7dfab92c9b
+- source_path: teaching/circuiteffort/mq2_gas_sensor.md
+  destination_path: _pages/resources/teaching-circuiteffort-mq2-gas-sensor.md
+  destination_url: /resources/teaching-circuiteffort-mq2-gas-sensor/
+  title: "Gas Sensors: Types, Principles, and Applications"
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 936dbe4496981c6c31cdc328268dba8c8b1b6ba8f55f90f023de0adf9d19e704
+- source_path: teaching/circuiteffort/multimeter-operating-principle-and-uses.md
+  destination_path: _pages/resources/teaching-circuiteffort-multimeter-operating-principle-and-uses.md
+  destination_url: /resources/teaching-circuiteffort-multimeter-operating-principle-and-uses/
+  title: مولتی متر (نحوه عملکرد و کاربرد ها)
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 7ec73e49f8c54f30fa2809b488e8092f9534164ea16b1b3dcbeda010cb0083b1
+- source_path: teaching/circuiteffort/OhmMeterWeb.md
+  destination_path: _pages/resources/teaching-circuiteffort-ohmmeterweb.md
+  destination_url: /resources/teaching-circuiteffort-ohmmeterweb/
+  title: "مقاله جامع اهم‌سنج (Ohmmeter): از تئوری کلاسیک تا دقت دیجیتال"
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: ead4d6f14ac71134ce30e8b68bd699695b6af9fdde6c86214582ae7ca71215c4
+- source_path: teaching/circuiteffort/paralellvoltagesource.md
+  destination_path: _pages/resources/teaching-circuiteffort-paralellvoltagesource.md
+  destination_url: /resources/teaching-circuiteffort-paralellvoltagesource/
+  title: رفتار منابع ولتاژ در حالت موازی
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: babc42ed12f1b304c30e21f17633565796636e373a323e3a4cacd15659b6117a
+- source_path: teaching/circuiteffort/phasors-guide.md
+  destination_path: _pages/resources/teaching-circuiteffort-phasors-guide.md
+  destination_url: /resources/teaching-circuiteffort-phasors-guide/
+  title: کتابچه آموزشی فازورها
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 23bdf696a89423d4371b45f00a1ac0b138430cfaab9f231da54e544aeccd5494
+- source_path: teaching/circuiteffort/pid_rocket.md
+  destination_path: _pages/resources/teaching-circuiteffort-pid-rocket.md
+  destination_url: /resources/teaching-circuiteffort-pid-rocket/
+  title: کنترل PID — یادداشت آموزشی
+  group: Circuits and electronics
+  mode: public_concept_summary
+  body_sha256: 791c86620ce5294c47340668975b1ed7e1fda9c29eb3fe50d88b9fd783043c42
+- source_path: teaching/circuiteffort/PyspiceInstall.md
+  destination_path: _pages/resources/teaching-circuiteffort-pyspiceinstall.md
+  destination_url: /resources/teaching-circuiteffort-pyspiceinstall/
+  title: PySpice Installation Manual
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 70cb5c20928c6b6b1f902f2f157c000276af2ee1f13b53a957ae57e45ce6d4d8
+- source_path: teaching/circuiteffort/realparalellvoltagesource.md
+  destination_path: _pages/resources/teaching-circuiteffort-realparalellvoltagesource.md
+  destination_url: /resources/teaching-circuiteffort-realparalellvoltagesource/
+  title: رفتار منابع ولتاژ در حالت موازی
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 1204c4d5b80c922f2d05b2135c0093c28fad3feb688541e671220eab7413d982
+- source_path: teaching/circuiteffort/ResistorCapacitor.md
+  destination_path: _pages/resources/teaching-circuiteffort-resistorcapacitor.md
+  destination_url: /resources/teaching-circuiteffort-resistorcapacitor/
+  title: شرحی بر مقاومت و خازن
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 52b51f0ebe98d4993f7a26df24b4cbfdd4d2bde316e6c1566812ad75e671e27b
+- source_path: teaching/circuiteffort/sensors.md
+  destination_path: _pages/resources/teaching-circuiteffort-sensors.md
+  destination_url: /resources/teaching-circuiteffort-sensors/
+  title: تجمیع سنسور ها
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 19f46b83fdd22b2f997715d9f4da957eb75d1b43adc0878cea7fb3d27a0911a9
+- source_path: teaching/circuiteffort/Simulation-and-Circuit-Analysis.md
+  destination_path: _pages/resources/teaching-circuiteffort-simulation-and-circuit-analysis.md
+  destination_url: /resources/teaching-circuiteffort-simulation-and-circuit-analysis/
+  title: نرم افزار های شبیه سازی و تحلیل مدار
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 8d7cf0565478032aec3347fb49c8c22520db4bb732e9b7672f85adaec520cae9
+- source_path: teaching/circuiteffort/stepper_motor.md
+  destination_path: _pages/resources/teaching-circuiteffort-stepper-motor.md
+  destination_url: /resources/teaching-circuiteffort-stepper-motor/
+  title: موتورهای‌پله‌ای
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 70c2341cd3102a205f9abf34ba149f5f40f9312c3ddbd825fc7e0368f950a9e1
+- source_path: teaching/circuiteffort/Tilt_sensor.md
+  destination_path: _pages/resources/teaching-circuiteffort-tilt-sensor.md
+  destination_url: /resources/teaching-circuiteffort-tilt-sensor/
+  title: Tilt Sensor
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 94b0e10d5b853825e52279463d70d73c08fd038701281ed8443f5acaeff3a6ff
+- source_path: teaching/circuiteffort/wiseeda-like-automated-design-of-rc-low-pass-filters.md
+  destination_path: _pages/resources/teaching-circuiteffort-wiseeda-like-automated-design-of-rc-low-pass-filters.md
+  destination_url: /resources/teaching-circuiteffort-wiseeda-like-automated-design-of-rc-low-pass-filters/
+  title: طراحی خودکار فیلتر RC پایین‌گذر با الهام از WiseEDA
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 7836c504b69de1ea259ec57868cda5eaf398a1b71a1c6b31db263fea04b5d5f2
+- source_path: teaching/DataEngCourse/Data.md
+  destination_path: _pages/resources/teaching-dataengcourse-data.md
+  destination_url: /resources/teaching-dataengcourse-data/
+  title: اکتساب، پردازش و مدیریت داده
+  group: Data engineering and AI education
+  mode: full_article
+  body_sha256: 1ccec3b867c6c974ccb1c61602e3f7cf73b00bef01eb5585aebfb63d19904393
+  search_terms: Data engineering acquisition processing management
+- source_path: teaching/DataEngCourse/Numpy_subsection.md
+  destination_path: _pages/resources/teaching-dataengcourse-numpy-subsection.md
+  destination_url: /resources/teaching-dataengcourse-numpy-subsection/
+  title: چگونه پروژه درسی خود را در زمانی کوتاه آماده کنیم
+  group: Data engineering and AI education
+  mode: full_article
+  body_sha256: fe625395d2c1f325d7e9e1711f506e3f21a8e92c1c1056d491bdeb0641df3dd8
+- source_path: teaching/DataEngCourse/processingtools.md
+  destination_path: _pages/resources/teaching-dataengcourse-processingtools.md
+  destination_url: /resources/teaching-dataengcourse-processingtools/
+  title: مهندسی داده
+  group: Data engineering and AI education
+  mode: full_article
+  body_sha256: 55bd9214e639bcd46f51b4fb876e075b45ae79f07f83d6e7e94a9cf23c1d1753
+- source_path: teaching/organizations/organ_ai.md
+  destination_path: _pages/resources/teaching-organizations-organ-ai.md
+  destination_url: /resources/teaching-organizations-organ-ai/
+  title: آشنایی با هوش مصنوعی و کاربردهای آن در سازمان
+  group: Data engineering and AI education
+  mode: full_article
+  body_sha256: 8c8d464bfba1b7d24efa8bb021b2a10996ad7042619abbf4d2632ff99e97e39b
+- source_path: teaching/patterneffort/Analysis_of_Variance_of_Cross_Validation_Estimators_of_the_Generalization_Error.md
+  destination_path: _pages/resources/teaching-patterneffort-analysis-of-variance-of-cross-validation-estimators-of-the-generalization-error.md
+  destination_url: /resources/teaching-patterneffort-analysis-of-variance-of-cross-validation-estimators-of-the-generalization-error/
+  title: تحلیل واریانس برآوردگرهای اعتبارسنجی متقابل خطای تعمیم
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 45a13620f070fa136bfd116b175ba521d562efa15126a32d9d0739751e26bb51
+- source_path: teaching/patterneffort/BERT.md
+  destination_path: _pages/resources/teaching-patterneffort-bert.md
+  destination_url: /resources/teaching-patterneffort-bert/
+  title: BERT
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: d3099ac0a49e34c83b3b60347cd572ef5224fd2f67bed8027dc4ec9a8c3962e8
+  search_terms: BERT transformer language model
+- source_path: teaching/patterneffort/CrossValidation.md
+  destination_path: _pages/resources/teaching-patterneffort-crossvalidation.md
+  destination_url: /resources/teaching-patterneffort-crossvalidation/
+  title: اعتبارسنجی متقاطع Cross Vslidation
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: d1604dfec4cf51bfbae4bf96174711e4e72713e995cc59d6a411cc61fa212486
+- source_path: teaching/patterneffort/cvxpy_guidance.md
+  destination_path: _pages/resources/teaching-patterneffort-cvxpy-guidance.md
+  destination_url: /resources/teaching-patterneffort-cvxpy-guidance/
+  title: CVXPY Guidance
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: e8e70473b03c197ee2773f54d803302af266bcfe44121250e8371670a626601e
+- source_path: teaching/patterneffort/DeepDream.md
+  destination_path: _pages/resources/teaching-patterneffort-deepdream.md
+  destination_url: /resources/teaching-patterneffort-deepdream/
+  title: رویای عمیق
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: f92a50c9efeed4e54bcffde7efb0905a55c857561ff3c835904ad49dc0d8edec
+- source_path: teaching/patterneffort/DPC-MK.md
+  destination_path: _pages/resources/teaching-patterneffort-dpc-mk.md
+  destination_url: /resources/teaching-patterneffort-dpc-mk/
+  title: DPC-MK clustering study
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: d1eeb9389adcc40ccefa296e0f58a6943bfba1364e7043e3847cc1f6dd5b7bbe
+- source_path: teaching/patterneffort/Exploring_the_LangChain_Framework.md
+  destination_path: _pages/resources/teaching-patterneffort-exploring-the-langchain-framework.md
+  destination_url: /resources/teaching-patterneffort-exploring-the-langchain-framework/
+  title: "بررسی چارچوب LangChain: توسعه برنامه‌های مبتنی بر مدل‌های زبانی بزرگ"
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: aac072daa72f28856ce98074324073347473c59281dc710f89359405c662786b
+- source_path: teaching/patterneffort/fast_rag_ui.md
+  destination_path: _pages/resources/teaching-patterneffort-fast-rag-ui.md
+  destination_url: /resources/teaching-patterneffort-fast-rag-ui/
+  title: fast_rag_ui
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 4567a2b1a6266f34eed518b57f25fdf426c38937af3e96b0c9015659d06d2738
+- source_path: teaching/patterneffort/Histiory_Vla.md
+  destination_path: _pages/resources/teaching-patterneffort-histiory-vla.md
+  destination_url: /resources/teaching-patterneffort-histiory-vla/
+  title: بینایی–کنش؛ داستان دو مسیر در مغز
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: b8bbaaeff65b7d578aba9524f1bf5379f7339988e30b38ce13828a4e4f74407a
+- source_path: teaching/patterneffort/ImageCluster.md
+  destination_path: _pages/resources/teaching-patterneffort-imagecluster.md
+  destination_url: /resources/teaching-patterneffort-imagecluster/
+  title: خوشه بندی تصاویر
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: d6a997327d4b423e19f7bb96d50004ec581de2e188f21a5ad5405c9017327bcc
+- source_path: teaching/patterneffort/LangChain_ShortMemoty_Doc.md
+  destination_path: _pages/resources/teaching-patterneffort-langchain-shortmemoty-doc.md
+  destination_url: /resources/teaching-patterneffort-langchain-shortmemoty-doc/
+  title: مستندات ماژول حافظه کوتاه‌مدت LangChain
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 5c3195638720943cddbb9cccde85f46aebc6678b98d3bfb51883dd0cadfbf009
+- source_path: teaching/patterneffort/lmm.md
+  destination_path: _pages/resources/teaching-patterneffort-lmm.md
+  destination_url: /resources/teaching-patterneffort-lmm/
+  title: مدل‌های چندوجهی بزرگ
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 36136284b5094f313b79b3002da3f10901edf4f74ccb0abfb1845ad7a826c345
+- source_path: teaching/patterneffort/LMS_RBF.md
+  destination_path: _pages/resources/teaching-patterneffort-lms-rbf.md
+  destination_url: /resources/teaching-patterneffort-lms-rbf/
+  title: LMS (Least Mean Squares) and RBF (Radial Basis Function)
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: aa8bf0f92a7e57c99ceb9d495d7470f3ffba09f5f23b2cc461b45963b9e1902c
+- source_path: teaching/patterneffort/Local-Synergistic-Rag-2025.md
+  destination_path: _pages/resources/teaching-patterneffort-local-synergistic-rag-2025.md
+  destination_url: /resources/teaching-patterneffort-local-synergistic-rag-2025/
+  title: معماری RAG هم‌افزایانه
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: afa3efe651bb23b9f4186b8526aa1976fa497dc7316cc41a2ac4411397ac4fbf
+- source_path: teaching/patterneffort/Memory_Mousavinezhad.md
+  destination_path: _pages/resources/teaching-patterneffort-memory-mousavinezhad.md
+  destination_url: /resources/teaching-patterneffort-memory-mousavinezhad/
+  title: تاریخچه گفت و گو در LangChain
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 700ad0675caa3e64934fa2f007118344757ca707c35eca67ab2ebe8f21ae5b1e
+- source_path: teaching/patterneffort/nlp_libraries_comparison.md
+  destination_path: _pages/resources/teaching-patterneffort-nlp-libraries-comparison.md
+  destination_url: /resources/teaching-patterneffort-nlp-libraries-comparison/
+  title: Non Linear Programming
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 2b63b1b5920672297bd93f9e47c9bdf492c85b8381cf84b613d05d300671bb58
+- source_path: teaching/patterneffort/ollama.md
+  destination_path: _pages/resources/teaching-patterneffort-ollama.md
+  destination_url: /resources/teaching-patterneffort-ollama/
+  title: اجرای  مدل‌های زبانی به صورت محلی در Google Colab برای اجرای برنامه‌های LangChain
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 9f7fedd201d6ce40aee9f828fbeba7ddeaa71935b87afa9bd6ddc7152b173133
+- source_path: teaching/patterneffort/plagiarism_detection.md
+  destination_path: _pages/resources/teaching-patterneffort-plagiarism-detection.md
+  destination_url: /resources/teaching-patterneffort-plagiarism-detection/
+  title: تشخیص سرقت ادبی - Plagiarism Detection
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 907b67daa908fabc0e14f2057c73951917f7e3d9b7f3f253f248eed2cdbad71c
+- source_path: teaching/patterneffort/prompt_engineering.md
+  destination_path: _pages/resources/teaching-patterneffort-prompt-engineering.md
+  destination_url: /resources/teaching-patterneffort-prompt-engineering/
+  title: Prompt Engineering
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: bfee20875f6ee9c8e0a02e50a9d01e4195566c9f078447c8390046fc6c72f861
+- source_path: teaching/patterneffort/pull_request.md
+  destination_path: _pages/resources/teaching-patterneffort-pull-request.md
+  destination_url: /resources/teaching-patterneffort-pull-request/
+  title: آموزش Pull Request
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: f4756b2956e583aaa6aa7774e06525f1c9edbbc784fd08b6e29990df9b9cda1b
+- source_path: teaching/patterneffort/QP1.md
+  destination_path: _pages/resources/teaching-patterneffort-qp1.md
+  destination_url: /resources/teaching-patterneffort-qp1/
+  title: "برنامه‌ریزی درجه دوم در یادگیری ماشین: کاربرد در شناسایی الگو"
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 600383c084cc53d7e08bc2eea3204f22509e2e5e29a9d548a10d11bc6c59f0c5
+- source_path: teaching/patterneffort/SemanticSearchURLProject.md
+  destination_path: _pages/resources/teaching-patterneffort-semanticsearchurlproject.md
+  destination_url: /resources/teaching-patterneffort-semanticsearchurlproject/
+  title: جست و جوی معنایی صفحات وب
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: ee08a488cf8df6087325b6bd37a7b152bb448e0977bcaee8920a9f9e8d43ceb8
+- source_path: teaching/patterneffort/SGD.md
+  destination_path: _pages/resources/teaching-patterneffort-sgd.md
+  destination_url: /resources/teaching-patterneffort-sgd/
+  title: Stochastic Gradient Descent (SGD)
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 56c4b5cd1b14774234c1c27102a364826df0802ac22a439a5056250dd347ec3d
+- source_path: teaching/patterneffort/single_linkage_clustring.md
+  destination_path: _pages/resources/teaching-patterneffort-single-linkage-clustring.md
+  destination_url: /resources/teaching-patterneffort-single-linkage-clustring/
+  title: روش های تجمیعی در یادگیری ماشین
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 4993d823428913744469a6b52760a93e6b5179d38eb845d8a4256c247f78769d
+- source_path: teaching/patterneffort/streamlit.md
+  destination_path: _pages/resources/teaching-patterneffort-streamlit.md
+  destination_url: /resources/teaching-patterneffort-streamlit/
+  title: راهنمای جامع Streamlit با یک مثال کاربردی
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 28e333e8e6d469fe901b17b628d36b63ac600ef52ae3c69a600da3568c579905
+- source_path: teaching/patterneffort/Text_Clustering_FAISS.md
+  destination_path: _pages/resources/teaching-patterneffort-text-clustering-faiss.md
+  destination_url: /resources/teaching-patterneffort-text-clustering-faiss/
+  title: خوشه‌بندی متن با ابزار FAISS
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: aa3116e6bae737fb845b9bbe2dc0bc4a5fd74cb7596e8f2f7ea05cae70a2e357
+- source_path: teaching/patterneffort/tourist_assistant.md
+  destination_path: _pages/resources/teaching-patterneffort-tourist-assistant.md
+  destination_url: /resources/teaching-patterneffort-tourist-assistant/
+  title: راهنمای گردشگر - Tourist Assistant
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: d425ef2a45643084026466794117d19d1aa797cd14083ca67ddfac977eae0523
+- source_path: teaching/patterneffort/Transformer-LossFunc.md
+  destination_path: _pages/resources/teaching-patterneffort-transformer-lossfunc.md
+  destination_url: /resources/teaching-patterneffort-transformer-lossfunc/
+  title: ترنسفورمر و نقش توابع ضرر در یادگیری
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: a740c8a9099c230447e718523b3d8c04de6e3f003eb1b50aef3f2fc5fcc097f6
+- source_path: teaching/patterneffort/Transformer-LossFunc_code.md
+  destination_path: _pages/resources/teaching-patterneffort-transformer-lossfunc-code.md
+  destination_url: /resources/teaching-patterneffort-transformer-lossfunc-code/
+  title: آشنایی با توابع ضرر استفاده شده در ترنسفورمر ها
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: eebb5b5c3a3bc3cd7b9f6cbeb5441ce7bb927cfb518c64510534e1705bc9d81a
+- source_path: teaching/patterneffort/UniForCE_MinimalMistakes_Final.md
+  destination_path: _pages/resources/teaching-patterneffort-uniforce-minimalmistakes-final.md
+  destination_url: /resources/teaching-patterneffort-uniforce-minimalmistakes-final/
+  title: UniForCE
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: c1407ccbc8d18c611cf64e1b48a22a40adde1adada5620c9adebe0e36c4db21a
+- source_path: teaching/patterneffort/unsupervised_text_classification.md
+  destination_path: _pages/resources/teaching-patterneffort-unsupervised-text-classification.md
+  destination_url: /resources/teaching-patterneffort-unsupervised-text-classification/
+  title: طبقه‌بندی تطبیقی متن
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: c3ff7006ae1eb5e45f9db22c39bafebe737649071758b5a861081fcc6816c635
+- source_path: teaching/patterneffort/Using_LLMs_with_LangChain_Models.md
+  destination_path: _pages/resources/teaching-patterneffort-using-llms-with-langchain-models.md
+  destination_url: /resources/teaching-patterneffort-using-llms-with-langchain-models/
+  title: Using LLMs with LangChain models
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: f31a98cea63a03525da42e14115eb75fd04991d1ff7672f8b181d4669e8c043f
+- source_path: teaching/patterneffort/Vision_Transformer.md
+  destination_path: _pages/resources/teaching-patterneffort-vision-transformer.md
+  destination_url: /resources/teaching-patterneffort-vision-transformer/
+  title: بینایی ترنسفورمر
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: bfa6bb09b3d275daf2b8bdd8ce9f72398d540adc6da496643dcf3577fa26ae48
+  search_terms: Vision transformer ViT
+- source_path: teaching/patterneffort/vla.md
+  destination_path: _pages/resources/teaching-patterneffort-vla.md
+  destination_url: /resources/teaching-patterneffort-vla/
+  title: بینایی-زبان-کنش
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: 362eb7447651b2acc7ce93e410a5395a02dd4734bfe0245ac0733f78f73e0d87
+- source_path: teaching/patterneffort/voice_2_vec.md
+  destination_path: _pages/resources/teaching-patterneffort-voice-2-vec.md
+  destination_url: /resources/teaching-patterneffort-voice-2-vec/
+  title: استخراج ویژگی از صوت
+  group: Pattern recognition and machine learning
+  mode: full_article
+  body_sha256: d56116dbaa25548d865a1edf267b1e89f02f8b43a8f5286ddc5080a3dad9db4a
+- source_path: teaching/toolkit/Abnormal.md
+  destination_path: _pages/resources/teaching-toolkit-abnormal.md
+  destination_url: /resources/teaching-toolkit-abnormal/
+  title: رفتار غیرنرمال رانندگان اتوبوس
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 50359f36f56194860d8fc07e1a0ad99e34329ae2ebc756c9a14152e72726e2a9
+- source_path: teaching/toolkit/BayesEstimator.md
+  destination_path: _pages/resources/teaching-toolkit-bayesestimator.md
+  destination_url: /resources/teaching-toolkit-bayesestimator/
+  title: تخمین گر بیز- تابع ضرر مربعات
+  group: Research toolkit
+  mode: full_article
+  body_sha256: e3a47b59ff8285860f8b3342e8ad9a3a9de39bd8d69a0bc3e0a11a191e12ba6e
+  search_terms: Bayesian estimator squared loss
+- source_path: teaching/toolkit/CrossEntropy.md
+  destination_path: _pages/resources/teaching-toolkit-crossentropy.md
+  destination_url: /resources/teaching-toolkit-crossentropy/
+  title: Cross-Entropy
+  group: Research toolkit
+  mode: full_article
+  body_sha256: e225ab8a538db89d9c455826ff8d100ed66bd55eef98b537496bd461aad7c99b
+  search_terms: Cross entropy
+- source_path: teaching/toolkit/CrossVal.md
+  destination_path: _pages/resources/teaching-toolkit-crossval.md
+  destination_url: /resources/teaching-toolkit-crossval/
+  title: آزمون رگرسیون و طبقه‌بندی با داده‌های آموزش
+  group: Research toolkit
+  mode: full_article
+  body_sha256: ff60571235c7d9d7db30c2beeb9c9719d7dd9be46af968ddb4367f328261fd23
+- source_path: teaching/toolkit/Entropy.md
+  destination_path: _pages/resources/teaching-toolkit-entropy.md
+  destination_url: /resources/teaching-toolkit-entropy/
+  title: انتروپی و پیچیدگی چیست
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 190a2025c5b5df1bde99ee81054fc8ec328db23345055dbd637e589fd740aa8a
+  search_terms: Entropy complexity
+- source_path: teaching/toolkit/GP.md
+  destination_path: _pages/resources/teaching-toolkit-gp.md
+  destination_url: /resources/teaching-toolkit-gp/
+  title: امتحان میان‌ترم - فرآیندهای گوسی
+  group: Research toolkit
+  mode: full_article
+  body_sha256: e225f1ee9da2dd8b1838429711ef0eda4254cae280f30451c9d10b5496b01b59
+- source_path: teaching/toolkit/HilbertSpace.md
+  destination_path: _pages/resources/teaching-toolkit-hilbertspace.md
+  destination_url: /resources/teaching-toolkit-hilbertspace/
+  title: فضای هیلبرت
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 487b4a38fe72494c1518c53b3577c54b7e240b6378dca3e6b1e8e28bdb5049c4
+- source_path: teaching/toolkit/HowConsProject.md
+  destination_path: _pages/resources/teaching-toolkit-howconsproject.md
+  destination_url: /resources/teaching-toolkit-howconsproject/
+  title: چگونه پروژه درسی خود را در زمانی کوتاه آماده کنیم
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 2f555ee9755cc2af354cd131a3bb33993cc68acc219632319c252163008d97e6
+- source_path: teaching/toolkit/IPS.md
+  destination_path: _pages/resources/teaching-toolkit-ips.md
+  destination_url: /resources/teaching-toolkit-ips/
+  title: موقعیت‌یابی درون‌ساختمانی
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 386ea96c2b838886371c9a789f8c7d353f6987269ed2b695741669aee28576cf
+- source_path: teaching/toolkit/KF.md
+  destination_path: _pages/resources/teaching-toolkit-kf.md
+  destination_url: /resources/teaching-toolkit-kf/
+  title: فیلتر کالمن
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 6cc16ada756cb93b0f185bda9ec2227facb7282074d0f91ce679c976e01d4ff9
+  search_terms: Kalman filter
+- source_path: teaching/toolkit/localtunneling.md
+  destination_path: _pages/resources/teaching-toolkit-localtunneling.md
+  destination_url: /resources/teaching-toolkit-localtunneling/
+  title: چگونه تونل بسازیم و سرور با ادرس  ثابت  راه اندازی کنیم
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 0c048885b16a3dd8c3dad523808cb4eb65ca349e0f9b3589b60c487a14e7caa8
+- source_path: teaching/toolkit/MetaLearning.md
+  destination_path: _pages/resources/teaching-toolkit-metalearning.md
+  destination_url: /resources/teaching-toolkit-metalearning/
+  title: فرایادگیری
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 0bb8433fb5ec69ce8bbef9a1e5016427c9a48cd574df6db101b75407d470c4d4
+  search_terms: Meta learning
+- source_path: teaching/toolkit/pca.md
+  destination_path: _pages/resources/teaching-toolkit-pca.md
+  destination_url: /resources/teaching-toolkit-pca/
+  title: A lightweight denoising-enabled RAG pipeline
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 09f9816d9041ab7f87ab74f0e2a5d19155c244eb7b6f0efa8ad44680de6ae48d
+  search_terms: Denoising retrieval augmented generation RAG
+- source_path: teaching/toolkit/ProximalMapping.md
+  destination_path: _pages/resources/teaching-toolkit-proximalmapping.md
+  destination_url: /resources/teaching-toolkit-proximalmapping/
+  title: الگوریتم‌های پروگسیمال
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 69a4be61400a1bfbffa16643f9cae19cf6bda5f082eb472d1744be5bd45d08d8
+  search_terms: Proximal gradient ISTA LASSO
+- source_path: teaching/toolkit/PULP.md
+  destination_path: _pages/resources/teaching-toolkit-pulp.md
+  destination_url: /resources/teaching-toolkit-pulp/
+  title: PULP
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 462d0893fa0e57752179c64671517ba66b6aae710c622ea3579da0af36df4455
+- source_path: teaching/toolkit/Rag.md
+  destination_path: _pages/resources/teaching-toolkit-rag.md
+  destination_url: /resources/teaching-toolkit-rag/
+  title: تولید تقویت‌شده با بازیابی
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 3c02767515f9d54869831dc3e2f51fe718fa14965b48767dbcf1a0c58622cb97
+- source_path: teaching/toolkit/SchemDraw.md
+  destination_path: _pages/resources/teaching-toolkit-schemdraw.md
+  destination_url: /resources/teaching-toolkit-schemdraw/
+  title: رسم مدار با SchemDraw
+  group: Research toolkit
+  mode: full_article
+  body_sha256: d13070a2f634561574969c5d0a30adb06fc066dd25b7ae0e2720a92f54b7ab8d
+- source_path: teaching/toolkit/ThesisInfoGhalenoei.md
+  destination_path: _pages/resources/teaching-toolkit-thesisinfoghalenoei.md
+  destination_url: /resources/teaching-toolkit-thesisinfoghalenoei/
+  title: تشخیص ناهنجاری تک‌کلاسه مبتنی بر پوش‌محدب ضمنی و یادگیری دسته‌جمعی
+  group: Research toolkit
+  mode: full_article
+  body_sha256: ae78638608b8162c11b0e9d426a0e425bb8e13f2b7520d7e208dc78e1e838936
+- source_path: teaching/toolkit/tilt_sensor.md
+  destination_path: _pages/resources/teaching-toolkit-tilt-sensor.md
+  destination_url: /resources/teaching-toolkit-tilt-sensor/
+  title: سنسور شیب سنج
+  group: Research toolkit
+  mode: full_article
+  body_sha256: 5a87e6f2373a997a30ba57870656c5b4d38790e6082b0405bf768fc362a74e15
+- source_path: teaching/circuiteffort/wiseEDA_rc_filter/README.md
+  destination_path: _pages/resources/teaching-circuiteffort-wiseeda-rc-filter-readme.md
+  destination_url: /resources/teaching-circuiteffort-wiseeda-rc-filter-readme/
+  title: WiseEDA-like RC low-pass filter design — implementation notes
+  group: Circuits and electronics
+  mode: full_article
+  body_sha256: 8b97f3ec2a1859729d011b3fe89f33dd14a68229a8cc36549830c463d04a28ef

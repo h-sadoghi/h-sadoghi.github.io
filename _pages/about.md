@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'>Ferdowsi University of Mashhad </a>. 
+subtitle: <a href='https://www.um.ac.ir/'>Ferdowsi University of Mashhad</a>.
 
 profile:
   align: right
@@ -43,13 +43,18 @@ Discover the students I mentor, their research projects, and the courses I teach
 
 I invite collaborators and students to propose projects that can further the research and contributions of the **Pattern Recognition Laboratory**. We aim to expand our work and publications, which will be featured in the **Projects** and **Publications** sections of this site.
 
+Explore the [graduate research archive]({{ '/student-research/' | relative_url }}),
+[teaching and student contributions]({{ '/resources/' | relative_url }}), and
+[research presentations]({{ '/presentations/' | relative_url }}).
+
 ---
 
 **Roles at Ferdowsi University:**  
-• Academic Staff 
+• Academic Staff
 • Director of the Pattern Recognition Laboratory
 
 ---
+
 Thank you for visiting! I hope this site serves as an informative and inspiring resource.
 
 Warm regards,  
@@ -58,4 +63,3 @@ Professor of Electrical and Computer Engineering
 Ferdowsi University of Mashhad  
 [http://prof.um.ac.ir/h-sadoghi/](http://prof.um.ac.ir/h-sadoghi/)
 [google scholar](https://scholar.google.com/citations?user=wEBTP4oAAAAJ&hl=en)
-

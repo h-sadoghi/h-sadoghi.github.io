@@ -1,0 +1,29 @@
+<label for="resource-filter">Find a resource</label>
+<input id="resource-filter" class="form-control mb-4" type="search" placeholder="Title or topic" autocomplete="off">
+{% assign groups = site.data.legacy_resources | group_by: 'group' %}
+{% for group in groups %}
+  <section class="resource-group mb-4">
+    <h2>{{ group.name }}</h2>
+    <ul>
+      {% for resource in group.items %}
+        <li
+          class="resource-item"
+          data-search="{{ resource.title | append: ' ' | append: resource.group | append: ' ' | append: resource.search_terms | escape }}"
+        >
+          <a href="{{ resource.destination_url | relative_url }}" dir="auto">{{ resource.title | escape }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endfor %}
+<script>
+  document.getElementById('resource-filter').addEventListener('input', function () {
+    const query = this.value.trim().toLocaleLowerCase();
+    document.querySelectorAll('.resource-item').forEach((item) => {
+      item.hidden = !item.dataset.search.toLocaleLowerCase().includes(query);
+    });
+    document.querySelectorAll('.resource-group').forEach((group) => {
+      group.hidden = !Array.from(group.querySelectorAll('.resource-item')).some((item) => !item.hidden);
+    });
+  });
+</script>

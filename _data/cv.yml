@@ -4,7 +4,7 @@
     - name: Full Name
       value: Hadi Sadoghi Yazdi
     - name: Date of Birth
-      value: 21th March 1971
+      value: 21 March 1971
     - name: Languages
       value: Persian
 
@@ -13,31 +13,31 @@
   contents:
     - title: PhD
       institution: Tarbiat Modaress University, Tehran, Iran
-      year: 2000-4   
+      year: 2000–2004
       description:
         - In my PhD thesis, the research focused on video analysis for anomaly detection without the need for prior training. The method was built on the assumption that anomalies are rare events, and the goal was to detect these anomalies within traffic scenes. The approach leverages the rarity of such occurrences to differentiate them from regular patterns of behavior. This framework allows for efficient detection without relying on extensive labeled datasets, making it a practical solution for real-world applications in traffic monitoring and other similar domains.
     - title: MsC
       institution: Tarbiat Modaress University, Tehran, Iran
-      year: 1994-96
+      year: 1994–1996
       description:
         - In my MSc thesis, the research focused on **Optical Character Recognition (OCR) in Farsi**, specifically on preprocessing and text extraction from distorted images. The project involved developing techniques to enhance image quality, correct distortions, and accurately extract Farsi text from challenging inputs. By improving the preprocessing stage, the accuracy of the OCR system was significantly enhanced, making it more robust when dealing with noisy or disturbed images. This work contributed to the development of OCR systems capable of handling Farsi script in real-world applications.
     - title: BsC
       institution: Ferdowsi University of Mashhad, Mashhad, Iran
-      year: 1989-94
+      year: 1989–1994
       description:
-      - In my BSc project, I developed a **Data Acquisition (DAQ) card** for capturing data from **12 channels of temperature sensors**. The software was written in both **C and Assembly (8088)**, allowing for efficient control and data processing. The system was designed to store the temperature data and display it in real-time. This project required deep integration of hardware and low-level programming, providing valuable experience in embedded systems and real-time data acquisition.
+        - In my BSc project, I developed a **Data Acquisition (DAQ) card** for capturing data from **12 channels of temperature sensors**. The software was written in both **C and Assembly (8088)**, allowing for efficient control and data processing. The system was designed to store the temperature data and display it in real-time. This project required deep integration of hardware and low-level programming, providing valuable experience in embedded systems and real-time data acquisition.
 
 - title: Job
   type: time_table
   contents:
-    - title : An instructor with a master's degree
+    - title: An instructor with a master's degree
       institution: Tabriz University, Tabriz, Iran
       year: 1997-98
       description:
-    - title : An instructor with a master's degree
+    - title: An instructor with a master's degree
       institution: Hakim Sabzevari University, Sabzevar, Iran
       year: 1998-2000
-      description:  
+      description:
     - title: Assistant professor on Electrical Engineering
       institution: Hakim Sabzevari University, Sabzevar, Iran
       year: 2006-7.
@@ -47,22 +47,20 @@
       year: 2008 at Now.
       description:
         - After completing my education, I became a **faculty member**, focusing on research and teaching in the areas of **Artificial Intelligence, Machine Learning, and Computer Vision**. My academic career has allowed me to further explore advanced topics, guide students in their research, and contribute to both theoretical advancements and practical applications in these fields. Additionally, I have been actively involved in publishing research papers, supervising student projects, and developing new courses to stay at the forefront of technological developments.
-    
-- title : Responsibility
+
+- title: Responsibility
   type: time_table
   contents:
-    - title: Responsibility of the Dean of the Faculty 
+    - title: Vice President for Research, Faculty of Engineering
+      institution: Ferdowsi University of Mashhad, Mashhad, Iran
+      year: 2023–2024
+      description:
+        - Historical appointment recorded in the earlier academic biography.
+    - title: Responsibility of the Dean of the Faculty
       institution: Hakim Sabzevari University, Sabzevar, Iran
       year: 2006-7
-      description: 
+      description:
     - title: Responsibility of Associate Dean of the Faculty
       institution: Ferdowsi University of Mashhad, Mashhad, Iran
       year: 2022-23
       description:
-
-      
-
-
-
-
-

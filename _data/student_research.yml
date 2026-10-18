@@ -1,0 +1,378 @@
+- level: Ph.D. dissertations
+  topic: Financial AI & Time Series
+  title: Financial time series forecasting through experience-based adaptive learning.
+  student: Ali Mehrizi
+  date: "2024-09-19"
+- level: Ph.D. dissertations
+  topic: Financial AI & Time Series
+  title: Efficient portfolio selection using adaptive Markowitz space.
+  student: Vahid Golmah
+  date: "2024-09-19"
+- level: Ph.D. dissertations
+  topic: Financial AI & Time Series
+  title: Interactive and imitative dynamic modeling for financial time series forecasting using stochastic differential
+    equations.
+  student: Hamidreza Mortezapour
+  date: "2023-09-20"
+- level: Ph.D. dissertations
+  topic: Financial AI & Time Series
+  title: Financial time series forecasting using deep state models based on stochastic differential equation.
+  student: Elaheh Soleymanpour
+  date: "2023-05-15"
+- level: Ph.D. dissertations
+  topic: Adaptive Learning & Networks
+  title: Bias modification in learning to rank systems based on the distributions of multi-point views.
+  student: Sanaz Keshvari
+  date: "2023-12-27"
+- level: Ph.D. dissertations
+  topic: Adaptive Learning & Networks
+  title: Upgrading single/multi-task distributed adaptive networks utilizing the optimizer's curse concept.
+  student: Atieh Gharib
+  date: "2023-02-26"
+- level: Ph.D. dissertations
+  topic: Adaptive Learning & Networks
+  title: Distributed learning in adaptive networks based on diversity.
+  student: Alireza Naeimi sadigh
+  date: "2021-01-26"
+- level: Ph.D. dissertations
+  topic: Adaptive Learning & Networks
+  title: Active learning in input and parameter space.
+  student: Hossein Ghafarian
+  date: "2019-07-20"
+- level: Ph.D. dissertations
+  topic: Adaptive Learning & Networks
+  title: Synergistic learning over adaptive networks.
+  student: Soheila Ashkezari toussi
+  date: "2018-12-10"
+- level: Ph.D. dissertations
+  topic: Image & Vision Processing
+  title: HVS-based JND adapted robust image watermarking resilient to learnt attacks.
+  student: Balsam Abughirbn
+  date: "2025-02-05"
+- level: Ph.D. dissertations
+  topic: Image & Vision Processing
+  title: Detection and recognition the authenticity of similar regions in the image based on multi-scale approach.
+  student: Manaf Alhaidery
+  date: "2022-09-22"
+- level: Ph.D. dissertations
+  topic: Image & Vision Processing
+  title: Bayesian filter based on the wisdom of crowds in the presence of biased annotation.
+  student: Behzad Bakhtiari
+  date: "2018-11-03"
+- level: Ph.D. dissertations
+  topic: Classification & Robust Learning
+  title: Robust classification models with high generalization and low training time for uncertain data.
+  student: Yahya Forghani
+  date: "2014-06-25"
+- level: Ph.D. dissertations
+  topic: Classification & Robust Learning
+  title: Scalable multiclass classifier model based on data complexity.
+  student: Hamid reza Ghaffary
+  date: "2012-03-15"
+- level: M.Sc. theses
+  topic: Indoor Positioning & Localization
+  title: Indoor positioning based on the fusion of Wi-Fi fingerprinting and visual information with optimized keyframe
+    selection.
+  student: Farkhondeh Arzi
+  date: "2025-02-15"
+- level: M.Sc. theses
+  topic: Indoor Positioning & Localization
+  title: Indoor localization through the fusion of Wi-Fi fingerprinting and inertial sensors.
+  student: Javad Saghi
+  date: "2024-09-18"
+- level: M.Sc. theses
+  topic: Indoor Positioning & Localization
+  title: Indoor positioning using Wi-Fi fingerprinting.
+  student: Mohammad amin Naji meidani
+  date: "2024-09-16"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: Presenting a hybrid model for predicting urban traffic based on the theory of three phases of traffic and
+    graph neural network.
+  student: Seyed majid Hosseini
+  date: "2024-09-17"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: Layer aware autoencoder for stock market sequence prediction.
+  student: Razieh Amini
+  date: "2024-02-18"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: Time series forecasting using deep learning and prior knowledge.
+  student: Seyed hossein Nazm bojnordi
+  date: "2024-02-17"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: Time series prediction using Kalman filter model with bias modification.
+  student: Farzan Saeedi
+  date: "2023-09-21"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: Leveraging volume profile to refine stochastic differential equation parameters.
+  student: Fatemeh Shamohammadi
+  date: "2023-09-21"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: An investigation on the effect of information over probability density function sets of stock returns.
+  student: Ali Forouzan
+  date: "2023-02-26"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: Portfolio management based on good behavior of stock.
+  student: Ahmad Ghorbanipour
+  date: "2022-09-22"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: Adaptive filter for interval time series data with uncertainty.
+  student: Misaghsadat Hejazi
+  date: "2021-02-18"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: Short-term traffic speed prediction using an interval type II fuzzy radial basis function neural network
+    with an extended Kalman filter smoother and fuzzy controller.
+  student: Fatemeh Anbari
+  date: "2017-09-16"
+- level: M.Sc. theses
+  topic: Time Series & Financial Forecasting
+  title: Deductive Kalman filter; used in additive abrupt change detection.
+  student: Seyedmohammadali Majidianvari
+  date: "2013-03-10"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Anomaly detection using a one-class classifier based on implicit convex hull and ensemble learning.
+  student: Yousof Ghalenoei
+  date: "2024-09-18"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: An attention based multi-column convolutional neural network for crowd counting.
+  student: Mahdi Hashemi
+  date: "2023-09-10"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Determining the decision function of classification problems using boundary data detection and reduction
+    for large datasets.
+  student: Amin Akhlaghi
+  date: "2022-09-22"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Improving anomaly detection based on divergence criteria.
+  student: Fatemehsadat Torabi
+  date: "2021-10-20"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Improving the function of facial expression recognition using the canonical Kalman filter equation training
+    with the help of DLMS filter.
+  student: Vajiheh Salehinezhad
+  date: "2021-03-09"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Labeling facial images for face recognition applications in real-world environments.
+  student: Nasim Hamidipour
+  date: "2018-09-29"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Automated spatial-temporal region of interest detection.
+  student: Mahnaz Razavi
+  date: "2018-09-22"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Design and construction of an intelligent system detection violations of stationary vehicle with moving
+    camera.
+  student: Marzieh Mohammadi
+  date: "2018-09-17"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Image annotation with combination of concept-dependent encoder-decoder models.
+  student: Milad Bahrami
+  date: "2017-09-21"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Automatic image annotation using hierarchical alternating least squares.
+  student: Fadhel mohammed jawad Al - ibadi
+  date: "2017-09-11"
+- level: M.Sc. theses
+  topic: Image Processing & Computer Vision
+  title: Automatic image annotation using block principal pivoting method.
+  student: Hazim mohammad ali issa Al-rikabi
+  date: "2017-09-11"
+- level: M.Sc. theses
+  topic: Classification & Clustering
+  title: Adaptive kernel density estimation based on GMM model and clustering.
+  student: Mohammad sadegh Ahmadi
+  date: "2022-09-22"
+- level: M.Sc. theses
+  topic: Classification & Clustering
+  title: Visualization of trading volume data based on clustering.
+  student: Javad Jafari
+  date: "2022-09-22"
+- level: M.Sc. theses
+  topic: Classification & Clustering
+  title: Robust SVDD classifier using rescaled hinge loss.
+  student: Rasool Makassees
+  date: "2019-01-09"
+- level: M.Sc. theses
+  topic: Classification & Clustering
+  title: Locally-linear crowdsourced classification.
+  student: Mahla Esmaeily
+  date: "2017-09-17"
+- level: M.Sc. theses
+  topic: Classification & Clustering
+  title: Density-oriented Fisher classifier.
+  student: Mahboube Ghasempour
+  date: "2014-09-22"
+- level: M.Sc. theses
+  topic: Classification & Clustering
+  title: Ensemble one-class support vector data description.
+  student: Neshat Salehi
+  date: "2012-10-01"
+- level: M.Sc. theses
+  topic: Classification & Clustering
+  title: Constrained semi-supervised clustering in growing self organizing map.
+  student: Amin Allahyar
+  date: "2012-06-17"
+- level: M.Sc. theses
+  topic: Classification & Clustering
+  title: A gravitation based classification.
+  student: Shafigh Parsazad
+  date: "2011-08-14"
+- level: M.Sc. theses
+  topic: Classification & Clustering
+  title: C4.5 decision tree based on SVM cost function.
+  student: Nima Salehi moghaddami
+  date: "2010-08-01"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Learning signals with robust distributed adaptive filter.
+  student: Mohmmadjafar Karimi bavani
+  date: "2022-02-13"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Proposing a recommender system based on Bayesian clustering using side information.
+  student: Fatemeh Rashidi
+  date: "2020-11-08"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Rescaled hinge on-line learning of similarity/distance criteria for outlier data resistant using rescaled
+    hinge loss function.
+  student: Amer kareem Tuama
+  date: "2019-12-22"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Robust kernel-based quantized entropy NMF method to improve hyperspectral unmixing.
+  student: Hadi Jamshidi kargar
+  date: "2019-09-22"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Estimation of nonlinear systems with non-Gaussian noise, using unknown input filter.
+  student: Nasrin Soufi
+  date: "2019-05-29"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Robust passive/aggressive learning based on re-scaled hinge loss.
+  student: Aqeel shakir radi Zinni
+  date: "2018-09-16"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Probabilistic category-based collaborative filtering recommender system.
+  student: Hadi Kalamati
+  date: "2018-09-13"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Robust metric learning via re-scaled hinge loss.
+  student: Ali salim Rasheed
+  date: "2018-05-29"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Label denoising based on Bayesian aggregation.
+  student: Parsa Bagherzadeh
+  date: "2017-05-10"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Expectation maximization based on particle filter.
+  student: Soraj Sadeghtabar
+  date: "2016-09-21"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: The least sum square error followed
+  student: prior knowledge.** by Fariba Pakizehhajiyar
+  date: "2015-12-14"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: State estimation based on constraints learning.
+  student: Reza Izanloo
+  date: "2015-01-29"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Compact incremental learning machine.
+  student: Mojtaba Nayyeri
+  date: "2014-03-16"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Online semi-supervised music recommender.
+  student: Faraj Mansouri
+  date: "2012-12-14"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Learning Bayesian structure for data streams.
+  student: Omid Keivani
+  date: "2012-10-14"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Adaptive neuron based on kernel least mean square with constraint growth.
+  student: Zahra Khandan khademoreza
+  date: "2012-08-06"
+- level: M.Sc. theses
+  topic: Learning & Recommender Systems
+  title: Measurement model estimation in particle filter using KLMS.
+  student: Hamideh Haeri
+  date: "2012-07-15"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Approximation of distribution functions with Renyi divergence.
+  student: Farzaneh Namdar siuky
+  date: "2018-09-12"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Interacting multiple model algorithm with combined estimation coefficient.
+  student: Reza Nourbakhsh
+  date: "2017-09-21"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Written informal sentiment representation using fusion of similar word vectors for sentiment classification.
+  student: Fariba Yari
+  date: "2017-09-16"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Sampling based on Renyi’s divergence applied to large data reduction.
+  student: Abolfazl Ramezanzadeh yazdi
+  date: "2016-09-21"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Improvement of hyperspectral unmixing using ensemble learning.
+  student: Saeed Gholinejad
+  date: "2016-09-21"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Target tracking using trajectory graph based particle filter.
+  student: Amin Hashemi
+  date: "2015-09-22"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Sample weighting according to geometrical structure based on sparse representation.
+  student: Ehsan Shams
+  date: "2015-09-21"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Identifying individuals’ personality through their voice.
+  student: Elnaz Mohammadi
+  date: "2014-09-22"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Selection and combination of eigenvectors in transform space.
+  student: Soheila Ashkezari
+  date: "2011-09-05"
+- level: M.Sc. theses
+  topic: Miscellaneous
+  title: Gravity centre oriented support vector data description.
+  student: Yonos Allahyari
+  date: "2011-09-05"
