@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>مدیریت محتوای محلی سایت صادقی</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --accent: #2456a6;
+        --danger: #a32323;
+        --ok: #176b35;
+        --panel: #f4f6f9;
+        --ink: #1b2430;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Tahoma, "Segoe UI", sans-serif;
+        background: #e8edf3;
+        color: var(--ink);
+      }
+      header {
+        background: #173b6c;
+        color: white;
+        padding: 1.1rem max(2vw, 1rem);
+      }
+      header h1 {
+        font-size: 1.35rem;
+        margin: 0 0 0.35rem;
+      }
+      header p {
+        margin: 0;
+        opacity: 0.9;
+      }
+      main {
+        width: min(1180px, 96vw);
+        margin: 1.2rem auto 3rem;
+      }
+      section {
+        background: white;
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 12px #20304018;
+      }
+      h2 {
+        font-size: 1.1rem;
+        margin: 0.2rem 0 1rem;
+        color: #173b6c;
+      }
+      label {
+        display: block;
+        font-weight: 600;
+        margin: 0.65rem 0 0.25rem;
+      }
+      input,
+      select,
+      textarea,
+      button {
+        font: inherit;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.62rem;
+        border: 1px solid #b8c3cf;
+        border-radius: 7px;
+        background: white;
+        color: #17202b;
+      }
+      textarea {
+        min-height: 10rem;
+        direction: auto;
+        font-family: Consolas, "Courier New", monospace;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem 1rem;
+      }
+      .wide {
+        grid-column: 1/-1;
+      }
+      .actions {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+      button,
+      .button {
+        border: 0;
+        border-radius: 7px;
+        padding: 0.7rem 1rem;
+        background: var(--accent);
+        color: white;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      button.secondary,
+      .button.secondary {
+        background: #596b7d;
+      }
+      button.danger {
+        background: var(--danger);
+      }
+      .notice,
+      .error,
+      .success {
+        padding: 0.8rem;
+        border-radius: 7px;
+        margin: 0.7rem 0;
+      }
+      .notice {
+        background: #fff4cf;
+        border-right: 4px solid #d49a00;
+      }
+      .error {
+        background: #ffe4e4;
+        color: #7b1010;
+        border-right: 4px solid var(--danger);
+        white-space: pre-wrap;
+      }
+      .success {
+        background: #dff6e7;
+        color: #0e5428;
+        border-right: 4px solid var(--ok);
+      }
+      pre {
+        direction: ltr;
+        text-align: left;
+        white-space: pre-wrap;
+        overflow: auto;
+        background: #101820;
+        color: #e8eef6;
+        padding: 0.8rem;
+        border-radius: 7px;
+        max-height: 24rem;
+      }
+      code {
+        direction: ltr;
+      }
+      .status-ok {
+        color: var(--ok);
+        font-weight: bold;
+      }
+      .status-bad {
+        color: var(--danger);
+        font-weight: bold;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+      }
+      th,
+      td {
+        text-align: right;
+        border-bottom: 1px solid #dbe1e7;
+        padding: 0.5rem;
+      }
+      .scroll {
+        max-height: 22rem;
+        overflow: auto;
+      }
+      #quick-preview {
+        direction: auto;
+        text-align: start;
+        border: 1px solid #dbe1e7;
+        padding: 1rem;
+        border-radius: 7px;
+        min-height: 6rem;
+      }
+      small {
+        color: #586575;
+      }
+      @media (max-width: 760px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .wide {
+          grid-column: auto;
+        }
+        main {
+          width: 96vw;
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #101820;
+          color: #e7edf5;
+        }
+        .panel,
+        section {
+          background: #182431;
+          color: #e7edf5;
+        }
+        h2 {
+          color: #9fc2ef;
+        }
+        input,
+        select,
+        textarea {
+          background: #111b25;
+          color: #eef4fa;
+          border-color: #516273;
+        }
+        small {
+          color: #b5c1cc;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>مدیریت محتوای محلی Jekyll</h1>
+      <p>همهٔ تغییرها ابتدا پیش‌نمایش داده می‌شوند و فقط در مخزن محلی ذخیره می‌شوند.</p>
+    </header>
+    <main>
+      {% if error %}
+      <div class="error">{{ error }}</div>
+      {% endif %} {% if result %}
+      <section>
+        <h2>نتیجهٔ ذخیره</h2>
+        <div class="success">فایل‌ها در مخزن محلی ذخیره شدند.</div>
+        <ul>
+          {% for path in result.changed_files %}
+          <li><code>{{ path }}</code> <button type="button" class="secondary open-source" data-path="{{ path }}">نمایش فایل</button></li>
+          {% endfor %}
+        </ul>
+        <p>پشتیبان عملیات: <code>{{ result.backup }}</code></p>
+        <p class="{{ 'status-ok' if result.validation.ok else 'status-bad' }}">
+          اعتبارسنجی پس از ذخیره: {{ 'موفق' if result.validation.ok else 'ناموفق' }}
+        </p>
+      </section>
+      {% endif %}
+
+      <section>
+        <h2>افزودن یا ویرایش محتوا</h2>
+        <form action="{{ url_for('preview') }}" method="post" enctype="multipart/form-data" id="editor-form">
+          <div class="grid">
+            <div>
+              <label for="action">عملیات</label>
+              <select name="action" id="action">
+                <option value="add">افزودن محتوای جدید</option>
+                <option value="edit">ویرایش فایل موجود</option>
+                <option value="browse">مرور و جست‌وجو</option>
+              </select>
+            </div>
+            <div id="route-wrap">
+              <label for="route">نوع و مقصد (انتخاب صریح)</label>
+              <select name="route" id="route">
+                {% for route in routes %}
+                <option value="{{ route.name }}" data-warning="{{ route.warning }}">{{ route.label }}</option>
+                {% endfor %}
+              </select>
+              <small id="route-warning"></small>
+            </div>
+            <div class="wide" id="existing-wrap" hidden>
+              <label for="existing_path">فایل موجود</label>
+              <input
+                name="existing_path"
+                id="existing_path"
+                list="existing-items"
+                placeholder="برای نمونه: _posts/2025-09-11-DFT-and-its-Applications.md"
+              />
+              <datalist id="existing-items">
+                {% for item in items %}
+                <option value="{{ item.path }}">{{ item.title }}</option>
+                {% endfor %}
+              </datalist>
+            </div>
+            <div><label for="title">عنوان</label><input name="title" id="title" /></div>
+            <div><label for="slug">Slug اختیاری</label><input name="slug" id="slug" dir="ltr" /></div>
+            <div><label for="author">نویسنده/نویسندگان</label><input name="author" id="author" /></div>
+            <div><label for="date">تاریخ</label><input type="date" name="date" id="date" /></div>
+            <div class="wide"><label for="description">خلاصه</label><input name="description" id="description" /></div>
+            <div><label for="tags">برچسب‌ها (با ویرگول)</label><input name="tags" id="tags" /></div>
+            <div>
+              <label for="status">وضعیت</label
+              ><select name="status" id="status">
+                <option value="draft">پیش‌نویس (منتشر نشود)</option>
+                <option value="ready">آماده</option>
+                <option value="">در ویرایش: بدون تغییر</option>
+              </select>
+            </div>
+            <div>
+              <label for="markdown_file">ورود فایل Markdown</label
+              ><input type="file" name="markdown_file" id="markdown_file" accept=".md,.markdown,text/markdown" />
+            </div>
+            <div>
+              <label for="assets">تصویرها و PDFها</label
+              ><input type="file" name="assets" id="assets" multiple accept="image/*,.pdf,application/pdf" />
+            </div>
+            <div class="wide">
+              <label for="markdown">Markdown یا متن واردشده</label
+              ><textarea name="markdown" id="markdown" placeholder="Markdown را اینجا بچسبانید یا فایل انتخاب کنید."></textarea>
+            </div>
+            <div class="wide" id="bibtex-wrap" hidden>
+              <label for="bibtex">رکورد BibTeX</label><textarea name="bibtex" id="bibtex" dir="ltr"></textarea>
+            </div>
+          </div>
+          <div class="actions">
+            <button type="submit">پیش‌نمایش و نمایش تغییر دقیق</button>
+            <button type="button" class="secondary" id="preview-markdown">پیش‌نمایش سریع Markdown</button>
+            <button type="button" class="secondary" id="jekyll">اجرای پیش‌نمایش Jekyll</button>
+            <a class="button secondary" href="{{ url_for('github_desktop') }}" target="_blank">راهنمای GitHub Desktop</a>
+          </div>
+        </form>
+        <div id="quick-preview" hidden></div>
+      </section>
+
+      {% if plan %}
+      <section>
+        <h2>پیش‌نمایش تغییر</h2>
+        <p>مسیر: <code>{{ plan.target_path }}</code></p>
+        <p>URL پیشنهادی: <code>{{ plan.proposed_url }}</code></p>
+        <p class="{{ 'status-ok' if plan.validation.ok and not plan.conflicts else 'status-bad' }}">
+          وضعیت: {{ 'آمادهٔ ذخیره' if plan.validation.ok and not plan.conflicts else 'نیازمند رفع خطا' }}
+        </p>
+        {% for warning in plan.warnings %}
+        <div class="notice">{{ warning }}</div>
+        {% endfor %} {% for conflict in plan.conflicts %}
+        <div class="error">{{ conflict }}</div>
+        {% endfor %} {% for issue in plan.validation.errors %}
+        <div class="error">{{ issue }}</div>
+        {% endfor %} {% for warning in plan.validation.warnings %}
+        <div class="notice">{{ warning }}</div>
+        {% endfor %}
+        <h3>Front matter</h3>
+        <pre>{{ plan.front_matter | tojson(indent=2) }}</pre>
+        {% for change in plan.changes %}
+        <h3>
+          {{ change.action }} — <code>{{ change.path }}</code> ({{ change.size }} bytes)
+          <button type="button" class="secondary open-source" data-path="{{ change.path }}">نمایش فایل موجود</button>
+        </h3>
+        {% if change.diff %}
+        <pre>{{ change.diff }}</pre>
+        {% else %}
+        <p>فایل دودویی؛ محتوای آن در این صفحه نمایش داده نمی‌شود.</p>
+        {% endif %} {% endfor %} {% if plan.validation.ok and not plan.conflicts %}
+        <form action="{{ url_for('apply', token=plan.token) }}" method="post">
+          <input type="hidden" name="confirm" value="yes" />
+          <button type="submit">تأیید و ذخیره در مخزن محلی</button>
+        </form>
+        {% endif %}
+      </section>
+      {% endif %}
+
+      <section>
+        <h2>مرور و جست‌وجوی محتوای موجود</h2>
+        <input id="search" placeholder="عنوان، URL یا نام فایل" />
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>نوع</th>
+                <th>عنوان</th>
+                <th>مسیر</th>
+                <th>URL</th>
+              </tr>
+            </thead>
+            <tbody id="search-results">
+              {% for item in items %}
+              <tr>
+                <td>{{ item.content_type }}</td>
+                <td>{{ item.title }}</td>
+                <td><code>{{ item.path }}</code></td>
+                <td><code>{{ item.permalink }}</code></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script>
+      const action = document.querySelector("#action"),
+        route = document.querySelector("#route");
+      const routeWrap = document.querySelector("#route-wrap"),
+        existingWrap = document.querySelector("#existing-wrap");
+      let previousAction = action.value;
+      function syncForm() {
+        const editing = action.value === "edit";
+        const browsing = action.value === "browse";
+        routeWrap.hidden = editing || browsing;
+        existingWrap.hidden = !editing;
+        const publication = route.value === "publication" && !editing && !browsing;
+        document.querySelector("#bibtex-wrap").hidden = !publication;
+        document.querySelector("#route-warning").textContent = route.selectedOptions[0]?.dataset.warning || "";
+        const status = document.querySelector("#status");
+        if (action.value !== previousAction) {
+          status.value = editing ? "" : "draft";
+          previousAction = action.value;
+        }
+        if (browsing) {
+          document.querySelector("#search").scrollIntoView({ behavior: "smooth" });
+          document.querySelector("#search").focus();
+        }
+      }
+      action.addEventListener("change", syncForm);
+      route.addEventListener("change", syncForm);
+      syncForm();
+      document.querySelector("#editor-form").addEventListener("submit", (event) => {
+        if (action.value === "browse") {
+          event.preventDefault();
+          document.querySelector("#search").focus();
+        }
+      });
+      document.querySelector("#markdown_file").addEventListener("change", async (event) => {
+        const file = event.target.files[0];
+        if (file) document.querySelector("#markdown").value = await file.text();
+      });
+      document.querySelector("#preview-markdown").addEventListener("click", async () => {
+        const data = new FormData();
+        data.set("markdown", document.querySelector("#markdown").value);
+        const response = await fetch("/markdown-preview", { method: "POST", body: data });
+        const view = document.querySelector("#quick-preview");
+        view.innerHTML = (await response.json()).html;
+        view.hidden = false;
+      });
+      document.querySelector("#jekyll").addEventListener("click", async () => {
+        const response = await fetch("/jekyll-preview", { method: "POST" });
+        const data = await response.json();
+        alert(data.ok ? "Jekyll روی http://127.0.0.1:4000 اجرا شد." : data.error);
+      });
+      document.querySelectorAll(".open-source").forEach((button) =>
+        button.addEventListener("click", async () => {
+          const data = new FormData();
+          data.set("path", button.dataset.path);
+          const response = await fetch("/open-source", { method: "POST", body: data });
+          const result = await response.json();
+          if (!result.ok) alert(result.error);
+        })
+      );
+      let searchTimer;
+      document.querySelector("#search").addEventListener("input", (event) => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(async () => {
+          const data = await (await fetch("/api/search?q=" + encodeURIComponent(event.target.value))).json();
+          document.querySelector("#search-results").innerHTML = data
+            .map((i) => `<tr><td>${i.content_type}</td><td>${i.title}</td><td><code>${i.path}</code></td><td><code>${i.permalink}</code></td></tr>`)
+            .join("");
+        }, 200);
+      });
+    </script>
+  </body>
+</html>

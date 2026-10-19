@@ -11,3 +11,8 @@ assets/libs/
 node_modules/
 vendor
 .idea
+.site-manager-venv/
+.site-manager-backups/
+.site-manager-runtime/
+__pycache__/
+*.py[cod]

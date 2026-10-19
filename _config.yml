@@ -248,6 +248,13 @@ exclude:
   - purgecss.config.js
   - README.md
   - readme_preview/
+  # Local authoring tool and its audit files must never be copied to the public site.
+  - tools/
+  - RUN_SITE_MANAGER.cmd
+  - SADOGHI_LOCAL_JEKYLL_MANAGER_SPEC.md
+  - SITE_INFORMATION_ARCHITECTURE_INVENTORY.csv
+  - SITE_INFORMATION_ARCHITECTURE_PROPOSAL.md
+  - SITE_MANAGER_TEST_REPORT.md
   - vendor
 keep_files:
   - CNAME
