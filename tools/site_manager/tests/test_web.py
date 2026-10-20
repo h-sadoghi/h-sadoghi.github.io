@@ -91,3 +91,24 @@ def test_browser_form_previews_import_with_multiple_images(repo: Path) -> None:
     assert response.status_code == 200
     assert "teaching-signals-dft-آزمایشی.md" in text
     assert "تأیید و ذخیره در مخزن محلی" in text
+
+
+def test_browser_course_preview_includes_optional_image(repo: Path) -> None:
+    app = create_app(repo)
+    app.testing = True
+    response = app.test_client().post(
+        "/preview",
+        data={
+            "action": "course",
+            "title": "Computer Vision",
+            "description": "Visual computing.",
+            "chapters": "Fundamentals\nExercises",
+            "status": "draft",
+            "course_image": (io.BytesIO(b"\xff\xd8\xffcourse-image"), "course cover.jpg"),
+        },
+        content_type="multipart/form-data",
+    )
+    text = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert "assets/img/courses/computer-vision/course-cover.jpg" in text
+    assert "پیش‌نویس؛ در سایت عمومی منتشر نمی‌شود" in text

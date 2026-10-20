@@ -33,6 +33,12 @@ def create_app(repo_root: str | Path) -> Flask:
             if file and file.filename
         ]
 
+    def uploaded_course_image() -> list[AssetInput]:
+        file = request.files.get("course_image")
+        if not file or not file.filename:
+            return []
+        return [AssetInput(file.filename, file.read(), "browser-upload")]
+
     def form_fields() -> dict:
         fields = {
             key: request.form.get(key, "").strip()
@@ -73,7 +79,7 @@ def create_app(repo_root: str | Path) -> Flask:
                 relative = request.form.get("existing_path", "").strip()
                 plan = manager.preview_edit(relative, form_fields(), markdown_text if markdown_text else None, uploaded_assets())
             elif action == "course":
-                plan = manager.preview_course(form_fields())
+                plan = manager.preview_course(form_fields(), uploaded_course_image())
             else:
                 plan = manager.preview_add(request.form.get("route", ""), form_fields(), markdown_text, uploaded_assets())
             active = "course" if action == "course" else "browse" if action == "edit" else "add"

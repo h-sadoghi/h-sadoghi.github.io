@@ -1,7 +1,55 @@
+- id: pattern-recognition
+  title: Pattern Recognition
+  description: Techniques for identifying patterns in data with applications in image, speech, and biometrics.
+  image: /assets/img/PR1.JPG
+  url: https://laboratorypatternrecognition.github.io/PatternRecognition_S/pattern_recognition.html
+  order: 1
+  link_type: external
+  chapters: []
+  published: true
+- id: machine-learning
+  title: Machine learning
+  description: Core algorithms and models for data-driven decision-making and predictive analysis
+  image: /assets/img/machinelearning1.JPG
+  url: https://laboratorypatternrecognition.github.io/MachineLearningS/machine_learning.html
+  order: 2
+  link_type: external
+  chapters: []
+  published: true
+- id: circuit-analysis
+  title: Circuit analysis
+  description: Principles of circuit analysis and the operation of electronic components like diodes, transistors, and op-amps
+  image: /assets/img/startPic.jpg
+  url: https://laboratorypatternrecognition.github.io/CircuitElectronics/Introduction_CircuitElectronics.html
+  order: 3
+  link_type: external
+  chapters: []
+  published: true
+- id: signal-processing
+  title: Signal processing
+  description: Techniques for analyzing, filtering, and transforming signals in both time and frequency domains
+  image: /assets/img/ECG_1.jpg
+  url: https://laboratorypatternrecognition.github.io/SignalSystem/SignalSystemStart.html
+  order: 4
+  link_type: external
+  chapters: []
+  published: true
+- id: ai-essentials
+  title: AI Essentials
+  description: Fundamentals of artificial intelligence, covering problem-solving, search algorithms, and basic machine learning concepts
+  image: /assets/img/DeepDream2.JPG
+  url: https://laboratorypatternrecognition.github.io/AI-Essentials/Home_Page.html
+  order: 5
+  link_type: external
+  chapters: []
+  published: true
 - id: image-processing
   title: Image Processing
   description: Course materials for Image Processing.
-  permalink: /teaching/image-processing/
+  image: /assets/img/courses/default-course.svg
+  url: /teaching/image-processing/
+  order: 6
+  link_type: internal
   chapters:
     - id: fundamentals
       title: Fundamentals

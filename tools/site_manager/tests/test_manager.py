@@ -3,11 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 
 import pytest
+from ruamel.yaml import YAML
 
 from tools.site_manager import SiteManager
 from tools.site_manager.assets import AssetInput
 from tools.site_manager.frontmatter import split_front_matter
 from tools.site_manager.utils import SiteManagerError
+import tools.site_manager.manager as manager_module
 
 
 def test_preview_persian_markdown_with_two_images_is_read_only(repo: Path) -> None:
@@ -151,6 +153,7 @@ def test_edit_refuses_path_outside_repo(repo: Path) -> None:
 
 def test_new_course_creates_data_and_page_then_accepts_material(repo: Path) -> None:
     manager = SiteManager(repo)
+    before = sorted(path.relative_to(repo) for path in repo.rglob("*"))
     plan = manager.preview_course(
         {
             "title": "Image Processing",
@@ -162,6 +165,14 @@ def test_new_course_creates_data_and_page_then_accepts_material(repo: Path) -> N
     assert plan.validation.ok
     assert not plan.conflicts
     assert plan.target_path == "_pages/courses/image-processing.md"
+    assert before == sorted(path.relative_to(repo) for path in repo.rglob("*"))
+    course_data = YAML(typ="safe").load(plan.changes[0].content.decode())[0]
+    assert course_data["image"] == "/assets/img/courses/default-course.svg"
+    assert course_data["url"] == "/teaching/image-processing/"
+    assert course_data["order"] == 1
+    assert course_data["link_type"] == "internal"
+    _, course_body, _ = split_front_matter(plan.changes[1].content.decode())
+    assert "Course materials." not in course_body
     manager.add(plan, confirm=True)
     assert (repo / "_data" / "teaching_courses.yml").is_file()
     assert (repo / "_pages" / "courses" / "image-processing.md").is_file()
@@ -177,6 +188,45 @@ def test_new_course_creates_data_and_page_then_accepts_material(repo: Path) -> N
     metadata, _, _ = split_front_matter(material.changes[0].content.decode())
     assert metadata["course_id"] == "image-processing"
     assert metadata["chapter_id"] == "introduction"
+
+    duplicate = manager.preview_course({"title": "Image Processing", "status": "draft"})
+    assert duplicate.conflicts
+
+
+def test_new_course_stores_selected_image_in_same_change_plan(repo: Path) -> None:
+    manager = SiteManager(repo)
+    plan = manager.preview_course(
+        {"title": "Computer Vision", "description": "Visual computing.", "status": "draft"},
+        [AssetInput("course cover.jpg", b"\xff\xd8\xffcourse-image")],
+    )
+    assert plan.validation.ok
+    assert not plan.conflicts
+    assert len(plan.changes) == 3
+    assert plan.changes[2].path == "assets/img/courses/computer-vision/course-cover.jpg"
+    data = YAML(typ="safe").load(plan.changes[0].content.decode())[0]
+    assert data["image"] == "/assets/img/courses/computer-vision/course-cover.jpg"
+    assert data["published"] is False
+    assert not (repo / "_pages" / "courses" / "computer-vision.md").exists()
+
+
+def test_course_save_rolls_back_when_one_file_cannot_be_written(repo: Path, monkeypatch) -> None:
+    manager = SiteManager(repo)
+    plan = manager.preview_course({"title": "Rollback Course", "status": "draft"})
+    real_atomic_write = manager_module.atomic_write
+    calls = 0
+
+    def fail_second_write(path: Path, data: bytes) -> None:
+        nonlocal calls
+        calls += 1
+        if calls == 2:
+            raise OSError("simulated write failure")
+        real_atomic_write(path, data)
+
+    monkeypatch.setattr(manager_module, "atomic_write", fail_second_write)
+    with pytest.raises(SiteManagerError, match="بازگردانده شدند"):
+        manager.add(plan, confirm=True)
+    assert not (repo / "_data" / "teaching_courses.yml").exists()
+    assert not (repo / "_pages" / "courses" / "rollback-course.md").exists()
 
 
 def test_read_content_exposes_existing_values_without_changing_them(repo: Path) -> None:
