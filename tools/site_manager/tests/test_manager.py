@@ -73,6 +73,14 @@ def test_draft_post_uses_date_filename_and_stays_unpublished(repo: Path) -> None
     assert metadata["published"] is False
 
 
+def test_new_post_gets_today_when_custom_date_is_hidden(repo: Path) -> None:
+    manager = SiteManager(repo)
+    plan = manager.preview_add("blog_post", {"title": "Automatic date"}, "Post body")
+    metadata, _, _ = split_front_matter(plan.changes[0].content.decode())
+    assert metadata["date"]
+    assert metadata["published"] is True
+
+
 def test_duplicate_title_is_reported(repo: Path) -> None:
     manager = SiteManager(repo)
     plan = manager.preview_add("resource", {"title": "Existing Page", "status": "ready"}, "Another")
@@ -139,3 +147,44 @@ def test_edit_refuses_path_outside_repo(repo: Path) -> None:
     manager = SiteManager(repo)
     with pytest.raises(SiteManagerError, match="خارج از مخزن"):
         manager.preview_edit("../outside.md", {"title": "No"})
+
+
+def test_new_course_creates_data_and_page_then_accepts_material(repo: Path) -> None:
+    manager = SiteManager(repo)
+    plan = manager.preview_course(
+        {
+            "title": "Image Processing",
+            "description": "Course materials.",
+            "chapters": "Introduction\nExercises",
+            "status": "draft",
+        }
+    )
+    assert plan.validation.ok
+    assert not plan.conflicts
+    assert plan.target_path == "_pages/courses/image-processing.md"
+    manager.add(plan, confirm=True)
+    assert (repo / "_data" / "teaching_courses.yml").is_file()
+    assert (repo / "_pages" / "courses" / "image-processing.md").is_file()
+    assert any(choice["name"] == "course:image-processing" for choice in manager.route_choices())
+
+    material = manager.preview_add(
+        "course:image-processing",
+        {"title": "First lesson", "chapter": "introduction", "status": "draft"},
+        "# First lesson\n",
+    )
+    assert material.validation.ok
+    assert material.target_path == "_pages/resources/teaching-image-processing-first-lesson.md"
+    metadata, _, _ = split_front_matter(material.changes[0].content.decode())
+    assert metadata["course_id"] == "image-processing"
+    assert metadata["chapter_id"] == "introduction"
+
+
+def test_read_content_exposes_existing_values_without_changing_them(repo: Path) -> None:
+    manager = SiteManager(repo)
+    item = manager.read_content("_pages/existing.md")
+    assert item["title"] == "Existing Page"
+    assert item["published"] is True
+    assert "$x^2$" in item["body"]
+    plan = manager.preview_edit("_pages/existing.md", {}, item["body"])
+    metadata, _, _ = split_front_matter(plan.changes[0].content.decode())
+    assert metadata["published"] is True

@@ -19,7 +19,7 @@ from .frontmatter import render_front_matter, split_front_matter
 from .importer import import_markdown
 from .inspector import RepositoryInspector
 from .routes import RouteMap
-from .utils import SiteManagerError, atomic_write, contained_path, file_sha256
+from .utils import SiteManagerError, atomic_write, contained_path, file_sha256, safe_slug
 from .validator import ValidationResult, Validator
 
 
@@ -78,9 +78,13 @@ class SiteManager:
         self.inspector = RepositoryInspector(self.repo_root)
         self.validator = Validator(self.repo_root)
         self._plans: dict[str, ChangePlan] = {}
+        site_config = YAML(typ="safe").load((self.repo_root / "_config.yml").read_text(encoding="utf-8-sig")) or {}
+        self.default_author = " ".join(
+            str(site_config.get(key) or "").strip() for key in ("first_name", "middle_name", "last_name")
+        ).strip()
 
     def route_choices(self) -> list[dict[str, str]]:
-        return [
+        choices = [
             {
                 "name": name,
                 "label": str(route.get("label_fa", name)),
@@ -89,6 +93,51 @@ class SiteManager:
             }
             for name, route in self.routes.routes.items()
         ]
+        for course in self.courses():
+            choices.insert(
+                1,
+                {
+                    "name": f"course:{course['id']}",
+                    "label": f"درس / {course['title']}",
+                    "content_type": "teaching_note",
+                    "warning": "",
+                    "chapters": course.get("chapters", []),
+                },
+            )
+        return choices
+
+    def courses(self) -> list[dict[str, Any]]:
+        path = self.repo_root / "_data" / "teaching_courses.yml"
+        if not path.is_file():
+            return []
+        data = YAML(typ="safe").load(path.read_text(encoding="utf-8-sig")) or []
+        if not isinstance(data, list):
+            raise SiteManagerError("ساختار _data/teaching_courses.yml باید یک فهرست باشد.")
+        return [dict(item) for item in data if isinstance(item, dict)]
+
+    def read_content(self, relative_path: str) -> dict[str, Any]:
+        target = contained_path(self.repo_root, relative_path)
+        if not target.is_file() or target.suffix.lower() != ".md":
+            raise SiteManagerError("فایل Markdown انتخاب‌شده پیدا نشد.")
+        metadata, body, has_frontmatter = split_front_matter(target.read_text(encoding="utf-8-sig"))
+        tags = metadata.get("tags", [])
+        if isinstance(tags, list):
+            tags = ", ".join(str(tag) for tag in tags)
+        published = metadata.get("published")
+        return {
+            "path": relative_path,
+            "title": str(metadata.get("title") or target.stem),
+            "author": str(metadata.get("author") or ""),
+            "date": str(metadata.get("date") or ""),
+            "description": str(metadata.get("description") or ""),
+            "tags": str(tags or ""),
+            "lang": str(metadata.get("lang") or ""),
+            "published": published,
+            "published_label": "پیش‌نویس" if published is False else "آمادهٔ انتشار",
+            "body": body,
+            "has_frontmatter": has_frontmatter,
+            "permalink": str(metadata.get("permalink") or ""),
+        }
 
     def browse(self, query: str = "", content_type: str = "") -> list[dict]:
         return self.inspector.search(query, content_type)
@@ -107,6 +156,8 @@ class SiteManager:
             "title": str(fields.get("title") or metadata.get("title") or "").strip(),
             "permalink": route["url"],
         }
+        if "author" not in metadata and not str(fields.get("author") or "").strip() and self.default_author:
+            values["author"] = self.default_author
         optional = ("author", "date", "description", "tags", "lang")
         for key in optional:
             value = fields.get(key)
@@ -132,11 +183,14 @@ class SiteManager:
         for key in ("title", "date"):
             if not str(resolved_fields.get(key) or "").strip() and imported.get(key) not in (None, ""):
                 resolved_fields[key] = str(imported[key])
-        route = self.routes.resolve(route_name, resolved_fields)
+        route = self._resolve_content_route(route_name, resolved_fields)
+        if not str(resolved_fields.get("date") or "").strip() and route.get("date"):
+            resolved_fields["date"] = route["date"]
         for required in route.get("required", []):
             if not str(resolved_fields.get(required) or "").strip():
                 raise SiteManagerError(f"فیلد لازم خالی است: {required}")
         metadata = self._metadata(route, resolved_fields, imported)
+        route["published"] = metadata.get("published") is not False
         asset_files, rewrites = prepare_assets(
             self.routes.config["image_asset_root"],
             self.routes.config["document_asset_root"],
@@ -181,6 +235,116 @@ class SiteManager:
         self._plans[plan.token] = plan
         return plan
 
+    def _resolve_content_route(self, route_name: str, fields: dict[str, Any]) -> dict[str, Any]:
+        if not route_name.startswith("course:"):
+            return self.routes.resolve(route_name, fields)
+        course_id = route_name.partition(":")[2]
+        course = next((item for item in self.courses() if str(item.get("id")) == course_id), None)
+        if course is None:
+            raise SiteManagerError("درس انتخاب‌شده دیگر وجود ندارد؛ صفحه را تازه‌سازی کنید.")
+        title = str(fields.get("title") or "").strip()
+        slug = safe_slug(str(fields.get("slug") or title))
+        relative = f"_pages/resources/teaching-{course_id}-{slug}.md"
+        chapter_id = str(fields.get("chapter") or "").strip()
+        chapter = next((item for item in course.get("chapters", []) if str(item.get("id")) == chapter_id), None)
+        defaults: dict[str, Any] = {
+            "layout": "legacy_page",
+            "nav": False,
+            "resource_group": "Teaching",
+            "course": str(course.get("title") or course_id),
+            "course_id": course_id,
+        }
+        if chapter:
+            defaults["chapter"] = str(chapter.get("title") or chapter_id)
+            defaults["chapter_id"] = chapter_id
+        return {
+            "label_fa": f"درس / {course.get('title', course_id)}",
+            "content_type": "teaching_note",
+            "target": contained_path(self.repo_root, relative),
+            "relative_target": relative,
+            "slug": slug,
+            "url": f"/resources/teaching-{course_id}-{slug}/",
+            "defaults": defaults,
+            "index_group": str(course.get("title") or "Teaching"),
+            "required": ["title"],
+            "warning_fa": "",
+        }
+
+    def preview_course(self, fields: dict[str, Any]) -> ChangePlan:
+        title = str(fields.get("title") or "").strip()
+        if not title:
+            raise SiteManagerError("عنوان درس را وارد کنید.")
+        slug = safe_slug(str(fields.get("slug") or title))
+        description = str(fields.get("description") or "").strip()
+        chapter_titles = [line.strip() for line in str(fields.get("chapters") or "").splitlines() if line.strip()]
+        chapters = [{"id": safe_slug(value), "title": value} for value in chapter_titles]
+        if len({item["id"] for item in chapters}) != len(chapters):
+            raise SiteManagerError("دو فصل نام یکسان دارند؛ نام فصل‌ها را متمایز کنید.")
+        existing_courses = self.courses()
+        conflicts: list[str] = []
+        for course in existing_courses:
+            if str(course.get("id", "")).casefold() == slug.casefold():
+                conflicts.append("درسی با این نام یا شناسه از قبل وجود دارد.")
+            if str(course.get("title", "")).casefold() == title.casefold():
+                conflicts.append("درسی با این عنوان از قبل وجود دارد.")
+        course_item = CommentedMap(
+            id=slug,
+            title=title,
+            description=description,
+            permalink=f"/teaching/{slug}/",
+            chapters=chapters,
+            published=str(fields.get("status") or "ready") != "draft",
+        )
+        yaml = YAML(typ="rt")
+        yaml.preserve_quotes = True
+        yaml.width = 1000
+        stream = StringIO()
+        yaml.dump([*existing_courses, course_item], stream)
+        data_text = stream.getvalue()
+        data_validation = self.validator.validate_yaml(data_text)
+        published = str(fields.get("status") or "ready") != "draft"
+        metadata = CommentedMap(
+            layout="page",
+            title=title,
+            permalink=f"/teaching/{slug}/",
+            nav=False,
+            course_id=slug,
+            published=published,
+        )
+        if description:
+            metadata["description"] = description
+        body = (
+            f"{description}\n\n" if description else ""
+        ) + "{% include teaching_course_materials.liquid course_id=page.course_id %}\n"
+        page_text = render_front_matter(metadata, body)
+        page_path = f"_pages/courses/{slug}.md"
+        page_validation = self.validator.validate_markdown(page_path, page_text)
+        page_validation.errors.extend(data_validation.errors)
+        page_validation.warnings.extend(data_validation.warnings)
+        page_validation.errors.extend(self.validator.duplicate_permalinks(page_path, page_text))
+        changes = [
+            self._change("_data/teaching_courses.yml", data_text.encode("utf-8")),
+            self._change(page_path, page_text.encode("utf-8")),
+        ]
+        for change in changes:
+            if change.action == "create":
+                continue
+            if change.path.endswith(f"/{slug}.md"):
+                conflicts.append(f"صفحهٔ درس از قبل وجود دارد: {change.path}")
+        plan = ChangePlan(
+            token=uuid.uuid4().hex,
+            operation="course",
+            route=f"course:{slug}",
+            target_path=page_path,
+            proposed_url=f"/teaching/{slug}/",
+            front_matter=metadata,
+            changes=changes,
+            validation=page_validation,
+            conflicts=sorted(set(conflicts)),
+        )
+        self._plans[plan.token] = plan
+        return plan
+
     def _resource_index_change(self, route: dict[str, Any], title: str) -> tuple[FileChange, list[str]]:
         relative = "_data/legacy_resources.yml"
         target = contained_path(self.repo_root, relative)
@@ -204,7 +368,12 @@ class SiteManager:
             title=title,
             group=route["index_group"],
             mode="local_authored",
+            published=bool(route.get("published", True)),
         )
+        if route.get("defaults", {}).get("course_id"):
+            new_item["course_id"] = route["defaults"]["course_id"]
+        if route.get("defaults", {}).get("chapter_id"):
+            new_item["chapter_id"] = route["defaults"]["chapter_id"]
         stream = StringIO()
         yaml.dump([new_item], stream)
         updated_text = f"{existing_text.rstrip()}\n{stream.getvalue()}" if data else stream.getvalue()

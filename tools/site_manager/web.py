@@ -34,21 +34,30 @@ def create_app(repo_root: str | Path) -> Flask:
         ]
 
     def form_fields() -> dict:
-        return {
+        fields = {
             key: request.form.get(key, "").strip()
-            for key in ("title", "slug", "author", "date", "description", "tags", "status", "lang", "bibtex")
+            for key in ("title", "slug", "author", "date", "description", "tags", "status", "lang", "bibtex", "chapter", "chapters")
         }
+        if fields.get("status") == "preserve":
+            fields["status"] = ""
+        return fields
+
+    def page(**values):
+        context = {
+            "routes": manager.route_choices(),
+            "courses": manager.courses(),
+            "items": manager.browse()[:500],
+            "plan": None,
+            "result": None,
+            "error": "",
+            "active": "add",
+        }
+        context.update(values)
+        return render_template("index.html", **context)
 
     @app.get("/")
     def index():
-        return render_template(
-            "index.html",
-            routes=manager.route_choices(),
-            items=manager.browse()[:500],
-            plan=None,
-            result=None,
-            error="",
-        )
+        return page(active=request.args.get("view", "add"))
 
     @app.post("/preview")
     def preview():
@@ -63,19 +72,24 @@ def create_app(repo_root: str | Path) -> Flask:
             if action == "edit":
                 relative = request.form.get("existing_path", "").strip()
                 plan = manager.preview_edit(relative, form_fields(), markdown_text if markdown_text else None, uploaded_assets())
+            elif action == "course":
+                plan = manager.preview_course(form_fields())
             else:
                 plan = manager.preview_add(request.form.get("route", ""), form_fields(), markdown_text, uploaded_assets())
-            return render_template("index.html", routes=manager.route_choices(), items=manager.browse()[:500], plan=plan.public(), result=None, error="")
+            active = "course" if action == "course" else "browse" if action == "edit" else "add"
+            return page(plan=plan.public(), active=active)
         except (SiteManagerError, UnicodeDecodeError) as exc:
-            return render_template("index.html", routes=manager.route_choices(), items=manager.browse()[:500], plan=None, result=None, error=str(exc)), 400
+            action = request.form.get("action", "add")
+            active = "course" if action == "course" else "browse" if action == "edit" else "add"
+            return page(error=str(exc), active=active), 400
 
     @app.post("/apply/<token>")
     def apply(token: str):
         try:
             result = manager.add(token, confirm=request.form.get("confirm") == "yes")
-            return render_template("index.html", routes=manager.route_choices(), items=manager.browse()[:500], plan=None, result=result, error="")
+            return page(result=result, active=request.form.get("active", "add"))
         except SiteManagerError as exc:
-            return render_template("index.html", routes=manager.route_choices(), items=manager.browse()[:500], plan=None, result=None, error=str(exc)), 400
+            return page(error=str(exc), active=request.form.get("active", "add")), 400
 
     @app.post("/markdown-preview")
     def markdown_preview():
@@ -90,6 +104,13 @@ def create_app(repo_root: str | Path) -> Flask:
     @app.get("/api/search")
     def search():
         return jsonify(manager.browse(request.args.get("q", ""), request.args.get("type", ""))[:200])
+
+    @app.get("/api/content")
+    def content():
+        try:
+            return jsonify(manager.read_content(request.args.get("path", "").strip()))
+        except SiteManagerError as exc:
+            return jsonify({"ok": False, "error": str(exc), "solution": "فایل را دوباره از فهرست مطالب موجود انتخاب کنید."}), 400
 
     @app.post("/open-source")
     def open_source():

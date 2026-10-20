@@ -26,6 +26,27 @@ def test_search_api(repo: Path) -> None:
     assert response.json[0]["path"] == "_pages/existing.md"
 
 
+def test_existing_content_api_loads_title_body_and_published_state(repo: Path) -> None:
+    app = create_app(repo)
+    app.testing = True
+    response = app.test_client().get("/api/content?path=_pages/existing.md")
+    assert response.status_code == 200
+    assert response.json["title"] == "Existing Page"
+    assert response.json["published"] is True
+    assert "$x^2$" in response.json["body"]
+
+
+def test_main_page_has_only_three_primary_workflows(repo: Path) -> None:
+    app = create_app(repo)
+    app.testing = True
+    text = app.test_client().get("/").get_data(as_text=True)
+    assert text.count('class="home-action"') == 3
+    assert "درس جدید" in text
+    assert "افزودن مطلب" in text
+    assert "مطالب موجود" in text
+    assert "Slug اختیاری" not in text
+
+
 def test_jekyll_preview_reports_missing_bundler(repo: Path, monkeypatch) -> None:
     app = create_app(repo)
     app.testing = True

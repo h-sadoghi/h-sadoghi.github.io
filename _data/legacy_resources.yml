@@ -937,3 +937,13 @@
   title: آزمایش سیگنال سینوسی و انتقال زمانی
   group: Signals and systems
   mode: local_authored
+  published: false
+- source_path: local-authoring/teaching-image-processing-image-processing-local-preview-test.md
+  destination_path: _pages/resources/teaching-image-processing-image-processing-local-preview-test.md
+  destination_url: /resources/teaching-image-processing-image-processing-local-preview-test/
+  title: Image Processing — Local Preview Test
+  group: Image Processing
+  mode: local_authored
+  published: false
+  course_id: image-processing
+  chapter_id: fundamentals

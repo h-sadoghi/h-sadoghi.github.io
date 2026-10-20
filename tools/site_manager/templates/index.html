@@ -3,15 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>مدیریت محتوای محلی سایت صادقی</title>
+    <title>مدیریت سادهٔ سایت صادقی</title>
     <style>
       :root {
-        color-scheme: light dark;
-        --accent: #2456a6;
-        --danger: #a32323;
-        --ok: #176b35;
-        --panel: #f4f6f9;
-        --ink: #1b2430;
+        color-scheme: light;
+        --navy: #16365f;
+        --blue: #245da8;
+        --pale: #eef4fb;
+        --line: #d8e1eb;
+        --ink: #192535;
+        --muted: #607083;
+        --ok: #17713d;
+        --danger: #a22525;
       }
       * {
         box-sizing: border-box;
@@ -19,16 +22,16 @@
       body {
         margin: 0;
         font-family: Tahoma, "Segoe UI", sans-serif;
-        background: #e8edf3;
+        background: #f2f5f8;
         color: var(--ink);
       }
       header {
-        background: #173b6c;
+        background: linear-gradient(120deg, #122d50, #245c96);
         color: white;
-        padding: 1.1rem max(2vw, 1rem);
+        padding: 1.25rem max(3vw, 1rem);
       }
       header h1 {
-        font-size: 1.35rem;
+        font-size: 1.45rem;
         margin: 0 0 0.35rem;
       }
       header p {
@@ -36,25 +39,65 @@
         opacity: 0.9;
       }
       main {
-        width: min(1180px, 96vw);
-        margin: 1.2rem auto 3rem;
+        width: min(1120px, 95vw);
+        margin: 1.15rem auto 3rem;
       }
-      section {
-        background: white;
-        border-radius: 12px;
-        padding: 1rem 1.2rem;
+      .home-actions {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
         margin-bottom: 1rem;
-        box-shadow: 0 2px 12px #20304018;
+      }
+      .home-action {
+        border: 1px solid var(--line);
+        background: white;
+        color: var(--navy);
+        padding: 1rem;
+        border-radius: 14px;
+        text-align: right;
+        cursor: pointer;
+        box-shadow: 0 2px 10px #173b6c10;
+      }
+      .home-action strong {
+        display: block;
+        font-size: 1.05rem;
+        margin-bottom: 0.25rem;
+      }
+      .home-action span {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+      .home-action.active {
+        border-color: var(--blue);
+        background: var(--pale);
+        box-shadow: 0 0 0 2px #245da822;
+      }
+      .panel {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 1.1rem 1.25rem;
+        box-shadow: 0 2px 12px #20304012;
+      }
+      .panel[hidden] {
+        display: none;
       }
       h2 {
-        font-size: 1.1rem;
+        color: var(--navy);
+        font-size: 1.15rem;
+        margin: 0.1rem 0 0.35rem;
+      }
+      h3 {
+        font-size: 1rem;
+      }
+      .lead {
+        color: var(--muted);
         margin: 0.2rem 0 1rem;
-        color: #173b6c;
       }
       label {
         display: block;
-        font-weight: 600;
-        margin: 0.65rem 0 0.25rem;
+        font-weight: 700;
+        margin: 0.7rem 0 0.3rem;
       }
       input,
       select,
@@ -66,69 +109,122 @@
       select,
       textarea {
         width: 100%;
-        padding: 0.62rem;
-        border: 1px solid #b8c3cf;
-        border-radius: 7px;
+        padding: 0.68rem;
+        border: 1px solid #b9c6d3;
+        border-radius: 8px;
         background: white;
-        color: #17202b;
+        color: var(--ink);
       }
       textarea {
-        min-height: 10rem;
+        min-height: 11rem;
         direction: auto;
         font-family: Consolas, "Courier New", monospace;
       }
       .grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 0.5rem 1rem;
+        gap: 0.35rem 1rem;
       }
       .wide {
         grid-column: 1/-1;
       }
       .actions {
         display: flex;
-        gap: 0.6rem;
         flex-wrap: wrap;
+        align-items: center;
+        gap: 0.55rem;
         margin-top: 1rem;
       }
       button,
       .button {
+        width: auto;
         border: 0;
-        border-radius: 7px;
-        padding: 0.7rem 1rem;
-        background: var(--accent);
+        border-radius: 8px;
+        padding: 0.72rem 1.05rem;
+        background: var(--blue);
         color: white;
         cursor: pointer;
         text-decoration: none;
       }
       button.secondary,
       .button.secondary {
-        background: #596b7d;
+        background: #5c6d80;
       }
       button.danger {
         background: var(--danger);
       }
+      button:disabled {
+        opacity: 0.55;
+        cursor: wait;
+      }
+      details {
+        margin-top: 0.85rem;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 0.65rem 0.8rem;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--navy);
+      }
+      .dropzone {
+        border: 2px dashed #9eb2c8;
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+        background: #f8fafc;
+        transition: 0.15s;
+      }
+      .dropzone.dragging {
+        background: #e5f0ff;
+        border-color: var(--blue);
+      }
+      .file-note {
+        color: var(--muted);
+        font-size: 0.85rem;
+        margin: 0.35rem 0 0;
+      }
       .notice,
       .error,
       .success {
-        padding: 0.8rem;
-        border-radius: 7px;
-        margin: 0.7rem 0;
+        padding: 0.85rem;
+        border-radius: 9px;
+        margin: 0.75rem 0;
       }
       .notice {
-        background: #fff4cf;
+        background: #fff5cf;
         border-right: 4px solid #d49a00;
       }
       .error {
-        background: #ffe4e4;
-        color: #7b1010;
+        background: #ffe5e5;
+        color: #791414;
         border-right: 4px solid var(--danger);
         white-space: pre-wrap;
       }
       .success {
-        background: #dff6e7;
-        color: #0e5428;
+        background: #def5e7;
+        color: #10562e;
         border-right: 4px solid var(--ok);
+      }
+      .status-line {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem;
+        background: var(--pale);
+        border-radius: 9px;
+        margin: 0.8rem 0;
+      }
+      .dot {
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        background: var(--ok);
+        flex: none;
+      }
+      .status-bad .dot {
+        background: var(--danger);
       }
       pre {
         direction: ltr;
@@ -138,226 +234,227 @@
         background: #101820;
         color: #e8eef6;
         padding: 0.8rem;
-        border-radius: 7px;
+        border-radius: 8px;
         max-height: 24rem;
       }
       code {
         direction: ltr;
       }
-      .status-ok {
-        color: var(--ok);
-        font-weight: bold;
+      #quick-preview,
+      #edit-quick-preview {
+        direction: auto;
+        text-align: start;
+        border: 1px solid var(--line);
+        padding: 1rem;
+        border-radius: 9px;
+        margin-top: 0.8rem;
       }
-      .status-bad {
-        color: var(--danger);
-        font-weight: bold;
+      .scroll {
+        max-height: 26rem;
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 9px;
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
       }
       th,
       td {
         text-align: right;
-        border-bottom: 1px solid #dbe1e7;
-        padding: 0.5rem;
+        border-bottom: 1px solid var(--line);
+        padding: 0.55rem;
       }
-      .scroll {
-        max-height: 22rem;
-        overflow: auto;
+      th {
+        position: sticky;
+        top: 0;
+        background: #f4f7fa;
       }
-      #quick-preview {
-        direction: auto;
-        text-align: start;
-        border: 1px solid #dbe1e7;
+      .edit-box,
+      .preview-box {
+        margin-top: 1rem;
         padding: 1rem;
-        border-radius: 7px;
-        min-height: 6rem;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: #fbfcfe;
       }
-      small {
-        color: #586575;
+      .utilities {
+        width: min(1120px, 95vw);
+        margin: 0.8rem auto 0;
+        background: white;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .publish-ready {
+        color: var(--ok);
+        font-weight: 700;
       }
       @media (max-width: 760px) {
+        .home-actions,
         .grid {
           grid-template-columns: 1fr;
         }
         .wide {
           grid-column: auto;
         }
-        main {
-          width: 96vw;
-        }
-      }
-      @media (prefers-color-scheme: dark) {
-        body {
-          background: #101820;
-          color: #e7edf5;
-        }
-        .panel,
-        section {
-          background: #182431;
-          color: #e7edf5;
-        }
-        h2 {
-          color: #9fc2ef;
-        }
-        input,
-        select,
-        textarea {
-          background: #111b25;
-          color: #eef4fa;
-          border-color: #516273;
-        }
-        small {
-          color: #b5c1cc;
+        .home-action {
+          text-align: center;
         }
       }
     </style>
   </head>
   <body>
     <header>
-      <h1>مدیریت محتوای محلی Jekyll</h1>
-      <p>همهٔ تغییرها ابتدا پیش‌نمایش داده می‌شوند و فقط در مخزن محلی ذخیره می‌شوند.</p>
+      <h1>مدیریت محتوای محلی — ساده و روشن</h1>
+      <p>مطلب را انتخاب کنید، پیش‌نمایش ببینید و فقط در مخزن محلی ذخیره کنید.</p>
     </header>
+    <details class="utilities">
+      <summary>پیش‌نمایش واقعی سایت و راهنمای GitHub Desktop</summary>
+      <div class="actions">
+        <button type="button" id="jekyll">اجرای پیش‌نمایش Jekyll</button
+        ><a class="button secondary" id="jekyll-open" href="http://127.0.0.1:4000" target="_blank" hidden>باز کردن سایت محلی</a
+        ><button type="button" class="danger" id="jekyll-stop" hidden>توقف Jekyll</button
+        ><a class="button secondary" href="{{ url_for('github_desktop') }}" target="_blank">راهنمای GitHub Desktop</a>
+      </div>
+      <div id="jekyll-status" class="notice" hidden></div>
+      <pre id="jekyll-log" hidden></pre>
+    </details>
     <main>
       {% if error %}
-      <div class="error">{{ error }}</div>
+      <div class="error">
+        <strong>عملیات انجام نشد.</strong><br />{{ error }}<br /><span
+          >ورودی‌ها را اصلاح کنید و دوباره پیش‌نمایش بگیرید؛ هیچ فایلی تغییر نکرده است.</span
+        >
+      </div>
       {% endif %} {% if result %}
-      <section>
-        <h2>نتیجهٔ ذخیره</h2>
-        <div class="success">فایل‌ها در مخزن محلی ذخیره شدند.</div>
-        <ul>
-          {% for path in result.changed_files %}
-          <li><code>{{ path }}</code> <button type="button" class="secondary open-source" data-path="{{ path }}">نمایش فایل</button></li>
-          {% endfor %}
-        </ul>
-        <p>پشتیبان عملیات: <code>{{ result.backup }}</code></p>
-        <p class="{{ 'status-ok' if result.validation.ok else 'status-bad' }}">
-          اعتبارسنجی پس از ذخیره: {{ 'موفق' if result.validation.ok else 'ناموفق' }}
-        </p>
-      </section>
+      <div class="success">
+        <strong>ذخیره در مخزن محلی موفق بود.</strong> {{ result.changed_files|length }} فایل با پشتیبان خودکار ثبت شد.
+        <details>
+          <summary>جزئیات ذخیره</summary>
+          <p>پشتیبان: <code>{{ result.backup }}</code></p>
+          <ul>
+            {% for path in result.changed_files %}
+            <li><code>{{ path }}</code></li>
+            {% endfor %}
+          </ul>
+        </details>
+      </div>
       {% endif %}
-
-      <section>
-        <h2>افزودن یا ویرایش محتوا</h2>
-        <form action="{{ url_for('preview') }}" method="post" enctype="multipart/form-data" id="editor-form">
+      <nav class="home-actions" aria-label="کارهای اصلی">
+        <button type="button" class="home-action" data-view="course"><strong>۱. درس جدید</strong><span>ساخت درس و فصل‌های آن</span></button>
+        <button type="button" class="home-action" data-view="add"><strong>۲. افزودن مطلب</strong><span>Markdown، تصویر و PDF</span></button>
+        <button type="button" class="home-action" data-view="browse"><strong>۳. مطالب موجود</strong><span>جست‌وجو و ویرایش امن</span></button>
+      </nav>
+      <section class="panel" data-panel="course" hidden>
+        <h2>درس جدید</h2>
+        <p class="lead">عنوان، توضیح اختیاری و نام فصل‌ها را وارد کنید. منوها و درس‌های قبلی تغییر نمی‌کنند.</p>
+        <form action="{{ url_for('preview') }}" method="post">
+          <input type="hidden" name="action" value="course" />
           <div class="grid">
             <div>
-              <label for="action">عملیات</label>
-              <select name="action" id="action">
-                <option value="add">افزودن محتوای جدید</option>
-                <option value="edit">ویرایش فایل موجود</option>
-                <option value="browse">مرور و جست‌وجو</option>
-              </select>
+              <label for="course-title">عنوان درس</label><input id="course-title" name="title" required placeholder="برای نمونه: Image Processing" />
             </div>
-            <div id="route-wrap">
-              <label for="route">نوع و مقصد (انتخاب صریح)</label>
-              <select name="route" id="route">
+            <div><label for="course-description">توضیح کوتاه (اختیاری)</label><input id="course-description" name="description" /></div>
+            <div class="wide">
+              <label for="course-chapters">فصل‌ها (هر فصل در یک خط، اختیاری)</label
+              ><textarea id="course-chapters" name="chapters" placeholder="Introduction&#10;Image Enhancement&#10;Exercises"></textarea>
+            </div>
+          </div>
+          <details>
+            <summary>تنظیمات پیشرفته</summary>
+            <label for="course-status">وضعیت درس</label
+            ><select id="course-status" name="status">
+              <option value="ready">آمادهٔ انتشار پس از Push و Merge</option>
+              <option value="draft">پیش‌نویس محلی</option>
+            </select>
+          </details>
+          <div class="actions"><button type="submit">پیش‌نمایش درس</button></div>
+        </form>
+        {% if plan and plan.operation == 'course' %}{% include 'plan_card.html' %}{% endif %}
+      </section>
+      <section class="panel" data-panel="add">
+        <h2>افزودن مطلب</h2>
+        <p class="lead">فایل Markdown و رسانه‌ها را انتخاب کنید؛ نام و مسیر فنی به‌صورت خودکار ساخته می‌شود.</p>
+        <form action="{{ url_for('preview') }}" method="post" enctype="multipart/form-data" id="add-form">
+          <input type="hidden" name="action" value="add" />
+          <div class="grid">
+            <div>
+              <label for="route">بخش مقصد یا درس</label
+              ><select name="route" id="route" required>
                 {% for route in routes %}
-                <option value="{{ route.name }}" data-warning="{{ route.warning }}">{{ route.label }}</option>
+                <option
+                  value="{{ route.name }}"
+                  data-warning="{{ route.warning }}"
+                  data-chapters="{{ route.chapters|default([])|tojson|forceescape }}"
+                >
+                  {{ route.label }}
+                </option>
                 {% endfor %}
               </select>
-              <small id="route-warning"></small>
+              <p class="file-note" id="route-warning"></p>
             </div>
-            <div class="wide" id="existing-wrap" hidden>
-              <label for="existing_path">فایل موجود</label>
-              <input
-                name="existing_path"
-                id="existing_path"
-                list="existing-items"
-                placeholder="برای نمونه: _posts/2025-09-11-DFT-and-its-Applications.md"
-              />
-              <datalist id="existing-items">
-                {% for item in items %}
-                <option value="{{ item.path }}">{{ item.title }}</option>
-                {% endfor %}
-              </datalist>
-            </div>
-            <div><label for="title">عنوان</label><input name="title" id="title" /></div>
-            <div><label for="slug">Slug اختیاری</label><input name="slug" id="slug" dir="ltr" /></div>
-            <div><label for="author">نویسنده/نویسندگان</label><input name="author" id="author" /></div>
-            <div><label for="date">تاریخ</label><input type="date" name="date" id="date" /></div>
-            <div class="wide"><label for="description">خلاصه</label><input name="description" id="description" /></div>
-            <div><label for="tags">برچسب‌ها (با ویرگول)</label><input name="tags" id="tags" /></div>
-            <div>
-              <label for="status">وضعیت</label
-              ><select name="status" id="status">
-                <option value="draft">پیش‌نویس (منتشر نشود)</option>
-                <option value="ready">آماده</option>
-                <option value="">در ویرایش: بدون تغییر</option>
+            <div><label for="title">عنوان مطلب</label><input name="title" id="title" required /></div>
+            <div id="chapter-wrap" hidden>
+              <label for="chapter">فصل درس</label
+              ><select name="chapter" id="chapter">
+                <option value="">بدون فصل</option>
               </select>
             </div>
             <div>
-              <label for="markdown_file">ورود فایل Markdown</label
+              <label for="markdown_file">فایل Markdown</label
               ><input type="file" name="markdown_file" id="markdown_file" accept=".md,.markdown,text/markdown" />
             </div>
-            <div>
-              <label for="assets">تصویرها و PDFها</label
-              ><input type="file" name="assets" id="assets" multiple accept="image/*,.pdf,application/pdf" />
-            </div>
             <div class="wide">
-              <label for="markdown">Markdown یا متن واردشده</label
-              ><textarea name="markdown" id="markdown" placeholder="Markdown را اینجا بچسبانید یا فایل انتخاب کنید."></textarea>
-            </div>
-            <div class="wide" id="bibtex-wrap" hidden>
-              <label for="bibtex">رکورد BibTeX</label><textarea name="bibtex" id="bibtex" dir="ltr"></textarea>
+              <label for="assets">تصاویر و PDFها</label>
+              <div class="dropzone" id="add-dropzone">
+                فایل‌ها را اینجا رها کنید یا برای انتخاب کلیک کنید<input
+                  type="file"
+                  name="assets"
+                  id="assets"
+                  multiple
+                  accept="image/*,.pdf,application/pdf"
+                />
+                <p class="file-note" id="add-file-note">هنوز فایلی انتخاب نشده است.</p>
+              </div>
             </div>
           </div>
+          <textarea name="markdown" id="markdown" hidden></textarea>
+          <details>
+            <summary>تنظیمات پیشرفته</summary>
+            <div class="grid">
+              <div class="wide"><label for="description">خلاصه</label><input name="description" id="description" /></div>
+              <div><label for="tags">برچسب‌ها (با ویرگول)</label><input name="tags" id="tags" /></div>
+              <div><label for="date">تاریخ سفارشی</label><input type="date" name="date" id="date" /></div>
+              <div><label for="author">نویسنده</label><input name="author" id="author" /></div>
+              <div>
+                <label for="status">وضعیت نهایی</label
+                ><select name="status" id="status">
+                  <option value="ready">آمادهٔ انتشار پس از Push و Merge</option>
+                  <option value="draft">پیش‌نویس محلی</option>
+                </select>
+              </div>
+              <div class="wide">
+                <label for="markdown-editor">متن Markdown واردشده</label
+                ><textarea id="markdown-editor" placeholder="پس از انتخاب فایل، متن برای بازبینی اینجا دیده می‌شود."></textarea>
+              </div>
+              <div class="wide" id="bibtex-wrap" hidden>
+                <label for="bibtex">رکورد BibTeX</label><textarea name="bibtex" id="bibtex" dir="ltr"></textarea>
+              </div>
+            </div>
+          </details>
           <div class="actions">
-            <button type="submit">پیش‌نمایش و نمایش تغییر دقیق</button>
-            <button type="button" class="secondary" id="preview-markdown">پیش‌نمایش سریع Markdown</button>
-            <button type="button" class="secondary" id="jekyll">اجرای پیش‌نمایش Jekyll</button>
-            <a class="button secondary" id="jekyll-open" href="http://127.0.0.1:4000" target="_blank" hidden>باز کردن سایت محلی</a>
-            <button type="button" class="danger" id="jekyll-stop" hidden>توقف Jekyll</button>
-            <a class="button secondary" href="{{ url_for('github_desktop') }}" target="_blank">راهنمای GitHub Desktop</a>
+            <button type="submit">پیش‌نمایش قبل از ذخیره</button><button type="button" class="secondary" id="preview-markdown">نمایش متن</button>
           </div>
-          <div id="jekyll-status" class="notice" hidden></div>
-          <pre id="jekyll-log" hidden></pre>
+          <div id="quick-preview" hidden></div>
         </form>
-        <div id="quick-preview" hidden></div>
+        {% if plan and plan.operation == 'add' %}{% include 'plan_card.html' %}{% endif %}
       </section>
-
-      {% if plan %}
-      <section>
-        <h2>پیش‌نمایش تغییر</h2>
-        <p>مسیر: <code>{{ plan.target_path }}</code></p>
-        <p>URL پیشنهادی: <code>{{ plan.proposed_url }}</code></p>
-        <p class="{{ 'status-ok' if plan.validation.ok and not plan.conflicts else 'status-bad' }}">
-          وضعیت: {{ 'آمادهٔ ذخیره' if plan.validation.ok and not plan.conflicts else 'نیازمند رفع خطا' }}
-        </p>
-        {% for warning in plan.warnings %}
-        <div class="notice">{{ warning }}</div>
-        {% endfor %} {% for conflict in plan.conflicts %}
-        <div class="error">{{ conflict }}</div>
-        {% endfor %} {% for issue in plan.validation.errors %}
-        <div class="error">{{ issue }}</div>
-        {% endfor %} {% for warning in plan.validation.warnings %}
-        <div class="notice">{{ warning }}</div>
-        {% endfor %}
-        <h3>Front matter</h3>
-        <pre>{{ plan.front_matter | tojson(indent=2) }}</pre>
-        {% for change in plan.changes %}
-        <h3>
-          {{ change.action }} — <code>{{ change.path }}</code> ({{ change.size }} bytes)
-          <button type="button" class="secondary open-source" data-path="{{ change.path }}">نمایش فایل موجود</button>
-        </h3>
-        {% if change.diff %}
-        <pre>{{ change.diff }}</pre>
-        {% else %}
-        <p>فایل دودویی؛ محتوای آن در این صفحه نمایش داده نمی‌شود.</p>
-        {% endif %} {% endfor %} {% if plan.validation.ok and not plan.conflicts %}
-        <form action="{{ url_for('apply', token=plan.token) }}" method="post">
-          <input type="hidden" name="confirm" value="yes" />
-          <button type="submit">تأیید و ذخیره در مخزن محلی</button>
-        </form>
-        {% endif %}
-      </section>
-      {% endif %}
-
-      <section>
-        <h2>مرور و جست‌وجوی محتوای موجود</h2>
-        <input id="search" placeholder="عنوان، URL یا نام فایل" />
+      <section class="panel" data-panel="browse" hidden>
+        <h2>مطالب موجود</h2>
+        <p class="lead">مطلب را پیدا کنید و «ویرایش» را بزنید؛ عنوان، متن و وضعیت فعلی آن بارگذاری می‌شود.</p>
+        <label for="search">جست‌وجو</label><input id="search" placeholder="عنوان، URL یا نام فایل" />
         <div class="scroll">
           <table>
             <thead>
@@ -365,7 +462,7 @@
                 <th>نوع</th>
                 <th>عنوان</th>
                 <th>مسیر</th>
-                <th>URL</th>
+                <th></th>
               </tr>
             </thead>
             <tbody id="search-results">
@@ -374,129 +471,78 @@
                 <td>{{ item.content_type }}</td>
                 <td>{{ item.title }}</td>
                 <td><code>{{ item.path }}</code></td>
-                <td><code>{{ item.permalink }}</code></td>
+                <td><button type="button" class="edit-item" data-path="{{ item.path }}">ویرایش</button></td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
         </div>
+        <div class="edit-box" id="edit-box" hidden>
+          <h3>ویرایش مطلب انتخاب‌شده</h3>
+          <p id="edit-current" class="muted"></p>
+          <form action="{{ url_for('preview') }}" method="post" enctype="multipart/form-data" id="edit-form">
+            <input type="hidden" name="action" value="edit" /><input type="hidden" name="existing_path" id="edit-path" />
+            <div class="grid">
+              <div><label for="edit-title">عنوان</label><input name="title" id="edit-title" /></div>
+              <div>
+                <label>وضعیت فعلی</label>
+                <div class="status-line" id="edit-published"></div>
+              </div>
+              <div class="wide"><label for="edit-markdown">متن Markdown</label><textarea name="markdown" id="edit-markdown"></textarea></div>
+              <div class="wide">
+                <label for="edit-assets">افزودن تصویر یا PDF</label>
+                <div class="dropzone" id="edit-dropzone">
+                  فایل‌ها را اینجا رها کنید یا برای انتخاب کلیک کنید<input
+                    type="file"
+                    name="assets"
+                    id="edit-assets"
+                    multiple
+                    accept="image/*,.pdf,application/pdf"
+                  />
+                  <p class="file-note" id="edit-file-note">هنوز فایلی انتخاب نشده است.</p>
+                </div>
+              </div>
+            </div>
+            <details>
+              <summary>تنظیمات پیشرفته</summary>
+              <div class="grid">
+                <div class="wide"><label for="edit-description">خلاصه</label><input name="description" id="edit-description" /></div>
+                <div><label for="edit-tags">برچسب‌ها</label><input name="tags" id="edit-tags" /></div>
+                <div><label for="edit-date">تاریخ</label><input name="date" id="edit-date" /></div>
+                <div><label for="edit-author">نویسنده</label><input name="author" id="edit-author" /></div>
+                <div>
+                  <label for="edit-status">تغییر وضعیت انتشار</label
+                  ><select name="status" id="edit-status">
+                    <option value="preserve">بدون تغییر</option>
+                    <option value="ready">آمادهٔ انتشار</option>
+                    <option value="draft">پیش‌نویس</option>
+                  </select>
+                </div>
+              </div>
+            </details>
+            <div class="actions">
+              <button type="submit">پیش‌نمایش ویرایش</button><button type="button" class="secondary" id="edit-preview-markdown">نمایش متن</button>
+            </div>
+            <div id="edit-quick-preview" hidden></div>
+          </form>
+        </div>
+        {% if plan and plan.operation == 'edit' %}{% include 'plan_card.html' %}{% endif %}
       </section>
     </main>
     <script>
-      const action = document.querySelector("#action"),
-        route = document.querySelector("#route");
-      const routeWrap = document.querySelector("#route-wrap"),
-        existingWrap = document.querySelector("#existing-wrap");
-      let previousAction = action.value;
-      function syncForm() {
-        const editing = action.value === "edit";
-        const browsing = action.value === "browse";
-        routeWrap.hidden = editing || browsing;
-        existingWrap.hidden = !editing;
-        const publication = route.value === "publication" && !editing && !browsing;
-        document.querySelector("#bibtex-wrap").hidden = !publication;
-        document.querySelector("#route-warning").textContent = route.selectedOptions[0]?.dataset.warning || "";
-        const status = document.querySelector("#status");
-        if (action.value !== previousAction) {
-          status.value = editing ? "" : "draft";
-          previousAction = action.value;
-        }
-        if (browsing) {
-          document.querySelector("#search").scrollIntoView({ behavior: "smooth" });
-          document.querySelector("#search").focus();
-        }
-      }
-      action.addEventListener("change", syncForm);
-      route.addEventListener("change", syncForm);
-      syncForm();
-      document.querySelector("#editor-form").addEventListener("submit", (event) => {
-        if (action.value === "browse") {
-          event.preventDefault();
-          document.querySelector("#search").focus();
-        }
-      });
-      document.querySelector("#markdown_file").addEventListener("change", async (event) => {
-        const file = event.target.files[0];
-        if (file) document.querySelector("#markdown").value = await file.text();
-      });
-      document.querySelector("#preview-markdown").addEventListener("click", async () => {
-        const data = new FormData();
-        data.set("markdown", document.querySelector("#markdown").value);
-        const response = await fetch("/markdown-preview", { method: "POST", body: data });
-        const view = document.querySelector("#quick-preview");
-        view.innerHTML = (await response.json()).html;
-        view.hidden = false;
-      });
-      const jekyllButton = document.querySelector("#jekyll"),
-        jekyllStop = document.querySelector("#jekyll-stop"),
-        jekyllOpen = document.querySelector("#jekyll-open"),
-        jekyllStatus = document.querySelector("#jekyll-status"),
-        jekyllLog = document.querySelector("#jekyll-log");
-      let jekyllPoll;
-      function showJekyllStatus(data) {
-        jekyllStatus.hidden = false;
-        jekyllStop.hidden = !data.running || !data.owned;
-        jekyllOpen.hidden = !data.ready;
-        jekyllButton.disabled = Boolean(data.running);
-        const labels = {
-          starting: "Jekyll در حال ساخت سایت است…",
-          ready: "پیش‌نمایش Jekyll آماده است.",
-          stopped: "سرور پیش‌نمایش متوقف است.",
-          failed: "Jekyll با خطا متوقف شد.",
-          "port-conflict": "پورت 4000 در اختیار برنامهٔ دیگری است.",
-        };
-        jekyllStatus.textContent = data.error || labels[data.state] || data.state;
-        jekyllStatus.className = data.ready ? "success" : data.ok ? "notice" : "error";
-        if (data.log && !data.ready) {
-          jekyllLog.textContent = data.log;
-          jekyllLog.hidden = false;
-        } else {
-          jekyllLog.hidden = true;
-        }
-        if (data.ready || !data.running) {
-          clearInterval(jekyllPoll);
-          jekyllPoll = undefined;
-        }
-      }
-      async function refreshJekyllStatus() {
-        const response = await fetch("/jekyll-preview/status");
-        const data = await response.json();
-        showJekyllStatus(data);
-        if (data.running && !data.ready && !jekyllPoll) {
-          jekyllPoll = setInterval(refreshJekyllStatus, 1500);
-        }
-      }
-      jekyllButton.addEventListener("click", async () => {
-        jekyllButton.disabled = true;
-        const response = await fetch("/jekyll-preview", { method: "POST" });
-        const data = await response.json();
-        showJekyllStatus(data);
-        if (data.running && !data.ready) refreshJekyllStatus();
-      });
-      jekyllStop.addEventListener("click", async () => {
-        const response = await fetch("/jekyll-preview/stop", { method: "POST" });
-        showJekyllStatus(await response.json());
-      });
-      refreshJekyllStatus();
-      document.querySelectorAll(".open-source").forEach((button) =>
-        button.addEventListener("click", async () => {
-          const data = new FormData();
-          data.set("path", button.dataset.path);
-          const response = await fetch("/open-source", { method: "POST", body: data });
-          const result = await response.json();
-          if (!result.ok) alert(result.error);
-        })
-      );
-      let searchTimer;
-      document.querySelector("#search").addEventListener("input", (event) => {
-        clearTimeout(searchTimer);
-        searchTimer = setTimeout(async () => {
-          const data = await (await fetch("/api/search?q=" + encodeURIComponent(event.target.value))).json();
-          document.querySelector("#search-results").innerHTML = data
-            .map((i) => `<tr><td>${i.content_type}</td><td>${i.title}</td><td><code>${i.path}</code></td><td><code>${i.permalink}</code></td></tr>`)
-            .join("");
-        }, 200);
-      });
+      const initialView={{ active|tojson }};
+      function showView(name){document.querySelectorAll('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==name);document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));history.replaceState(null,'',`?view=${name}`)}
+      document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));showView(['course','add','browse'].includes(initialView)?initialView:'add');
+      function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+      const route=document.querySelector('#route'),chapter=document.querySelector('#chapter'),chapterWrap=document.querySelector('#chapter-wrap');
+      function syncRoute(){let chapters=[];try{chapters=JSON.parse(route.selectedOptions[0]?.dataset.chapters||'[]')}catch(e){}chapter.innerHTML='<option value="">بدون فصل</option>'+chapters.map(c=>`<option value="${escapeHtml(c.id)}">${escapeHtml(c.title)}</option>`).join('');chapterWrap.hidden=!chapters.length;document.querySelector('#route-warning').textContent=route.selectedOptions[0]?.dataset.warning||'';document.querySelector('#bibtex-wrap').hidden=route.value!=='publication';document.querySelector('#title').required=route.value!=='publication'}route.addEventListener('change',syncRoute);syncRoute();
+      const markdownFile=document.querySelector('#markdown_file'),markdown=document.querySelector('#markdown'),markdownEditor=document.querySelector('#markdown-editor');markdownFile.addEventListener('change',async e=>{const f=e.target.files[0];if(f){const text=await f.text();markdown.value=text;markdownEditor.value=text}});markdownEditor.addEventListener('input',()=>markdown.value=markdownEditor.value);
+      function bindDrop(zoneId,inputId,noteId){const zone=document.querySelector(zoneId),input=document.querySelector(inputId),note=document.querySelector(noteId);const update=()=>note.textContent=input.files.length?`${input.files.length} فایل انتخاب شد: ${Array.from(input.files).map(f=>f.name).join('، ')}`:'هنوز فایلی انتخاب نشده است.';zone.addEventListener('click',e=>{if(e.target!==input)input.click()});input.addEventListener('change',update);['dragenter','dragover'].forEach(n=>zone.addEventListener(n,e=>{e.preventDefault();zone.classList.add('dragging')}));['dragleave','drop'].forEach(n=>zone.addEventListener(n,e=>{e.preventDefault();zone.classList.remove('dragging')}));zone.addEventListener('drop',e=>{input.files=e.dataTransfer.files;update()})}bindDrop('#add-dropzone','#assets','#add-file-note');bindDrop('#edit-dropzone','#edit-assets','#edit-file-note');
+      async function renderMarkdown(source,target){const data=new FormData();data.set('markdown',source.value);const response=await fetch('/markdown-preview',{method:'POST',body:data});target.innerHTML=(await response.json()).html;target.hidden=false}document.querySelector('#preview-markdown').addEventListener('click',()=>renderMarkdown(markdown,document.querySelector('#quick-preview')));document.querySelector('#edit-preview-markdown').addEventListener('click',()=>renderMarkdown(document.querySelector('#edit-markdown'),document.querySelector('#edit-quick-preview')));
+      async function loadContent(path){const response=await fetch('/api/content?path='+encodeURIComponent(path));const data=await response.json();if(!response.ok){alert(`${data.error}\nراه‌حل: ${data.solution}`);return}document.querySelector('#edit-path').value=data.path;document.querySelector('#edit-title').value=data.title;document.querySelector('#edit-markdown').value=data.body;document.querySelector('#edit-description').value=data.description;document.querySelector('#edit-tags').value=data.tags;document.querySelector('#edit-date').value=data.date;document.querySelector('#edit-author').value=data.author;document.querySelector('#edit-status').value='preserve';document.querySelector('#edit-current').textContent=`${data.path} — ${data.permalink||'بدون نشانی مستقل'}`;document.querySelector('#edit-published').textContent=data.published_label+' (تا انتخاب صریح شما حفظ می‌شود)';document.querySelector('#edit-box').hidden=false;document.querySelector('#edit-box').scrollIntoView({behavior:'smooth'})}document.addEventListener('click',e=>{const b=e.target.closest('.edit-item');if(b)loadContent(b.dataset.path)});
+      let searchTimer;document.querySelector('#search').addEventListener('input',e=>{clearTimeout(searchTimer);searchTimer=setTimeout(async()=>{const items=await(await fetch('/api/search?q='+encodeURIComponent(e.target.value))).json();document.querySelector('#search-results').innerHTML=items.map(i=>`<tr><td>${escapeHtml(i.content_type)}</td><td>${escapeHtml(i.title)}</td><td><code>${escapeHtml(i.path)}</code></td><td><button type="button" class="edit-item" data-path="${escapeHtml(i.path)}">ویرایش</button></td></tr>`).join('')},200)});
+      document.querySelectorAll('.open-source').forEach(button=>button.addEventListener('click',async()=>{const data=new FormData();data.set('path',button.dataset.path);const response=await fetch('/open-source',{method:'POST',body:data});const result=await response.json();if(!result.ok)alert(`${result.error}\nاین دکمه فقط برای فایل‌های موجود است.`)}));
+      const jb=document.querySelector('#jekyll'),js=document.querySelector('#jekyll-stop'),jo=document.querySelector('#jekyll-open'),jstatus=document.querySelector('#jekyll-status'),jlog=document.querySelector('#jekyll-log');let poll;function showJekyll(d){jstatus.hidden=false;js.hidden=!d.running||!d.owned;jo.hidden=!d.ready;jb.disabled=Boolean(d.running);const labels={starting:'Jekyll در حال ساخت سایت است…',ready:'پیش‌نمایش Jekyll آماده است.',stopped:'سرور پیش‌نمایش متوقف است.',failed:'Jekyll با خطا متوقف شد. جزئیات و راه‌حل را در پایین ببینید.','port-conflict':'پورت ۴۰۰۰ در اختیار برنامهٔ دیگری است؛ آن برنامه را ببندید یا سرور قبلی را متوقف کنید.'};jstatus.textContent=d.error||labels[d.state]||d.state;jstatus.className=d.ready?'success':d.ok?'notice':'error';jlog.textContent=d.log||'';jlog.hidden=!d.log||d.ready;if(d.ready||!d.running){clearInterval(poll);poll=undefined}}async function refresh(){const d=await(await fetch('/jekyll-preview/status')).json();showJekyll(d);if(d.running&&!d.ready&&!poll)poll=setInterval(refresh,1500)}jb.addEventListener('click',async()=>{jb.disabled=true;const d=await(await fetch('/jekyll-preview',{method:'POST'})).json();showJekyll(d);if(d.running&&!d.ready)refresh()});js.addEventListener('click',async()=>showJekyll(await(await fetch('/jekyll-preview/stop',{method:'POST'})).json()));refresh();
     </script>
   </body>
 </html>

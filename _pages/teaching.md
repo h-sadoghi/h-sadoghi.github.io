@@ -20,6 +20,18 @@ The [resource library]({{ '/resources/' | relative_url }}) brings together circu
 
 ## Additional teaching materials
 
+{% if site.data.teaching_courses and site.data.teaching_courses.size > 0 %}
+
+## Locally managed courses
+
+{% for course in site.data.teaching_courses %}
+{% if course.published != false or jekyll.environment == 'development' %}
+
+- [**{{ course.title | escape }}**]({{ course.permalink | relative_url }}){% if course.description %}: {{ course.description | escape }}{% endif %}
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
 - [Data acquisition, processing and management]({{ '/resources/teaching-dataengcourse-data/' | relative_url }})
 - [AI for high-school students]({{ '/resources/teaching-ai-hs-introduction/' | relative_url }})
 - [AI applications in organizations]({{ '/resources/teaching-organizations-organ-ai/' | relative_url }})
