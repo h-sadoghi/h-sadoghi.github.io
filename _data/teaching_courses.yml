@@ -1,0 +1,12 @@
+- id: image-processing
+  title: Image Processing
+  description: Course materials for Image Processing.
+  permalink: /teaching/image-processing/
+  chapters:
+    - id: fundamentals
+      title: Fundamentals
+    - id: image-enhancement
+      title: Image Enhancement
+    - id: exercises
+      title: Exercises
+  published: true

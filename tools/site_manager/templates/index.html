@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>مدیریت سادهٔ سایت صادقی</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --navy: #16365f;
+        --blue: #245da8;
+        --pale: #eef4fb;
+        --line: #d8e1eb;
+        --ink: #192535;
+        --muted: #607083;
+        --ok: #17713d;
+        --danger: #a22525;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: Tahoma, "Segoe UI", sans-serif;
+        background: #f2f5f8;
+        color: var(--ink);
+      }
+      header {
+        background: linear-gradient(120deg, #122d50, #245c96);
+        color: white;
+        padding: 1.25rem max(3vw, 1rem);
+      }
+      header h1 {
+        font-size: 1.45rem;
+        margin: 0 0 0.35rem;
+      }
+      header p {
+        margin: 0;
+        opacity: 0.9;
+      }
+      main {
+        width: min(1120px, 95vw);
+        margin: 1.15rem auto 3rem;
+      }
+      .home-actions {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+      }
+      .home-action {
+        border: 1px solid var(--line);
+        background: white;
+        color: var(--navy);
+        padding: 1rem;
+        border-radius: 14px;
+        text-align: right;
+        cursor: pointer;
+        box-shadow: 0 2px 10px #173b6c10;
+      }
+      .home-action strong {
+        display: block;
+        font-size: 1.05rem;
+        margin-bottom: 0.25rem;
+      }
+      .home-action span {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+      .home-action.active {
+        border-color: var(--blue);
+        background: var(--pale);
+        box-shadow: 0 0 0 2px #245da822;
+      }
+      .panel {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 1.1rem 1.25rem;
+        box-shadow: 0 2px 12px #20304012;
+      }
+      .panel[hidden] {
+        display: none;
+      }
+      h2 {
+        color: var(--navy);
+        font-size: 1.15rem;
+        margin: 0.1rem 0 0.35rem;
+      }
+      h3 {
+        font-size: 1rem;
+      }
+      .lead {
+        color: var(--muted);
+        margin: 0.2rem 0 1rem;
+      }
+      label {
+        display: block;
+        font-weight: 700;
+        margin: 0.7rem 0 0.3rem;
+      }
+      input,
+      select,
+      textarea,
+      button {
+        font: inherit;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.68rem;
+        border: 1px solid #b9c6d3;
+        border-radius: 8px;
+        background: white;
+        color: var(--ink);
+      }
+      textarea {
+        min-height: 11rem;
+        direction: auto;
+        font-family: Consolas, "Courier New", monospace;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.35rem 1rem;
+      }
+      .wide {
+        grid-column: 1/-1;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.55rem;
+        margin-top: 1rem;
+      }
+      button,
+      .button {
+        width: auto;
+        border: 0;
+        border-radius: 8px;
+        padding: 0.72rem 1.05rem;
+        background: var(--blue);
+        color: white;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      button.secondary,
+      .button.secondary {
+        background: #5c6d80;
+      }
+      button.danger {
+        background: var(--danger);
+      }
+      button:disabled {
+        opacity: 0.55;
+        cursor: wait;
+      }
+      details {
+        margin-top: 0.85rem;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 0.65rem 0.8rem;
+      }
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--navy);
+      }
+      .dropzone {
+        border: 2px dashed #9eb2c8;
+        border-radius: 10px;
+        padding: 1rem;
+        text-align: center;
+        background: #f8fafc;
+        transition: 0.15s;
+      }
+      .dropzone.dragging {
+        background: #e5f0ff;
+        border-color: var(--blue);
+      }
+      .file-note {
+        color: var(--muted);
+        font-size: 0.85rem;
+        margin: 0.35rem 0 0;
+      }
+      .notice,
+      .error,
+      .success {
+        padding: 0.85rem;
+        border-radius: 9px;
+        margin: 0.75rem 0;
+      }
+      .notice {
+        background: #fff5cf;
+        border-right: 4px solid #d49a00;
+      }
+      .error {
+        background: #ffe5e5;
+        color: #791414;
+        border-right: 4px solid var(--danger);
+        white-space: pre-wrap;
+      }
+      .success {
+        background: #def5e7;
+        color: #10562e;
+        border-right: 4px solid var(--ok);
+      }
+      .status-line {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem;
+        background: var(--pale);
+        border-radius: 9px;
+        margin: 0.8rem 0;
+      }
+      .dot {
+        width: 0.7rem;
+        height: 0.7rem;
+        border-radius: 50%;
+        background: var(--ok);
+        flex: none;
+      }
+      .status-bad .dot {
+        background: var(--danger);
+      }
+      pre {
+        direction: ltr;
+        text-align: left;
+        white-space: pre-wrap;
+        overflow: auto;
+        background: #101820;
+        color: #e8eef6;
+        padding: 0.8rem;
+        border-radius: 8px;
+        max-height: 24rem;
+      }
+      code {
+        direction: ltr;
+      }
+      #quick-preview,
+      #edit-quick-preview {
+        direction: auto;
+        text-align: start;
+        border: 1px solid var(--line);
+        padding: 1rem;
+        border-radius: 9px;
+        margin-top: 0.8rem;
+      }
+      .scroll {
+        max-height: 26rem;
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.88rem;
+      }
+      th,
+      td {
+        text-align: right;
+        border-bottom: 1px solid var(--line);
+        padding: 0.55rem;
+      }
+      th {
+        position: sticky;
+        top: 0;
+        background: #f4f7fa;
+      }
+      .edit-box,
+      .preview-box {
+        margin-top: 1rem;
+        padding: 1rem;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: #fbfcfe;
+      }
+      .utilities {
+        width: min(1120px, 95vw);
+        margin: 0.8rem auto 0;
+        background: white;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .publish-ready {
+        color: var(--ok);
+        font-weight: 700;
+      }
+      @media (max-width: 760px) {
+        .home-actions,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        .wide {
+          grid-column: auto;
+        }
+        .home-action {
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>مدیریت محتوای محلی — ساده و روشن</h1>
+      <p>مطلب را انتخاب کنید، پیش‌نمایش ببینید و فقط در مخزن محلی ذخیره کنید.</p>
+    </header>
+    <details class="utilities">
+      <summary>پیش‌نمایش واقعی سایت و راهنمای GitHub Desktop</summary>
+      <div class="actions">
+        <button type="button" id="jekyll">اجرای پیش‌نمایش Jekyll</button
+        ><a class="button secondary" id="jekyll-open" href="http://127.0.0.1:4000" target="_blank" hidden>باز کردن سایت محلی</a
+        ><button type="button" class="danger" id="jekyll-stop" hidden>توقف Jekyll</button
+        ><a class="button secondary" data-href="{{ url_for('github_desktop') }}" target="_blank">راهنمای GitHub Desktop</a>
+      </div>
+      <div id="jekyll-status" class="notice" hidden></div>
+      <pre id="jekyll-log" hidden></pre>
+    </details>
+    <main>
+      {% if error %}
+      <div class="error">
+        <strong>عملیات انجام نشد.</strong><br />{{ error }}<br /><span
+          >ورودی‌ها را اصلاح کنید و دوباره پیش‌نمایش بگیرید؛ هیچ فایلی تغییر نکرده است.</span
+        >
+      </div>
+      {% endif %} {% if result %}
+      <div class="success">
+        <strong>ذخیره در مخزن محلی موفق بود.</strong> {{ result.changed_files|length }} فایل با پشتیبان خودکار ثبت شد.
+        <details>
+          <summary>جزئیات ذخیره</summary>
+          <p>پشتیبان: <code>{{ result.backup }}</code></p>
+          <ul>
+            {% for path in result.changed_files %}
+            <li><code>{{ path }}</code></li>
+            {% endfor %}
+          </ul>
+        </details>
+      </div>
+      {% endif %}
+      <nav class="home-actions" aria-label="کارهای اصلی">
+        <button type="button" class="home-action" data-view="course"><strong>۱. درس جدید</strong><span>ساخت درس و فصل‌های آن</span></button>
+        <button type="button" class="home-action" data-view="add"><strong>۲. افزودن مطلب</strong><span>Markdown، تصویر و PDF</span></button>
+        <button type="button" class="home-action" data-view="browse"><strong>۳. مطالب موجود</strong><span>جست‌وجو و ویرایش امن</span></button>
+      </nav>
+      <section class="panel" data-panel="course" hidden>
+        <h2>درس جدید</h2>
+        <p class="lead">عنوان، توضیح اختیاری و نام فصل‌ها را وارد کنید. منوها و درس‌های قبلی تغییر نمی‌کنند.</p>
+        <form data-endpoint="{{ url_for('preview') }}" method="post">
+          <input type="hidden" name="action" value="course" />
+          <div class="grid">
+            <div>
+              <label for="course-title">عنوان درس</label><input id="course-title" name="title" required placeholder="برای نمونه: Image Processing" />
+            </div>
+            <div><label for="course-description">توضیح کوتاه (اختیاری)</label><input id="course-description" name="description" /></div>
+            <div class="wide">
+              <label for="course-chapters">فصل‌ها (هر فصل در یک خط، اختیاری)</label
+              ><textarea id="course-chapters" name="chapters" placeholder="Introduction&#10;Image Enhancement&#10;Exercises"></textarea>
+            </div>
+          </div>
+          <details>
+            <summary>تنظیمات پیشرفته</summary>
+            <label for="course-status">وضعیت درس</label
+            ><select id="course-status" name="status">
+              <option value="ready">آمادهٔ انتشار پس از Push و Merge</option>
+              <option value="draft">پیش‌نویس محلی</option>
+            </select>
+          </details>
+          <div class="actions"><button type="submit">پیش‌نمایش درس</button></div>
+        </form>
+        {% if plan and plan.operation == 'course' %}{% include 'plan_card.html' %}{% endif %}
+      </section>
+      <section class="panel" data-panel="add">
+        <h2>افزودن مطلب</h2>
+        <p class="lead">فایل Markdown و رسانه‌ها را انتخاب کنید؛ نام و مسیر فنی به‌صورت خودکار ساخته می‌شود.</p>
+        <form data-endpoint="{{ url_for('preview') }}" method="post" enctype="multipart/form-data" id="add-form">
+          <input type="hidden" name="action" value="add" />
+          <div class="grid">
+            <div>
+              <label for="route">بخش مقصد یا درس</label
+              ><select name="route" id="route" required>
+                {% for route in routes %}
+                <option
+                  value="{{ route.name }}"
+                  data-warning="{{ route.warning }}"
+                  data-chapters="{{ route.chapters|default([])|tojson|forceescape }}"
+                >
+                  {{ route.label }}
+                </option>
+                {% endfor %}
+              </select>
+              <p class="file-note" id="route-warning"></p>
+            </div>
+            <div><label for="title">عنوان مطلب</label><input name="title" id="title" required /></div>
+            <div id="chapter-wrap" hidden>
+              <label for="chapter">فصل درس</label
+              ><select name="chapter" id="chapter">
+                <option value="">بدون فصل</option>
+              </select>
+            </div>
+            <div>
+              <label for="markdown_file">فایل Markdown</label
+              ><input type="file" name="markdown_file" id="markdown_file" accept=".md,.markdown,text/markdown" />
+            </div>
+            <div class="wide">
+              <label for="assets">تصاویر و PDFها</label>
+              <div class="dropzone" id="add-dropzone">
+                فایل‌ها را اینجا رها کنید یا برای انتخاب کلیک کنید<input
+                  type="file"
+                  name="assets"
+                  id="assets"
+                  multiple
+                  accept="image/*,.pdf,application/pdf"
+                />
+                <p class="file-note" id="add-file-note">هنوز فایلی انتخاب نشده است.</p>
+              </div>
+            </div>
+          </div>
+          <textarea name="markdown" id="markdown" hidden></textarea>
+          <details>
+            <summary>تنظیمات پیشرفته</summary>
+            <div class="grid">
+              <div class="wide"><label for="description">خلاصه</label><input name="description" id="description" /></div>
+              <div><label for="tags">برچسب‌ها (با ویرگول)</label><input name="tags" id="tags" /></div>
+              <div><label for="date">تاریخ سفارشی</label><input type="date" name="date" id="date" /></div>
+              <div><label for="author">نویسنده</label><input name="author" id="author" /></div>
+              <div>
+                <label for="status">وضعیت نهایی</label
+                ><select name="status" id="status">
+                  <option value="ready">آمادهٔ انتشار پس از Push و Merge</option>
+                  <option value="draft">پیش‌نویس محلی</option>
+                </select>
+              </div>
+              <div class="wide">
+                <label for="markdown-editor">متن Markdown واردشده</label
+                ><textarea id="markdown-editor" placeholder="پس از انتخاب فایل، متن برای بازبینی اینجا دیده می‌شود."></textarea>
+              </div>
+              <div class="wide" id="bibtex-wrap" hidden>
+                <label for="bibtex">رکورد BibTeX</label><textarea name="bibtex" id="bibtex" dir="ltr"></textarea>
+              </div>
+            </div>
+          </details>
+          <div class="actions">
+            <button type="submit">پیش‌نمایش قبل از ذخیره</button><button type="button" class="secondary" id="preview-markdown">نمایش متن</button>
+          </div>
+          <div id="quick-preview" hidden></div>
+        </form>
+        {% if plan and plan.operation == 'add' %}{% include 'plan_card.html' %}{% endif %}
+      </section>
+      <section class="panel" data-panel="browse" hidden>
+        <h2>مطالب موجود</h2>
+        <p class="lead">مطلب را پیدا کنید و «ویرایش» را بزنید؛ عنوان، متن و وضعیت فعلی آن بارگذاری می‌شود.</p>
+        <label for="search">جست‌وجو</label><input id="search" placeholder="عنوان، URL یا نام فایل" />
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>نوع</th>
+                <th>عنوان</th>
+                <th>مسیر</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="search-results">
+              {% for item in items %}
+              <tr>
+                <td>{{ item.content_type }}</td>
+                <td>{{ item.title }}</td>
+                <td><code>{{ item.path }}</code></td>
+                <td><button type="button" class="edit-item" data-path="{{ item.path }}">ویرایش</button></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="edit-box" id="edit-box" hidden>
+          <h3>ویرایش مطلب انتخاب‌شده</h3>
+          <p id="edit-current" class="muted"></p>
+          <form data-endpoint="{{ url_for('preview') }}" method="post" enctype="multipart/form-data" id="edit-form">
+            <input type="hidden" name="action" value="edit" /><input type="hidden" name="existing_path" id="edit-path" />
+            <div class="grid">
+              <div><label for="edit-title">عنوان</label><input name="title" id="edit-title" /></div>
+              <div>
+                <label>وضعیت فعلی</label>
+                <div class="status-line" id="edit-published"></div>
+              </div>
+              <div class="wide"><label for="edit-markdown">متن Markdown</label><textarea name="markdown" id="edit-markdown"></textarea></div>
+              <div class="wide">
+                <label for="edit-assets">افزودن تصویر یا PDF</label>
+                <div class="dropzone" id="edit-dropzone">
+                  فایل‌ها را اینجا رها کنید یا برای انتخاب کلیک کنید<input
+                    type="file"
+                    name="assets"
+                    id="edit-assets"
+                    multiple
+                    accept="image/*,.pdf,application/pdf"
+                  />
+                  <p class="file-note" id="edit-file-note">هنوز فایلی انتخاب نشده است.</p>
+                </div>
+              </div>
+            </div>
+            <details>
+              <summary>تنظیمات پیشرفته</summary>
+              <div class="grid">
+                <div class="wide"><label for="edit-description">خلاصه</label><input name="description" id="edit-description" /></div>
+                <div><label for="edit-tags">برچسب‌ها</label><input name="tags" id="edit-tags" /></div>
+                <div><label for="edit-date">تاریخ</label><input name="date" id="edit-date" /></div>
+                <div><label for="edit-author">نویسنده</label><input name="author" id="edit-author" /></div>
+                <div>
+                  <label for="edit-status">تغییر وضعیت انتشار</label
+                  ><select name="status" id="edit-status">
+                    <option value="preserve">بدون تغییر</option>
+                    <option value="ready">آمادهٔ انتشار</option>
+                    <option value="draft">پیش‌نویس</option>
+                  </select>
+                </div>
+              </div>
+            </details>
+            <div class="actions">
+              <button type="submit">پیش‌نمایش ویرایش</button><button type="button" class="secondary" id="edit-preview-markdown">نمایش متن</button>
+            </div>
+            <div id="edit-quick-preview" hidden></div>
+          </form>
+        </div>
+        {% if plan and plan.operation == 'edit' %}{% include 'plan_card.html' %}{% endif %}
+      </section>
+    </main>
+    <script>
+      const initialView={{ active|tojson }};
+      document.querySelectorAll('form[data-endpoint]').forEach(form=>form.action=form.dataset.endpoint);document.querySelectorAll('[data-href]').forEach(link=>link.href=link.dataset.href);
+      function showView(name){document.querySelectorAll('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==name);document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));history.replaceState(null,'',`?view=${name}`)}
+      document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));showView(['course','add','browse'].includes(initialView)?initialView:'add');
+      function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+      const route=document.querySelector('#route'),chapter=document.querySelector('#chapter'),chapterWrap=document.querySelector('#chapter-wrap');
+      function syncRoute(){let chapters=[];try{chapters=JSON.parse(route.selectedOptions[0]?.dataset.chapters||'[]')}catch(e){}chapter.innerHTML='<option value="">بدون فصل</option>'+chapters.map(c=>`<option value="${escapeHtml(c.id)}">${escapeHtml(c.title)}</option>`).join('');chapterWrap.hidden=!chapters.length;document.querySelector('#route-warning').textContent=route.selectedOptions[0]?.dataset.warning||'';document.querySelector('#bibtex-wrap').hidden=route.value!=='publication';document.querySelector('#title').required=route.value!=='publication'}route.addEventListener('change',syncRoute);syncRoute();
+      const markdownFile=document.querySelector('#markdown_file'),markdown=document.querySelector('#markdown'),markdownEditor=document.querySelector('#markdown-editor');markdownFile.addEventListener('change',async e=>{const f=e.target.files[0];if(f){const text=await f.text();markdown.value=text;markdownEditor.value=text}});markdownEditor.addEventListener('input',()=>markdown.value=markdownEditor.value);
+      function bindDrop(zoneId,inputId,noteId){const zone=document.querySelector(zoneId),input=document.querySelector(inputId),note=document.querySelector(noteId);const update=()=>note.textContent=input.files.length?`${input.files.length} فایل انتخاب شد: ${Array.from(input.files).map(f=>f.name).join('، ')}`:'هنوز فایلی انتخاب نشده است.';zone.addEventListener('click',e=>{if(e.target!==input)input.click()});input.addEventListener('change',update);['dragenter','dragover'].forEach(n=>zone.addEventListener(n,e=>{e.preventDefault();zone.classList.add('dragging')}));['dragleave','drop'].forEach(n=>zone.addEventListener(n,e=>{e.preventDefault();zone.classList.remove('dragging')}));zone.addEventListener('drop',e=>{input.files=e.dataTransfer.files;update()})}bindDrop('#add-dropzone','#assets','#add-file-note');bindDrop('#edit-dropzone','#edit-assets','#edit-file-note');
+      async function renderMarkdown(source,target){const data=new FormData();data.set('markdown',source.value);const response=await fetch('/markdown-preview',{method:'POST',body:data});target.innerHTML=(await response.json()).html;target.hidden=false}document.querySelector('#preview-markdown').addEventListener('click',()=>renderMarkdown(markdown,document.querySelector('#quick-preview')));document.querySelector('#edit-preview-markdown').addEventListener('click',()=>renderMarkdown(document.querySelector('#edit-markdown'),document.querySelector('#edit-quick-preview')));
+      async function loadContent(path){const response=await fetch('/api/content?path='+encodeURIComponent(path));const data=await response.json();if(!response.ok){alert(`${data.error}\nراه‌حل: ${data.solution}`);return}document.querySelector('#edit-path').value=data.path;document.querySelector('#edit-title').value=data.title;document.querySelector('#edit-markdown').value=data.body;document.querySelector('#edit-description').value=data.description;document.querySelector('#edit-tags').value=data.tags;document.querySelector('#edit-date').value=data.date;document.querySelector('#edit-author').value=data.author;document.querySelector('#edit-status').value='preserve';document.querySelector('#edit-current').textContent=`${data.path} — ${data.permalink||'بدون نشانی مستقل'}`;document.querySelector('#edit-published').textContent=data.published_label+' (تا انتخاب صریح شما حفظ می‌شود)';document.querySelector('#edit-box').hidden=false;document.querySelector('#edit-box').scrollIntoView({behavior:'smooth'})}document.addEventListener('click',e=>{const b=e.target.closest('.edit-item');if(b)loadContent(b.dataset.path)});
+      let searchTimer;document.querySelector('#search').addEventListener('input',e=>{clearTimeout(searchTimer);searchTimer=setTimeout(async()=>{const items=await(await fetch('/api/search?q='+encodeURIComponent(e.target.value))).json();document.querySelector('#search-results').innerHTML=items.map(i=>`<tr><td>${escapeHtml(i.content_type)}</td><td>${escapeHtml(i.title)}</td><td><code>${escapeHtml(i.path)}</code></td><td><button type="button" class="edit-item" data-path="${escapeHtml(i.path)}">ویرایش</button></td></tr>`).join('')},200)});
+      document.querySelectorAll('.open-source').forEach(button=>button.addEventListener('click',async()=>{const data=new FormData();data.set('path',button.dataset.path);const response=await fetch('/open-source',{method:'POST',body:data});const result=await response.json();if(!result.ok)alert(`${result.error}\nاین دکمه فقط برای فایل‌های موجود است.`)}));
+      const jb=document.querySelector('#jekyll'),js=document.querySelector('#jekyll-stop'),jo=document.querySelector('#jekyll-open'),jstatus=document.querySelector('#jekyll-status'),jlog=document.querySelector('#jekyll-log');let poll;function showJekyll(d){jstatus.hidden=false;js.hidden=!d.running||!d.owned;jo.hidden=!d.ready;jb.disabled=Boolean(d.running);const labels={starting:'Jekyll در حال ساخت سایت است…',ready:'پیش‌نمایش Jekyll آماده است.',stopped:'سرور پیش‌نمایش متوقف است.',failed:'Jekyll با خطا متوقف شد. جزئیات و راه‌حل را در پایین ببینید.','port-conflict':'پورت ۴۰۰۰ در اختیار برنامهٔ دیگری است؛ آن برنامه را ببندید یا سرور قبلی را متوقف کنید.'};jstatus.textContent=d.error||labels[d.state]||d.state;jstatus.className=d.ready?'success':d.ok?'notice':'error';jlog.textContent=d.log||'';jlog.hidden=!d.log||d.ready;if(d.ready||!d.running){clearInterval(poll);poll=undefined}}async function refresh(){const d=await(await fetch('/jekyll-preview/status')).json();showJekyll(d);if(d.running&&!d.ready&&!poll)poll=setInterval(refresh,1500)}jb.addEventListener('click',async()=>{jb.disabled=true;const d=await(await fetch('/jekyll-preview',{method:'POST'})).json();showJekyll(d);if(d.running&&!d.ready)refresh()});js.addEventListener('click',async()=>showJekyll(await(await fetch('/jekyll-preview/stop',{method:'POST'})).json()));refresh();
+    </script>
+  </body>
+</html>

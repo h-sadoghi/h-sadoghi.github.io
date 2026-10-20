@@ -1,0 +1,147 @@
+version: 1
+image_asset_root: assets/img/content
+document_asset_root: assets/pdf/content
+backup_root: .site-manager-backups
+
+# All destinations below were derived from the current repository. The user
+# chooses one route explicitly; the manager never infers an academic section.
+routes:
+  blog_post:
+    label_fa: "وبلاگ / نوشتهٔ تاریخ‌دار"
+    content_type: post
+    section: "News / Blog"
+    destination: _posts
+    filename: "{date}-{slug}.md"
+    permalink: "/blog/{year}/{slug}/"
+    defaults:
+      layout: post
+      nav: false
+      related_posts: false
+    required: [title, date]
+
+  teaching_signals:
+    label_fa: "آموزش / سیگنال‌ها و سیستم‌ها"
+    content_type: teaching_note
+    section: Teaching
+    subsection: "Signals and Systems"
+    destination: _pages/resources
+    filename: "teaching-signals-{slug}.md"
+    permalink: "/resources/teaching-signals-{slug}/"
+    defaults:
+      layout: legacy_page
+      nav: false
+      resource_group: Teaching
+      course: "Signals and Systems"
+    index_group: "Signals and systems"
+    required: [title]
+
+  teaching_pattern_recognition:
+    label_fa: "آموزش / تشخیص الگو و یادگیری ماشین"
+    content_type: teaching_note
+    section: Teaching
+    subsection: "Pattern Recognition and Machine Learning"
+    destination: _pages/resources
+    filename: "teaching-pattern-recognition-{slug}.md"
+    permalink: "/resources/teaching-pattern-recognition-{slug}/"
+    defaults:
+      layout: legacy_page
+      nav: false
+      resource_group: Teaching
+      course: "Pattern Recognition and Machine Learning"
+    index_group: "Pattern recognition and machine learning"
+    required: [title]
+
+  teaching_circuits:
+    label_fa: "آموزش / مدار و الکترونیک"
+    content_type: teaching_note
+    section: Teaching
+    subsection: "Circuits and Electronics"
+    destination: _pages/resources
+    filename: "teaching-circuits-{slug}.md"
+    permalink: "/resources/teaching-circuits-{slug}/"
+    defaults:
+      layout: legacy_page
+      nav: false
+      resource_group: Teaching
+      course: "Circuits and Electronics"
+    index_group: "Circuits and electronics"
+    required: [title]
+
+  project:
+    label_fa: "پژوهش / پروژه"
+    content_type: project
+    section: Research
+    destination: _projects
+    filename: "{slug}.md"
+    permalink: "/projects/{slug}/"
+    defaults:
+      layout: page
+      category: work
+      importance: 10
+      related_publications: false
+    required: [title]
+
+  student_profile:
+    label_fa: "افراد و دانشجویان / پروفایل مستقل"
+    content_type: student_profile
+    section: "People & Students"
+    destination: _pages
+    filename: "student-{slug}.md"
+    permalink: "/people/{slug}/"
+    defaults:
+      layout: page
+      nav: false
+      profile_type: student
+    required: [title]
+    warning_fa: "این مسیر صفحهٔ مستقل می‌سازد؛ افزودن کارت به فهرست People یک تغییر ساختاری جداگانه است."
+
+  thesis:
+    label_fa: "افراد و دانشجویان / رکورد پایان‌نامه"
+    content_type: thesis
+    section: "People & Students"
+    destination: _pages/resources
+    filename: "thesis-{slug}.md"
+    permalink: "/resources/thesis-{slug}/"
+    defaults:
+      layout: legacy_page
+      nav: false
+      resource_group: "Student research"
+    required: [title]
+    warning_fa: "این صفحه به‌صورت مستقل ذخیره می‌شود؛ افزودن آن به آرشیو داده‌ای دانشجویان نیازمند بازبینی جداگانه است."
+    index_group: "Student research"
+
+  presentation:
+    label_fa: "کتابخانه / ارائه و سخنرانی"
+    content_type: presentation
+    section: Library
+    destination: _pages/resources
+    filename: "presentation-{slug}.md"
+    permalink: "/resources/presentation-{slug}/"
+    defaults:
+      layout: legacy_page
+      nav: false
+      resource_group: Presentations
+    index_group: "Presentations and proposals"
+    required: [title]
+
+  resource:
+    label_fa: "کتابخانه / منبع عمومی"
+    content_type: resource
+    section: Library
+    destination: _pages/resources
+    filename: "resource-{slug}.md"
+    permalink: "/resources/resource-{slug}/"
+    defaults:
+      layout: legacy_page
+      nav: false
+      resource_group: Library
+    index_group: "Library"
+    required: [title]
+
+  publication:
+    label_fa: "پژوهش / مقالهٔ BibTeX"
+    content_type: publication
+    section: Research
+    destination: _bibliography/papers.bib
+    mode: bibtex
+    required: [bibtex]

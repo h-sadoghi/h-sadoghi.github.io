@@ -1,0 +1,45 @@
+<div class="preview-box">
+  <h3>نتیجهٔ پیش‌نمایش</h3>
+  <div class="status-line {{ 'status-bad' if plan.conflicts or not plan.validation.ok else '' }}">
+    <span class="dot"></span><strong>{{ 'آمادهٔ ذخیره در مخزن محلی' if plan.validation.ok and not plan.conflicts else 'نیازمند اصلاح' }}</strong>
+  </div>
+  {% if plan.front_matter.get('published') == false %}
+  <p>وضعیت نهایی: <strong>پیش‌نویس؛ در سایت عمومی منتشر نمی‌شود.</strong></p>
+  {% else %}
+  <p>وضعیت نهایی: <span class="publish-ready">آمادهٔ انتشار پس از Commit، Push و Merge توسط شما</span></p>
+  {% endif %}
+  <p>{{ plan.changes|length }} فایل در این عملیات ساخته یا به‌روزرسانی می‌شود.</p>
+  {% for warning in plan.warnings %}
+  <div class="notice">{{ warning }}</div>
+  {% endfor %}{% for conflict in plan.conflicts %}
+  <div class="error">{{ conflict }}<br />راه‌حل: عنوان یا بخش مقصد را تغییر دهید و دوباره پیش‌نمایش بگیرید.</div>
+  {% endfor %}{% for issue in plan.validation.errors %}
+  <div class="error">{{ issue }}<br />راه‌حل: فایل Markdown یا رسانهٔ اشاره‌شده را اصلاح کنید.</div>
+  {% endfor %}{% for warning in plan.validation.warnings %}
+  <div class="notice">{{ warning }}</div>
+  {% endfor %}
+  <details>
+    <summary>جزئیات فنی: مسیرها، Front Matter و Git diff</summary>
+    <h4>Front Matter</h4>
+    <pre>{{ plan.front_matter|tojson(indent=2) }}</pre>
+    {% for change in plan.changes %}
+    <h4>
+      {{ change.action }} — <code>{{ change.path }}</code> ({{ change.size }} bytes){% if change.action == 'modify' %}
+      <button type="button" class="secondary open-source" data-path="{{ change.path }}">نمایش فایل موجود</button>{% endif %}
+    </h4>
+    {% if change.diff %}
+    <pre>{{ change.diff }}</pre>
+    {% else %}
+    <p>فایل رسانه‌ای است و متن فنی ندارد.</p>
+    {% endif %}{% endfor %}
+  </details>
+  {% if plan.validation.ok and not plan.conflicts %}
+  <form data-endpoint="{{ url_for('apply', token=plan.token) }}" method="post">
+    <input type="hidden" name="confirm" value="yes" /><input
+      type="hidden"
+      name="active"
+      value="{{ 'course' if plan.operation == 'course' else 'browse' if plan.operation == 'edit' else 'add' }}"
+    /><button type="submit">تأیید و ذخیره در مخزن محلی</button>
+  </form>
+  {% endif %}
+</div>

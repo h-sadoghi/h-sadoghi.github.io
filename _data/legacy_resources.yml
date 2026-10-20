@@ -931,3 +931,19 @@
   group: Circuits and electronics
   mode: full_article
   body_sha256: 8b97f3ec2a1859729d011b3fe89f33dd14a68229a8cc36549830c463d04a28ef
+- source_path: local-authoring/teaching-signals-signal-test-20261019.md
+  destination_path: _pages/resources/teaching-signals-signal-test-20261019.md
+  destination_url: /resources/teaching-signals-signal-test-20261019/
+  title: آزمایش سیگنال سینوسی و انتقال زمانی
+  group: Signals and systems
+  mode: local_authored
+  published: false
+- source_path: local-authoring/teaching-image-processing-image-processing-local-preview-test.md
+  destination_path: _pages/resources/teaching-image-processing-image-processing-local-preview-test.md
+  destination_url: /resources/teaching-image-processing-image-processing-local-preview-test/
+  title: Image Processing — Local Preview Test
+  group: Image Processing
+  mode: local_authored
+  published: false
+  course_id: image-processing
+  chapter_id: fundamentals

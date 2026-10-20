@@ -6,12 +6,14 @@
     <h2>{{ group.name }}</h2>
     <ul>
       {% for resource in group.items %}
-        <li
-          class="resource-item"
-          data-search="{{ resource.title | append: ' ' | append: resource.group | append: ' ' | append: resource.search_terms | escape }}"
-        >
-          <a href="{{ resource.destination_url | relative_url }}" dir="auto">{{ resource.title | escape }}</a>
-        </li>
+        {% if resource.published != false or jekyll.environment == 'development' %}
+          <li
+            class="resource-item"
+            data-search="{{ resource.title | append: ' ' | append: resource.group | append: ' ' | append: resource.search_terms | escape }}"
+          >
+            <a href="{{ resource.destination_url | relative_url }}" dir="auto">{{ resource.title | escape }}</a>
+          </li>
+        {% endif %}
       {% endfor %}
     </ul>
   </section>

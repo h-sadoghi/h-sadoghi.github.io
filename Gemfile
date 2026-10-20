@@ -18,7 +18,8 @@ group :jekyll_plugins do
     gem 'jekyll-toc'
     gem 'jekyll-twitter-plugin'
     gem 'jemoji'
-    gem 'mini_racer'
+    # libv8-node does not publish Windows binaries. ExecJS uses the installed Node.js runtime locally.
+    gem 'mini_racer' unless Gem.win_platform?
     gem 'unicode_utils'
     gem 'webrick'
 end
