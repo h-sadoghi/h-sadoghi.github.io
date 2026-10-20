@@ -1,40 +1,36 @@
-{% assign managed_course = site.data.teaching_courses | where: 'id', include.course_id | first %}
-{% assign managed_materials = site.data.legacy_resources | where: 'course_id', include.course_id %}
+{%- assign managed_course = site.data.teaching_courses | where: 'id', include.course_id | first -%}
+{%- assign managed_materials = site.data.legacy_resources | where: 'course_id', include.course_id -%}
 
-{% if managed_course.chapters and managed_course.chapters.size > 0 %}
-  {% for chapter in managed_course.chapters %}
-    <h2>{{ chapter.title | escape }}</h2>
-    {% assign chapter_materials = managed_materials | where: 'chapter_id', chapter.id %}
-    {% if chapter_materials.size > 0 %}
-      <ul>
-        {% for material in chapter_materials %}
-          {% if material.published != false or jekyll.environment == 'development' %}
-            <li>
-              <a href="{{ material.destination_url | relative_url }}">{{ material.title | escape }}</a>
-            </li>
-          {% endif %}
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No material has been added to this chapter yet.</p>
-    {% endif %}
-  {% endfor %}
-{% endif %}
+{%- if managed_course.chapters and managed_course.chapters.size > 0 -%}
+{%- for chapter in managed_course.chapters %}
+<h2>{{ chapter.title | escape }}</h2>
+{%- assign chapter_materials = managed_materials | where: 'chapter_id', chapter.id -%}
+{%- if chapter_materials.size > 0 %}
+<ul>
+{%- for material in chapter_materials %}
+{%- if material.published != false or jekyll.environment == 'development' %}
+<li><a href="{{ material.destination_url | relative_url }}">{{ material.title | escape }}</a></li>
+{%- endif %}
+{%- endfor %}
+</ul>
+{%- else %}
+<p>No material has been added to this chapter yet.</p>
+{%- endif %}
+{%- endfor %}
+{%- endif %}
 
-{% assign ungrouped_materials = managed_materials | where_exp: 'material', 'material.chapter_id == nil' %}
-{% if ungrouped_materials.size > 0 %}
-  <h2>Course materials</h2>
-  <ul>
-    {% for material in ungrouped_materials %}
-      {% if material.published != false or jekyll.environment == 'development' %}
-        <li>
-          <a href="{{ material.destination_url | relative_url }}">{{ material.title | escape }}</a>
-        </li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-{% endif %}
+{%- assign ungrouped_materials = managed_materials | where_exp: 'material', 'material.chapter_id == nil' -%}
+{%- if ungrouped_materials.size > 0 %}
+<h2>Course materials</h2>
+<ul>
+{%- for material in ungrouped_materials %}
+{%- if material.published != false or jekyll.environment == 'development' %}
+<li><a href="{{ material.destination_url | relative_url }}">{{ material.title | escape }}</a></li>
+{%- endif %}
+{%- endfor %}
+</ul>
+{%- endif %}
 
-{% if managed_materials.size == 0 %}
-  <p>Course materials will appear here after they are added.</p>
-{% endif %}
+{%- if managed_materials.size == 0 %}
+<p>Course materials will appear here after they are added.</p>
+{%- endif %}

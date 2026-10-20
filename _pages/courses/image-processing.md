@@ -8,6 +8,4 @@ published: true
 description: Course materials for Image Processing.
 ---
 
-Course materials for Image Processing.
-
 {% include teaching_course_materials.liquid course_id=page.course_id %}

@@ -270,7 +270,7 @@ class SiteManager:
             "warning_fa": "",
         }
 
-    def preview_course(self, fields: dict[str, Any]) -> ChangePlan:
+    def preview_course(self, fields: dict[str, Any], assets: list[AssetInput] | None = None) -> ChangePlan:
         title = str(fields.get("title") or "").strip()
         if not title:
             raise SiteManagerError("عنوان درس را وارد کنید.")
@@ -282,18 +282,33 @@ class SiteManager:
             raise SiteManagerError("دو فصل نام یکسان دارند؛ نام فصل‌ها را متمایز کنید.")
         existing_courses = self.courses()
         conflicts: list[str] = []
+        course_url = f"/teaching/{slug}/"
         for course in existing_courses:
             if str(course.get("id", "")).casefold() == slug.casefold():
                 conflicts.append("درسی با این نام یا شناسه از قبل وجود دارد.")
             if str(course.get("title", "")).casefold() == title.casefold():
                 conflicts.append("درسی با این عنوان از قبل وجود دارد.")
+            if str(course.get("url", course.get("permalink", ""))).rstrip("/").casefold() == course_url.rstrip("/").casefold():
+                conflicts.append("نشانی این درس از قبل در فهرست Teaching وجود دارد.")
+        course_assets = assets or []
+        if len(course_assets) > 1:
+            raise SiteManagerError("برای تصویر اصلی درس فقط یک فایل انتخاب کنید.")
+        if course_assets and Path(course_assets[0].name).suffix.casefold() == ".pdf":
+            raise SiteManagerError("تصویر اصلی درس باید فایل تصویری باشد؛ PDF پذیرفته نیست.")
+        asset_files, _ = prepare_assets("assets/img/courses", "assets/img/courses", slug, course_assets)
+        image_path = f"/{next(iter(asset_files))}" if asset_files else "/assets/img/courses/default-course.svg"
+        next_order = max((int(course.get("order", 0)) for course in existing_courses), default=0) + 1
+        published = str(fields.get("status") or "ready") != "draft"
         course_item = CommentedMap(
             id=slug,
             title=title,
             description=description,
-            permalink=f"/teaching/{slug}/",
+            image=image_path,
+            url=course_url,
+            order=next_order,
+            link_type="internal",
             chapters=chapters,
-            published=str(fields.get("status") or "ready") != "draft",
+            published=published,
         )
         yaml = YAML(typ="rt")
         yaml.preserve_quotes = True
@@ -302,20 +317,17 @@ class SiteManager:
         yaml.dump([*existing_courses, course_item], stream)
         data_text = stream.getvalue()
         data_validation = self.validator.validate_yaml(data_text)
-        published = str(fields.get("status") or "ready") != "draft"
         metadata = CommentedMap(
             layout="page",
             title=title,
-            permalink=f"/teaching/{slug}/",
+            permalink=course_url,
             nav=False,
             course_id=slug,
             published=published,
         )
         if description:
             metadata["description"] = description
-        body = (
-            f"{description}\n\n" if description else ""
-        ) + "{% include teaching_course_materials.liquid course_id=page.course_id %}\n"
+        body = "{% include teaching_course_materials.liquid course_id=page.course_id %}\n"
         page_text = render_front_matter(metadata, body)
         page_path = f"_pages/courses/{slug}.md"
         page_validation = self.validator.validate_markdown(page_path, page_text)
@@ -326,6 +338,10 @@ class SiteManager:
             self._change("_data/teaching_courses.yml", data_text.encode("utf-8")),
             self._change(page_path, page_text.encode("utf-8")),
         ]
+        for asset_path, data in asset_files.items():
+            if contained_path(self.repo_root, asset_path).exists():
+                conflicts.append(f"فایل تصویر درس از قبل وجود دارد: {asset_path}")
+            changes.append(self._change(asset_path, data))
         for change in changes:
             if change.action == "create":
                 continue
@@ -336,7 +352,7 @@ class SiteManager:
             operation="course",
             route=f"course:{slug}",
             target_path=page_path,
-            proposed_url=f"/teaching/{slug}/",
+            proposed_url=course_url,
             front_matter=metadata,
             changes=changes,
             validation=page_validation,
@@ -469,15 +485,32 @@ class SiteManager:
         backup_root = contained_path(self.repo_root, self.routes.config["backup_root"]) / f"{timestamp}-{plan.token[:8]}"
         backup_root.mkdir(parents=True, exist_ok=False)
         manifest: list[dict[str, Any]] = []
-        for change in plan.changes:
-            target = contained_path(self.repo_root, change.path)
-            if target.exists():
+        written: list[FileChange] = []
+        try:
+            for change in plan.changes:
+                target = contained_path(self.repo_root, change.path)
+                if target.exists():
+                    backup = backup_root / change.path
+                    backup.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(target, backup)
+                atomic_write(target, change.content)
+                written.append(change)
+                manifest.append({"path": change.path, "action": change.action, "before_sha256": change.before_sha256, "after_sha256": file_sha256(target)})
+            (backup_root / "operation.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+        except Exception as exc:
+            rollback_errors: list[str] = []
+            for change in reversed(written):
+                target = contained_path(self.repo_root, change.path)
                 backup = backup_root / change.path
-                backup.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(target, backup)
-            atomic_write(target, change.content)
-            manifest.append({"path": change.path, "action": change.action, "before_sha256": change.before_sha256, "after_sha256": file_sha256(target)})
-        (backup_root / "operation.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+                try:
+                    if change.before_sha256 is None:
+                        target.unlink(missing_ok=True)
+                    else:
+                        shutil.copy2(backup, target)
+                except OSError as rollback_exc:
+                    rollback_errors.append(f"{change.path}: {rollback_exc}")
+            detail = f" جزئیات بازگردانی: {'; '.join(rollback_errors)}" if rollback_errors else ""
+            raise SiteManagerError(f"ذخیره کامل نشد و تغییرات نوشته‌شده بازگردانده شدند: {exc}.{detail}") from exc
         del self._plans[plan.token]
         return {"ok": True, "changed_files": [item["path"] for item in manifest], "backup": str(backup_root.relative_to(self.repo_root)), "validation": self.validate(changed_only=[item["path"] for item in manifest]).as_dict()}
 

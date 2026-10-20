@@ -350,7 +350,7 @@
       <section class="panel" data-panel="course" hidden>
         <h2>درس جدید</h2>
         <p class="lead">عنوان، توضیح اختیاری و نام فصل‌ها را وارد کنید. منوها و درس‌های قبلی تغییر نمی‌کنند.</p>
-        <form data-endpoint="{{ url_for('preview') }}" method="post">
+        <form data-endpoint="{{ url_for('preview') }}" method="post" enctype="multipart/form-data">
           <input type="hidden" name="action" value="course" />
           <div class="grid">
             <div>
@@ -360,6 +360,11 @@
             <div class="wide">
               <label for="course-chapters">فصل‌ها (هر فصل در یک خط، اختیاری)</label
               ><textarea id="course-chapters" name="chapters" placeholder="Introduction&#10;Image Enhancement&#10;Exercises"></textarea>
+            </div>
+            <div class="wide">
+              <label for="course-image">تصویر درس (اختیاری)</label>
+              <input id="course-image" name="course_image" type="file" accept="image/png,image/jpeg,image/gif,image/webp,image/svg+xml,image/tiff" />
+              <p class="file-note">تصویر را انتخاب کنید یا روی این قسمت بکشید. اگر خالی بماند، تصویر استاندارد درس استفاده می‌شود.</p>
             </div>
           </div>
           <details>

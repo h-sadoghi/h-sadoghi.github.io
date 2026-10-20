@@ -1,0 +1,21 @@
+{% assign teaching_courses = site.data.teaching_courses | sort: 'order' %}
+
+<ul class="teaching-course-list">
+  {% for course in teaching_courses %}
+    {% if course.published != false or jekyll.environment == 'development' %}
+      <li data-course-id="{{ course.id | escape }}">
+        <img src="{{ course.image | relative_url }}" alt="{{ course.title | escape }}">
+        {% if course.link_type == 'external' %}
+          <a href="{{ course.url }}"
+            ><strong>{{ course.title | escape }}</strong></a
+          >
+        {% else %}
+          <a href="{{ course.url | relative_url }}"
+            ><strong>{{ course.title | escape }}</strong></a
+          >
+        {% endif %}
+        {% if course.description %}: {{ course.description | escape }}{% endif %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>
