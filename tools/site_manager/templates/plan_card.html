@@ -34,7 +34,7 @@
     {% endif %}{% endfor %}
   </details>
   {% if plan.validation.ok and not plan.conflicts %}
-  <form action="{{ url_for('apply', token=plan.token) }}" method="post">
+  <form data-endpoint="{{ url_for('apply', token=plan.token) }}" method="post">
     <input type="hidden" name="confirm" value="yes" /><input
       type="hidden"
       name="active"

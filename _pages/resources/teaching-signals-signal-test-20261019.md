@@ -6,7 +6,7 @@ course: Signals and Systems
 title: آزمایش سیگنال سینوسی و انتقال زمانی
 permalink: /resources/teaching-signals-signal-test-20261019/
 author: ChatGPT
-date: '2026-10-20'
+date: "2026-10-20"
 description: test of operation
 published: false
 ---
@@ -47,4 +47,4 @@ y(t) = x(t-0.25)
 
 ---
 
-*پایان نمونهٔ آزمایشی بارگذاری Markdown و دو تصویر.*
+_پایان نمونهٔ آزمایشی بارگذاری Markdown و دو تصویر._

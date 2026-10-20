@@ -47,6 +47,14 @@ def test_main_page_has_only_three_primary_workflows(repo: Path) -> None:
     assert "Slug اختیاری" not in text
 
 
+def test_raw_templates_do_not_expose_jinja_routes_as_links() -> None:
+    template_root = Path(__file__).parents[1] / "templates"
+    source = "\n".join(path.read_text(encoding="utf-8") for path in template_root.glob("*.html"))
+    assert ' href="{{ url_for' not in source
+    assert ' action="{{ url_for' not in source
+    assert 'data-endpoint="{{ url_for' in source
+
+
 def test_jekyll_preview_reports_missing_bundler(repo: Path, monkeypatch) -> None:
     app = create_app(repo)
     app.testing = True
