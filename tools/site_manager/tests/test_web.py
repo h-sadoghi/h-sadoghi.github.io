@@ -26,6 +26,20 @@ def test_search_api(repo: Path) -> None:
     assert response.json[0]["path"] == "_pages/existing.md"
 
 
+def test_jekyll_preview_reports_missing_bundler(repo: Path, monkeypatch) -> None:
+    app = create_app(repo)
+    app.testing = True
+    preview = app.extensions["jekyll_preview"]
+    monkeypatch.setattr(preview, "_port_open", lambda _host, _port: False)
+    monkeypatch.setattr(preview, "_bundle_executable", lambda: None)
+
+    response = app.test_client().post("/jekyll-preview")
+
+    assert response.status_code == 409
+    assert response.json["ok"] is False
+    assert "Ruby/Bundler" in response.json["error"]
+
+
 def test_browser_form_previews_import_with_multiple_images(repo: Path) -> None:
     app = create_app(repo)
     app.testing = True

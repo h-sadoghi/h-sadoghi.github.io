@@ -1,18 +1,18 @@
 from __future__ import annotations
 
+import atexit
 import os
-import shutil
-import socket
 import subprocess
 import threading
 import webbrowser
 from pathlib import Path
 
 import markdown as markdown_lib
-from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
+from flask import Flask, jsonify, render_template, request, url_for
 
 from .assets import AssetInput
 from .frontmatter import split_front_matter
+from .jekyll_preview import JekyllPreviewError, JekyllPreviewManager
 from .manager import SiteManager
 from .utils import SiteManagerError, contained_path
 
@@ -21,7 +21,10 @@ def create_app(repo_root: str | Path) -> Flask:
     app = Flask(__name__)
     app.config.update(MAX_CONTENT_LENGTH=64 * 1024 * 1024, JSON_AS_ASCII=False)
     manager = SiteManager(repo_root)
+    jekyll = JekyllPreviewManager(repo_root)
     app.extensions["site_manager"] = manager
+    app.extensions["jekyll_preview"] = jekyll
+    atexit.register(jekyll.stop)
 
     def uploaded_assets() -> list[AssetInput]:
         return [
@@ -103,18 +106,17 @@ def create_app(repo_root: str | Path) -> Flask:
     @app.post("/jekyll-preview")
     def jekyll_preview():
         try:
-            with socket.create_connection(("127.0.0.1", 4000), timeout=0.3):
-                threading.Timer(0.1, lambda: webbrowser.open("http://127.0.0.1:4000")).start()
-                return jsonify({"ok": True, "url": "http://127.0.0.1:4000", "reused": True})
-        except OSError:
-            pass
-        if shutil.which("bundle") is None:
-            return jsonify({"ok": False, "error": "Ruby/Bundler روی این رایانه در PATH موجود نیست؛ پیش‌نمایش Markdown همچنان قابل استفاده است."}), 409
-        command = ["bundle", "exec", "jekyll", "serve", "--host", "127.0.0.1", "--port", "4000", "--livereload"]
-        flags = subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0
-        subprocess.Popen(command, cwd=manager.repo_root, creationflags=flags)
-        threading.Timer(3, lambda: webbrowser.open("http://127.0.0.1:4000")).start()
-        return jsonify({"ok": True, "url": "http://127.0.0.1:4000", "reused": False})
+            return jsonify(jekyll.start())
+        except JekyllPreviewError as exc:
+            return jsonify({**jekyll.status(), "ok": False, "error": str(exc)}), 409
+
+    @app.get("/jekyll-preview/status")
+    def jekyll_preview_status():
+        return jsonify(jekyll.status())
+
+    @app.post("/jekyll-preview/stop")
+    def jekyll_preview_stop():
+        return jsonify(jekyll.stop())
 
     @app.get("/github-desktop")
     def github_desktop():

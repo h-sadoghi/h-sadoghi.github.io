@@ -1,6 +1,6 @@
 # گزارش آزمون Sadoghi Local Jekyll Content Manager
 
-تاریخ: ۲۰۲۶-۱۰-۱۹
+تاریخ: ۲۰۲۶-۱۰-۱۹؛ به‌روزرسانی پیش‌نمایش Jekyll: ۲۰۲۶-۱۰-۲۰
 
 شاخه: `feature/local-jekyll-manager-mvp-20261019`
 
@@ -20,7 +20,7 @@ MVP در مخزن واقعی نصب شده و مسیر یک‌کلیکی، API،
 .\.site-manager-venv\Scripts\python.exe -m pytest tools\site_manager\tests -q
 ```
 
-نتیجه: `18 passed in 1.30s`، exit code صفر؛ زمان کل process برابر ۲٫۱۶۸ ثانیه. Log: `pytest.log`.
+نتیجهٔ اولیه: `18 passed in 1.30s`. پس از افزودن مدیریت فرایند Jekyll، اجرای نهایی `21 passed in 0.96s`، exit code صفر بود.
 
 سناریوهای پوشش‌داده‌شده:
 
@@ -35,6 +35,7 @@ MVP در مخزن واقعی نصب شده و مسیر یک‌کلیکی، API،
 - تشخیص کلید، DOI و عنوان/سال تکراری در BibTeX.
 - ذخیره فقط با `confirm=True` و ساخت manifest پشتیبان.
 - صفحهٔ اصلی، جست‌وجوی JSON و پیش‌نمایش سریع Markdown در Flask.
+- اجرای Jekyll با `--unpublished`، استفادهٔ مجدد از PID موجود، توقف کامل فرایند و تشخیص اشغال پورت 4000.
 
 ## کنترل مخزن واقعی
 
@@ -68,11 +69,14 @@ Preview واقعی یک یادداشت فارسی «Teaching > Signals and Syste
 - Prettier روی همهٔ فایل‌های پشتیبانی‌شدهٔ تغییرکرده: موفق، exit code صفر، ۲٫۸۸۸ ثانیه. Log: `prettier.log`.
 - `RUN_SITE_MANAGER.cmd` با همان venv واقعی اجرا شد؛ درخواست HTTP به `http://127.0.0.1:8765/` پاسخ `200` و عنوان درست گرفت.
 - سرور فقط به `127.0.0.1:8765` bind می‌شود.
-- Ruby، Bundler و ImageMagick در `PATH` این رایانه موجود نیستند. بنابراین build کامل Jekyll و پیش‌نمایش دقیق site-style در این مرحله `NOT RUN` است. دکمهٔ UI همین وضعیت را شفاف گزارش می‌کند؛ build کامل برای هر ویرایش کوچک اجباری نیست.
+- Ruby+Devkit `3.3.12-1`، Bundler `2.5.7` و ImageMagick `7.1.2-34 Q16-HDRI` در مسیر کاربر نصب و کنترل شدند. `bundle check` موفق است و platform ویندوز `x64-mingw-ucrt` به lockfile افزوده شد.
+- پیش‌نمایش Jekyll واقعی از دکمه/API ابزار اجرا شد، روی `127.0.0.1:4000` به حالت `ready` رسید و پس از آزمون توقف و اجرای مجدد با PID `16844` روشن ماند.
+- صفحهٔ آزمایشی `published: false` در `/resources/teaching-signals-signal-test-20261019/` پاسخ 200 داد. دو تصویر PNG آن نیز پاسخ 200 با اندازه‌های 60,805 و 93,609 بایت دادند.
+- اجرای تکراری همان PID را با `reused: true` نگه داشت. توقف آزمایشی، PID و listener پورت 4000 را کامل حذف کرد؛ اجرای بعدی دوباره موفق شد.
 
 ## بازبینی تصویری
 
-Chrome/Edge از رابط Computer Use این نشست قابل اتصال نبود، اما Edge نصب‌شده در حالت headless صفحهٔ واقعی Flask را با اندازهٔ ۱۴۴۰×۱۲۰۰ render کرد. RTL، برچسب‌های فارسی، فرم responsive، دکمه‌ها و جدول جست‌وجو در تصویر بررسی شدند.
+صفحهٔ آزمایشی با `webbrowser` در Google Chrome باز شد و عنوان پنجرهٔ واقعی مرورگر `آزمایش سیگنال سینوسی و انتقال زمانی | Hadi Sadoghi Yazdi` کنترل شد. پاسخ‌های HTTP صفحه و هر دو تصویر نیز مستقل بررسی شدند. رابط Computer Use این نشست ابزار callable نداشت؛ شاهد تصویری پیشین رابط Flask همچنان موجود است.
 
 شاهد: `J:\SadoghiSite2\site_manager_audit_20261019\SITE_MANAGER_HOME.png` (۶۵٬۴۶۶ بایت).
 
@@ -87,6 +91,6 @@ Chrome/Edge از رابط Computer Use این نشست قابل اتصال نب�
 
 ## محدودیت‌های صادقانه
 
-- اجرای کامل production Jekyll به نصب Ruby/Bundler/ImageMagick یا CI نیاز دارد.
+- برای شروع سریع authoring، فایل موقت `.site-manager-runtime/jekyll-preview.yml` فقط در پیش‌نمایش محلی تبدیل انبوه WebP، دریافت منابع خارجی، badgeهای شبکه‌ای و تبدیل notebook نمونه را غیرفعال می‌کند. `_config.yml` و رفتار build عمومی تغییر نکرده‌اند.
 - افزودن کارت People، رکورد ساختاری پایان‌نامه و تغییر navigation عمداً خودکار نشده‌اند و به تصمیم جداگانهٔ مالک نیاز دارند.
 - ابزار local-only است؛ Commit، Push، PR، Merge و Deploy ندارد.

@@ -308,8 +308,12 @@
             <button type="submit">پیش‌نمایش و نمایش تغییر دقیق</button>
             <button type="button" class="secondary" id="preview-markdown">پیش‌نمایش سریع Markdown</button>
             <button type="button" class="secondary" id="jekyll">اجرای پیش‌نمایش Jekyll</button>
+            <a class="button secondary" id="jekyll-open" href="http://127.0.0.1:4000" target="_blank" hidden>باز کردن سایت محلی</a>
+            <button type="button" class="danger" id="jekyll-stop" hidden>توقف Jekyll</button>
             <a class="button secondary" href="{{ url_for('github_desktop') }}" target="_blank">راهنمای GitHub Desktop</a>
           </div>
+          <div id="jekyll-status" class="notice" hidden></div>
+          <pre id="jekyll-log" hidden></pre>
         </form>
         <div id="quick-preview" hidden></div>
       </section>
@@ -423,11 +427,57 @@
         view.innerHTML = (await response.json()).html;
         view.hidden = false;
       });
-      document.querySelector("#jekyll").addEventListener("click", async () => {
+      const jekyllButton = document.querySelector("#jekyll"),
+        jekyllStop = document.querySelector("#jekyll-stop"),
+        jekyllOpen = document.querySelector("#jekyll-open"),
+        jekyllStatus = document.querySelector("#jekyll-status"),
+        jekyllLog = document.querySelector("#jekyll-log");
+      let jekyllPoll;
+      function showJekyllStatus(data) {
+        jekyllStatus.hidden = false;
+        jekyllStop.hidden = !data.running || !data.owned;
+        jekyllOpen.hidden = !data.ready;
+        jekyllButton.disabled = Boolean(data.running);
+        const labels = {
+          starting: "Jekyll در حال ساخت سایت است…",
+          ready: "پیش‌نمایش Jekyll آماده است.",
+          stopped: "سرور پیش‌نمایش متوقف است.",
+          failed: "Jekyll با خطا متوقف شد.",
+          "port-conflict": "پورت 4000 در اختیار برنامهٔ دیگری است.",
+        };
+        jekyllStatus.textContent = data.error || labels[data.state] || data.state;
+        jekyllStatus.className = data.ready ? "success" : data.ok ? "notice" : "error";
+        if (data.log && !data.ready) {
+          jekyllLog.textContent = data.log;
+          jekyllLog.hidden = false;
+        } else {
+          jekyllLog.hidden = true;
+        }
+        if (data.ready || !data.running) {
+          clearInterval(jekyllPoll);
+          jekyllPoll = undefined;
+        }
+      }
+      async function refreshJekyllStatus() {
+        const response = await fetch("/jekyll-preview/status");
+        const data = await response.json();
+        showJekyllStatus(data);
+        if (data.running && !data.ready && !jekyllPoll) {
+          jekyllPoll = setInterval(refreshJekyllStatus, 1500);
+        }
+      }
+      jekyllButton.addEventListener("click", async () => {
+        jekyllButton.disabled = true;
         const response = await fetch("/jekyll-preview", { method: "POST" });
         const data = await response.json();
-        alert(data.ok ? "Jekyll روی http://127.0.0.1:4000 اجرا شد." : data.error);
+        showJekyllStatus(data);
+        if (data.running && !data.ready) refreshJekyllStatus();
       });
+      jekyllStop.addEventListener("click", async () => {
+        const response = await fetch("/jekyll-preview/stop", { method: "POST" });
+        showJekyllStatus(await response.json());
+      });
+      refreshJekyllStatus();
       document.querySelectorAll(".open-source").forEach((button) =>
         button.addEventListener("click", async () => {
           const data = new FormData();
