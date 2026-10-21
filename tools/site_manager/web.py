@@ -39,6 +39,12 @@ def create_app(repo_root: str | Path) -> Flask:
             return []
         return [AssetInput(file.filename, file.read(), "browser-upload")]
 
+    def uploaded_single_image(field: str) -> AssetInput | None:
+        file = request.files.get(field)
+        if not file or not file.filename:
+            return None
+        return AssetInput(file.filename, file.read(), "browser-upload")
+
     def uploaded_download(field: str) -> AssetInput | None:
         file = request.files.get(field)
         if not file or not file.filename:
@@ -57,9 +63,17 @@ def create_app(repo_root: str | Path) -> Flask:
     def package_fields() -> dict:
         fields = {
             key: request.form.get(key, "").strip()
-            for key in ("course_id", "collection_id", "collection_title", "chapter_number", "chapter_title")
+            for key in ("course_id", "collection_id", "collection_title", "chapter_number", "chapter_title", "summary")
         }
         fields["replace"] = request.form.get("replace", "")
+        return fields
+
+    def student_work_fields() -> dict:
+        fields = {
+            key: request.form.get(key, "").strip()
+            for key in ("course_id", "title", "summary", "students", "term")
+        }
+        fields["owner_approved"] = request.form.get("owner_approved", "")
         return fields
 
     def page(**values):
@@ -67,6 +81,7 @@ def create_app(repo_root: str | Path) -> Flask:
             "routes": manager.route_choices(),
             "courses": manager.courses(),
             "packages": manager.course_packages(),
+            "student_works": manager.student_works(),
             "items": manager.browse()[:500],
             "plan": None,
             "result": None,
@@ -99,13 +114,22 @@ def create_app(repo_root: str | Path) -> Flask:
                 plan = manager.preview_course_package(
                     package_fields(), uploaded_download("package_zip"), uploaded_download("package_pdf")
                 )
+            elif action == "student_work":
+                plan = manager.preview_student_work(
+                    student_work_fields(), uploaded_download("student_zip"), uploaded_download("student_pdf")
+                )
+            elif action == "course_cover":
+                plan = manager.preview_course_cover(
+                    {"course_id": request.form.get("course_id", "").strip()},
+                    uploaded_single_image("course_cover_image"),
+                )
             else:
                 plan = manager.preview_add(request.form.get("route", ""), form_fields(), markdown_text, uploaded_assets())
-            active = "course" if action == "course" else "browse" if action == "edit" else "add"
+            active = "course" if action in {"course", "course_cover"} else "browse" if action == "edit" else "add"
             return page(plan=plan.public(), active=active)
         except (SiteManagerError, UnicodeDecodeError) as exc:
             action = request.form.get("action", "add")
-            active = "course" if action == "course" else "browse" if action == "edit" else "add"
+            active = "course" if action in {"course", "course_cover"} else "browse" if action == "edit" else "add"
             return page(error=str(exc), active=active), 400
 
     @app.post("/apply/<token>")

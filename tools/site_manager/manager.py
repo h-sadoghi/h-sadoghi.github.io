@@ -125,6 +125,15 @@ class SiteManager:
             raise SiteManagerError("ساختار _data/teaching_packages.yml باید یک فهرست باشد.")
         return [dict(item) for item in data if isinstance(item, dict)]
 
+    def student_works(self) -> list[dict[str, Any]]:
+        path = self.repo_root / "_data" / "teaching_student_works.yml"
+        if not path.is_file():
+            return []
+        data = YAML(typ="safe").load(path.read_text(encoding="utf-8-sig")) or []
+        if not isinstance(data, list):
+            raise SiteManagerError("ساختار _data/teaching_student_works.yml باید یک فهرست باشد.")
+        return [dict(item) for item in data if isinstance(item, dict)]
+
     def read_content(self, relative_path: str) -> dict[str, Any]:
         target = contained_path(self.repo_root, relative_path)
         if not target.is_file() or target.suffix.lower() != ".md":
@@ -404,6 +413,7 @@ class SiteManager:
         chapter_title = str(fields.get("chapter_title") or "").strip()
         if not chapter_title:
             raise SiteManagerError("عنوان فصل را وارد کنید.")
+        summary = str(fields.get("summary") or "").strip()
         replace = str(fields.get("replace") or "").casefold() in {"1", "true", "yes", "on"}
 
         relative_data = "_data/teaching_packages.yml"
@@ -472,6 +482,11 @@ class SiteManager:
         chapter = existing if existing is not None else CommentedMap()
         chapter["number"] = chapter_number
         chapter["title"] = chapter_title
+        if summary:
+            chapter["summary"] = summary
+        elif existing is None:
+            chapter["summary"] = ""
+        chapter["published"] = True
         chapter["zip_url"] = f"/{zip_path}"
         chapter["zip_size"] = zip_info.size
         chapter["zip_size_label"] = display_size(zip_info.size)
@@ -505,7 +520,7 @@ class SiteManager:
             operation="package",
             route=f"course:{course_id}",
             target_path=zip_path,
-            proposed_url=f"{str(course.get('url') or f'/teaching/{course_id}/')}#{collection_id}",
+            proposed_url=f"/teaching/{course_id}/gonzalez/#chapter-{chapter_number}",
             front_matter={
                 "published": True,
                 "course": str(course.get("title") or course_id),
@@ -516,6 +531,151 @@ class SiteManager:
             validation=validation,
             conflicts=sorted(set(conflicts)),
             warnings=warnings,
+        )
+        self._plans[plan.token] = plan
+        return plan
+
+    def preview_student_work(
+        self,
+        fields: dict[str, Any],
+        zip_file: AssetInput | None,
+        pdf_file: AssetInput | None = None,
+    ) -> ChangePlan:
+        course_id = str(fields.get("course_id") or "").strip()
+        course = next((item for item in self.courses() if str(item.get("id")) == course_id), None)
+        if course is None or str(course.get("link_type") or "internal") != "internal":
+            raise SiteManagerError("برای اثر دانشجویی یک درس داخلی معتبر انتخاب کنید.")
+        if str(fields.get("owner_approved") or "").casefold() not in {"1", "true", "yes", "on"}:
+            raise SiteManagerError("انتشار اثر دانشجویی به تأیید صریح مالک سایت نیاز دارد.")
+
+        title = str(fields.get("title") or "").strip()
+        summary = str(fields.get("summary") or "").strip()
+        students = str(fields.get("students") or "").strip()
+        term = str(fields.get("term") or "").strip()
+        if not title:
+            raise SiteManagerError("عنوان تکلیف یا پروژه را وارد کنید.")
+        if not summary:
+            raise SiteManagerError("خلاصه کوتاه اثر دانشجویی را وارد کنید.")
+        if zip_file is None:
+            raise SiteManagerError("انتخاب فایل ZIP اثر دانشجویی الزامی است.")
+        work_id = safe_slug(title)
+
+        relative_data = "_data/teaching_student_works.yml"
+        data_path = contained_path(self.repo_root, relative_data)
+        yaml = YAML(typ="rt")
+        yaml.preserve_quotes = True
+        yaml.width = 1000
+        data = yaml.load(data_path.read_text(encoding="utf-8-sig")) if data_path.is_file() else []
+        data = data or []
+        if not isinstance(data, list):
+            raise SiteManagerError("ساختار _data/teaching_student_works.yml باید یک فهرست باشد.")
+
+        conflicts: list[str] = []
+        for item in data:
+            if not isinstance(item, dict) or str(item.get("course_id")) != course_id:
+                continue
+            if str(item.get("id", "")).casefold() == work_id.casefold():
+                conflicts.append("اثری با این شناسه از قبل در درس ثبت شده است.")
+            if str(item.get("title", "")).casefold() == title.casefold():
+                conflicts.append("اثری با این عنوان از قبل در درس ثبت شده است.")
+
+        zip_info = validate_zip(zip_file)
+        pdf_info = validate_pdf(pdf_file) if pdf_file is not None else None
+        base = f"assets/downloads/courses/{course_id}/student-works/{work_id}"
+        zip_path = f"{base}/{work_id}.zip"
+        pdf_path = f"{base}/{work_id}.pdf"
+        for path in (zip_path, pdf_path if pdf_file is not None else ""):
+            if path and contained_path(self.repo_root, path).exists():
+                conflicts.append(f"فایل مقصد از قبل وجود دارد: {path}")
+
+        item = CommentedMap(
+            id=work_id,
+            course_id=course_id,
+            title=title,
+            summary=summary,
+            zip_url=f"/{zip_path}",
+            zip_size=zip_info.size,
+            zip_size_label=display_size(zip_info.size),
+            zip_sha256=zip_info.sha256,
+            published=True,
+        )
+        if students:
+            item["students"] = students
+        if term:
+            item["term"] = term
+        if pdf_info is not None:
+            item["pdf_url"] = f"/{pdf_path}"
+            item["pdf_size"] = pdf_info.size
+            item["pdf_size_label"] = display_size(pdf_info.size)
+            item["pdf_sha256"] = pdf_info.sha256
+        data.append(item)
+
+        stream = StringIO()
+        yaml.dump(data, stream)
+        data_text = stream.getvalue()
+        validation = self.validator.validate_yaml(data_text)
+        changes = [self._change(relative_data, data_text.encode("utf-8")), self._change(zip_path, zip_file.data)]
+        if pdf_file is not None:
+            changes.append(self._change(pdf_path, pdf_file.data))
+        plan = ChangePlan(
+            token=uuid.uuid4().hex,
+            operation="student_work",
+            route=f"course:{course_id}",
+            target_path=zip_path,
+            proposed_url=f"/teaching/{course_id}/student-work/#{work_id}",
+            front_matter={
+                "published": True,
+                "course": str(course.get("title") or course_id),
+                "title": title,
+                "owner_approved": True,
+            },
+            changes=changes,
+            validation=validation,
+            conflicts=sorted(set(conflicts)),
+            warnings=[
+                "این اثر فقط پس از تأیید صریح مالک سایت آماده انتشار شده است.",
+                "فایل ZIP بدون استخراج ذخیره می‌شود و هر ZIP یا PDF حداکثر می‌تواند ۵۰ مگابایت باشد.",
+            ],
+        )
+        self._plans[plan.token] = plan
+        return plan
+
+    def preview_course_cover(self, fields: dict[str, Any], image: AssetInput | None) -> ChangePlan:
+        course_id = str(fields.get("course_id") or "").strip()
+        if image is None:
+            raise SiteManagerError("یک تصویر برای جلد درس انتخاب کنید.")
+        data_path = contained_path(self.repo_root, "_data/teaching_courses.yml")
+        yaml = YAML(typ="rt")
+        yaml.preserve_quotes = True
+        yaml.width = 1000
+        data = yaml.load(data_path.read_text(encoding="utf-8-sig")) or []
+        if not isinstance(data, list):
+            raise SiteManagerError("ساختار _data/teaching_courses.yml باید یک فهرست باشد.")
+        course = next((item for item in data if isinstance(item, dict) and str(item.get("id")) == course_id), None)
+        if course is None or str(course.get("link_type") or "internal") != "internal":
+            raise SiteManagerError("برای تغییر تصویر یک درس داخلی معتبر انتخاب کنید.")
+
+        files, _ = prepare_assets("assets/img/courses", "assets/img/courses", course_id, [image])
+        image_path, image_bytes = next(iter(files.items()))
+        conflicts = []
+        if contained_path(self.repo_root, image_path).exists():
+            conflicts.append(f"فایل تصویر از قبل وجود دارد: {image_path}")
+        course["image"] = f"/{image_path}"
+        stream = StringIO()
+        yaml.dump(data, stream)
+        data_text = stream.getvalue()
+        validation = self.validator.validate_yaml(data_text)
+        plan = ChangePlan(
+            token=uuid.uuid4().hex,
+            operation="course_cover",
+            route=f"course:{course_id}",
+            target_path=image_path,
+            proposed_url=str(course.get("url") or f"/teaching/{course_id}/"),
+            front_matter={"published": course.get("published", True), "course": str(course.get("title") or course_id)},
+            changes=[self._change("_data/teaching_courses.yml", data_text.encode("utf-8")), self._change(image_path, image_bytes)],
+            validation=validation,
+            conflicts=conflicts,
+            warnings=["تصویر قبلی حذف نمی‌شود؛ فقط تصویر فعال این درس تغییر می‌کند."],
         )
         self._plans[plan.token] = plan
         return plan

@@ -37,6 +37,7 @@ def seed_image_processing(repo: Path) -> None:
         "  chapters: []\n",
         encoding="utf-8",
     )
+    (repo / "_data" / "teaching_student_works.yml").write_text("[]\n", encoding="utf-8")
 
 
 def test_preview_persian_markdown_with_two_images_is_read_only(repo: Path) -> None:
@@ -279,6 +280,7 @@ def test_course_package_is_atomic_and_updates_existing_course_collection(repo: P
             "collection_id": "gonzalez",
             "chapter_number": "1",
             "chapter_title": "Digital Image Fundamentals",
+            "summary": "Sampling, quantization, and image representation.",
         },
         archive,
         pdf,
@@ -296,6 +298,8 @@ def test_course_package_is_atomic_and_updates_existing_course_collection(repo: P
     data = YAML(typ="safe").load((repo / "_data" / "teaching_packages.yml").read_text(encoding="utf-8"))
     chapter = data[0]["chapters"][0]
     assert chapter["number"] == 1
+    assert chapter["summary"] == "Sampling, quantization, and image representation."
+    assert chapter["published"] is True
     assert chapter["zip_url"].endswith("/chapter-01.zip")
     assert chapter["pdf_url"].endswith("/chapter-01.pdf")
     assert (repo / chapter["zip_url"].lstrip("/")).read_bytes() == archive.data
@@ -356,4 +360,63 @@ def test_course_package_does_not_create_duplicate_course(repo: Path) -> None:
         AssetInput("chapter.zip", zip_bytes({"readme.txt": b"ok"})),
     )
     assert all(change.path != "_data/teaching_courses.yml" for change in plan.changes)
+    assert all(not change.path.startswith("_pages/courses/") for change in plan.changes)
+
+
+def test_student_work_requires_owner_approval(repo: Path) -> None:
+    seed_image_processing(repo)
+    manager = SiteManager(repo)
+    with pytest.raises(SiteManagerError, match="تأیید صریح"):
+        manager.preview_student_work(
+            {"course_id": "image-processing", "title": "Edge detector", "summary": "A sample project."},
+            AssetInput("project.zip", zip_bytes({"README.md": b"sample"})),
+        )
+
+
+def test_student_work_is_atomic_publication_and_duplicates_are_blocked(repo: Path) -> None:
+    seed_image_processing(repo)
+    manager = SiteManager(repo)
+    archive = AssetInput("project.zip", zip_bytes({"src/main.py": b"print('ok')"}))
+    fields = {
+        "course_id": "image-processing",
+        "title": "Edge Detector",
+        "summary": "A reproducible edge-detection exercise.",
+        "students": "Student A",
+        "term": "Fall 2026",
+        "owner_approved": "yes",
+    }
+    plan = manager.preview_student_work(fields, archive, AssetInput("report.pdf", b"%PDF-1.4\n%%EOF\n"))
+    assert plan.validation.ok
+    assert not plan.conflicts
+    assert plan.operation == "student_work"
+    assert plan.proposed_url == "/teaching/image-processing/student-work/#edge-detector"
+    manager.add(plan, confirm=True)
+    data = YAML(typ="safe").load((repo / "_data" / "teaching_student_works.yml").read_text(encoding="utf-8"))
+    assert len(data) == 1
+    assert data[0]["published"] is True
+    assert data[0]["students"] == "Student A"
+    assert (repo / data[0]["zip_url"].lstrip("/")).read_bytes() == archive.data
+
+    duplicate = manager.preview_student_work(fields, archive)
+    assert duplicate.conflicts
+    with pytest.raises(SiteManagerError, match="تعارض"):
+        manager.add(duplicate, confirm=True)
+
+
+def test_existing_course_cover_is_replaced_without_creating_course(repo: Path) -> None:
+    seed_image_processing(repo)
+    manager = SiteManager(repo)
+    plan = manager.preview_course_cover(
+        {"course_id": "image-processing"},
+        AssetInput("image processing.jpg", b"\xff\xd8\xffcourse-cover"),
+    )
+    assert plan.validation.ok
+    assert not plan.conflicts
+    assert [change.path for change in plan.changes] == [
+        "_data/teaching_courses.yml",
+        "assets/img/courses/image-processing/image-processing.jpg",
+    ]
+    data = YAML(typ="safe").load(plan.changes[0].content.decode("utf-8"))
+    assert len(data) == 1
+    assert data[0]["image"] == "/assets/img/courses/image-processing/image-processing.jpg"
     assert all(not change.path.startswith("_pages/courses/") for change in plan.changes)

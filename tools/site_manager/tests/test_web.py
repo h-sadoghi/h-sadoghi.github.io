@@ -153,3 +153,80 @@ def test_browser_previews_course_zip_package_in_persian_ui(repo: Path) -> None:
     assert response.status_code == 200
     assert "chapter-01.zip" in text
     assert "تأیید و ذخیره در مخزن محلی" in text
+
+
+def test_browser_previews_approved_student_work(repo: Path) -> None:
+    (repo / "_data" / "teaching_courses.yml").write_text(
+        "- id: image-processing\n  title: Image Processing\n  url: /teaching/image-processing/\n  link_type: internal\n",
+        encoding="utf-8",
+    )
+    (repo / "_data" / "teaching_student_works.yml").write_text("[]\n", encoding="utf-8")
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, "w", zipfile.ZIP_DEFLATED) as archive:
+        archive.writestr("README.md", "sample")
+    app = create_app(repo)
+    app.testing = True
+    response = app.test_client().post(
+        "/preview",
+        data={
+            "action": "student_work",
+            "course_id": "image-processing",
+            "title": "Histogram Exercise",
+            "summary": "A sample histogram implementation.",
+            "term": "Fall 2026",
+            "owner_approved": "yes",
+            "student_zip": (io.BytesIO(stream.getvalue()), "histogram.zip"),
+        },
+        content_type="multipart/form-data",
+    )
+    text = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert "student-works/histogram-exercise/histogram-exercise.zip" in text
+    assert "اثر پس از ذخیره در صفحه تکلیف‌ها" in text
+
+
+def test_browser_rejects_unapproved_student_work(repo: Path) -> None:
+    (repo / "_data" / "teaching_courses.yml").write_text(
+        "- id: image-processing\n  title: Image Processing\n  url: /teaching/image-processing/\n  link_type: internal\n",
+        encoding="utf-8",
+    )
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, "w") as archive:
+        archive.writestr("README.md", "sample")
+    app = create_app(repo)
+    app.testing = True
+    response = app.test_client().post(
+        "/preview",
+        data={
+            "action": "student_work",
+            "course_id": "image-processing",
+            "title": "Unapproved",
+            "summary": "Must not publish.",
+            "student_zip": (io.BytesIO(stream.getvalue()), "sample.zip"),
+        },
+        content_type="multipart/form-data",
+    )
+    assert response.status_code == 400
+    assert "تأیید صریح" in response.get_data(as_text=True)
+
+
+def test_browser_previews_existing_course_cover(repo: Path) -> None:
+    (repo / "_data" / "teaching_courses.yml").write_text(
+        "- id: image-processing\n  title: Image Processing\n  url: /teaching/image-processing/\n  link_type: internal\n",
+        encoding="utf-8",
+    )
+    app = create_app(repo)
+    app.testing = True
+    response = app.test_client().post(
+        "/preview",
+        data={
+            "action": "course_cover",
+            "course_id": "image-processing",
+            "course_cover_image": (io.BytesIO(b"\xff\xd8\xffcover"), "new cover.jpg"),
+        },
+        content_type="multipart/form-data",
+    )
+    text = response.get_data(as_text=True)
+    assert response.status_code == 200
+    assert "assets/img/courses/image-processing/new-cover.jpg" in text
+    assert "تصویر تازه در فهرست Teaching" in text

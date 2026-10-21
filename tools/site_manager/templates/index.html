@@ -378,6 +378,35 @@
           <div class="actions"><button type="submit">پیش‌نمایش درس</button></div>
         </form>
         {% if plan and plan.operation == 'course' %}{% include 'plan_card.html' %}{% endif %}
+        <details id="course-cover-manager">
+          <summary>تغییر تصویر یک درس موجود</summary>
+          <p class="lead">درس موجود حفظ می‌شود و فقط تصویر فعال آن با فایل انتخاب‌شده جایگزین می‌شود.</p>
+          <form data-endpoint="{{ url_for('preview') }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="course_cover" />
+            <div class="grid">
+              <div>
+                <label for="cover-course">درس موجود</label>
+                <select id="cover-course" name="course_id" required>
+                  {% for course in courses %} {% if course.link_type|default('internal') == 'internal' %}
+                  <option value="{{ course.id }}">{{ course.title }}</option>
+                  {% endif %} {% endfor %}
+                </select>
+              </div>
+              <div>
+                <label for="course-cover-image">تصویر جدید</label>
+                <input
+                  id="course-cover-image"
+                  name="course_cover_image"
+                  type="file"
+                  accept="image/png,image/jpeg,image/gif,image/webp,image/svg+xml,image/tiff"
+                  required
+                />
+              </div>
+            </div>
+            <div class="actions"><button type="submit">پیش‌نمایش تغییر تصویر</button></div>
+          </form>
+          {% if plan and plan.operation == 'course_cover' %}{% include 'plan_card.html' %}{% endif %}
+        </details>
       </section>
       <section class="panel" data-panel="add">
         <h2>افزودن مطلب</h2>
@@ -490,6 +519,10 @@
                 <label for="package-chapter-title">عنوان فصل</label>
                 <input id="package-chapter-title" name="chapter_title" required />
               </div>
+              <div class="wide">
+                <label for="package-summary">خلاصه کوتاه فصل (اختیاری)</label>
+                <input id="package-summary" name="summary" />
+              </div>
               <div>
                 <label for="package-zip">فایل ZIP فصل</label>
                 <input id="package-zip" name="package_zip" type="file" accept=".zip,application/zip" required />
@@ -510,6 +543,43 @@
             <div class="actions"><button type="submit">پیش‌نمایش بسته فصل</button></div>
           </form>
           {% if plan and plan.operation == 'package' %}{% include 'plan_card.html' %}{% endif %}
+        </details>
+        <details id="student-work-manager">
+          <summary>افزودن تکلیف یا پروژه دانشجویی</summary>
+          <p class="lead">فایل فقط با تأیید صریح شما آماده انتشار می‌شود. نام دانشجو و نیمسال اختیاری هستند.</p>
+          <form data-endpoint="{{ url_for('preview') }}" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="student_work" />
+            <div class="grid">
+              <div>
+                <label for="student-course">درس</label>
+                <select id="student-course" name="course_id" required>
+                  {% for course in courses %} {% if course.link_type|default('internal') == 'internal' %}
+                  <option value="{{ course.id }}">{{ course.title }}</option>
+                  {% endif %} {% endfor %}
+                </select>
+              </div>
+              <div><label for="student-title">عنوان تکلیف یا پروژه</label><input id="student-title" name="title" required /></div>
+              <div class="wide"><label for="student-summary">خلاصه کوتاه</label><input id="student-summary" name="summary" required /></div>
+              <div><label for="student-names">نام دانشجو یا دانشجویان (اختیاری)</label><input id="student-names" name="students" /></div>
+              <div><label for="student-term">نیمسال (اختیاری)</label><input id="student-term" name="term" placeholder="برای نمونه: Fall 2026" /></div>
+              <div>
+                <label for="student-zip">فایل ZIP</label
+                ><input id="student-zip" name="student_zip" type="file" accept=".zip,application/zip" required />
+              </div>
+              <div>
+                <label for="student-pdf">PDF برای مشاهده مستقیم (اختیاری)</label
+                ><input id="student-pdf" name="student_pdf" type="file" accept=".pdf,application/pdf" />
+              </div>
+              <div class="wide">
+                <label
+                  ><input type="checkbox" name="owner_approved" value="yes" style="width: auto" required /> محتوای این اثر و اجازه انتشار اطلاعات
+                  واردشده را بررسی و تأیید کرده‌ام.</label
+                >
+              </div>
+            </div>
+            <div class="actions"><button type="submit">پیش‌نمایش اثر دانشجویی</button></div>
+          </form>
+          {% if plan and plan.operation == 'student_work' %}{% include 'plan_card.html' %}{% endif %}
         </details>
       </section>
       <section class="panel" data-panel="browse" hidden>
@@ -591,7 +661,7 @@
       </section>
     </main>
     <script>
-      const initialView={{ active|tojson }};const packagePreview={{ (plan and plan.operation == 'package')|tojson }};if(packagePreview)document.querySelector('#package-manager').open=true;
+      const initialView={{ active|tojson }};const previewOperation={{ (plan.operation if plan else '')|tojson }};if(previewOperation==='package')document.querySelector('#package-manager').open=true;if(previewOperation==='student_work')document.querySelector('#student-work-manager').open=true;if(previewOperation==='course_cover')document.querySelector('#course-cover-manager').open=true;
       document.querySelectorAll('form[data-endpoint]').forEach(form=>form.action=form.dataset.endpoint);document.querySelectorAll('[data-href]').forEach(link=>link.href=link.dataset.href);
       function showView(name){document.querySelectorAll('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==name);document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));history.replaceState(null,'',`?view=${name}`)}
       document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));showView(['course','add','browse'].includes(initialView)?initialView:'add');

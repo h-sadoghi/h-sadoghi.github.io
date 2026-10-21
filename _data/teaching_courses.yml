@@ -45,7 +45,7 @@
   published: true
 - id: image-processing
   title: Image Processing
-  description: Course materials for Image Processing.
+  description: Original notes, diagrams, and code for selected topics in digital image processing.
   image: /assets/img/courses/default-course.svg
   url: /teaching/image-processing/
   order: 6

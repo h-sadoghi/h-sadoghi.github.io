@@ -10,7 +10,11 @@
   {% endif %}
   <p>{{ plan.changes|length }} فایل در این عملیات ساخته یا به‌روزرسانی می‌شود.</p>
   {% if plan.operation == 'package' %}
-  <p>لینک فصل پس از ذخیره به‌طور خودکار در صفحه همان درس نمایش داده می‌شود.</p>
+  <p>لینک فصل پس از ذخیره به‌طور خودکار در صفحه Gonzalez همان درس نمایش داده می‌شود.</p>
+  {% elif plan.operation == 'student_work' %}
+  <p>اثر پس از ذخیره در صفحه تکلیف‌ها و پروژه‌های دانشجویی همان درس نمایش داده می‌شود.</p>
+  {% elif plan.operation == 'course_cover' %}
+  <p>تصویر تازه در فهرست Teaching و صفحه اصلی درس استفاده می‌شود.</p>
   {% endif %} {% for warning in plan.warnings %}
   <div class="notice">{{ warning }}</div>
   {% endfor %}{% for conflict in plan.conflicts %}
@@ -40,7 +44,7 @@
     <input type="hidden" name="confirm" value="yes" /><input
       type="hidden"
       name="active"
-      value="{{ 'course' if plan.operation == 'course' else 'browse' if plan.operation == 'edit' else 'add' }}"
+      value="{{ 'course' if plan.operation in ['course', 'course_cover'] else 'browse' if plan.operation == 'edit' else 'add' }}"
     /><button type="submit">تأیید و ذخیره در مخزن محلی</button>
   </form>
   {% endif %}
