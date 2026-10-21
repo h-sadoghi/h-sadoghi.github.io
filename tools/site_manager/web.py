@@ -19,7 +19,7 @@ from .utils import SiteManagerError, contained_path
 
 def create_app(repo_root: str | Path) -> Flask:
     app = Flask(__name__)
-    app.config.update(MAX_CONTENT_LENGTH=64 * 1024 * 1024, JSON_AS_ASCII=False)
+    app.config.update(MAX_CONTENT_LENGTH=110 * 1024 * 1024, JSON_AS_ASCII=False)
     manager = SiteManager(repo_root)
     jekyll = JekyllPreviewManager(repo_root)
     app.extensions["site_manager"] = manager
@@ -39,6 +39,12 @@ def create_app(repo_root: str | Path) -> Flask:
             return []
         return [AssetInput(file.filename, file.read(), "browser-upload")]
 
+    def uploaded_download(field: str) -> AssetInput | None:
+        file = request.files.get(field)
+        if not file or not file.filename:
+            return None
+        return AssetInput(file.filename, file.read(), "browser-upload")
+
     def form_fields() -> dict:
         fields = {
             key: request.form.get(key, "").strip()
@@ -48,10 +54,19 @@ def create_app(repo_root: str | Path) -> Flask:
             fields["status"] = ""
         return fields
 
+    def package_fields() -> dict:
+        fields = {
+            key: request.form.get(key, "").strip()
+            for key in ("course_id", "collection_id", "collection_title", "chapter_number", "chapter_title")
+        }
+        fields["replace"] = request.form.get("replace", "")
+        return fields
+
     def page(**values):
         context = {
             "routes": manager.route_choices(),
             "courses": manager.courses(),
+            "packages": manager.course_packages(),
             "items": manager.browse()[:500],
             "plan": None,
             "result": None,
@@ -80,6 +95,10 @@ def create_app(repo_root: str | Path) -> Flask:
                 plan = manager.preview_edit(relative, form_fields(), markdown_text if markdown_text else None, uploaded_assets())
             elif action == "course":
                 plan = manager.preview_course(form_fields(), uploaded_course_image())
+            elif action == "package":
+                plan = manager.preview_course_package(
+                    package_fields(), uploaded_download("package_zip"), uploaded_download("package_pdf")
+                )
             else:
                 plan = manager.preview_add(request.form.get("route", ""), form_fields(), markdown_text, uploaded_assets())
             active = "course" if action == "course" else "browse" if action == "edit" else "add"
@@ -151,7 +170,13 @@ def create_app(repo_root: str | Path) -> Flask:
 
     @app.errorhandler(413)
     def too_large(_error):
-        return "حجم مجموع فایل‌ها از ۶۴ مگابایت بیشتر است.", 413
+        return (
+            page(
+                error="حجم مجموع فایل‌های انتخاب‌شده از ۱۱۰ مگابایت بیشتر است؛ هر ZIP یا PDF باید حداکثر ۵۰ مگابایت باشد.",
+                active="add",
+            ),
+            413,
+        )
 
     return app
 

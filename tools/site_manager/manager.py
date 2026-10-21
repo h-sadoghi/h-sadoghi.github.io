@@ -15,6 +15,7 @@ from ruamel.yaml.comments import CommentedMap
 
 from .assets import AssetInput, prepare_assets, rewrite_asset_links
 from .bibliography import duplicate_messages
+from .course_packages import display_size, validate_pdf, validate_zip
 from .frontmatter import render_front_matter, split_front_matter
 from .importer import import_markdown
 from .inspector import RepositoryInspector
@@ -113,6 +114,15 @@ class SiteManager:
         data = YAML(typ="safe").load(path.read_text(encoding="utf-8-sig")) or []
         if not isinstance(data, list):
             raise SiteManagerError("ساختار _data/teaching_courses.yml باید یک فهرست باشد.")
+        return [dict(item) for item in data if isinstance(item, dict)]
+
+    def course_packages(self) -> list[dict[str, Any]]:
+        path = self.repo_root / "_data" / "teaching_packages.yml"
+        if not path.is_file():
+            return []
+        data = YAML(typ="safe").load(path.read_text(encoding="utf-8-sig")) or []
+        if not isinstance(data, list):
+            raise SiteManagerError("ساختار _data/teaching_packages.yml باید یک فهرست باشد.")
         return [dict(item) for item in data if isinstance(item, dict)]
 
     def read_content(self, relative_path: str) -> dict[str, Any]:
@@ -357,6 +367,155 @@ class SiteManager:
             changes=changes,
             validation=page_validation,
             conflicts=sorted(set(conflicts)),
+        )
+        self._plans[plan.token] = plan
+        return plan
+
+    def preview_course_package(
+        self,
+        fields: dict[str, Any],
+        zip_file: AssetInput | None,
+        pdf_file: AssetInput | None = None,
+    ) -> ChangePlan:
+        course_id = str(fields.get("course_id") or "").strip()
+        course = next((item for item in self.courses() if str(item.get("id")) == course_id), None)
+        if course is None:
+            raise SiteManagerError("درس انتخاب‌شده وجود ندارد؛ صفحه را تازه‌سازی کنید.")
+        if str(course.get("link_type") or "internal") != "internal":
+            raise SiteManagerError("بسته آموزشی فقط به درس داخلی سایت قابل افزودن است.")
+
+        collection_id = str(fields.get("collection_id") or "").strip()
+        collection_title = str(fields.get("collection_title") or "").strip()
+        if collection_id == "new":
+            collection_id = ""
+        if not collection_id:
+            if not collection_title:
+                raise SiteManagerError("عنوان مجموعه آموزشی را وارد کنید.")
+            collection_id = safe_slug(collection_title)
+        elif safe_slug(collection_id) != collection_id:
+            raise SiteManagerError("شناسه مجموعه آموزشی نامعتبر است.")
+
+        try:
+            chapter_number = int(str(fields.get("chapter_number") or "").strip())
+        except ValueError as exc:
+            raise SiteManagerError("شماره فصل باید یک عدد صحیح باشد.") from exc
+        if not 1 <= chapter_number <= 999:
+            raise SiteManagerError("شماره فصل باید بین ۱ تا ۹۹۹ باشد.")
+        chapter_title = str(fields.get("chapter_title") or "").strip()
+        if not chapter_title:
+            raise SiteManagerError("عنوان فصل را وارد کنید.")
+        replace = str(fields.get("replace") or "").casefold() in {"1", "true", "yes", "on"}
+
+        relative_data = "_data/teaching_packages.yml"
+        data_path = contained_path(self.repo_root, relative_data)
+        yaml = YAML(typ="rt")
+        yaml.preserve_quotes = True
+        yaml.width = 1000
+        package_data = yaml.load(data_path.read_text(encoding="utf-8-sig")) if data_path.is_file() else []
+        package_data = package_data or []
+        if not isinstance(package_data, list):
+            raise SiteManagerError("ساختار _data/teaching_packages.yml باید یک فهرست باشد.")
+
+        collection = next(
+            (
+                item
+                for item in package_data
+                if isinstance(item, dict)
+                and str(item.get("course_id")) == course_id
+                and str(item.get("id")) == collection_id
+            ),
+            None,
+        )
+        conflicts: list[str] = []
+        if collection is None:
+            if any(
+                isinstance(item, dict)
+                and str(item.get("course_id")) == course_id
+                and str(item.get("title", "")).casefold() == collection_title.casefold()
+                for item in package_data
+            ):
+                conflicts.append("مجموعه‌ای با این عنوان در درس وجود دارد.")
+            collection = CommentedMap(
+                id=collection_id,
+                course_id=course_id,
+                title=collection_title,
+                chapters=[],
+            )
+            package_data.append(collection)
+        elif collection_title and str(collection.get("title") or "").casefold() != collection_title.casefold():
+            raise SiteManagerError("عنوان واردشده با مجموعه انتخاب‌شده سازگار نیست.")
+
+        chapters = collection.get("chapters") or []
+        if not isinstance(chapters, list):
+            raise SiteManagerError("فهرست فصل‌های مجموعه نامعتبر است.")
+        existing = next(
+            (item for item in chapters if isinstance(item, dict) and int(item.get("number", -1)) == chapter_number),
+            None,
+        )
+        if existing is not None and not replace:
+            conflicts.append(
+                "این شماره فصل از قبل وجود دارد؛ برای جایگزینی نسخه، گزینهٔ «جایگزینی آگاهانه» را فعال کنید."
+            )
+        if zip_file is None:
+            raise SiteManagerError("انتخاب فایل ZIP فصل الزامی است.")
+
+        zip_info = validate_zip(zip_file)
+        pdf_info = validate_pdf(pdf_file) if pdf_file is not None else None
+        base = f"assets/downloads/courses/{course_id}/{collection_id}/chapter-{chapter_number:02d}"
+        zip_path = f"{base}/chapter-{chapter_number:02d}.zip"
+        pdf_path = f"{base}/chapter-{chapter_number:02d}.pdf"
+        if existing is None and contained_path(self.repo_root, zip_path).exists():
+            conflicts.append(f"فایل مقصد از قبل وجود دارد: {zip_path}")
+        if existing is None and pdf_file is not None and contained_path(self.repo_root, pdf_path).exists():
+            conflicts.append(f"فایل مقصد از قبل وجود دارد: {pdf_path}")
+
+        chapter = existing if existing is not None else CommentedMap()
+        chapter["number"] = chapter_number
+        chapter["title"] = chapter_title
+        chapter["zip_url"] = f"/{zip_path}"
+        chapter["zip_size"] = zip_info.size
+        chapter["zip_size_label"] = display_size(zip_info.size)
+        chapter["zip_sha256"] = zip_info.sha256
+        if pdf_info is not None:
+            chapter["pdf_url"] = f"/{pdf_path}"
+            chapter["pdf_size"] = pdf_info.size
+            chapter["pdf_size_label"] = display_size(pdf_info.size)
+            chapter["pdf_sha256"] = pdf_info.sha256
+        if existing is None:
+            chapters.append(chapter)
+        chapters.sort(key=lambda item: int(item.get("number", 0)) if isinstance(item, dict) else 0)
+        collection["chapters"] = chapters
+
+        stream = StringIO()
+        yaml.dump(package_data, stream)
+        data_text = stream.getvalue()
+        validation = self.validator.validate_yaml(data_text)
+        changes = [
+            self._change(relative_data, data_text.encode("utf-8")),
+            self._change(zip_path, zip_file.data),
+        ]
+        if pdf_file is not None:
+            changes.append(self._change(pdf_path, pdf_file.data))
+        warnings = [
+            "فایل ZIP بدون استخراج ذخیره می‌شود.",
+            "حداکثر اندازه هر ZIP یا PDF برابر ۵۰ مگابایت است تا گردش کار GitHub Desktop پایدار بماند.",
+        ]
+        plan = ChangePlan(
+            token=uuid.uuid4().hex,
+            operation="package",
+            route=f"course:{course_id}",
+            target_path=zip_path,
+            proposed_url=f"{str(course.get('url') or f'/teaching/{course_id}/')}#{collection_id}",
+            front_matter={
+                "published": True,
+                "course": str(course.get("title") or course_id),
+                "collection": str(collection.get("title") or collection_id),
+                "chapter": chapter_number,
+            },
+            changes=changes,
+            validation=validation,
+            conflicts=sorted(set(conflicts)),
+            warnings=warnings,
         )
         self._plans[plan.token] = plan
         return plan

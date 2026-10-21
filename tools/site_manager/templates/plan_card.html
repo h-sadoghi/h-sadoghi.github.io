@@ -9,7 +9,9 @@
   <p>وضعیت نهایی: <span class="publish-ready">آمادهٔ انتشار پس از Commit، Push و Merge توسط شما</span></p>
   {% endif %}
   <p>{{ plan.changes|length }} فایل در این عملیات ساخته یا به‌روزرسانی می‌شود.</p>
-  {% for warning in plan.warnings %}
+  {% if plan.operation == 'package' %}
+  <p>لینک فصل پس از ذخیره به‌طور خودکار در صفحه همان درس نمایش داده می‌شود.</p>
+  {% endif %} {% for warning in plan.warnings %}
   <div class="notice">{{ warning }}</div>
   {% endfor %}{% for conflict in plan.conflicts %}
   <div class="error">{{ conflict }}<br />راه‌حل: عنوان یا بخش مقصد را تغییر دهید و دوباره پیش‌نمایش بگیرید.</div>

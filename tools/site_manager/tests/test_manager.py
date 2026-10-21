@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+from io import BytesIO
+import zipfile
 
 import pytest
 from ruamel.yaml import YAML
@@ -10,6 +12,31 @@ from tools.site_manager.assets import AssetInput
 from tools.site_manager.frontmatter import split_front_matter
 from tools.site_manager.utils import SiteManagerError
 import tools.site_manager.manager as manager_module
+
+
+def zip_bytes(entries: dict[str, bytes]) -> bytes:
+    stream = BytesIO()
+    with zipfile.ZipFile(stream, "w", zipfile.ZIP_DEFLATED) as archive:
+        for name, content in entries.items():
+            archive.writestr(name, content)
+    return stream.getvalue()
+
+
+def seed_image_processing(repo: Path) -> None:
+    (repo / "_data" / "teaching_courses.yml").write_text(
+        "- id: image-processing\n"
+        "  title: Image Processing\n"
+        "  url: /teaching/image-processing/\n"
+        "  link_type: internal\n",
+        encoding="utf-8",
+    )
+    (repo / "_data" / "teaching_packages.yml").write_text(
+        "- id: gonzalez\n"
+        "  course_id: image-processing\n"
+        "  title: Gonzalez — جزوه‌ها و فایل‌های آموزشی\n"
+        "  chapters: []\n",
+        encoding="utf-8",
+    )
 
 
 def test_preview_persian_markdown_with_two_images_is_read_only(repo: Path) -> None:
@@ -238,3 +265,95 @@ def test_read_content_exposes_existing_values_without_changing_them(repo: Path) 
     plan = manager.preview_edit("_pages/existing.md", {}, item["body"])
     metadata, _, _ = split_front_matter(plan.changes[0].content.decode())
     assert metadata["published"] is True
+
+
+def test_course_package_is_atomic_and_updates_existing_course_collection(repo: Path) -> None:
+    seed_image_processing(repo)
+    manager = SiteManager(repo)
+    archive = AssetInput("Gonzalez Chapter 1.zip", zip_bytes({"chapter-1/notes.txt": b"sample"}))
+    pdf = AssetInput("chapter 1.pdf", b"%PDF-1.4\n%%EOF\n")
+
+    plan = manager.preview_course_package(
+        {
+            "course_id": "image-processing",
+            "collection_id": "gonzalez",
+            "chapter_number": "1",
+            "chapter_title": "Digital Image Fundamentals",
+        },
+        archive,
+        pdf,
+    )
+
+    assert plan.validation.ok
+    assert not plan.conflicts
+    assert plan.target_path == "assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.zip"
+    assert [change.path for change in plan.changes] == [
+        "_data/teaching_packages.yml",
+        "assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.zip",
+        "assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.pdf",
+    ]
+    manager.add(plan, confirm=True)
+    data = YAML(typ="safe").load((repo / "_data" / "teaching_packages.yml").read_text(encoding="utf-8"))
+    chapter = data[0]["chapters"][0]
+    assert chapter["number"] == 1
+    assert chapter["zip_url"].endswith("/chapter-01.zip")
+    assert chapter["pdf_url"].endswith("/chapter-01.pdf")
+    assert (repo / chapter["zip_url"].lstrip("/")).read_bytes() == archive.data
+
+
+def test_course_package_replacement_requires_explicit_choice_and_is_backed_up(repo: Path) -> None:
+    seed_image_processing(repo)
+    manager = SiteManager(repo)
+    fields = {
+        "course_id": "image-processing",
+        "collection_id": "gonzalez",
+        "chapter_number": "2",
+        "chapter_title": "Image Enhancement",
+    }
+    first = manager.preview_course_package(fields, AssetInput("first.zip", zip_bytes({"first.txt": b"v1"})))
+    manager.add(first, confirm=True)
+
+    blocked = manager.preview_course_package(fields, AssetInput("second.zip", zip_bytes({"second.txt": b"v2"})))
+    assert any("جایگزینی" in conflict for conflict in blocked.conflicts)
+    with pytest.raises(SiteManagerError, match="تعارض"):
+        manager.add(blocked, confirm=True)
+
+    replacement = manager.preview_course_package(
+        {**fields, "replace": "yes"}, AssetInput("second.zip", zip_bytes({"second.txt": b"v2"}))
+    )
+    result = manager.add(replacement, confirm=True)
+    zip_path = repo / "assets/downloads/courses/image-processing/gonzalez/chapter-02/chapter-02.zip"
+    backup = repo / result["backup"] / zip_path.relative_to(repo)
+    assert zip_path.read_bytes() != backup.read_bytes()
+    assert zipfile.ZipFile(zip_path).namelist() == ["second.txt"]
+
+
+def test_course_package_rejects_unsafe_zip_member(repo: Path) -> None:
+    seed_image_processing(repo)
+    manager = SiteManager(repo)
+    with pytest.raises(SiteManagerError, match="مسیر داخلی ZIP ایمن نیست"):
+        manager.preview_course_package(
+            {
+                "course_id": "image-processing",
+                "collection_id": "gonzalez",
+                "chapter_number": "3",
+                "chapter_title": "Unsafe",
+            },
+            AssetInput("unsafe.zip", zip_bytes({"../outside.txt": b"no"})),
+        )
+
+
+def test_course_package_does_not_create_duplicate_course(repo: Path) -> None:
+    seed_image_processing(repo)
+    manager = SiteManager(repo)
+    plan = manager.preview_course_package(
+        {
+            "course_id": "image-processing",
+            "collection_id": "gonzalez",
+            "chapter_number": "4",
+            "chapter_title": "Restoration",
+        },
+        AssetInput("chapter.zip", zip_bytes({"readme.txt": b"ok"})),
+    )
+    assert all(change.path != "_data/teaching_courses.yml" for change in plan.changes)
+    assert all(not change.path.startswith("_pages/courses/") for change in plan.changes)

@@ -344,7 +344,7 @@
       {% endif %}
       <nav class="home-actions" aria-label="کارهای اصلی">
         <button type="button" class="home-action" data-view="course"><strong>۱. درس جدید</strong><span>ساخت درس و فصل‌های آن</span></button>
-        <button type="button" class="home-action" data-view="add"><strong>۲. افزودن مطلب</strong><span>Markdown، تصویر و PDF</span></button>
+        <button type="button" class="home-action" data-view="add"><strong>۲. افزودن مطلب</strong><span>Markdown، رسانه یا بسته ZIP فصل</span></button>
         <button type="button" class="home-action" data-view="browse"><strong>۳. مطالب موجود</strong><span>جست‌وجو و ویرایش امن</span></button>
       </nav>
       <section class="panel" data-panel="course" hidden>
@@ -455,6 +455,62 @@
           <div id="quick-preview" hidden></div>
         </form>
         {% if plan and plan.operation == 'add' %}{% include 'plan_card.html' %}{% endif %}
+        <details id="package-manager">
+          <summary>افزودن بسته ZIP یک فصل به درس</summary>
+          <p class="lead">ZIP بدون استخراج و با نام امن ذخیره می‌شود. PDF اختیاری است. هر فایل باید حداکثر ۵۰ مگابایت باشد.</p>
+          <form data-endpoint="{{ url_for('preview') }}" method="post" enctype="multipart/form-data" id="package-form">
+            <input type="hidden" name="action" value="package" />
+            <div class="grid">
+              <div>
+                <label for="package-course">درس</label>
+                <select id="package-course" name="course_id" required>
+                  {% for course in courses %} {% if course.link_type|default('internal') == 'internal' %}
+                  <option value="{{ course.id }}">{{ course.title }}</option>
+                  {% endif %} {% endfor %}
+                </select>
+              </div>
+              <div>
+                <label for="package-collection">مجموعه آموزشی</label>
+                <select id="package-collection" name="collection_id" required>
+                  {% for package in packages %}
+                  <option value="{{ package.id }}" data-course="{{ package.course_id }}">{{ package.title }}</option>
+                  {% endfor %}
+                  <option value="new" data-course="*">ایجاد مجموعه جدید…</option>
+                </select>
+              </div>
+              <div class="wide" id="package-collection-title-wrap" hidden>
+                <label for="package-collection-title">عنوان مجموعه جدید</label>
+                <input id="package-collection-title" name="collection_title" placeholder="برای نمونه: Gonzalez — جزوه‌ها و فایل‌های آموزشی" />
+              </div>
+              <div>
+                <label for="package-chapter-number">شماره فصل</label>
+                <input id="package-chapter-number" name="chapter_number" type="number" min="1" max="999" required />
+              </div>
+              <div>
+                <label for="package-chapter-title">عنوان فصل</label>
+                <input id="package-chapter-title" name="chapter_title" required />
+              </div>
+              <div>
+                <label for="package-zip">فایل ZIP فصل</label>
+                <input id="package-zip" name="package_zip" type="file" accept=".zip,application/zip" required />
+              </div>
+              <div>
+                <label for="package-pdf">PDF برای مشاهده مستقیم (اختیاری)</label>
+                <input id="package-pdf" name="package_pdf" type="file" accept=".pdf,application/pdf" />
+              </div>
+            </div>
+            <details>
+              <summary>جایگزینی نسخه قبلی</summary>
+              <label>
+                <input type="checkbox" name="replace" value="yes" style="width: auto" />
+                می‌دانم این شماره فصل موجود است و می‌خواهم ZIP آن با نسخه تازه جایگزین شود.
+              </label>
+              <p class="file-note">نسخه قبلی پیش از ذخیره در پوشه پشتیبان Site Manager نگهداری می‌شود.</p>
+            </details>
+            <div class="actions"><button type="submit">پیش‌نمایش بسته فصل</button></div>
+          </form>
+          {% if plan and plan.operation == 'package' %}{% include 'plan_card.html' %}{% endif %}
+        </details>
       </section>
       <section class="panel" data-panel="browse" hidden>
         <h2>مطالب موجود</h2>
@@ -535,7 +591,7 @@
       </section>
     </main>
     <script>
-      const initialView={{ active|tojson }};
+      const initialView={{ active|tojson }};const packagePreview={{ (plan and plan.operation == 'package')|tojson }};if(packagePreview)document.querySelector('#package-manager').open=true;
       document.querySelectorAll('form[data-endpoint]').forEach(form=>form.action=form.dataset.endpoint);document.querySelectorAll('[data-href]').forEach(link=>link.href=link.dataset.href);
       function showView(name){document.querySelectorAll('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==name);document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));history.replaceState(null,'',`?view=${name}`)}
       document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));showView(['course','add','browse'].includes(initialView)?initialView:'add');
@@ -544,6 +600,7 @@
       function syncRoute(){let chapters=[];try{chapters=JSON.parse(route.selectedOptions[0]?.dataset.chapters||'[]')}catch(e){}chapter.innerHTML='<option value="">بدون فصل</option>'+chapters.map(c=>`<option value="${escapeHtml(c.id)}">${escapeHtml(c.title)}</option>`).join('');chapterWrap.hidden=!chapters.length;document.querySelector('#route-warning').textContent=route.selectedOptions[0]?.dataset.warning||'';document.querySelector('#bibtex-wrap').hidden=route.value!=='publication';document.querySelector('#title').required=route.value!=='publication'}route.addEventListener('change',syncRoute);syncRoute();
       const markdownFile=document.querySelector('#markdown_file'),markdown=document.querySelector('#markdown'),markdownEditor=document.querySelector('#markdown-editor');markdownFile.addEventListener('change',async e=>{const f=e.target.files[0];if(f){const text=await f.text();markdown.value=text;markdownEditor.value=text}});markdownEditor.addEventListener('input',()=>markdown.value=markdownEditor.value);
       function bindDrop(zoneId,inputId,noteId){const zone=document.querySelector(zoneId),input=document.querySelector(inputId),note=document.querySelector(noteId);const update=()=>note.textContent=input.files.length?`${input.files.length} فایل انتخاب شد: ${Array.from(input.files).map(f=>f.name).join('، ')}`:'هنوز فایلی انتخاب نشده است.';zone.addEventListener('click',e=>{if(e.target!==input)input.click()});input.addEventListener('change',update);['dragenter','dragover'].forEach(n=>zone.addEventListener(n,e=>{e.preventDefault();zone.classList.add('dragging')}));['dragleave','drop'].forEach(n=>zone.addEventListener(n,e=>{e.preventDefault();zone.classList.remove('dragging')}));zone.addEventListener('drop',e=>{input.files=e.dataTransfer.files;update()})}bindDrop('#add-dropzone','#assets','#add-file-note');bindDrop('#edit-dropzone','#edit-assets','#edit-file-note');
+      const packageCourse=document.querySelector('#package-course'),packageCollection=document.querySelector('#package-collection'),packageTitleWrap=document.querySelector('#package-collection-title-wrap'),packageTitle=document.querySelector('#package-collection-title');function syncPackageCollections(){const course=packageCourse.value;let first='';Array.from(packageCollection.options).forEach(option=>{const visible=option.dataset.course==='*'||option.dataset.course===course;option.hidden=!visible;option.disabled=!visible;if(visible&&!first)first=option.value});if(packageCollection.selectedOptions[0]?.disabled)packageCollection.value=first;const isNew=packageCollection.value==='new';packageTitleWrap.hidden=!isNew;packageTitle.required=isNew}packageCourse.addEventListener('change',syncPackageCollections);packageCollection.addEventListener('change',syncPackageCollections);syncPackageCollections();
       async function renderMarkdown(source,target){const data=new FormData();data.set('markdown',source.value);const response=await fetch('/markdown-preview',{method:'POST',body:data});target.innerHTML=(await response.json()).html;target.hidden=false}document.querySelector('#preview-markdown').addEventListener('click',()=>renderMarkdown(markdown,document.querySelector('#quick-preview')));document.querySelector('#edit-preview-markdown').addEventListener('click',()=>renderMarkdown(document.querySelector('#edit-markdown'),document.querySelector('#edit-quick-preview')));
       async function loadContent(path){const response=await fetch('/api/content?path='+encodeURIComponent(path));const data=await response.json();if(!response.ok){alert(`${data.error}\nراه‌حل: ${data.solution}`);return}document.querySelector('#edit-path').value=data.path;document.querySelector('#edit-title').value=data.title;document.querySelector('#edit-markdown').value=data.body;document.querySelector('#edit-description').value=data.description;document.querySelector('#edit-tags').value=data.tags;document.querySelector('#edit-date').value=data.date;document.querySelector('#edit-author').value=data.author;document.querySelector('#edit-status').value='preserve';document.querySelector('#edit-current').textContent=`${data.path} — ${data.permalink||'بدون نشانی مستقل'}`;document.querySelector('#edit-published').textContent=data.published_label+' (تا انتخاب صریح شما حفظ می‌شود)';document.querySelector('#edit-box').hidden=false;document.querySelector('#edit-box').scrollIntoView({behavior:'smooth'})}document.addEventListener('click',e=>{const b=e.target.closest('.edit-item');if(b)loadContent(b.dataset.path)});
       let searchTimer;document.querySelector('#search').addEventListener('input',e=>{clearTimeout(searchTimer);searchTimer=setTimeout(async()=>{const items=await(await fetch('/api/search?q='+encodeURIComponent(e.target.value))).json();document.querySelector('#search-results').innerHTML=items.map(i=>`<tr><td>${escapeHtml(i.content_type)}</td><td>${escapeHtml(i.title)}</td><td><code>${escapeHtml(i.path)}</code></td><td><button type="button" class="edit-item" data-path="${escapeHtml(i.path)}">ویرایش</button></td></tr>`).join('')},200)});

@@ -1,5 +1,6 @@
 {%- assign managed_course = site.data.teaching_courses | where: 'id', include.course_id | first -%}
 {%- assign managed_materials = site.data.legacy_resources | where: 'course_id', include.course_id -%}
+{%- assign managed_packages = site.data.teaching_packages | where: 'course_id', include.course_id -%}
 
 {%- if managed_course.chapters and managed_course.chapters.size > 0 -%}
 {%- for chapter in managed_course.chapters %}
@@ -34,3 +35,24 @@
 {%- if managed_materials.size == 0 %}
 <p>Course materials will appear here after they are added.</p>
 {%- endif %}
+
+{%- for package in managed_packages %}
+<section id="{{ package.id | slugify }}" class="teaching-package">
+  <h2>{{ package.title | escape }}</h2>
+  {%- if package.chapters and package.chapters.size > 0 %}
+  <ol>
+    {%- assign package_chapters = package.chapters | sort: 'number' -%}
+    {%- for chapter in package_chapters %}
+    <li>
+      <strong>فصل {{ chapter.number }} — {{ chapter.title | escape }}</strong>:
+      <a href="{{ chapter.zip_url | relative_url }}" download>دانلود ZIP</a>
+      {%- if chapter.zip_size_label %} <small>({{ chapter.zip_size_label }})</small>{% endif -%}
+      {%- if chapter.pdf_url %} · <a href="{{ chapter.pdf_url | relative_url }}">مشاهده PDF</a>{% endif -%}
+    </li>
+    {%- endfor %}
+  </ol>
+  {%- else %}
+  <p>فصل‌ها و فایل‌های این مجموعه به‌تدریج از Site Manager افزوده می‌شوند.</p>
+  {%- endif %}
+</section>
+{%- endfor %}
