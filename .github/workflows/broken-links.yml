@@ -11,6 +11,8 @@ on:
       - "**.js"
       - "**.liquid"
       - "**/*.md"
+      - "courses/**"
+      - "tools/jupyterbook_manager/**"
       - "**.yml"
       - "!.github/workflows/axe.yml"
       - "!.github/workflows/deploy-docker-tag.yml"
@@ -29,6 +31,8 @@ on:
       - "**.js"
       - "**.liquid"
       - "**/*.md"
+      - "courses/**"
+      - "tools/jupyterbook_manager/**"
       - "**.yml"
       - "!.github/workflows/axe.yml"
       - "!.github/workflows/deploy-docker-tag.yml"
@@ -51,4 +55,6 @@ jobs:
           # Check deterministic local references here. The deploy workflow separately
           # checks every generated HTML page, while external sites are too volatile to
           # use as a required PR gate (rate limits, TLS, redirects, and bot blocking).
-          args: --offline --user-agent 'curl/7.54' --exclude-path README.md --exclude-path CUSTOMIZE.md --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --verbose --no-progress './**/*.md' './**/*.html'
+          # Jupyter Book source is validated by its manager and its generated HTML
+          # is checked in deploy.yml and broken-links-site.yml.
+          args: --offline --user-agent 'curl/7.54' --exclude-path README.md --exclude-path CUSTOMIZE.md --exclude-path courses --exclude-path _pages/404.md --exclude-path _pages/blog.md --exclude-path _posts/2018-12-22-distill.md --exclude-path _posts/2023-04-24-videos.md --verbose --no-progress './**/*.md' './**/*.html'

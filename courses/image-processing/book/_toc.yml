@@ -1,0 +1,7 @@
+# This navigation is managed by tools/jupyterbook_manager.
+# Manual editing is also supported; see tools/jupyterbook_manager/README_FA.md.
+format: jb-book
+root: index
+chapters:
+  - file: gonzalez/index
+  - file: student-work/index

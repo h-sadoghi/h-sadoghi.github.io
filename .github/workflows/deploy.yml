@@ -12,6 +12,8 @@ on:
       - "**.js"
       - "**.liquid"
       - "**/*.md"
+      - "courses/**"
+      - "tools/jupyterbook_manager/**"
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
@@ -39,6 +41,8 @@ on:
       - "**.js"
       - "**.liquid"
       - "**/*.md"
+      - "courses/**"
+      - "tools/jupyterbook_manager/**"
       - "**.yml"
       - "Gemfile"
       - "Gemfile.lock"
@@ -72,6 +76,14 @@ jobs:
         with:
           ruby-version: "3.2.2"
           bundler-cache: true
+      - name: Setup Python for Jupyter Book
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/jupyterbook_manager/requirements*.txt
+      - name: Install Jupyter Book dependencies
+        run: python -m pip install -r tools/jupyterbook_manager/requirements-ci.txt
       - name: Update _config.yml ⚙️
         uses: fjogeleit/yaml-update-action@main
         with:
@@ -94,13 +106,18 @@ jobs:
           test -s "$webp_test"
       - name: Install and Build 🔧
         run: |
-          pip3 install --upgrade jupyter
           export JEKYLL_ENV=production
           bundle exec jekyll build
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
+      - name: Build and stage Image Processing Jupyter Book
+        run: |
+          python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" build --book image-processing --clean
+          python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" stage --book image-processing --site-dir _site
+          test -s _site/teaching/image-processing/book/index.html
+          test -d _site/teaching/image-processing/book/_static
       - name: Verify generated WebP images
         shell: bash
         run: |

@@ -14,5 +14,9 @@ vendor
 .site-manager-venv/
 .site-manager-backups/
 .site-manager-runtime/
+.venv-jupyterbook/
+.jupyterbook-manager-backups/
+.jupyterbook-manager-runtime/
+courses/**/_build/
 __pycache__/
 *.py[cod]

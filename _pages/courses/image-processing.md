@@ -24,3 +24,4 @@ Learning materials cover selected chapters of <cite>Digital Image Processing</ci
 
 - **[Gonzalez — notes and learning files]({{ '/teaching/image-processing/gonzalez/' | relative_url }})** — numbered chapter packages and optional PDF notes.
 - **[Student assignments and projects]({{ '/teaching/image-processing/student-work/' | relative_url }})** — approved course work shared by students.
+- **[Interactive course book]({{ '/teaching/image-processing/book/' | relative_url }})** — a three-column Jupyter Book for notes and notebooks.
