@@ -17,6 +17,7 @@ vendor
 .venv-jupyterbook/
 .jupyterbook-manager-backups/
 .jupyterbook-manager-runtime/
+.jupyterbook-manager-runtime.rar
 courses/**/_build/
 __pycache__/
 *.py[cod]
