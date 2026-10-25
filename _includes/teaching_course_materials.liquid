@@ -1,36 +1,91 @@
 {%- assign managed_course = site.data.teaching_courses | where: 'id', include.course_id | first -%}
-{%- assign managed_materials = site.data.legacy_resources | where: 'course_id', include.course_id -%}
 
-{%- if managed_course.chapters and managed_course.chapters.size > 0 -%}
-{%- for chapter in managed_course.chapters %}
+{%- if include.view == 'packages' -%}
+  {%- assign managed_packages = site.data.teaching_packages | where: 'course_id', include.course_id -%}
+  {%- if include.package_id -%}
+    {%- assign managed_packages = managed_packages | where: 'id', include.package_id -%}
+  {%- endif -%}
+  {%- for package in managed_packages %}
+<section id="{{ package.id | slugify }}" class="teaching-package">
+  {%- if managed_packages.size > 1 %}<h2>{{ package.title | escape }}</h2>{% endif -%}
+  {%- if package.chapters and package.chapters.size > 0 %}
+  <ol>
+    {%- assign package_chapters = package.chapters | sort: 'number' -%}
+    {%- for chapter in package_chapters %}
+    {%- if chapter.published != false %}
+    <li id="chapter-{{ chapter.number }}" class="mb-3">
+      <strong>فصل {{ chapter.number }} — {{ chapter.title | escape }}</strong>
+      {%- if chapter.summary and chapter.summary != empty %}<div>{{ chapter.summary | escape }}</div>{% endif %}
+      <div>
+        <a href="{{ chapter.zip_url | relative_url }}" download>دانلود ZIP</a>
+        {%- if chapter.zip_size_label %} <small>({{ chapter.zip_size_label }})</small>{% endif -%}
+        {%- if chapter.pdf_url %} · <a href="{{ chapter.pdf_url | relative_url }}">مشاهده PDF</a>{% endif -%}
+      </div>
+    </li>
+    {%- endif %}
+    {%- endfor %}
+  </ol>
+  {%- else %}
+  <p>فصل تأییدشده‌ای برای نمایش وجود ندارد.</p>
+  {%- endif %}
+</section>
+  {%- endfor -%}
+  {%- if managed_packages.size == 0 %}<p>مجموعه آموزشی تأییدشده‌ای برای نمایش وجود ندارد.</p>{% endif -%}
+
+{%- elsif include.view == 'student_work' -%}
+  {%- assign student_works = site.data.teaching_student_works | where: 'course_id', include.course_id -%}
+  {%- assign visible_count = 0 -%}
+  <div class="student-work-list">
+  {%- for work in student_works %}
+    {%- if work.published == true -%}
+      {%- assign visible_count = visible_count | plus: 1 %}
+    <article id="{{ work.id | slugify }}" class="mb-4">
+      <h2>{{ work.title | escape }}</h2>
+      <p>{{ work.summary | escape }}</p>
+      {%- if work.students %}<p><strong>دانشجو:</strong> {{ work.students | escape }}</p>{% endif -%}
+      {%- if work.term %}<p><strong>نیم‌سال:</strong> {{ work.term | escape }}</p>{% endif -%}
+      <p>
+        <a href="{{ work.zip_url | relative_url }}" download>دانلود ZIP</a>
+        {%- if work.zip_size_label %} <small>({{ work.zip_size_label }})</small>{% endif -%}
+        {%- if work.pdf_url %} · <a href="{{ work.pdf_url | relative_url }}">مشاهده PDF</a>{% endif -%}
+      </p>
+    </article>
+    {%- endif -%}
+  {%- endfor %}
+  </div>
+  {%- if visible_count == 0 %}<p>اثر دانشجویی تأییدشده‌ای برای نمایش وجود ندارد.</p>{% endif -%}
+
+{%- else -%}
+  {%- assign managed_materials = site.data.legacy_resources | where: 'course_id', include.course_id -%}
+  {%- if managed_course.chapters and managed_course.chapters.size > 0 -%}
+    {%- for chapter in managed_course.chapters %}
 <h2>{{ chapter.title | escape }}</h2>
-{%- assign chapter_materials = managed_materials | where: 'chapter_id', chapter.id -%}
-{%- if chapter_materials.size > 0 %}
+      {%- assign chapter_materials = managed_materials | where: 'chapter_id', chapter.id -%}
+      {%- if chapter_materials.size > 0 %}
 <ul>
-{%- for material in chapter_materials %}
-{%- if material.published != false or jekyll.environment == 'development' %}
+        {%- for material in chapter_materials %}
+          {%- if material.published != false or jekyll.environment == 'development' %}
 <li><a href="{{ material.destination_url | relative_url }}">{{ material.title | escape }}</a></li>
-{%- endif %}
-{%- endfor %}
+          {%- endif %}
+        {%- endfor %}
 </ul>
-{%- else %}
+      {%- else %}
 <p>No material has been added to this chapter yet.</p>
-{%- endif %}
-{%- endfor %}
-{%- endif %}
+      {%- endif %}
+    {%- endfor %}
+  {%- endif %}
 
-{%- assign ungrouped_materials = managed_materials | where_exp: 'material', 'material.chapter_id == nil' -%}
-{%- if ungrouped_materials.size > 0 %}
+  {%- assign ungrouped_materials = managed_materials | where_exp: 'material', 'material.chapter_id == nil' -%}
+  {%- if ungrouped_materials.size > 0 %}
 <h2>Course materials</h2>
 <ul>
-{%- for material in ungrouped_materials %}
-{%- if material.published != false or jekyll.environment == 'development' %}
+    {%- for material in ungrouped_materials %}
+      {%- if material.published != false or jekyll.environment == 'development' %}
 <li><a href="{{ material.destination_url | relative_url }}">{{ material.title | escape }}</a></li>
-{%- endif %}
-{%- endfor %}
+      {%- endif %}
+    {%- endfor %}
 </ul>
-{%- endif %}
+  {%- endif %}
 
-{%- if managed_materials.size == 0 %}
-<p>Course materials will appear here after they are added.</p>
-{%- endif %}
+  {%- if managed_materials.size == 0 %}<p>Course materials will appear here after they are added.</p>{% endif -%}
+{%- endif -%}

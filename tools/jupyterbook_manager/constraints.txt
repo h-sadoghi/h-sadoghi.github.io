@@ -1,0 +1,7 @@
+# Compatibility constraints tested with Jupyter Book 1.0.4.post1.
+Sphinx==7.4.7
+docutils==0.21.2
+myst-parser==3.0.1
+myst-nb==1.1.2
+sphinx-book-theme==1.1.4
+sphinx-design==0.6.1

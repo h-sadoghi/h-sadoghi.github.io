@@ -1,0 +1,2 @@
+# This exact lock is checked for Linux CPython 3.12 wheels before release.
+-r requirements-lock.txt

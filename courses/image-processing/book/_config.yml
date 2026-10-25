@@ -1,0 +1,27 @@
+# Jupyter Book configuration for the Image Processing course.
+# The repository-root _config.yml belongs to Jekyll and is intentionally separate.
+title: Image Processing Course Book
+author: Hadi Sadoghi Yazdi
+copyright: "2026 Hadi Sadoghi Yazdi"
+only_build_toc_files: true
+
+# Normal builds never execute notebooks. Stored outputs remain visible.
+execute:
+  execute_notebooks: "off"
+
+parse:
+  myst_enable_extensions:
+    - amsmath
+    - dollarmath
+
+repository:
+  url: https://github.com/h-sadoghi/h-sadoghi.github.io
+  path_to_book: courses/image-processing/book
+  branch: master
+
+html:
+  use_repository_button: false
+  use_issues_button: false
+  home_page_in_navbar: true
+  extra_footer: |
+    <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>

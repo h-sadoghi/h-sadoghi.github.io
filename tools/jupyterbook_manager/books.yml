@@ -1,0 +1,8 @@
+version: 1
+books:
+  - id: image-processing
+    title: Image Processing Course Book
+    source: courses/image-processing/book
+    public_path: /teaching/image-processing/book/
+    jekyll_destination: _site/teaching/image-processing/book
+    course_id: image-processing

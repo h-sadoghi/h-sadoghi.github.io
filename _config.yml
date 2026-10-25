@@ -250,7 +250,13 @@ exclude:
   - readme_preview/
   # Local authoring tool and its audit files must never be copied to the public site.
   - tools/
+  # Jupyter Book source is built separately, then its HTML is staged under _site.
+  - courses/
+  - docs/
   - RUN_SITE_MANAGER.cmd
+  - RUN_JUPYTERBOOK_MANAGER.cmd
+  - SETUP_JUPYTERBOOK.cmd
+  - BUILD_IMAGE_PROCESSING_BOOK.cmd
   - SADOGHI_LOCAL_JEKYLL_MANAGER_SPEC.md
   - SITE_INFORMATION_ARCHITECTURE_INVENTORY.csv
   - SITE_INFORMATION_ARCHITECTURE_PROPOSAL.md
