@@ -67,4 +67,6 @@ jobs:
         with:
           fail: true
           # only check local links
-          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --verbose --no-progress '_site/**/*.html'
+          # The two webpack macro files are Sphinx/Jinja build templates copied
+          # verbatim by the standard theme. They are assets, not public pages.
+          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --exclude-path '_site/teaching/image-processing/book/_static/sbt-webpack-macros.html' --exclude-path '_site/teaching/image-processing/book/_static/webpack-macros.html' --verbose --no-progress '_site/**/*.html'

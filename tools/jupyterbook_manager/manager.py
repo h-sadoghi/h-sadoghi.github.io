@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import difflib
+import filecmp
 import hashlib
 import json
 import os
@@ -554,9 +555,9 @@ class BookManager:
             executable = Path(shutil.which("jupyter-book") or "")
         if not executable.is_file():
             raise ManagerError("Jupyter Book در محیط اختصاصی پیدا نشد؛ ابتدا SETUP_JUPYTERBOOK.cmd را اجرا کنید.")
-        command = [str(executable), "build", str(book_root)]
         if clean:
-            command.append("--all")
+            subprocess.run([str(executable), "clean", str(book_root), "--all"], cwd=self.repo_root, check=True)
+        command = [str(executable), "build", str(book_root)]
         subprocess.run(command, cwd=self.repo_root, check=True)
         output = book_root / "_build/html"
         if not (output / "index.html").is_file() or not (output / "_static").is_dir():
@@ -619,13 +620,14 @@ class BookManager:
             shutil.rmtree(destination)
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copytree(source, destination)
-        # Sphinx themes copy two Jinja build templates into _static. They are not
-        # runtime pages and contain unresolved {{ pathto(...) }} placeholders,
-        # so publishing them would create false broken-link failures.
-        for template_name in ("sbt-webpack-macros.html", "webpack-macros.html"):
-            (destination / "_static" / template_name).unlink(missing_ok=True)
         if not (destination / "index.html").is_file() or not (destination / "_static").is_dir():
             raise ManagerError("Stage کتاب کامل نشد.")
+        source_files = sorted(path.relative_to(source) for path in source.rglob("*") if path.is_file())
+        destination_files = sorted(path.relative_to(destination) for path in destination.rglob("*") if path.is_file())
+        if source_files != destination_files or any(
+            not filecmp.cmp(source / relative, destination / relative, shallow=False) for relative in source_files
+        ):
+            raise ManagerError("Stage کتاب دست‌نخورده کپی نشد؛ فهرست یا محتوای فایل‌های مقصد متفاوت است.")
         return destination
 
     def preview(self, book_id: str, port: int = 4100, open_browser: bool = True) -> str:

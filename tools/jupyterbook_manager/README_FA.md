@@ -73,6 +73,8 @@ RUN_JUPYTERBOOK_MANAGER.cmd preview
 RUN_JUPYTERBOOK_MANAGER.cmd stop
 ```
 
+دستور `build --clean` ابتدا کل خروجی قبلی `_build/` را حذف می‌کند تا صفحه‌های قدیمی در انتشار بعدی باقی نمانند. پس از Build سایت اصلی، دستور `stage` تمام خروجی استاندارد Jupyter Book را بدون حذف یا تغییر فایل‌ها در `_site/teaching/image-processing/book/` کپی و برابری فایل‌های مبدأ و مقصد را کنترل می‌کند.
+
 اجرای اختیاری و جدا از Build برای یک Notebook مورد اعتماد:
 
 ```bat
