@@ -118,6 +118,7 @@ jobs:
           python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" stage --book image-processing --site-dir _site
           test -s _site/teaching/image-processing/book/index.html
           test -d _site/teaching/image-processing/book/_static
+          test -f _site/.nojekyll
       - name: Verify generated WebP images
         shell: bash
         run: |

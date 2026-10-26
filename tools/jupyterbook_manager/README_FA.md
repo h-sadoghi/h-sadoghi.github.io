@@ -73,7 +73,7 @@ RUN_JUPYTERBOOK_MANAGER.cmd preview
 RUN_JUPYTERBOOK_MANAGER.cmd stop
 ```
 
-دستور `build --clean` ابتدا کل خروجی قبلی `_build/` را حذف می‌کند تا صفحه‌های قدیمی در انتشار بعدی باقی نمانند. پس از Build سایت اصلی، دستور `stage` تمام خروجی استاندارد Jupyter Book را بدون حذف یا تغییر فایل‌ها در `_site/teaching/image-processing/book/` کپی و برابری فایل‌های مبدأ و مقصد را کنترل می‌کند.
+دستور `build --clean` ابتدا کل خروجی قبلی `_build/` را حذف می‌کند تا صفحه‌های قدیمی در انتشار بعدی باقی نمانند. پس از Build سایت اصلی، دستور `stage` تمام خروجی استاندارد Jupyter Book را بدون حذف یا تغییر فایل‌ها در `_site/teaching/image-processing/book/` کپی و برابری فایل‌های مبدأ و مقصد را کنترل می‌کند. همین مرحله فایل خالی `_site/.nojekyll` را نیز می‌سازد تا GitHub Pages پوشه‌های استاندارد `_static` و `_sources` را دوباره با Jekyll حذف نکند.
 
 اجرای اختیاری و جدا از Build برای یک Notebook مورد اعتماد:
 

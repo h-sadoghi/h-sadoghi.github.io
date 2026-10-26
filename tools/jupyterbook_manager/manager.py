@@ -628,6 +628,10 @@ class BookManager:
             not filecmp.cmp(source / relative, destination / relative, shallow=False) for relative in source_files
         ):
             raise ManagerError("Stage کتاب دست‌نخورده کپی نشد؛ فهرست یا محتوای فایل‌های مقصد متفاوت است.")
+        nojekyll = site_dir / ".nojekyll"
+        if nojekyll.exists() and not nojekyll.is_file():
+            raise ManagerError("مسیر .nojekyll در خروجی سایت یک فایل معمولی نیست.")
+        nojekyll.touch(exist_ok=True)
         return destination
 
     def preview(self, book_id: str, port: int = 4100, open_browser: bool = True) -> str:

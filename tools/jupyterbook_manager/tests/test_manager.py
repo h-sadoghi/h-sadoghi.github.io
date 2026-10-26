@@ -134,6 +134,7 @@ def test_safe_zip_asset_and_stage(repo: Path, tmp_path: Path) -> None:
     destination = manager.stage("image-processing", site)
     assert (destination / "index.html").read_text(encoding="utf-8") == "book"
     assert (destination / "_static/webpack-macros.html").read_text(encoding="utf-8") == "{{ pathto('x') }}"
+    assert (site / ".nojekyll").is_file()
 
 
 def test_rejects_zip_traversal(repo: Path, tmp_path: Path) -> None:
