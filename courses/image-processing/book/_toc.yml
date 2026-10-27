@@ -7,4 +7,6 @@ chapters:
     sections:
       - file: gonzalez/chapter-01
         title: فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال
+      - file: gonzalez/chapter-02
+        title: 'فصل دوم: مبانی تصویر دیجیتال'
   - file: student-work/index

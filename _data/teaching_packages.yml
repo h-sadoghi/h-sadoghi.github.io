@@ -18,3 +18,7 @@
         zip_size: 14604
         zip_size_label: 14.3 KB
         zip_sha256: b750b395922f60d4b3033bc76849d64151b3a683a2dc7bfa085188779fc357ab
+      - number: 2
+        title: 'فصل دوم: مبانی تصویر دیجیتال'
+        summary: 'title: "فصل دوم: مبانی تصویر دیجیتال"'
+        book_url: /teaching/image-processing/book/gonzalez/chapter-02.html
