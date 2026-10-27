@@ -1,0 +1,865 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل اول — مقدمه‌ای بر پردازش تصویر دیجیتال &#8212; Image Processing Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gonzalez/chapter-01';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Student Work" href="../student-work/index.html" />
+    <link rel="prev" title="Gonzalez Notes and Learning Files" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Image Processing Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Image Processing Course Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gonzalez Notes and Learning Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../student-work/index.html">Student Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/gonzalez/chapter-01.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل اول — مقدمه‌ای بر پردازش تصویر دیجیتال</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۱. پردازش تصویر دیجیتال چیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۱–۱. یک نمونه ساده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۱–۲. تصویر به‌عنوان یک آرایه عددی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۱–۳. تصویر رنگی چگونه نمایش داده می‌شود؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۱–۴. نمونه‌برداری و کوانتیزه‌سازی: دو مفهوم مقدماتی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۲. نگاهی به تاریخچه پردازش تصویر دیجیتال</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۳. کاربردهای پردازش تصویر دیجیتال</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۳–۱. تصویربرداری در طیف الکترومغناطیسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۳–۲. تصویربرداری مبتنی بر روش‌های دیگر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۳–۳. چند مسئله ملموس</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۴. مراحل اساسی یک سامانه پردازش تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-acquisition">۴–۱. اخذ تصویر (Image Acquisition)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-enhancement">۴–۲. بهبود تصویر (Image Enhancement)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-restoration">۴–۳. بازیابی تصویر (Image Restoration)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color-image-processing">۴–۴. پردازش تصویر رنگی (Color Image Processing)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wavelets-and-multiresolution">۴–۵. پردازش چندمقیاسی و موجک‌ها (Wavelets and Multiresolution)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compression">۴–۶. فشرده‌سازی (Compression)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#morphological-processing">۴–۷. پردازش ریخت‌شناختی (Morphological Processing)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation">۴–۸. بخش‌بندی تصویر (Segmentation)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction-and-description">۴–۹. استخراج ویژگی و توصیف (Feature Extraction and Description)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recognition-classification">۴–۱۰. شناسایی و دسته‌بندی (Recognition / Classification)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-base">۴–۱۱. پایگاه دانش (Knowledge Base)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۵. اجزای یک سامانه پردازش تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۵–۱. مثال: کنترل کیفیت یک محصول</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۶. مقایسه چند اصطلاح مهم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۷. مثال آموزشی یکپارچه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۸. پرسش‌های مروری فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۹. تمرین عملی کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۱۰. نکات کلیدی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">منبع درسی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">فایل‌های قابل دانلود</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل اول — مقدمه‌ای بر پردازش تصویر دیجیتال<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>درس پردازش تصویر دیجیتال</strong><br />
+متن آموزشی مستقل برای مطالعه و انتشار در وب‌سایت<br />
+مبنای سازمان‌دهی: فصل اول کتاب <em>Digital Image Processing</em>، ویرایش چهارم، تألیف Rafael C. Gonzalez و Richard E. Woods.</p>
+</div></blockquote>
+<section id="id2">
+<h2>اهداف یادگیری<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>پس از مطالعه این فصل انتظار می‌رود دانشجو بتواند مفهوم تصویر دیجیتال و تفاوت آن با صحنه واقعی را توضیح دهد؛ میان پردازش تصویر، تحلیل تصویر و بینایی ماشین تمایز بگذارد؛ چند کاربرد مهم پردازش تصویر را بشناسد؛ مراحل متداول یک سامانه پردازش تصویر را به‌ترتیب شرح دهد؛ و اجزای سخت‌افزاری و نرم‌افزاری چنین سامانه‌ای را معرفی کند.</p>
+</section>
+<section id="id3">
+<h2>۱. پردازش تصویر دیجیتال چیست؟<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>هنگامی که به یک منظره نگاه می‌کنیم، چشم ما نور بازتابیده از اجسام را دریافت می‌کند و مغز آن را تفسیر می‌کند. دوربین نیز نوری را که به حسگر می‌رسد اندازه‌گیری می‌کند؛ اما برای آنکه رایانه بتواند تصویر را ذخیره و پردازش کند، این اندازه‌گیری‌ها باید به اعداد تبدیل شوند.</p>
+<p><strong>تصویر دیجیتال</strong> را می‌توان آرایه‌ای از اعداد دانست. هر خانه از این آرایه، یک <strong>پیکسل</strong> است و مقدار آن اطلاعاتی مانند روشنایی یا رنگ آن نقطه از تصویر را نشان می‌دهد. پردازش تصویر دیجیتال یعنی استفاده از روش‌های محاسباتی برای تغییر، استخراج اطلاعات یا تفسیر این آرایه.</p>
+<p><img alt="از صحنه واقعی تا پردازش رایانه‌ای" src="../_images/01-image-acquisition.svg" /></p>
+<p><em>شکل ۱ — مسیر مفهومی تبدیل صحنه به تصویر دیجیتال و استفاده از آن در تحلیل رایانه‌ای.</em></p>
+<section id="id4">
+<h3>۱–۱. یک نمونه ساده<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>فرض کنید تصویر یک سند قدیمی تاریک است. می‌خواهیم نوشته‌های آن خواناتر شوند. برنامه می‌تواند مقادیر روشنایی پیکسل‌ها را طوری تغییر دهد که متن و زمینه بهتر از یکدیگر متمایز شوند. در این مثال، <strong>ورودی یک تصویر</strong> و <strong>خروجی نیز یک تصویر اصلاح‌شده</strong> است.</p>
+<p>اکنون فرض کنید بخواهیم تعداد خودروهای یک تصویر خیابانی را بشماریم. برنامه باید نواحی مربوط به خودروها را پیدا و از دیگر قسمت‌ها جدا کند. این بار، خروجی می‌تواند <strong>تعداد خودروها و مکان آنها</strong> باشد، نه صرفاً تصویر جدید.</p>
+<p>به همین دلیل، مرز میان «پردازش تصویر» و «تحلیل تصویر» همواره کاملاً صُلب نیست. در این درس، منظور از پردازش تصویر دیجیتال مجموعه روش‌هایی است که روی تصاویر دیجیتال کار می‌کنند؛ از بهبود ظاهر تصویر تا استخراج اطلاعات مورد نیاز.</p>
+</section>
+<section id="id5">
+<h3>۱–۲. تصویر به‌عنوان یک آرایه عددی<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>برای یک تصویر خاکستری، مقدار هر پیکسل معمولاً عددی در بازه ۰ تا ۲۵۵ است، <strong>به شرط آنکه تصویر با ۸ بیت برای هر پیکسل ذخیره شده باشد</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">0</span></code> نشان‌دهنده سیاه است.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">255</span></code> نشان‌دهنده سفید است.</p></li>
+<li><p>اعداد میان این دو، درجات متفاوت خاکستری‌اند.</p></li>
+</ul>
+<p><img alt="ماتریس پیکسل‌های تصویر خاکستری" src="../_images/02-pixel-matrix.svg" /></p>
+<p><em>شکل ۲ — نمونه آموزشی یک تصویر خاکستری کوچک که هر خانه آن نماینده یک پیکسل و یک مقدار شدت روشنایی است.</em></p>
+<p>اگر تصویری ۱۰۰۰ سطر و ۱۵۰۰ ستون داشته باشد، در مجموع <strong>۱٬۵۰۰٬۰۰۰ پیکسل</strong> دارد. این عدد تعداد موقعیت‌های مکانی نمونه‌برداری‌شده را نشان می‌دهد، نه لزوماً میزان جزئیات مفید موجود در تصویر.</p>
+</section>
+<section id="id6">
+<h3>۱–۳. تصویر رنگی چگونه نمایش داده می‌شود؟<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>در نمایش رایج <strong>RGB</strong>، هر پیکسل به‌جای یک مقدار، سه مؤلفه دارد: قرمز (<code class="docutils literal notranslate"><span class="pre">R</span></code>)، سبز (<code class="docutils literal notranslate"><span class="pre">G</span></code>) و آبی (<code class="docutils literal notranslate"><span class="pre">B</span></code>). برای نمونه، <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">0,</span> <span class="pre">0)</span></code> قرمز خالص و <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255)</span></code> سفید را نشان می‌دهد؛ البته در نمایش استاندارد متداول هشت‌بیتی RGB.</p>
+<p><img alt="سه کانال تصویر رنگی" src="../_images/05-rgb-channels.svg" /></p>
+<p><em>شکل ۳ — نمایش مفهومی سه مؤلفه قرمز، سبز و آبی در یک تصویر رنگی.</em></p>
+<p>در فصل‌های بعد خواهیم دید که چرا برای برخی مسائل بهتر است به‌جای RGB از نمایش‌های دیگر رنگ استفاده کنیم.</p>
+</section>
+<section id="id7">
+<h3>۱–۴. نمونه‌برداری و کوانتیزه‌سازی: دو مفهوم مقدماتی<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>برای دیجیتال‌کردن تصویر، دو تصمیم مهم می‌گیریم:</p>
+<p><strong>نمونه‌برداری مکانی (Sampling)</strong> مشخص می‌کند تصویر را در چند موقعیت اندازه بگیریم؛ به بیان ساده، تصویر چند سطر و چند ستون پیکسل داشته باشد.</p>
+<p><strong>کوانتیزه‌سازی (Quantization)</strong> مشخص می‌کند مقدار روشنایی هر نمونه با چند سطح مجزا نمایش داده شود. برای مثال، نمایش تنها با دو سطح، تفاوت‌های ظریف خاکستری را از بین می‌برد؛ درحالی‌که ۲۵۶ سطح، درجات بسیار بیشتری از روشنایی را حفظ می‌کند.</p>
+<p><img alt="تأثیر تعداد سطوح روشنایی" src="../_images/03-quantization.svg" /></p>
+<p><em>شکل ۴ — مقایسه تعداد سطوح مجاز روشنایی. با کاهش تعداد سطوح، تغییرات پیوسته به پله‌های آشکار تبدیل می‌شوند.</em></p>
+<blockquote>
+<div><p><strong>دقت در ساختار درس:</strong> این دو مفهوم در اینجا فقط برای درک معنای «تصویر دیجیتال» معرفی شدند. بحث کامل نمونه‌برداری، کوانتیزه‌سازی و روابط میان پیکسل‌ها در <strong>فصل دوم</strong> کتاب گونزالس و وودز قرار دارد.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="id8">
+<h2>۲. نگاهی به تاریخچه پردازش تصویر دیجیتال<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>نیاز به ارسال و بازسازی تصویر، بسیار پیش‌تر از فراگیرشدن رایانه‌های امروزی وجود داشت. در دهه ۱۹۲۰، سامانه‌هایی برای ارسال تصاویر خبری از طریق کابل به کار گرفته شدند و کیفیت آنها به‌تدریج افزایش یافت.</p>
+<p>با رشد محاسبات دیجیتال در دهه ۱۹۶۰، پردازش تصویر به شکل نوین گسترش پیدا کرد. تصاویر ارسالی از کاوشگرهای فضایی یکی از نمونه‌های مهم استفاده از رایانه برای اصلاح و تحلیل تصاویر بودند. سپس تصویربرداری پزشکی، پایش صنعتی، سنجش‌ازدور و کاربردهای متعدد دیگر، این حوزه را توسعه دادند.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>دوره</p></th>
+<th class="head"><p>تحول مهم</p></th>
+<th class="head"><p>اهمیت برای پردازش تصویر</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>دهه ۱۹۲۰</p></td>
+<td><p>ارسال و بازسازی تصاویر خبری</p></td>
+<td><p>آغاز کاربردهای عملی نمایش عددی تصویر</p></td>
+</tr>
+<tr class="row-odd"><td><p>دهه ۱۹۶۰</p></td>
+<td><p>گسترش رایانه‌ها و پردازش تصاویر فضایی</p></td>
+<td><p>استفاده جدی از روش‌های محاسباتی</p></td>
+</tr>
+<tr class="row-even"><td><p>دهه‌های ۱۹۷۰ و ۱۹۸۰</p></td>
+<td><p>رشد کاربردهای پزشکی و صنعتی</p></td>
+<td><p>تبدیل روش‌های پژوهشی به ابزارهای کاربردی</p></td>
+</tr>
+<tr class="row-odd"><td><p>دهه‌های ۱۹۹۰ و ۲۰۰۰</p></td>
+<td><p>رایانه‌های سریع‌تر، دوربین‌های دیجیتال و GPU</p></td>
+<td><p>پردازش تصاویر بزرگ‌تر و عملیات سریع‌تر</p></td>
+</tr>
+<tr class="row-even"><td><p>دهه‌های اخیر</p></td>
+<td><p>روش‌های یادگیری عمیق در تحلیل تصویر</p></td>
+<td><p>گسترش تشخیص و تفسیر خودکار تصاویر</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>مسیر تاریخی نشان می‌دهد که پیشرفت پردازش تصویر تنها نتیجه کشف الگوریتم‌های جدید نبوده است؛ <strong>حسگر بهتر، حافظه بیشتر و توان محاسباتی بالاتر</strong> نیز نقشی اساسی داشته‌اند.</p>
+</section>
+<section id="id9">
+<h2>۳. کاربردهای پردازش تصویر دیجیتال<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>یک ویژگی مهم این دانش آن است که ورودی آن لزوماً تصویر ثبت‌شده با دوربین معمولی نیست. هر وسیله‌ای که از یک پدیده فیزیکی داده‌ای مکانی و قابل‌نمایش به‌صورت تصویر تولید کند، می‌تواند منبع داده برای پردازش تصویر باشد.</p>
+<section id="id10">
+<h3>۳–۱. تصویربرداری در طیف الکترومغناطیسی<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>بخشی از تصاویر از انرژی الکترومغناطیسی حاصل می‌شوند؛ اما همه آنها در محدوده نور مرئی قرار ندارند:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>نوع تصویربرداری</p></th>
+<th class="head"><p>نمونه کاربرد</p></th>
+<th class="head"><p>اطلاعات مورد توجه</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>پرتو گاما</p></td>
+<td><p>برخی روش‌های تصویربرداری پزشکی و اخترشناسی</p></td>
+<td><p>توزیع تابش یا رویدادهای انرژی بالا</p></td>
+</tr>
+<tr class="row-odd"><td><p>پرتو ایکس</p></td>
+<td><p>رادیوگرافی و سی‌تی‌اسکن</p></td>
+<td><p>تفاوت جذب یا تضعیف پرتو در مواد</p></td>
+</tr>
+<tr class="row-even"><td><p>فرابنفش</p></td>
+<td><p>بررسی مواد و برخی کاربردهای علمی</p></td>
+<td><p>پاسخ ماده در محدوده فرابنفش</p></td>
+</tr>
+<tr class="row-odd"><td><p>نور مرئی</p></td>
+<td><p>دوربین، اسکن سند، کنترل کیفیت</p></td>
+<td><p>رنگ، شکل، بافت و روشنایی</p></td>
+</tr>
+<tr class="row-even"><td><p>فروسرخ</p></td>
+<td><p>تصویربرداری حرارتی و سنجش‌ازدور</p></td>
+<td><p>تابش حرارتی یا بازتاب فروسرخ، بسته به سامانه</p></td>
+</tr>
+<tr class="row-odd"><td><p>مایکروویو / رادار</p></td>
+<td><p>سنجش‌ازدور و تصویربرداری راداری</p></td>
+<td><p>ویژگی‌های بازتاب امواج راداری</p></td>
+</tr>
+<tr class="row-even"><td><p>امواج رادیویی</p></td>
+<td><p>تصویربرداری تشدید مغناطیسی (MRI)</p></td>
+<td><p>سیگنال‌های ناشی از رزونانس هسته‌ای در میدان مغناطیسی</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>نکته مهم این است که <strong>معنای روشنایی پیکسل</strong> در هر یک از این سامانه‌ها یکسان نیست. برای مثال، شدت روشنایی در تصویر عادی معمولاً به نور ثبت‌شده مربوط است؛ اما در تصویر پزشکی ممکن است نشان‌دهنده کمیتی کاملاً متفاوت باشد.</p>
+</section>
+<section id="id11">
+<h3>۳–۲. تصویربرداری مبتنی بر روش‌های دیگر<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>علاوه بر امواج الکترومغناطیسی، تصویر را می‌توان از <strong>امواج صوتی</strong> یا ابزارهای دیگر ساخت. برای نمونه، در سونوگرافی، امواج صوتی به بافت فرستاده می‌شوند و بازتاب آنها مبنای تشکیل تصویر است. در میکروسکوپ الکترونی نیز اطلاعات تصویری از برهم‌کنش پرتو الکترونی با نمونه حاصل می‌شود.</p>
+</section>
+<section id="id12">
+<h3>۳–۳. چند مسئله ملموس<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>پزشکی:</strong> افزایش وضوح ساختارهای قابل مشاهده، جداسازی ناحیه مورد نظر و کمک به اندازه‌گیری‌ها.</p></li>
+<li><p><strong>صنعت:</strong> شناسایی خراش، ترک یا قطعه معیوب در تصویر محصول.</p></li>
+<li><p><strong>ماهواره و محیط‌زیست:</strong> پایش تغییر پوشش زمین، پوشش گیاهی یا گسترش شهرها.</p></li>
+<li><p><strong>اسناد:</strong> کاهش نویز، اصلاح کجی صفحه و آماده‌سازی برای تشخیص متن.</p></li>
+<li><p><strong>رباتیک و حمل‌ونقل:</strong> تشخیص مسیر، مانع یا شیء در تصویر دوربین.</p></li>
+<li><p><strong>نجوم و پژوهش علمی:</strong> کاهش آثار نامطلوب اندازه‌گیری و استخراج ویژگی‌های قابل بررسی.</p></li>
+</ul>
+<p><strong>وجه مشترک همه این مثال‌ها چیست؟</strong> ابتدا داده‌ای به شکل تصویر در اختیار داریم؛ سپس باید مسئله دقیق را تعریف کنیم. هیچ الگوریتمی صرفاً به این دلیل که «تصویر را زیباتر می‌کند»، برای تمام این کاربردها مناسب نیست.</p>
+</section>
+</section>
+<section id="id13">
+<h2>۴. مراحل اساسی یک سامانه پردازش تصویر<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>یکی از مهم‌ترین بخش‌های فصل اول، شناخت نقشه کلی فعالیت‌های پردازش تصویر است. این نقشه کمک می‌کند دانشجو بداند هر مبحثِ فصل‌های بعد در کدام قسمت مسئله قرار می‌گیرد.</p>
+<p><img alt="خط لوله مفهومی پردازش تصویر" src="../_images/04-processing-pipeline.svg" /></p>
+<p><em>شکل ۵ — نمای ساده‌شده جریان پردازش تصویر. نمودار آموزشی است و همه پروژه‌ها الزاماً تمام مراحل آن را ندارند. پایگاه دانش می‌تواند بر مراحل مختلف اثر بگذارد.</em></p>
+<section id="image-acquisition">
+<h3>۴–۱. اخذ تصویر (Image Acquisition)<a class="headerlink" href="#image-acquisition" title="Link to this heading">#</a></h3>
+<p>نخست، تصویر باید توسط دوربین، اسکنر، حسگر پزشکی، ماهواره یا سامانه مشابهی دریافت شود. در همین مرحله ممکن است اصلاحات اولیه‌ای انجام شود؛ مانند تنظیم مقیاس داده یا تبدیل خروجی حسگر به قالب قابل‌استفاده.</p>
+<p><strong>مثال:</strong> ثبت تصویر یک قطعه صنعتی در خط تولید.</p>
+</section>
+<section id="image-enhancement">
+<h3>۴–۲. بهبود تصویر (Image Enhancement)<a class="headerlink" href="#image-enhancement" title="Link to this heading">#</a></h3>
+<p>هدف بهبود تصویر، مناسب‌ترکردن ظاهر آن برای مشاهده انسان یا پردازش بعدی است. برای مثال می‌توان کنتراست را افزایش داد یا بخش‌های تاریک را روشن‌تر کرد.</p>
+<p><strong>نکته:</strong> تصویری که از نظر بصری زیباتر است، لزوماً برای یک الگوریتم تشخیص خودکار بهتر نیست. کیفیت بهبود تصویر باید متناسب با کاربرد ارزیابی شود.</p>
+</section>
+<section id="image-restoration">
+<h3>۴–۳. بازیابی تصویر (Image Restoration)<a class="headerlink" href="#image-restoration" title="Link to this heading">#</a></h3>
+<p>در بازیابی تصویر تلاش می‌کنیم آثار یک فرایند تخریب شناخته‌شده یا مدل‌شده را کاهش دهیم؛ مثلاً تاری ناشی از حرکت یا برخی انواع نویز. تفاوت مفهومی آن با بهبود تصویر در این است که <strong>بازیابی معمولاً به مدل تخریب تکیه می‌کند</strong>، درحالی‌که بهبود می‌تواند براساس مطلوبیت دیداری انجام شود.</p>
+</section>
+<section id="color-image-processing">
+<h3>۴–۴. پردازش تصویر رنگی (Color Image Processing)<a class="headerlink" href="#color-image-processing" title="Link to this heading">#</a></h3>
+<p>گاهی اطلاعات رنگ برای تشخیص موضوع بسیار مهم است. مثال ساده آن تشخیص میوه رسیده از نارس بر اساس ویژگی‌های رنگ است. در این دسته از روش‌ها، مؤلفه‌های رنگ و شیوه نمایش آنها نقش اصلی دارند.</p>
+</section>
+<section id="wavelets-and-multiresolution">
+<h3>۴–۵. پردازش چندمقیاسی و موجک‌ها (Wavelets and Multiresolution)<a class="headerlink" href="#wavelets-and-multiresolution" title="Link to this heading">#</a></h3>
+<p>ممکن است یک ویژگی در مقیاس کوچک آشکار شود و ویژگی دیگر تنها در نمای کلی تصویر دیده شود. تحلیل چندمقیاسی به ما امکان می‌دهد ساختار تصویر را در اندازه‌های مختلف بررسی کنیم.</p>
+</section>
+<section id="compression">
+<h3>۴–۶. فشرده‌سازی (Compression)<a class="headerlink" href="#compression" title="Link to this heading">#</a></h3>
+<p>تصاویر می‌توانند حافظه زیادی اشغال کنند. هدف فشرده‌سازی، کاهش حجم داده برای ذخیره یا انتقال آسان‌تر است. برخی روش‌ها <strong>بدون اتلاف</strong> هستند و بازسازی دقیق داده اولیه را ممکن می‌کنند؛ برخی روش‌ها <strong>با اتلاف</strong> هستند و در برابر کاهش حجم بیشتر، بخشی از اطلاعات را حذف می‌کنند.</p>
+</section>
+<section id="morphological-processing">
+<h3>۴–۷. پردازش ریخت‌شناختی (Morphological Processing)<a class="headerlink" href="#morphological-processing" title="Link to this heading">#</a></h3>
+<p>در این روش‌ها، شکل و ساختار نواحی تصویر بررسی و اصلاح می‌شود. برای نمونه، می‌توان حفره‌های کوچک داخل یک شیء را پر کرد یا ذرات ریز ناخواسته را کاهش داد. این عملیات در تصاویر دودویی و خاکستری کاربرد دارند.</p>
+</section>
+<section id="segmentation">
+<h3>۴–۸. بخش‌بندی تصویر (Segmentation)<a class="headerlink" href="#segmentation" title="Link to this heading">#</a></h3>
+<p>بخش‌بندی یعنی جداکردن نواحی یا اشیای مورد علاقه از بخش‌های دیگر تصویر. برای مثال در تصویر دانه‌های برنج، می‌خواهیم ناحیه هر دانه را از زمینه جدا کنیم. اگر بخش‌بندی درست انجام نشود، اندازه‌گیری و تشخیص بعدی نیز ممکن است نادرست باشد.</p>
+</section>
+<section id="feature-extraction-and-description">
+<h3>۴–۹. استخراج ویژگی و توصیف (Feature Extraction and Description)<a class="headerlink" href="#feature-extraction-and-description" title="Link to this heading">#</a></h3>
+<p>پس از مشخص‌شدن ناحیه مورد نظر، می‌توان از آن ویژگی‌های عددی استخراج کرد؛ مانند مساحت، محیط، شکل، بافت، مکان و جهت. این ویژگی‌ها امکان مقایسه اشیا را فراهم می‌کنند.</p>
+</section>
+<section id="recognition-classification">
+<h3>۴–۱۰. شناسایی و دسته‌بندی (Recognition / Classification)<a class="headerlink" href="#recognition-classification" title="Link to this heading">#</a></h3>
+<p>در نهایت ممکن است بخواهیم براساس ویژگی‌ها یا خود تصویر، برچسبی به شیء اختصاص دهیم؛ برای نمونه «قطعه سالم» یا «قطعه معیوب». روش‌های کلاسیک و روش‌های یادگیری ماشین یا یادگیری عمیق می‌توانند در این مرحله به کار روند.</p>
+</section>
+<section id="knowledge-base">
+<h3>۴–۱۱. پایگاه دانش (Knowledge Base)<a class="headerlink" href="#knowledge-base" title="Link to this heading">#</a></h3>
+<p>دانش قبلی درباره مسئله می‌تواند به انتخاب ناحیه بررسی، تنظیم پارامترها و تفسیر نتیجه کمک کند. برای نمونه، اگر بدانیم قطعه صنعتی همواره در بخش میانی تصویر قرار می‌گیرد، لازم نیست تمام تصویر را با یک روش پیچیده جست‌وجو کنیم.</p>
+<blockquote>
+<div><p><strong>جمع‌بندی این بخش:</strong> شکل ۵ مسیر یادگیری را ساده می‌کند؛ اما در کتاب گونزالس و وودز، مراحل متنوع‌تری مانند بازیابی، فشرده‌سازی، موجک، مورفولوژی و پردازش رنگ نیز به‌صراحت مطرح می‌شوند. بنابراین شکل را نباید فهرست کامل یا ترتیب اجباری همه مراحل تلقی کرد.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="id14">
+<h2>۵. اجزای یک سامانه پردازش تصویر<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>برای ساخت یک سامانه عملی، داشتن الگوریتم به‌تنهایی کافی نیست. باید معلوم باشد تصویر چگونه ثبت، منتقل، ذخیره، پردازش و نمایش داده می‌شود.</p>
+<p><img alt="اجزای یک سامانه پردازش تصویر" src="../_images/06-system-components.svg" /></p>
+<p><em>شکل ۶ — نمایش ساده‌شده اجزای عمومی یک سامانه پردازش تصویر دیجیتال.</em></p>
+<p><strong>حسگر و دیجیتال‌کننده:</strong> حسگر، پاسخ فیزیکیِ مرتبط با صحنه را دریافت می‌کند. سپس داده باید به شکل دیجیتال درآید. در بعضی دستگاه‌ها، این مراحل درون همان سخت‌افزار دوربین انجام می‌شوند.</p>
+<p><strong>سخت‌افزار پردازش اختصاصی:</strong> برخی کارها باید با سرعت زیاد انجام شوند. بسته به نیاز، سخت‌افزار ویژه یا پردازنده گرافیکی (<code class="docutils literal notranslate"><span class="pre">GPU</span></code>) می‌تواند مفید باشد.</p>
+<p><strong>رایانه و حافظه:</strong> رایانه عملیات را اجرا می‌کند و حافظه، تصاویر و داده‌های میانی را نگه می‌دارد. تصویرهای پرحجم به حافظه و پهنای باند بیشتری نیاز دارند.</p>
+<p><strong>نرم‌افزار:</strong> الگوریتم‌های دریافت، بهبود، تحلیل و نمایش تصویر را پیاده‌سازی می‌کند. زبان‌های برنامه‌نویسی و کتابخانه‌های تصویری ابزار ساخت این بخش‌اند.</p>
+<p><strong>ذخیره‌سازی:</strong> تصاویر خام، تصاویر پردازش‌شده و نتایج استخراج‌شده می‌توانند در فضای ذخیره‌سازی نگهداری شوند.</p>
+<p><strong>نمایشگر و تجهیزات خروجی:</strong> نتایج ممکن است روی صفحه نمایش داده شوند، چاپ شوند یا به سامانه کنترل و تصمیم‌گیری فرستاده شوند.</p>
+<p><strong>شبکه ارتباطی:</strong> در سامانه‌های بزرگ، تصویر ممکن است از محل دریافت به رایانه دیگر یا فضای ذخیره‌سازی شبکه منتقل شود.</p>
+<section id="id15">
+<h3>۵–۱. مثال: کنترل کیفیت یک محصول<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>یک دوربین از محصول روی نوار نقاله عکس می‌گیرد. داده دیجیتال به رایانه منتقل می‌شود. نرم‌افزار ابتدا روشنایی را بررسی می‌کند، سپس ناحیه محصول را جدا و ویژگی‌های هندسی آن را اندازه می‌گیرد. اگر ویژگی‌ها از محدوده مجاز خارج باشند، سامانه یک خروجی هشدار یا فرمان جداسازی محصول صادر می‌کند.</p>
+<p>این مثال نشان می‌دهد که <strong>پردازش تصویر یک زنجیره مهندسی</strong> است و کیفیت پاسخ نهایی به نورپردازی، کیفیت ثبت تصویر، الگوریتم و نحوه استفاده از نتیجه وابسته است.</p>
+</section>
+</section>
+<section id="id16">
+<h2>۶. مقایسه چند اصطلاح مهم<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>اصطلاح</p></th>
+<th class="head"><p>پرسش اصلی</p></th>
+<th class="head"><p>نمونه خروجی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>پردازش تصویر</p></td>
+<td><p>چگونه تصویر را تغییر دهیم یا داده آن را پردازش کنیم؟</p></td>
+<td><p>تصویر با کنتراست بهتر</p></td>
+</tr>
+<tr class="row-odd"><td><p>تحلیل تصویر</p></td>
+<td><p>چه ویژگی یا کمیتی در تصویر وجود دارد؟</p></td>
+<td><p>مساحت یک ناحیه</p></td>
+</tr>
+<tr class="row-even"><td><p>بینایی ماشین</p></td>
+<td><p>سامانه از تصویر چه برداشتی برای انجام وظیفه دارد؟</p></td>
+<td><p>تشخیص و مکان‌یابی قطعه</p></td>
+</tr>
+<tr class="row-odd"><td><p>شناسایی الگو</p></td>
+<td><p>داده یا شیء به کدام دسته تعلق دارد؟</p></td>
+<td><p>سالم / معیوب</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>این تمایزها برای آموزش مفیدند، اما در عمل هم‌پوشانی دارند. یک پروژه بینایی ماشین معمولاً از چند مرحله پردازش و تحلیل تصویر استفاده می‌کند.</p>
+</section>
+<section id="id17">
+<h2>۷. مثال آموزشی یکپارچه<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p><strong>مسئله:</strong> می‌خواهیم تعداد پیچ‌های موجود روی یک صفحه را از روی عکس بشماریم.</p>
+<ol class="arabic simple">
+<li><p><strong>دریافت:</strong> یک عکس با نورپردازی مناسب می‌گیریم.</p></li>
+<li><p><strong>بهبود:</strong> اگر تصویر کم‌کنتراست باشد، روشنایی یا کنتراست را متناسب با مسئله تنظیم می‌کنیم.</p></li>
+<li><p><strong>بخش‌بندی:</strong> نواحی مربوط به پیچ‌ها را از زمینه جدا می‌کنیم.</p></li>
+<li><p><strong>تحلیل:</strong> اجزای جداشده را بررسی می‌کنیم و اجسام کوچکِ نویزی را کنار می‌گذاریم.</p></li>
+<li><p><strong>خروجی:</strong> تعداد پیچ‌ها و در صورت نیاز مکان هر پیچ را گزارش می‌کنیم.</p></li>
+</ol>
+<p>اگر از همان ابتدا عکس تار، بسیار تیره یا دارای انعکاس شدید باشد، ممکن است حتی بهترین الگوریتم نیز پاسخ قابل‌اعتمادی ندهد. بنابراین در طراحی پروژه، <strong>کیفیت اخذ تصویر</strong> به‌اندازه انتخاب الگوریتم اهمیت دارد.</p>
+</section>
+<section id="id18">
+<h2>۸. پرسش‌های مروری فصل<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>چرا یک تصویر دیجیتال را می‌توان آرایه‌ای از اعداد دانست؟</p></li>
+<li><p>تفاوت خروجی «افزایش کنتراست تصویر» و «شمارش خودروهای تصویر» چیست؟</p></li>
+<li><p>نمونه‌برداری مکانی با کوانتیزه‌سازی چه تفاوتی دارد؟</p></li>
+<li><p>آیا تمام تصاویر دیجیتال با نور مرئی تشکیل می‌شوند؟ دو مثال نقض بیان کنید.</p></li>
+<li><p>بهبود تصویر و بازیابی تصویر چه تفاوت مفهومی دارند؟</p></li>
+<li><p>بخش‌بندی تصویر چه نقشی در شمارش اشیا دارد؟</p></li>
+<li><p>چرا استخراج ویژگی معمولاً پس از مشخص‌شدن ناحیه مورد نظر انجام می‌شود؟</p></li>
+<li><p>پایگاه دانش چگونه می‌تواند پردازش تصویر را ساده‌تر کند؟</p></li>
+<li><p>در سامانه کنترل کیفیت، نقش حسگر، رایانه و نرم‌افزار چیست؟</p></li>
+<li><p>آیا همه سامانه‌های پردازش تصویر باید تمام مراحل معرفی‌شده را اجرا کنند؟ دلیل بیاورید.</p></li>
+</ol>
+</section>
+<section id="id19">
+<h2>۹. تمرین عملی کوتاه<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>یک عکس خاکستری را در نرم‌افزار تصویری یا محیط برنامه‌نویسی باز کنید و سه کار انجام دهید: اندازه تصویر را بر حسب سطر و ستون گزارش کنید؛ مقدار روشنایی چند پیکسل انتخابی را بخوانید؛ و تصویر را یک بار با روشنایی بیشتر و یک بار با کنتراست متفاوت نمایش دهید. سپس توضیح دهید در هر تغییر، <strong>چه چیزی در اعداد پیکسل‌ها تغییر کرده است</strong>.</p>
+</section>
+<section id="id20">
+<h2>۱۰. نکات کلیدی فصل<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>تصویر دیجیتال از نمونه‌های مکانی دارای مقادیر عددی تشکیل می‌شود.</p></li>
+<li><p>پردازش تصویر می‌تواند خروجی تصویری یا اطلاعات عددی و معنایی تولید کند.</p></li>
+<li><p>تصویربرداری دیجیتال محدود به دوربین و نور مرئی نیست.</p></li>
+<li><p>اخذ تصویر، بهبود، بازیابی، بخش‌بندی، استخراج ویژگی و شناسایی نمونه‌هایی از مراحل مهم‌اند.</p></li>
+<li><p>مراحل سامانه به مسئله وابسته‌اند و ترتیب آنها همیشه یکسان نیست.</p></li>
+<li><p>تجهیزات اخذ تصویر، حافظه، پردازنده، نرم‌افزار و تجهیزات خروجی بر نتیجه اثر می‌گذارند.</p></li>
+<li><p>پیش از انتخاب الگوریتم، باید مسئله و معیار موفقیت آن روشن باشد.</p></li>
+</ul>
+</section>
+<section id="id21">
+<h2>منبع درسی<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p>Gonzalez, R. C., &amp; Woods, R. E., <em>Digital Image Processing</em>, 4th Edition, Pearson — Chapter 1: <strong>Introduction</strong>.</p>
+<hr class="docutils" />
+<p><em>تمام شکل‌های این صفحه برای همین محتوای آموزشی ترسیم شده‌اند و در پوشه <code class="docutils literal notranslate"><span class="pre">assets</span></code> همراه فایل قرار دارند. برای نمایش صحیح در وب‌سایت، ساختار پوشه‌ها را حفظ کنید.</em></p>
+<!-- SADOGHI_CHAPTER_DOWNLOADS_BEGIN -->
+</section>
+<section id="id22">
+<h2>فایل‌های قابل دانلود<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>ZIP — دریافت متن و شکل‌های فصل اول</strong>: <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.zip">دریافت فایل</a> (14.3 KB)</p>
+<ul>
+<li><p>نسخه قابل دانلود متن Markdown فصل اول به همراه شش تصویر SVG؛ شامل کتاب اصلی یا کد اجرایی نیست.</p></li>
+</ul>
+</li>
+</ul>
+<!-- SADOGHI_CHAPTER_DOWNLOADS_END -->
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./gonzalez"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Gonzalez Notes and Learning Files</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../student-work/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Student Work</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۱. پردازش تصویر دیجیتال چیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۱–۱. یک نمونه ساده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۱–۲. تصویر به‌عنوان یک آرایه عددی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۱–۳. تصویر رنگی چگونه نمایش داده می‌شود؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۱–۴. نمونه‌برداری و کوانتیزه‌سازی: دو مفهوم مقدماتی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۲. نگاهی به تاریخچه پردازش تصویر دیجیتال</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۳. کاربردهای پردازش تصویر دیجیتال</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۳–۱. تصویربرداری در طیف الکترومغناطیسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۳–۲. تصویربرداری مبتنی بر روش‌های دیگر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۳–۳. چند مسئله ملموس</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۴. مراحل اساسی یک سامانه پردازش تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-acquisition">۴–۱. اخذ تصویر (Image Acquisition)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-enhancement">۴–۲. بهبود تصویر (Image Enhancement)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-restoration">۴–۳. بازیابی تصویر (Image Restoration)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#color-image-processing">۴–۴. پردازش تصویر رنگی (Color Image Processing)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wavelets-and-multiresolution">۴–۵. پردازش چندمقیاسی و موجک‌ها (Wavelets and Multiresolution)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#compression">۴–۶. فشرده‌سازی (Compression)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#morphological-processing">۴–۷. پردازش ریخت‌شناختی (Morphological Processing)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation">۴–۸. بخش‌بندی تصویر (Segmentation)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-extraction-and-description">۴–۹. استخراج ویژگی و توصیف (Feature Extraction and Description)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recognition-classification">۴–۱۰. شناسایی و دسته‌بندی (Recognition / Classification)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-base">۴–۱۱. پایگاه دانش (Knowledge Base)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۵. اجزای یک سامانه پردازش تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۵–۱. مثال: کنترل کیفیت یک محصول</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۶. مقایسه چند اصطلاح مهم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۷. مثال آموزشی یکپارچه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۸. پرسش‌های مروری فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۹. تمرین عملی کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۱۰. نکات کلیدی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">منبع درسی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">فایل‌های قابل دانلود</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
