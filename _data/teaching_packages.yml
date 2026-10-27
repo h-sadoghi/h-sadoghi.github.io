@@ -1,4 +1,20 @@
-- id: gonzalez
-  course_id: image-processing
-  title: Gonzalez — جزوه‌ها و فایل‌های آموزشی
-  chapters: []
+  - id: gonzalez
+    course_id: image-processing
+    title: Gonzalez — جزوه‌ها و فایل‌های آموزشی
+    chapters:
+      - number: 1
+        title: فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال
+        summary: مفهوم تصویر دیجیتال، تاریخچه، کاربردها، مراحل پردازش تصویر و اجزای یک سامانه، بر پایه فصل اول گنزالس و وودز.
+        book_url: /teaching/image-processing/book/gonzalez/chapter-01.html
+        downloads:
+          - kind: zip
+            title: دریافت متن و شکل‌های فصل اول
+            description: نسخه قابل دانلود متن Markdown فصل اول به همراه شش تصویر SVG؛ شامل کتاب اصلی یا کد اجرایی نیست.
+            url: /assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.zip
+            size: 14604
+            size_label: 14.3 KB
+            sha256: b750b395922f60d4b3033bc76849d64151b3a683a2dc7bfa085188779fc357ab
+        zip_url: /assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.zip
+        zip_size: 14604
+        zip_size_label: 14.3 KB
+        zip_sha256: b750b395922f60d4b3033bc76849d64151b3a683a2dc7bfa085188779fc357ab

@@ -4,4 +4,7 @@ format: jb-book
 root: index
 chapters:
   - file: gonzalez/index
+    sections:
+      - file: gonzalez/chapter-01
+        title: فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال
   - file: student-work/index
