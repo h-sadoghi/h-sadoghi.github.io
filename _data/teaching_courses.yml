@@ -2,9 +2,9 @@
   title: Pattern Recognition
   description: Techniques for identifying patterns in data with applications in image, speech, and biometrics.
   image: /assets/img/PR1.JPG
-  url: https://laboratorypatternrecognition.github.io/PatternRecognition_S/pattern_recognition.html
+  url: /teaching/pattern-recognition/book/
   order: 1
-  link_type: external
+  link_type: internal
   chapters: []
   published: true
 - id: machine-learning
