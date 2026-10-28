@@ -19,9 +19,8 @@
 
 ## فایل‌های اجرایی این فصل
 
-- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-10/chapter10_examples.ipynb" download>Notebook اجرایی فصل ۱۰</a>
 - <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-10/chapter10_examples.py" download>کد مستقل Python فصل ۱۰</a>
-- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-10/Chapter10_Code_Examples.zip" download>بستۀ ZIP کدهای مثال</a>
+- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-10/Chapter10_Code_Examples.zip" download>بستۀ ZIP کدها و Notebook مثال‌ها</a>
 - <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-10/Chapter10_Original_Figures.zip" download>بستۀ ZIP شکل‌های اصیل فصل</a>
 
 
@@ -5717,7 +5716,7 @@ D_{\mathbf{u}}f=-M.
 منطق عددی گرادیان، مشتق‌های Sobel، Otsu، رشد ناحیه و نرمال‌سازی نمایش در فایل اجرایی همراه فصل یکپارچه شده است:
 
 - <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-10/chapter10_examples.py" download>کد Python فصل ۱۰</a>
-- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-10/chapter10_examples.ipynb" download>Notebook فصل ۱۰</a>
+- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-10/Chapter10_Code_Examples.zip" download>بستۀ ZIP شامل Notebook فصل ۱۰</a>
 
 شکل‌های هندسی گرادیان این صفحه نیز به‌صورت اصیل برای نسخۀ Jupyter Book بازطراحی شده‌اند و نسخۀ نهایی آنها در پوشۀ `images/` همین بسته قرار دارد.
 

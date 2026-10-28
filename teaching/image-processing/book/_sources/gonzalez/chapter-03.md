@@ -937,9 +937,8 @@ Laplacian، unsharp، high-boost و Sobel را روی یک تصویر مشترک
 
 ## فایل‌های همراه
 
-- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-03/chapter03_examples.ipynb" download>Notebook مثال‌های فصل سوم</a>
 - <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-03/chapter03_examples.py" download>اسکریپت مستقل مثال‌ها</a>
-- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-03/Chapter03_Code_Examples.zip" download>ZIP کدهای مثال</a>
+- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-03/Chapter03_Code_Examples.zip" download>ZIP کدها و Notebook مثال‌ها</a>
 - <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-03/Chapter03_Original_Figures.zip" download>ZIP شکل‌های اصیل تولیدشده برای فصل</a>
 
 ## منبع علمی اصلی
