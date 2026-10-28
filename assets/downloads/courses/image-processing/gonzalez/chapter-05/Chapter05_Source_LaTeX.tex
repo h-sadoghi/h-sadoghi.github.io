@@ -1,0 +1,1474 @@
+\documentclass[12pt,a4paper]{report}
+\usepackage[a4paper,top=18mm,bottom=18mm,left=18mm,right=18mm]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,longtable,array}
+\usepackage{enumitem}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!45!black,urlcolor=blue!50!black,pdftitle={جزوه فصل پنجم پردازش تصویر - ترمیم و بازسازی تصویر}}
+\usepackage{xepersian}
+\settextfont[Scale=1.08]{Amiri}
+\setlatintextfont{DejaVu Sans}
+\setdigitfont{Amiri}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\renewcommand{\baselinestretch}{1.15}
+\setlength{\headheight}{21pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{جزوهٔ آموزشی فصل ۵ - ترمیم و بازسازی تصویر}
+\fancyhead[L]{Digital Image Processing}
+\fancyfoot[C]{\thepage}
+\newtcolorbox{conceptbox}{breakable,colback=blue!3,colframe=blue!35!black,boxrule=.5pt,arc=2mm,title=نکتهٔ مفهومی}
+\newtcolorbox{teachbox}{breakable,colback=green!3,colframe=green!35!black,boxrule=.5pt,arc=2mm,title=برای توضیح در ویدیو}
+\newtcolorbox{eqbox}[1]{breakable,colback=gray!2,colframe=black!25,boxrule=.4pt,arc=1mm,title={فرمول #1}}
+\newtcolorbox{figbox}[1]{breakable,colback=orange!2,colframe=orange!45!black,boxrule=.4pt,arc=1mm,title={شکل #1}}
+\begin{document}
+\begin{titlepage}
+\centering
+\vspace*{18mm}
+{\Huge\bfseries پردازش تصویر دیجیتال\par}
+\vspace{6mm}
+{\LARGE\bfseries جزوهٔ آموزشی فصل ۵\par}
+\vspace{4mm}
+{\LARGE ترمیم و بازسازی تصویر\par}
+\vspace{2mm}
+{\large Image Restoration and Reconstruction\par}
+\vspace{14mm}
+\begin{tcolorbox}[width=.9\textwidth,colback=blue!3,colframe=blue!35!black]
+این جزوه برای مطالعهٔ پیش از کلاس و به‌عنوان متن همراه ویدیو تنظیم شده است. ساختار آن عمداً بر \textbf{فرمول‌ها، شکل‌ها، تفسیر فیزیکی و نکات تدریس} متمرکز است. فرمول‌ها و شکل‌ها از فصل پنجم نسخهٔ چهارم کتاب Gonzalez و Woods در فایل پیوست استخراج شده‌اند و توضیحات فارسی، آموزشی و بازنویسی‌شده‌اند.
+\end{tcolorbox}
+\vfill
+{\large منبع مبنا: Rafael C. Gonzalez, Richard E. Woods, \lr{Digital Image Processing, 4th ed., Chapter 5}.\par}
+\vspace{8mm}
+{\large نسخهٔ آماده برای مطالعه و تدریس\par}
+\end{titlepage}
+\tableofcontents
+\clearpage
+\chapter*{راهنمای استفاده از جزوه}\addcontentsline{toc}{chapter}{راهنمای استفاده از جزوه}
+این فصل از دو مسئلهٔ نزدیک ولی متفاوت صحبت می‌کند. در \textbf{ترمیم تصویر} یک تصویر تخریب‌شده در اختیار داریم و می‌خواهیم اثر تاری و نویز را با مدل معکوس کنیم. در \textbf{بازسازی از پروجکشن‌ها} اساساً تصویر دوبعدی مستقیماً اندازه‌گیری نشده و باید آن را از مجموعه‌ای از انتگرال‌های خطی (مانند دادهٔ CT) بسازیم.
+
+\begin{conceptbox}
+سه سؤال را هنگام خواندن هر فرمول بپرسید: (۱) چه چیزی معلوم است؟ (۲) چه چیزی مجهول است؟ (۳) این فرمول مشکل را در کدام حوزه ساده‌تر می‌کند: مکان، فرکانس یا احتمال؟
+\end{conceptbox}
+
+\begin{teachbox}
+در ویدیو بهتر است هر بخش را با «مشکل» شروع کنید، سپس شکل مربوط را نشان دهید، بعد فرمول را معرفی کنید و در پایان بگویید اگر فرض فرمول نقض شود چه اتفاقی می‌افتد. مثال: فیلتر معکوس روی کاغذ ساده است، اما وجود صفرهای \(H\) آن را از نظر عددی ناپایدار می‌کند؛ وینر دقیقاً برای همین تنگنا وارد می‌شود.
+\end{teachbox}
+
+\section*{نمادهای پرتکرار}
+\begin{longtable}{>{\raggedleft\arraybackslash}p{.18\textwidth} p{.72\textwidth}}
+\toprule
+نماد & معنا \\
+\midrule
+\(f(x,y)\) & تصویر اصلی/تخریب‌نشده \\
+\(g(x,y)\) & تصویر مشاهده‌شده و تخریب‌شده \\
+\(\hat f(x,y)\) & برآورد تصویر اصلی \\
+\(h(x,y)\) & پاسخ ضربه یا PSF سامانهٔ تخریب \\
+\(\eta(x,y)\) & نویز افزوده \\
+\(F,G,H,N\) & تبدیل فوریهٔ کمیت‌های متناظر در حوزهٔ مکان \\
+\(S_{xy}\) & همسایگی مکانی حول پیکسل \((x,y)\) \\
+\(\rho,\theta\) & پارامتر فاصله و زاویه در تبدیل رادون \\
+\bottomrule
+\end{longtable}
+\clearpage
+\chapter{مدل تخریب و ترمیم تصویر}
+فصل با یک مدل سیستماتیک آغاز می‌شود: تصویر واقعی وارد یک سامانهٔ تخریب می‌شود، سپس نویز به آن افزوده می‌شود و آنچه در اختیار ماست تصویر تخریب‌شده است. هدف ترمیم این نیست که تصویر را «زیباتر» کنیم، بلکه با استفاده از یک مدل فیزیکی/آماری از تخریب، تخمینی از تصویر اصلی بسازیم. دو نمایش مکانی و فرکانسی این مدل در سراسر فصل تکرار می‌شوند.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-1) - مدل تخریب در حوزهٔ مکان}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_001.png}\end{center}
+\textbf{توضیح:} در اینجا \(f\) تصویر مطلوب، \(h\) پاسخ تخریب/PSF، \(\eta\) نویز و \(g\) تصویر مشاهده‌شده است. کانولوشن نشان می‌دهد هر نقطهٔ تصویر اصلی توسط سامانه پخش می‌شود و سپس نویز اضافه می‌گردد.
+
+\textit{ارجاع به منبع: صفحهٔ 318 کتاب، فرمول (5-1).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-2) - مدل تخریب در حوزهٔ فرکانس}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_002.png}\end{center}
+\textbf{توضیح:} تبدیل فوریه کانولوشن را به ضرب تبدیل می‌کند؛ بنابراین تحلیل و طراحی فیلترهای ترمیمی در حوزهٔ فرکانس بسیار ساده‌تر می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 318 کتاب، فرمول (5-2).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.1}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_01.png}\end{center}
+\textbf{خواندن شکل:} نمودار کل فصل را در یک نگاه نشان می‌دهد: \(f\) وارد بلوک تخریب می‌شود، نویز افزوده می‌گردد و \(g\) حاصل می‌شود؛ بلوک Restoration با دانستن/تخمین مدل تخریب و نویز، \(\hat f\) را تولید می‌کند. هنگام تدریس تأکید کنید که Restoration یک مسئلهٔ معکوس است.
+
+\textit{ارجاع به منبع: صفحهٔ 318 کتاب، شکل 5.1.}
+\end{figbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+کل فصل بر مدل \(G=HF+N\) بنا شده است. هر روش بعدی یا \(H\) را تخمین می‌زند، یا اثر \(N\) را مهار می‌کند، یا هر دو را هم‌زمان انجام می‌دهد.
+\clearpage
+\chapter{مدل‌های نویز}
+در این بخش نویز به‌عنوان متغیر تصادفی مدل می‌شود. نکتهٔ آموزشی مهم این است که «شکل هیستوگرام نویز» سرنخ مستقیم دربارهٔ نوع نویز و انتخاب فیلتر می‌دهد. توزیع‌های گاوسی، رایلی، ارلانگ/گاما، نمایی، یکنواخت و نمک‌وفلفل معرفی می‌شوند و سپس میانگین و واریانس از یک ناحیهٔ تقریباً یکنواخت تصویر برآورد می‌گردند.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-3) - چگالی احتمال نویز گاوسی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_003.png}\end{center}
+\textbf{توضیح:} این رابطه «چگالی احتمال نویز گاوسی» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.
+
+\textit{ارجاع به منبع: صفحهٔ 319 کتاب، فرمول (5-3).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-4) - چگالی احتمال نویز رایلی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_004.png}\end{center}
+\textbf{توضیح:} این رابطه «چگالی احتمال نویز رایلی» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.
+
+\textit{ارجاع به منبع: صفحهٔ 320 کتاب، فرمول (5-4).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-5) - میانگین توزیع رایلی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_005.png}\end{center}
+\textbf{توضیح:} این رابطه «میانگین توزیع رایلی» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 320 کتاب، فرمول (5-5).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-6) - واریانس توزیع رایلی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_006.png}\end{center}
+\textbf{توضیح:} این رابطه «واریانس توزیع رایلی» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 320 کتاب، فرمول (5-6).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.2}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_02.png}\end{center}
+\textbf{خواندن شکل:} شش PDF مهم کنار هم مقایسه شده‌اند. به تقارن گاوسی، چولگی رایلی/ارلانگ/نمایی، تخت‌بودن یکنواخت و دو ضربهٔ نمک‌وفلفل دقت کنید؛ شکل هیستوگرام تعیین‌کنندهٔ رفتار فیلتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 320 کتاب، شکل 5.2.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-7) - چگالی احتمال نویز ارلانگ}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_007.png}\end{center}
+\textbf{توضیح:} این رابطه «چگالی احتمال نویز ارلانگ» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.
+
+\textit{ارجاع به منبع: صفحهٔ 321 کتاب، فرمول (5-7).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-8) - میانگین توزیع ارلانگ}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_008.png}\end{center}
+\textbf{توضیح:} این رابطه «میانگین توزیع ارلانگ» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 321 کتاب، فرمول (5-8).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-9) - واریانس توزیع ارلانگ}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_009.png}\end{center}
+\textbf{توضیح:} این رابطه «واریانس توزیع ارلانگ» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 321 کتاب، فرمول (5-9).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-10) - چگالی احتمال نویز نمایی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_010.png}\end{center}
+\textbf{توضیح:} این رابطه «چگالی احتمال نویز نمایی» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.
+
+\textit{ارجاع به منبع: صفحهٔ 321 کتاب، فرمول (5-10).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-11) - میانگین توزیع نمایی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_011.png}\end{center}
+\textbf{توضیح:} این رابطه «میانگین توزیع نمایی» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 321 کتاب، فرمول (5-11).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-12) - واریانس توزیع نمایی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_012.png}\end{center}
+\textbf{توضیح:} این رابطه «واریانس توزیع نمایی» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 321 کتاب، فرمول (5-12).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-13) - چگالی احتمال نویز یکنواخت}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_013.png}\end{center}
+\textbf{توضیح:} این رابطه «چگالی احتمال نویز یکنواخت» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.
+
+\textit{ارجاع به منبع: صفحهٔ 321 کتاب، فرمول (5-13).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-14) - میانگین توزیع یکنواخت}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_014.png}\end{center}
+\textbf{توضیح:} این رابطه «میانگین توزیع یکنواخت» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 322 کتاب، فرمول (5-14).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-15) - واریانس توزیع یکنواخت}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_015.png}\end{center}
+\textbf{توضیح:} این رابطه «واریانس توزیع یکنواخت» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 322 کتاب، فرمول (5-15).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-16) - چگالی احتمال نویز نمک‌وفلفل}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_016.png}\end{center}
+\textbf{توضیح:} در نویز نمک‌وفلفل فقط دو شدت ویژه احتمال غیرصفر دارند: یک مقدار بسیار تیره (pepper) و یک مقدار بسیار روشن (salt). همین گسسته‌بودن علت کارایی فیلتر میانه است.
+
+\textit{ارجاع به منبع: صفحهٔ 322 کتاب، فرمول (5-16).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-17) - میانگین نویز نمک‌وفلفل}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_017.png}\end{center}
+\textbf{توضیح:} این رابطه «میانگین نویز نمک‌وفلفل» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 322 کتاب، فرمول (5-17).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-18) - واریانس نویز نمک‌وفلفل}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_018.png}\end{center}
+\textbf{توضیح:} این رابطه «واریانس نویز نمک‌وفلفل» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.
+
+\textit{ارجاع به منبع: صفحهٔ 323 کتاب، فرمول (5-18).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.3}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_03.png}\end{center}
+\textbf{خواندن شکل:} الگوی آزمون دارای نواحی تقریباً یکنواخت و مرزهای واضح است؛ بنابراین هم اثر نویز روی هیستوگرام و هم اثر فیلتر روی لبه‌ها را می‌توان به‌وضوح دید.
+
+\textit{ارجاع به منبع: صفحهٔ 323 کتاب، شکل 5.3.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.4-a}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_04_a.png}\end{center}
+\textbf{خواندن شکل:} با افزودن انواع نویز به یک تصویر ثابت، تفاوت «ظاهر مکانی» و «هیستوگرام» آشکار می‌شود. نکتهٔ مهم این است که چند نویز می‌توانند از نظر بصری شبیه باشند ولی هیستوگرام‌های بسیار متفاوتی داشته باشند؛ نمک‌وفلفل استثنای واضح است.
+
+\textit{ارجاع به منبع: صفحهٔ 324 کتاب، شکل 5.4-a.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.4-b}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_04_b.png}\end{center}
+\textbf{خواندن شکل:} با افزودن انواع نویز به یک تصویر ثابت، تفاوت «ظاهر مکانی» و «هیستوگرام» آشکار می‌شود. نکتهٔ مهم این است که چند نویز می‌توانند از نظر بصری شبیه باشند ولی هیستوگرام‌های بسیار متفاوتی داشته باشند؛ نمک‌وفلفل استثنای واضح است. این بخش ادامهٔ همان مقایسه و شامل نویز نمایی، یکنواخت و نمک‌وفلفل است.
+
+\textit{ارجاع به منبع: صفحهٔ 325 کتاب، شکل 5.4-b.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-19) - برآورد میانگین از هیستوگرام محلی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_019.png}\end{center}
+\textbf{توضیح:} این رابطه «برآورد میانگین از هیستوگرام محلی» را مستقیماً از هیستوگرام یک ناحیهٔ تقریباً یکنواخت برآورد می‌کند؛ روشی عملی وقتی نمونهٔ نویز مستقل در اختیار نداریم.
+
+\textit{ارجاع به منبع: صفحهٔ 326 کتاب، فرمول (5-19).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.5}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_05.png}\end{center}
+\textbf{خواندن شکل:} یک سینوس دوبعدی در مکان به دو ضربهٔ مزدوج در طیف تبدیل می‌شود. این تصویر پیوند مستقیم بین تداخل تناوبی و ناچ‌فیلتر را به‌صورت شهودی نشان می‌دهد.
+
+\textit{ارجاع به منبع: صفحهٔ 326 کتاب، شکل 5.5.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-20) - برآورد واریانس از هیستوگرام محلی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_020.png}\end{center}
+\textbf{توضیح:} این رابطه «برآورد واریانس از هیستوگرام محلی» را مستقیماً از هیستوگرام یک ناحیهٔ تقریباً یکنواخت برآورد می‌کند؛ روشی عملی وقتی نمونهٔ نویز مستقل در اختیار نداریم.
+
+\textit{ارجاع به منبع: صفحهٔ 327 کتاب، فرمول (5-20).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.6}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_06.png}\end{center}
+\textbf{خواندن شکل:} هیستوگرام از نوارهای کوچک و نسبتاً یکنواخت تصویر گرفته شده است تا سهم ساختار تصویر کم شود و شکل PDF نویز بهتر دیده شود. این همان ایدهٔ عملی تخمین پارامترهای نویز از خود تصویر است.
+
+\textit{ارجاع به منبع: صفحهٔ 327 کتاب، شکل 5.6.}
+\end{figbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+نوع توزیع نویز، میانگین و واریانس آن اطلاعات طراحی فیلتر را فراهم می‌کنند. همیشه پیش از انتخاب فیلتر، از ناحیه‌های یکنواخت تصویر برای برآورد آمار نویز استفاده کنید.
+\clearpage
+\chapter{ترمیم در حضور فقط نویز: فیلترگذاری مکانی}
+وقتی تابع تخریب اپتیکی یا حرکتی وجود ندارد و تنها نویز جمع‌شونده داریم، مسئله به حذف نویز در حوزهٔ مکان تبدیل می‌شود. خانوادهٔ فیلترهای میانگین، آماری ترتیبی و تطبیقی مقایسه می‌شوند. پیام کلیدی این بخش این است که نوع نویز تعیین می‌کند کدام میانگین یا آمارهٔ ترتیبی مناسب‌تر است؛ یک فیلتر واحد برای همهٔ نویزها وجود ندارد.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-21) - مدل نویز جمع‌شونده در مکان}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_021.png}\end{center}
+\textbf{توضیح:} این رابطه «مدل نویز جمع‌شونده در مکان» است. پاسخ فیلتر از پیکسل‌های همسایگی \(S_{xy}\) ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.
+
+\textit{ارجاع به منبع: صفحهٔ 327 کتاب، فرمول (5-21).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-22) - مدل نویز جمع‌شونده در فرکانس}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_022.png}\end{center}
+\textbf{توضیح:} این رابطه «مدل نویز جمع‌شونده در فرکانس» است. پاسخ فیلتر از پیکسل‌های همسایگی \(S_{xy}\) ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.
+
+\textit{ارجاع به منبع: صفحهٔ 327 کتاب، فرمول (5-22).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-23) - فیلتر میانگین حسابی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_023.png}\end{center}
+\textbf{توضیح:} هر پیکسل با متوسط همسایگی جایگزین می‌شود. کاهش واریانس نویز بهای خود را با محوشدن لبه‌ها و جزئیات ریز می‌پردازد.
+
+\textit{ارجاع به منبع: صفحهٔ 328 کتاب، فرمول (5-23).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-24) - فیلتر میانگین هندسی مکانی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_024.png}\end{center}
+\textbf{توضیح:} میانگین هندسی نسبت به میانگین حسابی معمولاً جزئیات را بهتر حفظ می‌کند و برای برخی نویزهای ضربی/گاوسی رفتار مناسب‌تری دارد.
+
+\textit{ارجاع به منبع: صفحهٔ 328 کتاب، فرمول (5-24).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-25) - فیلتر میانگین هارمونیک}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_025.png}\end{center}
+\textbf{توضیح:} میانگین هارمونیک در برابر نقاط روشن شدید مقاوم‌تر است، اما برای نویز pepper مناسب نیست چون وجود صفر در مخرج مشکل‌ساز می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 329 کتاب، فرمول (5-25).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-26) - فیلتر میانگین پادهارمونیک}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_026.png}\end{center}
+\textbf{توضیح:} پارامتر \(Q\) قطبیت فیلتر را تعیین می‌کند: \(Q>0\) برای pepper و \(Q<0\) برای salt. انتخاب علامت اشتباه می‌تواند نویز را تشدید کند.
+
+\textit{ارجاع به منبع: صفحهٔ 329 کتاب، فرمول (5-26).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-27) - فیلتر میانه}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_027.png}\end{center}
+\textbf{توضیح:} میانه یک آمارهٔ مقاوم است؛ به‌جای میانگین‌گیری عددی، مقدار میانیِ داده‌های مرتب‌شده را انتخاب می‌کند و به همین دلیل لبه‌ها را بهتر از فیلتر خطی حفظ می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 330 کتاب، فرمول (5-27).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.7}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_07.png}\end{center}
+\textbf{خواندن شکل:} میانگین حسابی و هندسی روی نویز گاوسی مقایسه می‌شوند. هر دو نویز را کاهش می‌دهند، اما میانگین حسابی معمولاً محوشدگی بیشتری ایجاد می‌کند و میانگین هندسی بخشی از جزئیات را بهتر نگه می‌دارد.
+
+\textit{ارجاع به منبع: صفحهٔ 330 کتاب، شکل 5.7.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.8}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_08.png}\end{center}
+\textbf{خواندن شکل:} علامت \(Q\) در فیلتر پادهارمونیک را به تصویر وصل کنید: \(Q>0\) لکه‌های تیرهٔ pepper را بهتر حذف می‌کند و \(Q<0\) لکه‌های روشن salt را. این شکل بهترین شاهد بصری برای نقش علامت \(Q\) است.
+
+\textit{ارجاع به منبع: صفحهٔ 331 کتاب، شکل 5.8.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.9}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_09.png}\end{center}
+\textbf{خواندن شکل:} وقتی علامت \(Q\) برعکس انتخاب شود، فیلتر نه‌تنها مناسب نیست بلکه artifactهای شدید ایجاد می‌کند. این شکل یادآور می‌شود پارامتر فیلتر باید با مدل نویز سازگار باشد.
+
+\textit{ارجاع به منبع: صفحهٔ 331 کتاب، شکل 5.9.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-28) - فیلتر بیشینه}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_028.png}\end{center}
+\textbf{توضیح:} این رابطه «فیلتر بیشینه» است. پاسخ فیلتر از پیکسل‌های همسایگی \(S_{xy}\) ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.
+
+\textit{ارجاع به منبع: صفحهٔ 332 کتاب، فرمول (5-28).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-29) - فیلتر کمینه}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_029.png}\end{center}
+\textbf{توضیح:} این رابطه «فیلتر کمینه» است. پاسخ فیلتر از پیکسل‌های همسایگی \(S_{xy}\) ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.
+
+\textit{ارجاع به منبع: صفحهٔ 332 کتاب، فرمول (5-29).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-30) - فیلتر نقطهٔ میانی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_030.png}\end{center}
+\textbf{توضیح:} این رابطه «فیلتر نقطهٔ میانی» است. پاسخ فیلتر از پیکسل‌های همسایگی \(S_{xy}\) ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.
+
+\textit{ارجاع به منبع: صفحهٔ 332 کتاب، فرمول (5-30).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-31) - فیلتر میانگین آلفا-بریده}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_031.png}\end{center}
+\textbf{توضیح:} ابتدا \(d/2\) مقدار کوچک و \(d/2\) مقدار بزرگ حذف می‌شوند، سپس از بقیه میانگین گرفته می‌شود؛ بنابراین فیلتر بین میانگین و میانه قابل تنظیم است.
+
+\textit{ارجاع به منبع: صفحهٔ 333 کتاب، فرمول (5-31).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.10}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_10.png}\end{center}
+\textbf{خواندن شکل:} چند عبور پیاپی فیلتر میانه نویز نمک‌وفلفل را کم می‌کند، اما هر عبور اضافی خطر حذف جزئیات ریز و گردشدن گوشه‌ها را افزایش می‌دهد.
+
+\textit{ارجاع به منبع: صفحهٔ 334 کتاب، شکل 5.10.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.11}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_11.png}\end{center}
+\textbf{خواندن شکل:} فیلتر max برای pepper و فیلتر min برای salt مؤثر است، چون به‌ترتیب مقادیر بسیار کوچک و بسیار بزرگ را در همسایگی کنار می‌زنند. در عوض شکل اشیای تیره/روشن را نیز می‌توانند تغییر دهند.
+
+\textit{ارجاع به منبع: صفحهٔ 334 کتاب، شکل 5.11.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.12}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_12.png}\end{center}
+\textbf{خواندن شکل:} یک نویز ترکیبی (یکنواخت + نمک‌وفلفل) معیار خوبی برای مقایسهٔ خانواده‌هاست. فیلتر alpha-trimmed در این حالت مزیت دارد چون هم outlierها را حذف می‌کند و هم از بقیه میانگین می‌گیرد.
+
+\textit{ارجاع به منبع: صفحهٔ 335 کتاب، شکل 5.12.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-32) - فیلتر تطبیقی کاهش نویز محلی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_032.png}\end{center}
+\textbf{توضیح:} اصلاح هر پیکسل بر اساس نسبت واریانس نویز به واریانس محلی تصویر تنظیم می‌شود: در نواحی تخت صاف‌سازی بیشتر و در لبه‌ها/جزئیات صاف‌سازی کمتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 336 کتاب، فرمول (5-32).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.13}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_13.png}\end{center}
+\textbf{خواندن شکل:} فیلتر تطبیقی کاهش نویز محلی نسبت به میانگین‌های ثابت، لبه‌ها و ساختار برد را بهتر حفظ می‌کند. دلیل، استفاده از واریانس محلی برای تعیین مقدار صاف‌سازی است.
+
+\textit{ارجاع به منبع: صفحهٔ 337 کتاب، شکل 5.13.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.14}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_14.png}\end{center}
+\textbf{خواندن شکل:} در چگالی بالای نمک‌وفلفل، یک median ثابت 7×7 جزئیات زیادی را خراب می‌کند؛ median تطبیقی اندازهٔ پنجره را فقط در صورت نیاز بزرگ می‌کند و جزئیات را بهتر نگه می‌دارد.
+
+\textit{ارجاع به منبع: صفحهٔ 340 کتاب، شکل 5.14.}
+\end{figbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+میانگین‌ها برای نویزهای پخش‌شده مناسب‌اند، فیلترهای ترتیبی برای impulse noise قوی‌ترند و فیلترهای تطبیقی در حفظ جزئیات مزیت دارند.
+\clearpage
+\chapter{کاهش نویز تناوبی در حوزهٔ فرکانس}
+نویز تناوبی در طیف فوریه معمولاً به‌صورت قله‌های باریک و جفت‌های مزدوج دیده می‌شود. فیلترهای ناچ‌رد و ناچ‌پَس برای حذف یا استخراج این مؤلفه‌ها به‌کار می‌روند. در ادامه، به‌جای حذف کورِ نویز، یک روش وزن‌دهی محلی ارائه می‌شود تا مؤلفهٔ استخراج‌شده فقط به میزانی از تصویر کم شود که واریانس محلی خروجی کمینه گردد.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-33) - ساخت فیلتر ناچ‌رد چندگانه}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_033.png}\end{center}
+\textbf{توضیح:} چون مؤلفه‌های سینوسی حقیقی در DFT به‌صورت جفت‌های مزدوج ظاهر می‌شوند، ناچ‌ها نیز باید به‌صورت جفت متقارن قرار گیرند.
+
+\textit{ارجاع به منبع: صفحهٔ 341 کتاب، فرمول (5-33).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-34) - فاصله تا مرکز ناچ مثبت}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_034.png}\end{center}
+\textbf{توضیح:} این گام «فاصله تا مرکز ناچ مثبت» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 341 کتاب، فرمول (5-34).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-35) - فاصله تا ناچ مزدوج}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_035.png}\end{center}
+\textbf{توضیح:} این گام «فاصله تا ناچ مزدوج» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 341 کتاب، فرمول (5-35).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-36) - نمونهٔ ناچ‌رد باتروورث}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_036.png}\end{center}
+\textbf{توضیح:} این گام «نمونهٔ ناچ‌رد باتروورث» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 341 کتاب، فرمول (5-36).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-37) - تبدیل ناچ‌رد به ناچ‌پَس}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_037.png}\end{center}
+\textbf{توضیح:} مکمل ناچ‌رد، دقیقاً همان مؤلفه‌هایی را عبور می‌دهد که قرار است حذف شوند؛ این ابزار برای مشاهده و برآورد خودِ الگوی تداخل بسیار مفید است.
+
+\textit{ارجاع به منبع: صفحهٔ 341 کتاب، فرمول (5-37).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.15}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_15.png}\end{center}
+\textbf{خواندن شکل:} سه شکل سه‌بعدی ناچ‌رد ایده‌آل، گاوسی و باتروورث را نشان می‌دهند. ایده‌آل گذار ناگهانی و ringing بیشتر دارد؛ گاوسی نرم‌ترین گذار را دارد؛ باتروورث بین این دو قابل تنظیم است.
+
+\textit{ارجاع به منبع: صفحهٔ 342 کتاب، شکل 5.15.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.16}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_16.png}\end{center}
+\textbf{خواندن شکل:} فرایند کامل ناچ‌فیلترگذاری دیده می‌شود: تصویر خراب، طیف با قله‌های تداخل، محل ناچ‌ها و تصویر خروجی. این توالی را در ویدیو مرحله‌به‌مرحله توضیح دهید.
+
+\textit{ارجاع به منبع: صفحهٔ 343 کتاب، شکل 5.16.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.17}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_17.png}\end{center}
+\textbf{خواندن شکل:} ناچ‌پَس دقیقاً مؤلفه‌ای را که ناچ‌رد حذف می‌کند استخراج کرده است؛ نتیجه در مکان تقریباً یک الگوی سینوسی خالص است و صحت تشخیص قله‌های طیفی را تأیید می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 343 کتاب، شکل 5.17.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.18}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_18.png}\end{center}
+\textbf{خواندن شکل:} در تصویر ماهواره‌ای، خطوط اسکن حسگر یک نویز تناوبی ساختاری ایجاد کرده‌اند. طیف جهت و فرکانس این خطوط را آشکار می‌کند و ناچ‌رد نتیجهٔ بصری را به‌طور محسوسی بهبود می‌دهد.
+
+\textit{ارجاع به منبع: صفحهٔ 344 کتاب، شکل 5.18.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.19}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_19.png}\end{center}
+\textbf{خواندن شکل:} الگوی استخراج‌شده از شکل قبل نشان می‌دهد تداخل الزاماً یک سینوس ساده نیست؛ با چند مؤلفهٔ طیفی می‌توان یک ساختار فضایی پیچیده‌تر ساخت.
+
+\textit{ارجاع به منبع: صفحهٔ 344 کتاب، شکل 5.19.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-38) - استخراج طیف نویز تناوبی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_038.png}\end{center}
+\textbf{توضیح:} این گام «استخراج طیف نویز تناوبی» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 345 کتاب، فرمول (5-38).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-39) - بازگردانی الگوی نویز به حوزهٔ مکان}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_039.png}\end{center}
+\textbf{توضیح:} این گام «بازگردانی الگوی نویز به حوزهٔ مکان» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 345 کتاب، فرمول (5-39).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-40) - تفریق وزن‌دار الگوی نویز}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_040.png}\end{center}
+\textbf{توضیح:} اگر \(\eta\) استخراج‌شده کامل نباشد، تفریق کامل آن می‌تواند جزئیات تصویر را هم حذف کند؛ وزن \(w(x,y)\) شدت تفریق را محلی تنظیم می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 345 کتاب، فرمول (5-40).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-41) - واریانس محلی تصویر برآوردشده}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_041.png}\end{center}
+\textbf{توضیح:} این گام «واریانس محلی تصویر برآوردشده» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 346 کتاب، فرمول (5-41).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-42) - میانگین محلی تصویر برآوردشده}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_042.png}\end{center}
+\textbf{توضیح:} این گام «میانگین محلی تصویر برآوردشده» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 346 کتاب، فرمول (5-42).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-43) - گسترش واریانس پس از جایگذاری مدل}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_043.png}\end{center}
+\textbf{توضیح:} این گام «گسترش واریانس پس از جایگذاری مدل» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 346 کتاب، فرمول (5-43).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-44) - فرض ثابت‌بودن وزن در همسایگی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_044.png}\end{center}
+\textbf{توضیح:} این گام «فرض ثابت‌بودن وزن در همسایگی» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 346 کتاب، فرمول (5-44).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-45) - ساده‌سازی میانگین حاصل‌ضرب وزن و نویز}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_045.png}\end{center}
+\textbf{توضیح:} این گام «ساده‌سازی میانگین حاصل‌ضرب وزن و نویز» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 346 کتاب، فرمول (5-45).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-46) - صورت ساده‌شدهٔ واریانس}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_046.png}\end{center}
+\textbf{توضیح:} این گام «صورت ساده‌شدهٔ واریانس» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 346 کتاب، فرمول (5-46).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-47) - شرط مشتق صفر برای وزن بهینه}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_047.png}\end{center}
+\textbf{توضیح:} این گام «شرط مشتق صفر برای وزن بهینه» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 347 کتاب، فرمول (5-47).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-48) - وزن بهینهٔ حذف تداخل}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_048.png}\end{center}
+\textbf{توضیح:} این رابطه وزن بهینه را از آمار محلی تصویر خراب و الگوی نویز استخراج‌شده می‌سازد؛ هدف کمینه‌کردن واریانس محلی خروجی است، نه صرفاً کمینه‌کردن انرژی نویز.
+
+\textit{ارجاع به منبع: صفحهٔ 347 کتاب، فرمول (5-48).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.20}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_20.png}\end{center}
+\textbf{خواندن شکل:} طیف تصویر مریخ دارای تداخل‌های تناوبی متعدد است. این مثال انگیزهٔ روش بهینه‌ترِ استخراج و تفریق وزن‌دار نویز را فراهم می‌کند، چون انتخاب ناچ‌های دستی ممکن است اطلاعات واقعی را نیز حذف کند.
+
+\textit{ارجاع به منبع: صفحهٔ 347 کتاب، شکل 5.20.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.21}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_21.png}\end{center}
+\textbf{خواندن شکل:} طیف بدون center کردن نمایش داده شده تا محل واقعی مؤلفه‌ها نسبت به اندیس‌های DFT روشن شود. این موضوع هنگام پیاده‌سازی بسیار مهم است چون اشتباه در shift باعث قرارگرفتن ناچ در جای نادرست می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 348 کتاب، شکل 5.21.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.22}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_22.png}\end{center}
+\textbf{خواندن شکل:} در چپ، طیف برآوردشدهٔ نویز و در راست، الگوی فضایی متناظر دیده می‌شود. این زوج نشان می‌دهد چگونه با IFFT از قله‌های انتخاب‌شده به یک الگوی تداخل قابل‌تفریق می‌رسیم.
+
+\textit{ارجاع به منبع: صفحهٔ 348 کتاب، شکل 5.22.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.23}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_23.png}\end{center}
+\textbf{خواندن شکل:} تصویر ترمیم‌شده پس از تفریق وزن‌دار نویز نشان می‌دهد می‌توان تداخل تناوبی را بدون حذف گستردهٔ فرکانس‌های تصویر کاهش داد.
+
+\textit{ارجاع به منبع: صفحهٔ 349 کتاب، شکل 5.23.}
+\end{figbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+نویز تناوبی در فرکانس قابل جداسازی است، اما ناچ‌های بزرگ اطلاعات تصویر را هم حذف می‌کنند؛ استخراج نویز و تفریق وزن‌دار راهی محافظه‌کارانه‌تر است.
+\clearpage
+\chapter{تخریب‌های خطی و ناوردا نسبت به مکان}
+این بخش پلی بین پردازش تصویر و نظریهٔ سیستم‌های خطی است. خطی‌بودن، جمع‌پذیری، همگنی و ناوردایی مکانی تعریف می‌شوند و سپس نشان داده می‌شود که یک سامانهٔ خطی و ناوردای مکانی به‌طور کامل با پاسخ ضربه یا تابع پخش نقطه‌ای (PSF) مشخص می‌شود. نتیجهٔ نهایی همان مدل کانولوشنیِ فصل است.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-49) - مدل عمومی عملگر تخریب}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_049.png}\end{center}
+\textbf{توضیح:} این رابطه «مدل عمومی عملگر تخریب» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 348 کتاب، فرمول (5-49).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-50) - تعریف خطی‌بودن عملگر}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_050.png}\end{center}
+\textbf{توضیح:} خطی‌بودن یعنی پاسخ به ترکیب خطی ورودی‌ها برابر همان ترکیب خطی پاسخ‌هاست. این فرض اجازه می‌دهد از ابزارهای قدرتمند نظریهٔ سیستم‌های خطی استفاده کنیم.
+
+\textit{ارجاع به منبع: صفحهٔ 349 کتاب، فرمول (5-50).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-51) - خاصیت جمع‌پذیری}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_051.png}\end{center}
+\textbf{توضیح:} این رابطه «خاصیت جمع‌پذیری» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 349 کتاب، فرمول (5-51).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-52) - خاصیت همگنی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_052.png}\end{center}
+\textbf{توضیح:} این رابطه «خاصیت همگنی» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 349 کتاب، فرمول (5-52).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-53) - ناوردایی نسبت به انتقال}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_053.png}\end{center}
+\textbf{توضیح:} اگر ورودی را جابه‌جا کنیم، خروجی نیز فقط به همان مقدار جابه‌جا می‌شود و شکل پاسخ تغییر نمی‌کند. این شرط برای تبدیل پاسخ ضربه به یک کانولوشن ضروری است.
+
+\textit{ارجاع به منبع: صفحهٔ 349 کتاب، فرمول (5-53).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-54) - نمایش تصویر با ضربه‌های دیراک}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_054.png}\end{center}
+\textbf{توضیح:} این رابطه «نمایش تصویر با ضربه‌های دیراک» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 350 کتاب، فرمول (5-54).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-55) - اعمال عملگر به نمایش ضربه‌ای}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_055.png}\end{center}
+\textbf{توضیح:} این رابطه «اعمال عملگر به نمایش ضربه‌ای» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 350 کتاب، فرمول (5-55).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-56) - انتقال عملگر خطی به داخل انتگرال}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_056.png}\end{center}
+\textbf{توضیح:} این رابطه «انتقال عملگر خطی به داخل انتگرال» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 350 کتاب، فرمول (5-56).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-57) - برهم‌نهی پاسخ‌ها}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_057.png}\end{center}
+\textbf{توضیح:} این رابطه «برهم‌نهی پاسخ‌ها» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 350 کتاب، فرمول (5-57).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-58) - تعریف پاسخ ضربه/PSF}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_058.png}\end{center}
+\textbf{توضیح:} در اپتیک، پاسخ به یک نقطهٔ نورانی «تابع پخش نقطه‌ای» است. اگر PSF را بدانیم، سامانهٔ خطی را می‌شناسیم.
+
+\textit{ارجاع به منبع: صفحهٔ 350 کتاب، فرمول (5-58).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-59) - انتگرال برهم‌نهی فردهلم}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_059.png}\end{center}
+\textbf{توضیح:} این رابطه «انتگرال برهم‌نهی فردهلم» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 350 کتاب، فرمول (5-59).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-60) - پاسخ ضربه در سامانهٔ ناوردای مکانی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_060.png}\end{center}
+\textbf{توضیح:} این رابطه «پاسخ ضربه در سامانهٔ ناوردای مکانی» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 350 کتاب، فرمول (5-60).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-61) - فرم کانولوشن برای سامانهٔ LSI}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_061.png}\end{center}
+\textbf{توضیح:} این رابطه نتیجهٔ کلیدی بخش است: خروجی سامانهٔ خطی و ناوردای مکانی برابر کانولوشن تصویر با PSF است.
+
+\textit{ارجاع به منبع: صفحهٔ 350 کتاب، فرمول (5-61).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-62) - سامانهٔ خطی مکان‌متغیر با نویز}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_062.png}\end{center}
+\textbf{توضیح:} این رابطه «سامانهٔ خطی مکان‌متغیر با نویز» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 351 کتاب، فرمول (5-62).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-63) - سامانهٔ خطی ناوردای مکانی با نویز}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_063.png}\end{center}
+\textbf{توضیح:} این رابطه «سامانهٔ خطی ناوردای مکانی با نویز» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 351 کتاب، فرمول (5-63).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-64) - مدل کانولوشنی فشرده}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_064.png}\end{center}
+\textbf{توضیح:} این رابطه «مدل کانولوشنی فشرده» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 351 کتاب، فرمول (5-64).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-65) - مدل نهایی در حوزهٔ فرکانس}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_065.png}\end{center}
+\textbf{توضیح:} این همان مدل پایهٔ فصل در حوزهٔ فرکانس است و مبنای فیلتر معکوس، وینر و حداقل مربعات مقید قرار می‌گیرد.
+
+\textit{ارجاع به منبع: صفحهٔ 351 کتاب، فرمول (5-65).}
+\end{eqbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+خطی + ناوردای مکانی مساوی است با «شناخت کامل سامانه از طریق PSF» و «نوشتن خروجی به‌صورت کانولوشن». این نتیجه، زیربنای همهٔ فیلترهای بعدی است.
+\clearpage
+\chapter{برآورد تابع تخریب}
+تا اینجا فرض می‌کردیم تابع تخریب معلوم است؛ این بخش می‌پرسد در عمل چگونه آن را به‌دست آوریم. سه راه مطرح می‌شود: مشاهدهٔ یک ناحیهٔ کوچک و قابل‌مدل‌سازی، آزمایش با یک ضربه/نقطهٔ نورانی، و استفاده از مدل‌های فیزیکی. دو نمونهٔ مهم، آشفتگی جو و تاری حرکت یکنواخت هستند.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-66) - برآورد تابع تخریب از زیرتصویر}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_066.png}\end{center}
+\textbf{توضیح:} این رابطه «برآورد تابع تخریب از زیرتصویر» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل \(H(u,v)\) دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 352 کتاب، فرمول (5-66).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-67) - برآورد تابع انتقال با ورودی ضربه}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_067.png}\end{center}
+\textbf{توضیح:} این رابطه «برآورد تابع انتقال با ورودی ضربه» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل \(H(u,v)\) دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 353 کتاب، فرمول (5-67).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-68) - مدل تاری ناشی از آشفتگی جو}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_068.png}\end{center}
+\textbf{توضیح:} پارامتر \(k\) شدت آشفتگی را کنترل می‌کند. با افزایش فرکانس مکانی، تابع انتقال سریع‌تر افت می‌کند؛ یعنی جزئیات ریز بیش از ساختارهای درشت از بین می‌روند.
+
+\textit{ارجاع به منبع: صفحهٔ 353 کتاب، فرمول (5-68).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.24}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_24.png}\end{center}
+\textbf{خواندن شکل:} یک نقطهٔ نورانی ایده‌آل پس از عبور از سامانه به لکه تبدیل می‌شود. شکل لکه همان PSF است؛ اندازه‌گیری آن یکی از مستقیم‌ترین روش‌های شناسایی تابع تخریب است.
+
+\textit{ارجاع به منبع: صفحهٔ 353 کتاب، شکل 5.24.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.25}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_25.png}\end{center}
+\textbf{خواندن شکل:} مدل آشفتگی جو با چند مقدار \(k\) مقایسه شده است. هرچه \(k\) بزرگ‌تر شود، مؤلفه‌های فرکانس بالا بیشتر تضعیف و تصویر نرم‌تر/تارتر می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 354 کتاب، شکل 5.25.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-69) - مدل زمانی تشکیل تصویر در حضور حرکت}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_069.png}\end{center}
+\textbf{توضیح:} این رابطه «مدل زمانی تشکیل تصویر در حضور حرکت» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل \(H(u,v)\) دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 355 کتاب، فرمول (5-69).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-70) - تبدیل فوریهٔ تصویر تاری‌دار}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_070.png}\end{center}
+\textbf{توضیح:} این رابطه «تبدیل فوریهٔ تصویر تاری‌دار» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل \(H(u,v)\) دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 355 کتاب، فرمول (5-70).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-71) - جایگذاری مدل حرکت در تبدیل فوریه}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_071.png}\end{center}
+\textbf{توضیح:} این رابطه «جایگذاری مدل حرکت در تبدیل فوریه» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل \(H(u,v)\) دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 355 کتاب، فرمول (5-71).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-72) - تغییر ترتیب انتگرال‌گیری}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_072.png}\end{center}
+\textbf{توضیح:} این رابطه «تغییر ترتیب انتگرال‌گیری» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل \(H(u,v)\) دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 355 کتاب، فرمول (5-72).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-73) - جداکردن طیف تصویر اصلی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_073.png}\end{center}
+\textbf{توضیح:} این رابطه «جداکردن طیف تصویر اصلی» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل \(H(u,v)\) دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 355 کتاب، فرمول (5-73).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-74) - تابع انتقال عمومی تاری حرکت}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_074.png}\end{center}
+\textbf{توضیح:} این رابطه نشان می‌دهد تاری حرکت اساساً تبدیل فوریهٔ مسیر زمانی حرکت دوربین/صحنه است. دانستن \(x_0(t),y_0(t)\) یعنی دانستن تابع انتقال تاری.
+
+\textit{ارجاع به منبع: صفحهٔ 355 کتاب، فرمول (5-74).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-75) - رابطهٔ ضربی طیفی در نبود نویز}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_075.png}\end{center}
+\textbf{توضیح:} این رابطه «رابطهٔ ضربی طیفی در نبود نویز» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل \(H(u,v)\) دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 355 کتاب، فرمول (5-75).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-76) - تابع انتقال حرکت یکنواخت در راستای x}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_076.png}\end{center}
+\textbf{توضیح:} این رابطه «تابع انتقال حرکت یکنواخت در راستای x» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل \(H(u,v)\) دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.
+
+\textit{ارجاع به منبع: صفحهٔ 355 کتاب، فرمول (5-76).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-77) - تابع انتقال حرکت یکنواخت دوبعدی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_077.png}\end{center}
+\textbf{توضیح:} عبارت sinc مانند در این تابع باعث صفرهای طیفی می‌شود. همین صفرها علت اصلی ناپایداری فیلتر معکوس برای تاری حرکت هستند.
+
+\textit{ارجاع به منبع: صفحهٔ 356 کتاب، فرمول (5-77).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.26}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_26.png}\end{center}
+\textbf{خواندن شکل:} تاری حرکت یکنواخت روی یک تصویر متنی اعمال شده است. جهت کشیدگی حروف مستقیماً جهت حرکت نسبی دوربین/صحنه را نشان می‌دهد.
+
+\textit{ارجاع به منبع: صفحهٔ 356 کتاب، شکل 5.26.}
+\end{figbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+ترمیم خوب بدون مدل تخریب خوب ممکن نیست. PSF آزمایشی، مدل فیزیکی و اطلاعات حرکت سه منبع اصلی برای ساختن \(H\) هستند.
+\clearpage
+\chapter{فیلتر معکوس}
+فیلتر معکوس ساده‌ترین ایده برای حذف تاری است: در حوزهٔ فرکانس بر تابع تخریب تقسیم می‌کنیم. اما همین رابطه نشان می‌دهد چرا روش شکننده است: هرجا مقدار تابع تخریب کوچک یا صفر باشد، نویز به‌شدت تقویت می‌شود. این شکست، انگیزهٔ فیلتر وینر و روش‌های مقید در بخش‌های بعدی است.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-78) - فیلتر معکوس مستقیم}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_078.png}\end{center}
+\textbf{توضیح:} در نبود نویز و صفرهای طیفی، این تقسیم می‌تواند تاری را خنثی کند. در عمل تقریباً همیشه نویز وجود دارد و \(H\) در بعضی فرکانس‌ها کوچک است.
+
+\textit{ارجاع به منبع: صفحهٔ 356 کتاب، فرمول (5-78).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-79) - آشکارشدن تقویت نویز در معکوس‌سازی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_079.png}\end{center}
+\textbf{توضیح:} ترم \(N/H\) هشدار اصلی است: اگر \(|H|\) کوچک باشد، حتی نویز بسیار کم چندین برابر می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 357 کتاب، فرمول (5-79).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.27}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_27.png}\end{center}
+\textbf{خواندن شکل:} فیلتر معکوس کامل شکست می‌خورد؛ محدودکردن شعاع فرکانسی در بعضی محدوده‌ها بهتر است اما انتخاب شعاع حساس است. این شکل ناپایداری روش معکوس را به‌وضوح نشان می‌دهد.
+
+\textit{ارجاع به منبع: صفحهٔ 358 کتاب، شکل 5.27.}
+\end{figbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+فیلتر معکوس یک baseline مهم است، اما به‌دلیل صفرها/مقادیر کوچک \(H\) و وجود نویز، معمولاً راه‌حل نهایی نیست.
+\clearpage
+\chapter{فیلتر حداقل میانگین مربعات خطا (وینر)}
+فیلتر وینر تخریب و نویز را هم‌زمان وارد مدل می‌کند و از دیدگاه آماری، میانگین مربعات خطای بین تصویر اصلی و برآورد را کمینه می‌سازد. نسبت طیف توان نویز به تصویر نقش تنظیم‌کننده دارد: در فرکانس‌هایی که نویز غالب است، از معکوس‌سازی تهاجمی جلوگیری می‌شود. نسخهٔ عملی با ثابت K نیز معرفی می‌شود.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-80) - معیار میانگین مربعات خطا}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_080.png}\end{center}
+\textbf{توضیح:} فیلتر وینر به‌جای بازیابی دقیقِ غیرممکن، خطای متوسط مربعی را کمینه می‌کند؛ بنابراین یک مصالحهٔ آماری بین رفع تاری و مهار نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 358 کتاب، فرمول (5-80).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-81) - فیلتر وینر در حوزهٔ فرکانس}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_081.png}\end{center}
+\textbf{توضیح:} عامل \(H^*\) فاز تخریب را جبران می‌کند و جملهٔ \(S_\eta/S_f\) مانع تقسیم خطرناک بر مقادیر کوچک \(|H|\) می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 359 کتاب، فرمول (5-81).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-82) - تعریف SNR در حوزهٔ فرکانس}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_082.png}\end{center}
+\textbf{توضیح:} SNR در این تعریف نسبت انرژی طیفی سیگنال اصلی به انرژی نویز است. هرچه این نسبت بزرگ‌تر باشد، مسئلهٔ ترمیم خوش‌شرط‌تر است.
+
+\textit{ارجاع به منبع: صفحهٔ 360 کتاب، فرمول (5-82).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-83) - MSE نمونه‌ای در حوزهٔ مکان}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_083.png}\end{center}
+\textbf{توضیح:} این رابطه «MSE نمونه‌ای در حوزهٔ مکان» را در مقایسهٔ فیلتر معکوس و وینر نشان می‌دهد. محور اصلی این بخش کنترل تقویت نویز در فرکانس‌هایی است که پاسخ سامانه ضعیف است.
+
+\textit{ارجاع به منبع: صفحهٔ 360 کتاب، فرمول (5-83).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-84) - SNR بر اساس تصویر بازسازی‌شده}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_084.png}\end{center}
+\textbf{توضیح:} این رابطه «SNR بر اساس تصویر بازسازی‌شده» را در مقایسهٔ فیلتر معکوس و وینر نشان می‌دهد. محور اصلی این بخش کنترل تقویت نویز در فرکانس‌هایی است که پاسخ سامانه ضعیف است.
+
+\textit{ارجاع به منبع: صفحهٔ 360 کتاب، فرمول (5-84).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-85) - تقریب عملی وینر با ثابت K}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_085.png}\end{center}
+\textbf{توضیح:} وقتی طیف توان تصویر و نویز معلوم نیست، نسبت آن‌ها با ثابت \(K\) جایگزین می‌شود. \(K\) عملاً پارامتر تنظیم بین شارپ‌سازی و کاهش نویز است.
+
+\textit{ارجاع به منبع: صفحهٔ 360 کتاب، فرمول (5-85).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.28}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_28.png}\end{center}
+\textbf{خواندن شکل:} سه خروجی کنار هم نقطهٔ عطف فصل‌اند: inverse کامل، inverse محدود و Wiener. وینر با واردکردن نویز در مدل، بهترین مصالحهٔ دیداری را ارائه می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 361 کتاب، شکل 5.28.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.29}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_29.png}\end{center}
+\textbf{خواندن شکل:} با کاهش واریانس نویز، وینر پیوسته بهتر می‌شود؛ inverse حتی با نویز بسیار کم هنوز streak/noise قابل‌توجه دارد، چون تقسیم بر مقادیر کوچک \(H\) نویز را بزرگ می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 362 کتاب، شکل 5.29.}
+\end{figbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+وینر مسئله را از «معکوس‌سازی دقیق» به «کمینه‌سازی خطای متوسط» تبدیل می‌کند؛ همین تغییر هدف باعث پایداری بیشتر در حضور نویز می‌شود.
+\clearpage
+\chapter{فیلتر حداقل مربعات مقید}
+در حداقل مربعات مقید، به‌جای نیاز به طیف توان تصویر اصلی، از یک قید هموارسازی و دانستن میانگین/واریانس نویز استفاده می‌شود. معیار هموارسازی معمولاً انرژی لاپلاسین تصویر بازسازی‌شده است و پارامتر قید به‌صورت تکراری طوری تنظیم می‌شود که انرژی باقیمانده با انرژی مورد انتظار نویز سازگار شود.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-86) - مدل برداری-ماتریسی تخریب}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_086.png}\end{center}
+\textbf{توضیح:} این رابطه «مدل برداری-ماتریسی تخریب» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.
+
+\textit{ارجاع به منبع: صفحهٔ 363 کتاب، فرمول (5-86).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-87) - معیار هموارسازی حداقل مربعات مقید}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_087.png}\end{center}
+\textbf{توضیح:} کمینه‌کردن انرژی لاپلاسین یعنی ترجیح پاسخ‌های هموارتر؛ اما این هموارسازی باید با قید سازگاری با داده و سطح نویز متوازن شود.
+
+\textit{ارجاع به منبع: صفحهٔ 364 کتاب، فرمول (5-87).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-88) - قید انرژی باقیمانده برابر انرژی نویز}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_088.png}\end{center}
+\textbf{توضیح:} قید می‌گوید اختلاف بین تصویر پیش‌بینی‌شده از مدل و دادهٔ واقعی باید از نظر انرژی تقریباً به اندازهٔ نویز باشد؛ نه صفر و نه بسیار بزرگ.
+
+\textit{ارجاع به منبع: صفحهٔ 364 کتاب، فرمول (5-88).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-89) - حل فرکانسی حداقل مربعات مقید}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_089.png}\end{center}
+\textbf{توضیح:} پارامتر \(\gamma\) وزن جریمهٔ هموارسازی را کنترل می‌کند. \(|P|^2\) پاسخ فرکانسی لاپلاسین و \(|H|^2\) مدل تخریب را وارد مخرج می‌کنند.
+
+\textit{ارجاع به منبع: صفحهٔ 364 کتاب، فرمول (5-89).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-90) - کرنل لاپلاسین مورد استفاده در قید}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_090.png}\end{center}
+\textbf{توضیح:} این رابطه «کرنل لاپلاسین مورد استفاده در قید» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.
+
+\textit{ارجاع به منبع: صفحهٔ 364 کتاب، فرمول (5-90).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-91) - تعریف بردار باقیمانده}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_091.png}\end{center}
+\textbf{توضیح:} این رابطه «تعریف بردار باقیمانده» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.
+
+\textit{ارجاع به منبع: صفحهٔ 365 کتاب، فرمول (5-91).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-92) - تابع انرژی باقیمانده برحسب پارامتر قید}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_092.png}\end{center}
+\textbf{توضیح:} این رابطه «تابع انرژی باقیمانده برحسب پارامتر قید» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.
+
+\textit{ارجاع به منبع: صفحهٔ 365 کتاب، فرمول (5-92).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-93) - شرط توقف برای پارامتر قید}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_093.png}\end{center}
+\textbf{توضیح:} با تغییر \(\gamma\)، انرژی باقیمانده به سطح مورد انتظار نویز نزدیک می‌شود؛ این رابطه معیار توقف تکرار است.
+
+\textit{ارجاع به منبع: صفحهٔ 365 کتاب، فرمول (5-93).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.30}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_30.png}\end{center}
+\textbf{خواندن شکل:} نتایج حداقل مربعات مقید با نتایج وینر قابل مقایسه‌اند. مزیت نظری CLS این است که به‌جای طیف توان تصویر اصلی، از سطح نویز و قید هموارسازی استفاده می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 365 کتاب، شکل 5.30.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-94) - طیف باقیمانده}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_094.png}\end{center}
+\textbf{توضیح:} این رابطه «طیف باقیمانده» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.
+
+\textit{ارجاع به منبع: صفحهٔ 366 کتاب، فرمول (5-94).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-95) - نُرم مربعی باقیمانده در حوزهٔ مکان}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_095.png}\end{center}
+\textbf{توضیح:} این رابطه «نُرم مربعی باقیمانده در حوزهٔ مکان» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.
+
+\textit{ارجاع به منبع: صفحهٔ 366 کتاب، فرمول (5-95).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-96) - انرژی نمونه‌ای نویز}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_096.png}\end{center}
+\textbf{توضیح:} این رابطه «انرژی نمونه‌ای نویز» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.
+
+\textit{ارجاع به منبع: صفحهٔ 366 کتاب، فرمول (5-96).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-97) - میانگین نمونه‌ای نویز}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_097.png}\end{center}
+\textbf{توضیح:} این رابطه «میانگین نمونه‌ای نویز» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.
+
+\textit{ارجاع به منبع: صفحهٔ 366 کتاب، فرمول (5-97).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-98) - برآورد انرژی کل نویز از میانگین و واریانس}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_098.png}\end{center}
+\textbf{توضیح:} با فرض نویز با میانگین و واریانس معلوم، انرژی کل نویز را می‌توان بدون دانستن نمونهٔ دقیق نویز برآورد کرد؛ این مزیت اصلی روش مقید است.
+
+\textit{ارجاع به منبع: صفحهٔ 366 کتاب، فرمول (5-98).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.31}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_31.png}\end{center}
+\textbf{خواندن شکل:} اگر میانگین/واریانس نویز درست باشند، تنظیم تکراری \(\gamma\) خروجی خوبی می‌دهد؛ برآورد غلط نویز به بیش‌هموارسازی یا ترمیم ناکافی می‌انجامد.
+
+\textit{ارجاع به منبع: صفحهٔ 367 کتاب، شکل 5.31.}
+\end{figbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+CLS با یک قید فیزیکی/آماری روی باقیمانده و یک جریمهٔ هموارسازی، راه‌حلی منظم‌شده می‌سازد و نیاز به دانستن طیف توان تصویر اصلی را کاهش می‌دهد.
+\clearpage
+\chapter{فیلتر میانگین هندسی}
+فیلتر میانگین هندسی یک خانوادهٔ پارامتری است که بین فیلتر معکوس و فیلتر وینر حرکت می‌کند. این بخش کوتاه اما مفهومی است: با تغییر پارامترها می‌توان توازن میان حذف تاری و مهار نویز را کنترل کرد.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{eqbox}{(5-99) - فیلتر میانگین هندسی تعمیم‌یافته}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_099.png}\end{center}
+\textbf{توضیح:} پارامتر \(\alpha\) وزن نسبی رفتار معکوس و وینر را کنترل می‌کند و \(\beta\) نقش پارامتر نویز را دارد. بنابراین این فیلتر یک خانوادهٔ پیوسته از راه‌حل‌هاست.
+
+\textit{ارجاع به منبع: صفحهٔ 367 کتاب، فرمول (5-99).}
+\end{eqbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+میانگین هندسی نشان می‌دهد inverse و Wiener دو نقطه از یک طیف طراحی‌اند و می‌توان بین آن‌ها رفتار میانی ساخت.
+\clearpage
+\chapter{بازسازی تصویر از پروجکشن‌ها}
+بخش پایانی از «ترمیم تصویر موجود» به «ساختن تصویر از اندازه‌گیری‌های خطی» می‌رود. ابتدا پروجکشن و پس‌پراکنش شهودی معرفی می‌شوند، سپس تبدیل رادون و قضیهٔ برش فوریه به فرمول بازسازی با پس‌پراکنش فیلترشده می‌انجامند. در پایان، هندسهٔ فن‌بیمِ CT و تبدیل آن به هندسهٔ پرتوهای موازی بررسی می‌شود.
+\begin{teachbox}
+در تدریس این بخش ابتدا رابطهٔ علت و معلولی را بگویید و سپس به فرمول بروید. دانشجو باید بداند هر پارامتر چه اثر قابل مشاهده‌ای در شکل دارد؛ فرمول بدون اتصال به تصویر به‌سرعت تبدیل به حفظیات می‌شود.
+\end{teachbox}
+\begin{figbox}{5.32}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_32.png}\end{center}
+\textbf{خواندن شکل:} پس‌پراکنش را با یک جسم ساده نشان می‌دهد: پروجکشن یک‌بعدی روی همان خطوط در تصویر پخش می‌شود. تقاطع چند پس‌پراکنش محل جسم را برجسته می‌کند، اما halo باقی می‌ماند.
+
+\textit{ارجاع به منبع: صفحهٔ 369 کتاب، شکل 5.32.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.33}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_33.png}\end{center}
+\textbf{خواندن شکل:} با افزایش تعداد زوایا، شکل جسم بهتر تعیین می‌شود ولی backprojection ساده همچنان تار است. این تاری زمینهٔ نیاز به فیلتر ramp قبل از backprojection است.
+
+\textit{ارجاع به منبع: صفحهٔ 370 کتاب، شکل 5.33.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.34}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_34.png}\end{center}
+\textbf{خواندن شکل:} دو جسم با ضرایب جذب متفاوت نشان می‌دهند پروجکشن فقط مکان را حمل نمی‌کند؛ مقدار انتگرال خطی نیز شدت/جذب را کد می‌کند. افزایش تعداد نما جزئیات را بهتر بازسازی می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 371 کتاب، شکل 5.34.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.35}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_35.png}\end{center}
+\textbf{خواندن شکل:} تکامل نسل‌های CT از translate-rotate به آرایه‌های بزرگ detector و چرخش سریع را نشان می‌دهد. هدف مهندسی: جمع‌آوری پروجکشن‌های بیشتر با زمان کمتر و خطای حرکتی کمتر.
+
+\textit{ارجاع به منبع: صفحهٔ 372 کتاب، شکل 5.35.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-100) - نمایش نرمال یک خط}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_100.png}\end{center}
+\textbf{توضیح:} به‌جای شیب و عرض از مبدأ، خط با فاصلهٔ عمود از مبدأ \(\rho\) و زاویهٔ نرمال \(\theta\) نمایش داده می‌شود؛ این پارامترگذاری اساس تبدیل رادون است.
+
+\textit{ارجاع به منبع: صفحهٔ 374 کتاب، فرمول (5-100).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-101) - پروجکشن به‌صورت انتگرال خطی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_101.png}\end{center}
+\textbf{توضیح:} این رابطه «پروجکشن به‌صورت انتگرال خطی» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 374 کتاب، فرمول (5-101).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.36}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_36.png}\end{center}
+\textbf{خواندن شکل:} نمایش نرمال خط با \(\rho\) و \(\theta\) از مشکلات شیب بی‌نهایت دوری می‌کند و برای همهٔ جهت‌ها یک پارامترگذاری یکنواخت دارد.
+
+\textit{ارجاع به منبع: صفحهٔ 374 کتاب، شکل 5.36.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-102) - تبدیل رادون پیوسته}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_102.png}\end{center}
+\textbf{توضیح:} هر مقدار \(g(\rho,\theta)\) مجموع/انتگرال جذب روی یک خط است. مجموعهٔ این مقادیر برای زوایای مختلف دادهٔ خام توموگرافی را تشکیل می‌دهد.
+
+\textit{ارجاع به منبع: صفحهٔ 375 کتاب، فرمول (5-102).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-103) - تبدیل رادون گسسته}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_103.png}\end{center}
+\textbf{توضیح:} دلتا فقط پیکسل‌هایی را نگه می‌دارد که روی خط \(x\cos\theta+y\sin\theta=\rho\) هستند؛ بنابراین نسخهٔ گسسته مستقیماً raysum را پیاده می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 375 کتاب، فرمول (5-103).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.37}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_37.png}\end{center}
+\textbf{خواندن شکل:} هندسهٔ پرتوهای موازی، منبع و detector و مختصات \(\rho,\theta\) را به تبدیل رادون متصل می‌کند. هر detector یک انتگرال خطی روی جسم ثبت می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 375 کتاب، شکل 5.37.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.38}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_38.png}\end{center}
+\textbf{خواندن شکل:} برای یک دیسک، تبدیل رادون را می‌توان تحلیلی به‌دست آورد: طول وترِ عبوری از دیسک تابعی از \(\rho\) است و به‌دلیل تقارن، به \(\theta\) وابسته نیست.
+
+\textit{ارجاع به منبع: صفحهٔ 376 کتاب، شکل 5.38.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-104) - پس‌پراکنش یک پروجکشن}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_104.png}\end{center}
+\textbf{توضیح:} در پس‌پراکنش، یک مقدار پروجکشن روی تمام پیکسل‌های خط متناظر «پخش» می‌شود. این عملیات به‌تنهایی تصویر را تار می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 378 کتاب، فرمول (5-104).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-105) - جمع پیوستهٔ پس‌پراکنش‌ها}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_105.png}\end{center}
+\textbf{توضیح:} این رابطه «جمع پیوستهٔ پس‌پراکنش‌ها» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 378 کتاب، فرمول (5-105).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.39}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_39.png}\end{center}
+\textbf{خواندن شکل:} سینوگرام‌ها تصویر دوبعدیِ مجموعهٔ پروجکشن‌ها هستند. یک نقطه/ساختار در جسم هنگام تغییر زاویه مسیر سینوسی روی سینوگرام می‌سازد؛ خواندن سینوگرام برای فهم CT بسیار مهم است.
+
+\textit{ارجاع به منبع: صفحهٔ 378 کتاب، شکل 5.39.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-106) - جمع گسستهٔ پس‌پراکنش‌ها}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_106.png}\end{center}
+\textbf{توضیح:} این رابطه «جمع گسستهٔ پس‌پراکنش‌ها» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 379 کتاب، فرمول (5-106).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-107) - تبدیل فوریهٔ یک‌بعدی یک پروجکشن}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_107.png}\end{center}
+\textbf{توضیح:} این رابطه «تبدیل فوریهٔ یک‌بعدی یک پروجکشن» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 379 کتاب، فرمول (5-107).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.40}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_40.png}\end{center}
+\textbf{خواندن شکل:} backprojection خام سینوگرام‌ها ساختار کلی را برمی‌گرداند اما شدیداً تار است. این شکل نشان می‌دهد مشکل از کمبود نما نیست؛ از پاسخ فرکانسی خود backprojection است.
+
+\textit{ارجاع به منبع: صفحهٔ 379 کتاب، شکل 5.40.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-108) - جایگذاری تبدیل رادون در تبدیل یک‌بعدی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_108.png}\end{center}
+\textbf{توضیح:} این رابطه «جایگذاری تبدیل رادون در تبدیل یک‌بعدی» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 380 کتاب، فرمول (5-108).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-109) - حذف دلتا و ساده‌سازی انتگرال}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_109.png}\end{center}
+\textbf{توضیح:} این رابطه «حذف دلتا و ساده‌سازی انتگرال» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 380 کتاب، فرمول (5-109).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-110) - قضیهٔ برش فوریه}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_110.png}\end{center}
+\textbf{توضیح:} این قضیه قلب بازسازی CT است: تبدیل فوریهٔ ۱بعدی یک پروجکشن، یک برش شعاعی از تبدیل فوریهٔ ۲بعدی جسم در همان زاویه است.
+
+\textit{ارجاع به منبع: صفحهٔ 380 کتاب، فرمول (5-110).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-111) - تبدیل فوریهٔ معکوس دوبعدی تصویر}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_111.png}\end{center}
+\textbf{توضیح:} این رابطه «تبدیل فوریهٔ معکوس دوبعدی تصویر» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 381 کتاب، فرمول (5-111).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-112) - تبدیل مختصات دکارتی به قطبی در صفحهٔ فرکانس}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_112.png}\end{center}
+\textbf{توضیح:} این رابطه «تبدیل مختصات دکارتی به قطبی در صفحهٔ فرکانس» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 381 کتاب، فرمول (5-112).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-113) - جایگذاری قضیهٔ برش در بازسازی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_113.png}\end{center}
+\textbf{توضیح:} این رابطه «جایگذاری قضیهٔ برش در بازسازی» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.
+
+\textit{ارجاع به منبع: صفحهٔ 381 کتاب، فرمول (5-113).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-114) - کاهش بازهٔ زاویه به نیم‌دایره}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_114.png}\end{center}
+\textbf{توضیح:} به‌دلیل تقارن پروجکشن‌های ۱۸۰ درجه، اطلاعات مستقل فقط در بازهٔ صفر تا \(\pi\) قرار دارد.
+
+\textit{ارجاع به منبع: صفحهٔ 381 کتاب، فرمول (5-114).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-115) - تفکیک مرحلهٔ فیلترکردن از پس‌پراکنش}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_115.png}\end{center}
+\textbf{توضیح:} عبارت داخل کروشه همان فیلترکردن هر پروجکشن با پاسخ فرکانسی \(|\omega|\) است؛ سپس نتیجه در همهٔ زوایا پس‌پراکنش می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 381 کتاب، فرمول (5-115).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.41}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_41.png}\end{center}
+\textbf{خواندن شکل:} قضیهٔ Fourier slice به‌صورت هندسی رسم شده: FT یک‌بعدی هر پروجکشن یک خط شعاعی در FT دوبعدی جسم است. با نماهای متعدد، صفحهٔ فرکانس نمونه‌برداری می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 381 کتاب، شکل 5.41.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-116) - پنجرهٔ هَمینگ/هَن برای محدودکردن فیلتر رمپ}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_116.png}\end{center}
+\textbf{توضیح:} پنجره‌کردن رمپ فرکانس‌های بالا را نرم‌تر قطع می‌کند. نتیجه: نویز و ringing کمتر، با بهای اندکی کاهش تفکیک مکانی.
+
+\textit{ارجاع به منبع: صفحهٔ 382 کتاب، فرمول (5-116).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.42}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_42.png}\end{center}
+\textbf{خواندن شکل:} رمپ \(|\omega|\) تاری backprojection را جبران می‌کند ولی high-frequency را تقویت می‌کند. پنجرهٔ Hamming جلوی قطع تند را می‌گیرد و ringing/noise را کاهش می‌دهد.
+
+\textit{ارجاع به منبع: صفحهٔ 382 کتاب، شکل 5.42.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.43}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_43.png}\end{center}
+\textbf{خواندن شکل:} برای مستطیلِ با لبه‌های تیز، ramp خالص لبه را شارپ‌تر نگه می‌دارد ولی ringing بیشتری دارد؛ ramp پنجره‌شده ringing کمتر و کمی blur بیشتر دارد.
+
+\textit{ارجاع به منبع: صفحهٔ 384 کتاب، شکل 5.43.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-117) - فرمول کانولوشن-پس‌پراکنش فیلترشده}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_117.png}\end{center}
+\textbf{توضیح:} این همان الگوریتم عملی FBP است: هر پروجکشن با کرنل \(s\) کانولوشن می‌شود و سپس روی مسیر هندسی متناظر پس‌پراکنش می‌گردد.
+
+\textit{ارجاع به منبع: صفحهٔ 385 کتاب، فرمول (5-117).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.44}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_44.png}\end{center}
+\textbf{خواندن شکل:} همان مصالحه روی phantom سر دیده می‌شود. این تصویر مستقیماً رابطهٔ رزولوشن-نویز/رینگینگ را در انتخاب پنجرهٔ فیلتر بازسازی نشان می‌دهد.
+
+\textit{ارجاع به منبع: صفحهٔ 385 کتاب، شکل 5.44.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-118) - رابطهٔ زاویه‌های پرتو فن‌بیم و پرتو موازی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_118.png}\end{center}
+\textbf{توضیح:} این رابطه «رابطهٔ زاویه‌های پرتو فن‌بیم و پرتو موازی» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 386 کتاب، فرمول (5-118).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-119) - رابطهٔ فاصلهٔ شعاعی با زاویهٔ فن}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_119.png}\end{center}
+\textbf{توضیح:} این رابطه «رابطهٔ فاصلهٔ شعاعی با زاویهٔ فن» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 387 کتاب، فرمول (5-119).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-120) - فرمول بازسازی محدود به شعاع T}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_120.png}\end{center}
+\textbf{توضیح:} این رابطه «فرمول بازسازی محدود به شعاع T» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 387 کتاب، فرمول (5-120).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-121) - بازنویسی ضرب داخلی در مختصات قطبی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_121.png}\end{center}
+\textbf{توضیح:} این رابطه «بازنویسی ضرب داخلی در مختصات قطبی» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 387 کتاب، فرمول (5-121).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.45}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_45.png}\end{center}
+\textbf{خواندن شکل:} هندسهٔ فن‌بیم شامل زاویهٔ چرخش منبع \(\beta\)، زاویهٔ پرتو نسبت به center ray یعنی \(\alpha\)، و فاصلهٔ منبع تا مرکز است. همهٔ فرمول‌های بعدی از همین شکل می‌آیند.
+
+\textit{ارجاع به منبع: صفحهٔ 387 کتاب، شکل 5.45.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-122) - فرمول بازسازی موازی در مختصات قطبی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_122.png}\end{center}
+\textbf{توضیح:} این رابطه «فرمول بازسازی موازی در مختصات قطبی» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 388 کتاب، فرمول (5-122).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-123) - تغییر متغیرها از پرتو موازی به فن‌بیم}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_123.png}\end{center}
+\textbf{توضیح:} این رابطه «تغییر متغیرها از پرتو موازی به فن‌بیم» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 388 کتاب، فرمول (5-123).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-124) - فرمول بنیادی بازسازی فن‌بیم}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_124.png}\end{center}
+\textbf{توضیح:} این رابطه نسخهٔ بنیادی FBP برای هندسهٔ فن‌بیم است و هم وزن هندسی و هم تغییر مختصات از فن‌بیم به دستگاه جسم را در خود دارد.
+
+\textit{ارجاع به منبع: صفحهٔ 388 کتاب، فرمول (5-124).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-125) - رابطهٔ هندسی برای تبدیل به فرم کانولوشن}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_125.png}\end{center}
+\textbf{توضیح:} این رابطه «رابطهٔ هندسی برای تبدیل به فرم کانولوشن» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 388 کتاب، فرمول (5-125).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-126) - جایگذاری رابطهٔ هندسی در بازسازی فن‌بیم}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_126.png}\end{center}
+\textbf{توضیح:} این رابطه «جایگذاری رابطهٔ هندسی در بازسازی فن‌بیم» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 388 کتاب، فرمول (5-126).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-127) - خاصیت مقیاس فیلتر بازسازی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_127.png}\end{center}
+\textbf{توضیح:} این رابطه «خاصیت مقیاس فیلتر بازسازی» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 389 کتاب، فرمول (5-127).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-128) - فرم کانولوشنی بازسازی فن‌بیم}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_128.png}\end{center}
+\textbf{توضیح:} فرم کانولوشنی باعث می‌شود بازسازی فن‌بیم قابل پیاده‌سازی سریع شود؛ انتگرال داخلی به کانولوشنِ پروجکشن وزن‌دار با کرنل بازسازی تبدیل شده است.
+
+\textit{ارجاع به منبع: صفحهٔ 389 کتاب، فرمول (5-128).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-129) - تعریف کرنل فن‌بیم}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_129.png}\end{center}
+\textbf{توضیح:} این رابطه «تعریف کرنل فن‌بیم» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 389 کتاب، فرمول (5-129).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-130) - تعریف پروجکشن وزن‌دهی‌شده}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_130.png}\end{center}
+\textbf{توضیح:} این رابطه «تعریف پروجکشن وزن‌دهی‌شده» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 389 کتاب، فرمول (5-130).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.46}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_46.png}\end{center}
+\textbf{خواندن شکل:} حداکثر زاویهٔ فن لازم برای پوشاندن ناحیهٔ مورد علاقه از شعاع جسم و فاصلهٔ منبع تعیین می‌شود. detectorها باید کل این زاویه را پوشش دهند.
+
+\textit{ارجاع به منبع: صفحهٔ 389 کتاب، شکل 5.46.}
+\end{figbox}
+\medskip
+\begin{eqbox}{(5-131) - نگاشت نمونهٔ فن‌بیم به پروجکشن موازی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_131.png}\end{center}
+\textbf{توضیح:} به‌جای پیاده‌سازی مستقیم فرمول فن‌بیم، داده‌ها را می‌توان rebin کرد: هر پرتو فن‌بیم به یک نمونه در هندسهٔ موازی نگاشت می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 390 کتاب، فرمول (5-131).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-132) - یکسان‌سازی گام‌های زاویه‌ای نمونه‌برداری}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_132.png}\end{center}
+\textbf{توضیح:} این رابطه «یکسان‌سازی گام‌های زاویه‌ای نمونه‌برداری» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.
+
+\textit{ارجاع به منبع: صفحهٔ 390 کتاب، فرمول (5-132).}
+\end{eqbox}
+\medskip
+\begin{eqbox}{(5-133) - رابطهٔ شاخصی برای بازچینی فن‌بیم به موازی}
+\begin{center}\includegraphics[width=.96\linewidth,height=.25\textheight,keepaspectratio]{assets/equations/eq_5_133.png}\end{center}
+\textbf{توضیح:} این رابطه نگاشت شاخص‌های نمونه‌برداری را صریح می‌کند و نشان می‌دهد چرا در تبدیل فن‌بیم به موازی معمولاً به درون‌یابی در راستای \(\rho\) نیاز داریم.
+
+\textit{ارجاع به منبع: صفحهٔ 390 کتاب، فرمول (5-133).}
+\end{eqbox}
+\medskip
+\begin{figbox}{5.47}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_47.png}\end{center}
+\textbf{خواندن شکل:} نمایش قطبی یک نقطه روی یک پرتو فن‌بیم برای استخراج وزن \(1/R^2\) و تبدیل آرگومان فیلتر در فرمول بازسازی استفاده می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 390 کتاب، شکل 5.47.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.48}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_48.png}\end{center}
+\textbf{خواندن شکل:} با ریزترکردن گام زاویه‌ای \(\alpha\) و \(\beta\)، aliasing در بازسازی مستطیل کمتر می‌شود. این شکل اثر مستقیم چگالی نمونه‌برداری فن‌بیم را نشان می‌دهد.
+
+\textit{ارجاع به منبع: صفحهٔ 391 کتاب، شکل 5.48.}
+\end{figbox}
+\medskip
+\begin{figbox}{5.49}
+\begin{center}\includegraphics[width=.96\linewidth,height=.58\textheight,keepaspectratio]{assets/figures/fig_5_49.png}\end{center}
+\textbf{خواندن شکل:} phantom سر نیز همان روند را تأیید می‌کند: detector/زاویه‌های بیشتر artifactها را کم می‌کنند و نتیجه به بازسازی پرتو موازیِ شکل 5.44 نزدیک می‌شود.
+
+\textit{ارجاع به منبع: صفحهٔ 392 کتاب، شکل 5.49.}
+\end{figbox}
+\medskip
+\section*{جمع‌بندی این بخش}
+در CT، backprojection به‌تنهایی کافی نیست؛ فیلتر ramp پیش از backprojection ضروری است. قضیهٔ Fourier slice دلیل نظری این فیلتر را توضیح می‌دهد و هندسهٔ fan-beam با وزن‌دهی و rebinning به همین چارچوب وصل می‌شود.
+\clearpage
+\chapter*{جمع‌بندی نهایی فصل ۵}\addcontentsline{toc}{chapter}{جمع‌بندی نهایی فصل ۵}
+\begin{conceptbox}
+فرض محوری بخش ترمیم این است که تخریب را بتوان تقریباً به‌صورت یک سامانهٔ \textbf{خطی و ناوردای مکانی} به‌همراه \textbf{نویز افزودهٔ نامرتبط با تصویر} مدل کرد. حتی وقتی این فرض‌ها دقیق نیستند، روش‌ها اغلب به‌صورت تقریبی مفیدند.
+\end{conceptbox}
+
+\section*{نقشهٔ تصمیم برای انتخاب روش}
+\begin{enumerate}[label=\arabic*.]
+\item اگر فقط نویز دارید و تاری مدل‌شده ندارید: ابتدا نوع نویز را از هیستوگرام/آمار محلی تشخیص دهید؛ برای Gaussian از میانگین/تطبیقی و برای salt-and-pepper از median/alpha-trimmed استفاده کنید.
+\item اگر نویز تناوبی دارید: طیف را بررسی کنید، ناچ‌های مزدوج را مشخص کنید و تا حد ممکن ناچ را باریک نگه دارید. در داده‌های حساس، نویز را با notch-pass استخراج و وزن‌دار تفریق کنید.
+\item اگر تاری و \(H\) معلوم است: inverse را فقط برای درک مسئله یا SNR بسیار بالا در نظر بگیرید؛ در حالت عمومی Wiener یا CLS پایدارترند.
+\item اگر \(H\) معلوم نیست: از PSF آزمایشی، زیرتصویر قابل مدل‌سازی یا مدل فیزیکی/حرکتی برای تخمین آن استفاده کنید.
+\item اگر دادهٔ شما پروجکشن CT است: مسئله restoration معمولی نیست؛ از Radon/FBP و در هندسهٔ fan-beam از وزن‌دهی و بازچینی مناسب استفاده کنید.
+\end{enumerate}
+
+\section*{پرسش‌های مفهومی برای قبل از کلاس}
+\begin{enumerate}[label=\arabic*.]
+\item چرا تصویر حاصل از فیلتر معکوس می‌تواند از تصویر ورودی نویزی‌تر شود، حتی وقتی \(H\) دقیقاً معلوم است؟
+\item تفاوت فیلتر median و arithmetic mean در برخورد با یک outlier بسیار روشن چیست؟
+\item چرا نویز سینوسی در طیف به‌صورت دو قلهٔ مزدوج ظاهر می‌شود؟
+\item در فیلتر وینر، افزایش نسبت توان نویز به سیگنال چه اثری روی میزان معکوس‌سازی دارد؟
+\item چرا backprojection ساده تصویر را تار می‌کند و فیلتر ramp چه چیزی را جبران می‌کند؟
+\item پنجرهٔ Hamming در CT چه مصالحه‌ای بین رزولوشن و ringing/noise ایجاد می‌کند؟
+\end{enumerate}
+
+\section*{منبع}
+این جزوه بر اساس فصل ۵ فایل پیوست زیر تهیه شده است: \lr{Rafael C. Gonzalez and Richard E. Woods, Digital Image Processing, Fourth Edition, Global Edition, Pearson, Chapter 5: Image Restoration and Reconstruction, pp. 317--392.}
+
+\end{document}

@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="فصل ۱۱: بافت تصویر و توصیفگر SIFT" href="chapter-11.html" />
-    <link rel="prev" title="فصل سوم — تبدیلات شدت و پالایش مکانی" href="chapter-03.html" />
+    <link rel="prev" title="فصل ۵: ترمیم و بازسازی تصویر" href="chapter-05.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,6 +180,7 @@
 <li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-02.html">فصل دوم: مبانی تصویر دیجیتال</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-11.html">فصل ۱۱: بافت تصویر و توصیفگر SIFT</a></li>
 </ul>
@@ -529,7 +530,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/fig10_00_concept_map.png"><img alt="../_images/fig10_00_concept_map.png" src="../_images/fig10_00_concept_map.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 39 </span><span class="caption-text">نقشۀ مفهومی فصل: قطعه‌بندی از دو ایدۀ بنیادی «ناپیوستگی» و «شباهت» به خانواده‌های لبه، آستانه، ناحیه، خوشه، گراف و آبخیز می‌رسد. این شکل برای همین فصل از نو طراحی شده است.</span><a class="headerlink" href="#fig-ch10-concept-map" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 226 </span><span class="caption-text">نقشۀ مفهومی فصل: قطعه‌بندی از دو ایدۀ بنیادی «ناپیوستگی» و «شباهت» به خانواده‌های لبه، آستانه، ناحیه، خوشه، گراف و آبخیز می‌رسد. این شکل برای همین فصل از نو طراحی شده است.</span><a class="headerlink" href="#fig-ch10-concept-map" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="id2">
@@ -1865,8 +1866,8 @@ b=1.\]</div>
 <li><p><span class="math notranslate nohighlight">\(\theta\)</span> زاویۀ بردار عمود بر خط با محور مرجع است.</p></li>
 </ul>
 <p>اگر $$\mathbf{n}=</p>
-<div class="amsmath math notranslate nohighlight" id="equation-da453b09-a356-4805-a48f-67bfcb7c2a3d">
-<span class="eqno">(1)<a class="headerlink" href="#equation-da453b09-a356-4805-a48f-67bfcb7c2a3d" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-4c809e4a-786a-42dc-b765-5e3bd676c7a9">
+<span class="eqno">(1)<a class="headerlink" href="#equation-4c809e4a-786a-42dc-b765-5e3bd676c7a9" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     \cos\theta\\
     \sin\theta
 \end{bmatrix},
@@ -3002,7 +3003,7 @@ G_y=\begin{bmatrix}-1&amp;0&amp;1\\-2&amp;0&amp;2\\-1&amp;0&amp;1\end{bmatrix}.\
 <a class="reference internal image-reference" href="../_images/fig10_01_step_derivatives.png"><img alt="../_images/fig10_01_step_derivatives.png" src="../_images/fig10_01_step_derivatives.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 40 </span><span class="caption-text">نمونۀ اصیل از یک لبۀ پله‌ای و پاسخ تفاضل اول و دوم. پاسخ مشتق اول در محل تغییر شدت بزرگ می‌شود و مشتق دوم در دو سوی گذار تغییر علامت می‌دهد.</span><a class="headerlink" href="#fig-ch10-step-derivatives" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 227 </span><span class="caption-text">نمونۀ اصیل از یک لبۀ پله‌ای و پاسخ تفاضل اول و دوم. پاسخ مشتق اول در محل تغییر شدت بزرگ می‌شود و مشتق دوم در دو سوی گذار تغییر علامت می‌دهد.</span><a class="headerlink" href="#fig-ch10-step-derivatives" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -3064,7 +3065,7 @@ G*f
 <a class="reference internal image-reference" href="../_images/fig10_05_log_zero_crossing.png"><img alt="../_images/fig10_05_log_zero_crossing.png" src="../_images/fig10_05_log_zero_crossing.png" style="width: 82%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 41 </span><span class="caption-text">مقطع شعاعی LoG برای یک <span class="math notranslate nohighlight">\(\sigma\)</span> نمونه. عبور از صفر در <span class="math notranslate nohighlight">\(r=\sqrt{2}\sigma\)</span> نشان می‌دهد چرا پاسخ LoG در اطراف ساختارها تغییر علامت می‌دهد.</span><a class="headerlink" href="#fig-ch10-log-zero-crossing" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 228 </span><span class="caption-text">مقطع شعاعی LoG برای یک <span class="math notranslate nohighlight">\(\sigma\)</span> نمونه. عبور از صفر در <span class="math notranslate nohighlight">\(r=\sqrt{2}\sigma\)</span> نشان می‌دهد چرا پاسخ LoG در اطراف ساختارها تغییر علامت می‌دهد.</span><a class="headerlink" href="#fig-ch10-log-zero-crossing" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>از گاوسی نرمال‌شده شروع می‌کنیم:</p>
@@ -3416,7 +3417,7 @@ C
 <a class="reference internal image-reference" href="../_images/fig10_06_canny_pipeline.png"><img alt="../_images/fig10_06_canny_pipeline.png" src="../_images/fig10_06_canny_pipeline.png" style="width: 100%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 42 </span><span class="caption-text">آزمایش بازتولیدپذیر روی تصویر مصنوعی: ورودی نویزی، هموارسازی گاوسی، اندازۀ گرادیان و ماسک لبه‌های قوی. شکل برای توضیح منطق زنجیرۀ Canny بازطراحی شده است.</span><a class="headerlink" href="#fig-ch10-canny-pipeline" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 229 </span><span class="caption-text">آزمایش بازتولیدپذیر روی تصویر مصنوعی: ورودی نویزی، هموارسازی گاوسی، اندازۀ گرادیان و ماسک لبه‌های قوی. شکل برای توضیح منطق زنجیرۀ Canny بازطراحی شده است.</span><a class="headerlink" href="#fig-ch10-canny-pipeline" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -3433,7 +3434,7 @@ C
 <a class="reference internal image-reference" href="../_images/fig10_07_otsu.png"><img alt="../_images/fig10_07_otsu.png" src="../_images/fig10_07_otsu.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 43 </span><span class="caption-text">هیستوگرام دومدی مصنوعی و واریانس بین‌کلاسی Otsu. خط‌چین آستانه‌ای را نشان می‌دهد که <span class="math notranslate nohighlight">\(\sigma_B^2(k)\)</span> را بیشینه می‌کند.</span><a class="headerlink" href="#fig-ch10-threshold-otsu" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 230 </span><span class="caption-text">هیستوگرام دومدی مصنوعی و واریانس بین‌کلاسی Otsu. خط‌چین آستانه‌ای را نشان می‌دهد که <span class="math notranslate nohighlight">\(\sigma_B^2(k)\)</span> را بیشینه می‌کند.</span><a class="headerlink" href="#fig-ch10-threshold-otsu" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -4207,7 +4208,7 @@ P_1P_2(m_1-m_2)^2,\]</div>
 <a class="reference internal image-reference" href="../_images/fig10_07_otsu.png"><img alt="../_images/fig10_07_otsu.png" src="../_images/fig10_07_otsu.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 44 </span><span class="caption-text">مثال تصویری مکمل: بیشینۀ واریانس بین‌کلاسی با آستانۀ انتخابی Otsu متناظر است.</span><a class="headerlink" href="#fig-ch10-otsu-variance" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 231 </span><span class="caption-text">مثال تصویری مکمل: بیشینۀ واریانس بین‌کلاسی با آستانۀ انتخابی Otsu متناظر است.</span><a class="headerlink" href="#fig-ch10-otsu-variance" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>فرض کنید تصویر فقط شش سطح شدت داشته باشد:</p>
@@ -4616,7 +4617,7 @@ P_1P_2(m_1-m_2)^2.\]</div>
 <a class="reference internal image-reference" href="../_images/fig10_08_region_growing.png"><img alt="../_images/fig10_08_region_growing.png" src="../_images/fig10_08_region_growing.png" style="width: 82%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 45 </span><span class="caption-text">تصویر عددی و ماسک ناحیۀ رشدکرده برای مثال آموزشی متن. شرط شباهت به تنهایی کافی نیست و اتصال مکانی نیز باید برقرار باشد.</span><a class="headerlink" href="#fig-ch10-region-growing" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 232 </span><span class="caption-text">تصویر عددی و ماسک ناحیۀ رشدکرده برای مثال آموزشی متن. شرط شباهت به تنهایی کافی نیست و اتصال مکانی نیز باید برقرار باشد.</span><a class="headerlink" href="#fig-ch10-region-growing" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>تصویر کوچک زیر را در نظر بگیرید:</p>
@@ -4899,7 +4900,7 @@ f(s)=11.\]</div>
 <a class="reference internal image-reference" href="../_images/fig10_09_split_merge.png"><img alt="../_images/fig10_09_split_merge.png" src="../_images/fig10_09_split_merge.png" style="width: 68%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 46 </span><span class="caption-text">نمایش اصیل مثال تقسیم به ربع‌ها و ادغام ناحیه‌های مجاور همگن.</span><a class="headerlink" href="#fig-ch10-split-merge" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 233 </span><span class="caption-text">نمایش اصیل مثال تقسیم به ربع‌ها و ادغام ناحیه‌های مجاور همگن.</span><a class="headerlink" href="#fig-ch10-split-merge" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>تصویر کوچک زیر را در نظر بگیرید:</p>
@@ -5008,7 +5009,7 @@ R_4=
 <a class="reference internal image-reference" href="../_images/fig10_10_slic_concept.png"><img alt="../_images/fig10_10_slic_concept.png" src="../_images/fig10_10_slic_concept.png" style="width: 78%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 47 </span><span class="caption-text">طرح آموزشی جست‌وجوی محلی SLIC و نقش همزمان نزدیکی مکانی و شباهت رنگی.</span><a class="headerlink" href="#fig-ch10-slic-concept" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 234 </span><span class="caption-text">طرح آموزشی جست‌وجوی محلی SLIC و نقش همزمان نزدیکی مکانی و شباهت رنگی.</span><a class="headerlink" href="#fig-ch10-slic-concept" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>برای تصویر رنگی معمولاً بردار</p>
@@ -5088,7 +5089,7 @@ R_4=
 <a class="reference internal image-reference" href="../_images/fig10_11_graph_cut.png"><img alt="../_images/fig10_11_graph_cut.png" src="../_images/fig10_11_graph_cut.png" style="width: 75%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 48 </span><span class="caption-text">نمایش سادهٔ گرافی از دو گروه با اتصال داخلی قوی و یال بین‌گروهی ضعیف؛ ایدۀ برش، جداسازی گروه‌ها با هزینهٔ مناسب است.</span><a class="headerlink" href="#fig-ch10-graph-cut" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 235 </span><span class="caption-text">نمایش سادهٔ گرافی از دو گروه با اتصال داخلی قوی و یال بین‌گروهی ضعیف؛ ایدۀ برش، جداسازی گروه‌ها با هزینهٔ مناسب است.</span><a class="headerlink" href="#fig-ch10-graph-cut" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>برای جلوگیری از برش‌های بسیار نامتوازن، معیار Normalized Cut تعریف می‌شود.</p>
@@ -5128,7 +5129,7 @@ R_4=
 <a class="reference internal image-reference" href="../_images/fig10_12_watershed.png"><img alt="../_images/fig10_12_watershed.png" src="../_images/fig10_12_watershed.png" style="width: 84%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 49 </span><span class="caption-text">برداشت توپوگرافی Watershed: حوضه‌ها از مینیمم‌ها رشد می‌کنند و مرز میان حوضه‌های رقیب به خط آبخیز تبدیل می‌شود.</span><a class="headerlink" href="#fig-ch10-watershed" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 236 </span><span class="caption-text">برداشت توپوگرافی Watershed: حوضه‌ها از مینیمم‌ها رشد می‌کنند و مرز میان حوضه‌های رقیب به خط آبخیز تبدیل می‌شود.</span><a class="headerlink" href="#fig-ch10-watershed" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>برای تصویر <span class="math notranslate nohighlight">\(f\)</span>، معمولاً یک نقشهٔ ارتفاع از اندازهٔ گرادیان می‌سازیم:</p>
@@ -5378,7 +5379,7 @@ M\cos(\phi-\alpha).
 <a class="reference internal image-reference" href="../_images/fig10_03_gradient_geometry.png"><img alt="../_images/fig10_03_gradient_geometry.png" src="../_images/fig10_03_gradient_geometry.png" style="width: 78%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 50 </span><span class="caption-text">منحنی‌های هم‌مقدار <span class="math notranslate nohighlight">\(f(x,y)=x^2+2y^2\)</span> در کنار بردار گرادیان و مماس. گرادیان بر منحنی هم‌مقدار عمود و در جهت بیشترین افزایش است.</span><a class="headerlink" href="#fig-ch10-gradient-geometry" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 237 </span><span class="caption-text">منحنی‌های هم‌مقدار <span class="math notranslate nohighlight">\(f(x,y)=x^2+2y^2\)</span> در کنار بردار گرادیان و مماس. گرادیان بر منحنی هم‌مقدار عمود و در جهت بیشترین افزایش است.</span><a class="headerlink" href="#fig-ch10-gradient-geometry" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>شکل بالا یک نکتۀ مهم را به صورت هندسی نشان می‌دهد. منحنی‌های رسم‌شده منحنی‌های</p>
@@ -5393,7 +5394,7 @@ M\cos(\phi-\alpha).
 <a class="reference internal image-reference" href="../_images/fig10_04_directional_derivative.png"><img alt="../_images/fig10_04_directional_derivative.png" src="../_images/fig10_04_directional_derivative.png" style="width: 86%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 51 </span><span class="caption-text">تغییر مشتق جهتی با زاویۀ <span class="math notranslate nohighlight">\(\phi\)</span>. بیشینه در <span class="math notranslate nohighlight">\(\phi=\alpha\)</span>، صفر در جهت عمود بر گرادیان و کمینه در جهت مخالف گرادیان رخ می‌دهد.</span><a class="headerlink" href="#fig-ch10-directional-derivative" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 238 </span><span class="caption-text">تغییر مشتق جهتی با زاویۀ <span class="math notranslate nohighlight">\(\phi\)</span>. بیشینه در <span class="math notranslate nohighlight">\(\phi=\alpha\)</span>، صفر در جهت عمود بر گرادیان و کمینه در جهت مخالف گرادیان رخ می‌دهد.</span><a class="headerlink" href="#fig-ch10-directional-derivative" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>نمودار دوم به روشنی نشان می‌دهد که رابطۀ</p>
@@ -5493,12 +5494,12 @@ D_{\mathbf{u}}f=-M.
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="chapter-03.html"
+       href="chapter-05.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">فصل سوم — تبدیلات شدت و پالایش مکانی</p>
+        <p class="prev-next-title">فصل ۵: ترمیم و بازسازی تصویر</p>
       </div>
     </a>
     <a class="right-next"

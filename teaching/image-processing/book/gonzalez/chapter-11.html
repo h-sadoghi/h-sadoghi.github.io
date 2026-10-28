@@ -180,6 +180,7 @@
 <li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-02.html">فصل دوم: مبانی تصویر دیجیتال</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل ۱۱: بافت تصویر و توصیفگر SIFT</a></li>
 </ul>
@@ -381,7 +382,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/fig11_00_concept_map.png"><img alt="../_images/fig11_00_concept_map.png" src="../_images/fig11_00_concept_map.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 52 </span><span class="caption-text">نقشۀ مفهومی فصل: بخش نخست بافت را از آمار تک‌پیکسلی به روابط فضایی GLCM و سپس طیف فوریه می‌برد؛ بخش دوم SIFT را از فضای مقیاس و DoG تا مکان‌یابی، جهت‌دهی، توصیفگر ۱۲۸بعدی و تطبیق ویژگی دنبال می‌کند. این شکل برای همین فصل از نو طراحی شده است.</span><a class="headerlink" href="#fig-ch11-concept-map" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 239 </span><span class="caption-text">نقشۀ مفهومی فصل: بخش نخست بافت را از آمار تک‌پیکسلی به روابط فضایی GLCM و سپس طیف فوریه می‌برد؛ بخش دوم SIFT را از فضای مقیاس و DoG تا مکان‌یابی، جهت‌دهی، توصیفگر ۱۲۸بعدی و تطبیق ویژگی دنبال می‌کند. این شکل برای همین فصل از نو طراحی شده است.</span><a class="headerlink" href="#fig-ch11-concept-map" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="id1">
@@ -429,7 +430,7 @@ Co-occurrence Matrix) و تحلیل فوریه بافت را با مثال عد�
 <a class="reference internal image-reference" href="../_images/06_texture_types.png"><img alt="../_images/06_texture_types.png" src="../_images/06_texture_types.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 53 </span><span class="caption-text">چهار الگوی ساختگی برای تفکیک بافت نرم، درشت، متناوب و تصادفی. این شکل بازسازیِ مستقلِ مفهومی از بحث شکل 11.29 کتاب است.</span><a class="headerlink" href="#fig-ch11-01" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 240 </span><span class="caption-text">چهار الگوی ساختگی برای تفکیک بافت نرم، درشت، متناوب و تصادفی. این شکل بازسازیِ مستقلِ مفهومی از بحث شکل 11.29 کتاب است.</span><a class="headerlink" href="#fig-ch11-01" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="id4">
@@ -523,7 +524,7 @@ U=(0.5)^2+(0.5)^2=0.5,\qquad
 <a class="reference internal image-reference" href="../_images/07_same_hist_different_spatial.png"><img alt="../_images/07_same_hist_different_spatial.png" src="../_images/07_same_hist_different_spatial.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 54 </span><span class="caption-text">دو تصویر با هیستوگرام یکسان ولی ساختار فضایی متفاوت. نمودار سوم توزیع شدت یکسان آن‌ها را نشان می‌دهد.</span><a class="headerlink" href="#fig-ch11-02" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 241 </span><span class="caption-text">دو تصویر با هیستوگرام یکسان ولی ساختار فضایی متفاوت. نمودار سوم توزیع شدت یکسان آن‌ها را نشان می‌دهد.</span><a class="headerlink" href="#fig-ch11-02" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>آیا از <span class="math notranslate nohighlight">\(m\)</span>، <span class="math notranslate nohighlight">\(\sigma\)</span>، <span class="math notranslate nohighlight">\(U\)</span> یا <span class="math notranslate nohighlight">\(H\)</span> می‌توان فهمید نوارها در کدام جهت‌اند؟
@@ -549,7 +550,7 @@ U=(0.5)^2+(0.5)^2=0.5,\qquad
 <a class="reference internal image-reference" href="../_images/glcm_4x4_12_right_pairs.png"><img alt="../_images/glcm_4x4_12_right_pairs.png" src="../_images/glcm_4x4_12_right_pairs.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 55 </span><span class="caption-text">شمارش زوج‌های افقی برای جابه‌جایی <span class="math notranslate nohighlight">\(\boldsymbol\delta=(1,0)\)</span> در یک تصویر <span class="math notranslate nohighlight">\(4\times 4\)</span>. هر پیکان یک زوج مرتب را نشان می‌دهد. در مجموع ۱۲ زوج وجود دارد.</span><a class="headerlink" href="#fig-ch11-03" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 242 </span><span class="caption-text">شمارش زوج‌های افقی برای جابه‌جایی <span class="math notranslate nohighlight">\(\boldsymbol\delta=(1,0)\)</span> در یک تصویر <span class="math notranslate nohighlight">\(4\times 4\)</span>. هر پیکان یک زوج مرتب را نشان می‌دهد. در مجموع ۱۲ زوج وجود دارد.</span><a class="headerlink" href="#fig-ch11-03" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>در تصویر <span class="math notranslate nohighlight">\(A\)</span>، هر سطر <span class="math notranslate nohighlight">\(0,1,0,1\)</span> است. از هر سطر زوج‌های <span class="math notranslate nohighlight">\((0,1),(1,0),(0,1)\)</span>
@@ -565,7 +566,7 @@ G_B=\begin{bmatrix}6&amp;0\\0&amp;6\end{bmatrix},\qquad
 <a class="reference internal image-reference" href="../_images/08_glcm_example.png"><img alt="../_images/08_glcm_example.png" src="../_images/08_glcm_example.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 56 </span><span class="caption-text">ماتریس هم‌وقوعی نرمال‌شده‌ی دو تصویر با جهت همسایگیِ یک پیکسل به راست، و مقایسه با جهت عمودی در تصویر دوم. محورها مقدار پیکسل و همسایه‌ی آن‌اند.</span><a class="headerlink" href="#fig-ch11-04" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 243 </span><span class="caption-text">ماتریس هم‌وقوعی نرمال‌شده‌ی دو تصویر با جهت همسایگیِ یک پیکسل به راست، و مقایسه با جهت عمودی در تصویر دوم. محورها مقدار پیکسل و همسایه‌ی آن‌اند.</span><a class="headerlink" href="#fig-ch11-04" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>در <span class="math notranslate nohighlight">\(A\)</span> مقادیر روی خانه‌ی <em>خارجِ قطر اصلی</em> قرار دارند، یعنی دو همسایه اغلب
@@ -691,7 +692,7 @@ $$G^{(1,0)}=\begin{bmatrix}0&amp;8\\4&amp;0\end{bmatrix},\qquad
 <a class="reference internal image-reference" href="../_images/glcm_direction_distance_explained.png"><img alt="../_images/glcm_direction_distance_explained.png" src="../_images/glcm_direction_distance_explained.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 57 </span><span class="caption-text">یک تصویر ثابت با نوارهای عمودی و سه تعریفِ متفاوتِ همسایه. پیکان‌ها نشان‌دهنده‌ی زوج‌های مرتب‌اند و ماتریس‌های پایین تعداد آن زوج‌ها را نمایش می‌دهند. در جهت افقی با فاصله‌ی یک، بیشترِ درایه‌ها خارج از قطرند؛ در جهت عمودی یا فاصله‌ی افقیِ دو، همه‌ی شمارش‌ها روی قطر قرار می‌گیرند.</span><a class="headerlink" href="#fig-ch11-05" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 244 </span><span class="caption-text">یک تصویر ثابت با نوارهای عمودی و سه تعریفِ متفاوتِ همسایه. پیکان‌ها نشان‌دهنده‌ی زوج‌های مرتب‌اند و ماتریس‌های پایین تعداد آن زوج‌ها را نمایش می‌دهند. در جهت افقی با فاصله‌ی یک، بیشترِ درایه‌ها خارج از قطرند؛ در جهت عمودی یا فاصله‌ی افقیِ دو، همه‌ی شمارش‌ها روی قطر قرار می‌گیرند.</span><a class="headerlink" href="#fig-ch11-05" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -984,7 +985,7 @@ $<span class="math notranslate nohighlight">\(\theta_{\rm relative}(x,y)=\theta(
 <a class="reference internal image-reference" href="../_images/17_sift_descriptor.png"><img alt="../_images/17_sift_descriptor.png" src="../_images/17_sift_descriptor.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 58 </span><span class="caption-text">سمت چپ: میدان گرادیانِ وزن‌دار و تقسیم‌بندی فضایی به ۱۶ سلول. سمت راست: نمایش ترتیبیِ ۱۲۸ مؤلفه‌ی حاصل از ۸ خانه‌ی جهت در هر سلول. این نمودار برای آموزش تولید شده است.</span><a class="headerlink" href="#fig-ch11-09" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 245 </span><span class="caption-text">سمت چپ: میدان گرادیانِ وزن‌دار و تقسیم‌بندی فضایی به ۱۶ سلول. سمت راست: نمایش ترتیبیِ ۱۲۸ مؤلفه‌ی حاصل از ۸ خانه‌ی جهت در هر سلول. این نمودار برای آموزش تولید شده است.</span><a class="headerlink" href="#fig-ch11-09" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>برای هر نمونه‌ی گرادیان با بزرگی <span class="math notranslate nohighlight">\(m\)</span> و زاویه‌ی نسبی <span class="math notranslate nohighlight">\(\varphi\)</span>، ابتدا وزن
