@@ -13,7 +13,7 @@
     {%- assign package_chapters = package.chapters | sort: 'number' -%}
     {%- for chapter in package_chapters %}
     {%- if chapter.published != false %}
-    <li id="chapter-{{ chapter.number }}" class="mb-3">
+    <li id="chapter-{{ chapter.number | default: chapter.id }}" class="mb-3">
       <strong>
         {%- if chapter.book_url -%}
           <a href="{{ chapter.book_url | relative_url }}">{{ chapter.title | escape }}</a>
