@@ -967,10 +967,10 @@ $$
 
 ## فایل‌های همراه برای دانلود
 
-- [Notebook مثال‌های فصل دوم](downloads/chapter02_examples.ipynb)
-- [اسکریپت Python مثال‌های فصل دوم](downloads/chapter02_examples.py)
-- [بسته ZIP کد و داده مصنوعی](downloads/Chapter02_Code_Examples.zip)
-- [بسته ZIP همه شکل‌های اصیل فصل](downloads/Chapter02_Original_Figures.zip)
+- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-02/chapter02_examples.ipynb" download>Notebook مثال‌های فصل دوم</a>
+- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-02/chapter02_examples.py" download>اسکریپت Python مثال‌های فصل دوم</a>
+- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-02/Chapter02_Code_Examples.zip" download>بسته ZIP کد و داده مصنوعی</a>
+- <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-02/Chapter02_Original_Figures.zip" download>بسته ZIP همه شکل‌های اصیل فصل</a>
 
 ---
 
