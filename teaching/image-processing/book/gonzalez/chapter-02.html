@@ -1,0 +1,1616 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل دوم — مبانی تصویر دیجیتال &#8212; Image Processing Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gonzalez/chapter-02';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Student Work" href="../student-work/index.html" />
+    <link rel="prev" title="فصل اول — مقدمه‌ای بر پردازش تصویر دیجیتال" href="chapter-01.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Image Processing Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Image Processing Course Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gonzalez Notes and Learning Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل دوم: مبانی تصویر دیجیتال</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../student-work/index.html">Student Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/gonzalez/chapter-02.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل دوم — مبانی تصویر دیجیتال</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1 عناصر ادراک بینایی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.1.1 چرا با چشم شروع می‌کنیم؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.1.2 مدل ساده چشم و تشکیل تصویر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">مثال هندسی ساده: اندازه تصویر روی شبکیه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.1.3 سازگاری روشنایی و تفکیک روشنایی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.1.4 روشنایی ادراک‌شده تابع محیط است</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.2 نور و طیف الکترومغناطیسی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.2.1 تصویر فقط از نور مرئی ساخته نمی‌شود</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.2.2 چرا طول موج مهم است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.3 حسگری و اکتساب تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.3.1 زنجیره اکتساب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3.2 سه آرایش متداول حسگر</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">الف) یک حسگر منفرد</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">ب) نوار یک‌بعدی حسگرها</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">ج) آرایه دوبعدی</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">2.3.3 مدل ساده تشکیل تصویر: روشن‌سازی × بازتاب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">چرا این مدل مهم است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">مثال</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">2.4 نمونه‌برداری و کوانتیزه‌سازی تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">2.4.1 تفاوت اصلی نمونه‌برداری و کوانتیزه‌سازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">2.4.2 نمایش ماتریسی تصویر دیجیتال</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">2.4.3 تعداد سطوح شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">مثال حجم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">2.4.4 شاخص خطی در برابر مختصات دوبعدی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">2.4.5 تفکیک مکانی و تفکیک شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">دو خطای رایج</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">2.4.6 درون‌یابی تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">نزدیک‌ترین همسایه</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">درون‌یابی دوخطی</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bicubic">درون‌یابی bicubic</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">الگوریتم عمومی تغییر اندازه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">مثال کد کوتاه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">2.5 روابط پایه بین پیکسل‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">2.5.1 همسایه‌های یک پیکسل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">2.5.2 مجاورت با قید مقدار</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#m-adjacency">چرا m-adjacency لازم شد؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">2.5.3 مسیر و مؤلفه متصل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">2.5.4 ناحیه، مرز و لبه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">2.5.5 معیارهای فاصله</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">فاصله اقلیدسی</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#city-block-d-4">فاصله City-block یا <span class="math notranslate nohighlight">\(D_4\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#chessboard-d-8">فاصله Chessboard یا <span class="math notranslate nohighlight">\(D_8\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">مثال عددی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">2.6 ابزارهای ریاضی پایه در پردازش تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">2.6.1 عملیات عنصر‌به‌عنصر در برابر عملیات ماتریسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">2.6.2 خطی و غیرخطی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">چرا خطی بودن مهم است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">2.6.3 عملیات حسابی روی تصاویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">کاربرد جمع</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">کاربرد تفریق</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">کاربرد ضرب</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">کاربرد تقسیم</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">2.6.4 عملیات مجموعه‌ای و منطقی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">2.6.5 عملیات مکانی: تک‌پیکسلی و همسایگی</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">تک‌پیکسلی</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id54">همسایگی</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id55">2.6.6 تبدیلات هندسی و درون‌یابی شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-mapping-inverse-mapping">Forward mapping و inverse mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registration-tie-point">2.6.7 registration و tie point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id56">2.6.8 عملیات برداری و ماتریسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id57">2.6.9 تبدیل‌های تصویری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id58">2.6.10 شدت تصویر به‌عنوان متغیر تصادفی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id59">یک مثال یکپارچه: از صحنه تا عدد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id60">الگوریتم‌های کوتاه برای تمرین</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k">الگوریتم 1 — کوانتیزه‌سازی تصویر خاکستری به <span class="math notranslate nohighlight">\(k\)</span> بیت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id61">الگوریتم 2 — شمارش مؤلفه‌های متصل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-mapping">الگوریتم 3 — تبدیل هندسی با inverse mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id62">الگوریتم 4 — میانگین‌گیری چند فریم برای کاهش نویز</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id63">آزمایش‌های پیشنهادی دانشجو</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-quantization">آزمایش 1: Sampling در برابر Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolation">آزمایش 2: Interpolation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connectivity">آزمایش 3: Connectivity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmetic-imaging">آزمایش 4: Arithmetic imaging</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id64">پرسش‌های مفهومی برای خودآزمایی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id65">جمع‌بندی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id66">فایل‌های همراه برای دانلود</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id67">منبع علمی اصلی</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل دوم — مبانی تصویر دیجیتال<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>این فصل پلی است میان «دنیای فیزیکی» و «آرایه‌ای از اعداد» که در رایانه آن را تصویر می‌نامیم. اگر فصل‌های بعد قرار است درباره بهبود، فیلترکردن، بازیابی، رنگ، تبدیل‌ها یا قطعه‌بندی صحبت کنند، باید پیش از آن روشن باشد که <strong>تصویر چگونه شکل می‌گیرد، چگونه دیجیتال می‌شود، پیکسل‌ها چه رابطه‌ای با یکدیگر دارند و چه عملیات ریاضی روی آن‌ها معنی‌دار است</strong>.</p>
+<figure class="align-default" id="fig-ch2-concept-map">
+<a class="reference internal image-reference" href="../_images/fig02_00_concept_map.png"><img alt="../_images/fig02_00_concept_map.png" src="../_images/fig02_00_concept_map.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text">نقشه مفهومی فصل دوم. همه شکل‌های این فصل برای همین بسته آموزشی از نو تولید شده‌اند و بازتولید شکل‌های کتاب نیستند.</span><a class="headerlink" href="#fig-ch2-concept-map" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id2">
+<h2>اهداف یادگیری<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>پس از مطالعه این فصل انتظار می‌رود دانشجو بتواند:</p>
+<ul class="simple">
+<li><p>توضیح دهد چشم انسان چگونه تصویر را تشکیل می‌دهد و چرا ادراک روشنایی صرفاً تابع مقدار فیزیکی شدت نیست؛</p></li>
+<li><p>ارتباط طول موج، فرکانس و انرژی را با روش‌های تصویربرداری توضیح دهد؛</p></li>
+<li><p>مسیر تبدیل یک صحنه فیزیکی به آرایه دیجیتال را مرحله‌به‌مرحله بیان کند؛</p></li>
+<li><p>تفاوت <strong>نمونه‌برداری</strong> و <strong>کوانتیزه‌سازی</strong> را دقیقاً تشخیص دهد؛</p></li>
+<li><p>اثر کاهش تفکیک مکانی و کاهش تعداد سطوح شدت را از هم تفکیک کند؛</p></li>
+<li><p>مفهوم درون‌یابی را بفهمد و تفاوت نزدیک‌ترین همسایه، دوخطی و دوبعدی مکعبی را توضیح دهد؛</p></li>
+<li><p>همسایگی‌های 4، قطری و 8، پیوستگی، مسیر، ناحیه و مرز را تعریف کند؛</p></li>
+<li><p>فاصله اقلیدسی، شهری و شطرنجی را برای پیکسل‌ها محاسبه کند؛</p></li>
+<li><p>میان عملیات عنصر‌به‌عنصر و عملیات ماتریسی تفاوت قائل شود؛</p></li>
+<li><p>نقش جمع، تفریق، ضرب، تقسیم، عملیات منطقی، تبدیلات هندسی، بردار/ماتریس، تبدیل‌های تصویری و احتمال را در فصل‌های بعد پیش‌بینی کند.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>2.1 عناصر ادراک بینایی<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>2.1.1 چرا با چشم شروع می‌کنیم؟<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>پردازش تصویر رشته‌ای کاملاً ریاضی است، اما خروجی بسیاری از الگوریتم‌ها در نهایت توسط انسان دیده و ارزیابی می‌شود. حتی وقتی هدف، ماشین‌بینی باشد، مفاهیمی مانند «کنتراست»، «وضوح»، «روشنایی»، «جزئیات» و «قابل‌مشاهده بودن» از محدودیت‌های دستگاه تصویربرداری و سامانه بینایی انسان تأثیر می‌گیرند.</p>
+<p>بنابراین لازم نیست زیست‌شناسی چشم را به تفصیل بخوانیم؛ کافی است چند نکته کلیدی را بدانیم:</p>
+<ol class="arabic simple">
+<li><p>چشم یک سامانه اپتیکی-حسی است؛</p></li>
+<li><p>تصویر روی شبکیه تشکیل می‌شود؛</p></li>
+<li><p>گیرنده‌های نوری دو خانواده اصلی دارند؛</p></li>
+<li><p>حساسیت چشم به روشنایی و رنگ در همه شرایط یکسان نیست؛</p></li>
+<li><p>ادراک روشنایی وابسته به محیط اطراف است، نه فقط مقدار عددی یک نقطه.</p></li>
+</ol>
+</section>
+<section id="id5">
+<h3>2.1.2 مدل ساده چشم و تشکیل تصویر<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>قرنیه و عدسی نور را می‌شکنند و تصویر صحنه را روی شبکیه متمرکز می‌کنند. برخلاف دوربین ساده که اغلب با جابه‌جایی عدسی نسبت به حسگر فوکوس می‌کند، در چشم فاصله تقریبی عدسی تا شبکیه ثابت است و شکل عدسی با کمک عضلات مژگانی تغییر می‌کند.</p>
+<figure class="align-default" id="fig-ch2-eye">
+<a class="reference internal image-reference" href="../_images/fig02_01_eye_model.png"><img alt="../_images/fig02_01_eye_model.png" src="../_images/fig02_01_eye_model.png" style="width: 85%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">مدل شماتیک و آموزشی از تشکیل تصویر روی شبکیه. خطوط نور صرفاً برای فهم هندسه رسم شده‌اند.</span><a class="headerlink" href="#fig-ch2-eye" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>دو گروه گیرنده مهم شبکیه عبارت‌اند از:</p>
+<ul class="simple">
+<li><p><strong>Cone (مخروطی):</strong> بیشتر در ناحیه مرکزی شبکیه، به‌ویژه نزدیک فووه‌آ، متمرکز است؛ در روشنایی مناسب و ادراک رنگ و جزئیات ظریف نقش اصلی دارد.</p></li>
+<li><p><strong>Rod (استوانه‌ای):</strong> تعداد بیشتری دارد و در نواحی وسیع‌تری از شبکیه توزیع شده است؛ در روشنایی کم حساس‌تر است اما تفکیک مکانی و رنگی آن ضعیف‌تر است.</p></li>
+</ul>
+</section>
+<section id="id6">
+<h3>مثال هندسی ساده: اندازه تصویر روی شبکیه<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>اگر شیئی با ارتفاع <span class="math notranslate nohighlight">\(H\)</span> در فاصله <span class="math notranslate nohighlight">\(D\)</span> از چشم قرار داشته باشد و فاصله مؤثر مرکز عدسی تا شبکیه را <span class="math notranslate nohighlight">\(d\)</span> بگیریم، در تقریب دوربین سوراخ‌سوزنی داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{h}{d} \approx \frac{H}{D}
+\]</div>
+<p>پس:</p>
+<div class="math notranslate nohighlight">
+\[
+h \approx d\frac{H}{D}
+\]</div>
+<p>این رابطه یک پیام مهم دارد: <strong>اندازه تصویر روی حسگر یا شبکیه فقط به اندازه واقعی جسم وابسته نیست؛ فاصله و هندسه تصویربرداری نیز تعیین‌کننده‌اند.</strong> همین ایده بعدها در کالیبراسیون دوربین، دید ماشین و بازسازی سه‌بعدی ظاهر می‌شود.</p>
+</section>
+<section id="id7">
+<h3>2.1.3 سازگاری روشنایی و تفکیک روشنایی<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>چشم می‌تواند در دامنه بسیار وسیعی از روشنایی، از محیط بسیار تاریک تا روز روشن، فعالیت کند؛ اما این دامنه عظیم را <strong>به‌طور همزمان</strong> پوشش نمی‌دهد. چشم سطح کاری خود را با محیط تنظیم می‌کند. این پدیده را <strong>brightness adaptation</strong> یا سازگاری روشنایی می‌نامیم.</p>
+<figure class="align-default" id="fig-ch2-brightness-adaptation">
+<a class="reference internal image-reference" href="../_images/fig02_02_brightness_adaptation.png"><img alt="../_images/fig02_02_brightness_adaptation.png" src="../_images/fig02_02_brightness_adaptation.png" style="width: 78%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">نمایش مفهومی سازگاری روشنایی: دامنه کلی سازگاری بسیار بزرگ است، ولی در هر سطح تطبیق، دامنه همزمان ادراک محدودتر است.</span><a class="headerlink" href="#fig-ch2-brightness-adaptation" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای بررسی توانایی تشخیص اختلاف روشنایی، اگر شدت پس‌زمینه <span class="math notranslate nohighlight">\(I\)</span> باشد و کوچک‌ترین افزایش قابل تشخیص را <span class="math notranslate nohighlight">\(\Delta I\)</span> بگیریم، کمیت زیر معیار مفیدی است:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\Delta I}{I}
+\]</div>
+<p>این نسبت در بحث کلاسیک تفکیک روشنایی به <strong>نسبت وبر</strong> معروف است. کوچک‌تر بودن آن یعنی سامانه بینایی می‌تواند تغییر کوچک‌تری را نسبت به سطح زمینه تشخیص دهد.</p>
+<blockquote>
+<div><p><strong>نکته آموزشی:</strong> این مفهوم را با «تعداد بیت تصویر» یکی نگیرید. تعداد بیت ویژگی ذخیره‌سازی/نمایش دیجیتال است، ولی نسبت وبر به ویژگی ادراک انسان مربوط است. این دو در طراحی نمایشگر و کنتراست با هم مرتبط می‌شوند، اما یک چیز نیستند.</p>
+</div></blockquote>
+</section>
+<section id="id8">
+<h3>2.1.4 روشنایی ادراک‌شده تابع محیط است<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>دو پدیده مهم نشان می‌دهند که چشم یک شدت عددی را مستقل از اطراف آن نمی‌بیند:</p>
+<ul class="simple">
+<li><p><strong>Mach bands:</strong> نزدیک مرز نواحی با تغییر تدریجی شدت، چشم ممکن است نوارهای روشن‌تر/تیره‌تر از مقدار واقعی احساس کند.</p></li>
+<li><p><strong>Simultaneous contrast:</strong> یک مربع خاکستری ثابت روی زمینه تیره روشن‌تر و روی زمینه روشن تیره‌تر به نظر می‌رسد.</p></li>
+</ul>
+<p>این نکته مستقیماً به پردازش تصویر مربوط است: گاهی دو الگوریتم از نظر خطای عددی مشابه‌اند، اما یکی از نظر بصری بهتر دیده می‌شود. بنابراین در کاربرد انسانی، معیار عددی و ارزیابی ادراکی هر دو اهمیت دارند.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2>2.2 نور و طیف الکترومغناطیسی<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h3>2.2.1 تصویر فقط از نور مرئی ساخته نمی‌شود<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>در زبان روزمره «تصویر» را با آنچه چشم می‌بیند یکی می‌گیریم، اما در پردازش تصویر، ورودی می‌تواند از پرتو گاما، X، فرابنفش، مرئی، فروسرخ، مایکروویو یا رادیویی ساخته شود. حتی روش‌هایی مانند اولتراسوند و میکروسکوپ الکترونی بیرون از طیف نور مرئی قرار می‌گیرند.</p>
+<p>رابطه پایه موج الکترومغناطیسی:</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda = \frac{c}{\nu}
+\]</div>
+<p>که در آن:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span> طول موج؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(\nu\)</span> فرکانس؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(c\)</span> سرعت نور است.</p></li>
+</ul>
+<p>انرژی یک فوتون نیز با فرکانس متناسب است:</p>
+<div class="math notranslate nohighlight">
+\[
+E=h\nu
+\]</div>
+<p>و با ترکیب دو رابطه:</p>
+<div class="math notranslate nohighlight">
+\[
+E=\frac{hc}{\lambda}
+\]</div>
+<p>بنابراین طول موج کوتاه‌تر معمولاً به انرژی فوتون بیشتر مربوط است.</p>
+<figure class="align-default" id="fig-ch2-em-spectrum">
+<a class="reference internal image-reference" href="../_images/fig02_03_em_spectrum.png"><img alt="../_images/fig02_03_em_spectrum.png" src="../_images/fig02_03_em_spectrum.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">طیف الکترومغناطیسی در مقیاس لگاریتمی طول موج و ناحیه‌های متداول تصویربرداری.</span><a class="headerlink" href="#fig-ch2-em-spectrum" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id11">
+<h3>2.2.2 چرا طول موج مهم است؟<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>طول موج تعیین می‌کند انرژی چگونه با ماده برهم‌کنش کند. به‌طور نمونه:</p>
+<ul class="simple">
+<li><p>X-ray از بافت‌ها با میزان جذب متفاوت عبور می‌کند و کنتراست تضعیف ایجاد می‌شود؛</p></li>
+<li><p>فروسرخ می‌تواند اطلاعاتی از دما یا بازتاب در طول موج‌های خارج از دید انسان بدهد؛</p></li>
+<li><p>مایکروویو و رادار در شرایطی می‌توانند نسبت به نور مرئی کمتر تحت تأثیر ابر یا تاریکی باشند؛</p></li>
+<li><p>طول موج مرئی برای تصویربرداری معمول دوربین و میکروسکوپی مهم است.</p></li>
+</ul>
+<p>پس «تصویر» را بهتر است این‌گونه تعریف کنیم: <strong>نمایش مکانی اندازه‌گیری‌شده از یک کمیت فیزیکی</strong>، نه صرفاً یک عکس قابل دیدن با چشم.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h2>2.3 حسگری و اکتساب تصویر<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<section id="id13">
+<h3>2.3.1 زنجیره اکتساب<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>تقریباً هر سامانه تصویربرداری را می‌توان به زنجیره زیر تجزیه کرد:</p>
+<ol class="arabic simple">
+<li><p>منبع انرژی یا روشن‌سازی؛</p></li>
+<li><p>برهم‌کنش انرژی با صحنه؛</p></li>
+<li><p>اپتیک یا هندسه جمع‌آوری؛</p></li>
+<li><p>حسگر؛</p></li>
+<li><p>تبدیل سیگنال حسگر به سیگنال قابل نمونه‌برداری؛</p></li>
+<li><p>نمونه‌برداری مکانی؛</p></li>
+<li><p>کوانتیزه‌سازی شدت؛</p></li>
+<li><p>تشکیل آرایه دیجیتال.</p></li>
+</ol>
+<figure class="align-default" id="fig-ch2-acquisition-pipeline">
+<a class="reference internal image-reference" href="../_images/fig02_04_acquisition_pipeline.png"><img alt="../_images/fig02_04_acquisition_pipeline.png" src="../_images/fig02_04_acquisition_pipeline.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">مسیر مفهومی از صحنه فیزیکی تا تصویر دیجیتال.</span><a class="headerlink" href="#fig-ch2-acquisition-pipeline" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id14">
+<h3>2.3.2 سه آرایش متداول حسگر<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<section id="id15">
+<h4>الف) یک حسگر منفرد<a class="headerlink" href="#id15" title="Link to this heading">#</a></h4>
+<p>یک عنصر حسگر داریم و برای ساخت تصویر باید صحنه یا حسگر در دو راستا اسکن شود. نمونه کلاسیک آن سامانه‌هایی است که با حرکت مکانیکی یک آشکارساز، ماتریس را سطر به سطر یا مسیر به مسیر می‌سازند.</p>
+</section>
+<section id="id16">
+<h4>ب) نوار یک‌بعدی حسگرها<a class="headerlink" href="#id16" title="Link to this heading">#</a></h4>
+<p>یک ردیف از عناصر حسگر همزمان یک خط را ثبت می‌کند و با حرکت نسبی در جهت عمود، تصویر دوبعدی ساخته می‌شود. اسکنرهای خطی و بسیاری از سامانه‌های تصویربرداری ماهواره‌ای از این منطق استفاده می‌کنند.</p>
+</section>
+<section id="id17">
+<h4>ج) آرایه دوبعدی<a class="headerlink" href="#id17" title="Link to this heading">#</a></h4>
+<p>حسگرهای دوربین‌های امروزی معمولاً آرایه <span class="math notranslate nohighlight">\(M\times N\)</span> هستند و هر عنصر بخش کوچکی از میدان دید را نمونه‌برداری می‌کند.</p>
+<figure class="align-default" id="fig-ch2-sensor-geometries">
+<a class="reference internal image-reference" href="../_images/fig02_05_sensor_geometries.png"><img alt="../_images/fig02_05_sensor_geometries.png" src="../_images/fig02_05_sensor_geometries.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">سه هندسه آموزشی برای حسگر منفرد، نوار خطی و آرایه دوبعدی.</span><a class="headerlink" href="#fig-ch2-sensor-geometries" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id18">
+<h3>2.3.3 مدل ساده تشکیل تصویر: روشن‌سازی × بازتاب<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>برای بسیاری از صحنه‌های بازتابی، یک مدل ساده و بسیار مهم چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x,y)=i(x,y)\,r(x,y)
+\]</div>
+<p>که:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(i(x,y)\)</span> شدت روشن‌سازی روی نقطه <span class="math notranslate nohighlight">\((x,y)\)</span>؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(r(x,y)\)</span> ضریب بازتاب سطح؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(f(x,y)\)</span> شدت ثبت‌شده است.</p></li>
+</ul>
+<p>به‌طور مفهومی:</p>
+<div class="math notranslate nohighlight">
+\[
+0\le i(x,y)&lt;\infty,\qquad 0\le r(x,y)\le 1
+\]</div>
+</section>
+<section id="id19">
+<h3>چرا این مدل مهم است؟<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>اگر در یک تصویر سایه می‌بینید، لزوماً جسم تیره نیست؛ ممکن است <span class="math notranslate nohighlight">\(i(x,y)\)</span> کم شده باشد. اگر جسمی سفید در نور کم ثبت شود، مقدار <span class="math notranslate nohighlight">\(f\)</span> می‌تواند شبیه جسم خاکستری در نور زیاد باشد. همین تفکیک میان <strong>illumination</strong> و <strong>reflectance</strong> پایه روش‌هایی مانند فیلتر همومورفیک در فصل‌های بعد است.</p>
+</section>
+<section id="id20">
+<h3>مثال<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>فرض کنید دو نقطه داریم:</p>
+<ul class="simple">
+<li><p>نقطه A: <span class="math notranslate nohighlight">\(i=100\)</span> و <span class="math notranslate nohighlight">\(r=0.8\)</span>، پس <span class="math notranslate nohighlight">\(f=80\)</span>؛</p></li>
+<li><p>نقطه B: <span class="math notranslate nohighlight">\(i=200\)</span> و <span class="math notranslate nohighlight">\(r=0.4\)</span>، پس باز هم <span class="math notranslate nohighlight">\(f=80\)</span>.</p></li>
+</ul>
+<p>دوربین فقط مقدار نهایی 80 را می‌بیند. بدون اطلاعات بیشتر نمی‌توان فهمید کدام نقطه «واقعاً» بازتاب بیشتری داشته است.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id21">
+<h2>2.4 نمونه‌برداری و کوانتیزه‌سازی تصویر<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p>این بخش هسته واقعی دیجیتال‌شدن تصویر است.</p>
+<section id="id22">
+<h3>2.4.1 تفاوت اصلی نمونه‌برداری و کوانتیزه‌سازی<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>اگر تابع پیوسته <span class="math notranslate nohighlight">\(f(x,y)\)</span> را در نظر بگیریم:</p>
+<ul class="simple">
+<li><p><strong>Sampling</strong> محورهای مکانی <span class="math notranslate nohighlight">\(x,y\)</span> را گسسته می‌کند؛ یعنی مشخص می‌کند در چه نقاطی مقدار را بخوانیم.</p></li>
+<li><p><strong>Quantization</strong> مقدار شدت را گسسته می‌کند؛ یعنی مشخص می‌کند مقدار اندازه‌گیری‌شده به کدام سطح مجاز نگاشت شود.</p></li>
+</ul>
+<figure class="align-default" id="fig-ch2-sampling-quantization">
+<a class="reference internal image-reference" href="../_images/fig02_06_sampling_quantization.png"><img alt="../_images/fig02_06_sampling_quantization.png" src="../_images/fig02_06_sampling_quantization.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">نمونه‌برداری و کوانتیزه‌سازی دو عمل متفاوت‌اند: اولی تعداد مکان‌های اندازه‌گیری را تغییر می‌دهد و دومی تعداد شدت‌های مجاز را.</span><a class="headerlink" href="#fig-ch2-sampling-quantization" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id23">
+<h3>2.4.2 نمایش ماتریسی تصویر دیجیتال<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>یک تصویر دیجیتال خاکستری معمولاً به شکل آرایه زیر نمایش داده می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{F}=\begin{bmatrix}
+f(0,0)&amp;f(0,1)&amp;\cdots&amp;f(0,N-1)\\
+f(1,0)&amp;f(1,1)&amp;\cdots&amp;f(1,N-1)\\
+\vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+f(M-1,0)&amp;f(M-1,1)&amp;\cdots&amp;f(M-1,N-1)
+\end{bmatrix}
+\end{split}\]</div>
+<p>در این نمایش:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(M\)</span> تعداد سطرها؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(N\)</span> تعداد ستون‌ها؛</p></li>
+<li><p>هر <span class="math notranslate nohighlight">\(f(x,y)\)</span> مقدار شدت یک پیکسل است.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>دقت کنید:</strong> در بسیاری از کتاب‌های ریاضی <span class="math notranslate nohighlight">\(x\)</span> افقی و <span class="math notranslate nohighlight">\(y\)</span> عمودی است، اما در آرایه‌های برنامه‌نویسی معمولاً ابتدا شاخص سطر و سپس ستون می‌آید. در کدنویسی باید قرارداد را روشن نگه دارید تا جابه‌جایی محور رخ ندهد.</p>
+</div></blockquote>
+</section>
+<section id="id24">
+<h3>2.4.3 تعداد سطوح شدت<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>اگر شدت با <span class="math notranslate nohighlight">\(k\)</span> بیت ذخیره شود، تعداد سطوح ممکن برابر است با:</p>
+<div class="math notranslate nohighlight">
+\[
+L=2^k
+\]</div>
+<p>مثلاً:</p>
+<ul class="simple">
+<li><p>1 بیت → 2 سطح؛</p></li>
+<li><p>2 بیت → 4 سطح؛</p></li>
+<li><p>8 بیت → 256 سطح؛</p></li>
+<li><p>12 بیت → 4096 سطح؛</p></li>
+<li><p>16 بیت → 65536 سطح.</p></li>
+</ul>
+<p>اگر تصویر <span class="math notranslate nohighlight">\(M\times N\)</span> باشد و هر پیکسل <span class="math notranslate nohighlight">\(k\)</span> بیت مصرف کند، حجم خام تصویر خاکستری تقریباً:</p>
+<div class="math notranslate nohighlight">
+\[
+b=M N k\quad \text{bits}
+\]</div>
+<p>است.</p>
+</section>
+<section id="id25">
+<h3>مثال حجم<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>تصویر <span class="math notranslate nohighlight">\(1024\times1024\)</span> با عمق 8 بیت:</p>
+<div class="math notranslate nohighlight">
+\[
+1024\times1024\times 8=8{,}388{,}608\text{ bits}
+\]</div>
+<p>یعنی حدود 1 MiB بدون سربار فایل و بدون فشرده‌سازی.</p>
+</section>
+<section id="id26">
+<h3>2.4.4 شاخص خطی در برابر مختصات دوبعدی<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>در حافظه، ماتریس معمولاً به‌صورت رشته‌ای از عناصر ذخیره می‌شود. اگر قرارداد ذخیره‌سازی ستونی/ردیفی مشخص باشد، می‌توان بین شاخص خطی و مختصات تبدیل انجام داد. اصل مفهومی مهم‌تر از فرمول خاص زبان برنامه‌نویسی است: <strong>آرایه دوبعدی در حافظه بالاخره به توالی یک‌بعدی تبدیل می‌شود.</strong></p>
+<p>در NumPy، آرایه‌ها به‌طور پیش‌فرض با ترتیب C (ردیف‌محور) تخت می‌شوند:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">"C"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>پس هنگام مقایسه فرمول‌های کتاب با MATLAB یا NumPy باید به قرارداد index توجه کرد.</p>
+</section>
+<section id="id27">
+<h3>2.4.5 تفکیک مکانی و تفکیک شدت<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p><strong>Spatial resolution</strong> پاسخ می‌دهد: چند نمونه مکانی داریم و کوچک‌ترین ساختار قابل نمایش چقدر است؟</p>
+<p><strong>Intensity resolution</strong> پاسخ می‌دهد: چند سطح شدت قابل نمایش داریم و کوچک‌ترین تغییر شدت دیجیتال چقدر است؟</p>
+<figure class="align-default" id="fig-ch2-resolution">
+<a class="reference internal image-reference" href="../_images/fig02_07_resolution_tradeoff.png"><img alt="../_images/fig02_07_resolution_tradeoff.png" src="../_images/fig02_07_resolution_tradeoff.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">کاهش تفکیک مکانی و کاهش عمق بیت اثرهای بصری متفاوتی دارند. کاهش نمونه‌ها موجب پیکسلی‌شدن و از دست رفتن جزئیات مکانی می‌شود؛ کاهش بیت موجب نوارهای شدت و contouring می‌شود.</span><a class="headerlink" href="#fig-ch2-resolution" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id28">
+<h3>دو خطای رایج<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>بزرگ‌کردن تصویر مساوی افزایش تفکیک واقعی نیست.</strong> اگر تصویر 32×32 را به 512×512 تبدیل کنیم، تعداد پیکسل خروجی بیشتر می‌شود، ولی اطلاعات جدید فیزیکی ایجاد نشده است.</p></li>
+<li><p><strong>افزایش بیت همیشه کیفیت را بهتر نمی‌کند.</strong> اگر حسگر نویزی یا دامنه مؤثر محدود باشد، ذخیره 16 بیت الزاماً 16 بیت اطلاعات مفید تولید نمی‌کند.</p></li>
+</ol>
+</section>
+<section id="id29">
+<h3>2.4.6 درون‌یابی تصویر<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p>وقتی اندازه تصویر را تغییر می‌دهیم یا تبدیل هندسی انجام می‌دهیم، مختصات مقصد غالباً دقیقاً روی مختصات پیکسل‌های ورودی نمی‌افتند. باید مقدار شدت نقاط جدید را تخمین بزنیم.</p>
+<p>سه روش متداول:</p>
+<section id="id30">
+<h4>نزدیک‌ترین همسایه<a class="headerlink" href="#id30" title="Link to this heading">#</a></h4>
+<p>ساده‌ترین روش؛ مقدار نزدیک‌ترین پیکسل انتخاب می‌شود.</p>
+<p>مزایا:</p>
+<ul class="simple">
+<li><p>سریع؛</p></li>
+<li><p>برای ماسک‌های برچسب‌دار و تصاویر segmentation مناسب، چون کلاس جدید نمی‌سازد.</p></li>
+</ul>
+<p>معایب:</p>
+<ul class="simple">
+<li><p>لبه‌های پله‌ای و ظاهر بلوکی.</p></li>
+</ul>
+</section>
+<section id="id31">
+<h4>درون‌یابی دوخطی<a class="headerlink" href="#id31" title="Link to this heading">#</a></h4>
+<p>چهار همسایه نزدیک در شبکه دوبعدی با وزن وابسته به فاصله ترکیب می‌شوند. اگر نقطه بین <span class="math notranslate nohighlight">\((x_0,y_0)\)</span> و <span class="math notranslate nohighlight">\((x_1,y_1)\)</span> باشد، می‌توان ابتدا در راستای x و سپس y درون‌یابی خطی انجام داد.</p>
+</section>
+<section id="bicubic">
+<h4>درون‌یابی bicubic<a class="headerlink" href="#bicubic" title="Link to this heading">#</a></h4>
+<p>از همسایگی بزرگ‌تری استفاده می‌کند و معمولاً خروجی نرم‌تر دارد، ولی هزینه محاسباتی بیشتر است و ممکن است overshoot جزئی ایجاد کند.</p>
+<figure class="align-default" id="fig-ch2-interpolation">
+<a class="reference internal image-reference" href="../_images/fig02_08_interpolation.png"><img alt="../_images/fig02_08_interpolation.png" src="../_images/fig02_08_interpolation.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">سه روش درون‌یابی روی یک تصویر کم‌نمونه. درون‌یابی ظاهر را بهبود می‌دهد، اما اطلاعاتی را که هنگام نمونه‌برداری از بین رفته است واقعاً بازنمی‌گرداند.</span><a class="headerlink" href="#fig-ch2-interpolation" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id32">
+<h3>الگوریتم عمومی تغییر اندازه<a class="headerlink" href="#id32" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>اندازه مقصد را تعیین کن؛</p></li>
+<li><p>برای هر پیکسل مقصد، مختصات متناظر در تصویر مبدا را محاسبه کن؛</p></li>
+<li><p>اگر مختصات صحیح نبود، از روش interpolation مقدار را بساز؛</p></li>
+<li><p>مقدار را در مقصد ذخیره کن؛</p></li>
+<li><p>نوع داده و محدوده شدت را کنترل کن.</p></li>
+</ol>
+</section>
+<section id="id33">
+<h3>مثال کد کوتاه<a class="headerlink" href="#id33" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"input.png"</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"L"</span><span class="p">)</span>
+<span class="n">nearest</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">Resampling</span><span class="o">.</span><span class="n">NEAREST</span><span class="p">)</span>
+<span class="n">bilinear</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">Resampling</span><span class="o">.</span><span class="n">BILINEAR</span><span class="p">)</span>
+<span class="n">bicubic</span> <span class="o">=</span> <span class="n">im</span><span class="o">.</span><span class="n">resize</span><span class="p">((</span><span class="mi">512</span><span class="p">,</span> <span class="mi">512</span><span class="p">),</span> <span class="n">Image</span><span class="o">.</span><span class="n">Resampling</span><span class="o">.</span><span class="n">BICUBIC</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id34">
+<h2>2.5 روابط پایه بین پیکسل‌ها<a class="headerlink" href="#id34" title="Link to this heading">#</a></h2>
+<p>بسیاری از الگوریتم‌های فصل‌های بعد بر یک سؤال ساده بنا می‌شوند: «پیکسل‌های اطراف این نقطه کدام‌اند؟»</p>
+<section id="id35">
+<h3>2.5.1 همسایه‌های یک پیکسل<a class="headerlink" href="#id35" title="Link to this heading">#</a></h3>
+<p>برای پیکسل <span class="math notranslate nohighlight">\(p=(x,y)\)</span>:</p>
+<p>همسایگی چهارگانه:</p>
+<div class="math notranslate nohighlight">
+\[
+N_4(p)=\{(x-1,y),(x+1,y),(x,y-1),(x,y+1)\}
+\]</div>
+<p>همسایه‌های قطری:</p>
+<div class="math notranslate nohighlight">
+\[
+N_D(p)=\{(x-1,y-1),(x-1,y+1),(x+1,y-1),(x+1,y+1)\}
+\]</div>
+<p>و همسایگی هشت‌گانه:</p>
+<div class="math notranslate nohighlight">
+\[
+N_8(p)=N_4(p)\cup N_D(p)
+\]</div>
+<figure class="align-default" id="fig-ch2-neighborhoods">
+<a class="reference internal image-reference" href="../_images/fig02_09_neighborhoods.png"><img alt="../_images/fig02_09_neighborhoods.png" src="../_images/fig02_09_neighborhoods.png" style="width: 82%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">تعریف تصویری همسایه‌های 4، قطری و 8 پیرامون پیکسل مرکزی.</span><a class="headerlink" href="#fig-ch2-neighborhoods" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id36">
+<h3>2.5.2 مجاورت با قید مقدار<a class="headerlink" href="#id36" title="Link to this heading">#</a></h3>
+<p>در تصویر دودویی، صرفاً نزدیک بودن هندسی کافی نیست. اگر مجموعه مقادیر مورد نظر را <span class="math notranslate nohighlight">\(V\)</span> بنامیم، مثلاً <span class="math notranslate nohighlight">\(V=\{1\}\)</span> برای foreground، دو پیکسل فقط زمانی adjacent محسوب می‌شوند که هم شرط مکانی و هم شرط عضویت مقدار برقرار باشد.</p>
+<p>سه تعریف مهم:</p>
+<ul class="simple">
+<li><p><strong>4-adjacency:</strong> فقط همسایه‌های <span class="math notranslate nohighlight">\(N_4\)</span>؛</p></li>
+<li><p><strong>8-adjacency:</strong> هر عضو <span class="math notranslate nohighlight">\(N_8\)</span>؛</p></li>
+<li><p><strong>m-adjacency:</strong> تعریف اصلاح‌شده‌ای برای کاهش ابهام اتصالات قطری.</p></li>
+</ul>
+</section>
+<section id="m-adjacency">
+<h3>چرا m-adjacency لازم شد؟<a class="headerlink" href="#m-adjacency" title="Link to this heading">#</a></h3>
+<p>در 8-adjacency ممکن است یک ساختار قطری چند مسیر هم‌ارز و مبهم ایجاد کند. m-adjacency اجازه اتصال قطری را فقط وقتی می‌دهد که همسایه‌های 4 مشترکِ دو پیکسل عضو مجموعه مورد نظر نباشند.</p>
+<figure class="align-default" id="fig-ch2-connectivity">
+<a class="reference internal image-reference" href="../_images/fig02_10_connectivity.png"><img alt="../_images/fig02_10_connectivity.png" src="../_images/fig02_10_connectivity.png" style="width: 72%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">اتصال قطری می‌تواند نتیجه شمارش مؤلفه‌های متصل را تغییر دهد؛ بنابراین نوع adjacency باید همیشه مشخص شود.</span><a class="headerlink" href="#fig-ch2-connectivity" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id37">
+<h3>2.5.3 مسیر و مؤلفه متصل<a class="headerlink" href="#id37" title="Link to this heading">#</a></h3>
+<p>یک مسیر دیجیتال از <span class="math notranslate nohighlight">\(p\)</span> به <span class="math notranslate nohighlight">\(q\)</span> دنباله‌ای از پیکسل‌های متمایز است که هر دو عضو متوالی نسبت به تعریف انتخاب‌شده مجاور باشند.</p>
+<p>اگر تمام پیکسل‌های یک زیرمجموعه از طریق چنین مسیرهایی به هم برسند، یک <strong>connected component</strong> داریم.</p>
+<p>این تعریف بعدها در:</p>
+<ul class="simple">
+<li><p>labeling اجسام؛</p></li>
+<li><p>حذف نواحی کوچک؛</p></li>
+<li><p>شمارش ذرات؛</p></li>
+<li><p>region growing؛</p></li>
+<li><p>morphology؛</p></li>
+<li><p>segmentation؛</p></li>
+</ul>
+<p>به‌طور مستقیم استفاده می‌شود.</p>
+</section>
+<section id="id38">
+<h3>2.5.4 ناحیه، مرز و لبه<a class="headerlink" href="#id38" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Region:</strong> مجموعه‌ای متصل از پیکسل‌ها؛</p></li>
+<li><p><strong>Boundary:</strong> پیکسل‌هایی از ناحیه که همسایه‌ای خارج از ناحیه دارند؛</p></li>
+<li><p><strong>Edge:</strong> مفهومی محلی مبتنی بر تغییر شدت، معمولاً پاسخ مشتق یا گرادیان.</p></li>
+</ul>
+<p>مرز و لبه یکی نیستند. مرز یک مفهوم ساختاری/ناحیه‌ای است؛ لبه از تغییر محلی شدت به دست می‌آید. در تصویر دودویی ایده‌آل ممکن است آن‌ها منطبق شوند، اما در تصویر خاکستری الزاماً نه.</p>
+</section>
+<section id="id39">
+<h3>2.5.5 معیارهای فاصله<a class="headerlink" href="#id39" title="Link to this heading">#</a></h3>
+<p>برای <span class="math notranslate nohighlight">\(p=(x,y)\)</span> و <span class="math notranslate nohighlight">\(q=(u,v)\)</span>:</p>
+<section id="id40">
+<h4>فاصله اقلیدسی<a class="headerlink" href="#id40" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+D_e(p,q)=\sqrt{(x-u)^2+(y-v)^2}
+\]</div>
+</section>
+<section id="city-block-d-4">
+<h4>فاصله City-block یا <span class="math notranslate nohighlight">\(D_4\)</span><a class="headerlink" href="#city-block-d-4" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+D_4(p,q)=|x-u|+|y-v|
+\]</div>
+</section>
+<section id="chessboard-d-8">
+<h4>فاصله Chessboard یا <span class="math notranslate nohighlight">\(D_8\)</span><a class="headerlink" href="#chessboard-d-8" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+D_8(p,q)=\max\{|x-u|,|y-v|\}
+\]</div>
+<figure class="align-default" id="fig-ch2-distance">
+<a class="reference internal image-reference" href="../_images/fig02_11_distance_metrics.png"><img alt="../_images/fig02_11_distance_metrics.png" src="../_images/fig02_11_distance_metrics.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">منحنی‌های هم‌فاصله برای سه معیار. اقلیدسی دایره، <span class="math notranslate nohighlight">\(D_4\)</span> لوزی و <span class="math notranslate nohighlight">\(D_8\)</span> مربع ایجاد می‌کند.</span><a class="headerlink" href="#fig-ch2-distance" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id41">
+<h3>مثال عددی<a class="headerlink" href="#id41" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(p=(2,3)\)</span> و <span class="math notranslate nohighlight">\(q=(7,5)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+D_e=\sqrt{5^2+2^2}=\sqrt{29}\approx5.385
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D_4=5+2=7
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D_8=\max(5,2)=5
+\]</div>
+<p>هیچ‌کدام «غلط» نیستند؛ هر کدام هندسه متفاوتی تعریف می‌کنند و در الگوریتم مناسب خود کاربرد دارند.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id42">
+<h2>2.6 ابزارهای ریاضی پایه در پردازش تصویر<a class="headerlink" href="#id42" title="Link to this heading">#</a></h2>
+<p>این بخش مجموعه‌ای از ابزارهاست که در فصل‌های بعد بارها ظاهر می‌شوند. هدف حفظ‌کردن فرمول‌ها نیست؛ باید بفهمیم هر ابزار چه نوع سؤال پردازشی را جواب می‌دهد.</p>
+<section id="id43">
+<h3>2.6.1 عملیات عنصر‌به‌عنصر در برابر عملیات ماتریسی<a class="headerlink" href="#id43" title="Link to this heading">#</a></h3>
+<p>فرض کنید دو تصویر هم‌اندازه <span class="math notranslate nohighlight">\(A\)</span> و <span class="math notranslate nohighlight">\(B\)</span> داریم.</p>
+<p>در عملیات elementwise:</p>
+<div class="math notranslate nohighlight">
+\[
+C(x,y)=A(x,y)B(x,y)
+\]</div>
+<p>هر پیکسل فقط با پیکسل متناظر ترکیب می‌شود.</p>
+<p>اما ضرب ماتریسی:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf{C}=\mathbf{A}\mathbf{B}
+\]</div>
+<p>قانون دیگری دارد و هر عنصر خروجی از ضرب داخلی یک سطر و یک ستون به دست می‌آید.</p>
+<p>در NumPy تفاوت روشن است:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C1</span> <span class="o">=</span> <span class="n">A</span> <span class="o">*</span> <span class="n">B</span>      <span class="c1"># elementwise</span>
+<span class="n">C2</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span>      <span class="c1"># matrix product</span>
+</pre></div>
+</div>
+<p>اشتباه گرفتن این دو از رایج‌ترین خطاهای شروع کار با پردازش تصویر است.</p>
+</section>
+<section id="id44">
+<h3>2.6.2 خطی و غیرخطی<a class="headerlink" href="#id44" title="Link to this heading">#</a></h3>
+<p>عملگر <span class="math notranslate nohighlight">\(\mathcal{H}\)</span> خطی است اگر برای هر <span class="math notranslate nohighlight">\(f_1,f_2\)</span> و ضرایب <span class="math notranslate nohighlight">\(a,b\)</span> داشته باشیم:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{H}[a f_1+b f_2]
+=a\mathcal{H}[f_1]+b\mathcal{H}[f_2]
+\]</div>
+<p>مثلاً جمع وزنی و بسیاری از فیلترهای convolution خطی‌اند. در مقابل، عملگرهایی مانند maximum، median و threshold عموماً غیرخطی‌اند.</p>
+</section>
+<section id="id45">
+<h3>چرا خطی بودن مهم است؟<a class="headerlink" href="#id45" title="Link to this heading">#</a></h3>
+<p>خطی بودن اجازه می‌دهد از اصل برهم‌نهی، تحلیل سیستم‌ها، پاسخ ضربه، تبدیل فوریه و بسیاری از نتایج نظری استفاده کنیم. این موضوع از فصل 3 و 4 به بعد بسیار مهم می‌شود.</p>
+</section>
+<section id="id46">
+<h3>2.6.3 عملیات حسابی روی تصاویر<a class="headerlink" href="#id46" title="Link to this heading">#</a></h3>
+<p>برای دو تصویر هم‌اندازه:</p>
+<div class="math notranslate nohighlight">
+\[
+s=f+g,
+\qquad d=f-g,
+\qquad p=f\times g,
+\qquad v=f\div g
+\]</div>
+<p>همه این‌ها در اینجا elementwise هستند.</p>
+<figure class="align-default" id="fig-ch2-arithmetic">
+<a class="reference internal image-reference" href="../_images/fig02_12_arithmetic_ops.png"><img alt="../_images/fig02_12_arithmetic_ops.png" src="../_images/fig02_12_arithmetic_ops.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">نمونه‌های آموزشی از جمع، تفریق، ضرب با ماسک و تقسیم عنصر‌به‌عنصر.</span><a class="headerlink" href="#fig-ch2-arithmetic" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id47">
+<h4>کاربرد جمع<a class="headerlink" href="#id47" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>ترکیب چند تصویر؛</p></li>
+<li><p>افزایش روشنایی با افزودن bias؛</p></li>
+<li><p><strong>میانگین‌گیری چند تصویر نویزی</strong>.</p></li>
+</ul>
+<p>اگر:</p>
+<div class="math notranslate nohighlight">
+\[
+g_i(x,y)=f(x,y)+h_i(x,y)
+\]</div>
+<p>و نویزها مستقل، میانگین صفر و با واریانس مشابه باشند، میانگین <span class="math notranslate nohighlight">\(K\)</span> تصویر:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar g(x,y)=\frac{1}{K}\sum_{i=1}^{K}g_i(x,y)
+\]</div>
+<p>به <span class="math notranslate nohighlight">\(f(x,y)\)</span> نزدیک‌تر می‌شود و انحراف معیار مؤلفه نویز تقریباً با <span class="math notranslate nohighlight">\(1/\sqrt{K}\)</span> کاهش می‌یابد.</p>
+<figure class="align-default" id="fig-ch2-noise-averaging">
+<a class="reference internal image-reference" href="../_images/fig02_16_noise_averaging.png"><img alt="../_images/fig02_16_noise_averaging.png" src="../_images/fig02_16_noise_averaging.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">اثر میانگین‌گیری چند مشاهده مستقل نویزی. این ایده در تصویربرداری نجومی، پزشکی و low-light کاربرد دارد؛ شرط استقلال/عدم حرکت صحنه مهم است.</span><a class="headerlink" href="#fig-ch2-noise-averaging" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id48">
+<h4>کاربرد تفریق<a class="headerlink" href="#id48" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>آشکارسازی تغییر بین دو زمان؛</p></li>
+<li><p>digital subtraction angiography؛</p></li>
+<li><p>حذف پس‌زمینه ثابت؛</p></li>
+<li><p>بررسی خطای registration.</p></li>
+</ul>
+</section>
+<section id="id49">
+<h4>کاربرد ضرب<a class="headerlink" href="#id49" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>masking؛</p></li>
+<li><p>اعمال وزن مکانی؛</p></li>
+<li><p>windowing؛</p></li>
+<li><p>ترکیب با نقشه اطمینان.</p></li>
+</ul>
+</section>
+<section id="id50">
+<h4>کاربرد تقسیم<a class="headerlink" href="#id50" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>نرمال‌سازی؛</p></li>
+<li><p>تصحیح ناهمگنی روشن‌سازی یا flat-field؛</p></li>
+<li><p>نسبت‌گیری باندها در remote sensing.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>هشدار:</strong> تقسیم بر اعداد نزدیک صفر باید با <span class="math notranslate nohighlight">\(\varepsilon\)</span> یا ماسک معتبر کنترل شود.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="id51">
+<h3>2.6.4 عملیات مجموعه‌ای و منطقی<a class="headerlink" href="#id51" title="Link to this heading">#</a></h3>
+<p>در تصاویر دودویی، foreground را می‌توان مجموعه‌ای از مختصات در نظر گرفت. عملیات مهم:</p>
+<ul class="simple">
+<li><p>اجتماع <span class="math notranslate nohighlight">\(A\cup B\)</span>؛</p></li>
+<li><p>اشتراک <span class="math notranslate nohighlight">\(A\cap B\)</span>؛</p></li>
+<li><p>متمم <span class="math notranslate nohighlight">\(A^c\)</span>؛</p></li>
+<li><p>تفاضل <span class="math notranslate nohighlight">\(A-B\)</span>؛</p></li>
+<li><p>AND، OR، NOT، XOR.</p></li>
+</ul>
+<p>این ابزارها پایه فصل morphology هستند. مثلاً تقاطع دو ماسک می‌تواند ناحیه‌ای را نگه دارد که <strong>همزمان</strong> هر دو شرط را دارد.</p>
+</section>
+<section id="id52">
+<h3>2.6.5 عملیات مکانی: تک‌پیکسلی و همسایگی<a class="headerlink" href="#id52" title="Link to this heading">#</a></h3>
+<section id="id53">
+<h4>تک‌پیکسلی<a class="headerlink" href="#id53" title="Link to this heading">#</a></h4>
+<p>ساده‌ترین مدل:</p>
+<div class="math notranslate nohighlight">
+\[
+s=T(z)
+\]</div>
+<p>یعنی خروجی هر پیکسل فقط به شدت همان پیکسل وابسته است. تبدیل منفی، gamma و threshold که در فصل 3 می‌آیند از همین خانواده‌اند.</p>
+</section>
+<section id="id54">
+<h4>همسایگی<a class="headerlink" href="#id54" title="Link to this heading">#</a></h4>
+<p>خروجی پیکسل <span class="math notranslate nohighlight">\((x,y)\)</span> از مجموعه‌ای از پیکسل‌های اطراف تعیین می‌شود. مثال ساده، میانگین یک پنجره <span class="math notranslate nohighlight">\(m\times n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=\frac{1}{mn}\sum_{(r,c)\in S_{xy}} f(r,c)
+\]</div>
+<p>این فرمول مقدمه مستقیم <strong>spatial filtering</strong> فصل 3 است.</p>
+</section>
+</section>
+<section id="id55">
+<h3>2.6.6 تبدیلات هندسی و درون‌یابی شدت<a class="headerlink" href="#id55" title="Link to this heading">#</a></h3>
+<p>یک تبدیل هندسی دو مرحله دارد:</p>
+<ol class="arabic simple">
+<li><p>تبدیل مختصات؛</p></li>
+<li><p>تخمین شدت در مختصات جدید.</p></li>
+</ol>
+<p>برای تبدیل خطی دوبعدی:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}x'\\y'\end{bmatrix}
+=
+\begin{bmatrix}t_{11}&amp;t_{12}\\t_{21}&amp;t_{22}\end{bmatrix}
+\begin{bmatrix}x\\y\end{bmatrix}
+\end{split}\]</div>
+<p>برای اینکه translation هم در همان قالب قرار گیرد، از مختصات همگن استفاده می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}x'\\y'\\1\end{bmatrix}
+=
+\begin{bmatrix}
+a_{11}&amp;a_{12}&amp;a_{13}\\
+a_{21}&amp;a_{22}&amp;a_{23}\\
+0&amp;0&amp;1
+\end{bmatrix}
+\begin{bmatrix}x\\y\\1\end{bmatrix}
+\end{split}\]</div>
+<figure class="align-default" id="fig-ch2-affine">
+<a class="reference internal image-reference" href="../_images/fig02_13_affine.png"><img alt="../_images/fig02_13_affine.png" src="../_images/fig02_13_affine.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">نمونه‌های scale، rotation، translation و shear در قالب تبدیل affine.</span><a class="headerlink" href="#fig-ch2-affine" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="forward-mapping-inverse-mapping">
+<h3>Forward mapping و inverse mapping<a class="headerlink" href="#forward-mapping-inverse-mapping" title="Link to this heading">#</a></h3>
+<p>در forward mapping هر پیکسل ورودی را به مقصد پرتاب می‌کنیم. مشکل آن ایجاد حفره یا برخورد چند ورودی با یک مقصد است.</p>
+<p>در inverse mapping برای هر پیکسل مقصد می‌پرسیم «از کجای ورودی آمده‌ام؟» و سپس interpolation انجام می‌دهیم. این روش در پیاده‌سازی تبدیل هندسی معمولاً عملی‌تر است.</p>
+</section>
+<section id="registration-tie-point">
+<h3>2.6.7 registration و tie point<a class="headerlink" href="#registration-tie-point" title="Link to this heading">#</a></h3>
+<p>در ثبت تصاویر، هدف هم‌تراز کردن دو تصویر از یک صحنه است. اگر چند نقطه متناظر (tie points) داشته باشیم، پارامترهای مدل هندسی را برآورد می‌کنیم و سپس تصویر متحرک را روی مرجع warp می‌کنیم.</p>
+<p>الگوریتم عمومی:</p>
+<ol class="arabic simple">
+<li><p>نقاط متناظر را پیدا کن؛</p></li>
+<li><p>مدل تبدیل (affine، projective و …) را انتخاب کن؛</p></li>
+<li><p>پارامترها را از نقاط برازش کن؛</p></li>
+<li><p>inverse mapping انجام بده؛</p></li>
+<li><p>interpolation؛</p></li>
+<li><p>کیفیت هم‌ترازی را با اختلاف یا معیار مناسب بسنج.</p></li>
+</ol>
+<p>این ایده در پزشکی، تصاویر ماهواره‌ای، panorama، change detection و fusion بسیار رایج است.</p>
+</section>
+<section id="id56">
+<h3>2.6.8 عملیات برداری و ماتریسی<a class="headerlink" href="#id56" title="Link to this heading">#</a></h3>
+<p>یک پیکسل لزوماً یک عدد نیست. در تصویر RGB هر پیکسل یک بردار سه‌بعدی است. در تصاویر hyperspectral حتی ممکن است صدها مؤلفه داشته باشد.</p>
+<p>برای بردارهای <span class="math notranslate nohighlight">\(\mathbf a\)</span> و <span class="math notranslate nohighlight">\(\mathbf b\)</span> ضرب داخلی:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf a^T\mathbf b=\sum_{i=1}^{n}a_i b_i
+\]</div>
+<p>و نرم اقلیدسی:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\mathbf z\|_2=\sqrt{\mathbf z^T\mathbf z}
+\]</div>
+<p>است.</p>
+<p>این ابزارها در اندازه‌گیری فاصله رنگی، تطبیق، PCA، classification و مدل‌های خطی استفاده می‌شوند.</p>
+<p>یک مدل عمومی مشاهده را نیز می‌توان چنین نوشت:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbf g=\mathbf H\mathbf f+\mathbf n
+\]</div>
+<p>که در آن:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf f\)</span> تصویر اصلی برداری‌شده؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf H\)</span> عملگر سیستم یا degradation؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf n\)</span> نویز؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf g\)</span> مشاهده است.</p></li>
+</ul>
+<p>این رابطه پلی مستقیم به فصل بازیابی تصویر است.</p>
+</section>
+<section id="id57">
+<h3>2.6.9 تبدیل‌های تصویری<a class="headerlink" href="#id57" title="Link to this heading">#</a></h3>
+<p>گاهی پردازش مستقیم پیکسل‌ها بهترین نمایش نیست. تصویر را به حوزه دیگری می‌بریم:</p>
+<div class="math notranslate nohighlight">
+\[
+T(u,v)=\sum_x\sum_y f(x,y)r(x,y,u,v)
+\]</div>
+<p>و با هسته معکوس برمی‌گردانیم:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x,y)=\sum_u\sum_v T(u,v)s(x,y,u,v)
+\]</div>
+<p>هسته تبدیل تعیین می‌کند چه تبدیلی داریم؛ فوریه، DCT، Haar و تبدیل‌های دیگر نمونه‌هایی هستند که در فصل‌های بعد می‌آیند.</p>
+<figure class="align-default" id="fig-ch2-transform-workflow">
+<a class="reference internal image-reference" href="../_images/fig02_14_transform_workflow.png"><img alt="../_images/fig02_14_transform_workflow.png" src="../_images/fig02_14_transform_workflow.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">الگوی عمومی پردازش در حوزه تبدیل: تبدیل مستقیم، اصلاح ضرایب و تبدیل معکوس.</span><a class="headerlink" href="#fig-ch2-transform-workflow" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<blockquote>
+<div><p><strong>ایده کلیدی:</strong> حوزه تبدیل «جادو» نیست؛ فقط نمایش دیگری از همان اطلاعات است که ممکن است یک مسئله خاص در آن ساده‌تر شود.</p>
+</div></blockquote>
+</section>
+<section id="id58">
+<h3>2.6.10 شدت تصویر به‌عنوان متغیر تصادفی<a class="headerlink" href="#id58" title="Link to this heading">#</a></h3>
+<p>اگر یک پیکسل یا مجموعه‌ای از پیکسل‌ها را به‌صورت تصادفی نمونه‌برداری کنیم، شدت <span class="math notranslate nohighlight">\(z\)</span> را می‌توان یک متغیر تصادفی گسسته دید. اگر شدت‌های ممکن <span class="math notranslate nohighlight">\(z_k\)</span> باشند، تخمین احتمال از histogram نرمال‌شده به دست می‌آید:</p>
+<div class="math notranslate nohighlight">
+\[
+p(z_k)=\frac{n_k}{MN}
+\]</div>
+<p>که <span class="math notranslate nohighlight">\(n_k\)</span> تعداد پیکسل‌های سطح <span class="math notranslate nohighlight">\(z_k\)</span> است.</p>
+<p>میانگین شدت:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu=\sum_k z_k p(z_k)
+\]</div>
+<p>و واریانس:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2=\sum_k(z_k-\mu)^2p(z_k)
+\]</div>
+<p>است.</p>
+<figure class="align-default" id="fig-ch2-histogram-pmf">
+<a class="reference internal image-reference" href="../_images/fig02_15_histogram_pmf.png"><img alt="../_images/fig02_15_histogram_pmf.png" src="../_images/fig02_15_histogram_pmf.png" style="width: 80%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">هیستوگرام نرمال‌شده را می‌توان تخمینی تجربی از توزیع احتمال شدت‌ها دید.</span><a class="headerlink" href="#fig-ch2-histogram-pmf" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>این نگاه در فصل‌های بعد برای نویز، histogram processing، thresholding آماری، مدل‌های تصادفی و estimation بسیار مهم خواهد شد.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id59">
+<h2>یک مثال یکپارچه: از صحنه تا عدد<a class="headerlink" href="#id59" title="Link to this heading">#</a></h2>
+<p>فرض کنید دوربینی از یک صفحه چاپی عکس می‌گیرد.</p>
+<ol class="arabic simple">
+<li><p>منبع نور محیط صفحه را روشن می‌کند؛</p></li>
+<li><p>کاغذ و جوهر ضرایب بازتاب متفاوت دارند؛</p></li>
+<li><p>عدسی نور بازتابی را روی آرایه حسگر تشکیل می‌دهد؛</p></li>
+<li><p>هر photosite انرژی نور را به سیگنال الکتریکی تبدیل می‌کند؛</p></li>
+<li><p>شبکه حسگر، نمونه‌برداری مکانی را تعیین می‌کند؛</p></li>
+<li><p>ADC دامنه سیگنال را به سطوح عددی کوانتیزه می‌کند؛</p></li>
+<li><p>آرایه‌ای از اعداد ساخته می‌شود؛</p></li>
+<li><p>اگر تصویر resize شود، interpolation لازم است؛</p></li>
+<li><p>اگر متن استخراج شود، همسایگی و connectivity در segmentation اهمیت پیدا می‌کند؛</p></li>
+<li><p>اگر تصویر کج باشد، affine/projective transform برای اصلاح هندسی استفاده می‌شود؛</p></li>
+<li><p>اگر نویز وجود داشته باشد، مدل تصادفی و filtering وارد می‌شود.</p></li>
+</ol>
+<p>این مثال نشان می‌دهد فصل دوم یک فصل «مقدماتی جداافتاده» نیست؛ تقریباً هر مفهوم آن بعداً دوباره برمی‌گردد.</p>
+</section>
+<hr class="docutils" />
+<section id="id60">
+<h2>الگوریتم‌های کوتاه برای تمرین<a class="headerlink" href="#id60" title="Link to this heading">#</a></h2>
+<section id="k">
+<h3>الگوریتم 1 — کوانتیزه‌سازی تصویر خاکستری به <span class="math notranslate nohighlight">\(k\)</span> بیت<a class="headerlink" href="#k" title="Link to this heading">#</a></h3>
+<p>ورودی: تصویر نرمال‌شده <span class="math notranslate nohighlight">\(f\in[0,1]\)</span> و تعداد بیت <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(L=2^k\)</span> را محاسبه کن؛</p></li>
+<li><p>مقدار هر پیکسل را در <span class="math notranslate nohighlight">\(L-1\)</span> ضرب کن؛</p></li>
+<li><p>به نزدیک‌ترین عدد صحیح گرد کن؛</p></li>
+<li><p>دوباره بر <span class="math notranslate nohighlight">\(L-1\)</span> تقسیم کن.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+q(x,y)=\frac{\operatorname{round}[(L-1)f(x,y)]}{L-1}
+\]</div>
+</section>
+<section id="id61">
+<h3>الگوریتم 2 — شمارش مؤلفه‌های متصل<a class="headerlink" href="#id61" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>یک تصویر دودویی و نوع connectivity انتخاب کن؛</p></li>
+<li><p>یک پیکسل foreground بدون برچسب پیدا کن؛</p></li>
+<li><p>با BFS/DFS تمام همسایه‌های مجاز متصل به آن را پیمایش کن؛</p></li>
+<li><p>یک برچسب واحد بده؛</p></li>
+<li><p>تا پایان foreground تکرار کن.</p></li>
+</ol>
+</section>
+<section id="inverse-mapping">
+<h3>الگوریتم 3 — تبدیل هندسی با inverse mapping<a class="headerlink" href="#inverse-mapping" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>ماتریس تبدیل <span class="math notranslate nohighlight">\(A\)</span> را بساز؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(A^{-1}\)</span> را محاسبه کن؛</p></li>
+<li><p>برای هر مختصات مقصد <span class="math notranslate nohighlight">\((x',y')\)</span>، مختصات ورودی را از <span class="math notranslate nohighlight">\(A^{-1}\)</span> پیدا کن؛</p></li>
+<li><p>با bilinear/bicubic شدت را تخمین بزن؛</p></li>
+<li><p>خروجی را ذخیره کن.</p></li>
+</ol>
+</section>
+<section id="id62">
+<h3>الگوریتم 4 — میانگین‌گیری چند فریم برای کاهش نویز<a class="headerlink" href="#id62" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(K\)</span> فریم هم‌تراز از صحنه ثابت دریافت کن؛</p></li>
+<li><p>همه را به float تبدیل کن؛</p></li>
+<li><p>میانگین پیکسلی بگیر؛</p></li>
+<li><p>محدوده و نوع داده خروجی را بازگردان.</p></li>
+</ol>
+<p>اگر صحنه یا دوربین حرکت کند، ابتدا registration لازم است؛ وگرنه میانگین‌گیری باعث blur می‌شود.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id63">
+<h2>آزمایش‌های پیشنهادی دانشجو<a class="headerlink" href="#id63" title="Link to this heading">#</a></h2>
+<section id="sampling-quantization">
+<h3>آزمایش 1: Sampling در برابر Quantization<a class="headerlink" href="#sampling-quantization" title="Link to this heading">#</a></h3>
+<p>یک تصویر را در دو محور تغییر دهید:</p>
+<ul class="simple">
+<li><p>اندازه‌های 256، 128، 64، 32؛</p></li>
+<li><p>بیت‌های 8، 6، 4، 2، 1.</p></li>
+</ul>
+<p>در هر حالت پاسخ دهید:</p>
+<ul class="simple">
+<li><p>چه نوع جزئیاتی از بین می‌رود؟</p></li>
+<li><p>آیا اثر کاهش رزولوشن مکانی با کاهش عمق بیت یکی است؟</p></li>
+<li><p>کدام خطا برای متن، چهره یا تصویر پزشکی مخرب‌تر است؟</p></li>
+</ul>
+</section>
+<section id="interpolation">
+<h3>آزمایش 2: Interpolation<a class="headerlink" href="#interpolation" title="Link to this heading">#</a></h3>
+<p>یک تصویر کوچک را با nearest، bilinear و bicubic بزرگ کنید. لبه مورب، متن ریز و یک نقطه منفرد را مقایسه کنید.</p>
+</section>
+<section id="connectivity">
+<h3>آزمایش 3: Connectivity<a class="headerlink" href="#connectivity" title="Link to this heading">#</a></h3>
+<p>یک تصویر دودویی بسازید که اجسام فقط از گوشه به هم تماس داشته باشند. تعداد مؤلفه‌ها را در 4-connectivity و 8-connectivity مقایسه کنید.</p>
+</section>
+<section id="arithmetic-imaging">
+<h3>آزمایش 4: Arithmetic imaging<a class="headerlink" href="#arithmetic-imaging" title="Link to this heading">#</a></h3>
+<p>دو فریم از یک صحنه بسازید که یک جسم کوچک جابه‌جا شده است. تفریق تصاویر را محاسبه کنید و ببینید تغییر چگونه برجسته می‌شود.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id64">
+<h2>پرسش‌های مفهومی برای خودآزمایی<a class="headerlink" href="#id64" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>چرا تصویر 1024×1024 با 8 بیت الزاماً از تصویر 512×512 با 12 بیت «بهتر» نیست؟</p></li>
+<li><p>تفاوت sampling و quantization را بدون استفاده از واژه «دیجیتال» توضیح دهید.</p></li>
+<li><p>چرا nearest-neighbor برای ماسک کلاس‌بندی مناسب‌تر از bicubic است؟</p></li>
+<li><p>چرا یک جسم با reflectance ثابت ممکن است در نقاط مختلف تصویر شدت متفاوت داشته باشد؟</p></li>
+<li><p>در چه شرایطی 8-connectivity دو ناحیه را یکی می‌کند ولی 4-connectivity آن‌ها را جدا می‌بیند؟</p></li>
+<li><p>چرا boundary و edge مترادف نیستند؟</p></li>
+<li><p>برای پیکسل‌های <span class="math notranslate nohighlight">\((0,0)\)</span> و <span class="math notranslate nohighlight">\((3,4)\)</span> سه فاصله <span class="math notranslate nohighlight">\(D_e,D_4,D_8\)</span> را حساب کنید.</p></li>
+<li><p>تفاوت <code class="docutils literal notranslate"><span class="pre">A*B</span></code> و <code class="docutils literal notranslate"><span class="pre">A&#64;B</span></code> در NumPy چیست؟</p></li>
+<li><p>چرا averaging چند تصویر نویزی فقط در شرایط خاص نویز را کم می‌کند؟</p></li>
+<li><p>چرا inverse mapping در warping معمولاً از forward mapping عملی‌تر است؟</p></li>
+<li><p>چرا تبدیل فوریه اطلاعات جدیدی به تصویر اضافه نمی‌کند، با این حال می‌تواند پردازش را آسان‌تر کند؟</p></li>
+<li><p>چه رابطه‌ای میان histogram و مدل احتمالاتی شدت‌ها وجود دارد؟</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="id65">
+<h2>جمع‌بندی فصل<a class="headerlink" href="#id65" title="Link to this heading">#</a></h2>
+<p>فصل دوم چارچوب ذهنی پردازش تصویر را می‌سازد:</p>
+<ul class="simple">
+<li><p><strong>ادراک:</strong> آنچه می‌بینیم لزوماً رابطه خطی با شدت فیزیکی ندارد؛</p></li>
+<li><p><strong>فیزیک:</strong> نوع انرژی و برهم‌کنش آن با ماده منشأ تصویر را تعیین می‌کند؛</p></li>
+<li><p><strong>اکتساب:</strong> حسگر و هندسه نمونه‌برداری صحنه را به سیگنال تبدیل می‌کنند؛</p></li>
+<li><p><strong>دیجیتال‌سازی:</strong> sampling مکان‌ها و quantization مقادیر را گسسته می‌کند؛</p></li>
+<li><p><strong>رزولوشن:</strong> تعداد نمونه‌های مکانی و تعداد سطوح شدت دو محور مستقل کیفیت‌اند؛</p></li>
+<li><p><strong>پیکسل‌ها:</strong> همسایگی، connectivity، region، boundary و distance زبان محلی تصویرند؛</p></li>
+<li><p><strong>ریاضیات:</strong> عملیات حسابی، منطقی، مکانی، هندسی، برداری، ماتریسی، تبدیل‌ها و احتمال ابزارهای اصلی فصل‌های بعد هستند.</p></li>
+</ul>
+<p>اگر این فصل خوب فهمیده شود، فصل‌های بعد دیگر مجموعه‌ای از فرمول‌های جداگانه دیده نمی‌شوند؛ هر الگوریتم را می‌توان در یکی از این الگوها جای داد: <strong>تغییر شدت، استفاده از همسایگی، تغییر هندسه، تغییر نمایش، یا استنتاج آماری از داده تصویر.</strong></p>
+</section>
+<hr class="docutils" />
+<section id="id66">
+<h2>فایل‌های همراه برای دانلود<a class="headerlink" href="#id66" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-02/chapter02_examples.ipynb" download>Notebook مثال‌های فصل دوم</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-02/chapter02_examples.py" download>اسکریپت Python مثال‌های فصل دوم</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-02/Chapter02_Code_Examples.zip" download>بسته ZIP کد و داده مصنوعی</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-02/Chapter02_Original_Figures.zip" download>بسته ZIP همه شکل‌های اصیل فصل</a></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id67">
+<h2>منبع علمی اصلی<a class="headerlink" href="#id67" title="Link to this heading">#</a></h2>
+<p>این فصل با حفظ سازمان مفهومی فصل دوم کتاب زیر و با نگارش مستقل آموزشی تهیه شده است:</p>
+<p>R. C. Gonzalez and R. E. Woods, <em>Digital Image Processing</em>, 4th Edition, Pearson, Chapter 2: <strong>Digital Image Fundamentals</strong>.</p>
+<p>شکل‌های داخل این بسته بازطراحی/تولید مستقل آموزشی هستند و از شکل‌های کتاب کپی نشده‌اند.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./gonzalez"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-01.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل اول — مقدمه‌ای بر پردازش تصویر دیجیتال</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../student-work/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Student Work</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">2.1 عناصر ادراک بینایی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.1.1 چرا با چشم شروع می‌کنیم؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">2.1.2 مدل ساده چشم و تشکیل تصویر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">مثال هندسی ساده: اندازه تصویر روی شبکیه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">2.1.3 سازگاری روشنایی و تفکیک روشنایی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.1.4 روشنایی ادراک‌شده تابع محیط است</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">2.2 نور و طیف الکترومغناطیسی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">2.2.1 تصویر فقط از نور مرئی ساخته نمی‌شود</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">2.2.2 چرا طول موج مهم است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">2.3 حسگری و اکتساب تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">2.3.1 زنجیره اکتساب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">2.3.2 سه آرایش متداول حسگر</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">الف) یک حسگر منفرد</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">ب) نوار یک‌بعدی حسگرها</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">ج) آرایه دوبعدی</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">2.3.3 مدل ساده تشکیل تصویر: روشن‌سازی × بازتاب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">چرا این مدل مهم است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">مثال</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">2.4 نمونه‌برداری و کوانتیزه‌سازی تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">2.4.1 تفاوت اصلی نمونه‌برداری و کوانتیزه‌سازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">2.4.2 نمایش ماتریسی تصویر دیجیتال</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">2.4.3 تعداد سطوح شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">مثال حجم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">2.4.4 شاخص خطی در برابر مختصات دوبعدی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">2.4.5 تفکیک مکانی و تفکیک شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">دو خطای رایج</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">2.4.6 درون‌یابی تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">نزدیک‌ترین همسایه</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">درون‌یابی دوخطی</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bicubic">درون‌یابی bicubic</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">الگوریتم عمومی تغییر اندازه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">مثال کد کوتاه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">2.5 روابط پایه بین پیکسل‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">2.5.1 همسایه‌های یک پیکسل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">2.5.2 مجاورت با قید مقدار</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#m-adjacency">چرا m-adjacency لازم شد؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">2.5.3 مسیر و مؤلفه متصل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">2.5.4 ناحیه، مرز و لبه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">2.5.5 معیارهای فاصله</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">فاصله اقلیدسی</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#city-block-d-4">فاصله City-block یا <span class="math notranslate nohighlight">\(D_4\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#chessboard-d-8">فاصله Chessboard یا <span class="math notranslate nohighlight">\(D_8\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">مثال عددی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">2.6 ابزارهای ریاضی پایه در پردازش تصویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">2.6.1 عملیات عنصر‌به‌عنصر در برابر عملیات ماتریسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">2.6.2 خطی و غیرخطی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">چرا خطی بودن مهم است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">2.6.3 عملیات حسابی روی تصاویر</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">کاربرد جمع</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">کاربرد تفریق</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">کاربرد ضرب</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">کاربرد تقسیم</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">2.6.4 عملیات مجموعه‌ای و منطقی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">2.6.5 عملیات مکانی: تک‌پیکسلی و همسایگی</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">تک‌پیکسلی</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id54">همسایگی</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id55">2.6.6 تبدیلات هندسی و درون‌یابی شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#forward-mapping-inverse-mapping">Forward mapping و inverse mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#registration-tie-point">2.6.7 registration و tie point</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id56">2.6.8 عملیات برداری و ماتریسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id57">2.6.9 تبدیل‌های تصویری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id58">2.6.10 شدت تصویر به‌عنوان متغیر تصادفی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id59">یک مثال یکپارچه: از صحنه تا عدد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id60">الگوریتم‌های کوتاه برای تمرین</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k">الگوریتم 1 — کوانتیزه‌سازی تصویر خاکستری به <span class="math notranslate nohighlight">\(k\)</span> بیت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id61">الگوریتم 2 — شمارش مؤلفه‌های متصل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inverse-mapping">الگوریتم 3 — تبدیل هندسی با inverse mapping</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id62">الگوریتم 4 — میانگین‌گیری چند فریم برای کاهش نویز</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id63">آزمایش‌های پیشنهادی دانشجو</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-quantization">آزمایش 1: Sampling در برابر Quantization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpolation">آزمایش 2: Interpolation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connectivity">آزمایش 3: Connectivity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arithmetic-imaging">آزمایش 4: Arithmetic imaging</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id64">پرسش‌های مفهومی برای خودآزمایی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id65">جمع‌بندی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id66">فایل‌های همراه برای دانلود</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id67">منبع علمی اصلی</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
