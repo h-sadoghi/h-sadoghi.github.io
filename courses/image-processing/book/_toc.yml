@@ -13,4 +13,6 @@ chapters:
         title: 'فصل سوم: تبدیلات شدت و پالایش مکانی'
       - file: gonzalez/chapter-10
         title: 'فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء'
+      - file: gonzalez/chapter-11
+        title: 'فصل ۱۱: بافت تصویر و توصیفگر SIFT'
   - file: student-work/index

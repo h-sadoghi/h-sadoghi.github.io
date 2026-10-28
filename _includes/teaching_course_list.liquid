@@ -15,6 +15,17 @@
           >
         {% endif %}
         {% if course.description %}: {{ course.description | escape }}{% endif %}
+        {% if course.materials_url or course.student_work_url %}
+          <div class="small mt-1">
+            {% if course.materials_url %}
+              <a href="{{ course.materials_url | relative_url }}">Course files</a>
+            {% endif %}
+            {% if course.materials_url and course.student_work_url %} · {% endif %}
+            {% if course.student_work_url %}
+              <a href="{{ course.student_work_url | relative_url }}">Student Work</a>
+            {% endif %}
+          </div>
+        {% endif %}
       </li>
     {% endif %}
   {% endfor %}

@@ -3,6 +3,8 @@
   description: Techniques for identifying patterns in data with applications in image, speech, and biometrics.
   image: /assets/img/PR1.JPG
   url: /teaching/pattern-recognition/book/
+  materials_url: /teaching/pattern-recognition/materials/
+  student_work_url: /teaching/pattern-recognition/student-work/
   order: 1
   link_type: internal
   chapters: []
@@ -48,6 +50,8 @@
   description: Original notes, diagrams, and code for selected topics in digital image processing.
   image: /assets/img/courses/default-course.svg
   url: /teaching/image-processing/book/
+  materials_url: /teaching/image-processing/gonzalez/
+  student_work_url: /teaching/image-processing/student-work/
   order: 6
   link_type: internal
   chapters:

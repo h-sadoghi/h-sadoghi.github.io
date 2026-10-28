@@ -14,13 +14,31 @@
     {%- for chapter in package_chapters %}
     {%- if chapter.published != false %}
     <li id="chapter-{{ chapter.number }}" class="mb-3">
-      <strong>فصل {{ chapter.number }} — {{ chapter.title | escape }}</strong>
+      <strong>
+        {%- if chapter.book_url -%}
+          <a href="{{ chapter.book_url | relative_url }}">{{ chapter.title | escape }}</a>
+        {%- else -%}
+          {{ chapter.title | escape }}
+        {%- endif -%}
+      </strong>
       {%- if chapter.summary and chapter.summary != empty %}<div>{{ chapter.summary | escape }}</div>{% endif %}
+      {%- if chapter.downloads and chapter.downloads.size > 0 %}
+      <ul>
+        {%- for resource in chapter.downloads %}
+        <li>
+          <a href="{{ resource.url | relative_url }}"{% if resource.kind != 'pdf' %} download{% endif %}>{{ resource.title | escape }}</a>
+          {%- if resource.size_label %} <small>({{ resource.size_label }})</small>{% endif -%}
+          {%- if resource.description %} — {{ resource.description | escape }}{% endif -%}
+        </li>
+        {%- endfor %}
+      </ul>
+      {%- elsif chapter.zip_url or chapter.pdf_url %}
       <div>
-        <a href="{{ chapter.zip_url | relative_url }}" download>دانلود ZIP</a>
+        {%- if chapter.zip_url %}<a href="{{ chapter.zip_url | relative_url }}" download>دانلود ZIP</a>{% endif -%}
         {%- if chapter.zip_size_label %} <small>({{ chapter.zip_size_label }})</small>{% endif -%}
         {%- if chapter.pdf_url %} · <a href="{{ chapter.pdf_url | relative_url }}">مشاهده PDF</a>{% endif -%}
       </div>
+      {%- endif %}
     </li>
     {%- endif %}
     {%- endfor %}
@@ -44,11 +62,23 @@
       <p>{{ work.summary | escape }}</p>
       {%- if work.students %}<p><strong>دانشجو:</strong> {{ work.students | escape }}</p>{% endif -%}
       {%- if work.term %}<p><strong>نیم‌سال:</strong> {{ work.term | escape }}</p>{% endif -%}
+      {%- if work.downloads and work.downloads.size > 0 %}
+      <ul>
+        {%- for resource in work.downloads %}
+        <li>
+          <a href="{{ resource.url | relative_url }}"{% if resource.kind != 'pdf' %} download{% endif %}>{{ resource.title | escape }}</a>
+          {%- if resource.size_label %} <small>({{ resource.size_label }})</small>{% endif -%}
+          {%- if resource.description %} — {{ resource.description | escape }}{% endif -%}
+        </li>
+        {%- endfor %}
+      </ul>
+      {%- else %}
       <p>
-        <a href="{{ work.zip_url | relative_url }}" download>دانلود ZIP</a>
+        {%- if work.zip_url %}<a href="{{ work.zip_url | relative_url }}" download>دانلود ZIP</a>{% endif -%}
         {%- if work.zip_size_label %} <small>({{ work.zip_size_label }})</small>{% endif -%}
         {%- if work.pdf_url %} · <a href="{{ work.pdf_url | relative_url }}">مشاهده PDF</a>{% endif -%}
       </p>
+      {%- endif %}
     </article>
     {%- endif -%}
   {%- endfor %}
