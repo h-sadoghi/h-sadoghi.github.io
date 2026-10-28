@@ -1,1 +1,18 @@
-[]
+  - id: bezdek-fuzzy-clustering-project
+    course_id: pattern-recognition
+    title: پروژه خوشه‌بندی فازی بزدک
+    summary: مروری آموزشی و پیاده‌سازی خوشه‌بندی فازی بزدک همراه با گزارش PDF/LaTeX، کد Python و تصاویر تحلیلی برای مقایسه عضویت سخت و فازی و
+      بررسی نقش پارامتر m.
+    students: محمدعلی پیشوا
+    term: ''
+    published: true
+    downloads:
+      - kind: zip
+        title: دانلود فایل پروژه بزدک
+        description: شامل گزارش PDF و LaTeX، کد Python پیاده‌سازی Fuzzy C-Means و تصاویر تحلیلی پروژه.
+        url: /assets/downloads/courses/pattern-recognition/student-works/bezdek-fuzzy-clustering-project/bezdek-fuzzy-clustering-project-01.zip
+        size: 8395552
+        size_label: 8.0 MB
+        sha256: 06332dbe31cf0fd4d6811cd0bc3ec059c1dcab4b1c87c0e5ec454df45ac29b27
+    zip_url: /assets/downloads/courses/pattern-recognition/student-works/bezdek-fuzzy-clustering-project/bezdek-fuzzy-clustering-project-01.zip
+    zip_size_label: 8.0 MB
