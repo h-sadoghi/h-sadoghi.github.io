@@ -1,0 +1,1592 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل سوم — تبدیلات شدت و پالایش مکانی &#8212; Image Processing Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gonzalez/chapter-03';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Student Work" href="../student-work/index.html" />
+    <link rel="prev" title="فصل دوم — مبانی تصویر دیجیتال" href="chapter-02.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Image Processing Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Image Processing Course Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gonzalez Notes and Learning Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">فصل دوم: مبانی تصویر دیجیتال</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../student-work/index.html">Student Work</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/gonzalez/chapter-03.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل سوم — تبدیلات شدت و پالایش مکانی</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.1 منطق پردازش در حوزه مکانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">مثال ذهنی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.2 توابع پایه تبدیل شدت</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.2.1 خانواده نگاشت‌های شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.2.2 تصویر منفی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.2.3 تبدیل لگاریتمی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.2.4 تبدیل توانی یا گاما</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">چرا تصحیح گاما وجود دارد؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">مثال عددی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.3 تبدیل‌های چندپاره، آستانه، برش شدت و صفحه‌های بیت</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.3.1 کشش کنتراست چندپاره</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.3.2 آستانه‌گذاری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intensity-slicing">3.3.3 intensity slicing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.3.4 صفحه‌های بیت</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3.4 پردازش هیستوگرام</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3.4.1 هیستوگرام چیست؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">از شکل هیستوگرام چه می‌فهمیم؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">3.4.2 همسان‌سازی هیستوگرام — ایده پیوسته</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">3.4.3 نسخه دیجیتال</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">الگوریتم همسان‌سازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specification">3.4.4 تطبیق یا specification هیستوگرام</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">3.5 پردازش محلی هیستوگرام و آمار همسایگی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">یک قانون محلی نمونه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">نکته محاسباتی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">3.6 اصول پالایش مکانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">3.6.1 جمع حاصل‌ضرب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">مثال کوچک</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#padding">3.6.2 لبه‌های تصویر و padding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">3.6.3 هسته مرکب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">3.6.4 جدایی‌پذیری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">3.7 پالایه‌های هموارساز</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">3.7.1 میانگین جعبه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">3.7.2 فیلتر گاوسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigma">نقش <span class="math notranslate nohighlight">\(\sigma\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">3.7.3 فیلتر میانه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">مقایسه سریع</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">3.8 تیزسازی با مشتق‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">3.8.1 مشتق گسسته مرتبه اول</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">3.8.2 مشتق مرتبه دوم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">3.9 لاپلاسین</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">تیزسازی با لاپلاسین</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">چرا لاپلاسین نویز را تقویت می‌کند؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">3.10 ماسک ناتیز و تقویت بالاگذر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsharp-masking">3.10.1 ایده unsharp masking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsharp">چرا نام «unsharp»؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">الگوریتم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roberts-sobel">3.11 گرادیان: Roberts و Sobel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roberts">Roberts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sobel">Sobel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">کاربرد نزدیک به صنعت</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">3.12 رابطه پایین‌گذر، بالاگذر، میان‌نگذر و میان‌گذر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">بالاگذر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">میان‌نگذر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">میان‌گذر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zone-plate">صفحه ناحیه‌ای (zone plate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">نکته مهم درباره جدایی‌پذیری و جهت‌داری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">3.13 ترکیب روش‌های بهبود مکانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">چرا این ترکیب منطقی است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">شبه‌کد</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">3.14 مثال‌های اجرایی پیشنهادی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">آزمایش 1 — تبدیل‌های شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id54">آزمایش 2 — همسان‌سازی هیستوگرام</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-convolution">آزمایش 3 — correlation در برابر convolution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id55">آزمایش 4 — فیلترهای هموارساز</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id56">آزمایش 5 — تیزسازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id57">آزمایش 6 — zone plate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id58">3.15 نکات مفهومی که معمولاً اشتباه می‌شوند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id59">«روشن‌تر» با «کنتراست بیشتر» یکی نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-equalization">histogram equalization همیشه بهترین گزینه نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convolution-correlation">convolution و correlation فقط وقتی یکسان‌اند که هسته متقارن باشد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#median-convolution">median یک convolution نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id60">مشتق «اطلاعات جدید» ایجاد نمی‌کند</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#edge-detection">تیزسازی با edge detection یکسان نیست</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id61">3.16 یک نگاه الگوریتمی به انتخاب روش</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id62">3.17 تمرین‌های کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id63">3.18 جمع‌بندی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id64">فایل‌های همراه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id65">منبع علمی اصلی</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل سوم — تبدیلات شدت و پالایش مکانی<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>فصل سوم جایی است که پردازش تصویر از «تعریف تصویر و پیکسل» وارد عمل می‌شود. ایده اصلی ساده است: یا مقدار یک پیکسل را به‌تنهایی تغییر می‌دهیم، یا با نگاه‌کردن به همسایه‌های آن تصمیم می‌گیریم مقدار جدید چه باشد. از همین دو ایده، بخش بزرگی از روش‌های کلاسیک بهبود تصویر ساخته می‌شود: منفی‌کردن، گاما، لگاریتم، کشش کنتراست، همسان‌سازی هیستوگرام، میانگین‌گیری، گاوسی، میانه، لاپلاسین، ماسک ناتیز، تقویت بالاگذر و گرادیان.</p>
+<figure class="align-default" id="fig-ch3-concept-map">
+<a class="reference internal image-reference" href="../_images/fig03_00_concept_map.png"><img alt="../_images/fig03_00_concept_map.png" src="../_images/fig03_00_concept_map.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">نقشه مفهومی فصل سوم. شکل‌ها و نمودارهای این فصل برای همین بسته آموزشی از نو تولید شده‌اند و بازتولید مستقیم شکل‌های کتاب نیستند.</span><a class="headerlink" href="#fig-ch3-concept-map" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id2">
+<h2>اهداف یادگیری<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>پس از مطالعه این فصل انتظار می‌رود دانشجو بتواند:</p>
+<ul class="simple">
+<li><p>تفاوت <strong>پردازش نقطه‌ای</strong> و <strong>پردازش همسایگی</strong> را توضیح دهد؛</p></li>
+<li><p>رفتار تبدیل‌های منفی، لگاریتمی، توانی و چندپاره را از روی منحنی <span class="math notranslate nohighlight">\(s=T(r)\)</span> پیش‌بینی کند؛</p></li>
+<li><p>هیستوگرام را به‌عنوان توزیع فراوانی شدت تفسیر کند؛</p></li>
+<li><p>همسان‌سازی و تطبیق هیستوگرام را از نظر هدف و الگوریتم از هم جدا کند؛</p></li>
+<li><p>مفهوم پردازش محلی بر پایه میانگین و انحراف معیار همسایگی را توضیح دهد؛</p></li>
+<li><p>تفاوت correlation و convolution را دقیقاً بیان کند؛</p></li>
+<li><p>نقش padding، اندازه هسته، جدایی‌پذیری و هسته مرکب را در فیلترگذاری بفهمد؛</p></li>
+<li><p>فیلترهای box، Gaussian و median را مقایسه کند؛</p></li>
+<li><p>لاپلاسین، unsharp masking، high-boost، Roberts و Sobel را از نظر اثر و کاربرد مقایسه کند؛</p></li>
+<li><p>از یک پایین‌گذر، بالاگذر، میان‌نگذر و میان‌گذر بسازد؛</p></li>
+<li><p>چند روش مکمل را در یک pipeline بهبود تصویر ترکیب کند.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>3.1 منطق پردازش در حوزه مکانی<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>در <strong>حوزه مکانی</strong> مستقیماً با پیکسل‌های تصویر کار می‌کنیم. اگر <span class="math notranslate nohighlight">\(f(x,y)\)</span> تصویر ورودی، <span class="math notranslate nohighlight">\(g(x,y)\)</span> تصویر خروجی و <span class="math notranslate nohighlight">\(T\)</span> عملگر پردازش باشد، مدل کلی چنین نوشته می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=T[f(x,y)]
+\]</div>
+<p>این رابطه عمداً کلی است. بسته به اینکه <span class="math notranslate nohighlight">\(T\)</span> فقط مقدار همان پیکسل را ببیند یا یک همسایگی کامل را، دو کلاس مهم داریم:</p>
+<ol class="arabic simple">
+<li><p><strong>پردازش نقطه‌ای (point processing):</strong> فقط <span class="math notranslate nohighlight">\(f(x,y)\)</span> در محاسبه <span class="math notranslate nohighlight">\(g(x,y)\)</span> نقش دارد.</p></li>
+<li><p><strong>پردازش همسایگی (neighborhood processing):</strong> مجموعه‌ای از پیکسل‌های اطراف <span class="math notranslate nohighlight">\((x,y)\)</span> وارد محاسبه می‌شوند.</p></li>
+</ol>
+<figure class="align-default" id="fig-ch3-neighborhood">
+<a class="reference internal image-reference" href="../_images/fig03_01_spatial_neighborhood.png"><img alt="../_images/fig03_01_spatial_neighborhood.png" src="../_images/fig03_01_spatial_neighborhood.png" style="width: 66%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">قرار گرفتن یک همسایگی <span class="math notranslate nohighlight">\(3\times3\)</span> روی پیکسل هدف. مرکز هسته از پیکسل به پیکسل حرکت می‌کند و در هر مکان یک خروجی می‌سازد.</span><a class="headerlink" href="#fig-ch3-neighborhood" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>اگر همسایگی به یک پیکسل کاهش یابد، رابطه به فرم بسیار مهم زیر تبدیل می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+s=T(r)
+\]</div>
+<p>که در آن <span class="math notranslate nohighlight">\(r\)</span> شدت ورودی و <span class="math notranslate nohighlight">\(s\)</span> شدت خروجی است. این یک تابع یک‌بعدی است؛ بنابراین می‌توان آن را با یک فرمول، جدول lookup یا آرایه 256 عضوی برای تصویر 8 بیتی پیاده‌سازی کرد.</p>
+<section id="id4">
+<h3>مثال ذهنی<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>فرض کنید پیکسل ورودی 50 باشد. اگر <span class="math notranslate nohighlight">\(T(r)=2r\)</span>، خروجی 100 می‌شود. هیچ اهمیتی ندارد همسایه چپ یا راست چه مقداری دارند. اما اگر <span class="math notranslate nohighlight">\(T\)</span> «میانگین 9 پیکسل همسایگی» باشد، دیگر مقدار خروجی بدون دیدن اطراف قابل تعیین نیست.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>در این فصل واژه «spatial» به این معنا نیست که الگوریتم حتماً هندسی است؛ بلکه یعنی عمل مستقیماً روی صفحه تصویر و مقادیر پیکسل‌ها انجام می‌شود، نه در حوزه تبدیل مانند فوریه.</p>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>3.2 توابع پایه تبدیل شدت<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<section id="id6">
+<h3>3.2.1 خانواده نگاشت‌های شدت<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>منحنی <span class="math notranslate nohighlight">\(s=T(r)\)</span> تقریباً قبل از اجرای الگوریتم به ما می‌گوید تصویر چه تغییری خواهد کرد. اگر منحنی در یک بازه شیب بزرگی داشته باشد، آن بازه از شدت‌ها کشیده و کنتراستش زیاد می‌شود. اگر شیب کوچک باشد، همان بازه فشرده می‌شود.</p>
+<figure class="align-default" id="fig-ch3-intensity-families">
+<a class="reference internal image-reference" href="../_images/fig03_02_intensity_families.png"><img alt="../_images/fig03_02_intensity_families.png" src="../_images/fig03_02_intensity_families.png" style="width: 78%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">چند خانواده مهم تبدیل شدت. خط همانی یعنی «بدون تغییر»؛ قرار گرفتن منحنی بالاتر یا پایین‌تر از آن، به‌ترتیب روشن‌تر یا تیره‌تر شدن آن محدوده را نشان می‌دهد.</span><a class="headerlink" href="#fig-ch3-intensity-families" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id7">
+<h3>3.2.2 تصویر منفی<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>برای تصویری با <span class="math notranslate nohighlight">\(L\)</span> سطح شدت:</p>
+<div class="math notranslate nohighlight">
+\[
+s=L-1-r
+\]</div>
+<p>در تصویر 8 بیتی <span class="math notranslate nohighlight">\(L=256\)</span> است، پس:</p>
+<div class="math notranslate nohighlight">
+\[
+s=255-r
+\]</div>
+<p>این تبدیل ترتیب روشنایی را وارونه می‌کند. صفر به 255، مقدار 255 به صفر و خاکستری میانی تقریباً به خاکستری میانی دیگر نگاشت می‌شود.</p>
+<p><strong>کجا مفید است؟</strong> وقتی ساختارهای روشن کوچک روی زمینه تاریک قرار دارند، نسخه منفی گاهی برای چشم راحت‌تر تفسیر می‌شود. در تصویربرداری پزشکی کلاسیک و نمایش نگاتیو فیلم این ایده شناخته‌شده است.</p>
+<p><strong>الگوریتم:</strong> برای هر پیکسل فقط یک تفریق انجام دهید؛ بنابراین هزینه محاسباتی <span class="math notranslate nohighlight">\(O(MN)\)</span> است.</p>
+</section>
+<section id="id8">
+<h3>3.2.3 تبدیل لگاریتمی<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>فرم متداول:</p>
+<div class="math notranslate nohighlight">
+\[
+s=c\log(1+r),\qquad r\ge 0
+\]</div>
+<p>عدد 1 برای جلوگیری از <span class="math notranslate nohighlight">\(\log(0)\)</span> اضافه می‌شود. ویژگی کلیدی لگاریتم این است که مقادیر کوچک را بازتر و مقادیر بزرگ را فشرده‌تر می‌کند.</p>
+<p><strong>کاربرد کلاسیک:</strong> نمایش طیف فوریه. دامنه مولفه DC و چند مولفه قوی می‌تواند آن‌قدر بزرگ باشد که بقیه جزئیات در نمایش خطی تقریباً سیاه دیده شوند. لگاریتم دامنه دینامیکی را فشرده می‌کند.</p>
+</section>
+<section id="id9">
+<h3>3.2.4 تبدیل توانی یا گاما<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+s=c r^{\gamma}
+\]</div>
+<p>اگر <span class="math notranslate nohighlight">\(r\)</span> را به بازه <span class="math notranslate nohighlight">\([0,1]\)</span> نرمال کنیم:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\gamma&lt;1\)</span>: نواحی تاریک باز می‌شوند؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma=1\)</span>: نگاشت همانی؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(\gamma&gt;1\)</span>: نواحی کم‌نور فشرده و تصویر معمولاً تیره‌تر می‌شود.</p></li>
+</ul>
+<figure class="align-default" id="fig-ch3-gamma">
+<a class="reference internal image-reference" href="../_images/fig03_03_gamma_curves.png"><img alt="../_images/fig03_03_gamma_curves.png" src="../_images/fig03_03_gamma_curves.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">خانواده منحنی‌های گاما. اثر یک مقدار <span class="math notranslate nohighlight">\(\gamma\)</span> به شکل توزیع شدت تصویر نیز وابسته است، بنابراین «بهترین گاما» عدد ثابتی برای همه تصاویر نیست.</span><a class="headerlink" href="#fig-ch3-gamma" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id10">
+<h3>چرا تصحیح گاما وجود دارد؟<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>سامانه تصویربرداری/نمایش می‌تواند پاسخ غیرخطی داشته باشد. اگر نمایشگر تقریباً شدت خروجی را به صورت <span class="math notranslate nohighlight">\(V^\gamma\)</span> تولید کند، پیش‌جبران با توان معکوس می‌تواند خروجی دیده‌شده را به پاسخ موردنظر نزدیک کند. در کاربرد آموزشی، مهم‌تر از حفظ اعداد استاندارد این است که <strong>گاما یک کنترل غیرخطی بر دامنه شدت است</strong>.</p>
+</section>
+<section id="id11">
+<h3>مثال عددی<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(r=0.25\)</span>:</p>
+<ul class="simple">
+<li><p>با <span class="math notranslate nohighlight">\(\gamma=0.5\)</span>: <span class="math notranslate nohighlight">\(s=\sqrt{0.25}=0.5\)</span>، پس روشن‌تر می‌شود؛</p></li>
+<li><p>با <span class="math notranslate nohighlight">\(\gamma=2\)</span>: <span class="math notranslate nohighlight">\(s=0.0625\)</span>، پس تیره‌تر می‌شود.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id12">
+<h2>3.3 تبدیل‌های چندپاره، آستانه، برش شدت و صفحه‌های بیت<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<section id="id13">
+<h3>3.3.1 کشش کنتراست چندپاره<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>در بسیاری از تصاویر نمی‌خواهیم همه شدت‌ها با یک قانون واحد تغییر کنند. تابع چندپاره اجازه می‌دهد بازه‌ای را تقویت و بازه‌ای دیگر را فشرده کنیم.</p>
+<figure class="align-default" id="fig-ch3-piecewise">
+<a class="reference internal image-reference" href="../_images/fig03_04_piecewise_threshold.png"><img alt="../_images/fig03_04_piecewise_threshold.png" src="../_images/fig03_04_piecewise_threshold.png" style="width: 74%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">نمونه‌ای از کشش کنتراست چندپاره و آستانه‌گذاری. آستانه‌گذاری حالت حدی یک نگاشت چندپاره است که خروجی را به دو سطح می‌برد.</span><a class="headerlink" href="#fig-ch3-piecewise" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>اگر نقاط شکست <span class="math notranslate nohighlight">\((r_1,s_1)\)</span> و <span class="math notranslate nohighlight">\((r_2,s_2)\)</span> باشند، سه قطعه خطی داریم. در پیاده‌سازی کافی است بررسی کنیم <span class="math notranslate nohighlight">\(r\)</span> در کدام بازه است و معادله خط همان قطعه را اجرا کنیم.</p>
+</section>
+<section id="id14">
+<h3>3.3.2 آستانه‌گذاری<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>یک فرم ساده:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+s=\begin{cases}
+0 &amp; r&lt;T\\
+L-1 &amp; r\ge T
+\end{cases}
+\end{split}\]</div>
+<p>این تبدیل یک تصویر خاکستری را به تصویر دودویی تبدیل می‌کند. در فصل‌های بعد، آستانه‌گذاری برای segmentation نقش جدی‌تری پیدا می‌کند.</p>
+</section>
+<section id="intensity-slicing">
+<h3>3.3.3 intensity slicing<a class="headerlink" href="#intensity-slicing" title="Link to this heading">#</a></h3>
+<p>گاهی فقط یک بازه شدت مهم است. مثلاً می‌خواهیم پیکسل‌های بین 120 و 150 برجسته شوند. دو شیوه رایج:</p>
+<ul class="simple">
+<li><p>مقادیر داخل بازه روشن، بقیه تاریک؛</p></li>
+<li><p>مقادیر داخل بازه روشن، بقیه بدون تغییر.</p></li>
+</ul>
+<p>کاربردها: برجسته‌کردن ساختارهایی با محدوده شدت مشخص، تحلیل تصاویر پزشکی، رادار و نقشه‌های ارتفاعی.</p>
+</section>
+<section id="id15">
+<h3>3.3.4 صفحه‌های بیت<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>یک پیکسل 8 بیتی را می‌توان نوشت:</p>
+<div class="math notranslate nohighlight">
+\[
+r=\sum_{j=0}^{7} b_j2^j
+\]</div>
+<p>هر <span class="math notranslate nohighlight">\(b_j\)</span> یک صفحه بیت است. بیت‌های پرارزش شکل کلی و بیت‌های کم‌ارزش جزئیات ریزتر و گاهی نویز را حمل می‌کنند.</p>
+<figure class="align-default" id="fig-ch3-bitplanes">
+<a class="reference internal image-reference" href="../_images/fig03_05_bit_planes.png"><img alt="../_images/fig03_05_bit_planes.png" src="../_images/fig03_05_bit_planes.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">تجزیه یک تصویر 8 بیتی مصنوعی به صفحه‌های بیت. هرچه به بیت‌های پرارزش نزدیک می‌شویم، ساختار اصلی تصویر واضح‌تر می‌شود.</span><a class="headerlink" href="#fig-ch3-bitplanes" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>کاربرد:</strong> تحلیل فشرده‌سازی، watermarking، تشخیص اینکه چه مقدار از ساختار تصویر با چند بیت اصلی قابل بازسازی است.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id16">
+<h2>3.4 پردازش هیستوگرام<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<section id="id17">
+<h3>3.4.1 هیستوگرام چیست؟<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(r_k\)</span> شدت <span class="math notranslate nohighlight">\(k\)</span>ام و <span class="math notranslate nohighlight">\(n_k\)</span> تعداد پیکسل‌های دارای این شدت باشد:</p>
+<div class="math notranslate nohighlight">
+\[
+h(r_k)=n_k,\qquad k=0,1,\ldots,L-1
+\]</div>
+<p>و هیستوگرام نرمال‌شده:</p>
+<div class="math notranslate nohighlight">
+\[
+p_r(r_k)=\frac{n_k}{MN}
+\]</div>
+<p>از آنجا که مجموع همه احتمال‌ها 1 است، <span class="math notranslate nohighlight">\(p_r\)</span> را می‌توان تقریب گسسته توزیع شدت دانست.</p>
+<figure class="align-default" id="fig-ch3-hist-archetypes">
+<a class="reference internal image-reference" href="../_images/fig03_06_histogram_archetypes.png"><img alt="../_images/fig03_06_histogram_archetypes.png" src="../_images/fig03_06_histogram_archetypes.png" style="width: 84%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">چهار الگوی مفهومی هیستوگرام: تیره، روشن، کم‌کنتراست و پرکنتراست. محل جرم هیستوگرام بیشتر با روشنایی و پهنای آن بیشتر با کنتراست مرتبط است.</span><a class="headerlink" href="#fig-ch3-hist-archetypes" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id18">
+<h3>از شکل هیستوگرام چه می‌فهمیم؟<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>جرم نزدیک صفر: تصویر عمدتاً تیره؛</p></li>
+<li><p>جرم نزدیک <span class="math notranslate nohighlight">\(L-1\)</span>: تصویر عمدتاً روشن؛</p></li>
+<li><p>جرم باریک: دامنه دینامیکی محدود و معمولاً کنتراست کم؛</p></li>
+<li><p>توزیع گسترده: استفاده بیشتر از بازه شدت و معمولاً کنتراست بیشتر.</p></li>
+</ul>
+<p>اما هیستوگرام <strong>اطلاعات مکانی ندارد</strong>. دو تصویر با آرایش کاملاً متفاوت پیکسل‌ها می‌توانند هیستوگرام یکسان داشته باشند.</p>
+</section>
+<section id="id19">
+<h3>3.4.2 همسان‌سازی هیستوگرام — ایده پیوسته<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>برای متغیر شدت پیوسته، نگاشت تجمعی:</p>
+<div class="math notranslate nohighlight">
+\[
+s=T(r)=(L-1)\int_0^r p_r(w)\,dw
+\]</div>
+<p>مشتق آن:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{ds}{dr}=(L-1)p_r(r)
+\]</div>
+<p>و با قانون تغییر متغیر:</p>
+<div class="math notranslate nohighlight">
+\[
+p_s(s)=p_r(r)\left|\frac{dr}{ds}\right|=\frac{1}{L-1}
+\]</div>
+<p>پس در مدل پیوسته، خروجی به توزیع یکنواخت می‌رسد.</p>
+</section>
+<section id="id20">
+<h3>3.4.3 نسخه دیجیتال<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>برای تصویر واقعی از جمع تجمعی استفاده می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+s_k=(L-1)\sum_{j=0}^{k}p_r(r_j)
+\]</div>
+<p>و سپس به نزدیک‌ترین سطح مجاز گرد می‌کنیم.</p>
+<figure class="align-default" id="fig-ch3-hist-equalization">
+<a class="reference internal image-reference" href="../_images/fig03_07_histogram_equalization.png"><img alt="../_images/fig03_07_histogram_equalization.png" src="../_images/fig03_07_histogram_equalization.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">یک نمونه مصنوعی از همسان‌سازی هیستوگرام. در حالت گسسته، خروجی الزاماً هیستوگرام کاملاً تخت ندارد، چون چند شدت ورودی ممکن است به یک شدت خروجی نگاشت شوند.</span><a class="headerlink" href="#fig-ch3-hist-equalization" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id21">
+<h3>الگوریتم همسان‌سازی<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>شمارش فراوانی هر سطح شدت؛</p></li>
+<li><p>تقسیم بر تعداد کل پیکسل‌ها برای PMF؛</p></li>
+<li><p>محاسبه CDF؛</p></li>
+<li><p>ضرب CDF در <span class="math notranslate nohighlight">\(L-1\)</span>؛</p></li>
+<li><p>گردکردن؛</p></li>
+<li><p>جایگزینی هر شدت ورودی با مقدار نگاشت‌شده.</p></li>
+</ol>
+<p>پیچیدگی زمانی خطی نسبت به تعداد پیکسل‌هاست.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>همسان‌سازی همیشه «بهبود» نمی‌دهد. اگر تصویر ذاتاً هیستوگرام مناسبی دارد، یا یک ناحیه کوچک بسیار روشن/تیره غالب باشد، نتیجه ممکن است بیش از حد خشن یا غیرطبیعی شود.</p>
+</div>
+</section>
+<section id="specification">
+<h3>3.4.4 تطبیق یا specification هیستوگرام<a class="headerlink" href="#specification" title="Link to this heading">#</a></h3>
+<p>در همسان‌سازی، هدف تقریباً یکنواخت است. در <strong>histogram matching</strong> یا specification، توزیع هدف را خودمان تعیین می‌کنیم.</p>
+<p>برای ورودی:</p>
+<div class="math notranslate nohighlight">
+\[
+s=T(r)=(L-1)\int_0^r p_r(w)\,dw
+\]</div>
+<p>برای خروجی مطلوب:</p>
+<div class="math notranslate nohighlight">
+\[
+s=G(z)=(L-1)\int_0^z p_z(v)\,dv
+\]</div>
+<p>پس:</p>
+<div class="math notranslate nohighlight">
+\[
+z=G^{-1}[T(r)]
+\]</div>
+<figure class="align-default" id="fig-ch3-hist-matching">
+<a class="reference internal image-reference" href="../_images/fig03_08_histogram_matching.png"><img alt="../_images/fig03_08_histogram_matching.png" src="../_images/fig03_08_histogram_matching.png" style="width: 76%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">نگاه CDF به تطبیق هیستوگرام: شدت ورودی ابتدا به فضای تجمعی مشترک می‌رود و سپس از CDF هدف به شدت خروجی نگاشت می‌شود.</span><a class="headerlink" href="#fig-ch3-hist-matching" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>کاربرد:</strong> یکسان‌سازی ظاهر تصاویر گرفته‌شده در زمان‌های مختلف، نزدیک‌کردن تصاویر چند دوربین، preprocessing برای مقایسه، و کنترل ظاهر خروجی.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id22">
+<h2>3.5 پردازش محلی هیستوگرام و آمار همسایگی<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>همسان‌سازی سراسری یک نگاشت برای کل تصویر می‌سازد. اگر مشکل فقط در ناحیه‌ای کوچک باشد، روش سراسری ممکن است آن را نبیند. راه‌حل، محاسبه آمار روی پنجره‌ای متحرک است.</p>
+<p>اگر همسایگی <span class="math notranslate nohighlight">\(S_{xy}\)</span> شامل پیکسل‌های <span class="math notranslate nohighlight">\(r_i\)</span> باشد، میانگین محلی:</p>
+<div class="math notranslate nohighlight">
+\[
+m_{S_{xy}}=\frac{1}{n}\sum_{r_i\in S_{xy}} r_i
+\]</div>
+<p>و واریانس محلی:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2_{S_{xy}}=\frac{1}{n}\sum_{r_i\in S_{xy}}(r_i-m_{S_{xy}})^2
+\]</div>
+<figure class="align-default" id="fig-ch3-local-stats">
+<a class="reference internal image-reference" href="../_images/fig03_09_local_statistics.png"><img alt="../_images/fig03_09_local_statistics.png" src="../_images/fig03_09_local_statistics.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">تصویر مصنوعی، میانگین محلی و انحراف معیار محلی. میانگین ساختار کم‌فرکانس را نشان می‌دهد و انحراف معیار به تغییرات، بافت و مرزها حساس‌تر است.</span><a class="headerlink" href="#fig-ch3-local-stats" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id23">
+<h3>یک قانون محلی نمونه<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>می‌توان پیکسل را فقط وقتی تقویت کرد که میانگین محلی از میانگین کل کمتر و انحراف معیار محلی در محدوده‌ای مطلوب باشد. این ایده در روشن‌کردن جزئیات تاریک محلی بدون دست‌کاری شدید همه تصویر مفید است.</p>
+</section>
+<section id="id24">
+<h3>نکته محاسباتی<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>اگر برای هر پیکسل از صفر مجموع پنجره را محاسبه کنیم، هزینه زیاد است. در عمل می‌توان از convolution، integral image یا الگوریتم‌های sliding-window استفاده کرد.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id25">
+<h2>3.6 اصول پالایش مکانی<a class="headerlink" href="#id25" title="Link to this heading">#</a></h2>
+<section id="id26">
+<h3>3.6.1 جمع حاصل‌ضرب<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>برای یک هسته <span class="math notranslate nohighlight">\(w(s,t)\)</span> با اندازه <span class="math notranslate nohighlight">\(m\times n\)</span>، خروجی خطی در مکان <span class="math notranslate nohighlight">\((x,y)\)</span> از جمع وزن‌دار همسایگی ساخته می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=\sum_s\sum_t w(s,t)f(x+s,y+t)
+\]</div>
+<p>در correlation هسته همان‌طور که نوشته شده روی تصویر حرکت می‌کند. در convolution هسته در دو محور برگردانده می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=\sum_s\sum_t w(s,t)f(x-s,y-t)
+\]</div>
+<p>یا به‌طور معادل می‌توان گفت correlation را با هسته چرخیده <span class="math notranslate nohighlight">\(180^\circ\)</span> انجام می‌دهیم.</p>
+<figure class="align-default" id="fig-ch3-corr-conv">
+<a class="reference internal image-reference" href="../_images/fig03_10_correlation_convolution.png"><img alt="../_images/fig03_10_correlation_convolution.png" src="../_images/fig03_10_correlation_convolution.png" style="width: 78%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">تفاوت مفهومی correlation و convolution: در convolution هسته پیش از اعمال، 180 درجه می‌چرخد. برای هسته‌های متقارن این تفاوت دیده نمی‌شود.</span><a class="headerlink" href="#fig-ch3-corr-conv" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id27">
+<h3>مثال کوچک<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>فرض کنید هسته:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+w=\begin{bmatrix}0&amp;1&amp;2\\0&amp;0&amp;0\\-2&amp;-1&amp;0\end{bmatrix}
+\end{split}\]</div>
+<p>هسته convolution آن:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\tilde w=\begin{bmatrix}0&amp;-1&amp;-2\\0&amp;0&amp;0\\2&amp;1&amp;0\end{bmatrix}
+\end{split}\]</div>
+<p>اگر هسته گاوسی متقارن باشد، <span class="math notranslate nohighlight">\(w=\tilde w\)</span> و correlation/convolution خروجی یکسانی می‌دهند.</p>
+</section>
+<section id="padding">
+<h3>3.6.2 لبه‌های تصویر و padding<a class="headerlink" href="#padding" title="Link to this heading">#</a></h3>
+<p>وقتی مرکز هسته نزدیک مرز تصویر است، بخشی از هسته بیرون تصویر می‌افتد. چند راه:</p>
+<ul class="simple">
+<li><p>zero padding؛</p></li>
+<li><p>replicate؛</p></li>
+<li><p>reflect/symmetric؛</p></li>
+<li><p>circular/wrap؛</p></li>
+<li><p>فقط محاسبه ناحیه valid.</p></li>
+</ul>
+<figure class="align-default" id="fig-ch3-padding">
+<a class="reference internal image-reference" href="../_images/fig03_20_boundary_padding.png"><img alt="../_images/fig03_20_boundary_padding.png" src="../_images/fig03_20_boundary_padding.png" style="width: 76%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">دو نمونه padding. انتخاب نحوه توسعه مرز می‌تواند روی پیکسل‌های نزدیک لبه اثر قابل‌مشاهده داشته باشد.</span><a class="headerlink" href="#fig-ch3-padding" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>قاعده عملی:</strong> برای تصاویر طبیعی، reflect اغلب مرز مصنوعی کمتری از zero padding ایجاد می‌کند؛ اما انتخاب درست به مدل مسئله بستگی دارد.</p>
+</section>
+<section id="id28">
+<h3>3.6.3 هسته مرکب<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<p>اگر دو فیلتر خطی پشت سر هم اجرا شوند، می‌توان در بسیاری از موارد ابتدا خود هسته‌ها را convolution کرد و یک هسته مرکب ساخت:</p>
+<div class="math notranslate nohighlight">
+\[
+f*w_1*w_2=f*(w_1*w_2)
+\]</div>
+<p>این اصل به کاهش محاسبات و تحلیل پاسخ کل زنجیره کمک می‌کند.</p>
+</section>
+<section id="id29">
+<h3>3.6.4 جدایی‌پذیری<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p>اگر هسته دوبعدی را بتوان نوشت:</p>
+<div class="math notranslate nohighlight">
+\[
+w(x,y)=w_1(x)w_2(y)
+\]</div>
+<p>می‌توان به‌جای یک convolution دوبعدی، یک convolution افقی و یک convolution عمودی انجام داد.</p>
+<p>برای تصویر <span class="math notranslate nohighlight">\(M\times N\)</span> و هسته <span class="math notranslate nohighlight">\(m\times n\)</span>:</p>
+<ul class="simple">
+<li><p>مستقیم: تقریباً <span class="math notranslate nohighlight">\(MNmn\)</span> ضرب/جمع؛</p></li>
+<li><p>جدایی‌پذیر: تقریباً <span class="math notranslate nohighlight">\(MN(m+n)\)</span>.</p></li>
+</ul>
+<figure class="align-default" id="fig-ch3-separable">
+<a class="reference internal image-reference" href="../_images/fig03_17_separable_composite.png"><img alt="../_images/fig03_17_separable_composite.png" src="../_images/fig03_17_separable_composite.png" style="width: 84%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">دو ایده مهم: ساخت هسته دوبعدی از ضرب خارجی دو هسته یک‌بعدی، و تبدیل چند مرحله خطی به یک هسته مرکب.</span><a class="headerlink" href="#fig-ch3-separable" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id30">
+<h2>3.7 پالایه‌های هموارساز<a class="headerlink" href="#id30" title="Link to this heading">#</a></h2>
+<p>هدف هموارسازی کاهش تغییرات سریع، نویز و جزئیات ریز است. از دید فرکانسی، بیشتر این فیلترها <strong>پایین‌گذر</strong> هستند.</p>
+<section id="id31">
+<h3>3.7.1 میانگین جعبه‌ای<a class="headerlink" href="#id31" title="Link to this heading">#</a></h3>
+<p>برای یک هسته <span class="math notranslate nohighlight">\(m\times n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+w(s,t)=\frac{1}{mn}
+\]</div>
+<p>و خروجی میانگین همسایگی است.</p>
+<p><strong>مزیت:</strong> بسیار ساده و سریع.</p>
+<p><strong>عیب:</strong> لبه‌ها را به‌طور قابل‌توجهی تار می‌کند و پاسخ فرکانسی آن نرم و کنترل‌شده نیست.</p>
+</section>
+<section id="id32">
+<h3>3.7.2 فیلتر گاوسی<a class="headerlink" href="#id32" title="Link to this heading">#</a></h3>
+<p>تابع دوبعدی گاوسی:</p>
+<div class="math notranslate nohighlight">
+\[
+G(x,y)=\frac{1}{2\pi\sigma^2}
+\exp\left[-\frac{x^2+y^2}{2\sigma^2}\right]
+\]</div>
+<p>برای ساخت هسته دیجیتال، آن را روی شبکه نمونه‌برداری و سپس مجموع ضرایب را به 1 نرمال می‌کنیم.</p>
+<p>گاوسی جدایی‌پذیر است:</p>
+<div class="math notranslate nohighlight">
+\[
+G(x,y)=G_x(x)G_y(y)
+\]</div>
+<figure class="align-default" id="fig-ch3-smoothing-kernels">
+<a class="reference internal image-reference" href="../_images/fig03_11_smoothing_kernels.png"><img alt="../_images/fig03_11_smoothing_kernels.png" src="../_images/fig03_11_smoothing_kernels.png" style="width: 75%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">مقایسه هسته box و Gaussian. در گاوسی، پیکسل‌های نزدیک مرکز وزن بیشتری دارند و تغییر وزن نرم است.</span><a class="headerlink" href="#fig-ch3-smoothing-kernels" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="sigma">
+<h3>نقش <span class="math notranslate nohighlight">\(\sigma\)</span><a class="headerlink" href="#sigma" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> کوچک: هموارسازی محدود؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma\)</span> بزرگ: حذف بیشتر جزئیات و تاری بیشتر.</p></li>
+</ul>
+<p>اندازه هسته باید آن‌قدر باشد که بخش اصلی جرم گاوسی را بپوشاند. یک قاعده رایج آموزشی حدود <span class="math notranslate nohighlight">\(6\sigma+1\)</span> است، ولی در عمل می‌توان با توجه به دقت و هزینه آن را محدود کرد.</p>
+</section>
+<section id="id33">
+<h3>3.7.3 فیلتر میانه<a class="headerlink" href="#id33" title="Link to this heading">#</a></h3>
+<p>میانه یک فیلتر <strong>غیرخطی</strong> است. مقادیر همسایگی را مرتب می‌کنیم و مقدار وسط را جایگزین مرکز می‌کنیم.</p>
+<p>برای مجموعه:</p>
+<div class="math notranslate nohighlight">
+\[
+\{10,11,12,12,13,14,15,250,255\}
+\]</div>
+<p>میانگین به‌شدت توسط 250 و 255 کشیده می‌شود، اما میانه 13 است. به همین دلیل median برای نویز ضربه‌ای بسیار موثر است.</p>
+<figure class="align-default" id="fig-ch3-smoothing-comparison">
+<a class="reference internal image-reference" href="../_images/fig03_12_smoothing_comparison.png"><img alt="../_images/fig03_12_smoothing_comparison.png" src="../_images/fig03_12_smoothing_comparison.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">مقایسه box، Gaussian و median روی یک تصویر با نویز نمک‌وفلفل یکسان. median معمولاً نویز ضربه‌ای را با حفظ بهتر مرزها حذف می‌کند.</span><a class="headerlink" href="#fig-ch3-smoothing-comparison" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id34">
+<h3>مقایسه سریع<a class="headerlink" href="#id34" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>فیلتر</p></th>
+<th class="head text-right"><p>خطی؟</p></th>
+<th class="head"><p>بهترین کاربرد آموزشی</p></th>
+<th class="head"><p>ضعف مهم</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Box</p></td>
+<td class="text-right"><p>بله</p></td>
+<td><p>هموارسازی ساده و درک averaging</p></td>
+<td><p>تاری زیاد، پاسخ فرکانسی ضعیف</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gaussian</p></td>
+<td class="text-right"><p>بله</p></td>
+<td><p>حذف نویز نرم، preprocessing</p></td>
+<td><p>لبه‌ها را نیز نرم می‌کند</p></td>
+</tr>
+<tr class="row-even"><td><p>Median</p></td>
+<td class="text-right"><p>خیر</p></td>
+<td><p>نویز ضربه‌ای</p></td>
+<td><p>هزینه بیشتر و امکان حذف جزئیات کوچک</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id35">
+<h2>3.8 تیزسازی با مشتق‌ها<a class="headerlink" href="#id35" title="Link to this heading">#</a></h2>
+<p>هموارسازی تغییرات سریع را کم می‌کند؛ تیزسازی برعکس، تغییرات سریع را برجسته می‌کند. مشتق‌ها ابزار طبیعی این کار هستند.</p>
+<section id="id36">
+<h3>3.8.1 مشتق گسسته مرتبه اول<a class="headerlink" href="#id36" title="Link to this heading">#</a></h3>
+<p>در یک بعد:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial f}{\partial x}\approx f(x+1)-f(x)
+\]</div>
+</section>
+<section id="id37">
+<h3>3.8.2 مشتق مرتبه دوم<a class="headerlink" href="#id37" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial^2 f}{\partial x^2}\approx f(x+1)+f(x-1)-2f(x)
+\]</div>
+<figure class="align-default" id="fig-ch3-derivatives">
+<a class="reference internal image-reference" href="../_images/fig03_13_derivative_behavior.png"><img alt="../_images/fig03_13_derivative_behavior.png" src="../_images/fig03_13_derivative_behavior.png" style="width: 84%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">رفتار مفهومی تفاضل مرتبه اول و دوم روی پروفایل شدت. مشتق دوم به تغییرات سریع حساس‌تر است و در دو طرف گذار علامت عوض می‌کند.</span><a class="headerlink" href="#fig-ch3-derivatives" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>مشتق اول در رمپ غیرصفر باقی می‌ماند؛ مشتق دوم در داخل رمپ تقریباً صفر است و در آغاز و پایان رمپ پاسخ قوی‌تری می‌دهد. همین تفاوت در edge detection و sharpening مهم است.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id38">
+<h2>3.9 لاپلاسین<a class="headerlink" href="#id38" title="Link to this heading">#</a></h2>
+<p>در دو بعد:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla^2 f=\frac{\partial^2 f}{\partial x^2}+\frac{\partial^2 f}{\partial y^2}
+\]</div>
+<p>تقریب چهارهمسایه:</p>
+<div class="math notranslate nohighlight">
+\[
+\nabla^2f(x,y)=f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)
+\]</div>
+<p>یک هسته متناظر:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+0&amp;1&amp;0\\
+1&amp;-4&amp;1\\
+0&amp;1&amp;0
+\end{bmatrix}
+\end{split}\]</div>
+<p>نسخه 8 همسایه:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+1&amp;1&amp;1\\
+1&amp;-8&amp;1\\
+1&amp;1&amp;1
+\end{bmatrix}
+\end{split}\]</div>
+<figure class="align-default" id="fig-ch3-laplacian-kernels">
+<a class="reference internal image-reference" href="../_images/fig03_14_laplacian_kernels.png"><img alt="../_images/fig03_14_laplacian_kernels.png" src="../_images/fig03_14_laplacian_kernels.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">چهار شکل رایج از هسته لاپلاسین. تغییر علامت همه ضرایب، پاسخ مشتق را معکوس می‌کند و در فرمول ترکیب با تصویر باید به این علامت توجه کرد.</span><a class="headerlink" href="#fig-ch3-laplacian-kernels" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id39">
+<h3>تیزسازی با لاپلاسین<a class="headerlink" href="#id39" title="Link to this heading">#</a></h3>
+<p>اگر هسته دارای مرکز منفی باشد، یکی از فرم‌های متداول:</p>
+<div class="math notranslate nohighlight">
+\[
+g=f-\nabla^2 f
+\]</div>
+<p>اگر علامت هسته برعکس باشد:</p>
+<div class="math notranslate nohighlight">
+\[
+g=f+\nabla^2 f
+\]</div>
+<p>اصل مهم این است که <strong>مولفه مشتقی را با علامت مناسب به تصویر اصلی اضافه کنیم</strong>.</p>
+</section>
+<section id="id40">
+<h3>چرا لاپلاسین نویز را تقویت می‌کند؟<a class="headerlink" href="#id40" title="Link to this heading">#</a></h3>
+<p>نویز تغییرات سریع پیکسلی دارد. مشتق مرتبه دوم نیز به تغییرات سریع حساس است؛ بنابراین بدون کنترل، هم جزئیات مفید و هم نویز تقویت می‌شوند.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id41">
+<h2>3.10 ماسک ناتیز و تقویت بالاگذر<a class="headerlink" href="#id41" title="Link to this heading">#</a></h2>
+<section id="unsharp-masking">
+<h3>3.10.1 ایده unsharp masking<a class="headerlink" href="#unsharp-masking" title="Link to this heading">#</a></h3>
+<p>ابتدا نسخه هموارشده <span class="math notranslate nohighlight">\(\bar f\)</span> را بسازید. سپس ماسک جزئیات:</p>
+<div class="math notranslate nohighlight">
+\[
+g_{mask}=f-\bar f
+\]</div>
+<p>و نتیجه:</p>
+<div class="math notranslate nohighlight">
+\[
+g=f+k g_{mask}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(k=1\)</span>: unsharp masking؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(k&gt;1\)</span>: high-boost filtering.</p></li>
+</ul>
+<figure class="align-default" id="fig-ch3-unsharp">
+<a class="reference internal image-reference" href="../_images/fig03_15_unsharp_highboost.png"><img alt="../_images/fig03_15_unsharp_highboost.png" src="../_images/fig03_15_unsharp_highboost.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">ماسک ناتیز و high-boost روی تصویر مصنوعی. افزایش <span class="math notranslate nohighlight">\(k\)</span> جزئیات را قوی‌تر می‌کند، اما هاله و تقویت نویز نیز بیشتر می‌شود.</span><a class="headerlink" href="#fig-ch3-unsharp" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="unsharp">
+<h3>چرا نام «unsharp»؟<a class="headerlink" href="#unsharp" title="Link to this heading">#</a></h3>
+<p>در روش تاریخی عکاسی، یک نسخه محو از تصویر برای ساخت ماسک استفاده می‌شد. خود ماسک «غیرتیز» است، ولی نتیجه نهایی تیزتر می‌شود.</p>
+</section>
+<section id="id42">
+<h3>الگوریتم<a class="headerlink" href="#id42" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\bar f \leftarrow\)</span> GaussianBlur<span class="math notranslate nohighlight">\((f)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(m\leftarrow f-\bar f\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(g\leftarrow f+k m\)</span></p></li>
+<li><p>clip به بازه مجاز شدت</p></li>
+</ol>
+</section>
+</section>
+<hr class="docutils" />
+<section id="roberts-sobel">
+<h2>3.11 گرادیان: Roberts و Sobel<a class="headerlink" href="#roberts-sobel" title="Link to this heading">#</a></h2>
+<p>گرادیان بردار مشتق‌های مرتبه اول است:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\nabla f=\begin{bmatrix}g_x\\g_y\end{bmatrix}
+\end{split}\]</div>
+<p>اندازه دقیق:</p>
+<div class="math notranslate nohighlight">
+\[
+M(x,y)=\sqrt{g_x^2+g_y^2}
+\]</div>
+<p>و تقریب سریع:</p>
+<div class="math notranslate nohighlight">
+\[
+M(x,y)\approx |g_x|+|g_y|
+\]</div>
+<section id="roberts">
+<h3>Roberts<a class="headerlink" href="#roberts" title="Link to this heading">#</a></h3>
+<p>یک زوج ساده هسته‌های <span class="math notranslate nohighlight">\(2\times2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+G_x=\begin{bmatrix}1&amp;0\\0&amp;-1\end{bmatrix},\qquad
+G_y=\begin{bmatrix}0&amp;1\\-1&amp;0\end{bmatrix}
+\end{split}\]</div>
+</section>
+<section id="sobel">
+<h3>Sobel<a class="headerlink" href="#sobel" title="Link to this heading">#</a></h3>
+<p>یک فرم متداول:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+G_x=\begin{bmatrix}-1&amp;0&amp;1\\-2&amp;0&amp;2\\-1&amp;0&amp;1\end{bmatrix},\qquad
+G_y=\begin{bmatrix}-1&amp;-2&amp;-1\\0&amp;0&amp;0\\1&amp;2&amp;1\end{bmatrix}
+\end{split}\]</div>
+<p>ضریب 2 به ردیف یا ستون مرکزی وزن بیشتری می‌دهد و اندکی smoothing در دل محاسبه مشتق ایجاد می‌کند.</p>
+<figure class="align-default" id="fig-ch3-gradient">
+<a class="reference internal image-reference" href="../_images/fig03_16_gradient_operators.png"><img alt="../_images/fig03_16_gradient_operators.png" src="../_images/fig03_16_gradient_operators.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">خروجی Roberts و Sobel روی یک ورودی مشترک. هر دو تغییرات شدت را برجسته می‌کنند، اما Sobel به دلیل پشتیبانی بزرگ‌تر و وزن‌دهی، رفتار پایدارتر و نرم‌تری دارد.</span><a class="headerlink" href="#fig-ch3-gradient" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id43">
+<h3>کاربرد نزدیک به صنعت<a class="headerlink" href="#id43" title="Link to this heading">#</a></h3>
+<p>در بازرسی سطح، مرز ترک، خراش، لبه قطعه یا نقص موضعی اغلب از زمینه آرام متمایز است. گرادیان می‌تواند پس‌زمینه یکنواخت را سرکوب و ناپیوستگی‌ها را برجسته کند. در pipeline واقعی معمولاً پس از گرادیان، threshold و عملیات مورفولوژیک نیز استفاده می‌شود.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id44">
+<h2>3.12 رابطه پایین‌گذر، بالاگذر، میان‌نگذر و میان‌گذر<a class="headerlink" href="#id44" title="Link to this heading">#</a></h2>
+<p>اگر <span class="math notranslate nohighlight">\(lp(x,y)\)</span> هسته پایین‌گذر و <span class="math notranslate nohighlight">\(\delta(x,y)\)</span> ضربه واحد باشد:</p>
+<section id="id45">
+<h3>بالاگذر<a class="headerlink" href="#id45" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+hp(x,y)=\delta(x,y)-lp(x,y)
+\]</div>
+<p>چرا؟ چون <span class="math notranslate nohighlight">\(\delta*f=f\)</span> و <span class="math notranslate nohighlight">\(lp*f\)</span> نسخه کم‌فرکانس تصویر است؛ تفریق آن از تصویر، مولفه‌های سریع‌تر را باقی می‌گذارد.</p>
+</section>
+<section id="id46">
+<h3>میان‌نگذر<a class="headerlink" href="#id46" title="Link to this heading">#</a></h3>
+<p>با دو پایین‌گذر با پهنای متفاوت:</p>
+<div class="math notranslate nohighlight">
+\[
+br=lp_1+[\delta-lp_2]
+\]</div>
+</section>
+<section id="id47">
+<h3>میان‌گذر<a class="headerlink" href="#id47" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+bp=\delta-br
+\]</div>
+</section>
+<section id="zone-plate">
+<h3>صفحه ناحیه‌ای (zone plate)<a class="headerlink" href="#zone-plate" title="Link to this heading">#</a></h3>
+<p>برای آزمایش یک فیلتر، تصویر zone plate بسیار مفید است:</p>
+<div class="math notranslate nohighlight">
+\[
+z(x,y)=\frac{1}{2}[1+\cos(x^2+y^2)]
+\]</div>
+<p>یا نسخه مقیاس‌شده آن. فرکانس مکانی با فاصله از مرکز تغییر می‌کند، پس یک تصویر واحد طیفی از فرکانس‌های مختلف را نشان می‌دهد.</p>
+<figure class="align-default" id="fig-ch3-zoneplate">
+<a class="reference internal image-reference" href="../_images/fig03_18_zoneplate_filters.png"><img alt="../_images/fig03_18_zoneplate_filters.png" src="../_images/fig03_18_zoneplate_filters.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">zone plate و پاسخ خانواده فیلترهای مشتق‌شده از پایین‌گذر. محل حلقه‌های عبوری یا سرکوب‌شده، نقش فرکانسی فیلتر را به‌صورت دیداری آشکار می‌کند.</span><a class="headerlink" href="#fig-ch3-zoneplate" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id48">
+<h3>نکته مهم درباره جدایی‌پذیری و جهت‌داری<a class="headerlink" href="#id48" title="Link to this heading">#</a></h3>
+<p>یک فیلتر جدایی‌پذیر لزوماً isotropic نیست. اگر پاسخ دوبعدی از حاصل‌ضرب دو پاسخ یک‌بعدی ساخته شود، ممکن است ساختار چهارگوش یا جهت‌دار نشان دهد. برای کاربردی که جهت نباید مهم باشد، باید isotropy پاسخ بررسی شود.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id49">
+<h2>3.13 ترکیب روش‌های بهبود مکانی<a class="headerlink" href="#id49" title="Link to this heading">#</a></h2>
+<p>در مسئله واقعی یک روش واحد معمولاً کافی نیست. مثال آموزنده این فصل ترکیبی از این ایده‌هاست:</p>
+<ol class="arabic simple">
+<li><p>لاپلاسین برای برجسته‌کردن جزئیات ریز؛</p></li>
+<li><p>گرادیان Sobel برای پیدا کردن گذارهای قوی؛</p></li>
+<li><p>هموارسازی گرادیان برای ساخت ماسک پیوسته‌تر؛</p></li>
+<li><p>ضرب ماسک در پاسخ لاپلاسین برای کنترل تقویت در نواحی صاف؛</p></li>
+<li><p>افزودن نتیجه به تصویر اصلی؛</p></li>
+<li><p>تبدیل گاما برای تنظیم نمایش نهایی.</p></li>
+</ol>
+<figure class="align-default" id="fig-ch3-combined">
+<a class="reference internal image-reference" href="../_images/fig03_19_combined_enhancement.png"><img alt="../_images/fig03_19_combined_enhancement.png" src="../_images/fig03_19_combined_enhancement.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">یک pipeline آموزشی مستقل: ورودی، لاپلاسین، تیزسازی، Sobel، گرادیان هموارشده، ماسک حاصل‌ضرب، ترکیب و تنظیم گاما.</span><a class="headerlink" href="#fig-ch3-combined" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id50">
+<h3>چرا این ترکیب منطقی است؟<a class="headerlink" href="#id50" title="Link to this heading">#</a></h3>
+<p>لاپلاسین جزئیات ظریف را خوب می‌بیند، اما به نویز حساس است. گرادیان نسبت به لبه‌های قوی پاسخ قابل‌اعتماد‌تری دارد. اگر گرادیان هموارشده به‌عنوان ماسک استفاده شود، تقویت لاپلاسین بیشتر جایی اعمال می‌شود که ساختار واقعی وجود دارد و در نواحی صاف کمتر می‌شود.</p>
+</section>
+<section id="id51">
+<h3>شبه‌کد<a class="headerlink" href="#id51" title="Link to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>L  = Laplacian(f)
+S  = f - L
+G  = SobelMagnitude(f)
+Gs = GaussianBlur(G)
+M  = Gs * abs(L)
+C  = f + alpha * M
+out = Gamma(C, gamma)
+</pre></div>
+</div>
+<p>پارامترهای <span class="math notranslate nohighlight">\(\alpha\)</span> و <span class="math notranslate nohighlight">\(\gamma\)</span> باید بر اساس دامنه شدت، نویز و هدف نمایش انتخاب شوند.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id52">
+<h2>3.14 مثال‌های اجرایی پیشنهادی<a class="headerlink" href="#id52" title="Link to this heading">#</a></h2>
+<p>فایل‌های آماده در پوشه <code class="docutils literal notranslate"><span class="pre">downloads/</span></code> قرار دارند. این فایل‌ها برای اجرای مستقل طراحی شده‌اند و به تنظیمات Jupyter Book وابسته نیستند.</p>
+<section id="id53">
+<h3>آزمایش 1 — تبدیل‌های شدت<a class="headerlink" href="#id53" title="Link to this heading">#</a></h3>
+<p>روی یک تصویر مصنوعی ثابت، negative، log، gamma و threshold را اجرا کنید. سپس به این سه سؤال پاسخ دهید:</p>
+<ol class="arabic simple">
+<li><p>کدام روش جزئیات تاریک را بهتر آشکار کرد؟</p></li>
+<li><p>کدام روش دامنه روشن را فشرده کرد؟</p></li>
+<li><p>کدام روش اطلاعات خاکستری را به‌طور برگشت‌ناپذیر حذف کرد؟</p></li>
+</ol>
+</section>
+<section id="id54">
+<h3>آزمایش 2 — همسان‌سازی هیستوگرام<a class="headerlink" href="#id54" title="Link to this heading">#</a></h3>
+<p>هیستوگرام قبل و بعد را رسم کنید. بررسی کنید آیا خروجی واقعاً کاملاً یکنواخت است. دلیل عدم یکنواختی کامل در داده گسسته چیست؟</p>
+</section>
+<section id="correlation-convolution">
+<h3>آزمایش 3 — correlation در برابر convolution<a class="headerlink" href="#correlation-convolution" title="Link to this heading">#</a></h3>
+<p>یک هسته نامتقارن انتخاب کنید. خروجی دو عملیات را مقایسه کنید. سپس همان آزمایش را با هسته گاوسی متقارن انجام دهید.</p>
+</section>
+<section id="id55">
+<h3>آزمایش 4 — فیلترهای هموارساز<a class="headerlink" href="#id55" title="Link to this heading">#</a></h3>
+<p>یک realization یکسان از نویز salt-and-pepper را با box، Gaussian و median پردازش کنید. اگر برای هر روش نویز متفاوت بسازید، مقایسه منصفانه نخواهد بود.</p>
+</section>
+<section id="id56">
+<h3>آزمایش 5 — تیزسازی<a class="headerlink" href="#id56" title="Link to this heading">#</a></h3>
+<p>Laplacian، unsharp، high-boost و Sobel را روی یک تصویر مشترک اجرا کنید. تفاوت «افزایش جزئیات» و «نمایش لبه» را از هم جدا کنید.</p>
+</section>
+<section id="id57">
+<h3>آزمایش 6 — zone plate<a class="headerlink" href="#id57" title="Link to this heading">#</a></h3>
+<p>اثر lowpass، highpass، bandreject و bandpass را روی zone plate بررسی کنید. به‌جای حفظ‌کردن تعریف‌ها، از محل حلقه‌های باقی‌مانده نتیجه بگیرید کدام فرکانس‌ها عبور کرده‌اند.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id58">
+<h2>3.15 نکات مفهومی که معمولاً اشتباه می‌شوند<a class="headerlink" href="#id58" title="Link to this heading">#</a></h2>
+<section id="id59">
+<h3>«روشن‌تر» با «کنتراست بیشتر» یکی نیست<a class="headerlink" href="#id59" title="Link to this heading">#</a></h3>
+<p>اضافه‌کردن یک مقدار ثابت می‌تواند تصویر را روشن‌تر کند بدون آنکه اختلاف بین شدت‌ها افزایش یابد. کنتراست بیشتر یعنی فاصله مؤثر بین سطوح موردنظر بیشتر شود.</p>
+</section>
+<section id="histogram-equalization">
+<h3>histogram equalization همیشه بهترین گزینه نیست<a class="headerlink" href="#histogram-equalization" title="Link to this heading">#</a></h3>
+<p>این روش هدف خاصی دارد: استفاده گسترده‌تر از دامنه شدت بر اساس CDF. اگر هدف حفظ ظاهر طبیعی یا تطبیق با یک مرجع باشد، روش دیگری ممکن است مناسب‌تر باشد.</p>
+</section>
+<section id="convolution-correlation">
+<h3>convolution و correlation فقط وقتی یکسان‌اند که هسته متقارن باشد<a class="headerlink" href="#convolution-correlation" title="Link to this heading">#</a></h3>
+<p>در بسیاری از مثال‌های smoothing تفاوت دیده نمی‌شود، چون box و Gaussian متقارن‌اند. این نباید باعث شود تعریف اصلی فراموش شود.</p>
+</section>
+<section id="median-convolution">
+<h3>median یک convolution نیست<a class="headerlink" href="#median-convolution" title="Link to this heading">#</a></h3>
+<p>هیچ مجموعه ثابت از ضرایب خطی وجود ندارد که median را برای همه ورودی‌ها بسازد. مرتب‌سازی و انتخاب مقدار میانی یک عملیات غیرخطی است.</p>
+</section>
+<section id="id60">
+<h3>مشتق «اطلاعات جدید» ایجاد نمی‌کند<a class="headerlink" href="#id60" title="Link to this heading">#</a></h3>
+<p>مشتق فقط تغییرات موجود را برجسته می‌کند. اگر جزئیاتی زیر نویز یا کوانتیزه‌سازی از بین رفته باشد، sharpening الزاماً آن را بازیابی نمی‌کند و حتی ممکن است نویز را شدیدتر کند.</p>
+</section>
+<section id="edge-detection">
+<h3>تیزسازی با edge detection یکسان نیست<a class="headerlink" href="#edge-detection" title="Link to this heading">#</a></h3>
+<p>در edge detection معمولاً خروجی مشتق یا magnitude خودش اهمیت دارد. در sharpening پاسخ مشتق به تصویر اصلی بازگردانده می‌شود تا ظاهر تیزتر شود.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id61">
+<h2>3.16 یک نگاه الگوریتمی به انتخاب روش<a class="headerlink" href="#id61" title="Link to this heading">#</a></h2>
+<p>اگر مسئله شما این است که:</p>
+<ul class="simple">
+<li><p><strong>تصویر کلی خیلی تیره است:</strong> gamma با <span class="math notranslate nohighlight">\(\gamma&lt;1\)</span> یا کشش کنتراست؛</p></li>
+<li><p><strong>دامنه دینامیکی خیلی بزرگ است:</strong> log؛</p></li>
+<li><p><strong>فقط یک بازه شدت مهم است:</strong> intensity slicing؛</p></li>
+<li><p><strong>کنتراست سراسری ضعیف است:</strong> histogram equalization؛</p></li>
+<li><p><strong>ظاهر باید شبیه مرجع شود:</strong> histogram matching؛</p></li>
+<li><p><strong>نویز نرم/گاوسی دارید:</strong> Gaussian smoothing؛</p></li>
+<li><p><strong>نویز نمک‌وفلفل دارید:</strong> median؛</p></li>
+<li><p><strong>لبه‌ها باید برجسته شوند:</strong> Sobel/gradient؛</p></li>
+<li><p><strong>جزئیات ریز باید تقویت شوند:</strong> Laplacian یا unsharp/high-boost؛</p></li>
+<li><p><strong>یک روش کافی نیست:</strong> pipeline ترکیبی.</p></li>
+</ul>
+<p>این جدول «نسخه قطعی» نیست؛ فقط نقطه شروع مهندسی است. در عمل نوع نویز، دامنه شدت، هدف نهایی و حساسیت کاربرد تعیین‌کننده‌اند.</p>
+</section>
+<hr class="docutils" />
+<section id="id62">
+<h2>3.17 تمرین‌های کوتاه<a class="headerlink" href="#id62" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>برای تصویر 8 بیتی، خروجی negative پیکسل‌های 0، 64، 128، 200 و 255 را حساب کنید.</p></li>
+<li><p>برای <span class="math notranslate nohighlight">\(r=0.16\)</span>، خروجی <span class="math notranslate nohighlight">\(r^{0.5}\)</span> و <span class="math notranslate nohighlight">\(r^2\)</span> را محاسبه و تفسیر کنید.</p></li>
+<li><p>چرا histogram یک تصویر نمی‌تواند محل مکانی اشیا را تعیین کند؟</p></li>
+<li><p>چه زمانی histogram matching از equalization منطقی‌تر است؟</p></li>
+<li><p>با یک مثال هسته نامتقارن توضیح دهید correlation و convolution چرا متفاوت‌اند.</p></li>
+<li><p>چرا Gaussian separable است و این موضوع چه سود محاسباتی دارد؟</p></li>
+<li><p>چرا median در برابر salt-and-pepper از mean بهتر عمل می‌کند؟</p></li>
+<li><p>اگر ضرایب یک هسته مشتق جمعشان صفر باشد، پاسخ آن روی ناحیه ثابت چه خواهد بود؟</p></li>
+<li><p>افزایش <span class="math notranslate nohighlight">\(k\)</span> در high-boost چه مزیت و چه خطری دارد؟</p></li>
+<li><p>چرا Laplacian نسبت به noise حساس‌تر از gradient است؟</p></li>
+<li><p>چرا zone plate برای مقایسه فیلترها مفید است؟</p></li>
+<li><p>در یک کاربرد پزشکی، چرا ممکن است استفاده مستقیم از median برای «کاهش نویز» تصمیم خطرناکی باشد؟</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="id63">
+<h2>3.18 جمع‌بندی فصل<a class="headerlink" href="#id63" title="Link to this heading">#</a></h2>
+<p>زنجیره منطقی فصل سوم را می‌توان در چند جمله خلاصه کرد:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(s=T(r)\)</span> زبان پردازش تک‌پیکسلی است؛</p></li>
+<li><p>histogram توزیع شدت‌ها را بدون اطلاعات مکانی خلاصه می‌کند؛</p></li>
+<li><p>equalization با CDF کنتراست سراسری را بازتوزیع می‌کند و matching به توزیع هدف می‌رود؛</p></li>
+<li><p>فیلتر مکانی یک جمع حاصل‌ضرب روی همسایگی است؛</p></li>
+<li><p>smoothing عمدتاً تغییرات سریع را سرکوب می‌کند؛</p></li>
+<li><p>sharpening با مشتق یا کم‌کردن نسخه هموار، تغییرات سریع را تقویت می‌کند؛</p></li>
+<li><p>Gaussian نمونه مهم یک هسته خطی، هموار و جدایی‌پذیر است؛</p></li>
+<li><p>median غیرخطی و مناسب نویز ضربه‌ای است؛</p></li>
+<li><p>Laplacian مشتق مرتبه دوم و Sobel تقریب گرادیان مرتبه اول است؛</p></li>
+<li><p>highpass و band filters را می‌توان از lowpassها ساخت؛</p></li>
+<li><p>در کاربرد واقعی، ترکیب هوشمند چند روش معمولاً بهتر از تکیه بر یک الگوریتم است.</p></li>
+</ul>
+<p>پرسش اصلی برای هر خروجی فقط این نیست که «بهتر شد یا نه؟». بهتر است همیشه سه سؤال بپرسیم: <strong>کدام شدت‌ها یا فرکانس‌ها تقویت شدند؟ کدام اطلاعات تضعیف یا حذف شدند؟ چه artifact یا حساسیتی اضافه شد؟</strong> پاسخ به این سه سؤال، فهم واقعی فصل را از حفظ‌کردن نام فیلترها جدا می‌کند.</p>
+</section>
+<hr class="docutils" />
+<section id="id64">
+<h2>فایل‌های همراه<a class="headerlink" href="#id64" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-03/chapter03_examples.ipynb" download>Notebook مثال‌های فصل سوم</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-03/chapter03_examples.py" download>اسکریپت مستقل مثال‌ها</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-03/Chapter03_Code_Examples.zip" download>ZIP کدهای مثال</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-03/Chapter03_Original_Figures.zip" download>ZIP شکل‌های اصیل تولیدشده برای فصل</a></p></li>
+</ul>
+</section>
+<section id="id65">
+<h2>منبع علمی اصلی<a class="headerlink" href="#id65" title="Link to this heading">#</a></h2>
+<p>Rafael C. Gonzalez and Richard E. Woods, <em>Digital Image Processing</em>, 4th Edition, Chapter 3: <strong>Intensity Transformations and Spatial Filtering</strong>.</p>
+<p>این متن آموزشی بر مبنای سازمان علمی فصل سوم و فایل فارسی تهیه‌شده برای همین درس تنظیم شده است. شکل‌های این بسته مستقل و بازطراحی‌شده‌اند و صفحات یا تصاویر کتاب در ZIP بازنشر نشده‌اند.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./gonzalez"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-02.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل دوم — مبانی تصویر دیجیتال</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../student-work/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Student Work</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">3.1 منطق پردازش در حوزه مکانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">مثال ذهنی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">3.2 توابع پایه تبدیل شدت</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">3.2.1 خانواده نگاشت‌های شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">3.2.2 تصویر منفی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">3.2.3 تبدیل لگاریتمی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">3.2.4 تبدیل توانی یا گاما</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">چرا تصحیح گاما وجود دارد؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">مثال عددی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">3.3 تبدیل‌های چندپاره، آستانه، برش شدت و صفحه‌های بیت</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">3.3.1 کشش کنتراست چندپاره</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">3.3.2 آستانه‌گذاری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#intensity-slicing">3.3.3 intensity slicing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">3.3.4 صفحه‌های بیت</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">3.4 پردازش هیستوگرام</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">3.4.1 هیستوگرام چیست؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">از شکل هیستوگرام چه می‌فهمیم؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">3.4.2 همسان‌سازی هیستوگرام — ایده پیوسته</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">3.4.3 نسخه دیجیتال</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">الگوریتم همسان‌سازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specification">3.4.4 تطبیق یا specification هیستوگرام</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">3.5 پردازش محلی هیستوگرام و آمار همسایگی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">یک قانون محلی نمونه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">نکته محاسباتی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">3.6 اصول پالایش مکانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">3.6.1 جمع حاصل‌ضرب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">مثال کوچک</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#padding">3.6.2 لبه‌های تصویر و padding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">3.6.3 هسته مرکب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">3.6.4 جدایی‌پذیری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">3.7 پالایه‌های هموارساز</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">3.7.1 میانگین جعبه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">3.7.2 فیلتر گاوسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sigma">نقش <span class="math notranslate nohighlight">\(\sigma\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">3.7.3 فیلتر میانه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">مقایسه سریع</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">3.8 تیزسازی با مشتق‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">3.8.1 مشتق گسسته مرتبه اول</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">3.8.2 مشتق مرتبه دوم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">3.9 لاپلاسین</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">تیزسازی با لاپلاسین</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">چرا لاپلاسین نویز را تقویت می‌کند؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">3.10 ماسک ناتیز و تقویت بالاگذر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsharp-masking">3.10.1 ایده unsharp masking</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsharp">چرا نام «unsharp»؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">الگوریتم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roberts-sobel">3.11 گرادیان: Roberts و Sobel</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#roberts">Roberts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sobel">Sobel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">کاربرد نزدیک به صنعت</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">3.12 رابطه پایین‌گذر، بالاگذر، میان‌نگذر و میان‌گذر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">بالاگذر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">میان‌نگذر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">میان‌گذر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zone-plate">صفحه ناحیه‌ای (zone plate)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">نکته مهم درباره جدایی‌پذیری و جهت‌داری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">3.13 ترکیب روش‌های بهبود مکانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">چرا این ترکیب منطقی است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">شبه‌کد</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">3.14 مثال‌های اجرایی پیشنهادی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">آزمایش 1 — تبدیل‌های شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id54">آزمایش 2 — همسان‌سازی هیستوگرام</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correlation-convolution">آزمایش 3 — correlation در برابر convolution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id55">آزمایش 4 — فیلترهای هموارساز</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id56">آزمایش 5 — تیزسازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id57">آزمایش 6 — zone plate</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id58">3.15 نکات مفهومی که معمولاً اشتباه می‌شوند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id59">«روشن‌تر» با «کنتراست بیشتر» یکی نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#histogram-equalization">histogram equalization همیشه بهترین گزینه نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convolution-correlation">convolution و correlation فقط وقتی یکسان‌اند که هسته متقارن باشد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#median-convolution">median یک convolution نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id60">مشتق «اطلاعات جدید» ایجاد نمی‌کند</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#edge-detection">تیزسازی با edge detection یکسان نیست</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id61">3.16 یک نگاه الگوریتمی به انتخاب روش</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id62">3.17 تمرین‌های کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id63">3.18 جمع‌بندی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id64">فایل‌های همراه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id65">منبع علمی اصلی</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
