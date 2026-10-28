@@ -1,0 +1,1324 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Linearization &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/Regression/Linearization';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Kernel method" href="Kernel_for_Regression.html" />
+    <link rel="prev" title="Non-linear Regression: The starting point" href="NonLinearRegression.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Introduction_Regression.html">Regression</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/Regression/Linearization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Linearization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearization-using-polynomial">Linearization using Polynomial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-space-based-on-polynomial-features">New Space Based on Polynomial Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1">Homework 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-space-created-through-innovative-non-linear-transformation">New Space Created Through Innovative Non-Linear Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radial-basis-function-rbf-transformation">Radial Basis Function (RBF) Transformation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-2">HomeWork 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linearization-of-data-using-neighbors">Linearization of Data Using Neighbors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key Concepts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-for-linearization-using-neighbors">Steps for Linearization Using Neighbors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-3">Homework 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#piecewise-linear-approximation">Piecewise Linear Approximation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-foundation-of-piecewise-linear-approximation">Mathematical Foundation of Piecewise Linear Approximation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-derivation-for-continuity-at-the-breakpoints">Mathematical Derivation for continuity at the breakpoints</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-4">Homework 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-soloution-for-above-homework"><span style="color:yellow"><strong>My Soloution for above Homework</strong></span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weighting-procedure">Weighting procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#approach">Approach</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-foundation">Mathematical Foundation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-neuro-fuzzy-inference-systsem-anfis">Adaptive Neuro Fuzzy Inference Systsem (ANFIS)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Mathematical Foundation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-anfis">Structure of ANFIS</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-in-anfis-training">Steps in ANFIS Training</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Homework 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-regression">Some of my papers about <strong>Regression</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-fuzzy">Some of my papers about <strong>Fuzzy</strong></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="linearization">
+<h1>Linearization<a class="headerlink" href="#linearization" title="Link to this heading">#</a></h1>
+<section id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Link to this heading">#</a></h2>
+<p><strong>Linearization</strong> in regression tasks refers to the process of transforming a non-linear relationship between the independent and dependent variables into a linear one.</p>
+<p>We start with some common methods for linearization:</p>
+</section>
+<section id="linearization-using-polynomial">
+<h2>Linearization using Polynomial<a class="headerlink" href="#linearization-using-polynomial" title="Link to this heading">#</a></h2>
+<p>This involves adding polynomial terms (e.g., <span class="math notranslate nohighlight">\( x^2 \)</span>, <span class="math notranslate nohighlight">\( x^3 \)</span>, etc.) to the model to capture the non-linear relationship. This approach is inspired by Taylor and Maclaurin series.</p>
+<p><strong>Introduction</strong>
+<strong>Review Taylor and Maclaurin Series</strong></p>
+<p>Linearization in regression tasks often involves transforming a non-linear relationship into a linear one. One powerful method for achieving this is through the use of Taylor or Maclaurin series, which approximate non-linear functions with polynomial functions.</p>
+<p><strong>Taylor Series Expansion</strong></p>
+<p>For a function <span class="math notranslate nohighlight">\( f(x) \)</span>, the Taylor series expansion around a point <span class="math notranslate nohighlight">\( a \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) \approx f(a) + f'(a)(x - a) + \frac{f''(a)}{2!}(x - a)^2 + \frac{f'''(a)}{3!}(x - a)^3 + \cdots
+\]</div>
+<p><strong>Maclaurin Series</strong></p>
+<p>If the expansion is around <span class="math notranslate nohighlight">\( a = 0 \)</span>, it is called the Maclaurin series:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) \approx f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \frac{f'''(0)}{3!}x^3 + \cdots
+\]</div>
+<p><strong><em>Linearization and Polynomial Approximations</em></strong></p>
+<p>For linearization, we typically consider the first few terms of the series:</p>
+<p><strong>Linear Approximation</strong> (First-order):</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) \approx f(a) + f'(a)(x - a)
+\]</div>
+<p><strong>Quadratic Approximation</strong> (Second-order):</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) \approx f(a) + f'(a)(x - a) + \frac{f''(a)}{2!}(x - a)^2
+\]</div>
+<p><strong><em>Example</em></strong>: Linearizing <span class="math notranslate nohighlight">\( \sin(x) \)</span> with Maclaurin Series</p>
+<p>The Maclaurin series for <span class="math notranslate nohighlight">\( \sin(x) \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\sin(x) \approx x - \frac{x^3}{3!} + \frac{x^5}{5!} - \cdots
+\]</div>
+<p>For linear approximation:</p>
+<div class="math notranslate nohighlight">
+\[
+\sin(x) \approx x
+\]</div>
+<p>For quadratic approximation:</p>
+<div class="math notranslate nohighlight">
+\[
+\sin(x) \approx x - \frac{x^3}{6}
+\]</div>
+</section>
+<section id="new-space-based-on-polynomial-features">
+<h2>New Space Based on Polynomial Features<a class="headerlink" href="#new-space-based-on-polynomial-features" title="Link to this heading">#</a></h2>
+<p>After linearizing a function using polynomial approximations, we can create a new feature space where the transformed features allow us to apply linear regression techniques.</p>
+<p><strong>Polynomial Features</strong></p>
+<p><strong>Original Feature Space</strong>: Suppose we have a feature <span class="math notranslate nohighlight">\( x \)</span>.</p>
+<p><strong>Transformed Feature Space</strong>:</p>
+<ul class="simple">
+<li><p>Linear term: <span class="math notranslate nohighlight">\( x \)</span></p></li>
+<li><p>Quadratic term: <span class="math notranslate nohighlight">\( x^2 \)</span></p></li>
+<li><p>Cubic term: <span class="math notranslate nohighlight">\( x^3 \)</span></p></li>
+<li><p>And so on…
+The feature space <span class="math notranslate nohighlight">\(\phi(x) = [1, x, x^2, \ldots, x^k]\)</span> is a transformed domain with <span class="math notranslate nohighlight">\(k\)</span> dimensions, which allows us to represent each point in this space using <span class="math notranslate nohighlight">\(\phi(x)\)</span>. So the polynomial features create a higher-dimensional space that enables us to represent data points in terms of these new features.</p></li>
+</ul>
+<p><strong>Example: Polynomial Regression</strong></p>
+<p>Consider a dataset where the relationship between <span class="math notranslate nohighlight">\( x \)</span> and <span class="math notranslate nohighlight">\( y \)</span> is non-linear. By introducing polynomial features, it can transform the problem into a linear one.</p>
+<div class="math notranslate nohighlight">
+\[
+y = 2 + 3x + 4x^2 + \epsilon
+\]</div>
+<p>Transform <span class="math notranslate nohighlight">\( x \)</span> into <span class="math notranslate nohighlight">\(\phi(x) = [x, x^2] \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+y = 2 + 3x + 4(x^2) + \epsilon
+\]</div>
+<p>Transform <span class="math notranslate nohighlight">\( x \)</span> into <span class="math notranslate nohighlight">\(\phi(x) = [1, x, x^2] \)</span>:</p>
+</section>
+<section id="homework-1">
+<h2>Homework 1<a class="headerlink" href="#homework-1" title="Link to this heading">#</a></h2>
+<p>In the following example, I increased the polynomial degree to 35, which resulted in overfitting. Try increasing the degree beyond 35 and solve the problem has arisen.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Reshape x to be a 2D array (as required by scikit-learn)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Polynomial feature transformation</span>
+<span class="n">degree</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># We use a polynomial of degree 2 for this example</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span><span class="p">)</span>
+<span class="n">x_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Fit polynomial regression model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_poly</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Predict values</span>
+<span class="n">x_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">x_fit_poly</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x_fit</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_fit_poly</span><span class="p">)</span>
+
+<span class="c1"># Plot the results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data Points'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_fit</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Polynomial Regression Fit'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Polynomial Regression with Degree 2'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/eb951aa37a611c8e5f3dac8bb1570a5303ad16828494c52fb82e4e8e39502319.png" src="../../_images/eb951aa37a611c8e5f3dac8bb1570a5303ad16828494c52fb82e4e8e39502319.png" />
+</div>
+</div>
+<p><em><strong>Concept Breakdown</strong></em></p>
+<p><strong>Polynomial Feature Transformation</strong>:</p>
+<ul class="simple">
+<li><p>When we use polynomial features, we transform the original feature <span class="math notranslate nohighlight">\(x\)</span> into a higher-dimensional space. For example, a degree-2 polynomial transformation of <span class="math notranslate nohighlight">\(x\)</span> results in features <span class="math notranslate nohighlight">\(\phi(x) = [1, x, x^2]\)</span>. This transformed feature space includes the original feature <span class="math notranslate nohighlight">\(x\)</span>, its square, and a bias term (constant term 1), making it a 3-dimensional space in this case.</p></li>
+</ul>
+<p><strong>Linear Regression in the Transformed Space</strong>:</p>
+<ul class="simple">
+<li><p>Even though the relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is non-linear, by transforming <span class="math notranslate nohighlight">\(x\)</span> into polynomial features, we can fit a linear model in this new feature space. The linear regression model in this space finds the best-fitting line (or curve) to the polynomial features.</p></li>
+</ul>
+</section>
+<section id="new-space-created-through-innovative-non-linear-transformation">
+<h2>New Space Created Through Innovative Non-Linear Transformation<a class="headerlink" href="#new-space-created-through-innovative-non-linear-transformation" title="Link to this heading">#</a></h2>
+<p>Some of these transformations include:</p>
+<ul class="simple">
+<li><p><em>Logarithmic Transformation</em>
+Applying a logarithmic transformation to one or both variables can help linearize certain types of relationships. For example, an exponential relationship <span class="math notranslate nohighlight">\(y = ae^{bx}\)</span> can be linearized by taking the natural logarithm: <span class="math notranslate nohighlight">\(\ln(y) = \ln(a) + bx\)</span>.</p></li>
+<li><p><em>Power Transformation</em>
+Similar to logarithmic transformation, power transformations (e.g., square root, cube root) can be used to linearize relationships. For instance, <span class="math notranslate nohighlight">\(y = ax^b\)</span> can be linearized by taking the logarithm of both sides: <span class="math notranslate nohighlight">\(\ln(y) = \ln(a) + b\ln(x)\)</span>.</p></li>
+<li><p><em>Reciprocal Transformation</em>
+Transforming variables using their reciprocals can linearize hyperbolic relationships. For example, <span class="math notranslate nohighlight">\(y = \frac{a}{x}\)</span> can be linearized by taking the reciprocal of <span class="math notranslate nohighlight">\(x\)</span>: <span class="math notranslate nohighlight">\(y = a \cdot (1/x)\)</span>.</p></li>
+</ul>
+<section id="radial-basis-function-rbf-transformation">
+<h3>Radial Basis Function (RBF) Transformation<a class="headerlink" href="#radial-basis-function-rbf-transformation" title="Link to this heading">#</a></h3>
+<p>Radial Basis Functions (RBFs) are a class of functions used in various machine learning algorithms, particularly in interpolation and function approximation tasks. They are often employed to transform the feature space into a higher-dimensional space where non-linear relationships can be more easily captured.</p>
+<p>The <strong>RBF transformation</strong> maps data into a new feature space defined by radial basis functions. The general form of an RBF is:</p>
+<p><span class="math notranslate nohighlight">\( \phi_i(x) = \exp \left( -\frac{|x - \mu_i|^2}{2\sigma^2} \right) \)</span></p>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( x \)</span> is the input feature vector.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mu_i \)</span> is the center (or mean) of the <span class="math notranslate nohighlight">\(i\)</span>-th RBF.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \sigma \)</span> is the width (or scale) of the RBF.</p></li>
+</ul>
+<p><strong>Key Points:</strong></p>
+<ul class="simple">
+<li><p><strong>Centers <span class="math notranslate nohighlight">\(\mu_i\)</span></strong>: Typically obtained through clustering techniques such as k-means. They represent the points in the input space where the RBF functions are centered.</p></li>
+<li><p><strong>Width <span class="math notranslate nohighlight">\(\sigma\)</span></strong>: Controls the spread of the RBF. A larger <span class="math notranslate nohighlight">\(\sigma\)</span> results in a broader basis function, and a smaller <span class="math notranslate nohighlight">\(\sigma\)</span> results in a narrower function.</p></li>
+<li><p><strong>Distance Metric</strong>: The Euclidean distance <span class="math notranslate nohighlight">\( |x - \mu_i|^2 \)</span> determines how far the input <span class="math notranslate nohighlight">\( x \)</span> is from the center <span class="math notranslate nohighlight">\( \mu_i \)</span>.</p></li>
+</ul>
+<p>For <strong><em>regression tasks</em></strong>, the transformed feature space can be represented as:</p>
+<p><span class="math notranslate nohighlight">\( \Phi(x) = [ \exp \left( -\frac{|x - \mu_1|^2}{2\sigma^2} \right), \exp \left( -\frac{|x - \mu_2|^2}{2\sigma^2} \right), \ldots, \exp \left( -\frac{|x - \mu_k|^2}{2\sigma^2} \right) ] \)</span></p>
+<p>where <span class="math notranslate nohighlight">\( k \)</span> is the number of RBFs. The linear regression model is then fit in this transformed feature space.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Reshape x to be a 2D array</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Standardize x</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">x_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Number of RBF centers</span>
+<span class="n">num_centers</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">num_centers</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)</span>
+<span class="n">centers</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span>
+
+<span class="c1"># Define RBF function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rbf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">sigma</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">num_centers</span> <span class="o">=</span> <span class="n">centers</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rbf_features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">num_centers</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_centers</span><span class="p">):</span>
+        <span class="n">rbf_features</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">centers</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">rbf_features</span>
+
+<span class="c1"># Apply RBF Transformation</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.27</span>  <span class="c1"># Width of RBF</span>
+<span class="n">x_rbf</span> <span class="o">=</span> <span class="n">rbf</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span>
+
+<span class="c1"># Split data into training and test sets</span>
+<span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x_rbf</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Fit a linear model in the RBF space</span>
+<span class="n">model_rbf</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model_rbf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_fit_pred_rbf</span> <span class="o">=</span> <span class="n">model_rbf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">rbf</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">sigma</span><span class="p">))</span>
+
+<span class="c1"># Calculate errors</span>
+<span class="n">train_mse_rbf</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">model_rbf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_rbf</span><span class="p">))</span>
+<span class="n">test_mse_rbf</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">model_rbf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"RBF Training Mean Squared Error: </span><span class="si">{</span><span class="n">train_mse_rbf</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"RBF Test Mean Squared Error: </span><span class="si">{</span><span class="n">test_mse_rbf</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Plot results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Original Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">model_rbf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">rbf</span><span class="p">(</span><span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">centers</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'RBF Fit'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'RBF Transformation Fit'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RBF Training Mean Squared Error: 16.59
+RBF Test Mean Squared Error: 9.90
+</pre></div>
+</div>
+<img alt="../../_images/7e507d8f0a99a83d2ddc0006c035ea9873852bf4e47430fea5cc1c6995b95740.png" src="../../_images/7e507d8f0a99a83d2ddc0006c035ea9873852bf4e47430fea5cc1c6995b95740.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="homework-2">
+<h2>HomeWork 2<a class="headerlink" href="#homework-2" title="Link to this heading">#</a></h2>
+<p>You used spline basis functions for linearization in regression, similar to how radial basis functions (RBF), polynomials, or other basis functions are used for linearization.</p>
+<section id="linearization-of-data-using-neighbors">
+<h3>Linearization of Data Using Neighbors<a class="headerlink" href="#linearization-of-data-using-neighbors" title="Link to this heading">#</a></h3>
+<p>Linearization using neighboring points is a technique to locally approximate a nonlinear function by a linear one. This method involves using nearby data points to fit a local linear model, making it easier to understand and predict the behavior of the function within a small region. This can be particularly useful when dealing with complex data where global linearization is not feasible.</p>
+</section>
+<section id="key-concepts">
+<h3>Key Concepts<a class="headerlink" href="#key-concepts" title="Link to this heading">#</a></h3>
+<p><strong>Local Linearization</strong>: Instead of trying to linearize the entire dataset, we focus on smaller regions or neighborhoods around each data point.
+<strong>Neighbors</strong>: The data points that are close to a given point in the feature space. The choice of neighbors can be based on a fixed radius, a fixed number of nearest neighbors (k-nearest neighbors), or other criteria.
+<strong>Weighted Linear Regression</strong>: When fitting a local linear model, we can assign weights to the neighbors based on their distance from the target point. Closer points get higher weights.</p>
+</section>
+<section id="steps-for-linearization-using-neighbors">
+<h3>Steps for Linearization Using Neighbors<a class="headerlink" href="#steps-for-linearization-using-neighbors" title="Link to this heading">#</a></h3>
+<p><strong>Select Neighbors</strong>: Choose the neighboring points around the target point. This can be done using k-nearest neighbors or based on a fixed radius.
+<strong>Fit Local Model</strong>: Use the neighbors to fit a linear regression model. If using weights, closer points should have more influence on the fit.
+<strong>Predict</strong>: Use the local linear model to make predictions.</p>
+</section>
+</section>
+<section id="homework-3">
+<h2>Homework 3<a class="headerlink" href="#homework-3" title="Link to this heading">#</a></h2>
+<p>Check the effect of different values of <span class="math notranslate nohighlight">\( k \)</span> by experimenting with various <span class="math notranslate nohighlight">\( k \)</span> values. Could you provide some notes on overfitting or adding regularization to the following code to prevent it?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">NearestNeighbors</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Reshape x and y to be 2D arrays</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Number of neighbors to use</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">13</span>
+
+<span class="c1"># Fit local linear models and make predictions</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">nbrs</span> <span class="o">=</span> <span class="n">NearestNeighbors</span><span class="p">(</span><span class="n">n_neighbors</span><span class="o">=</span><span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+    <span class="n">distances</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">nbrs</span><span class="o">.</span><span class="n">kneighbors</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">neighbors_x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">neighbors_y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">neighbors_x</span><span class="p">,</span> <span class="n">neighbors_y</span><span class="p">)</span>
+    <span class="n">y_pred</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Plot results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Original Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Locally Linearized Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Local Linearization Using Neighbors'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4076b4094716dc714ed67dab8cdf52fae41a1fe4c9f2b0fd729ca552713442d4.png" src="../../_images/4076b4094716dc714ed67dab8cdf52fae41a1fe4c9f2b0fd729ca552713442d4.png" />
+</div>
+</div>
+<section id="piecewise-linear-approximation">
+<h3>Piecewise Linear Approximation<a class="headerlink" href="#piecewise-linear-approximation" title="Link to this heading">#</a></h3>
+<p>The <strong>Piecewise linear approximation</strong> technique able to linearize or approximate nonlinear data.This method involves dividing the data into segments and fitting a separate linear model to each segment. This approach can handle nonlinearity by capturing the local linear behavior within each segment.
+Piecewise linear approximation breaks the data into multiple intervals and fits a linear model to each interval. This method is useful when the data exhibits different linear trends in different regions.</p>
+</section>
+<section id="mathematical-foundation-of-piecewise-linear-approximation">
+<h3>Mathematical Foundation of Piecewise Linear Approximation<a class="headerlink" href="#mathematical-foundation-of-piecewise-linear-approximation" title="Link to this heading">#</a></h3>
+<p><strong>Definition</strong>
+A piecewise linear approximation involves partitioning the input space into <span class="math notranslate nohighlight">\(k\)</span> intervals and fitting a linear model to the data points within each interval. For a given data set with input <span class="math notranslate nohighlight">\(x\)</span> and output <span class="math notranslate nohighlight">\(y\)</span>, the piecewise linear model can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} y = \begin{cases} 
+a_1 x + b_1 &amp; \text{for } x \in [x_0, x_1) \\
+a_2 x + b_2 &amp; \text{for } x \in [x_1, x_2) \\
+\vdots \\
+a_k x + b_k &amp; \text{for } x \in [x_{k-1}, x_k]
+\end{cases} \end{split}\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span> are the coefficients of the linear model in the <span class="math notranslate nohighlight">\(i\)</span>-th interval.</p></li>
+<li><p><span class="math notranslate nohighlight">\(x_0, x_1, \ldots, x_k\)</span> are the breakpoints that define the intervals.</p></li>
+</ul>
+<p><strong>Mathematical Formulation</strong>
+<strong>Partitioning the Domain</strong>: The domain of the data is partitioned into intervals. The breakpoints <span class="math notranslate nohighlight">\(x_1, x_2, \ldots, x_{k-1}\)</span> are either predetermined or determined using a method such as clustering.</p>
+<p><strong>Linear Models within Intervals</strong>:</p>
+<ul class="simple">
+<li><p>For each interval <span class="math notranslate nohighlight">\([x_{i-1}, x_i)\)</span>, fit a linear regression model:
+$<span class="math notranslate nohighlight">\(
+y = a_i x + b_i
+\)</span>$</p></li>
+<li><p>The coefficients <span class="math notranslate nohighlight">\(a_i\)</span> and <span class="math notranslate nohighlight">\(b_i\)</span> are determined by minimizing the sum of squared errors within the interval:
+$<span class="math notranslate nohighlight">\(
+\text{SSE}_i = \sum_{x_j \in [x_{i-1}, x_i)} (y_j - (a_i x_j + b_i))^2
+\)</span>$</p></li>
+</ul>
+<p><strong>Combining Models</strong>: The overall model is a combination of the linear models in each interval, with continuity enforced at the breakpoints. In many applications, continuity of the function is enforced at the breakpoints but can be denied:</p>
+<ul class="simple">
+<li><p>Continuity of function:
+$<span class="math notranslate nohighlight">\(
+a_i x_i + b_i = a_{i+1} x_i + b_{i+1}
+\)</span>$</p></li>
+</ul>
+<p><em><strong>Example</strong></em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Reshape x and y to be 2D arrays</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Number of clusters</span>
+<span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="c1"># Apply K-means clustering to determine breakpoints</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
+<span class="n">centroids</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span>
+
+<span class="c1"># Sort centroids to use as breakpoints</span>
+<span class="n">breakpoints</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">centroids</span><span class="o">.</span><span class="n">flatten</span><span class="p">())</span>
+
+<span class="c1"># Fit linear models to each cluster</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">segment_x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">segment_y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">segment_x</span><span class="p">,</span> <span class="n">segment_y</span><span class="p">)</span>
+    <span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+<span class="c1"># Predict using the piecewise linear models</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">segment_x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">y_pred</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">=</span> <span class="n">models</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">segment_x</span><span class="p">)</span>
+
+<span class="c1"># Plot results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Original Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Piecewise Linear Approximation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Piecewise Linear Approximation Using K-means Clustering'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/bb9762dab66f757255d49643b83d21c5075ef2ad1dd899da881cebac5f25c56c.png" src="../../_images/bb9762dab66f757255d49643b83d21c5075ef2ad1dd899da881cebac5f25c56c.png" />
+</div>
+</div>
+<p><strong><em>Note</em></strong> Ensuring continuity at the breakpoints in piecewise linear approximation</p>
+<section id="mathematical-derivation-for-continuity-at-the-breakpoints">
+<h4>Mathematical Derivation for continuity at the breakpoints<a class="headerlink" href="#mathematical-derivation-for-continuity-at-the-breakpoints" title="Link to this heading">#</a></h4>
+<p><strong>Piecewise Linear Models</strong>
+Suppose we have <span class="math notranslate nohighlight">\( n \)</span> intervals defined by breakpoints <span class="math notranslate nohighlight">\( x_0, x_1, \ldots, x_n \)</span>, and each interval <span class="math notranslate nohighlight">\([x_i, x_{i+1})\)</span> has its own linear model:</p>
+<div class="math notranslate nohighlight">
+\[
+y = a_i x + b_i \quad \text{for } x \in [x_i, x_{i+1})
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+y = a_{i+1} x + b_{i+1} \quad \text{for } x \in [x_{i+1}, x_{i+2})
+\]</div>
+<p><strong>Continuity at Breakpoints</strong>
+To ensure continuity of the function at <span class="math notranslate nohighlight">\( x_{i+1} \)</span>, the function values at this breakpoint must be the same for both intervals:
+$<span class="math notranslate nohighlight">\(
+a_i x_{i+1} + b_i = a_{i+1} x_{i+1} + b_{i+1}
+\)</span>$</p>
+<p>Rearranging to solve for <span class="math notranslate nohighlight">\( b_{i+1} \)</span>:
+$<span class="math notranslate nohighlight">\(
+b_{i+1} = a_i x_{i+1} + b_i - a_{i+1} x_{i+1}
+\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[
+b_{i+1} = b_i + (a_i - a_{i+1}) x_{i+1}
+\]</div>
+</section>
+</section>
+<section id="homework-4">
+<h3>Homework 4<a class="headerlink" href="#homework-4" title="Link to this heading">#</a></h3>
+<p>Apply Continuity at Breakpoints in the above code</p>
+</section>
+</section>
+<section id="my-soloution-for-above-homework">
+<h2><span style="color:yellow"><strong>My Soloution for above Homework</strong></span><a class="headerlink" href="#my-soloution-for-above-homework" title="Link to this heading">#</a></h2>
+<section id="weighting-procedure">
+<h3>Weighting procedure<a class="headerlink" href="#weighting-procedure" title="Link to this heading">#</a></h3>
+<p>To address the problem of achieving a smooth and accurate piecewise linear approximation with continuity, we can follow the <strong>Weighting procedure</strong> approach. This involves partitioning the data using K-means clustering, fitting linear models to each cluster, and then using a weighted averaging approach based on Gaussian distributions to ensure smooth transitions.</p>
+<section id="approach">
+<h4>Approach<a class="headerlink" href="#approach" title="Link to this heading">#</a></h4>
+<p><strong>Training:</strong>
+<strong>Clustering for Partitioning</strong>: Use K-means to partition the data into clusters.
+<strong>Gaussian Over Each Cluster</strong>: Model each cluster using a Gaussian distribution centered at the cluster mean and with a variance representing the dispersion of the cluster.
+<strong>Fitting Linear Models</strong>: Fit linear models to each cluster using the Ordinary Least Squares (OLS) method.</p>
+<p><strong>Testing:</strong>
+<strong>Weighting Procedure</strong>: For each sample, compute weights using the Gaussian distributions (based on the distance to each cluster center).
+<strong>Fit by All Linear Regressors</strong>: Compute the weighted predictions from all linear regressors.
+<strong>Fusion Step</strong>: Combine the predictions using the computed weights to get the final prediction.</p>
+</section>
+<section id="mathematical-foundation">
+<h4>Mathematical Foundation<a class="headerlink" href="#mathematical-foundation" title="Link to this heading">#</a></h4>
+<p><strong>Training Phase</strong></p>
+<p><strong>Clustering with K-means</strong>:</p>
+<ul class="simple">
+<li><p>Given data points <span class="math notranslate nohighlight">\((x_i, y_i)\)</span>, apply K-means clustering to partition the data into <span class="math notranslate nohighlight">\(k\)</span> clusters.</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(\mu_j\)</span> be the mean of cluster <span class="math notranslate nohighlight">\(j\)</span>.</p></li>
+</ul>
+<p><strong>Gaussian Modeling</strong>:</p>
+<ul class="simple">
+<li><p>For each cluster <span class="math notranslate nohighlight">\(j\)</span>, define a Gaussian distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\mu_j, \sigma_j^2)\)</span> where <span class="math notranslate nohighlight">\(\sigma_j^2\)</span> is the variance of cluster <span class="math notranslate nohighlight">\(j\)</span>.</p></li>
+</ul>
+<p><strong>Fitting Linear Models</strong>:</p>
+<ul class="simple">
+<li><p>For each cluster <span class="math notranslate nohighlight">\(j\)</span>, fit a linear model <span class="math notranslate nohighlight">\(L_j(x) = a_j x + b_j\)</span> using OLS.</p></li>
+</ul>
+<p><strong>Testing Phase</strong></p>
+<p><strong>Weighting Procedure</strong>:</p>
+<ul>
+<li><p>For a new sample <span class="math notranslate nohighlight">\(x\)</span>, compute the weight <span class="math notranslate nohighlight">\(w_j\)</span> for each cluster <span class="math notranslate nohighlight">\(j\)</span> using the Gaussian distribution:</p>
+<div class="math notranslate nohighlight">
+\[
+     w_j(x) = \frac{1}{\sqrt{2\pi\sigma_j^2}} \exp\left(-\frac{(x - \mu_j)^2}{2\sigma_j^2}\right)
+     \]</div>
+</li>
+</ul>
+<p><strong>Fit by All Linear Regressors</strong>:</p>
+<ul>
+<li><p>Compute the predictions from all linear models:</p>
+<div class="math notranslate nohighlight">
+\[
+     L_j(x) = a_j x + b_j
+     \]</div>
+</li>
+</ul>
+<p><strong>Fusion Step</strong>:</p>
+<ul>
+<li><p>Combine the predictions using the weights to get the final prediction:</p>
+<div class="math notranslate nohighlight">
+\[
+     L(x) = \frac{\sum_{j=1}^k L_j(x) w_j(x)}{\sum_{j=1}^k w_j(x)}
+     \]</div>
+</li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># Reshape x and y to be 2D arrays</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Number of clusters (segments)</span>
+<span class="n">n_clusters</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="c1"># Apply K-means clustering to partition the data</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">labels_</span>
+<span class="n">centroids</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span>
+
+<span class="c1"># Fit linear models to each cluster</span>
+<span class="n">models</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">gaussians</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">):</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">segment_x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="n">segment_y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    
+    <span class="c1"># Fit linear model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">segment_x</span><span class="p">,</span> <span class="n">segment_y</span><span class="p">)</span>
+    <span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+    
+    <span class="c1"># Calculate Gaussian parameters</span>
+    <span class="n">mean</span> <span class="o">=</span> <span class="n">centroids</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">segment_x</span><span class="p">)</span>
+    <span class="n">gaussians</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">mean</span><span class="p">,</span> <span class="n">variance</span><span class="p">))</span>
+
+<span class="c1"># Function to compute the final prediction using the weighted average</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="n">x_new</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">gaussians</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x_new</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">models</span><span class="p">)))</span>
+    <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x_new</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">models</span><span class="p">)))</span>
+    
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">variance</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">gaussians</span><span class="p">)):</span>
+        <span class="c1"># Compute weights using Gaussian</span>
+        <span class="n">weights</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x_new</span><span class="p">,</span> <span class="n">mean</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="p">))</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+        
+        <span class="c1"># Compute predictions from each model</span>
+        <span class="n">predictions</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_new</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    
+    <span class="c1"># Compute the weighted average</span>
+    <span class="n">weighted_predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">predictions</span> <span class="o">*</span> <span class="n">weights</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">weighted_predictions</span>
+
+<span class="c1"># Generate new x values for Testing</span>
+<span class="n">x_new</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">predict</span><span class="p">(</span><span class="n">x_new</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">gaussians</span><span class="p">)</span>
+
+<span class="c1"># Plot results</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Original Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_new</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Piecewise Linear Approximation with Continuity'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Piecewise Linear Approximation with Gaussian Weighting'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/8ff43a5989dae9fe23c5aabc5adbd9a73577b4d79e7b1d8c2d9b2f08a3e1aad8.png" src="../../_images/8ff43a5989dae9fe23c5aabc5adbd9a73577b4d79e7b1d8c2d9b2f08a3e1aad8.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="adaptive-neuro-fuzzy-inference-systsem-anfis">
+<h3>Adaptive Neuro Fuzzy Inference Systsem (ANFIS)<a class="headerlink" href="#adaptive-neuro-fuzzy-inference-systsem-anfis" title="Link to this heading">#</a></h3>
+<section id="id1">
+<h4>Mathematical Foundation<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>An Adaptive Neuro-Fuzzy Inference System (ANFIS) combines the learning capabilities of neural networks with the fuzzy logic reasoning of fuzzy inference systems. It is particularly useful for modeling nonlinear functions and is composed of a set of fuzzy if-then rules that have learning capability to approximate nonlinear functions.</p>
+</section>
+<section id="structure-of-anfis">
+<h4>Structure of ANFIS<a class="headerlink" href="#structure-of-anfis" title="Link to this heading">#</a></h4>
+<p><strong>Fuzzification Layer</strong>:
+- Inputs are mapped to fuzzy sets using membership functions.
+- If we have two inputs <span class="math notranslate nohighlight">\( x \)</span> and <span class="math notranslate nohighlight">\( y \)</span>, we use fuzzy sets <span class="math notranslate nohighlight">\( A_i \)</span> and <span class="math notranslate nohighlight">\( B_i \)</span>.</p>
+<p><strong>Rule Layer</strong>:
+- Rules are formed using the fuzzy sets from the fuzzification layer.
+- For example, a rule could be: <span class="math notranslate nohighlight">\( \text{If } x \text{ is } A_i \text{ and } y \text{ is } B_i \text{ then } f_i = p_i x + q_i y + r_i \)</span>.</p>
+<p><strong>Normalization Layer</strong>:
+- The degree to which each rule is activated is computed.
+- The activation weight for rule <span class="math notranslate nohighlight">\( i \)</span> is <span class="math notranslate nohighlight">\( w_i = \mu_{A_i}(x) \cdot \mu_{B_i}(y) \)</span>, where <span class="math notranslate nohighlight">\( \mu \)</span> represents the membership function.
+- These weights are then normalized: <span class="math notranslate nohighlight">\( \bar{w_i} = \frac{w_i}{\sum w_j} \)</span>.</p>
+<p><strong>Consequent Layer</strong>:
+- Each rule’s output is calculated as <span class="math notranslate nohighlight">\( f_i = \bar{w_i} \cdot (p_i x + q_i y + r_i) \)</span>.</p>
+<p><strong>Output Layer</strong>:
+- The overall output is the weighted average of each rule’s output: <span class="math notranslate nohighlight">\( \text{Output} = \sum \bar{w_i} \cdot f_i \)</span>.</p>
+</section>
+</section>
+<section id="steps-in-anfis-training">
+<h3>Steps in ANFIS Training<a class="headerlink" href="#steps-in-anfis-training" title="Link to this heading">#</a></h3>
+<p><strong>Initialization</strong>:
+- Define initial fuzzy rules and membership functions.</p>
+<p><strong>Forward Pass</strong>:
+- Calculate the output for each layer from input to output layer.
+- Compute the overall output.</p>
+<p><strong>Backward Pass (Learning)</strong>:
+- Update the parameters of the membership functions and the linear coefficients of the rules using error backpropagation.</p>
+</section>
+</section>
+<section id="id2">
+<h2>Homework 4<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>a. Implement ANFIS in Python. Provide a Jupyter notebook similar to previous homework assignments.
+b. View the output of ANFIS using the Matlab toolbox or similar methods.</p>
+</section>
+<section id="some-of-my-papers-about-regression">
+<h2>Some of my papers about <strong>Regression</strong><a class="headerlink" href="#some-of-my-papers-about-regression" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Hajiabadi, H., Monsefi, R., &amp; Yazdi, H. S. (Year). Robust regression extended with ensemble loss function. <em>Applied Intelligence</em>, 49, 1437-1450.</p></li>
+<li><p>Vahedian, A., Yazdi, M. S., Effati, S., &amp; Yazdi, H. S. (Year). Fuzzy cost support vector regression on the fuzzy samples. <em>Applied Intelligence</em>, 35, 428-435.</p></li>
+<li><p>Yazdi, H. S., Arghiani, M., &amp; Nemati, E. (Year). Nonlinear regression model of a human hand volume: A nondestructive method. <em>International Journal of Control and Automation</em>, 4(2), 111-124.</p></li>
+<li><p>Yazdi, H. S., Royani, T., Yazdi, M. S., &amp; Effati, S. (Year). Fuzzy cost support vector regression. <em>International Journal of Intelligent Systems and Technologies</em>, 4.</p></li>
+<li><p>Yazdi, H. S., Royani, T., Yazdi, M. S., &amp; Effati, S. (Year). Fuzzy cost support vector regression. <em>International Journal of Mathematical and Computational Sciences</em>, 2(8), 587-592.</p></li>
+<li><p>Yazdi, H. S., Yazdi, M. S., &amp; Vahedian, A. (Year). A new regressor for bandwidth calculation of a rectangular microstrip antenna. <em>International Journal of Microwave and Optical Technology</em>, 4(6).</p></li>
+</ol>
+</section>
+<section id="some-of-my-papers-about-fuzzy">
+<h2>Some of my papers about <strong>Fuzzy</strong><a class="headerlink" href="#some-of-my-papers-about-fuzzy" title="Link to this heading">#</a></h2>
+<p>Here is the list of sentences with some refinements for clarity and readability:</p>
+<ol class="arabic simple">
+<li><p><strong>Unsupervised adaptive neural-fuzzy inference system for solving differential equations</strong></p>
+<ul class="simple">
+<li><p>HS Yazdi, R Pourreza</p></li>
+<li><p>Applied Soft Computing, 10(1), 267-275</p></li>
+</ul>
+</li>
+<li><p><strong>Fuzzy temperature control in a batch polymerization reactor using the ANFIS method</strong></p>
+<ul class="simple">
+<li><p>M Alipoor, M Zeinali, HS Yazdi</p></li>
+<li><p>International Journal of Engineering and Technology, 1(1), 7</p></li>
+</ul>
+</li>
+<li><p><strong>Neuro-fuzzy based constraint programming</strong></p>
+<ul class="simple">
+<li><p>HS Yazdi, SE Hosseini, MS Yazdi</p></li>
+<li><p>Applied Mathematical Modelling, 34(11), 3547-3559</p></li>
+</ul>
+</li>
+<li><p><strong>Gait recognition based on invariant leg classification using a neuro-fuzzy algorithm as the fusion method</strong></p>
+<ul class="simple">
+<li><p>H Sadoghi Yazdi, HJ Fariman, J Roohi</p></li>
+<li><p>International Scholarly Research Notices, 2012(1), 289721</p></li>
+</ul>
+</li>
+<li><p><strong>Constraint learning using adaptive neural-fuzzy inference system</strong></p>
+<ul class="simple">
+<li><p>H Sadoghi Yazdi, R Pourreza, M Sadoghi Yazdi</p></li>
+<li><p>International Journal of Intelligent Computing and Cybernetics, 3(2), 257-278</p></li>
+</ul>
+</li>
+<li><p><strong>FCM-fuzzy rule base: A new rule extraction mechanism</strong></p>
+<ul class="simple">
+<li><p>H Khosravi, MHY Moghaddam, A Shahroudi, HS Yazdi</p></li>
+<li><p>2011 International Conference on Innovations in Information Technology, 261-265</p></li>
+</ul>
+</li>
+<li><p><strong>A neural network model for solving stochastic fuzzy multiobjective linear fractional programs</strong></p>
+<ul class="simple">
+<li><p>H Sadoghi Yazdi</p></li>
+<li><p>First Joint Congress on Fuzzy and Intelligent Systems</p></li>
+</ul>
+</li>
+<li><p><strong>Robust hybrid learning approach for adaptive neuro-fuzzy inference systems</strong></p>
+<ul class="simple">
+<li><p>A Nik-Khorasani, A Mehrizi, H Sadoghi-Yazdi</p></li>
+<li><p>Fuzzy Sets and Systems, 481, 108890</p></li>
+</ul>
+</li>
+<li><p><strong>Image semantic retrieval using image fuzzification based on weighted relevance feedback</strong></p>
+<ul class="simple">
+<li><p>S Imandoost, HS Yazdi, J Haddadnia</p></li>
+<li><p>2010 18th Iranian Conference on Electrical Engineering, 476-482</p></li>
+</ul>
+</li>
+<li><p><strong>A novel unsupervised neuro-fuzzy system applied to circuit analysis</strong></p>
+<ul class="simple">
+<li><p>H Sadoghi Yazdi</p></li>
+<li><p>First Joint Congress on Fuzzy and Intelligent Systems, Ferdowsi University</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/Regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="NonLinearRegression.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Non-linear Regression: The starting point</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Kernel_for_Regression.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Kernel method</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearization-using-polynomial">Linearization using Polynomial</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-space-based-on-polynomial-features">New Space Based on Polynomial Features</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1">Homework 1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-space-created-through-innovative-non-linear-transformation">New Space Created Through Innovative Non-Linear Transformation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#radial-basis-function-rbf-transformation">Radial Basis Function (RBF) Transformation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-2">HomeWork 2</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linearization-of-data-using-neighbors">Linearization of Data Using Neighbors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key Concepts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-for-linearization-using-neighbors">Steps for Linearization Using Neighbors</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-3">Homework 3</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#piecewise-linear-approximation">Piecewise Linear Approximation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-foundation-of-piecewise-linear-approximation">Mathematical Foundation of Piecewise Linear Approximation</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-derivation-for-continuity-at-the-breakpoints">Mathematical Derivation for continuity at the breakpoints</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-4">Homework 4</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#my-soloution-for-above-homework"><span style="color:yellow"><strong>My Soloution for above Homework</strong></span></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weighting-procedure">Weighting procedure</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#approach">Approach</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-foundation">Mathematical Foundation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-neuro-fuzzy-inference-systsem-anfis">Adaptive Neuro Fuzzy Inference Systsem (ANFIS)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Mathematical Foundation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#structure-of-anfis">Structure of ANFIS</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-in-anfis-training">Steps in ANFIS Training</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Homework 4</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-regression">Some of my papers about <strong>Regression</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-fuzzy">Some of my papers about <strong>Fuzzy</strong></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

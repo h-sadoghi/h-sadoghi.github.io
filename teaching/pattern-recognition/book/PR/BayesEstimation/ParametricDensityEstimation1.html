@@ -1,0 +1,1451 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Parametric Density Estimation &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/BayesEstimation/ParametricDensityEstimation1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Gaussian Mixture Model" href="GMM.html" />
+    <link rel="prev" title="Mean Shift Algorithm" href="MeanShift.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="BayesEstimation.html">Bayes Estimation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/BayesEstimation/ParametricDensityEstimation1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Parametric Density Estimation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-parametric-models-and-their-parameters">Some parametric models and their parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-of-density-parameters">Estimation of Density Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-for-bayesian-risk-minimization">Steps for Bayesian Risk Minimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-one-loss">Zero-One Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map-estimation-of-normal-distribution-parameters">MAP estimation of Normal distribution parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#without-prior-knowledge-maximum-likelihood-estimation">Without Prior Knowledge (Maximum Likelihood Estimation)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation-for-mu-and-sigma-2">1. Maximum Likelihood Estimation for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-mu">2. Estimating <span class="math notranslate nohighlight">\(\mu\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-sigma-2">3. Estimating <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-prior-knowledge-bayesian-estimation">With Prior Knowledge (Bayesian Estimation)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-for-mu-and-sigma-2">1. Prior for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-distribution">2. Posterior Distribution:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-for-mu">3. Posterior for <span class="math notranslate nohighlight">\(\mu\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-for-sigma-2">4. Posterior for <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#at-a-glance">At a Glance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-inverse-gamma-distribution">What is the Inverse-Gamma Distribution?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-the-inverse-gamma-distribution">Why Use the Inverse-Gamma Distribution?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-details">More Details</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Without Prior Knowledge (Maximum Likelihood Estimation)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">With Prior Knowledge (Bayesian Estimation)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-results-of-bayesian-estimates">Final Results of Bayesian Estimates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interesting-for-all-students">Interesting for All Students</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtain-the-posterior-mean-and-standard-deviation">1. Obtain the Posterior Mean and Standard Deviation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correct-the-data">2. Correct the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correction-formula">3. Correction Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-experiments">Some Experiments</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="parametric-density-estimation">
+<h1>Parametric Density Estimation<a class="headerlink" href="#parametric-density-estimation" title="Link to this heading">#</a></h1>
+<p>Parametric density estimation involves assuming that the underlying data distribution follows a specific parametric family of distributions and then estimating the parameters of that distribution from the given data.</p>
+<section id="some-parametric-models-and-their-parameters">
+<h2>Some parametric models and their parameters<a class="headerlink" href="#some-parametric-models-and-their-parameters" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Normal Distribution</strong> (<span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma^2)\)</span>)</p>
+<ul class="simple">
+<li><p><strong>Parameters</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mu\)</span>: Mean of the distribution</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma^2\)</span>: Variance of the distribution</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+f(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)
+\]</div>
+<p><strong>Where:</strong> Widely used in natural and social sciences.</p>
+<p><strong>Why:</strong> Many phenomena naturally follow a normal distribution due to the Central Limit Theorem, which states that the sum of a large number of independent, identically distributed variables will be approximately normally distributed.</p>
+<p><strong>Specific Applications and Contexts:</strong>
+<strong>Natural Sciences:</strong> Heights, weights, and test scores.
+<strong>Social Sciences:</strong> IQ scores, measurement errors.</p>
+<ol class="arabic simple" start="2">
+<li><p><strong>Exponential Distribution</strong> (<span class="math notranslate nohighlight">\(\text{Exp}(\lambda)\)</span>)</p>
+<ul class="simple">
+<li><p><strong>Parameter</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span>: Rate parameter (inverse of the mean)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+f(x|\lambda) = \lambda \exp(-\lambda x), \quad x \geq 0
+\]</div>
+<p><strong>Where:</strong> Reliability engineering, queueing theory, and survival analysis.
+<strong>Why:</strong> Models the time between events in a Poisson process, such as the lifespan of an electronic component or the time until the next customer arrives.</p>
+<p><strong>Specific Applications and Contexts:</strong>
+<strong>Reliability Engineering:</strong> Time until failure of a machine component.
+<strong>Queueing Theory:</strong> Time between arrivals of customers at a service point.</p>
+<ol class="arabic simple" start="3">
+<li><p><strong>Binomial Distribution</strong> (<span class="math notranslate nohighlight">\(\text{Bin}(n, p)\)</span>)</p>
+<ul class="simple">
+<li><p><strong>Parameters</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(n\)</span>: Number of trials</p></li>
+<li><p><span class="math notranslate nohighlight">\(p\)</span>: Probability of success in each trial</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+P(X=k|n,p) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0, 1, \ldots, n
+\]</div>
+<p><strong>Where:</strong> Quality control, clinical trials.
+<strong>Why:</strong> Models the number of successes in a fixed number of independent Bernoulli trials, such as the number of defective items in a batch or the number of patients responding to a treatment.</p>
+<ol class="arabic simple" start="4">
+<li><p><strong>Poisson Distribution</strong> (<span class="math notranslate nohighlight">\(\text{Pois}(\lambda)\)</span>)</p>
+<ul class="simple">
+<li><p><strong>Parameter</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span>: Average number of events in a given interval</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+P(X=k|\lambda) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0, 1, 2, \ldots
+\]</div>
+<ul class="simple">
+<li><p><strong>Usage</strong>: Models the number of events occurring within a fixed interval of time or space.</p></li>
+</ul>
+<ol class="arabic simple" start="5">
+<li><p><strong>Gamma Distribution</strong> (<span class="math notranslate nohighlight">\(\text{Gamma}(\alpha, \beta)\)</span>)</p>
+<ul class="simple">
+<li><p><strong>Parameters</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span>: Shape parameter</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta\)</span>: Rate parameter (inverse of scale)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+f(x|\alpha,\beta) = \frac{\beta^\alpha x^{\alpha-1} e^{-\beta x}}{\Gamma(\alpha)}, \quad x &gt; 0
+\]</div>
+<ul class="simple">
+<li><p><strong>Usage</strong>: Often used in Bayesian statistics as prior distributions.</p></li>
+</ul>
+<ol class="arabic simple" start="6">
+<li><p><strong>Beta Distribution</strong> (<span class="math notranslate nohighlight">\(\text{Beta}(\alpha, \beta)\)</span>)</p>
+<ul class="simple">
+<li><p><strong>Parameters</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\alpha\)</span>: Shape parameter</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta\)</span>: Shape parameter</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+f(x|\alpha,\beta) = \frac{x^{\alpha-1} (1-x)^{\beta-1}}{B(\alpha,\beta)}, \quad 0 &lt; x &lt; 1
+\]</div>
+<ul class="simple">
+<li><p><strong>Usage</strong>: Commonly used to model random variables that are bounded between 0 and 1.</p></li>
+</ul>
+<ol class="arabic simple" start="7">
+<li><p><strong>Weibull Distribution</strong> (<span class="math notranslate nohighlight">\(\text{Weibull}(k, \lambda)\)</span>)</p>
+<ul class="simple">
+<li><p><strong>Parameters</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(k\)</span>: Shape parameter</p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda\)</span>: Scale parameter</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+f(x|k,\lambda) = \frac{k}{\lambda} \left(\frac{x}{\lambda}\right)^{k-1} \exp\left(-\left(\frac{x}{\lambda}\right)^k\right), \quad x \geq 0
+\]</div>
+<ul class="simple">
+<li><p><strong>Usage</strong>: Used in reliability engineering and failure analysis.</p></li>
+</ul>
+<ol class="arabic simple" start="8">
+<li><p><strong>Log-Normal Distribution</strong> (<span class="math notranslate nohighlight">\(\text{LogNorm}(\mu, \sigma^2)\)</span>)</p>
+<ul class="simple">
+<li><p><strong>Parameters</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\mu\)</span>: Mean of the log of the variable</p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma^2\)</span>: Variance of the log of the variable</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+f(x|\mu,\sigma^2) = \frac{1}{x\sigma\sqrt{2\pi}} \exp\left( -\frac{(\log x - \mu)^2}{2\sigma^2} \right), \quad x &gt; 0
+\]</div>
+<ul class="simple">
+<li><p><strong>Usage</strong>: Models data that are positively skewed.</p></li>
+</ul>
+<ol class="arabic simple" start="9">
+<li><p><strong>Chi-Square Distribution</strong> (<span class="math notranslate nohighlight">\(\chi^2(k)\)</span>)</p>
+<ul class="simple">
+<li><p><strong>Parameter</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(k\)</span>: Degrees of freedom</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+f(x|k) = \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2-1} e^{-x/2}, \quad x \geq 0
+\]</div>
+<ul class="simple">
+<li><p><strong>Usage</strong>: Commonly used in hypothesis testing and confidence interval estimation.</p></li>
+</ul>
+<ol class="arabic simple" start="10">
+<li><p><strong>t-Distribution</strong> (<span class="math notranslate nohighlight">\(t(\nu)\)</span>)</p></li>
+</ol>
+<ul class="simple">
+<li><p><strong>Parameter</strong>:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\nu\)</span>: Degrees of freedom</p></li>
+</ul>
+</li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+f(x|\nu) = \frac{\Gamma\left(\frac{\nu+1}{2}\right)}{\sqrt{\nu\pi} \Gamma\left(\frac{\nu}{2}\right)} \left(1 + \frac{x^2}{\nu}\right)^{-\frac{\nu+1}{2}}
+\]</div>
+<p><img alt="DrawDistribution" src="../../_images/DrawParametricDistribution1.png" /></p>
+</section>
+<section id="estimation-of-density-parameters">
+<h2>Estimation of Density Parameters<a class="headerlink" href="#estimation-of-density-parameters" title="Link to this heading">#</a></h2>
+<p>We estimate parameters of density by Risk minimization in the Bayesian perspective.</p>
+<section id="steps-for-bayesian-risk-minimization">
+<h3>Steps for Bayesian Risk Minimization<a class="headerlink" href="#steps-for-bayesian-risk-minimization" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Determine the Posterior Distribution</strong>: Compute the posterior distribution <span class="math notranslate nohighlight">\(p(\theta | X)\)</span> using Bayes’ theorem.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+p(\theta | X) = \frac{p(X | \theta) p(\theta)}{p(X)}
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Define the Loss Function</strong>: Choose an appropriate loss function <span class="math notranslate nohighlight">\(L(\theta, \theta^{*})\)</span> based on the problem context.</p></li>
+<li><p><strong>Compute the Expected Posterior Loss</strong>: Integrate the loss function over the posterior distribution to get the expected loss for each possible action.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = \int L(\theta, \theta^{*}) p(\theta | X) \, d\theta
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Minimize the Expected Loss</strong>: Select the action <span class="math notranslate nohighlight">\(a^*\)</span> that minimizes the expected posterior loss.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\theta^{optimal} = \arg\min_\theta R(\theta | X)
+\]</div>
+</section>
+<section id="zero-one-loss">
+<h3>Zero-One Loss<a class="headerlink" href="#zero-one-loss" title="Link to this heading">#</a></h3>
+<p>Sure, let’s substitute <span class="math notranslate nohighlight">\( L(\theta, \theta^{*}) = 1 - \delta(\theta, \theta^{*}) \)</span> into the given integral expression for <span class="math notranslate nohighlight">\( R(\theta^{*} | X) \)</span>.</p>
+<p>Given:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = \int L(\theta, \theta^{*}) p(\theta | X) \, d\theta
+\]</div>
+<p>Substitute <span class="math notranslate nohighlight">\( L(\theta, \theta^{*}) = 1 - \delta(\theta, \theta^{*}) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = \int (1 - \delta(\theta, \theta^{*})) p(\theta | X) \, d\theta
+\]</div>
+<p>Now, let’s break this down into two separate integrals:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = \int p(\theta | X) \, d\theta - \int \delta(\theta, \theta^{*}) p(\theta | X) \, d\theta
+\]</div>
+<p>The first term is the integral of the probability density function <span class="math notranslate nohighlight">\( p(\theta | X) \)</span> over the entire domain of <span class="math notranslate nohighlight">\( \theta \)</span>, which is equal to 1 (since it is a probability density function):</p>
+<div class="math notranslate nohighlight">
+\[
+\int p(\theta | X) \, d\theta = 1
+\]</div>
+<p>The second term involves the Kronecker delta function, which is 1 if <span class="math notranslate nohighlight">\( \theta = \theta^{*} \)</span> and 0 otherwise. Thus, the integral simplifies to evaluating <span class="math notranslate nohighlight">\( p(\theta | X) \)</span> at <span class="math notranslate nohighlight">\( \theta = \theta^{*} \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\int \delta(\theta, \theta^{*}) p(\theta | X) \, d\theta = p(\theta^{*} | X)
+\]</div>
+<p>Putting it all together:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = 1 - p(\theta^{*} | X)
+\]</div>
+<p>So the substituted expression is:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = 1 - p(\theta^{*} | X)
+\]</div>
+<p><strong>Bayesian Risk Minimization</strong></p>
+<p>To find the value of <span class="math notranslate nohighlight">\(\theta^*\)</span> that minimizes <span class="math notranslate nohighlight">\(R(\theta^* | X)\)</span>, we can set up the optimization problem as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \arg \min_{\theta^*} R(\theta^* | X) \]</div>
+<p>Since we have:</p>
+<div class="math notranslate nohighlight">
+\[ R(\theta^* | X) = 1 - p(\theta^* | X) \]</div>
+<p>we want to minimize <span class="math notranslate nohighlight">\(1 - p(\theta^* | X)\)</span>. Minimizing this expression is equivalent to maximizing <span class="math notranslate nohighlight">\(p(\theta^* | X)\)</span> because 1 is a constant and does not affect the optimization.</p>
+<p>Therefore, we have:</p>
+<div class="math notranslate nohighlight">
+\[ \arg \min_{\theta^*} (1 - p(\theta^* | X)) = \arg \max_{\theta^*} p(\theta^* | X) \]</div>
+<p>So the value of <span class="math notranslate nohighlight">\(\theta^*\)</span> that minimizes <span class="math notranslate nohighlight">\(R(\theta^* | X)\)</span> is the same as the value of <span class="math notranslate nohighlight">\(\theta^*\)</span> that maximizes <span class="math notranslate nohighlight">\(p(\theta^* | X)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \theta^* = \arg \max_{\theta^*} p(\theta^* | X) \]</div>
+<p>This is often referred to as the maximum a posteriori (MAP) estimate in Bayesian inference.</p>
+</section>
+<section id="map-estimation-of-normal-distribution-parameters">
+<h3>MAP estimation of Normal distribution parameters<a class="headerlink" href="#map-estimation-of-normal-distribution-parameters" title="Link to this heading">#</a></h3>
+<p>To solve for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> given a dataset <span class="math notranslate nohighlight">\(\{x_1, \ldots, x_n\}\)</span> under the normal distribution <span class="math notranslate nohighlight">\(f(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x-\mu)^2}{2\sigma^2} \right)\)</span>, we will consider two cases: without prior knowledge (maximum likelihood estimation) and with prior knowledge.</p>
+</section>
+<section id="without-prior-knowledge-maximum-likelihood-estimation">
+<h3>Without Prior Knowledge (Maximum Likelihood Estimation)<a class="headerlink" href="#without-prior-knowledge-maximum-likelihood-estimation" title="Link to this heading">#</a></h3>
+<section id="maximum-likelihood-estimation-for-mu-and-sigma-2">
+<h4>1. Maximum Likelihood Estimation for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>:<a class="headerlink" href="#maximum-likelihood-estimation-for-mu-and-sigma-2" title="Link to this heading">#</a></h4>
+<p>The likelihood function for the normal distribution is:</p>
+<div class="math notranslate nohighlight">
+\[
+L(\mu, \sigma^2 | \{x_1, \ldots, x_n\}) = \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left( -\frac{(x_i-\mu)^2}{2\sigma^2} \right)
+\]</div>
+<p>The log-likelihood function is:</p>
+<div class="math notranslate nohighlight">
+\[
+\log L(\mu, \sigma^2 | \{x_1, \ldots, x_n\}) = -\frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2} \sum_{i=1}^{n} (x_i - \mu)^2
+\]</div>
+<p>To find the maximum likelihood estimates (MLE) of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>, we take the partial derivatives of the log-likelihood function with respect to <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> and set them to zero.</p>
+</section>
+<section id="estimating-mu">
+<h4>2. Estimating <span class="math notranslate nohighlight">\(\mu\)</span>:<a class="headerlink" href="#estimating-mu" title="Link to this heading">#</a></h4>
+<p>Taking the derivative with respect to <span class="math notranslate nohighlight">\(\mu\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \mu} \log L(\mu, \sigma^2 | \{x_1, \ldots, x_n\}) = \frac{1}{\sigma^2} \sum_{i=1}^{n} (x_i - \mu) = 0
+\]</div>
+<p>Solving for <span class="math notranslate nohighlight">\(\mu\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{n} (x_i - \mu) = 0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+n\mu = \sum_{i=1}^{n} x_i
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mu = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]</div>
+<p>Thus, the MLE for <span class="math notranslate nohighlight">\(\mu\)</span> is the sample mean:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\mu} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]</div>
+</section>
+<section id="estimating-sigma-2">
+<h4>3. Estimating <span class="math notranslate nohighlight">\(\sigma^2\)</span>:<a class="headerlink" href="#estimating-sigma-2" title="Link to this heading">#</a></h4>
+<p>Taking the derivative with respect to <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \sigma^2} \log L(\mu, \sigma^2 | \{x_1, \ldots, x_n\}) = -\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4} \sum_{i=1}^{n} (x_i - \mu)^2 = 0
+\]</div>
+<p>Solving for <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+-\frac{n}{2\sigma^2} + \frac{1}{2\sigma^4} \sum_{i=1}^{n} (x_i - \mu)^2 = 0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{\sum_{i=1}^{n} (x_i - \mu)^2}{\sigma^4} = \frac{n}{\sigma^2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \mu)^2
+\]</div>
+<p>Thus, the MLE for <span class="math notranslate nohighlight">\(\sigma^2\)</span> is the sample variance:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{\mu})^2
+\]</div>
+</section>
+</section>
+<section id="with-prior-knowledge-bayesian-estimation">
+<h3>With Prior Knowledge (Bayesian Estimation)<a class="headerlink" href="#with-prior-knowledge-bayesian-estimation" title="Link to this heading">#</a></h3>
+<p>For Bayesian estimation, we need to specify prior distributions for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>. We’ll assume conjugate priors to simplify the computations.</p>
+<section id="prior-for-mu-and-sigma-2">
+<h4>1. Prior for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>:<a class="headerlink" href="#prior-for-mu-and-sigma-2" title="Link to this heading">#</a></h4>
+<p>Assume the following priors:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu \sim \mathcal{N}(\mu_0, \sigma_0^2)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma^2 \sim \text{Inverse-Gamma}(\alpha, \beta)\)</span></p></li>
+</ul>
+</section>
+<section id="posterior-distribution">
+<h4>2. Posterior Distribution:<a class="headerlink" href="#posterior-distribution" title="Link to this heading">#</a></h4>
+<p>The joint posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> given the data is proportional to the product of the likelihood and the priors:</p>
+<div class="math notranslate nohighlight">
+\[
+p(\mu, \sigma^2 | \{x_1, \ldots, x_n\}) \propto L(\mu, \sigma^2 | \{x_1, \ldots, x_n\}) \cdot p(\mu) \cdot p(\sigma^2)
+\]</div>
+</section>
+<section id="posterior-for-mu">
+<h4>3. Posterior for <span class="math notranslate nohighlight">\(\mu\)</span>:<a class="headerlink" href="#posterior-for-mu" title="Link to this heading">#</a></h4>
+<p>Integrating out <span class="math notranslate nohighlight">\(\sigma^2\)</span>, the posterior distribution for <span class="math notranslate nohighlight">\(\mu\)</span> given the data follows a normal distribution with updated parameters:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu | \{x_1, \ldots, x_n\}, \sigma^2 \sim \mathcal{N}\left( \frac{\sigma_0^2 \sum_{i=1}^{n} x_i + \sigma^2 \mu_0}{n \sigma_0^2 + \sigma^2}, \frac{\sigma_0^2 \sigma^2}{n \sigma_0^2 + \sigma^2} \right)
+\]</div>
+</section>
+<section id="posterior-for-sigma-2">
+<h4>4. Posterior for <span class="math notranslate nohighlight">\(\sigma^2\)</span>:<a class="headerlink" href="#posterior-for-sigma-2" title="Link to this heading">#</a></h4>
+<p>The posterior distribution for <span class="math notranslate nohighlight">\(\sigma^2\)</span> given the data and <span class="math notranslate nohighlight">\(\mu\)</span> follows an inverse-gamma distribution with updated parameters:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2 | \{x_1, \ldots, x_n\} \sim \text{Inverse-Gamma}\left( \alpha + \frac{n}{2}, \beta + \frac{1}{2} \sum_{i=1}^{n} (x_i - \mu)^2 \right)
+\]</div>
+</section>
+</section>
+<section id="at-a-glance">
+<h3>At a Glance<a class="headerlink" href="#at-a-glance" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>Without Prior Knowledge (MLE):</strong></p>
+<div class="math notranslate nohighlight">
+\[
+  \hat{\mu} = \frac{1}{n} \sum_{i=1}^{n} x_i
+  \]</div>
+<div class="math notranslate nohighlight">
+\[
+  \hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{\mu})^2
+  \]</div>
+</li>
+<li><p><strong>With Prior Knowledge (Bayesian Estimation):</strong></p>
+<ul>
+<li><p>Posterior for <span class="math notranslate nohighlight">\(\mu\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+    \mu | \{x_1, \ldots, x_n\}, \sigma^2 \sim \mathcal{N}\left( \frac{\sigma_0^2 \sum_{i=1}^{n} x_i + \sigma^2 \mu_0}{n \sigma_0^2 + \sigma^2}, \frac{\sigma_0^2 \sigma^2}{n \sigma_0^2 + \sigma^2} \right)
+    \]</div>
+</li>
+<li><p>Posterior for <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+    \sigma^2 | \{x_1, \ldots, x_n\} \sim \text{Inverse-Gamma}\left( \alpha + \frac{n}{2}, \beta + \frac{1}{2} \sum_{i=1}^{n} (x_i - \mu)^2 \right)\]</div>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="what-is-the-inverse-gamma-distribution">
+<h3>What is the Inverse-Gamma Distribution?<a class="headerlink" href="#what-is-the-inverse-gamma-distribution" title="Link to this heading">#</a></h3>
+<p>The Inverse-Gamma distribution is a continuous probability distribution defined for positive real numbers. If a random variable <span class="math notranslate nohighlight">\(X\)</span> follows an Inverse-Gamma distribution with shape parameter <span class="math notranslate nohighlight">\(\alpha\)</span> and scale parameter <span class="math notranslate nohighlight">\(\beta\)</span>, it is denoted as:</p>
+<div class="math notranslate nohighlight">
+\[
+X \sim \text{Inverse-Gamma}(\alpha, \beta)
+\]</div>
+<p>The probability density function (PDF) of the Inverse-Gamma distribution is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x; \alpha, \beta) = \frac{\beta^\alpha}{\Gamma(\alpha)} x^{-(\alpha + 1)} \exp\left(-\frac{\beta}{x}\right)
+\]</div>
+<p>for <span class="math notranslate nohighlight">\(x &gt; 0\)</span>, where <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span> and <span class="math notranslate nohighlight">\(\beta &gt; 0\)</span> are the shape and scale parameters, respectively, and <span class="math notranslate nohighlight">\(\Gamma(\alpha)\)</span> is the gamma function.</p>
+</section>
+<section id="why-use-the-inverse-gamma-distribution">
+<h3>Why Use the Inverse-Gamma Distribution?<a class="headerlink" href="#why-use-the-inverse-gamma-distribution" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Conjugacy</strong>:</p>
+<ul class="simple">
+<li><p>In Bayesian statistics, conjugate priors are chosen because they simplify the computation of the posterior distribution. For the variance parameter <span class="math notranslate nohighlight">\(\sigma^2\)</span> of a normal distribution, the Inverse-Gamma distribution is conjugate to the normal likelihood. This means that if the prior for <span class="math notranslate nohighlight">\(\sigma^2\)</span> is an Inverse-Gamma distribution, the posterior distribution for <span class="math notranslate nohighlight">\(\sigma^2\)</span> will also be an Inverse-Gamma distribution. This conjugacy leads to analytically tractable forms for the posterior, making it easier to perform Bayesian inference.</p></li>
+</ul>
+</li>
+<li><p><strong>Positive Support</strong>:</p>
+<ul class="simple">
+<li><p>The Inverse-Gamma distribution is defined only for positive values, which is appropriate for variance parameters because variances must be positive.</p></li>
+</ul>
+</li>
+<li><p><strong>Flexibility</strong>:</p>
+<ul class="simple">
+<li><p>The Inverse-Gamma distribution is flexible and can model a wide range of prior beliefs about the variance parameter by adjusting its shape and scale parameters.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="example">
+<h3>Example:<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
+<p>We have a dataset for student grades in a pattern recognition course. We need to find the mean (μ) and standard deviation (σ) from the normal distribution in two scenarios: with and without prior information. For μ, we generally assume the prior is <span class="math notranslate nohighlight">\( N(10, 2) \)</span>. However, for σ, we only know that it falls within a range, with the mean approximately 1 and the maximum value approximately 3. Therefore, the first step is to find the inverse gamma distribution using the following code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optimize</span>
+
+<span class="c1"># Target mean and extreme value</span>
+<span class="n">mean_target</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">extreme_value</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># Function to solve for alpha and beta</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">equations</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="n">mean_eq</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">mean_target</span>
+    <span class="n">prob_eq</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">invgamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">extreme_value</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.05</span>  <span class="c1"># 5% extreme value</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">mean_eq</span><span class="p">,</span> <span class="n">prob_eq</span><span class="p">]</span>
+
+<span class="c1"># Initial guess</span>
+<span class="n">initial_guess</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Solve the equations</span>
+<span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">equations</span><span class="p">,</span> <span class="n">initial_guess</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Alpha: </span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s2">, Beta: </span><span class="si">{</span><span class="n">beta</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alpha: 1.6505255701202999, Beta: 0.6506534459879487
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_13928\3248625107.py:19: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  alpha, beta = optimize.fsolve(equations, initial_guess)
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the second step, we solve for μ and σ with and without prior information.</p>
+</section>
+</section>
+<section id="more-details">
+<h2>More Details<a class="headerlink" href="#more-details" title="Link to this heading">#</a></h2>
+<p>Let’s go through the calculations for estimating <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span> for the dataset <span class="math notranslate nohighlight">\(\{0, 1, \ldots, 20\}\)</span> with and without prior knowledge. The priors are given as:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu \sim \mathcal{N}(10, 2^2)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma^2 \sim \text{Inverse-Gamma}(1.6505255701202999, 0.6506534459879487)\)</span></p></li>
+</ul>
+<section id="id1">
+<h3>Without Prior Knowledge (Maximum Likelihood Estimation)<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Given dataset: <span class="math notranslate nohighlight">\(\{0, 1, \ldots, 20\}\)</span></p>
+<ol class="arabic simple">
+<li><p><strong>Calculate the sample mean <span class="math notranslate nohighlight">\(\hat{\mu}\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\hat{\mu} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\(n = 21\)</span> (since there are 21 numbers from 0 to 20):</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\mu} = \frac{1}{21} \sum_{i=0}^{20} i = \frac{1}{21} \cdot \frac{20 \cdot (20 + 1)}{2} = \frac{1}{21} \cdot 210 = 10
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Calculate the sample variance <span class="math notranslate nohighlight">\(\hat{\sigma}^2\)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{\mu})^2
+\]</div>
+<p>Therefore:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\sigma}^2 = \frac{770}{21} \approx 36.67
+\]</div>
+<p>So, the MLE estimates are:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\mu} = 10
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat{\sigma}^2 \approx 36.67
+\]</div>
+</section>
+<section id="id2">
+<h3>With Prior Knowledge (Bayesian Estimation)<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Using the priors:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mu \sim \mathcal{N}(10, 2^2)\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\sigma^2 \sim \text{Inverse-Gamma}(1.6505255701202999, 0.6506534459879487)\)</span></p></li>
+</ul>
+<ol class="arabic simple">
+<li><p><strong>Posterior for <span class="math notranslate nohighlight">\(\mu\)</span></strong>:</p></li>
+</ol>
+<p>The posterior distribution for <span class="math notranslate nohighlight">\(\mu\)</span> given the data and <span class="math notranslate nohighlight">\(\sigma^2\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu | \{x_1, \ldots, x_n\}, \sigma^2 \sim \mathcal{N}\left( \frac{\sigma_0^2 \sum_{i=1}^{n} x_i + \sigma^2 \mu_0}{n \sigma_0^2 + \sigma^2}, \frac{\sigma_0^2 \sigma^2}{n \sigma_0^2 + \sigma^2} \right)
+\]</div>
+<p>Given:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_0^2 = 2^2 = 4
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mu_0 = 10
+\]</div>
+<p>The posterior mean is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu | \{0, 1, \ldots, 20\}, \sigma^2 \sim \mathcal{N}\left( \frac{4 \cdot 210 + 21 \cdot \sigma^2 \cdot 10}{21 \cdot 4 + 21 \cdot \sigma^2}, \frac{4 \cdot \sigma^2}{21 \cdot 4 + 21 \cdot \sigma^2} \right)
+\]</div>
+<p>Simplifying the posterior mean:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu | \{0, 1, \ldots, 20\}, \sigma^2 \sim \mathcal{N}\left( \frac{840 + 210 \sigma^2}{84 + 21 \sigma^2}, \frac{4 \sigma^2}{84 + 21 \sigma^2} \right)
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Posterior for <span class="math notranslate nohighlight">\(\sigma^2\)</span></strong>:</p></li>
+</ol>
+<p>The posterior distribution for <span class="math notranslate nohighlight">\(\sigma^2\)</span> given the data and <span class="math notranslate nohighlight">\(\mu\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2 | \{0, 1, \ldots, 20\} \sim \text{Inverse-Gamma}\left( \alpha + \frac{n}{2}, \beta + \frac{1}{2} \sum_{i=0}^{20} (x_i - \mu)^2 \right)
+\]</div>
+<p>Given:
+$<span class="math notranslate nohighlight">\(
+\alpha = 1.6505255701202999
+\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[
+\beta = 0.6506534459879487
+\]</div>
+<p>The posterior parameters are:</p>
+<p>Thus, the posterior distribution for <span class="math notranslate nohighlight">\(\sigma^2\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2 | \{0, 1, \ldots, 20\} \sim \text{Inverse-Gamma}(12.1505255701202999, 385.6506534459879487)
+\]</div>
+</section>
+<section id="final-results-of-bayesian-estimates">
+<h3>Final Results of Bayesian Estimates<a class="headerlink" href="#final-results-of-bayesian-estimates" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Posterior for <span class="math notranslate nohighlight">\(\mu\)</span></strong>:
+$<span class="math notranslate nohighlight">\(
+\mu | \{0, 1, \ldots, 20\}, \sigma^2 \sim \mathcal{N}\left( \frac{840 + 210 \sigma^2}{84 + 21 \sigma^2}, \frac{4 \sigma^2}{84 + 21 \sigma^2} \right)
+\)</span>$</p></li>
+<li><p><strong>Posterior for <span class="math notranslate nohighlight">\(\sigma^2\)</span></strong>:
+$<span class="math notranslate nohighlight">\(
+\sigma^2 | \{0, 1, \ldots, 20\} \sim \text{Inverse-Gamma}(12.1505255701202999, 385.6506534459879487)
+\)</span>$</p></li>
+</ul>
+<p>In practice, to obtain point estimates from the posterior distributions, you might take the mean or mode of the posterior distributions. The mean of an inverse-gamma distribution <span class="math notranslate nohighlight">\( \text{Inverse-Gamma}(\alpha, \beta) \)</span> is given by <span class="math notranslate nohighlight">\( \frac{\beta}{\alpha - 1} \)</span> (for <span class="math notranslate nohighlight">\( \alpha &gt; 1 \)</span>):</p>
+<ul>
+<li><p>Posterior mean for <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  \mathbb{E}[\sigma^2 | \{0, 1, \ldots, 20\}] = \frac{385.6506534459879487}{12.1505255701202999 - 1} \approx 35.78
+  \]</div>
+</li>
+</ul>
+<p>Thus, the Bayesian estimates are approximately:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\hat{\mu} \approx 10\)</span> (due to the symmetric nature of the normal prior and the data)</p></li>
+<li><p><span class="math notranslate nohighlight">\(\hat{\sigma}^2 \approx 35.78\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optimize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">invgamma</span>
+
+<span class="c1"># Generate some example data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>
+
+<span class="c1"># Prior information for μ</span>
+<span class="n">prior_mu_mean</span> <span class="o">=</span> <span class="mi">17</span>
+<span class="n">prior_mu_std</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># Target mean and extreme value for σ</span>
+<span class="n">prior_sigma_mean</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">prior_sigma_max</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># Function to solve for alpha and beta</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">equations</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="n">mean_eq</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">prior_sigma_mean</span>
+    <span class="n">prob_eq</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">invgamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">prior_sigma_max</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.05</span>  <span class="c1"># 5% extreme value</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">mean_eq</span><span class="p">,</span> <span class="n">prob_eq</span><span class="p">]</span>
+
+<span class="c1"># Initial guess for alpha and beta</span>
+<span class="n">initial_guess</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Solve the equations</span>
+<span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">equations</span><span class="p">,</span> <span class="n">initial_guess</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Alpha: </span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s2">, Beta: </span><span class="si">{</span><span class="n">beta</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Estimate parameters without prior</span>
+<span class="n">data_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">data_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Without Prior:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean (μ): </span><span class="si">{</span><span class="n">data_mean</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Standard Deviation (σ): </span><span class="si">{</span><span class="n">data_std</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Estimate parameters with prior</span>
+<span class="c1"># For μ ~ N(prior_mu_mean, prior_mu_std^2)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">mu_posterior_mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">prior_mu_mean</span> <span class="o">/</span> <span class="n">prior_mu_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">data_mean</span> <span class="o">/</span> <span class="n">data_std</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">prior_mu_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span> <span class="o">/</span> <span class="n">data_std</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">mu_posterior_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">prior_mu_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span> <span class="o">/</span> <span class="n">data_std</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Calculate the posterior parameters for the inverse gamma distribution</span>
+<span class="n">alpha_post</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">beta_post</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">data</span> <span class="o">-</span> <span class="n">data_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="c1"># Sample from the posterior inverse gamma distribution</span>
+<span class="n">sigma_posterior_samples</span> <span class="o">=</span> <span class="n">invgamma</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">alpha_post</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_post</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">sigma_posterior</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sigma_posterior_samples</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">With Prior:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Posterior Mean (μ): </span><span class="si">{</span><span class="n">mu_posterior_mean</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Posterior Standard Deviation (μ): </span><span class="si">{</span><span class="n">mu_posterior_std</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Posterior Standard Deviation (σ): </span><span class="si">{</span><span class="n">sigma_posterior</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alpha: 1.6505255701202999, Beta: 0.6506534459879487
+
+Without Prior:
+Mean (μ): 10.5
+Standard Deviation (σ): 1.6035674514745464
+
+With Prior:
+Posterior Mean (μ): 16.80387931034483
+Posterior Standard Deviation (μ): 0.09847982464479192
+Posterior Standard Deviation (σ): 2.3577878503466803
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_13928\1516641445.py:28: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  alpha, beta = optimize.fsolve(equations, initial_guess)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interesting-for-all-students">
+<h3>Interesting for All Students<a class="headerlink" href="#interesting-for-all-students" title="Link to this heading">#</a></h3>
+<p>To correct or bias the grades using the calculated posterior mean (μ) and standard deviation (σ) obtained by incorporating prior information, outline of the method is:</p>
+</section>
+<section id="obtain-the-posterior-mean-and-standard-deviation">
+<h3>1. Obtain the Posterior Mean and Standard Deviation<a class="headerlink" href="#obtain-the-posterior-mean-and-standard-deviation" title="Link to this heading">#</a></h3>
+<p>First, you calculate the posterior mean (μ) and standard deviation (σ) using prior information as outlined previously. The formulas are:</p>
+<ul class="simple">
+<li><p>Posterior mean of μ:
+$<span class="math notranslate nohighlight">\(
+\mu_{\text{posterior}} = \frac{\frac{\mu_0}{\sigma_0^2} + \frac{n \cdot \mu_{\text{ML}}}{\sigma_{\text{ML}}^2}}{\frac{1}{\sigma_0^2} + \frac{n}{\sigma_{\text{ML}}^2}}
+\)</span>$</p></li>
+<li><p>Posterior standard deviation of μ:
+$<span class="math notranslate nohighlight">\(
+\sigma_{\mu_{\text{posterior}}} = \sqrt{\frac{1}{\frac{1}{\sigma_0^2} + \frac{n}{\sigma_{\text{ML}}^2}}}
+\)</span>$</p></li>
+</ul>
+</section>
+<section id="correct-the-data">
+<h3>2. Correct the Data<a class="headerlink" href="#correct-the-data" title="Link to this heading">#</a></h3>
+<p>To bias or correct the data, you need to adjust each data point based on the posterior mean and standard deviation. The adjustment involves shifting and scaling the data points.</p>
+</section>
+<section id="correction-formula">
+<h3>3. Correction Formula<a class="headerlink" href="#correction-formula" title="Link to this heading">#</a></h3>
+<p>Given an original data point <span class="math notranslate nohighlight">\(x_i\)</span>, the corrected data point <span class="math notranslate nohighlight">\(x_i'\)</span> can be calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+x_i' = \mu_{\text{posterior}} + \frac{x_i - \mu_{\text{ML}}}{\sigma_{\text{ML}}} \cdot \sigma_{\text{posterior}}
+\]</div>
+<p>Simple code is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optimize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">invgamma</span>
+
+<span class="c1"># Generate some example data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>
+
+<span class="c1"># Prior information for μ</span>
+<span class="n">prior_mu_mean</span> <span class="o">=</span> <span class="mi">17</span>
+<span class="n">prior_mu_std</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="c1"># Target mean and extreme value for σ</span>
+<span class="n">prior_sigma_mean</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">prior_sigma_max</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># Function to solve for alpha and beta</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">equations</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="n">mean_eq</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">/</span> <span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">prior_sigma_mean</span>
+    <span class="n">prob_eq</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">invgamma</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">prior_sigma_max</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.05</span>  <span class="c1"># 5% extreme value</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">mean_eq</span><span class="p">,</span> <span class="n">prob_eq</span><span class="p">]</span>
+
+<span class="c1"># Initial guess for alpha and beta</span>
+<span class="n">initial_guess</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Solve the equations</span>
+<span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">fsolve</span><span class="p">(</span><span class="n">equations</span><span class="p">,</span> <span class="n">initial_guess</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Alpha: </span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="s2">, Beta: </span><span class="si">{</span><span class="n">beta</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Estimate parameters without prior</span>
+<span class="n">data_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">data_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Without Prior:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean (μ): </span><span class="si">{</span><span class="n">data_mean</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Standard Deviation (σ): </span><span class="si">{</span><span class="n">data_std</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Estimate parameters with prior</span>
+<span class="c1"># For μ ~ N(prior_mu_mean, prior_mu_std^2)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">mu_posterior_mean</span> <span class="o">=</span> <span class="p">(</span><span class="n">prior_mu_mean</span> <span class="o">/</span> <span class="n">prior_mu_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">data_mean</span> <span class="o">/</span> <span class="n">data_std</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">prior_mu_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span> <span class="o">/</span> <span class="n">data_std</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">mu_posterior_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">prior_mu_std</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">n</span> <span class="o">/</span> <span class="n">data_std</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Calculate the posterior parameters for the inverse gamma distribution</span>
+<span class="n">alpha_post</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">beta_post</span> <span class="o">=</span> <span class="n">beta</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">data</span> <span class="o">-</span> <span class="n">data_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="c1"># Sample from the posterior inverse gamma distribution</span>
+<span class="n">sigma_posterior_samples</span> <span class="o">=</span> <span class="n">invgamma</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">alpha_post</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">beta_post</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+<span class="n">sigma_posterior</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sigma_posterior_samples</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">With Prior:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Posterior Mean (μ): </span><span class="si">{</span><span class="n">mu_posterior_mean</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Posterior Standard Deviation (μ): </span><span class="si">{</span><span class="n">mu_posterior_std</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Posterior Standard Deviation (σ): </span><span class="si">{</span><span class="n">sigma_posterior</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Correct the data using the posterior mean and standard deviation</span>
+<span class="n">corrected_data</span> <span class="o">=</span> <span class="n">mu_posterior_mean</span> <span class="o">+</span> <span class="p">(</span><span class="n">data</span> <span class="o">-</span> <span class="n">data_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">data_std</span> <span class="o">*</span> <span class="n">sigma_posterior</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Corrected Data:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">corrected_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\Dr\AppData\Local\Temp\ipykernel_13928\2875037383.py:28: RuntimeWarning: The iteration is not making good progress, as measured by the 
+  improvement from the last ten iterations.
+  alpha, beta = optimize.fsolve(equations, initial_guess)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Alpha: 1.6505255701202999, Beta: 0.6506534459879487
+
+Without Prior:
+Mean (μ): 10.5
+Standard Deviation (σ): 1.6035674514745464
+
+With Prior:
+Posterior Mean (μ): 12.081081081081082
+Posterior Standard Deviation (μ): 0.4931969619160719
+Posterior Standard Deviation (σ): 2.3378232105711434
+
+Corrected Data:
+[11.35213662 14.26791445 12.81002554  9.89424771  8.4363588  15.72580337
+ 11.35213662 12.81002554]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="some-experiments">
+<h3>Some Experiments<a class="headerlink" href="#some-experiments" title="Link to this heading">#</a></h3>
+<p><strong>Main Data:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+10, 12, 11, 9, 8, 13, 10, 11
+\]</div>
+<p><strong>Prior Information for <span class="math notranslate nohighlight">\( \mu \)</span>:</strong></p>
+<ul class="simple">
+<li><p>prior_mu_mean = 17</p></li>
+<li><p>prior_mu_std = 0.1</p></li>
+</ul>
+<p><strong>Corrected Data:</strong>
+$<span class="math notranslate nohighlight">\(
+16.07820141, 18.98091301, 17.52955721, 14.62684561, 13.17548981, 20.43226882, 16.07820141, 17.52955721
+\)</span>$</p>
+<p><strong>Prior Information for μ:</strong></p>
+<ul class="simple">
+<li><p>prior_mu_mean = 17</p></li>
+<li><p>prior_mu_std = 1</p></li>
+</ul>
+<p><strong>Corrected Data:</strong>
+$<span class="math notranslate nohighlight">\(
+11.35213662, 14.26791445, 12.81002554, 9.89424771, 8.4363588, 15.72580337, 11.35213662, 12.81002554
+\)</span>$</p>
+<p>These experiments demonstrate that the certainty of the prior shifts all data towards the mean of the prior. If the prior has uncertainty, the main data returns to its original values.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/BayesEstimation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="MeanShift.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Mean Shift Algorithm</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="GMM.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Gaussian Mixture Model</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-parametric-models-and-their-parameters">Some parametric models and their parameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estimation-of-density-parameters">Estimation of Density Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-for-bayesian-risk-minimization">Steps for Bayesian Risk Minimization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-one-loss">Zero-One Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#map-estimation-of-normal-distribution-parameters">MAP estimation of Normal distribution parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#without-prior-knowledge-maximum-likelihood-estimation">Without Prior Knowledge (Maximum Likelihood Estimation)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-estimation-for-mu-and-sigma-2">1. Maximum Likelihood Estimation for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-mu">2. Estimating <span class="math notranslate nohighlight">\(\mu\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#estimating-sigma-2">3. Estimating <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#with-prior-knowledge-bayesian-estimation">With Prior Knowledge (Bayesian Estimation)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-for-mu-and-sigma-2">1. Prior for <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-distribution">2. Posterior Distribution:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-for-mu">3. Posterior for <span class="math notranslate nohighlight">\(\mu\)</span>:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-for-sigma-2">4. Posterior for <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#at-a-glance">At a Glance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-inverse-gamma-distribution">What is the Inverse-Gamma Distribution?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-use-the-inverse-gamma-distribution">Why Use the Inverse-Gamma Distribution?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-details">More Details</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Without Prior Knowledge (Maximum Likelihood Estimation)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">With Prior Knowledge (Bayesian Estimation)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-results-of-bayesian-estimates">Final Results of Bayesian Estimates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interesting-for-all-students">Interesting for All Students</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#obtain-the-posterior-mean-and-standard-deviation">1. Obtain the Posterior Mean and Standard Deviation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correct-the-data">2. Correct the Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correction-formula">3. Correction Formula</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#some-experiments">Some Experiments</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

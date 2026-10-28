@@ -1,0 +1,1181 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>kernel-based density estimation &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/BayesEstimation/KDE_1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Mean Shift Algorithm" href="MeanShift.html" />
+    <link rel="prev" title="Bayes Estimation" href="BayesEstimation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="BayesEstimation.html">Bayes Estimation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/BayesEstimation/KDE_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>kernel-based density estimation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-of-kde-by-ali-mojahed">Introduction of KDE (By: Ali Mojahed)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-problem">Main problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proof-using-binomial-distribution">Proof Using Binomial Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-binomial-distribution-setup">Step 1: Binomial Distribution Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-number-of-points-in-volume-v">Step 2: Number of Points in Volume <span class="math notranslate nohighlight">\( V \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-expected-value-of-k">Step 3: Expected Value of <span class="math notranslate nohighlight">\( k \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-density-estimation">Step 4: Density Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-approximation-using-observed-k">Step 5: Approximation Using Observed <span class="math notranslate nohighlight">\( k \)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kde-aspects">KDE aspects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation-kde-parzen-windows">Kernel Density Estimation (KDE): Parzen Windows</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulations">Mathematical Formulations:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorian-form">Vectorian form</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#effect-of-bandwidth-in-kernel-density-estimation-kde">Effect of Bandwidth in Kernel Density Estimation (KDE)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-of-p-varphi-x">Mean of <span class="math notranslate nohighlight">\( p_{\varphi}(x)\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parzen-windows-with-example">Parzen Windows with Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kde-example-with-gaussian-kernel">KDE Example with gaussian kernel</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="kernel-based-density-estimation">
+<h1>kernel-based density estimation<a class="headerlink" href="#kernel-based-density-estimation" title="Link to this heading">#</a></h1>
+<p><img alt="KDE Start1" src="../../_images/KDE_Start.JPG" /></p>
+<p>Kernel density estimation (KDE) is a non-parametric method used to estimate the probability density function of a random variable, based on the concept of histograms.This technique, which can be thought of as a histogram with adaptive bins centered on each sample, infers population characteristics from a finite data sample and is also known as the Parzen–Rosenblatt window method.</p>
+<p><img alt="KDE_Introduction1" src="../../_images/KDE_Density.png" /></p>
+<p><img alt="KDE_Introduction2" src="../../_images/KDE_3D.png" /></p>
+<p>Before starting with KDE, we provide an introduction. Ali Mojahed (<a class="reference external" href="mailto:alimojahed0079&#37;&#52;&#48;gmail&#46;com">alimojahed0079<span>&#64;</span>gmail<span>&#46;</span>com</a>), who was a student in my pattern recognition course in July 2024, helped me with this introduction.</p>
+<section id="introduction-of-kde-by-ali-mojahed">
+<h2>Introduction of KDE (By: Ali Mojahed)<a class="headerlink" href="#introduction-of-kde-by-ali-mojahed" title="Link to this heading">#</a></h2>
+<p><strong>Non-parametric Density Estimation</strong></p>
+<ul class="simple">
+<li><p>Histogram based density estimation</p></li>
+<li><p>Parzen Windows</p>
+<ul>
+<li><p>(Estimate likelihood p(x|ωj) )</p></li>
+</ul>
+</li>
+<li><p>Nearest Neighbors Density Estimation</p>
+<ul>
+<li><p>Bypass likelihood and go directly to posterior estimation P(ωj|x)</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>Model the probability density function without making any assumption about its functional form.</p></li>
+<li><p>Any non-parametric density estimation technique has to deal with the choice of “smoothing” parameters that govern the smoothness of the estimated density.</p></li>
+<li><p>Discuss three types of methods based on:</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Histograms</p></li>
+<li><p>Parzen Windows</p></li>
+<li><p>K-nearest neighbors</p></li>
+</ol>
+<p><img src= "https://s32.picofile.com/file/8477418034/Statistical_Pattern_Recognition_Part1_image2.png"> </img></p>
+<p>#Histogram-Based  Density Estimation</p>
+<ul class="simple">
+<li><p>Suppose each data point x is represented by an d-dimensional feature vector <span class="math notranslate nohighlight">\((x_{1},x_{2},…,x_{d})\)</span>.</p></li>
+<li><p>The histogram is obtained by dividing each <span class="math notranslate nohighlight">\(x_{i}\)</span>-axis into a number of bins <strong>M</strong> and approximating the density at each value of <span class="math notranslate nohighlight">\(x_{i}\)</span> by <u>the fraction of the points that fall inside the corresponding bin. </u></p></li>
+</ul>
+<p><img src= "https://s32.picofile.com/file/8477418176/Statistical_Pattern_Recognition_Part1_image3.png"> </img></p>
+<ul class="simple">
+<li><p>The number of bins M (or bin size) is acting as a <code class="docutils literal notranslate"><span class="pre">smoothing</span></code> parameter.</p></li>
+<li><p>If bin width is <strong>small</strong> (i.e., big M), then the estimated density is <strong>very spiky</strong> (i.e., noisy).</p></li>
+<li><p>If bin width is <strong>large</strong> (i.e., small M), then the true structure of the density is <strong>smoothed out</strong>.</p></li>
+<li><p>In practice, we need to find an optimal value for M that compromises between these two issues.</p></li>
+</ul>
+<p><img src= "https://s32.picofile.com/file/8477418192/Statistical_Pattern_Recognition_Part1_image4.png"> </img></p>
+<p>##Advantages of Histogram-Based  Density Estimation</p>
+<ol class="arabic simple">
+<li><p>Once the histogram has been constructed, the data is not needed anymore (i.e., <u>memory efficient</u>)</p></li>
+<li><p>Retain only info on the <u>sizes</u> and <u>locations</u> of histogram bins.</p></li>
+<li><p>Histogram can be built <u>sequentially</u> … (i.e., consider the data one at a time and then discard).</p></li>
+</ol>
+<p>##Drawbacks of Histogram-Based  Density Estimation</p>
+<ol class="arabic simple">
+<li><p>The estimated density is <u>not smooth</u> and has <u>discontinuities</u> at the boundaries of the histogram bins.</p></li>
+<li><p>The final shape of the density estimate depends on the starting position of the bins.</p></li>
+<li><p>the number of bins grows exponentially with the number of dimensions (If we divide each variable in M intervals, we will end up with <span class="math notranslate nohighlight">\(M^d\)</span> bins).</p></li>
+<li><p>A <u>huge</u> number of examples would be required to obtain good estimates (i.e., otherwise, most bins would be empty and the density will be approximated by zero).</p></li>
+</ol>
+<p><br> <code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">these</span> <span class="pre">drawbacks</span> <span class="pre">make</span> <span class="pre">the</span> <span class="pre">histogram</span> <span class="pre">unsuitable</span> <span class="pre">for</span> <span class="pre">most</span> <span class="pre">practical</span> <span class="pre">applications</span> <span class="pre">except</span> <span class="pre">for</span> <span class="pre">rapid</span> <span class="pre">visualization</span> <span class="pre">of</span> <span class="pre">results</span> <span class="pre">in</span> <span class="pre">one</span> <span class="pre">or</span> <span class="pre">two</span> <span class="pre">dimensions.</span> </code></p>
+<p>#Non-Parametric Density Estimation (general formulation)</p>
+<ul class="simple">
+<li><p>Nonparametric techniques attempt to estimate the underlying density functions from the training data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Idea:</span></code> the more data in a region, the larger is the density function</p></li>
+</ul>
+<p><img src= "https://s32.picofile.com/file/8477429542/Statistical_Pattern_Recognition_Part1_image5.png"> </img></p>
+<ul class="simple">
+<li><p>How can we approximate <span class="math notranslate nohighlight">\(Pr[x \in R_{1}]\)</span> and <span class="math notranslate nohighlight">\(Pr[x \in R_{2}]\)</span>?</p></li>
+<li><p><span class="math notranslate nohighlight">\(Pr[x \in R_{1}] \approx \frac {6}{20}, Pr[x \in R_{2}] \approx \frac {6}{20}\)</span></p></li>
+<li><p>Should the density curves above <span class="math notranslate nohighlight">\(R_{1}\)</span> and <span class="math notranslate nohighlight">\(R{2}\)</span> be equally high?</p></li>
+<li><p>No, since <span class="math notranslate nohighlight">\(R_{1}\)</span> is smaller than <span class="math notranslate nohighlight">\(R_{2}\)</span>.</p></li>
+<li><p>To get density, normalize by region size:
+<img src= "https://s32.picofile.com/file/8477430326/Statistical_Pattern_Recognition_Part1_image6.png"> </img></p></li>
+</ul>
+<p>We thank Ali Mojahed for his contributions to the introduction.</p>
+<p><strong>Ali Mojahed End</strong></p>
+</section>
+<section id="main-problem">
+<h2>Main problem<a class="headerlink" href="#main-problem" title="Link to this heading">#</a></h2>
+<p>Calculate probability of presence of <span class="math notranslate nohighlight">\( k \)</span> samples in a region with volume <span class="math notranslate nohighlight">\( V \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) \approx \frac{k/n}{V}
+\]</div>
+<p><img alt="probability of presence" src="../../_images/kde_volume_v.png" /></p>
+<p>The above figure show:</p>
+<ul class="simple">
+<li><p>A 2D space with <span class="math notranslate nohighlight">\( n \)</span> total samples.</p></li>
+<li><p>A region with volume <span class="math notranslate nohighlight">\( V \)</span> (e.g., a circle or square) centered around a point <span class="math notranslate nohighlight">\( x \)</span>.</p></li>
+<li><p>The <span class="math notranslate nohighlight">\( k \)</span> samples within this region.</p></li>
+<li><p>The concept of density estimation using these <span class="math notranslate nohighlight">\( k \)</span> samples.</p></li>
+</ul>
+<p>It can be proven using the binomial distribution to relate the volume <span class="math notranslate nohighlight">\( V \)</span>, the probability of a point falling within <span class="math notranslate nohighlight">\( V \)</span>, and the observed data.</p>
+</section>
+<section id="proof-using-binomial-distribution">
+<h2>Proof Using Binomial Distribution<a class="headerlink" href="#proof-using-binomial-distribution" title="Link to this heading">#</a></h2>
+<section id="step-1-binomial-distribution-setup">
+<h3>Step 1: Binomial Distribution Setup<a class="headerlink" href="#step-1-binomial-distribution-setup" title="Link to this heading">#</a></h3>
+<p>Consider a dataset with <span class="math notranslate nohighlight">\( n \)</span> independent and identically distributed (i.i.d.) points drawn from some unknown probability density function (PDF) <span class="math notranslate nohighlight">\( p(x) \)</span>. We want to estimate <span class="math notranslate nohighlight">\( p(x) \)</span> at a point <span class="math notranslate nohighlight">\( x \)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\( V \)</span> be a small volume around <span class="math notranslate nohighlight">\( x \)</span>. The probability <span class="math notranslate nohighlight">\( P \)</span> that any given point falls within <span class="math notranslate nohighlight">\( V \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+P = \int_V p(x') \, dx'
+\]</div>
+<p>Since <span class="math notranslate nohighlight">\( V \)</span> is small and <span class="math notranslate nohighlight">\( p(x) \)</span> is approximately constant within <span class="math notranslate nohighlight">\( V \)</span>, we can approximate this as:</p>
+<div class="math notranslate nohighlight">
+\[
+P \approx p(x) \cdot V
+\]</div>
+</section>
+<section id="step-2-number-of-points-in-volume-v">
+<h3>Step 2: Number of Points in Volume <span class="math notranslate nohighlight">\( V \)</span><a class="headerlink" href="#step-2-number-of-points-in-volume-v" title="Link to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\( k \)</span> be the number of points that fall within the volume <span class="math notranslate nohighlight">\( V \)</span>. Since each point independently falls within <span class="math notranslate nohighlight">\( V \)</span> with probability <span class="math notranslate nohighlight">\( P \)</span>, the number of points <span class="math notranslate nohighlight">\( k \)</span> in <span class="math notranslate nohighlight">\( V \)</span> follows a binomial distribution:</p>
+<div class="math notranslate nohighlight">
+\[
+k \sim \text{Binomial}(n, P)
+\]</div>
+<p>The binomial probability mass function is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+P(k) = \binom{n}{k} P^k (1-P)^{n-k}
+\]</div>
+</section>
+<section id="step-3-expected-value-of-k">
+<h3>Step 3: Expected Value of <span class="math notranslate nohighlight">\( k \)</span><a class="headerlink" href="#step-3-expected-value-of-k" title="Link to this heading">#</a></h3>
+<p>The expected value <span class="math notranslate nohighlight">\( E[k] \)</span> of the binomial random variable <span class="math notranslate nohighlight">\( k \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+E[k] = nP
+\]</div>
+<p>Substituting <span class="math notranslate nohighlight">\( P \approx p(x) \cdot V \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+E[k] \approx n \cdot p(x) \cdot V
+\]</div>
+</section>
+<section id="step-4-density-estimation">
+<h3>Step 4: Density Estimation<a class="headerlink" href="#step-4-density-estimation" title="Link to this heading">#</a></h3>
+<p>We want to estimate <span class="math notranslate nohighlight">\( p(x) \)</span>. From the expected value of <span class="math notranslate nohighlight">\( k \)</span>, we can solve for <span class="math notranslate nohighlight">\( p(x) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) \approx \frac{E[k]}{n \cdot V}
+\]</div>
+</section>
+<section id="step-5-approximation-using-observed-k">
+<h3>Step 5: Approximation Using Observed <span class="math notranslate nohighlight">\( k \)</span><a class="headerlink" href="#step-5-approximation-using-observed-k" title="Link to this heading">#</a></h3>
+<p>In practice, we do not know the exact expected value <span class="math notranslate nohighlight">\( E[k] \)</span>, but we can use the observed value of <span class="math notranslate nohighlight">\( k \)</span> as an estimate. Thus, we approximate <span class="math notranslate nohighlight">\( p(x) \)</span> by:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) \approx \frac{k}{n \cdot V}
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( k \)</span> is the observed number of points within the volume <span class="math notranslate nohighlight">\( V \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( n \)</span> is the total number of points.</p></li>
+<li><p><span class="math notranslate nohighlight">\( V \)</span> is the volume around the point <span class="math notranslate nohighlight">\( x \)</span>.</p></li>
+</ul>
+</section>
+</section>
+<section id="kde-aspects">
+<h2>KDE aspects<a class="headerlink" href="#kde-aspects" title="Link to this heading">#</a></h2>
+<p>How to Choose the Optimum Values for V and k?</p>
+<div class="math notranslate nohighlight">
+\[
+p(x) \approx \frac{k/n}{V}
+\]</div>
+<ul>
+<li><p>Two leading approaches:</p>
+<ol class="arabic simple">
+<li><p>Fix the volume <span class="math notranslate nohighlight">\( V \)</span> and determine <span class="math notranslate nohighlight">\( k \)</span> from the data (kernel-based density estimation methods - Parzen Window)</p></li>
+<li><p>Fix the value of <span class="math notranslate nohighlight">\( k \)</span> and determine the corresponding volume <span class="math notranslate nohighlight">\( V \)</span> from the data (k-nearest neighbor method)</p></li>
+</ol>
+<p><img alt="KNN1" src="../../_images/KNN1.png" /></p>
+</li>
+</ul>
+<p>In the above figure, the black rectangle includes 10 samples with volume <span class="math notranslate nohighlight">\( V \)</span>, so <span class="math notranslate nohighlight">\( p(x) \approx \frac{k/n}{V} \)</span> is obtained with <span class="math notranslate nohighlight">\( k \)</span> fixed and <span class="math notranslate nohighlight">\( V \)</span> variable. Therefore, for each point, <span class="math notranslate nohighlight">\( V \)</span> must be adjusted to include 10 samples; this method is KDE. However, in KNN, as shown in the figure with the red rectangle, the volume (<span class="math notranslate nohighlight">\( V \)</span>) is fixed, and <span class="math notranslate nohighlight">\( k \)</span> is counted for each point.</p>
+</section>
+<section id="kernel-density-estimation-kde-parzen-windows">
+<h2>Kernel Density Estimation (KDE): Parzen Windows<a class="headerlink" href="#kernel-density-estimation-kde-parzen-windows" title="Link to this heading">#</a></h2>
+<p><strong>Problem:</strong> Given a vector <span class="math notranslate nohighlight">\( x \)</span>, estimate <span class="math notranslate nohighlight">\( p(x) \)</span>.</p>
+<ul>
+<li><p>Assume <span class="math notranslate nohighlight">\( R_{n} \)</span> to be a hypercube with sides of length <span class="math notranslate nohighlight">\( h_{n} \)</span>, centered on the point <span class="math notranslate nohighlight">\( x \)</span>:</p>
+<p><span class="math notranslate nohighlight">\( V_{n} = h_{n}^{d} \)</span></p>
+<p><span class="math notranslate nohighlight">\( p(x) \approx \frac{k_{n}/n}{V_{n}} \)</span></p>
+</li>
+<li><p>To find an expression for <span class="math notranslate nohighlight">\( k_n \)</span> (i.e., the number of points in the hypercube), We introduce kernel function. The kernel function <span class="math notranslate nohighlight">\( \varphi \)</span> is a symmetric, non-negative function that integrates to one. Common choices include:</p></li>
+</ul>
+<section id="mathematical-formulations">
+<h3>Mathematical Formulations:<a class="headerlink" href="#mathematical-formulations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Gaussian Kernel</strong>:
+<span class="math notranslate nohighlight">\( \varphi(u) = \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}u^2} \)</span></p></li>
+<li><p><strong>Epanechnikov Kernel</strong>:
+<span class="math notranslate nohighlight">\(\varphi(u) = \frac{3}{4}(1 - u^2) \quad \text{for} \quad |u| \leq 1 \)</span></p></li>
+<li><p><strong>Uniform Kernel</strong>:
+<span class="math notranslate nohighlight">\(\varphi(u) = \frac{1}{2} \quad \text{for} \quad |u| \leq 1 \)</span></p></li>
+<li><p><strong>Triweight Kernel</strong>:
+<span class="math notranslate nohighlight">\(\varphi(u) = \frac{35}{32}(1 - u^2)^3 \quad \text{for} \quad |u| \leq 1 \)</span></p></li>
+<li><p><strong>Tricube Kernel</strong>:
+<span class="math notranslate nohighlight">\(\varphi(u) = \frac{70}{81}(1 - |u|^3)^3 \quad \text{for} \quad |u| \leq 1 \)</span></p></li>
+<li><p><strong>Biweight Kernel</strong>:
+<span class="math notranslate nohighlight">\(\varphi(u) = \frac{15}{16}(1 - u^2)^2 \quad \text{for} \quad |u| \leq 1 \)</span></p></li>
+<li><p><strong>Cosine Kernel</strong>:
+<span class="math notranslate nohighlight">\(\varphi(u) = \frac{\pi}{4} \cos\left(\frac{\pi}{2} u\right) \quad \text{for} \quad |u| \leq 1 \)</span></p></li>
+<li><p><strong>Logistic Kernel</strong>:
+<span class="math notranslate nohighlight">\(\varphi(u) = \frac{1}{\exp(u) + 2 + \exp(-u)} \)</span></p></li>
+<li><p><strong>Sigmoid Kernel</strong>:
+<span class="math notranslate nohighlight">\(\varphi(u) = \frac{2}{\pi (\exp(u) + \exp(-u))} \)</span></p></li>
+<li><p><strong>Silverman Kernel</strong>:
+<span class="math notranslate nohighlight">\(\varphi(u) = 0.5 \exp\left(-\frac{|u|}{\sqrt{2}}\right) \sin\left(\frac{|u|}{\sqrt{2}} + \frac{\pi}{4}\right) \)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Define the kernel functions with their mathematical formulations</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gaussian_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">u</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Gaussian Kernel: \varphi(u) = (1/sqrt(2*pi)) * exp(-0.5*u^2)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">epanechnikov_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Epanechnikov Kernel: K(u) = 0.75 * (1 - u^2) for |u| &lt;= 1</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">uniform_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Uniform Kernel: K(u) = 0.5 for |u| &lt;= 1</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">triweight_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">35</span><span class="o">/</span><span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Triweight Kernel: K(u) = (35/32) * (1 - u^2)^3 for |u| &lt;= 1</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tricube_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">70</span><span class="o">/</span><span class="mi">81</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Tricube Kernel: K(u) = (70/81) * (1 - |u|^3)^3 for |u| &lt;= 1</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">biweight_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">15</span><span class="o">/</span><span class="mi">16</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">u</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Biweight Kernel: K(u) = (15/16) * (1 - u^2)^2 for |u| &lt;= 1</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cosine_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Cosine Kernel: K(u) = (pi/4) * cos((pi/2)*u) for |u| &lt;= 1</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u</span><span class="p">))</span>  <span class="c1"># Logistic Kernel: K(u) = 1 / (exp(u) + 2 + exp(-u))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmoid_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">u</span><span class="p">)))</span>  <span class="c1"># Sigmoid Kernel: K(u) = 2 / (pi * (exp(u) + exp(-u)))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">silverman_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># Silverman Kernel: K(u) = 0.5 * exp(-|u|/sqrt(2)) * sin(|u|/sqrt(2) + pi/4)</span>
+
+<span class="c1"># Define the range for u</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Compute the kernel values</span>
+<span class="n">gaussian_values</span> <span class="o">=</span> <span class="n">gaussian_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">epanechnikov_values</span> <span class="o">=</span> <span class="n">epanechnikov_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">uniform_values</span> <span class="o">=</span> <span class="n">uniform_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">triweight_values</span> <span class="o">=</span> <span class="n">triweight_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">tricube_values</span> <span class="o">=</span> <span class="n">tricube_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">biweight_values</span> <span class="o">=</span> <span class="n">biweight_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">cosine_values</span> <span class="o">=</span> <span class="n">cosine_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">logistic_values</span> <span class="o">=</span> <span class="n">logistic_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">sigmoid_values</span> <span class="o">=</span> <span class="n">sigmoid_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<span class="n">silverman_values</span> <span class="o">=</span> <span class="n">silverman_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+
+<span class="c1"># Plot the kernel functions</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">gaussian_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Gaussian Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">epanechnikov_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Epanechnikov Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">uniform_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Uniform Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">triweight_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Triweight Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'purple'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">tricube_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Tricube Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'orange'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">biweight_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Biweight Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'cyan'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">cosine_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Cosine Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'magenta'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">logistic_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Logistic Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'yellow'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">sigmoid_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Sigmoid Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'brown'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">silverman_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Silverman Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'u'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Kernel Value'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Kernel Functions'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/af1bb98faf7476eb8efc397c68fc481e02e8d526d3263d13279330db862c5eba.png" src="../../_images/af1bb98faf7476eb8efc397c68fc481e02e8d526d3263d13279330db862c5eba.png" />
+</div>
+</div>
+<p>To estimate the density at point <span class="math notranslate nohighlight">\( x \)</span>, simply center the region <span class="math notranslate nohighlight">\( R \)</span> at <span class="math notranslate nohighlight">\( x \)</span>, count the number of samples in <span class="math notranslate nohighlight">\( R \)</span>, and substitute result in our formula.</p>
+<p><img alt="Region1" src="../../_images/Region1.png" /></p>
+<p><img alt="Region2" src="../../_images/Region2.png" /></p>
+<div class="math notranslate nohighlight">
+\[
+p(x) \approx \frac{3/6}{10}
+\]</div>
+<p>In the Parzen-window approach to estimate densities, we fix the size and shape of region <span class="math notranslate nohighlight">\( R \)</span>.
+Let us assume that the region <span class="math notranslate nohighlight">\( R \)</span> is a <span class="math notranslate nohighlight">\( d \)</span>-dimensional hypercube with side length <span class="math notranslate nohighlight">\( h \)</span>, thus its volume is <span class="math notranslate nohighlight">\( h^{d} \)</span> (see above figure).
+Let <span class="math notranslate nohighlight">\( u = [u_{1}, u_{2}, \ldots, u_{d}] \)</span> and define a window function:
+<strong>Uniform Kernel</strong>:
+Here’s the corrected formula with proper formatting:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\varphi(u) = \begin{cases} 
+\frac{1}{2} &amp; \text{for } |u| \leq 1 \\
+0 &amp; \text{elsewhere}
+\end{cases}
+\end{split}\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\varphi(u) = \begin{cases} 
+1 &amp; \text{for } |u| \leq \frac{1}{2} \\
+0 &amp; \text{elsewhere}
+\end{cases}
+\end{split}\]</div>
+<p>This kernel, which corresponds to a unit hypercube centered at the origin, is known as a <code class="docutils literal notranslate"><span class="pre">Parzen</span> <span class="pre">window</span></code> or the <code class="docutils literal notranslate"><span class="pre">naïve</span> <span class="pre">estimator</span></code>.</p>
+</section>
+<section id="vectorian-form">
+<h3>Vectorian form<a class="headerlink" href="#vectorian-form" title="Link to this heading">#</a></h3>
+<p>Recall we have <span class="math notranslate nohighlight">\( d \)</span>-dimensional samples <span class="math notranslate nohighlight">\( x_{1}, x_{2}, \ldots, x_{n} \)</span>. Let <span class="math notranslate nohighlight">\( x_{ij} \)</span> be the <span class="math notranslate nohighlight">\( j \)</span>-th coordinate of sample <span class="math notranslate nohighlight">\( x_{i} \)</span>, then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\varphi(u) =\begin{cases}
+\frac{1}{2^d} &amp; \text{for } \|u\|_\infty \leq 1 \\
+0 &amp; \text{otherwise}
+\end{cases} 
+\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\( \|u\|_\infty \)</span> represents the <span class="math notranslate nohighlight">\( L_\infty \)</span> norm (or Chebyshev norm) of the vector <span class="math notranslate nohighlight">\( u \)</span>, which is the maximum absolute value among the components of <span class="math notranslate nohighlight">\( u \)</span>.</p>
+<p><span class="math notranslate nohighlight">\( \|u\|_\infty = \max_{j} |u_j| \)</span></p>
+<p><strong>How do we count</strong> the total number of sample points <span class="math notranslate nohighlight">\( x_{1}, x_{2}, \ldots, x_{n} \)</span> which are inside the hypercube with side <span class="math notranslate nohighlight">\( h \)</span> and centered at <span class="math notranslate nohighlight">\( x \)</span>?</p>
+<div class="math notranslate nohighlight">
+\[
+k = \sum_{i=1}^{n} \varphi \left( \frac{x - x_{i}}{h} \right)
+\]</div>
+<p>Recall <span class="math notranslate nohighlight">\( p(x) \approx \frac{k/n}{V} \)</span>, <span class="math notranslate nohighlight">\( V = h^{d} \)</span>.</p>
+<p>Thus we get the desired analytical expression for the estimate of density <span class="math notranslate nohighlight">\( p_{\varphi}(x) \)</span>:
+The total number of points <span class="math notranslate nohighlight">\( x_{i} \)</span> falling inside the hypercube is:</p>
+<div class="math notranslate nohighlight">
+\[
+k_{n} = \sum_{i=1}^{n} \varphi \left( \frac{x - x_{i}}{h_{n}} \right)
+\]</div>
+<p><span class="math notranslate nohighlight">\(\varphi \left( \frac{x - x_{i}}{h_{n}} \right) \)</span> equals 1 if <span class="math notranslate nohighlight">\( x_{i} \)</span> falls within the hypercube centered at <span class="math notranslate nohighlight">\( x \)</span>.
+Then, the estimate</p>
+<div class="math notranslate nohighlight">
+\[
+p_{\varphi}(x) \approx \frac{k_{n}/n}{V_{n}}
+\]</div>
+<p>becomes</p>
+<div class="math notranslate nohighlight">
+\[ p_{\varphi}(x) = \frac{1}{n} \sum_{i=1}^{n} \frac{1}{V_{n}} \varphi \left( \frac{x - x_{i}}{h_{n}} \right) \]</div>
+<p>The density estimate is a superposition of kernel functions and the samples <span class="math notranslate nohighlight">\( x_{i} \)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+p_{\varphi}(x) = \frac{1}{n} \sum_{i=1}^{n} \frac{1}{V_{n}} \varphi \left( \frac{x - x_{i}}{h_{n}} \right)
+\]</div>
+<p><em><strong>Notes:</strong></em></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \varphi(u) \)</span> interpolates the density between samples.</p></li>
+<li><p>Each sample <span class="math notranslate nohighlight">\( x_{i} \)</span> contributes to the estimate based on its distance from <span class="math notranslate nohighlight">\( x \)</span>.</p></li>
+</ul>
+<blockquote>
+<div><p>Notice that the Parzen window density estimate resembles the histogram, with the exception that the bin locations are determined by the data points.</p>
+</div></blockquote>
+<p><em>Example:</em>
+Consider some dummy data to see how we can expand the method to multiple points.
+For the One data point, we simply use:
+<span class="math notranslate nohighlight">\( \varphi \left( \frac{x - x_{1}}{h} \right) \)</span> and for <span class="math notranslate nohighlight">\( n \)</span> samples:</p>
+<div class="math notranslate nohighlight">
+\[
+p_{\varphi}(x) = \frac{1}{n} \sum_{i=1}^{n} \frac{1}{V_{n}} \varphi \left( \frac{x - x_{i}}{h_{n}} \right)
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Kernel function (Gaussian Kernel)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">K</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+<span class="c1"># New dataset with more variation to show fast changes in PDF</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.33</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">0.39</span><span class="p">,</span> <span class="mf">0.14</span><span class="p">,</span> <span class="mf">0.97</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">])</span>
+
+<span class="c1"># x-value range for plotting KDEs</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">dataset</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+
+<span class="c1"># Bandwidth values for experimentation</span>
+<span class="n">H</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">]</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">size</span>
+
+<span class="c1"># Line properties for different bandwidth values</span>
+<span class="n">color_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'goldenrod'</span><span class="p">,</span> <span class="s1">'black'</span><span class="p">,</span> <span class="s1">'maroon'</span><span class="p">]</span>
+<span class="n">alpha_list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]</span>
+<span class="n">width_list</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.7</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">1.7</span><span class="p">]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="c1"># Iterate over bandwidth values</span>
+<span class="k">for</span> <span class="n">h</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">width</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">color_list</span><span class="p">,</span> <span class="n">alpha_list</span><span class="p">,</span> <span class="n">width_list</span><span class="p">):</span>
+    <span class="n">total_sum</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Iterate over data points</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
+        <span class="n">total_sum</span> <span class="o">+=</span> <span class="n">K</span><span class="p">((</span><span class="n">x_range</span> <span class="o">-</span> <span class="n">xi</span><span class="p">)</span> <span class="o">/</span> <span class="n">h</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="sa">r</span><span class="s1">'$x_</span><span class="si">{}</span><span class="s1">$'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+                     <span class="n">xy</span><span class="o">=</span><span class="p">[</span><span class="n">xi</span><span class="p">,</span> <span class="mf">0.13</span><span class="p">],</span>
+                     <span class="n">horizontalalignment</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span>
+                     <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+                    <span class="p">)</span>
+    <span class="n">y_range</span> <span class="o">=</span> <span class="n">total_sum</span> <span class="o">/</span> <span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="n">n_samples</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_range</span><span class="p">,</span> <span class="n">y_range</span><span class="p">,</span> 
+             <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> 
+             <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Bandwidth $h$ = </span><span class="si">{</span><span class="n">h</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">dataset</span><span class="p">),</span> <span class="s1">'o'</span><span class="p">,</span> 
+             <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'$x$'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'$f(x)$'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="s1">'horizontal'</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">shadow</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">'Bandwidth $h$'</span><span class="p">,</span> <span class="n">title_fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Kernel Density Estimation with Different Bandwidths'</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/5274042bb22f86a9ffa3f9557d16b4422b2c368db4c278564ccc867467bb764d.png" src="../../_images/5274042bb22f86a9ffa3f9557d16b4422b2c368db4c278564ccc867467bb764d.png" />
+</div>
+</div>
+</section>
+<section id="effect-of-bandwidth-in-kernel-density-estimation-kde">
+<h3>Effect of Bandwidth in Kernel Density Estimation (KDE)<a class="headerlink" href="#effect-of-bandwidth-in-kernel-density-estimation-kde" title="Link to this heading">#</a></h3>
+<p>The bandwidth (as shown in the above example) in Kernel Density Estimation (KDE) plays a crucial role in determining the smoothness and accuracy of the estimated probability density function.</p>
+<p><strong>Bandwidth values affect the KDE:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Large Bandwidth (High <span class="math notranslate nohighlight">\( h \)</span>)</strong>:</p>
+<ul class="simple">
+<li><p><strong>Smoothness</strong>: A larger bandwidth results in a smoother density estimate. This is because the kernel function spreads out over a wider range of values, averaging out more data points and reducing the influence of each individual point.</p></li>
+<li><p><strong>Bias</strong>: With a higher <span class="math notranslate nohighlight">\( h \)</span>, the estimate can become overly smooth, potentially missing important features of the data distribution, such as peaks or valleys. This introduces a bias in the estimate, meaning the estimated density may deviate systematically from the true density.</p></li>
+<li><p><strong>Variance</strong>: The variance of the estimate decreases with a larger <span class="math notranslate nohighlight">\( h \)</span>. This is because the larger smoothing reduces the impact of random fluctuations in the data.</p></li>
+</ul>
+</li>
+<li><p><strong>Small Bandwidth (Low <span class="math notranslate nohighlight">\( h \)</span>)</strong>:</p>
+<ul class="simple">
+<li><p><strong>Smoothness</strong>: A smaller bandwidth leads to a less smooth density estimate. The kernel function is more localized, closely following the data points and capturing more detailed features of the distribution.</p></li>
+<li><p><strong>Bias</strong>: With a lower <span class="math notranslate nohighlight">\( h \)</span>, the estimate is less biased, meaning it can capture the true shape of the data distribution more accurately. However, this is true only if the sample size is sufficiently large.</p></li>
+<li><p><strong>Variance</strong>: The variance of the estimate increases with a smaller <span class="math notranslate nohighlight">\( h \)</span>. This is because the estimate becomes more sensitive to random fluctuations in the data, leading to a more jagged and less reliable density estimate.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<section id="mean-of-p-varphi-x">
+<h2>Mean of <span class="math notranslate nohighlight">\( p_{\varphi}(x)\)</span><a class="headerlink" href="#mean-of-p-varphi-x" title="Link to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\( E \left\{p_{\varphi}(x)\right\}=
+E \left\{ \frac{1}{n} \sum_{i=1}^{n} \frac{1}{V_n} \varphi \left( \frac{x - x_i}{h_n} \right) \right\} \)</span></p>
+<p>Since the expectation operator <span class="math notranslate nohighlight">\( E \{ \cdot \} \)</span> is a linear operator, it can be distributed over the sum. Thus:</p>
+<p><span class="math notranslate nohighlight">\( E \left\{p_{\varphi}(x)\right\}=
+E \left\{ \frac{1}{n} \sum_{i=1}^{n} \frac{1}{V_n} \varphi \left( \frac{x - x_i}{h_n} \right) \right\} = \frac{1}{n} \sum_{i=1}^{n} \frac{1}{V_n} E \left\{ \varphi \left( \frac{x - x_i}{h_n} \right) \right\} \)</span></p>
+<p><span class="math notranslate nohighlight">\( E \left\{ \varphi \left( \frac{x - x_i}{h_n} \right) \right\} \)</span> is constant relative summation index so,</p>
+<p><span class="math notranslate nohighlight">\( E \left\{p_{\varphi}(x)\right\}=
+\frac{1}{V_n} E \left\{ \varphi \left( \frac{x - x_i}{h_n} \right) \right\}
+\)</span></p>
+<p>Assuming <span class="math notranslate nohighlight">\( x_i \)</span> are i.i.d. samples from a true distribution <span class="math notranslate nohighlight">\( p(x) \)</span>, the random variable <span class="math notranslate nohighlight">\( x_i \)</span> has the same distribution as <span class="math notranslate nohighlight">\( x \)</span>. Therefore:</p>
+<p><span class="math notranslate nohighlight">\( E \left\{ \varphi \left( \frac{x - x_i}{h_n} \right) \right\} = \int_{-\infty}^{\infty} \varphi \left( \frac{x - y}{h_n} \right) p(y) \, dy \)</span></p>
+<p>To simplify, let <span class="math notranslate nohighlight">\( z = \frac{x - y}{h_n} \)</span>, hence <span class="math notranslate nohighlight">\( dy = -h_n \, dz \)</span>:</p>
+<p><span class="math notranslate nohighlight">\( E \left\{ \varphi \left( \frac{x - x_i}{h_n} \right) \right\} = \int_{-\infty}^{\infty} \varphi(z) p(x - h_n z) \, h_n \, dz \)</span></p>
+<p>Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+E \left\{p_{\varphi}(x)\right\}=
+\int_{-\infty}^{\infty} \varphi(z) p(x - h_n z) \, h_n \, dz
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+E \left\{p_{\varphi}(x)\right\}
+= \varphi(x) * p(x)
+\]</div>
+<p>We can see that the expectation of the estimated density <span class="math notranslate nohighlight">\( P_\varphi(x) \)</span> is a convolution of the true density <span class="math notranslate nohighlight">\( P(x) \)</span> with the kernel function.</p>
+<ul class="simple">
+<li><p>The bandwidth <span class="math notranslate nohighlight">\( h \)</span> of the kernel plays the role of a smoothing parameter: the wider the kernel function, the smoother the estimate <span class="math notranslate nohighlight">\( P_\varphi(x) \)</span>.</p></li>
+<li><p>For <span class="math notranslate nohighlight">\( h \rightarrow 0 \)</span>, the kernel approaches a Dirac delta function and <span class="math notranslate nohighlight">\( P_\varphi(x) \)</span> approaches the true density.</p></li>
+<li><p>However, in practice, we have a finite number of points, so <span class="math notranslate nohighlight">\( h \)</span> cannot be made arbitrarily small, since the density estimate <span class="math notranslate nohighlight">\( P_\varphi(x) \)</span> would then degenerate to a set of impulses located at the training data points.</p></li>
+</ul>
+</section>
+<section id="parzen-windows-with-example">
+<h2>Parzen Windows with Example<a class="headerlink" href="#parzen-windows-with-example" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
+
+<span class="c1"># Define the rectangle kernel (Parzen window)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rectangle_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Kernel Density Estimator (KDE) function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">kde</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">kde_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">kde_values</span> <span class="o">+=</span> <span class="n">rectangle_kernel</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">xi</span><span class="p">)</span> <span class="o">/</span> <span class="n">bandwidth</span><span class="p">)</span>
+    <span class="n">kde_values</span> <span class="o">/=</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">bandwidth</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">kde_values</span>
+
+<span class="c1"># Generate sample data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">0.39</span><span class="p">,</span> <span class="mf">0.97</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">])</span> <span class="c1"># Adjusted sample data</span>
+
+<span class="c1"># Define the bandwidth and range for x</span>
+<span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Compute the KDE</span>
+<span class="n">kde_estimate</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span>
+
+<span class="c1"># Plot the KDE and the histogram with data points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Add rectangles of equal height over each data point</span>
+<span class="n">height</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">bandwidth</span><span class="p">)</span>  <span class="c1"># Equal height for each rectangle</span>
+<span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="n">rect</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">((</span><span class="n">xi</span> <span class="o">-</span> <span class="n">bandwidth</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">bandwidth</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> 
+                             <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+
+<span class="c1"># Plot the KDE</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">kde_estimate</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'KDE with Rectangle Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span>
+
+<span class="c1"># Scatter plot of the data points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data Points'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Adjust the y-axis limit to make sure rectangles are visible</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">kde_estimate</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Kernel Density Estimator (KDE) with Rectangle Kernel'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Density'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/408d1d0c3dc6ec64ce12d694311284eeed873f9306c81bffe75c75ccaf7f43f8.png" src="../../_images/408d1d0c3dc6ec64ce12d694311284eeed873f9306c81bffe75c75ccaf7f43f8.png" />
+</div>
+</div>
+</section>
+<section id="kde-example-with-gaussian-kernel">
+<h2>KDE Example with gaussian kernel<a class="headerlink" href="#kde-example-with-gaussian-kernel" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">patches</span>
+
+<span class="c1"># Define the Gaussian kernel</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gaussian_kernel</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">u</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Kernel Density Estimator (KDE) function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">kde</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">kde_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">kde_values</span> <span class="o">+=</span> <span class="n">gaussian_kernel</span><span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">xi</span><span class="p">)</span> <span class="o">/</span> <span class="n">bandwidth</span><span class="p">)</span>
+    <span class="n">kde_values</span> <span class="o">/=</span> <span class="p">(</span><span class="n">n</span> <span class="o">*</span> <span class="n">bandwidth</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">kde_values</span>
+
+<span class="c1"># Generate sample data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">0.59</span><span class="p">,</span> <span class="mf">0.97</span><span class="p">,</span> <span class="mf">2.2</span><span class="p">])</span> <span class="c1"># Sample data</span>
+
+<span class="c1"># Define the bandwidth and range for x</span>
+<span class="n">bandwidth</span> <span class="o">=</span> <span class="mf">0.15</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Compute the KDE</span>
+<span class="n">kde_estimate</span> <span class="o">=</span> <span class="n">kde</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">bandwidth</span><span class="p">)</span>
+
+<span class="c1"># Plot the KDE with Gaussian Kernel and data points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">kde_estimate</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'KDE with Gaussian Kernel'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">)</span>
+
+<span class="c1"># Add Gaussian curves over each data point</span>
+<span class="n">x_gaussian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>  <span class="c1"># Range for Gaussian curves</span>
+<span class="k">for</span> <span class="n">xi</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="n">gaussian_curve</span> <span class="o">=</span> <span class="n">gaussian_kernel</span><span class="p">((</span><span class="n">x_gaussian</span> <span class="o">-</span> <span class="n">xi</span><span class="p">)</span> <span class="o">/</span> <span class="n">bandwidth</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_gaussian</span><span class="p">,</span> <span class="n">gaussian_curve</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+<span class="c1"># Scatter plot of the data points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data Points'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="c1"># Adjust the y-axis limit to make sure Gaussian curves are visible</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">kde_estimate</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Kernel Density Estimator (KDE) with Gaussian Kernel'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Density'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4902aabd0abc0aca7276d23e7ccd17365fa0467029e4eb3cb0ae4533230512a1.png" src="../../_images/4902aabd0abc0aca7276d23e7ccd17365fa0467029e4eb3cb0ae4533230512a1.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/BayesEstimation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="BayesEstimation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Bayes Estimation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="MeanShift.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Mean Shift Algorithm</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-of-kde-by-ali-mojahed">Introduction of KDE (By: Ali Mojahed)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#main-problem">Main problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proof-using-binomial-distribution">Proof Using Binomial Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-binomial-distribution-setup">Step 1: Binomial Distribution Setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-number-of-points-in-volume-v">Step 2: Number of Points in Volume <span class="math notranslate nohighlight">\( V \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-expected-value-of-k">Step 3: Expected Value of <span class="math notranslate nohighlight">\( k \)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-density-estimation">Step 4: Density Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-approximation-using-observed-k">Step 5: Approximation Using Observed <span class="math notranslate nohighlight">\( k \)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kde-aspects">KDE aspects</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-density-estimation-kde-parzen-windows">Kernel Density Estimation (KDE): Parzen Windows</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-formulations">Mathematical Formulations:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vectorian-form">Vectorian form</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#effect-of-bandwidth-in-kernel-density-estimation-kde">Effect of Bandwidth in Kernel Density Estimation (KDE)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-of-p-varphi-x">Mean of <span class="math notranslate nohighlight">\( p_{\varphi}(x)\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parzen-windows-with-example">Parzen Windows with Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kde-example-with-gaussian-kernel">KDE Example with gaussian kernel</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

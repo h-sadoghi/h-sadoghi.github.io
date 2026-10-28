@@ -1,0 +1,1357 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Non-linear Regression: The starting point &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/Regression/NonLinearRegression';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Linearization" href="Linearization.html" />
+    <link rel="prev" title="Linear Regression" href="Regression_1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Introduction_Regression.html">Regression</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/Regression/NonLinearRegression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Non-linear Regression: The starting point</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-parametric-model">Some parametric model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-beverton-holt-model">The Beverton-Holt model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weibull-growth-model">Weibull Growth Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-series-in-parametric-regression">Fourier Series in Parametric Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-series-equation">Fourier Series Equation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basis-function-regression">Basis Function Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#common-basis-functions">Common Basis Functions</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-model">Exponential model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-asymptotic-regression-model">The asymptotic regression model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-characteristics">Key Characteristics:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-curve-model">The power curve model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Key Characteristics:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-logarithmic-model">The logarithmic model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-model">Logistic model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Notes:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gompertz-model">The Gompertz model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beverton-holt-logistic-exponential-model-bhl-em">🌟 Beverton-Holt Logistic-Exponential Model (BHL-EM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-formulation">Model Formulation:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features-and-innovations">Key Features and Innovations:</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="non-linear-regression-the-starting-point">
+<h1>Non-linear Regression: The starting point<a class="headerlink" href="#non-linear-regression-the-starting-point" title="Link to this heading">#</a></h1>
+<p>Nonlinear models must exist and be used because real-world data often exhibit complex relationships that cannot be accurately represented by linear models alone. Several reasons explain why nonlinear models are necessary:</p>
+<ol class="arabic simple">
+<li><p>Complex Relationships</p></li>
+</ol>
+<ul class="simple">
+<li><p>Curved Trends</p></li>
+<li><p>Saturation</p></li>
+</ul>
+<ol class="arabic simple" start="2">
+<li><p>Periodic Behavior</p></li>
+</ol>
+<ul class="simple">
+<li><p>Seasonal Patterns</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Threshold Effects</p></li>
+</ol>
+<ul class="simple">
+<li><p>Behavioral Changes</p></li>
+</ul>
+<ol class="arabic simple" start="4">
+<li><p>Interaction Effects</p></li>
+</ol>
+<ul class="simple">
+<li><p>Complex Interactions
+<img alt="Nonlinear Example" src="../../_images/NonlinearExample.JPG" />
+Fitting a linear trend to the Boston marathon winning times is inadequate</p></li>
+</ul>
+<p>Another process for using Non-linear regression illustrated below.
+<img alt="NonLinearRegressionVolcanoErupts_time" src="../../_images/Volcano_Erupt_Time.png" />
+In this example, imagine you are observing a volcanic eruption. The waiting time for the next eruption is the amount of time you have to wait until the volcano erupts again after the current eruption. This waiting time is measured in minutes.</p>
+<p><strong>Definition</strong>
+A statistician has various tools for analyzing data sets, with regression being one of the most widely used methods. Regression helps determine the relationship between a response variable and one or more explanatory variables. Firstly, two types of regression are discussed: parametric and non-parametric. Each type has properties that are discussed here. In this analysis, a parametric model is selected from a range of possible curves, and its parameters are estimated. Alternatively, a non-parametric method may be employed, which involves selecting a broader function space to create a smooth curve.  In non-parametric methods, the data are directly represented, while in parametric methods, the direct effects of the data are not seen.
+A good way to conceptualize parametric and non-parametric regression. Here’s a refined version:</p>
+<p><strong>Parametric Models</strong>: These involve a model with a fixed number of parameters and a specific, often simpler, functional form (i.e., a small basis function). The model is defined by a finite set of parameters that are estimated from the data.Key features include:</p>
+<ol class="arabic simple">
+<li><p><strong>Fixed Number of Parameters:</strong> Parametric models have a fixed number of parameters that need to be estimated. These models are simpler and involve fewer computations.</p></li>
+<li><p><strong>Specified Form:</strong> They usually have a specified form (e.g., linear, polynomial, exponential) described by parameters.</p></li>
+<li><p><strong>Efficiency with Small Data:</strong> Due to the smaller number of parameters, these models often perform well with smaller datasets.</p></li>
+<li><p><strong>Examples of Parametric Models:</strong> Linear regression, polynomial regression, logistic regression, exponential models, and the Gompertz and Weibull models.</p></li>
+</ol>
+<p><strong>Non-Parametric Models</strong>: These use a more flexible approach with a broader function space, allowing for a larger and more complex basis function. The model can adapt to the data more flexibly without a predefined form, enabling it to fit more complex patterns.Key features include:</p>
+<ol class="arabic simple">
+<li><p><strong>No Specific Form:</strong> These models do not assume a specific form and can flexibly fit to the data.</p></li>
+<li><p><strong>Variable Number of Parameters:</strong> The number of parameters in non-parametric models depends on the data and can increase with more data.</p></li>
+<li><p><strong>High Flexibility:</strong> They can model complex and nonlinear relationships effectively.</p></li>
+<li><p><strong>Need for More Data:</strong> These models typically require more data to perform well.</p></li>
+<li><p><strong>Examples of Non-Parametric Models:</strong> Kernel regression.</p></li>
+</ol>
+<section id="some-parametric-model">
+<h2>Some parametric model<a class="headerlink" href="#some-parametric-model" title="Link to this heading">#</a></h2>
+<section id="the-beverton-holt-model">
+<h3>The Beverton-Holt model<a class="headerlink" href="#the-beverton-holt-model" title="Link to this heading">#</a></h3>
+<p>Similar to the <em>Michaelis-Menten model</em>, is used for modeling discrete-time population dynamics. The Beverton-Holt model gives the expected population <span class="math notranslate nohighlight">\( n_{t+1} \)</span> as a function of the previous population <span class="math notranslate nohighlight">\( n_t \)</span> with the following equation:</p>
+<div class="math notranslate nohighlight">
+\[
+n_{t+1} = f(x, (\alpha, \beta)) = \frac{\alpha x}{1 + x/\beta}
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( \theta = (\alpha, \beta) \)</span> are the parameters. The parameter <span class="math notranslate nohighlight">\( \alpha \)</span> represents the slope at 0, and <span class="math notranslate nohighlight">\( \beta \)</span> is the concentration between 0 and the upper limit <span class="math notranslate nohighlight">\( \alpha\beta \)</span>. This model represents a nonlinear regression because the two variables are related in a nonlinear, curved relationship.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Parameters</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mf">1.95</span>      <span class="c1"># intrinsic growth rate</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mi">80</span>       <span class="c1"># carrying capacity</span>
+<span class="n">N0</span> <span class="o">=</span> <span class="mi">5</span>       <span class="c1"># initial population size</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mi">30</span>        <span class="c1"># number of time steps</span>
+
+<span class="c1"># Initialize arrays</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">T</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">N</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">N0</span>
+
+<span class="c1"># Beverton-Holt model simulation</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">N</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">N</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">N</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="o">/</span> <span class="n">K</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Beverton-Holt Model (r=</span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s1">, K=</span><span class="si">{</span><span class="n">K</span><span class="si">}</span><span class="s1">)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Carrying Capacity (K)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Population Size'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Beverton-Holt Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/24cc53afd600d45b68f2dc44e8b4c5daa2d6d66e53cdabf2ec9033e62d5e7860.png" src="../../_images/24cc53afd600d45b68f2dc44e8b4c5daa2d6d66e53cdabf2ec9033e62d5e7860.png" />
+</div>
+</div>
+</section>
+<section id="weibull-growth-model">
+<h3>Weibull Growth Model<a class="headerlink" href="#weibull-growth-model" title="Link to this heading">#</a></h3>
+<p>The Weibull growth model you provided is a general form of the Weibull function used for modeling growth processes, particularly in fields like reliability engineering and survival analysis.
+<span class="math notranslate nohighlight">\(\theta_1 + (\theta_2 - \theta_1) \times \exp(-\theta_3 \times X^{\theta_4})\)</span>
+Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \theta_1 \)</span> is the lower asymptote or baseline value.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \theta_2 \)</span> is the upper asymptote or the maximum value the function can approach.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \theta_3 \)</span> and <span class="math notranslate nohighlight">\( \theta_4 \)</span> are shape parameters that control the growth rate and curvature of the function.</p></li>
+<li><p><span class="math notranslate nohighlight">\( X \)</span> is the independent variable (often time or a similar growth measure).</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Parameters</span>
+<span class="n">theta1</span> <span class="o">=</span> <span class="mi">0</span>      <span class="c1"># Lower asymptote</span>
+<span class="n">theta2</span> <span class="o">=</span> <span class="mi">100</span>    <span class="c1"># Upper asymptote</span>
+<span class="n">theta3</span> <span class="o">=</span> <span class="mf">0.15</span>    <span class="c1"># Growth rate parameter</span>
+<span class="n">theta4</span> <span class="o">=</span> <span class="mf">1.8</span>     <span class="c1"># Shape parameter</span>
+
+<span class="c1"># Generate data</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">theta1</span> <span class="o">+</span> <span class="p">(</span><span class="n">theta2</span> <span class="o">-</span> <span class="n">theta1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">theta3</span> <span class="o">*</span> <span class="n">X</span><span class="o">**</span><span class="n">theta4</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Weibull Growth Model</span><span class="se">\n</span><span class="s1">$</span><span class="se">\\</span><span class="s1">theta_1=</span><span class="si">{</span><span class="n">theta1</span><span class="si">}</span><span class="s1">$, $</span><span class="se">\\</span><span class="s1">theta_2=</span><span class="si">{</span><span class="n">theta2</span><span class="si">}</span><span class="s1">$, $</span><span class="se">\\</span><span class="s1">theta_3=</span><span class="si">{</span><span class="n">theta3</span><span class="si">}</span><span class="s1">$, $</span><span class="se">\\</span><span class="s1">theta_4=</span><span class="si">{</span><span class="n">theta4</span><span class="si">}</span><span class="s1">$'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'X'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y(X)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Weibull Growth Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1209b29bd16188ae48ba48f77fb28f80aebfee3df587026e7d095098bbd6e91d.png" src="../../_images/1209b29bd16188ae48ba48f77fb28f80aebfee3df587026e7d095098bbd6e91d.png" />
+</div>
+</div>
+</section>
+<section id="fourier-series-in-parametric-regression">
+<h3>Fourier Series in Parametric Regression<a class="headerlink" href="#fourier-series-in-parametric-regression" title="Link to this heading">#</a></h3>
+<p>In a parametric regression context, the Fourier series can be used to fit periodic data by modeling the function as a sum of sine and cosine terms. This is especially useful for capturing periodic patterns in the data.</p>
+<section id="fourier-series-equation">
+<h4>Fourier Series Equation<a class="headerlink" href="#fourier-series-equation" title="Link to this heading">#</a></h4>
+<p>The general form of the Fourier series for a function <span class="math notranslate nohighlight">\( f(x) \)</span> over a period <span class="math notranslate nohighlight">\( P \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[ f(x) = a_0 + \sum_{n=1}^{N} \left( a_n \cos\left( \frac{2 \pi n x}{P} \right) + b_n \sin\left( \frac{2 \pi n x}{P} \right) \right) \]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( a_0 \)</span> is the mean of the function over one period.</p></li>
+<li><p><span class="math notranslate nohighlight">\( a_n \)</span> and <span class="math notranslate nohighlight">\( b_n \)</span> are the Fourier coefficients.</p></li>
+<li><p><span class="math notranslate nohighlight">\( N \)</span> is the number of terms in the series.</p></li>
+<li><p><span class="math notranslate nohighlight">\( P \)</span> is the period of the function.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Parameters</span>
+<span class="n">P</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>  <span class="c1"># Period of the function</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">5</span>          <span class="c1"># Number of terms in the series</span>
+
+<span class="c1"># Fourier coefficients (example values)</span>
+<span class="n">a0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">an</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">]</span>
+<span class="n">bn</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">]</span>
+
+<span class="c1"># Generate data</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">P</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">f_x</span> <span class="o">=</span> <span class="n">a0</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">an</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">P</span><span class="p">)</span> <span class="o">+</span> <span class="n">bn</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">x</span> <span class="o">/</span> <span class="n">P</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">f_x</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Fourier Series Approximation'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'f(x)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Fourier Series Parametric Regression'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1e6088bf483af8d3dbcb4545136462ff3f3e1dc5567e33f03f7517d2bec0ee7a.png" src="../../_images/1e6088bf483af8d3dbcb4545136462ff3f3e1dc5567e33f03f7517d2bec0ee7a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="basis-function-regression">
+<h3>Basis Function Regression<a class="headerlink" href="#basis-function-regression" title="Link to this heading">#</a></h3>
+<p>In Basis Function Regression, we represent the function <span class="math notranslate nohighlight">\( f(x) \)</span> as a linear combination of basis functions. For a one-dimensional input <span class="math notranslate nohighlight">\( x \)</span>, this can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[ y = f(x) = \sum_{k} w_k b_k(x) \]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( y \)</span> is the output.</p></li>
+<li><p><span class="math notranslate nohighlight">\( f(x) \)</span> is the target function we want to learn.</p></li>
+<li><p><span class="math notranslate nohighlight">\( w_k \)</span> are the weights (parameters) to be estimated.</p></li>
+<li><p><span class="math notranslate nohighlight">\( b_k(x) \)</span> are the basis functions.</p></li>
+</ul>
+<section id="common-basis-functions">
+<h4>Common Basis Functions<a class="headerlink" href="#common-basis-functions" title="Link to this heading">#</a></h4>
+<p>Some common choices for basis functions <span class="math notranslate nohighlight">\( b_k(x) \)</span> include:</p>
+<ul class="simple">
+<li><p><strong>Polynomial Basis Functions:</strong> <span class="math notranslate nohighlight">\( b_k(x) = x^k \)</span></p></li>
+<li><p><strong>Gaussian Basis Functions:</strong> <span class="math notranslate nohighlight">\( b_k(x) = \exp\left(-\frac{(x - \mu_k)^2}{2\sigma^2}\right) \)</span></p></li>
+<li><p><strong>Fourier Basis Functions:</strong> <span class="math notranslate nohighlight">\( b_k(x) = \cos(kx) \)</span> or <span class="math notranslate nohighlight">\( b_k(x) = \sin(kx) \)</span></p></li>
+</ul>
+</section>
+</section>
+<section id="exponential-model">
+<h3>Exponential model<a class="headerlink" href="#exponential-model" title="Link to this heading">#</a></h3>
+<p>the function you’re referring to is commonly used to model processes where the rate of change is proportional to the current value, leading to exponential growth or decay.</p>
+<p>For the exponential model:</p>
+<div class="math notranslate nohighlight">
+\[ f(x, \theta) = \theta_1 \exp(\theta_2 x) \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta_1\)</span> is a scaling parameter (often representing the initial value),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_2\)</span> is the rate parameter (which determines the growth or decay rate),</p></li>
+</ul>
+<p><strong>Exponential Growth or Decay</strong>:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(\theta_2 &gt; 0\)</span>, the function <span class="math notranslate nohighlight">\( f(x, \theta) \)</span> represents exponential growth.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\theta_2 &lt; 0\)</span>, the function <span class="math notranslate nohighlight">\( f(x, \theta) \)</span> represents exponential decay.</p></li>
+</ul>
+</section>
+<section id="the-asymptotic-regression-model">
+<h3>The asymptotic regression model<a class="headerlink" href="#the-asymptotic-regression-model" title="Link to this heading">#</a></h3>
+<p>describes a situation where a variable <span class="math notranslate nohighlight">\( y \)</span> approaches a horizontal asymptote as the independent variable <span class="math notranslate nohighlight">\( x \)</span> increases. This model is useful for describing growth processes that slow down and stabilize at a maximum value.</p>
+<p>The model you provided is:</p>
+<div class="math notranslate nohighlight">
+\[
+y = \theta_1 - (\theta_1 - \theta_2) \exp(-\theta_3 x) + \epsilon,
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta_1\)</span> is the maximum attainable value of <span class="math notranslate nohighlight">\( y \)</span> (the horizontal asymptote),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_2\)</span> is the value of <span class="math notranslate nohighlight">\( y \)</span> when <span class="math notranslate nohighlight">\( x = 0 \)</span> (the initial value),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_3\)</span> is related to the rate of growth of <span class="math notranslate nohighlight">\( y \)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span> is the error term.</p></li>
+</ul>
+<section id="key-characteristics">
+<h4>Key Characteristics:<a class="headerlink" href="#key-characteristics" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Asymptotic Behavior</strong>:</p>
+<ul class="simple">
+<li><p>As <span class="math notranslate nohighlight">\( x \to \infty \)</span>, <span class="math notranslate nohighlight">\(\exp(-\theta_3 x) \to 0\)</span>, and hence <span class="math notranslate nohighlight">\( y \to \theta_1 \)</span>. Thus, <span class="math notranslate nohighlight">\(\theta_1\)</span> represents the asymptote that <span class="math notranslate nohighlight">\( y \)</span> approaches.</p></li>
+</ul>
+</li>
+<li><p><strong>Initial Value</strong>:</p>
+<ul class="simple">
+<li><p>When <span class="math notranslate nohighlight">\( x = 0 \)</span>:
+$<span class="math notranslate nohighlight">\(
+y = \theta_1 - (\theta_1 - \theta_2) \exp(0) + \epsilon = \theta_1 - (\theta_1 - \theta_2) + \epsilon = \theta_2 + \epsilon
+\)</span>$</p></li>
+<li><p>Therefore, the initial value <span class="math notranslate nohighlight">\( y(0) \)</span> is approximately <span class="math notranslate nohighlight">\(\theta_2\)</span>, and the error term <span class="math notranslate nohighlight">\(\epsilon\)</span> accounts for any deviations from <span class="math notranslate nohighlight">\(\theta_2\)</span> at <span class="math notranslate nohighlight">\( x = 0 \)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Rate of Increase</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta_3\)</span> controls how quickly <span class="math notranslate nohighlight">\( y \)</span> approaches the asymptote. A larger <span class="math notranslate nohighlight">\(\theta_3\)</span> means <span class="math notranslate nohighlight">\( y \)</span> reaches <span class="math notranslate nohighlight">\(\theta_1\)</span> faster, while a smaller <span class="math notranslate nohighlight">\(\theta_3\)</span> implies a slower approach to the asymptote.</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="c1"># Generate synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">theta_1</span><span class="p">,</span> <span class="n">theta_2</span><span class="p">,</span> <span class="n">theta_3</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.3</span>  <span class="c1"># True parameters</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">theta_1</span> <span class="o">-</span> <span class="p">(</span><span class="n">theta_1</span> <span class="o">-</span> <span class="n">theta_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">theta_3</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">))</span>
+
+<span class="c1"># Plot the synthetic data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/203658366e3c830992c4ea8c0d475b57a6f0e29faa48de04041128b2dd350d8b.png" src="../../_images/203658366e3c830992c4ea8c0d475b57a6f0e29faa48de04041128b2dd350d8b.png" />
+</div>
+</div>
+<p><strong>Example:</strong> Fitting the Model</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the asymptotic regression model function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">asymptotic_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta_1</span><span class="p">,</span> <span class="n">theta_2</span><span class="p">,</span> <span class="n">theta_3</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">theta_1</span> <span class="o">-</span> <span class="p">(</span><span class="n">theta_1</span> <span class="o">-</span> <span class="n">theta_2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">theta_3</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Fit the model to the data</span>
+<span class="n">initial_guess</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>  <span class="c1"># Initial guess for theta_1, theta_2, theta_3</span>
+<span class="n">params</span><span class="p">,</span> <span class="n">covariance</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">asymptotic_model</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">p0</span><span class="o">=</span><span class="n">initial_guess</span><span class="p">)</span>
+
+<span class="c1"># Extract fitted parameters</span>
+<span class="n">fitted_theta_1</span><span class="p">,</span> <span class="n">fitted_theta_2</span><span class="p">,</span> <span class="n">fitted_theta_3</span> <span class="o">=</span> <span class="n">params</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Fitted parameters:</span><span class="se">\n</span><span class="s2"> theta_1 = </span><span class="si">{</span><span class="n">fitted_theta_1</span><span class="si">}</span><span class="se">\n</span><span class="s2"> theta_2 = </span><span class="si">{</span><span class="n">fitted_theta_2</span><span class="si">}</span><span class="se">\n</span><span class="s2"> theta_3 = </span><span class="si">{</span><span class="n">fitted_theta_3</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># Plot the fitted model</span>
+<span class="n">y_fitted</span> <span class="o">=</span> <span class="n">asymptotic_model</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">fitted_theta_1</span><span class="p">,</span> <span class="n">fitted_theta_2</span><span class="p">,</span> <span class="n">fitted_theta_3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_fitted</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Fitted Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitted parameters:
+ theta_1 = 5.944698258632231
+ theta_2 = 1.704264102626926
+ theta_3 = 0.1512122407271999
+</pre></div>
+</div>
+<img alt="../../_images/4fe1397380fbff6d1e3a106a0debdcee96a4f857bb3235dfab148e69dc001508.png" src="../../_images/4fe1397380fbff6d1e3a106a0debdcee96a4f857bb3235dfab148e69dc001508.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="the-power-curve-model">
+<h3>The power curve model<a class="headerlink" href="#the-power-curve-model" title="Link to this heading">#</a></h3>
+<p>also known as the Freundlich equation or allometric equation, is used to describe relationships where the dependent variable <span class="math notranslate nohighlight">\( y \)</span> is a power function of the independent variable <span class="math notranslate nohighlight">\( x \)</span>. It is particularly useful for modeling scaling laws and phenomena that do not have a bounded upper limit.</p>
+<p>The power curve model is given by:</p>
+<div class="math notranslate nohighlight">
+\[ y = \theta_1 x^{\theta_2} + \epsilon \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta_1\)</span> is a scaling parameter,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_2\)</span> is the exponent that determines the nature of the relationship between <span class="math notranslate nohighlight">\( y \)</span> and <span class="math notranslate nohighlight">\( x \)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span> is the error term.</p></li>
+</ul>
+<section id="id1">
+<h4>Key Characteristics:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>No Asymptote</strong>:</p>
+<ul class="simple">
+<li><p>Unlike the exponential or asymptotic models, the power curve does not approach a horizontal asymptote. As <span class="math notranslate nohighlight">\( x \)</span> increases, <span class="math notranslate nohighlight">\( y \)</span> increases (or decreases, depending on <span class="math notranslate nohighlight">\(\theta_2\)</span>) without bound.</p></li>
+</ul>
+</li>
+<li><p><strong>Equivalent to Exponential Model in Logarithmic Form</strong>:</p>
+<ul class="simple">
+<li><p>You can express the power function in an exponential form by taking the natural logarithm. This equivalence is useful in certain transformations and analyses:
+$<span class="math notranslate nohighlight">\(
+y = \theta_1 x^{\theta_2}
+\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(
+\log(y) = \log(\theta_1) + \theta_2 \log(x)
+\)</span>$</p></li>
+<li><p>This shows that the power curve model can be viewed as a linear model in the log-log space.</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">curve_fit</span>
+
+<span class="c1"># Generating synthetic data</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">theta_1</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">theta_2</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.7</span>
+<span class="n">epsilon</span> <span class="o">=</span> <span class="mf">0.2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">theta_1</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="n">theta_2</span> <span class="o">+</span> <span class="n">epsilon</span>
+
+<span class="c1"># Plotting the synthetic data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Synthetic Data for Power Curve Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Define the power curve function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">power_curve</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta_1</span><span class="p">,</span> <span class="n">theta_2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">theta_1</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="n">theta_2</span>
+
+<span class="c1"># Fit the power curve model to the data</span>
+<span class="n">popt</span><span class="p">,</span> <span class="n">pcov</span> <span class="o">=</span> <span class="n">curve_fit</span><span class="p">(</span><span class="n">power_curve</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">theta_1_est</span><span class="p">,</span> <span class="n">theta_2_est</span> <span class="o">=</span> <span class="n">popt</span>
+
+<span class="c1"># Plotting the fitted curve</span>
+<span class="n">y_fit</span> <span class="o">=</span> <span class="n">power_curve</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">popt</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_fit</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Fitted Curve: y=</span><span class="si">{</span><span class="n">theta_1_est</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">*x^</span><span class="si">{</span><span class="n">theta_2_est</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Fitted Power Curve Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">theta_1_est</span><span class="p">,</span> <span class="n">theta_2_est</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4cd6d06b70eefd316539250797ad510c8ab218880be41cfdee0d20d77d0b231e.png" src="../../_images/4cd6d06b70eefd316539250797ad510c8ab218880be41cfdee0d20d77d0b231e.png" />
+<img alt="../../_images/72226289f87ffe5924e54fee1ee7b3c1bcbec6f93a01b73fe4ffb61fc54bf877.png" src="../../_images/72226289f87ffe5924e54fee1ee7b3c1bcbec6f93a01b73fe4ffb61fc54bf877.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(np.float64(0.8481423387462285), np.float64(-2.1138951137476774))
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="the-logarithmic-model">
+<h3>The logarithmic model<a class="headerlink" href="#the-logarithmic-model" title="Link to this heading">#</a></h3>
+<p>is used to describe relationships where the dependent variable <span class="math notranslate nohighlight">\( y \)</span> changes as a function of the logarithm of the independent variable <span class="math notranslate nohighlight">\( x \)</span>. This model is useful for situations where the effect of <span class="math notranslate nohighlight">\( x \)</span> on <span class="math notranslate nohighlight">\( y \)</span> becomes smaller as <span class="math notranslate nohighlight">\( x \)</span> increases, or vice versa.</p>
+<p>The logarithmic model is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+y = \theta_1 + \theta_2 \log(x)
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta_1\)</span> is the intercept,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_2\)</span> is the coefficient that determines the slope of the relationship,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\log(x)\)</span> denotes the natural logarithm of <span class="math notranslate nohighlight">\( x \)</span>, and <span class="math notranslate nohighlight">\( x &gt; 0 \)</span> (since the logarithm is only defined for positive <span class="math notranslate nohighlight">\( x \)</span>).</p></li>
+</ul>
+<section id="notes">
+<h4>Notes:<a class="headerlink" href="#notes" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Shape of the Curve</strong>:</p>
+<ul class="simple">
+<li><p>If <span class="math notranslate nohighlight">\(\theta_2 &gt; 0\)</span>, the function is convex upwards. As <span class="math notranslate nohighlight">\( x \)</span> increases, <span class="math notranslate nohighlight">\( y \)</span> increases, but the rate of increase slows down.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\theta_2 &lt; 0\)</span>, the function is concave downwards. As <span class="math notranslate nohighlight">\( x \)</span> increases, <span class="math notranslate nohighlight">\( y \)</span> decreases, and the rate of decrease slows down.</p></li>
+</ul>
+</li>
+<li><p><strong>Linear Relationship</strong>:</p>
+<ul class="simple">
+<li><p>The logarithmic model transforms into a linear model when <span class="math notranslate nohighlight">\( \log(x) \)</span> is used as the predictor. In this transformed space, the relationship between <span class="math notranslate nohighlight">\( y \)</span> and <span class="math notranslate nohighlight">\( \log(x) \)</span> is linear.</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="c1"># Sample data</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">3.3</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">])</span>
+
+<span class="c1"># Transform x using the natural logarithm</span>
+<span class="n">log_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Reshape data for sklearn</span>
+<span class="n">log_x_reshaped</span> <span class="o">=</span> <span class="n">log_x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">y_reshaped</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Create and fit the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">log_x_reshaped</span><span class="p">,</span> <span class="n">y_reshaped</span><span class="p">)</span>
+
+<span class="c1"># Extract parameters</span>
+<span class="n">theta_1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">theta_2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Make predictions</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">log_x_reshaped</span><span class="p">)</span>
+
+<span class="c1"># Plot the data and the model</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Logarithmic Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Print the parameters</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intercept (θ1): </span><span class="si">{</span><span class="n">theta_1</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coefficient (θ2): </span><span class="si">{</span><span class="n">theta_2</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e4dcfaa90d56fbae541d5112501b26414f69ac91c585f26a075e47ec322e4120.png" src="../../_images/e4dcfaa90d56fbae541d5112501b26414f69ac91c585f26a075e47ec322e4120.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Intercept (θ1): 2.1769644615568438
+Coefficient (θ2): 0.5316562524746
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="logistic-model">
+<h3>Logistic model<a class="headerlink" href="#logistic-model" title="Link to this heading">#</a></h3>
+<p>is a specific type of sigmoidal curve that is widely used to model growth processes and other phenomena where the rate of change is initially rapid but slows down as it approaches an asymptote. The logistic curve is symmetric around its inflection point and is derived from the cumulative logistic distribution function.</p>
+<p>The parameterized logistic model is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+y = \theta_1 + \frac{\theta_2 - \theta_1}{1 + \exp(\theta_3(x - \theta_4))} + \epsilon
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta_1\)</span> is the lower asymptote (the value <span class="math notranslate nohighlight">\( y \)</span> approaches as <span class="math notranslate nohighlight">\( x \to -\infty \)</span>),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_2\)</span> is the upper asymptote (the value <span class="math notranslate nohighlight">\( y \)</span> approaches as <span class="math notranslate nohighlight">\( x \to \infty \)</span>),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_3\)</span> controls the steepness of the curve around the inflection point. It determines how quickly <span class="math notranslate nohighlight">\( y \)</span> transitions from <span class="math notranslate nohighlight">\(\theta_1\)</span> to <span class="math notranslate nohighlight">\(\theta_2\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_4\)</span> is the x-value at which the response is halfway between <span class="math notranslate nohighlight">\(\theta_1\)</span> and <span class="math notranslate nohighlight">\(\theta_2\)</span>, representing the inflection point of the curve,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span> is the error term.</p></li>
+</ul>
+<section id="id2">
+<h4>Notes:<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Asymptotes</strong>:</p>
+<ul class="simple">
+<li><p>As <span class="math notranslate nohighlight">\( x \to -\infty \)</span>, <span class="math notranslate nohighlight">\( y \to \theta_1 \)</span>.</p></li>
+<li><p>As <span class="math notranslate nohighlight">\( x \to \infty \)</span>, <span class="math notranslate nohighlight">\( y \to \theta_2 \)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Inflection Point</strong>:</p>
+<ul class="simple">
+<li><p>The inflection point occurs at <span class="math notranslate nohighlight">\( x = \theta_4 \)</span>. At this point, the growth rate of <span class="math notranslate nohighlight">\( y \)</span> is maximum and transitions from increasing to leveling off (or vice versa, depending on <span class="math notranslate nohighlight">\(\theta_3\)</span>).</p></li>
+</ul>
+</li>
+<li><p><strong>Slope</strong>:</p>
+<ul class="simple">
+<li><p>The parameter <span class="math notranslate nohighlight">\(\theta_3\)</span> affects the steepness of the curve around the inflection point:</p>
+<ul>
+<li><p>If <span class="math notranslate nohighlight">\(\theta_3 &gt; 0\)</span>, the curve increases from <span class="math notranslate nohighlight">\(\theta_1\)</span> to <span class="math notranslate nohighlight">\(\theta_2\)</span>.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\theta_3 &lt; 0\)</span>, the curve decreases from <span class="math notranslate nohighlight">\(\theta_2\)</span> to <span class="math notranslate nohighlight">\(\theta_1\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Parameters</span>
+<span class="n">theta_1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">theta_2</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">theta_3</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">theta_4</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="c1"># Logistic function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">logistic_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta_1</span><span class="p">,</span> <span class="n">theta_2</span><span class="p">,</span> <span class="n">theta_3</span><span class="p">,</span> <span class="n">theta_4</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">theta_1</span> <span class="o">+</span> <span class="p">(</span><span class="n">theta_2</span> <span class="o">-</span> <span class="n">theta_1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">theta_3</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">theta_4</span><span class="p">)))</span>
+
+<span class="c1"># Generate data</span>
+<span class="n">x_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">y_values</span> <span class="o">=</span> <span class="n">logistic_model</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">theta_1</span><span class="p">,</span> <span class="n">theta_2</span><span class="p">,</span> <span class="n">theta_3</span><span class="p">,</span> <span class="n">theta_4</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Logistic Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">theta_1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\theta_1$'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">theta_2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'g'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\theta_2$'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">theta_4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'b'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">'$\theta_4$'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Parameterized Logistic Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/4456b99befcae259959a7df1638078c20f3bf10465d7defe85cde1110210554b.png" src="../../_images/4456b99befcae259959a7df1638078c20f3bf10465d7defe85cde1110210554b.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="the-gompertz-model">
+<h3>The Gompertz model<a class="headerlink" href="#the-gompertz-model" title="Link to this heading">#</a></h3>
+<p>The Gompertz curve or Gompertz function is a type of mathematical model for a time series, named after Benjamin Gompertz (1779–1865). It is another type of sigmoidal curve that is often used to describe growth processes and other phenomena where the growth rate decreases over time. Unlike the logistic model, the Gompertz curve is not symmetric around its inflection point, which can be useful for modeling asymmetric growth patterns.</p>
+<p>The parameterized Gompertz model is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+y = \theta_1 + (\theta_2 - \theta_1) \exp \left\{ - \exp \left[ \theta_3 (x - \theta_4) \right] \right\} + \epsilon
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\theta_1\)</span> is the lower asymptote (the value <span class="math notranslate nohighlight">\( y \)</span> approaches as <span class="math notranslate nohighlight">\( x \to -\infty \)</span>),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_2\)</span> is the upper asymptote (the value <span class="math notranslate nohighlight">\( y \)</span> approaches as <span class="math notranslate nohighlight">\( x \to \infty \)</span>),</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_3\)</span> controls the growth rate around the inflection point. It determines how quickly the curve transitions from <span class="math notranslate nohighlight">\(\theta_1\)</span> to <span class="math notranslate nohighlight">\(\theta_2\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_4\)</span> is the x-value at which the growth rate is the highest, representing the inflection point of the curve,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\epsilon\)</span> is the error term.</p></li>
+</ul>
+<section id="key-features">
+<h4>Key Features:<a class="headerlink" href="#key-features" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p><strong>Asymptotes</strong>:</p>
+<ul class="simple">
+<li><p>As <span class="math notranslate nohighlight">\( x \to -\infty \)</span>, <span class="math notranslate nohighlight">\( y \to \theta_1 \)</span>.</p></li>
+<li><p>As <span class="math notranslate nohighlight">\( x \to \infty \)</span>, <span class="math notranslate nohighlight">\( y \to \theta_2 \)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Inflection Point</strong>:</p>
+<ul class="simple">
+<li><p>The inflection point occurs at <span class="math notranslate nohighlight">\( x = \theta_4 \)</span>. The curve does not have a symmetric shape around this point as in the logistic model. Instead, the curve typically exhibits an asymmetric S-shape, where growth may be rapid initially and then slows down more gradually.</p></li>
+</ul>
+</li>
+<li><p><strong>Growth Rate</strong>:</p>
+<ul class="simple">
+<li><p>The parameter <span class="math notranslate nohighlight">\(\theta_3\)</span> affects the steepness of the curve and the position of the inflection point. The Gompertz model typically describes growth that starts quickly and then decelerates, but the shape is not symmetrical.</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Gompertz function definition</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">gompertz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">theta3</span><span class="p">,</span> <span class="n">theta4</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">theta1</span> <span class="o">+</span> <span class="p">(</span><span class="n">theta2</span> <span class="o">-</span> <span class="n">theta1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">theta3</span> <span class="o">*</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">theta4</span><span class="p">)))</span>
+
+<span class="c1"># Parameters</span>
+<span class="n">theta1</span> <span class="o">=</span> <span class="mi">20</span>   <span class="c1"># Lower asymptote</span>
+<span class="n">theta2</span> <span class="o">=</span> <span class="mi">100</span> <span class="c1"># Upper asymptote</span>
+<span class="n">theta3</span> <span class="o">=</span> <span class="mf">0.05</span> <span class="c1"># Growth rate</span>
+<span class="n">theta4</span> <span class="o">=</span> <span class="mi">70</span>  <span class="c1"># Inflection point</span>
+
+<span class="c1"># Generate x values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+
+<span class="c1"># Generate y values using the Gompertz function</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">gompertz</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">theta3</span><span class="p">,</span> <span class="n">theta4</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Gompertz Curve'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">theta1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Lower Asymptote'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">theta2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'green'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Upper Asymptote'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">theta4</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Inflection Point'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Gompertz Model'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a86eee0c0ec2b076ede195822ed69ffe5671fba50d143050fc231b80b49eef34.png" src="../../_images/a86eee0c0ec2b076ede195822ed69ffe5671fba50d143050fc231b80b49eef34.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="homework">
+<h2>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
+<p>We have concluded the introduction of models, and now it’s time for the students to get involved. Your task is to combine the concepts of the models to generate a new model that better describes phenomena in the world, as demonstrated in the example provided here.</p>
+<section id="beverton-holt-logistic-exponential-model-bhl-em">
+<h3>🌟 Beverton-Holt Logistic-Exponential Model (BHL-EM)<a class="headerlink" href="#beverton-holt-logistic-exponential-model-bhl-em" title="Link to this heading">#</a></h3>
+<section id="model-formulation">
+<h4>Model Formulation:<a class="headerlink" href="#model-formulation" title="Link to this heading">#</a></h4>
+<p>The BHL-EM can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[ y_{t+1} = \theta_1 + \frac{\theta_2 - \theta_1}{1 + \exp(-\theta_3 \cdot (y_t - \theta_4)) + \frac{y_t}{K}} \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( y_t \)</span> is the population size (or other growth measure) at time <span class="math notranslate nohighlight">\( t \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_1\)</span> is the lower asymptote.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_2\)</span> is the upper asymptote.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_3\)</span> controls the steepness of the curve.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\theta_4\)</span> is the inflection point.</p></li>
+<li><p><span class="math notranslate nohighlight">\( K \)</span> is the carrying capacity.</p></li>
+<li><p>The term <span class="math notranslate nohighlight">\( \exp(-\theta_3 \cdot (y_t - \theta_4)) \)</span> captures the logistic growth characteristics.</p></li>
+<li><p>The term <span class="math notranslate nohighlight">\( \frac{y_t}{K} \)</span> introduces density dependence similar to the Beverton-Holt model.</p></li>
+</ul>
+</section>
+</section>
+<section id="key-features-and-innovations">
+<h3>Key Features and Innovations:<a class="headerlink" href="#key-features-and-innovations" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Density Dependence and Logistic Growth</strong>:</p>
+<ul class="simple">
+<li><p>The model captures both density dependence and logistic growth with an exponential function, providing a nuanced understanding of growth dynamics.</p></li>
+</ul>
+</li>
+<li><p><strong>Combining Strengths</strong>:</p>
+<ul class="simple">
+<li><p>The model combines the strengths of the Beverton-Holt and logistic models, offering a comprehensive tool for modeling complex growth processes.</p></li>
+</ul>
+</li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Parameters</span>
+<span class="n">theta_1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">theta_2</span> <span class="o">=</span> <span class="mf">3.5</span>
+<span class="n">theta_3</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.4</span>
+<span class="n">theta_4</span> <span class="o">=</span> <span class="mf">1.5</span>
+<span class="n">K</span> <span class="o">=</span> <span class="mf">1.2</span>  <span class="c1"># Carrying capacity</span>
+
+<span class="c1"># Beverton-Holt Logistic with Exponential Dynamics function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">beverton_holt_logistic_exp</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">theta_1</span><span class="p">,</span> <span class="n">theta_2</span><span class="p">,</span> <span class="n">theta_3</span><span class="p">,</span> <span class="n">theta_4</span><span class="p">,</span> <span class="n">K</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">theta_1</span> <span class="o">+</span> <span class="p">((</span><span class="n">theta_2</span> <span class="o">-</span> <span class="n">theta_1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">theta_3</span> <span class="o">*</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">theta_4</span><span class="p">))</span> <span class="o">+</span> <span class="n">y</span> <span class="o">/</span> <span class="n">K</span><span class="p">))</span>
+
+<span class="c1"># Initial population size</span>
+<span class="n">y_0</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.3</span>
+<span class="n">time_steps</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">y_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">y_0</span><span class="p">]</span>
+
+<span class="c1"># Generate data over time</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">time_steps</span><span class="p">):</span>
+    <span class="n">y_next</span> <span class="o">=</span> <span class="n">beverton_holt_logistic_exp</span><span class="p">(</span><span class="n">y_values</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">theta_1</span><span class="p">,</span> <span class="n">theta_2</span><span class="p">,</span> <span class="n">theta_3</span><span class="p">,</span> <span class="n">theta_4</span><span class="p">,</span> <span class="n">K</span><span class="p">)</span>
+    <span class="n">y_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y_next</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">time_steps</span><span class="p">),</span> <span class="n">y_values</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'BHL-EM Population'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">K</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'r'</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'--'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Carrying Capacity (K)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Beverton-Holt Logistic-Exponential Model (BHL-EM)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Time Steps'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Population Size'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/08ce3392cc0e3f111a31b26c845b78fd43025d19de6942f35e2c54da7c94d062.png" src="../../_images/08ce3392cc0e3f111a31b26c845b78fd43025d19de6942f35e2c54da7c94d062.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/Regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Regression_1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Linear Regression</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Linearization.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Linearization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-parametric-model">Some parametric model</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-beverton-holt-model">The Beverton-Holt model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weibull-growth-model">Weibull Growth Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-series-in-parametric-regression">Fourier Series in Parametric Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fourier-series-equation">Fourier Series Equation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basis-function-regression">Basis Function Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#common-basis-functions">Common Basis Functions</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-model">Exponential model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-asymptotic-regression-model">The asymptotic regression model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-characteristics">Key Characteristics:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-power-curve-model">The power curve model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Key Characteristics:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-logarithmic-model">The logarithmic model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#notes">Notes:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-model">Logistic model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Notes:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gompertz-model">The Gompertz model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features">Key Features:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">Homework</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beverton-holt-logistic-exponential-model-bhl-em">🌟 Beverton-Holt Logistic-Exponential Model (BHL-EM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-formulation">Model Formulation:</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-features-and-innovations">Key Features and Innovations:</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

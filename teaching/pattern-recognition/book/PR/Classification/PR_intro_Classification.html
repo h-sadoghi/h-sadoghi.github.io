@@ -1,0 +1,724 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Classification &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/Classification/PR_intro_Classification';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Support Vector Data Description (SVDD)" href="SVDD.html" />
+    <link rel="prev" title="Applications in Pattern Recognition" href="../Regression/ApplicationsPatternRecognition.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Classification</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/Classification/PR_intro_Classification.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Classification</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-definition-of-classification">Mathematical Definition of Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-a-classification-function">Example of a Classification Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-function-f">Learning the Function <span class="math notranslate nohighlight">\( f \)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-algorithms">Classification Algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-algorithm-for-classification">A simple algorithm for classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-derivation">Step-by-Step Derivation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="classification">
+<h1>Classification<a class="headerlink" href="#classification" title="Link to this heading">#</a></h1>
+<p>Classification is a fundamental task in the field of pattern recognition, involving the assignment of input data into predefined categories based on their features.</p>
+<section id="mathematical-definition-of-classification">
+<h2>Mathematical Definition of Classification<a class="headerlink" href="#mathematical-definition-of-classification" title="Link to this heading">#</a></h2>
+<p>Classification can be mathematically defined as the task of learning a function <span class="math notranslate nohighlight">\( f \)</span> that maps input vectors to discrete output labels. This function <span class="math notranslate nohighlight">\( f \)</span> is learned from a set of training data <span class="math notranslate nohighlight">\( D \)</span>.</p>
+<p>Given a training dataset:</p>
+<div class="math notranslate nohighlight">
+\[
+D = \{ (\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), \ldots, (\mathbf{x}_n, y_n) \}
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{x}_i \in \mathbb{R}^d \)</span> represents the <span class="math notranslate nohighlight">\( i \)</span>-th input vector with <span class="math notranslate nohighlight">\( d \)</span> features.</p></li>
+<li><p><span class="math notranslate nohighlight">\( y_i \in \mathbb{R} \)</span> represents the corresponding output label (for classification, <span class="math notranslate nohighlight">\( y_i \)</span> typically takes discrete values).</p></li>
+</ul>
+<p>The objective is to learn a function <span class="math notranslate nohighlight">\( f \)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[
+y = f(\mathbf{x})
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( f \)</span> maps an input vector <span class="math notranslate nohighlight">\( \mathbf{x} \)</span> from the <span class="math notranslate nohighlight">\( d \)</span>-dimensional input space <span class="math notranslate nohighlight">\( \mathbb{R}^d \)</span> to a scalar value <span class="math notranslate nohighlight">\( y \)</span> in the output space <span class="math notranslate nohighlight">\( \mathbb{R} \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+f: \mathbb{R}^d \rightarrow \mathbb{R}
+\]</div>
+<p>For classification, the function <span class="math notranslate nohighlight">\( f \)</span> usually predicts discrete class labels. The output space <span class="math notranslate nohighlight">\( \mathbb{R} \)</span> can be interpreted differently depending on the type of classification:</p>
+<ul class="simple">
+<li><p><strong>Binary Classification:</strong> <span class="math notranslate nohighlight">\( y \in \{0, 1\} \)</span> or <span class="math notranslate nohighlight">\( y \in \{-1, 1\} \)</span>.</p></li>
+<li><p><strong>Multi-Class Classification:</strong> <span class="math notranslate nohighlight">\( y \in \{1, 2, \ldots, K\} \)</span>, where <span class="math notranslate nohighlight">\( K \)</span> is the number of classes.</p></li>
+<li><p><strong>Multi-Label Classification:</strong> Each <span class="math notranslate nohighlight">\( y \)</span> can be a vector of binary values indicating the presence of multiple classes simultaneously.</p></li>
+</ul>
+<section id="example-of-a-classification-function">
+<h3>Example of a Classification Function<a class="headerlink" href="#example-of-a-classification-function" title="Link to this heading">#</a></h3>
+<p>A common example is logistic regression for binary classification. Here, the function <span class="math notranslate nohighlight">\( f \)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+f(\mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b)
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{w} \in \mathbb{R}^d \)</span> is the weight vector.</p></li>
+<li><p><span class="math notranslate nohighlight">\( b \in \mathbb{R} \)</span> is the bias term.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \sigma(z) = \frac{1}{1 + e^{-z}} \)</span> is the sigmoid function that maps the linear combination of features to a probability between 0 and 1.</p></li>
+</ul>
+<p>The predicted class label <span class="math notranslate nohighlight">\( \hat{y} \)</span> is then obtained by thresholding the output of <span class="math notranslate nohighlight">\( f \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\hat{y} = \begin{cases} 
+1 &amp; \text{if } f(\mathbf{x}) \geq 0.5 \\ 
+0 &amp; \text{if } f(\mathbf{x}) &lt; 0.5 
+\end{cases}
+\end{split}\]</div>
+</section>
+<section id="learning-the-function-f">
+<h3>Learning the Function <span class="math notranslate nohighlight">\( f \)</span><a class="headerlink" href="#learning-the-function-f" title="Link to this heading">#</a></h3>
+<p>The function <span class="math notranslate nohighlight">\( f \)</span> is learned by optimizing an objective function, such as minimizing the classification error or maximizing the likelihood of the observed data. For example, in logistic regression, the parameters <span class="math notranslate nohighlight">\( \mathbf{w} \)</span> and <span class="math notranslate nohighlight">\( b \)</span> are typically learned by minimizing the cross-entropy loss:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Loss} = -\frac{1}{n} \sum_{i=1}^n \left[ y_i \log(f(\mathbf{x}_i)) + (1 - y_i) \log(1 - f(\mathbf{x}_i)) \right]
+\]</div>
+</section>
+</section>
+<section id="classification-algorithms">
+<h2>Classification Algorithms<a class="headerlink" href="#classification-algorithms" title="Link to this heading">#</a></h2>
+<p>Numerous algorithms have been developed for classification tasks, each with its strengths and weaknesses. Some popular classification algorithms include:</p>
+<ul class="simple">
+<li><p><strong>Fisher classifier:</strong> A linear model that estimates the probability of a binary outcome.</p></li>
+<li><p><strong>Decision Trees:</strong> Non-linear models that split data into subsets based on feature values, forming a tree-like structure.</p></li>
+<li><p><strong>Support Vector Machines (SVM):</strong> Powerful models that find the optimal hyperplane to separate different classes.</p></li>
+<li><p><strong>Baysian Classifier:</strong> A Bayesian classifier uses Bayes’ Rule to predict the probability that a given data point belongs to a particular class based on prior knowledge of conditions related to the class.</p></li>
+<li><p><strong>k-Nearest Neighbors (k-NN):</strong> A simple, instance-based learning algorithm that classifies a data point based on the majority class of its k nearest neighbors.</p></li>
+<li><p><strong>Neural Networks:</strong> Highly flexible models capable of capturing complex patterns, especially useful in deep learning for tasks like image and speech recognition.</p></li>
+</ul>
+</section>
+<section id="a-simple-algorithm-for-classification">
+<h2>A simple algorithm for classification<a class="headerlink" href="#a-simple-algorithm-for-classification" title="Link to this heading">#</a></h2>
+<p>In binary classification using kernel methods, you can classify a test point <span class="math notranslate nohighlight">\( x \)</span> by comparing its distance to the centers of mass (centroids) of positive and negative examples. Here’s a step-by-step derivation and explanation based on the kernelized distance approach:</p>
+<section id="step-by-step-derivation">
+<h3>Step-by-Step Derivation<a class="headerlink" href="#step-by-step-derivation" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Define the Center of Mass:</strong></p>
+<p>Let <span class="math notranslate nohighlight">\( S^+ \)</span> and <span class="math notranslate nohighlight">\( S^- \)</span> be the sets of positive and negative training examples, respectively. The center of mass (centroid) in the feature space for positive examples <span class="math notranslate nohighlight">\( \phi(S^+) \)</span> and negative examples <span class="math notranslate nohighlight">\( \phi(S^-) \)</span> are:</p>
+<div class="math notranslate nohighlight">
+\[
+   \phi_S^+ = \frac{1}{|S^+|} \sum_{x_i \in S^+} \phi(x_i)
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   \phi_S^- = \frac{1}{|S^-|} \sum_{x_i \in S^-} \phi(x_i)
+   \]</div>
+</li>
+<li><p><strong>Distance from the Centroids:</strong></p>
+<p>The squared distance from a test point <span class="math notranslate nohighlight">\( x \)</span> to the positive centroid <span class="math notranslate nohighlight">\( \phi_S^+ \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+   d^+(x) = \|\phi(x) - \phi_S^+\|^2
+   \]</div>
+<p>Similarly, the squared distance from <span class="math notranslate nohighlight">\( x \)</span> to the negative centroid <span class="math notranslate nohighlight">\( \phi_S^- \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+   d^-(x) = \|\phi(x) - \phi_S^-\|^2
+   \]</div>
+</li>
+<li><p><strong>Calculate the Distances:</strong></p>
+<p>Using the properties of the kernel function and the centroids, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+   d^+(x) = \|\phi(x) - \phi_S^+\|^2 = \|\phi(x)\|^2 + \|\phi_S^+\|^2 - 2 \langle \phi(x), \phi_S^+ \rangle
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   d^-(x) = \|\phi(x) - \phi_S^-\|^2 = \|\phi(x)\|^2 + \|\phi_S^-\|^2 - 2 \langle \phi(x), \phi_S^- \rangle
+   \]</div>
+<p>Substitute <span class="math notranslate nohighlight">\( \|\phi(x)\|^2 = \kappa(x, x) \)</span> and the inner products <span class="math notranslate nohighlight">\( \langle \phi(x), \phi_S^+ \rangle \)</span> and <span class="math notranslate nohighlight">\( \langle \phi(x), \phi_S^- \rangle \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \langle \phi(x), \phi_S^+ \rangle = \frac{1}{|S^+|} \sum_{x_i \in S^+} \kappa(x, x_i)
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   \langle \phi(x), \phi_S^- \rangle = \frac{1}{|S^-|} \sum_{x_i \in S^-} \kappa(x, x_i)
+   \]</div>
+<p>So:</p>
+<div class="math notranslate nohighlight">
+\[
+   d^+(x) = \kappa(x, x) + \frac{1}{|S^+|^2} \sum_{i=1}^{|S^+|} \sum_{j=1}^{|S^+|} \kappa(x_i, x_j) - \frac{2}{|S^+|} \sum_{i=1}^{|S^+|} \kappa(x, x_i)
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   d^-(x) = \kappa(x, x) + \frac{1}{|S^-|^2} \sum_{i=1}^{|S^-|} \sum_{j=1}^{|S^-|} \kappa(x_i, x_j) - \frac{2}{|S^-|} \sum_{i=1}^{|S^-|} \kappa(x, x_i)
+   \]</div>
+</li>
+<li><p><strong>Simplify the Classification Rule:</strong></p>
+<p>To classify <span class="math notranslate nohighlight">\( x \)</span>, compare <span class="math notranslate nohighlight">\( d^+(x) \)</span> and <span class="math notranslate nohighlight">\( d^-(x) \)</span>. The classification rule is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   h(x) = \begin{cases} 
+   +1 &amp; \text{if } d^-(x) &gt; d^+(x) \\
+   -1 &amp; \text{otherwise}
+   \end{cases}
+   \end{split}\]</div>
+<p>We can simplify this using the sign function. Express <span class="math notranslate nohighlight">\( d^+(x) \)</span> and <span class="math notranslate nohighlight">\( d^-(x) \)</span> in terms of kernel evaluations:</p>
+<div class="math notranslate nohighlight">
+\[
+   d^+(x) = \kappa(x, x) + \frac{1}{|S^+|^2} \sum_{i=1}^{|S^+|} \sum_{j=1}^{|S^+|} \kappa(x_i, x_j) - \frac{2}{|S^+|} \sum_{i=1}^{|S^+|} \kappa(x, x_i)
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   d^-(x) = \kappa(x, x) + \frac{1}{|S^-|^2} \sum_{i=1}^{|S^-|} \sum_{j=1}^{|S^-|} \kappa(x_i, x_j) - \frac{2}{|S^-|} \sum_{i=1}^{|S^-|} \kappa(x, x_i)
+   \]</div>
+<p>Thus:</p>
+<div class="math notranslate nohighlight">
+\[
+   h(x) = \text{sgn} \left( \frac{1}{|S^+|^2} \sum_{i=1}^{|S^+|} \sum_{j=1}^{|S^+|} \kappa(x_i, x_j) - \frac{1}{|S^-|^2} \sum_{i=1}^{|S^-|} \sum_{j=1}^{|S^-|} \kappa(x_i, x_j) - \frac{2}{|S^+|} \sum_{i=1}^{|S^+|} \kappa(x, x_i) + \frac{2}{|S^-|} \sum_{i=1}^{|S^-|} \kappa(x, x_i) \right)
+   \]</div>
+</li>
+<li><p><strong>Final Classification Function:</strong></p>
+<p>To simplify, let:</p>
+<div class="math notranslate nohighlight">
+\[
+   b = \frac{1}{2} \left( \frac{1}{|S^+|^2} \sum_{i=1}^{|S^+|} \sum_{j=1}^{|S^+|} \kappa(x_i, x_j) - \frac{1}{|S^-|^2} \sum_{i=1}^{|S^-|} \sum_{j=1}^{|S^-|} \kappa(x_i, x_j) \right)
+   \]</div>
+<p>Therefore:</p>
+<div class="math notranslate nohighlight">
+\[
+   h(x) = \text{sgn} \left( \frac{1}{|S^+|} \sum_{i=1}^{|S^+|} \kappa(x, x_i) - \frac{1}{|S^-|} \sum_{i=1}^{|S^-|} \kappa(x, x_i) - b \right)
+   \]</div>
+</li>
+</ol>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/Classification"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Regression/ApplicationsPatternRecognition.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Applications in Pattern Recognition</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="SVDD.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Support Vector Data Description (SVDD)</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-definition-of-classification">Mathematical Definition of Classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-a-classification-function">Example of a Classification Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-function-f">Learning the Function <span class="math notranslate nohighlight">\( f \)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-algorithms">Classification Algorithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-algorithm-for-classification">A simple algorithm for classification</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-derivation">Step-by-Step Derivation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

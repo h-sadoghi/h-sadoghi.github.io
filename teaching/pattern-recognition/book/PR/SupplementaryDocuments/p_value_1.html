@@ -1,0 +1,1129 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>p-value (probability value) in Machine Learning &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/SupplementaryDocuments/p_value_1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/SupplementaryDocuments/p_value_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>p-value (probability value) in Machine Learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-z-value">Calculate the z-value:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-z-value-to-find-the-p-value">Use the z-value to find the p-value:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpret-the-p-value">Interpret the p-value:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#p-value-mathematical-explanation-with-examples">P-Value: Mathematical Explanation with Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-p-value">What is the P-Value?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-definition">Mathematical Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-one-sample-z-test">Example 1: One-Sample Z-Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-one-sample-t-test">Example 2: One-Sample T-Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-chi-square-test">Example 3: Chi-Square Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-understand-the-p-value-and-hypothesis-testing">Steps to Understand the P-Value and Hypothesis Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-scenario">Example Scenario</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-testing-a-mean">Example: Testing a Mean</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updated-hypotheses">Updated Hypotheses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Updated Hypotheses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Updated Hypotheses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Updated Hypotheses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="p-value-probability-value-in-machine-learning">
+<h1>p-value (probability value) in Machine Learning<a class="headerlink" href="#p-value-probability-value-in-machine-learning" title="Link to this heading">#</a></h1>
+<p>Machine learning leverages statistical models to uncover patterns, make predictions, and guide decisions in large datasets. To assess the performance and reliability of these models, statistical tests are essential. The p-value observe the test resultsby assuming that the null hypothesis (H0) is true. The null hypothesis (H0) is defined as the hypothesis with no statistical significance between two variables</p>
+<p>The p-value, ranging from 0 to 1, represents the level of significance in statistical tests. A smaller p-value indicates stronger evidence to reject the null hypothesis (H0). If the p-value is very small, it suggests that the observed result is plausible but does not conform to the null hypothesis. A p-value of 0.05 is commonly used as the significance level (α). When p-value &gt; 0.05, the null hypothesis is accepted; when p-value &lt; 0.05, it is rejected, indicating statistical significance.</p>
+<p><img alt="P_Value_1" src="../../_images/p_value1.png" /></p>
+<p>The p-value plays a crucial role in various aspects of machine learning, including model selection, variable selection, hypothesis testing, and overfitting control. It helps in comparing model performances, identifying significant variables, validating hypotheses, and ensuring that models generalize well to new data. By providing a measure of statistical significance, the p-value aids in making informed decisions throughout the machine learning process.</p>
+<p>P-values are fundamental in hypothesis testing, yet they are susceptible to two types of errors: Type I and Type II. A Type I error occurs when the Null hypothesis is incorrectly rejected, with a maximum probability defined by alpha, independent of sample size. A Type II error arises from the incorrect acceptance of the Null hypothesis, with its probability (beta) influenced by both the sample size and alpha. Beta decreases as sample size or the number of tests increases. Understanding these errors is crucial for accurate decision-making in statistical analysis.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Decision</strong></p></th>
+<th class="head"><p><strong>Accept H0</strong></p></th>
+<th class="head"><p><strong>Reject H0</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Truth</strong></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>H0 is true</strong></p></td>
+<td><p>Correct decision</p></td>
+<td><p>Type I error</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>H0 is false</strong></p></td>
+<td><p>Type II error</p></td>
+<td><p>Correct decision</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To find the p-value corresponding to a given z-value or z-score, you can follow these steps:</p>
+<section id="calculate-the-z-value">
+<h2>Calculate the z-value:<a class="headerlink" href="#calculate-the-z-value" title="Link to this heading">#</a></h2>
+<p>The z-value is calculated using the formula:</p>
+<p>or z-score is defined as,</p>
+<div class="math notranslate nohighlight">
+\[
+z = \frac{p_0 -\mu}{\frac{\sigma}{\sqrt{n}}}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \mu , \sigma \)</span> are mean and variance of samples (n-samples)</p>
+<p><span class="math notranslate nohighlight">\( p_0 \)</span> assumed population proportion in the null hypothesis</p>
+</section>
+<section id="use-the-z-value-to-find-the-p-value">
+<h2>Use the z-value to find the p-value:<a class="headerlink" href="#use-the-z-value-to-find-the-p-value" title="Link to this heading">#</a></h2>
+<p>Once you have calculated the z-value, the next step is to determine the p-value, which is the probability that the observed statistic is as extreme as, or more extreme than, the observed value under the null hypothesis.</p>
+<ul class="simple">
+<li><p><strong>If the z-value is positive:</strong> The p-value is the area to the right of the z-value under the standard normal curve.</p></li>
+<li><p><strong>If the z-value is negative:</strong> The p-value is the area to the left of the z-value under the standard normal curve.</p></li>
+</ul>
+<p>To find this area, you can use a <strong>z-table</strong>, which gives the cumulative probability up to a given z-value. If you want the one-tailed p-value, look directly at the value from the table. For a two-tailed p-value, multiply the table value by 2.</p>
+</section>
+<section id="interpret-the-p-value">
+<h2>Interpret the p-value:<a class="headerlink" href="#interpret-the-p-value" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Small p-value (typically ≤ 0.05):</strong> This indicates strong evidence against the null hypothesis, so you reject the null hypothesis.</p></li>
+<li><p><strong>Large p-value (&gt; 0.05):</strong> This indicates weak evidence against the null hypothesis, so you fail to reject the null hypothesis.</p></li>
+</ul>
+</section>
+<section id="example">
+<h2>Example:<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<p>If you calculate a z-value of 1.96 and look up this value in the z-table, you might find that the corresponding cumulative probability is 0.9750. For a one-tailed test, the p-value would be <span class="math notranslate nohighlight">\(1 - 0.9750 = 0.025\)</span>. For a two-tailed test, the p-value would be <span class="math notranslate nohighlight">\(2 \times 0.025 = 0.05\)</span>.</p>
+<p>This process shows how to calculate the p-value using the z-value and a z-table, allowing you to determine the statistical significance of your result.</p>
+<p><img alt="P_value_2" src="../../_images/p_value2.png" /></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">stats</span>
+
+<span class="c1"># Sample data</span>
+<span class="n">group1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+<span class="n">group2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+
+<span class="c1"># Independent two-sample t-test</span>
+<span class="n">statistics</span><span class="p">,</span> <span class="n">p_value</span><span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">ttest_ind</span><span class="p">(</span><span class="n">group1</span><span class="p">,</span> <span class="n">group2</span><span class="p">)</span>
+
+<span class="c1"># Print the results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Test Statistic:"</span><span class="p">,</span> <span class="n">statistics</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"P Value:"</span><span class="p">,</span> <span class="n">p_value</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Test Statistic: 2.0
+P Value: 0.08051623795726257
+</pre></div>
+</div>
+</div>
+</div>
+<p>Example:</p>
+</section>
+<section id="p-value-mathematical-explanation-with-examples">
+<h2>P-Value: Mathematical Explanation with Examples<a class="headerlink" href="#p-value-mathematical-explanation-with-examples" title="Link to this heading">#</a></h2>
+<section id="what-is-the-p-value">
+<h3>What is the P-Value?<a class="headerlink" href="#what-is-the-p-value" title="Link to this heading">#</a></h3>
+<p>The p-value is a probability measure used in statistical hypothesis testing to assess the evidence against the null hypothesis. It represents the probability of obtaining test results at least as extreme as the observed data, under the assumption that the null hypothesis is true.</p>
+</section>
+<section id="mathematical-definition">
+<h3>Mathematical Definition<a class="headerlink" href="#mathematical-definition" title="Link to this heading">#</a></h3>
+<p>Given a test statistic ( T ) and its observed value ( t_{\text{obs}} ), the p-value is calculated as:</p>
+<ul class="simple">
+<li><p><strong>For a one-tailed test:</strong>
+[
+\text{p-value} = P(T \geq t_{\text{obs}} \mid H_0 \text{ is true})
+]
+or
+[
+\text{p-value} = P(T \leq t_{\text{obs}} \mid H_0 \text{ is true})
+]
+depending on the direction of the test.</p></li>
+<li><p><strong>For a two-tailed test:</strong>
+[
+\text{p-value} = 2 \times P(T \geq |t_{\text{obs}}| \mid H_0 \text{ is true})
+]</p></li>
+</ul>
+<p>Here, ( H_0 ) is the null hypothesis, and ( T ) follows a specific distribution under ( H_0 ) (e.g., normal, t-distribution).</p>
+</section>
+<section id="example-1-one-sample-z-test">
+<h3>Example 1: One-Sample Z-Test<a class="headerlink" href="#example-1-one-sample-z-test" title="Link to this heading">#</a></h3>
+<p><strong>Scenario:</strong> Suppose we want to test if the mean of a population is equal to a specified value ( \mu_0 = 50 ). We have a sample with a mean ( \bar{x} = 52 ), a known population standard deviation ( \sigma = 10 ), and a sample size ( n = 30 ).</p>
+<p><strong>Step 1: Formulate Hypotheses</strong></p>
+<ul class="simple">
+<li><p>Null Hypothesis ( H_0 ): ( \mu = 50 )</p></li>
+<li><p>Alternative Hypothesis ( H_1 ): ( \mu \neq 50 )</p></li>
+</ul>
+<p><strong>Step 2: Calculate the Test Statistic (Z-value)</strong>
+[
+Z = \frac{\bar{x} - \mu_0}{\frac{\sigma}{\sqrt{n}}} = \frac{52 - 50}{\frac{10}{\sqrt{30}}} = \frac{2}{1.8257} \approx 1.095
+]</p>
+<p><strong>Step 3: Find the P-Value</strong>
+Using the standard normal distribution table (Z-table):</p>
+<ul class="simple">
+<li><p>For ( Z = 1.095 ), the area to the right is ( P(Z \geq 1.095) = 0.1368 ).</p></li>
+<li><p>Since this is a two-tailed test, the p-value is ( 2 \times 0.1368 = 0.2736 ).</p></li>
+</ul>
+<p><strong>Conclusion:</strong> Since the p-value (0.2736) is greater than the common significance level (e.g., 0.05), we fail to reject the null hypothesis. There is not enough evidence to suggest that the population mean differs from 50.</p>
+</section>
+<section id="example-2-one-sample-t-test">
+<h3>Example 2: One-Sample T-Test<a class="headerlink" href="#example-2-one-sample-t-test" title="Link to this heading">#</a></h3>
+<p><strong>Scenario:</strong> A sample of 20 students has an average test score of 78, with a sample standard deviation of 10. We want to test whether the average score is different from 75 at a significance level of 0.05.</p>
+<p><strong>Step 1: Formulate Hypotheses</strong></p>
+<ul class="simple">
+<li><p>Null Hypothesis ( H_0 ): ( \mu = 75 )</p></li>
+<li><p>Alternative Hypothesis ( H_1 ): ( \mu \neq 75 )</p></li>
+</ul>
+<p><strong>Step 2: Calculate the Test Statistic (T-value)</strong>
+[
+T = \frac{\bar{x} - \mu_0}{\frac{s}{\sqrt{n}}} = \frac{78 - 75}{\frac{10}{\sqrt{20}}} = \frac{3}{2.236} \approx 1.342
+]</p>
+<p><strong>Step 3: Find the P-Value</strong>
+Using the t-distribution table with ( df = 19 ):</p>
+<ul class="simple">
+<li><p>For ( T = 1.342 ), the area to the right is approximately ( P(T \geq 1.342) \approx 0.095 ).</p></li>
+<li><p>Since this is a two-tailed test, the p-value is ( 2 \times 0.095 = 0.19 ).</p></li>
+</ul>
+<p><strong>Conclusion:</strong> The p-value (0.19) is greater than 0.05, so we fail to reject the null hypothesis. The data does not provide strong evidence that the average score differs from 75.</p>
+</section>
+<section id="example-3-chi-square-test">
+<h3>Example 3: Chi-Square Test<a class="headerlink" href="#example-3-chi-square-test" title="Link to this heading">#</a></h3>
+<p><strong>Scenario:</strong> A company wants to test whether the distribution of colors in a batch of candies matches an expected distribution (e.g., 30% red, 20% blue, 50% green). They sample 100 candies and find 25 red, 20 blue, and 55 green.</p>
+<p><strong>Step 1: Formulate Hypotheses</strong></p>
+<ul class="simple">
+<li><p>Null Hypothesis ( H_0 ): The observed frequencies match the expected distribution.</p></li>
+<li><p>Alternative Hypothesis ( H_1 ): The observed frequencies do not match the expected distribution.</p></li>
+</ul>
+<p><strong>Step 2: Calculate the Chi-Square Statistic</strong>
+[
+\chi^2 = \sum \frac{(O_i - E_i)^2}{E_i}
+]
+Where ( O_i ) are observed frequencies, and ( E_i ) are expected frequencies.</p>
+<p>[
+E_{\text{red}} = 30, \quad E_{\text{blue}} = 20, \quad E_{\text{green}} = 50
+]
+[
+\chi^2 = \frac{(25-30)^2}{30} + \frac{(20-20)^2}{20} + \frac{(55-50)^2}{50} = \frac{25}{30} + 0 + \frac{25}{50} \approx 0.833
+]</p>
+<p><strong>Step 3: Find the P-Value</strong>
+Using the chi-square distribution table with ( df = 2 ):</p>
+<ul class="simple">
+<li><p>For ( \chi^2 = 0.833 ), the p-value is approximately 0.66.</p></li>
+</ul>
+<p><strong>Conclusion:</strong> The p-value (0.66) is greater than 0.05, so we fail to reject the null hypothesis. The observed distribution does not significantly differ from the expected distribution.</p>
+</section>
+</section>
+<section id="key-takeaways">
+<h2>Key Takeaways:<a class="headerlink" href="#key-takeaways" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A smaller p-value indicates stronger evidence against the null hypothesis.</p></li>
+<li><p>Common thresholds for significance levels are 0.05, 0.01, or 0.001.</p></li>
+<li><p>The p-value alone does not confirm or refute the null hypothesis but helps make an informed decision based on the evidence.</p></li>
+</ul>
+<p>Example 2:
+To clarify the concepts of rejecting or accepting hypotheses using the p-value, let’s break it down step by step:</p>
+</section>
+<section id="steps-to-understand-the-p-value-and-hypothesis-testing">
+<h2>Steps to Understand the P-Value and Hypothesis Testing<a class="headerlink" href="#steps-to-understand-the-p-value-and-hypothesis-testing" title="Link to this heading">#</a></h2>
+<ol class="arabic">
+<li><p><strong>Calculate the Test Statistic:</strong></p>
+<ul class="simple">
+<li><p>You already know how to calculate the z-score (or test statistic) for your data. This is given by:
+[
+Z = \frac{t_{\text{obs}} - \mu}{\sigma / \sqrt{n}}
+]
+where:</p>
+<ul>
+<li><p>( t_{\text{obs}} ) is the observed test statistic.</p></li>
+<li><p>( \mu ) is the mean under the null hypothesis.</p></li>
+<li><p>( \sigma ) is the standard deviation.</p></li>
+<li><p>( n ) is the sample size.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Determine the P-Value:</strong></p>
+<ul class="simple">
+<li><p>The p-value represents the probability of obtaining a test statistic at least as extreme as ( t_{\text{obs}} ), given that the null hypothesis is true.</p></li>
+<li><p>To find the p-value, you use the z-score to determine the probability from the normal distribution.</p></li>
+</ul>
+<p>For a <strong>one-tailed test</strong>:</p>
+<ul class="simple">
+<li><p>If you’re testing whether ( t_{\text{obs}} ) is greater than ( \mu ) (right tail):
+[
+\text{p-value} = P(Z \geq z_{\text{score}})
+]</p></li>
+<li><p>If you’re testing whether ( t_{\text{obs}} ) is less than ( \mu ) (left tail):
+[
+\text{p-value} = P(Z \leq z_{\text{score}})
+]</p></li>
+</ul>
+<p>For a <strong>two-tailed test</strong>:</p>
+<ul class="simple">
+<li><p>You look at both tails of the distribution. The p-value is twice the probability of one tail:
+[
+\text{p-value} = 2 \times P(Z \geq |z_{\text{score}}|)
+]</p></li>
+</ul>
+<p>In practice, you use the cumulative distribution function (CDF) of the standard normal distribution to find these probabilities.</p>
+</li>
+<li><p><strong>Compare the P-Value to the Significance Level:</strong></p>
+<ul class="simple">
+<li><p>The significance level (denoted as ( \alpha )) is a threshold you set before testing, commonly ( \alpha = 0.05 ) or ( 0.01 ).</p></li>
+<li><p><strong>If the p-value is less than or equal to ( \alpha )</strong>, you reject the null hypothesis (( H_0 )) in favor of the alternative hypothesis (( H_1 )). This means there is enough evidence to suggest that ( H_0 ) is unlikely to be true.</p></li>
+<li><p><strong>If the p-value is greater than ( \alpha )</strong>, you fail to reject the null hypothesis. This means there is not enough evidence to suggest that ( H_0 ) is false.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="example-scenario">
+<h2>Example Scenario<a class="headerlink" href="#example-scenario" title="Link to this heading">#</a></h2>
+<section id="example-testing-a-mean">
+<h3>Example: Testing a Mean<a class="headerlink" href="#example-testing-a-mean" title="Link to this heading">#</a></h3>
+<p><strong>Scenario:</strong> Suppose you are testing whether the mean weight of a sample of apples is different from 100 grams. Your null hypothesis ( H_0 ) is that the mean weight is 100 grams (( \mu = 100 )).</p>
+<ol class="arabic simple">
+<li><p><strong>Collect Data:</strong></p>
+<ul class="simple">
+<li><p>Sample mean ( \bar{x} = 104 )</p></li>
+<li><p>Sample size ( n = 25 )</p></li>
+<li><p>Population standard deviation ( \sigma = 15 )</p></li>
+</ul>
+</li>
+<li><p><strong>Calculate the Z-Score:</strong>
+[
+Z = \frac{\bar{x} - \mu}{\sigma / \sqrt{n}} = \frac{104 - 100}{15 / \sqrt{25}} = \frac{4}{3} \approx 1.333
+]</p></li>
+<li><p><strong>Find the P-Value:</strong></p>
+<ul class="simple">
+<li><p>For a two-tailed test, use the Z-table or a statistical tool to find:
+[
+P(Z \geq 1.333) \approx 0.091
+]</p></li>
+<li><p>Since it’s a two-tailed test:
+[
+\text{p-value} = 2 \times 0.091 = 0.182
+]</p></li>
+</ul>
+</li>
+<li><p><strong>Compare to Significance Level:</strong></p>
+<ul class="simple">
+<li><p>If you set ( \alpha = 0.05 ):
+[
+\text{p-value} = 0.182 &gt; 0.05
+]</p></li>
+<li><p>Conclusion: Since the p-value is greater than 0.05, you <strong>fail to reject</strong> the null hypothesis. There isn’t enough evidence to conclude that the mean weight of the apples is different from 100 grams.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Reject ( H_0 )</strong> if the p-value ≤ ( \alpha ): Evidence suggests ( H_0 ) is unlikely.</p></li>
+<li><p><strong>Fail to Reject ( H_0 )</strong> if the p-value &gt; ( \alpha ): Evidence is not strong enough to discard ( H_0 ).</p></li>
+</ul>
+<p>This process helps determine if the observed data provides sufficient evidence to challenge the null hypothesis based on the predefined significance level.</p>
+<p>Example 3:
+Let’s solve the example for the case where the null hypothesis (( H_0 )) is that the mean weight is greater than 102 grams, and you are testing whether the mean weight is less than or equal to 102 grams.</p>
+</section>
+<section id="updated-hypotheses">
+<h2>Updated Hypotheses<a class="headerlink" href="#updated-hypotheses" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Null Hypothesis (( H_0 ))</strong>: The mean weight is greater than 102 grams (( \mu &gt; 102 )).</p></li>
+<li><p><strong>Alternative Hypothesis (( H_1 ))</strong>: The mean weight is less than or equal to 102 grams (( \mu \leq 102 )).</p></li>
+</ul>
+<p>Since this is a one-tailed test (right-tailed test), you are interested in whether the observed mean significantly deviates from the hypothesized mean in the direction of the null hypothesis.</p>
+<section id="data">
+<h3>Data<a class="headerlink" href="#data" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Sample mean ( \bar{x} = 104 )</p></li>
+<li><p>Sample size ( n = 25 )</p></li>
+<li><p>Population standard deviation ( \sigma = 15 )</p></li>
+</ul>
+</section>
+</section>
+<section id="steps">
+<h2>Steps<a class="headerlink" href="#steps" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Calculate the Z-Score:</strong>
+[
+Z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}
+]
+Substituting the given values:
+[
+Z = \frac{104 - 102}{15 / \sqrt{25}} = \frac{2}{15 / 5} = \frac{2}{3} \approx 0.667
+]</p></li>
+<li><p><strong>Find the P-Value:</strong></p>
+<ul class="simple">
+<li><p>For a right-tailed test, the p-value is:
+[
+\text{p-value} = P(Z \geq 0.667)
+]</p></li>
+<li><p>Using the Z-table or a statistical calculator, find the probability corresponding to the Z-score of 0.667:
+[
+P(Z \geq 0.667) \approx 0.252
+]</p></li>
+</ul>
+</li>
+<li><p><strong>Compare the P-Value to the Significance Level:</strong></p>
+<ul class="simple">
+<li><p>Assume the significance level ( \alpha = 0.05 ):
+[
+\text{p-value} = 0.252
+]</p></li>
+<li><p>Since the p-value (0.252) is greater than ( \alpha ) (0.05), you <strong>fail to reject</strong> the null hypothesis.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>Given the data and the significance level of 0.05:</p>
+<ul class="simple">
+<li><p><strong>Fail to Reject ( H_0 )</strong>: The p-value is 0.252, which is greater than 0.05. This means there is insufficient evidence to conclude that the mean weight is less than or equal to 102 grams. Therefore, the evidence does not support rejecting the null hypothesis that the mean weight is greater than 102 grams.</p></li>
+</ul>
+<p>example 4:
+Let’s solve the example where the null hypothesis (( H_0 )) is that the mean weight is greater than 110 grams. In this case, we will be performing a left-tailed test to see if the observed mean is significantly less than 110 grams.</p>
+</section>
+<section id="id1">
+<h2>Updated Hypotheses<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Null Hypothesis (( H_0 ))</strong>: The mean weight is greater than 110 grams (( \mu &gt; 110 )).</p></li>
+<li><p><strong>Alternative Hypothesis (( H_1 ))</strong>: The mean weight is less than or equal to 110 grams (( \mu \leq 110 )).</p></li>
+</ul>
+<section id="id2">
+<h3>Data<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Sample mean ( \bar{x} = 104 )</p></li>
+<li><p>Sample size ( n = 25 )</p></li>
+<li><p>Population standard deviation ( \sigma = 15 )</p></li>
+</ul>
+</section>
+</section>
+<section id="id3">
+<h2>Steps<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Calculate the Z-Score:</strong>
+[
+Z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}
+]
+Substituting the given values:
+[
+Z = \frac{104 - 110}{15 / \sqrt{25}} = \frac{-6}{15 / 5} = \frac{-6}{3} = -2
+]</p></li>
+<li><p><strong>Find the P-Value:</strong></p>
+<ul class="simple">
+<li><p>For a left-tailed test, the p-value is:
+[
+\text{p-value} = P(Z \leq -2)
+]</p></li>
+<li><p>Using the Z-table or a statistical calculator, find the probability corresponding to the Z-score of -2:
+[
+P(Z \leq -2) \approx 0.0228
+]</p></li>
+</ul>
+</li>
+<li><p><strong>Compare the P-Value to the Significance Level:</strong></p>
+<ul class="simple">
+<li><p>Assume the significance level ( \alpha = 0.05 ):
+[
+\text{p-value} = 0.0228
+]</p></li>
+<li><p>Since the p-value (0.0228) is less than ( \alpha ) (0.05), you <strong>reject</strong> the null hypothesis.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id4">
+<h2>Conclusion<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>Given the data and the significance level of 0.05:</p>
+<ul class="simple">
+<li><p><strong>Reject ( H_0 )</strong>: The p-value is 0.0228, which is less than 0.05. This means there is sufficient evidence to conclude that the mean weight is less than or equal to 110 grams. Therefore, the null hypothesis that the mean weight is greater than 110 grams is rejected.</p></li>
+</ul>
+<p>example 5:
+Let’s solve the example where the null hypothesis (( H_0 )) is that the mean weight is less than 95 grams. We will perform a right-tailed test to see if the observed mean is significantly greater than 95 grams.</p>
+</section>
+<section id="id5">
+<h2>Updated Hypotheses<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Null Hypothesis (( H_0 ))</strong>: The mean weight is less than 95 grams (( \mu &lt; 95 )).</p></li>
+<li><p><strong>Alternative Hypothesis (( H_1 ))</strong>: The mean weight is greater than or equal to 95 grams (( \mu \geq 95 )).</p></li>
+</ul>
+<section id="id6">
+<h3>Data<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Sample mean ( \bar{x} = 104 )</p></li>
+<li><p>Sample size ( n = 25 )</p></li>
+<li><p>Population standard deviation ( \sigma = 15 )</p></li>
+</ul>
+</section>
+</section>
+<section id="id7">
+<h2>Steps<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Calculate the Z-Score:</strong>
+[
+Z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}
+]
+Substituting the given values:
+[
+Z = \frac{104 - 95}{15 / \sqrt{25}} = \frac{9}{15 / 5} = \frac{9}{3} = 3
+]</p></li>
+<li><p><strong>Find the P-Value:</strong></p>
+<ul class="simple">
+<li><p>For a right-tailed test, the p-value is:
+[
+\text{p-value} = P(Z \geq 3)
+]</p></li>
+<li><p>Using the Z-table or a statistical calculator, find the probability corresponding to the Z-score of 3:
+[
+P(Z \geq 3) \approx 0.0013
+]</p></li>
+</ul>
+</li>
+<li><p><strong>Compare the P-Value to the Significance Level:</strong></p>
+<ul class="simple">
+<li><p>Assume the significance level ( \alpha = 0.05 ):
+[
+\text{p-value} = 0.0013
+]</p></li>
+<li><p>Since the p-value (0.0013) is less than ( \alpha ) (0.05), you <strong>reject</strong> the null hypothesis.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id8">
+<h2>Conclusion<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>Given the data and the significance level of 0.05:</p>
+<ul class="simple">
+<li><p><strong>Reject ( H_0 )</strong>: The p-value is 0.0013, which is less than 0.05. This indicates there is sufficient evidence to conclude that the mean weight is greater than or equal to 95 grams. Therefore, the null hypothesis that the mean weight is less than 95 grams is rejected.</p></li>
+</ul>
+<p>example 6:
+In this scenario, we need to test the null hypothesis (( H_0 )) that the mean weight is exactly 96 grams. We will perform a two-tailed test to determine if the observed mean is significantly different from 96 grams.</p>
+</section>
+<section id="id9">
+<h2>Updated Hypotheses<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Null Hypothesis (( H_0 ))</strong>: The mean weight is 96 grams (( \mu = 96 )).</p></li>
+<li><p><strong>Alternative Hypothesis (( H_1 ))</strong>: The mean weight is not equal to 96 grams (( \mu \neq 96 )).</p></li>
+</ul>
+<section id="id10">
+<h3>Data<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Sample mean ( \bar{x} = 104 )</p></li>
+<li><p>Sample size ( n = 25 )</p></li>
+<li><p>Population standard deviation ( \sigma = 15 )</p></li>
+</ul>
+</section>
+</section>
+<section id="id11">
+<h2>Steps<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Calculate the Z-Score:</strong>
+[
+Z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}}
+]
+Substituting the given values:
+[
+Z = \frac{104 - 96}{15 / \sqrt{25}} = \frac{8}{15 / 5} = \frac{8}{3} \approx 2.67
+]</p></li>
+<li><p><strong>Find the P-Value:</strong></p>
+<ul class="simple">
+<li><p>For a two-tailed test, the p-value is:
+[
+\text{p-value} = 2 \times P(Z \geq 2.67)
+]</p></li>
+<li><p>Using the Z-table or a statistical calculator, find the probability corresponding to the Z-score of 2.67:
+[
+P(Z \geq 2.67) \approx 0.0038
+]</p></li>
+<li><p>Therefore:
+[
+\text{p-value} = 2 \times 0.0038 = 0.0076
+]</p></li>
+</ul>
+</li>
+<li><p><strong>Compare the P-Value to the Significance Level:</strong></p>
+<ul class="simple">
+<li><p>Assume the significance level ( \alpha = 0.05 ):
+[
+\text{p-value} = 0.0076
+]</p></li>
+<li><p>Since the p-value (0.0076) is less than ( \alpha ) (0.05), you <strong>reject</strong> the null hypothesis.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="id12">
+<h2>Conclusion<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>Given the data and the significance level of 0.05:</p>
+<ul class="simple">
+<li><p><strong>Reject ( H_0 )</strong>: The p-value is 0.0076, which is less than 0.05. This indicates there is sufficient evidence to conclude that the mean weight is different from 96 grams. Therefore, the null hypothesis that the mean weight is 96 grams is rejected.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/SupplementaryDocuments"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculate-the-z-value">Calculate the z-value:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#use-the-z-value-to-find-the-p-value">Use the z-value to find the p-value:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interpret-the-p-value">Interpret the p-value:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#p-value-mathematical-explanation-with-examples">P-Value: Mathematical Explanation with Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-the-p-value">What is the P-Value?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-definition">Mathematical Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-one-sample-z-test">Example 1: One-Sample Z-Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-one-sample-t-test">Example 2: One-Sample T-Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-chi-square-test">Example 3: Chi-Square Test</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-takeaways">Key Takeaways:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-understand-the-p-value-and-hypothesis-testing">Steps to Understand the P-Value and Hypothesis Testing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-scenario">Example Scenario</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-testing-a-mean">Example: Testing a Mean</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#updated-hypotheses">Updated Hypotheses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps">Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Updated Hypotheses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Updated Hypotheses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">Conclusion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">Updated Hypotheses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">Steps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

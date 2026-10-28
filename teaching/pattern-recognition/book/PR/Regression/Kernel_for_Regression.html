@@ -1,0 +1,1418 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kernel method &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/Regression/Kernel_for_Regression';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Project : Evaluation and Model Selection" href="EvaluationModelSelection.html" />
+    <link rel="prev" title="Linearization" href="Linearization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Introduction_Regression.html">Regression</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Linearization.html">Linearization</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/Regression/Kernel_for_Regression.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Kernel method</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods-and-the-kernel-trick">Kernel Methods and the Kernel Trick</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-kernels">Common Kernels</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-phi-x-from-kernel">Finding <span class="math notranslate nohighlight">\( \phi (x) \)</span> From Kernel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1"><span style="color:blue"><strong>Homework 1</strong></span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-in-phi-space">Methods in <span class="math notranslate nohighlight">\( \phi \)</span> space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-in-phi-x-space">Distance in <span class="math notranslate nohighlight">\( \phi(x) \)</span> space</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuzzy-c-means-clustering-in-phi-space">Fuzzy C-Means clustering in <span class="math notranslate nohighlight">\( \phi \)</span> space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-in-phi-space">Regression in <span class="math notranslate nohighlight">\( \phi \)</span> space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weight-vector-norm">The weight vector norm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizing">Normalizing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-and-distance-from-the-centre-of-mass">Norm and distance from the centre of mass</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#center-of-mass-in-feature-space">Center of Mass in Feature Space</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-squared-distance-from-center-of-mass">Expected Squared Distance from Center of Mass</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-regression">Support Vector Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svr-in-feature-space-with-kernel-trick">SVR in Feature Space with Kernel Trick</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#primal-formulation">Primal Formulation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-formulation">Dual Formulation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#final-prediction">Final Prediction</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-derivation-of-support-vector-regression-svr-in-kernel-space">Step-by-Step Derivation of Support Vector Regression (SVR) in Kernel Space</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-and-constraints-in-the-primal-form">Objective and Constraints in the Primal Form</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrangian-and-dual-problem">Lagrangian and Dual Problem</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stationarity-conditions">Stationarity Conditions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#substituting-back">Substituting Back</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-problem">Dual Problem</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-b">Determining <span class="math notranslate nohighlight">\( b \)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="kernel-method">
+<h1>Kernel method<a class="headerlink" href="#kernel-method" title="Link to this heading">#</a></h1>
+<p>We break down the concept of kernel methods in a simple form.</p>
+<section id="kernel-methods-and-the-kernel-trick">
+<h2>Kernel Methods and the Kernel Trick<a class="headerlink" href="#kernel-methods-and-the-kernel-trick" title="Link to this heading">#</a></h2>
+<p><strong>Input Space and Feature Space</strong>:</p>
+<ul class="simple">
+<li><p><strong>Input Space (<span class="math notranslate nohighlight">\( \mathcal{X} \)</span>)</strong>: This is the space where your original data points, <span class="math notranslate nohighlight">\( x \)</span> and <span class="math notranslate nohighlight">\( y \)</span>, reside.</p></li>
+<li><p><strong>Feature Space (<span class="math notranslate nohighlight">\( \mathcal{F} \)</span>)</strong>: This is a higher-dimensional space where your data points are mapped using a feature mapping function, <span class="math notranslate nohighlight">\( \phi \)</span>. So, <span class="math notranslate nohighlight">\( \phi(x) \)</span> and <span class="math notranslate nohighlight">\( \phi(y) \)</span> are the representations of <span class="math notranslate nohighlight">\( x \)</span> and <span class="math notranslate nohighlight">\( y \)</span> in the feature space.</p></li>
+</ul>
+<p><strong>Feature Mapping (<span class="math notranslate nohighlight">\( \phi \)</span>)</strong>:</p>
+<ul class="simple">
+<li><p>The feature mapping function <span class="math notranslate nohighlight">\( \phi: \mathcal{X} \rightarrow \mathcal{F} \)</span> transforms data points from the input space to the feature space.</p></li>
+<li><p>In many cases, the feature space can be very high-dimensional, even infinite-dimensional, which makes computations directly in <span class="math notranslate nohighlight">\( \mathcal{F} \)</span> <strong><em>impractical</em></strong>.</p></li>
+</ul>
+<p><strong>Inner Product in Feature Space</strong>:</p>
+<ul class="simple">
+<li><p>When using machine learning algorithms, we often need to compute the inner product between two points in the feature space: <span class="math notranslate nohighlight">\(\left\langle \phi(x) , \phi(y) \right\rangle  \)</span>.</p></li>
+</ul>
+<p><strong>Kernel Function (<span class="math notranslate nohighlight">\( k \)</span>)</strong>:</p>
+<ul class="simple">
+<li><p>The kernel function <span class="math notranslate nohighlight">\( k \)</span> is defined as <span class="math notranslate nohighlight">\( k(x, y) = \phi(x)^{T} \phi(y) \)</span>.</p></li>
+<li><p>The key idea is that we do not need to compute <span class="math notranslate nohighlight">\( \phi(x) \)</span> and <span class="math notranslate nohighlight">\( \phi(y) \)</span> explicitly. Instead, we directly compute <span class="math notranslate nohighlight">\( k(x, y) \)</span> in the input space.</p></li>
+</ul>
+<p><span style="color:green"><strong>The Kernel Trick</strong></span></p>
+<p>The kernel trick allows us to work in the high-dimensional feature space implicitly without ever computing the coordinates of the data points in that space. Instead, we compute the inner products using the kernel function.</p>
+<p><em><strong>Why is this useful?</strong></em></p>
+<p><strong>Efficiency</strong>:</p>
+<ul class="simple">
+<li><p>Computing <span class="math notranslate nohighlight">\( \phi(x) \)</span> and <span class="math notranslate nohighlight">\( \phi(y) \)</span> explicitly can be computationally expensive or infeasible.</p></li>
+<li><p>Using the kernel function <span class="math notranslate nohighlight">\( k(x, y) \)</span>, we can perform the same calculations much more efficiently.</p></li>
+</ul>
+<p><strong>Flexibility</strong>:</p>
+<ul class="simple">
+<li><p>Kernel methods allow us to use different types of kernels, each corresponding to a different feature space. This flexibility helps in capturing various data structures and relationships.</p></li>
+</ul>
+<section id="common-kernels">
+<h3>Common Kernels<a class="headerlink" href="#common-kernels" title="Link to this heading">#</a></h3>
+<p><strong>Linear Kernel</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( k(x, y) = x^{T} y \)</span></p></li>
+<li><p>This corresponds to no mapping (i.e., <span class="math notranslate nohighlight">\( \phi(x) = x \)</span>).</p></li>
+</ul>
+<p><strong>Polynomial Kernel</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( k(x, y) = (x^{T} y + c)^d \)</span></p></li>
+<li><p>This corresponds to a polynomial feature mapping.</p></li>
+</ul>
+<p><strong>Gaussian (RBF) Kernel</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( k(x, y) = \exp \left( -\frac{\|x - y\|^2}{2\sigma^2} \right) \)</span></p></li>
+<li><p>This corresponds to mapping into an infinite-dimensional feature space.</p></li>
+</ul>
+<p><strong>Sigmoid Kernel</strong>:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( k(x, y) = \tanh(\alpha x^{T} y + c) \)</span></p></li>
+<li><p>This corresponds to a feature mapping inspired by neural networks.</p></li>
+</ul>
+</section>
+</section>
+<section id="finding-phi-x-from-kernel">
+<h2>Finding <span class="math notranslate nohighlight">\( \phi (x) \)</span> From Kernel<a class="headerlink" href="#finding-phi-x-from-kernel" title="Link to this heading">#</a></h2>
+<p><em>Example 1</em>: <strong>Polynomial kernel</strong></p>
+<p>We try decompose the polynomial kernel <span class="math notranslate nohighlight">\( k(x, y) = (x^T y + c)^2 \)</span> into its feature mapping representation <span class="math notranslate nohighlight">\( \phi(x) \)</span> such that <span class="math notranslate nohighlight">\( k(x, y) = \left\langle \phi(x) , \phi(y) \right\rangle  \)</span>.</p>
+<p><strong><em>Work Steps</em></strong></p>
+<p><strong>Expand the Polynomial Kernel</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+   k(x, y) = (x^T y + c)^2
+   \]</div>
+<p>Using the binomial expansion, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+   (x^T y + c)^2 = (x^T y)^2 + 2c(x^T y) + c^2
+   \]</div>
+<p><strong>Identify the Terms</strong>:
+Let’s consider <span class="math notranslate nohighlight">\( x = [x_1, x_2, \ldots, x_d]^T \)</span> and <span class="math notranslate nohighlight">\( y = [y_1, y_2, \ldots, y_d]^T \)</span>. The expanded terms can be further decomposed:</p>
+<div class="math notranslate nohighlight">
+\[
+   (x^T y)^2 = \left( \sum_{i=1}^{d} x_i y_i \right)^2 = \sum_{i=1}^{d} \sum_{j=1}^{d} x_i y_i x_j y_j
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   2c(x^T y) = 2c \sum_{i=1}^{d} x_i y_i
+   \]</div>
+<p><strong>Feature Mapping (<span class="math notranslate nohighlight">\( \phi(x) \)</span>)</strong>:
+To express <span class="math notranslate nohighlight">\( k(x, y) \)</span> as <span class="math notranslate nohighlight">\( \phi(x)^T \phi(y) \)</span>, we need to identify a feature mapping <span class="math notranslate nohighlight">\( \phi(x) \)</span> such that the inner product in the feature space gives us the polynomial kernel.</p>
+<p>Let’s construct <span class="math notranslate nohighlight">\( \phi(x) \)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+   \phi(x) = \left( \sqrt{2}x_1x_1, \sqrt{2}x_1x_2, \ldots, \sqrt{2}x_1x_d, \sqrt{2}x_2x_1, \sqrt{2}x_2x_2, \ldots, \sqrt{2}x_d x_d, \sqrt{2c}x_1, \sqrt{2c}x_2, \ldots, \sqrt{2c}x_d, c \right)^T
+   \]</div>
+<p>Here, <span class="math notranslate nohighlight">\( \phi(x) \)</span> includes:</p>
+<ul class="simple">
+<li><p>All pairwise product terms <span class="math notranslate nohighlight">\( \sqrt{2} x_i x_j \)</span>.</p></li>
+<li><p>Linear terms <span class="math notranslate nohighlight">\( \sqrt{2c} x_i \)</span>.</p></li>
+<li><p>A constant term <span class="math notranslate nohighlight">\( c \)</span>.</p></li>
+</ul>
+<p><strong>Verify <span class="math notranslate nohighlight">\( \phi(x)^T \phi(y) \)</span></strong>:
+Now, we compute the inner product <span class="math notranslate nohighlight">\( \phi(x)^T \cdot \phi(y) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \phi(x)^T \cdot \phi(y) = \left( \sqrt{2}x_1x_1, \sqrt{2}x_1x_2, \ldots, \sqrt{2}x_d x_d, \sqrt{2c}x_1, \sqrt{2c}x_2, \ldots, c \right)^T \cdot \left( \sqrt{2}y_1y_1, \sqrt{2}y_1y_2, \ldots, \sqrt{2}y_d y_d, \sqrt{2c}y_1, \sqrt{2c}y_2, \ldots, c \right)
+   \]</div>
+<p>This results in:</p>
+<div class="math notranslate nohighlight">
+\[
+   \sum_{i=1}^{d} \sum_{j=1}^{d} \sqrt{2} x_i x_j \sqrt{2} y_i y_j + \sum_{i=1}^{d} \sqrt{2c} x_i \sqrt{2c} y_i + c^2 = 2 \sum_{i=1}^{d} \sum_{j=1}^{d} x_i x_j y_i y_j + 2c \sum_{i=1}^{d} x_i y_i + c^2
+   \]</div>
+<p>Simplifying:
+$<span class="math notranslate nohighlight">\(
+   2 (x^T y)^2 + 2c (x^T y) + c^2 = (x^T y + c)^2
+   \)</span>$</p>
+<p>Thus, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+k(x, y) = (x^T y + c)^2 = \phi(x)^T \phi(y)
+\]</div>
+<p><em>Example 2</em>: <strong>RBF kernel</strong></p>
+<p>The Gaussian (RBF) kernel is:</p>
+<div class="math notranslate nohighlight">
+\[ 
+k(x, y) = \exp\left(-\frac{\|x - y\|^2}{2\sigma^2}\right) 
+\]</div>
+<p>First, let’s rewrite the squared Euclidean distance:</p>
+<div class="math notranslate nohighlight">
+\[ 
+\|x - y\|^2 = x^T x + y^T y - 2 x^T y 
+\]</div>
+<p>So the kernel can be written as:</p>
+<div class="math notranslate nohighlight">
+\[ 
+k(x, y) = \exp\left(-\frac{x^T x + y^T y - 2 x^T y}{2\sigma^2}\right) 
+\]</div>
+<p>This can be further split into:</p>
+<div class="math notranslate nohighlight">
+\[ 
+k(x, y) = \exp\left(-\frac{x^T x}{2\sigma^2}\right) \exp\left(-\frac{y^T y}{2\sigma^2}\right) \exp\left(\frac{x^T y}{\sigma^2}\right)
+\]</div>
+</section>
+<section id="homework-1">
+<h2><span style="color:blue"><strong>Homework 1</strong></span><a class="headerlink" href="#homework-1" title="Link to this heading">#</a></h2>
+<p>Decompose the term <span class="math notranslate nohighlight">\( \exp\left(\frac{x^T y}{\sigma^2}\right) \)</span> and find <span class="math notranslate nohighlight">\( \phi(x) \)</span></p>
+</section>
+<section id="methods-in-phi-space">
+<h2>Methods in <span class="math notranslate nohighlight">\( \phi \)</span> space<a class="headerlink" href="#methods-in-phi-space" title="Link to this heading">#</a></h2>
+<section id="distance-in-phi-x-space">
+<h3>Distance in <span class="math notranslate nohighlight">\( \phi(x) \)</span> space<a class="headerlink" href="#distance-in-phi-x-space" title="Link to this heading">#</a></h3>
+<p>To compute <span class="math notranslate nohighlight">\(\|\phi(x) - \phi(y)\|^2\)</span> in the feature space and relate it to the Gaussian (RBF) kernel <span class="math notranslate nohighlight">\(k(x, y)\)</span>, we need to follow these steps:</p>
+<p><strong>Define the Kernel Function</strong>:
+The Gaussian (RBF) kernel is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+   k(x, y) = \exp\left(-\frac{\|x - y\|^2}{2\sigma^2}\right)
+   \]</div>
+<p><strong>Feature Mapping</strong>:
+The Gaussian kernel can be thought of as corresponding to an infinite-dimensional feature space. In this space, the kernel function <span class="math notranslate nohighlight">\(k(x, y)\)</span> can be expressed as the inner product of feature vectors <span class="math notranslate nohighlight">\(\phi(x)\)</span> and <span class="math notranslate nohighlight">\(\phi(y)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   k(x, y) = \phi(x)^T \phi(y)
+   \]</div>
+<p><strong>Compute <span class="math notranslate nohighlight">\(\|\phi(x) - \phi(y)\|^2\)</span></strong>:
+To find <span class="math notranslate nohighlight">\(\|\phi(x) - \phi(y)\|^2\)</span>, we use the fact that:
+$<span class="math notranslate nohighlight">\(
+   \|\phi(x) - \phi(y)\|^2 = \|\phi(x)\|^2 + \|\phi(y)\|^2 - 2 \phi(x)^T \phi(y)
+   \)</span>$</p>
+<p>We need to compute <span class="math notranslate nohighlight">\(\|\phi(x)\|^2\)</span> and <span class="math notranslate nohighlight">\(\|\phi(y)\|^2\)</span> in the feature space.</p>
+<p><strong>Norm Squared of <span class="math notranslate nohighlight">\(\phi(x)\)</span> and <span class="math notranslate nohighlight">\(\phi(y)\)</span></strong>:
+Let’s compute <span class="math notranslate nohighlight">\(\|\phi(x)\|^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \|\phi(x)\|^2 = \phi(x)^T \phi(x)
+   \]</div>
+<p>Similarly,</p>
+<div class="math notranslate nohighlight">
+\[
+   \|\phi(y)\|^2 = \phi(y)^T \phi(y)
+   \]</div>
+<p>For the Gaussian kernel:</p>
+<div class="math notranslate nohighlight">
+\[
+   k(x, x) = \exp\left(-\frac{\|x - x\|^2}{2\sigma^2}\right) = \exp(0) = 1
+   \]</div>
+<p>Therefore,</p>
+<div class="math notranslate nohighlight">
+\[
+   \|\phi(x)\|^2 = \phi(x)^T \phi(x) = k(x, x) = 1
+   \]</div>
+<p>Similarly,</p>
+<div class="math notranslate nohighlight">
+\[
+   \|\phi(y)\|^2 = \phi(y)^T \phi(y) = k(y, y) = 1
+   \]</div>
+<p><strong>Compute <span class="math notranslate nohighlight">\(\|\phi(x) - \phi(y)\|^2\)</span></strong>:
+Now, using the computed norms and the kernel function:</p>
+<div class="math notranslate nohighlight">
+\[
+   \|\phi(x) - \phi(y)\|^2 = \|\phi(x)\|^2 + \|\phi(y)\|^2 - 2 \phi(x)^T \phi(y)
+   \]</div>
+<p>Substituting the values:</p>
+<div class="math notranslate nohighlight">
+\[
+   \|\phi(x) - \phi(y)\|^2 = 1 + 1 - 2 \phi(x)^T \phi(y)
+   \]</div>
+<div class="math notranslate nohighlight">
+\[
+   \|\phi(x) - \phi(y)\|^2 = 2 - 2 \phi(x)^T \phi(y)
+   \]</div>
+<p>Since <span class="math notranslate nohighlight">\(\phi(x)^T \phi(y) = k(x, y)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \|\phi(x) - \phi(y)\|^2 = 2 - 2 k(x, y)
+   \]</div>
+</section>
+</section>
+<section id="fuzzy-c-means-clustering-in-phi-space">
+<h2>Fuzzy C-Means clustering in <span class="math notranslate nohighlight">\( \phi \)</span> space<a class="headerlink" href="#fuzzy-c-means-clustering-in-phi-space" title="Link to this heading">#</a></h2>
+<p><strong>Kernel Fuzzy C-Means with Kernelization of the Metric</strong>
+The Kernel Fuzzy C-Means (KFCM) algorithm is an extension of the standard Fuzzy C-Means (FCM) algorithm that uses kernel methods to handle non-linearity by implicitly mapping data into a high-dimensional feature space.</p>
+<p><em><strong>Objective Function</strong></em></p>
+<div class="math notranslate nohighlight">
+\[
+J_{KFCM} = \sum_{i=1}^{c} \sum_{k=1}^{n} (u_{ik})^m \|\psi(x_k) - \psi(g_i)\|^2
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( u_{ik} \)</span> is the membership degree of object <span class="math notranslate nohighlight">\( x_k \)</span> in cluster <span class="math notranslate nohighlight">\( i \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \psi(x_k) \)</span> and <span class="math notranslate nohighlight">\( \psi(g_i) \)</span> are the feature space representations of data point <span class="math notranslate nohighlight">\( x_k \)</span> and cluster center <span class="math notranslate nohighlight">\( g_i \)</span>, respectively.</p></li>
+<li><p><span class="math notranslate nohighlight">\( m \)</span> is the fuzziness parameter.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \|\psi(x_k) - \psi(g_i)\|^2 \)</span> represents the squared Euclidean distance between the feature space representations of <span class="math notranslate nohighlight">\( x_k \)</span> and <span class="math notranslate nohighlight">\( g_i \)</span>.</p></li>
+</ul>
+<p>Using the kernel trick, this distance can be expressed in terms of the kernel function:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\psi(x_k) - \psi(g_i)\|^2 = K(x_k, x_k) + K(g_i, g_i) - 2K(x_k, g_i)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( K(\cdot, \cdot) \)</span> is the kernel function. For the Gaussian kernel, this becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+K(x_k, x_k) = 1 \text{ and } K(g_i, g_i) = 1
+\]</div>
+<p>Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+\|\psi(x_k) - \psi(g_i)\|^2 = 2 - 2K(x_k, g_i)
+\]</div>
+<p>Substitute this into the objective function:</p>
+<div class="math notranslate nohighlight">
+\[
+J_{KFCM} = \sum_{i=1}^{c} \sum_{k=1}^{n} (u_{ik})^m (2 - 2K(x_k, g_i))
+\]</div>
+<p>which simplifies to:</p>
+<div class="math notranslate nohighlight">
+\[
+J_{KFCM} = 2 \sum_{i=1}^{c} \sum_{k=1}^{n} (u_{ik})^m - 2 \sum_{i=1}^{c} \sum_{k=1}^{n} (u_{ik})^m K(x_k, g_i)
+\]</div>
+<p><em><strong>Gaussian Kernel</strong></em></p>
+<p>The Gaussian kernel is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+K(x_l, x_k) = \exp \left( -\frac{\|x_l - x_k\|^2}{2\sigma^2} \right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \sigma^2 \)</span> is the width parameter of the Gaussian kernel. For the Gaussian kernel:</p>
+<div class="math notranslate nohighlight">
+\[
+\| \psi(x_k) - \psi(g_i) \|^2 = 2 - 2K(x_k, g_i)
+\]</div>
+<p><em><strong>Update Rules for Prototypes and Membership Degrees</strong></em></p>
+<p><strong>Update Prototypes:</strong></p>
+<p>To minimize <span class="math notranslate nohighlight">\( J_{KFCM} \)</span> with respect to the cluster prototypes <span class="math notranslate nohighlight">\( g_i \)</span>, we need to find the partial derivatives and set them to zero. The update rule for the prototypes <span class="math notranslate nohighlight">\( g_i \)</span> is derived as:</p>
+<div class="math notranslate nohighlight">
+\[
+g_i = \frac{\sum_{k=1}^{n} (u_{ik})^m K(x_k, g_i) x_k}{\sum_{k=1}^{n} (u_{ik})^m K(x_k, g_i)}
+\]</div>
+<p><strong>Update Membership Degrees:</strong></p>
+<p>To update the membership degrees <span class="math notranslate nohighlight">\( u_{ik} \)</span>, we use the method of Lagrange multipliers with the constraints <span class="math notranslate nohighlight">\( \sum_{i=1}^{c} u_{ik} = 1 \)</span> and <span class="math notranslate nohighlight">\( u_{ik} \geq 0 \)</span>. The update rule for the membership degrees <span class="math notranslate nohighlight">\( u_{ik} \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+u_{ik} = \frac{1}{\sum_{h=1}^{c} \left( \frac{1 - K(x_k, g_i)}{1 - K(x_k, g_h)} \right)^{\frac{2}{m-1}}}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( K(x_k, g_i) \)</span> and <span class="math notranslate nohighlight">\( K(x_k, g_h) \)</span> are kernel evaluations between <span class="math notranslate nohighlight">\( x_k \)</span> and the cluster centers.</p>
+<p><span style="color:blue"><strong>Algorithm Steps</strong></span></p>
+<p>. <strong>Initialize</strong> the membership matrix <span class="math notranslate nohighlight">\( U \)</span> and the prototypes <span class="math notranslate nohighlight">\( g_i \)</span> randomly.</p>
+<p>. <strong>Repeat</strong> until convergence:</p>
+<ul>
+<li><p><strong>Update the prototypes</strong> <span class="math notranslate nohighlight">\( g_i \)</span> using:</p>
+<div class="math notranslate nohighlight">
+\[
+     g_i = \frac{\sum_{k=1}^{n} (u_{ik})^m K(x_k, g_i) x_k}{\sum_{k=1}^{n} (u_{ik})^m K(x_k, g_i)}
+     \]</div>
+</li>
+<li><p><strong>Update the membership degrees</strong> <span class="math notranslate nohighlight">\( u_{ik} \)</span> using:</p>
+<div class="math notranslate nohighlight">
+\[
+     u_{ik} = \frac{1}{\sum_{h=1}^{c} \left( \frac{1 - K(x_k, g_i)}{1 - K(x_k, g_h)} \right)^{\frac{2}{m-1}}}
+     \]</div>
+</li>
+</ul>
+<p><strong>Check for convergence</strong></p>
+<div class="math notranslate nohighlight">
+\[
+     \text{If } \left| J_{KFCM}^{(k)} - J_{KFCM}^{(k-1)} \right| \leq \text{threshold}, \text{ then stop}
+  \]</div>
+</section>
+<section id="regression-in-phi-space">
+<h2>Regression in <span class="math notranslate nohighlight">\( \phi \)</span> space<a class="headerlink" href="#regression-in-phi-space" title="Link to this heading">#</a></h2>
+<p><em><strong>Objective Function in Feature Space</strong></em></p>
+<p>We start with the objective function of Ordinary Least Squares (OLS) regression in the feature space <span class="math notranslate nohighlight">\(\phi(x)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ J(w) = \sum_{i=1}^{n} (y_i - f(x_i))^2 = \sum_{i=1}^{n} (y_i - w^T \phi(x_i))^2 \]</div>
+<p>Expanding the squared term:</p>
+<div class="math notranslate nohighlight">
+\[ J(w) = \sum_{i=1}^{n} (y_i - w^T \phi(x_i))(y_i - w^T \phi(x_i)) \]</div>
+<div class="math notranslate nohighlight">
+\[ J(w) = \sum_{i=1}^{n} \left[ y_i^2 - 2y_i (w^T \phi(x_i)) + (w^T \phi(x_i))^2 \right] \]</div>
+<p><strong>Taking the Gradient</strong></p>
+<p>To find the optimal <span class="math notranslate nohighlight">\(w\)</span>, we take the gradient of <span class="math notranslate nohighlight">\(J(w)\)</span> with respect to <span class="math notranslate nohighlight">\(w\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial J(w)}{\partial w} = \sum_{i=1}^{n} \left[ -2 y_i \phi(x_i) + 2 (w^T \phi(x_i)) \phi(x_i) \right] \]</div>
+<div class="math notranslate nohighlight">
+\[ \frac{\partial J(w)}{\partial w} = -2 \sum_{i=1}^{n} y_i \phi(x_i) + 2 \sum_{i=1}^{n} \phi(x_i) (\phi(x_i)^T w) \]</div>
+<p><strong>Setting the Gradient to Zero</strong></p>
+<p>To find the optimal <span class="math notranslate nohighlight">\(w\)</span>, set the gradient to zero:</p>
+<div class="math notranslate nohighlight">
+\[
+-2 \sum_{i=1}^{n} y_i \phi(x_i) + 2 \sum_{i=1}^{n} \phi(x_i) (\phi(x_i)^T w) = 0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{n} y_i \phi(x_i) = \sum_{i=1}^{n} \phi(x_i) (\phi(x_i)^T w)
+\]</div>
+<p><strong>Representing <span class="math notranslate nohighlight">\(w\)</span> as a Linear Combination of <span class="math notranslate nohighlight">\(\phi(x_i)\)</span></strong></p>
+<p>We assume <span class="math notranslate nohighlight">\(w\)</span> can be expressed as a linear combination of the feature vectors <span class="math notranslate nohighlight">\(\phi(x_i)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+w = \sum_{i=1}^{n} \alpha_i \phi(x_i)
+\]</div>
+<p>Substitute this into the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{n} y_i \phi(x_i) = \sum_{i=1}^{n} \phi(x_i) \left( \phi(x_i)^T \sum_{j=1}^{n} \alpha_j \phi(x_j) \right)
+\]</div>
+<p><strong>Using the Kernel Trick</strong></p>
+<p>Notice that <span class="math notranslate nohighlight">\(\phi(x_i)^T \phi(x_j)\)</span> is the kernel function <span class="math notranslate nohighlight">\(k(x_i, x_j)\)</span>. Therefore,</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{n} y_i \phi(x_i) = \sum_{i=1}^{n} \sum_{j=1}^{n} \alpha_j \phi(x_i) k(x_i, x_j)
+\]</div>
+<p>This simplifies to:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{n} y_i \phi(x_i) = \sum_{i=1}^{n} \phi(x_i) \left( \sum_{j=1}^{n} \alpha_j k(x_i, x_j) \right)
+\]</div>
+<p><em><strong>Solving for <span class="math notranslate nohighlight">\(\alpha\)</span></strong></em></p>
+<p><span class="math notranslate nohighlight">\( y \)</span> is the column vector of labels <span class="math notranslate nohighlight">\( [y_1, y_2, \ldots, y_n]^T \)</span>.</p>
+<p>Similarly, let <span class="math notranslate nohighlight">\( \alpha \)</span> be the column vector of coefficients <span class="math notranslate nohighlight">\( [\alpha_1, \alpha_2, \ldots, \alpha_n]^T \)</span>
+After inner product into <span class="math notranslate nohighlight">\(\phi(x_k)\)</span>, We reached the equation:</p>
+<div class="math notranslate nohighlight">
+\[ \sum_{i=1}^{n} y_i k(x_k, x_i) = \sum_{i=1}^{n} \sum_{j=1}^{n} \alpha_j k(x_k, x_i) k(x_i, x_j) \]</div>
+<p>We simplify this to:</p>
+<div class="math notranslate nohighlight">
+\[ \sum_{i=1}^{n} y_i k(x_k, x_i) = \sum_{j=1}^{n} \alpha_j \sum_{i=1}^{n} k(x_k, x_i) k(x_i, x_j) \]</div>
+<p>For all <span class="math notranslate nohighlight">\( x_k \)</span> where <span class="math notranslate nohighlight">\( k = 1, \ldots, n \)</span>, we have <span class="math notranslate nohighlight">\( n \)</span> system equations. After solving them, we obtain <span class="math notranslate nohighlight">\( \alpha \)</span>.”</p>
+<p><strong>Making Predictions</strong></p>
+<p>Using the obtained <span class="math notranslate nohighlight">\(\alpha\)</span>, the regression function <span class="math notranslate nohighlight">\(f(x)\)</span> for a new input <span class="math notranslate nohighlight">\(x\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) = w^T \phi(x) = \left( \sum_{i=1}^{n} \alpha_i \phi(x_i) \right)^T \phi(x)
+\]</div>
+<p>By the kernel trick, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+f(x) = \sum_{i=1}^{n} \alpha_i k(x_i, x)
+\]</div>
+</section>
+<section id="the-weight-vector-norm">
+<h2>The weight vector norm<a class="headerlink" href="#the-weight-vector-norm" title="Link to this heading">#</a></h2>
+<p><em><strong>Formulation</strong></em></p>
+<p>You appear to be discussing the representation of a weight vector <span class="math notranslate nohighlight">\( w \)</span> in terms of kernel functions and dual coefficients. Here’s how these expressions are generally interpreted in kernel methods:</p>
+<p><strong>Weight Vector Representation</strong></p>
+<p>In kernel methods, the weight vector <span class="math notranslate nohighlight">\( w \)</span> in the feature space can be expressed as a linear combination of the transformed data points. If <span class="math notranslate nohighlight">\( \phi(x_i) \)</span> denotes the feature space transformation of <span class="math notranslate nohighlight">\( x_i \)</span>, then:</p>
+<div class="math notranslate nohighlight">
+\[
+w = \sum_{i=1}^{n} \alpha_i \phi(x_i)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \alpha_i \)</span> are the coefficients in the dual space, and <span class="math notranslate nohighlight">\( n \)</span> is the number of training samples.</p>
+<p><strong>Inner Product in Feature Space</strong></p>
+<p>The inner product between two weight vectors <span class="math notranslate nohighlight">\( w \)</span> and <span class="math notranslate nohighlight">\( w \)</span> can be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[
+w^T w = \left( \sum_{i=1}^{n} \alpha_i \phi(x_i) \right)^T \left( \sum_{j=1}^{n} \alpha_j \phi(x_j) \right)
+\]</div>
+<p>Expanding this expression:</p>
+<div class="math notranslate nohighlight">
+\[
+w^T w = \sum_{i=1}^{n} \sum_{j=1}^{n} \alpha_i \alpha_j \phi(x_i)^T \phi(x_j)
+\]</div>
+<p>In kernel methods, the inner product <span class="math notranslate nohighlight">\( \phi(x_i)^T \phi(x_j) \)</span> in the feature space is replaced by the kernel function <span class="math notranslate nohighlight">\( K(x_i, x_j) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\phi(x_i)^T \phi(x_j) = K(x_i, x_j)
+\]</div>
+<p>Thus, the weight vector’s inner product can be written as:</p>
+<div class="math notranslate nohighlight">
+\[
+w^T w = \sum_{i=1}^{n} \sum_{j=1}^{n} \alpha_i \alpha_j K(x_i, x_j)
+\]</div>
+<p><strong>Kernel Matrix Representation</strong></p>
+<p>The kernel matrix <span class="math notranslate nohighlight">\( K \)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+K_{ij} = K(x_i, x_j)
+\]</div>
+<p>Therefore, the inner product of weight vectors <span class="math notranslate nohighlight">\( w \)</span> and <span class="math notranslate nohighlight">\( w \)</span> can also be expressed as:</p>
+<div class="math notranslate nohighlight">
+\[
+w^T w = \alpha^T K \alpha
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \alpha \)</span> is the vector of coefficients <span class="math notranslate nohighlight">\( \alpha_i \)</span>, and <span class="math notranslate nohighlight">\( K \)</span> is the kernel matrix.</p>
+</section>
+<section id="normalizing">
+<h2>Normalizing<a class="headerlink" href="#normalizing" title="Link to this heading">#</a></h2>
+<p>The normalization transformation you mentioned requires scaling the kernel function to ensure it is normalized with respect to the data points. This adjustment can be particularly useful in various machine learning algorithms that utilize kernel methods. Let’s analyze the normalization process and derive the normalized kernel function step by step.</p>
+<p><em><strong>Normalization Transformation</strong></em></p>
+<p>Given the transformation:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\phi}(x) = \frac{\phi(x)}{\|\phi(x)\|}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \phi(x) \)</span> is the feature space representation of <span class="math notranslate nohighlight">\( x \)</span>, and <span class="math notranslate nohighlight">\( \|\phi(x)\| \)</span> denotes the norm of <span class="math notranslate nohighlight">\( \phi(x) \)</span> in the feature space.</p>
+<p>For two data points <span class="math notranslate nohighlight">\( x \)</span> and <span class="math notranslate nohighlight">\( z \)</span>, the normalized kernel function <span class="math notranslate nohighlight">\( \hat{\kappa}(x, z) \)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\kappa}(x, z) = \langle \hat{\phi}(x), \hat{\phi}(z) \rangle
+\]</div>
+<p>Substitute <span class="math notranslate nohighlight">\( \hat{\phi}(x) \)</span> and <span class="math notranslate nohighlight">\( \hat{\phi}(z) \)</span> into the inner product:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\kappa}(x, z) = \left\langle \frac{\phi(x)}{\|\phi(x)\|}, \frac{\phi(z)}{\|\phi(z)\|} \right\rangle
+\]</div>
+<p><strong>Calculating the Normalized Kernel Function</strong></p>
+<p><strong>Compute the Inner Product</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\kappa}(x, z) = \frac{\langle \phi(x), \phi(z) \rangle}{\|\phi(x)\| \|\phi(z)\|}
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( \langle \phi(x), \phi(z) \rangle \)</span> is the dot product in the feature space, which is equal to the kernel function <span class="math notranslate nohighlight">\( \kappa(x, z) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\langle \phi(x), \phi(z) \rangle = \kappa(x, z)
+\]</div>
+<p><strong>Compute Norms</strong>:</p>
+<p>The norm of <span class="math notranslate nohighlight">\( \phi(x) \)</span> in the feature space is:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi(x)\| = \sqrt{\langle \phi(x), \phi(x) \rangle} = \sqrt{\kappa(x, x)}
+\]</div>
+<p>Similarly:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi(z)\| = \sqrt{\langle \phi(z), \phi(z) \rangle} = \sqrt{\kappa(z, z)}
+\]</div>
+<p><strong>Substitute Norms</strong>:</p>
+<p>Substitute these norms into the normalized kernel function:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\kappa}(x, z) = \frac{\kappa(x, z)}{\sqrt{\kappa(x, x)} \sqrt{\kappa(z, z)}}
+\]</div>
+<p>This can also be written as:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{\kappa}(x, z) = \frac{\kappa(x, z)}{\sqrt{\kappa(x, x) \kappa(z, z)}}
+\]</div>
+</section>
+<section id="norm-and-distance-from-the-centre-of-mass">
+<h2>Norm and distance from the centre of mass<a class="headerlink" href="#norm-and-distance-from-the-centre-of-mass" title="Link to this heading">#</a></h2>
+<p>The concept you’re discussing involves calculating and interpreting the center of mass (or centroid) in the feature space induced by a kernel function, and its properties. Here’s a structured explanation and derivation of the key points:</p>
+<section id="center-of-mass-in-feature-space">
+<h3>Center of Mass in Feature Space<a class="headerlink" href="#center-of-mass-in-feature-space" title="Link to this heading">#</a></h3>
+<p>Given a set of data points <span class="math notranslate nohighlight">\( \{ x_i \}_{i=1}^n \)</span> mapped to the feature space <span class="math notranslate nohighlight">\( \phi(x_i) \)</span>, the center of mass (or centroid) of the set <span class="math notranslate nohighlight">\( \{\phi(x_i)\} \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\phi_S = \frac{1}{n} \sum_{i=1}^n \phi(x_i)
+\]</div>
+<p><em><strong>Norm of the Center of Mass</strong></em></p>
+<p>To compute the norm squared of <span class="math notranslate nohighlight">\( \phi_S \)</span>, we use:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi_S\|^2 = \langle \phi_S, \phi_S \rangle
+\]</div>
+<p>Substitute <span class="math notranslate nohighlight">\( \phi_S \)</span> into this equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi_S\|^2 = \left\langle \frac{1}{n} \sum_{i=1}^n \phi(x_i), \frac{1}{n} \sum_{j=1}^n \phi(x_j) \right\rangle
+\]</div>
+<p>Expand the inner product:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi_S\|^2 = \frac{1}{n^2} \sum_{i=1}^n \sum_{j=1}^n \langle \phi(x_i), \phi(x_j) \rangle
+\]</div>
+<p>Using the kernel function <span class="math notranslate nohighlight">\( \kappa(x_i, x_j) = \langle \phi(x_i), \phi(x_j) \rangle \)</span>, we get:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi_S\|^2 = \frac{1}{n^2} \sum_{i=1}^n \sum_{j=1}^n \kappa(x_i, x_j)
+\]</div>
+<p>The term <span class="math notranslate nohighlight">\( \frac{1}{n^2} \sum_{i=1}^n \sum_{j=1}^n \kappa(x_i, x_j) \)</span> is the average of all entries in the kernel matrix <span class="math notranslate nohighlight">\( K \)</span>. Hence:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi_S\|^2 = \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \kappa(x_i, x_j)
+\]</div>
+<p><strong>Distance from a Point to the Center of Mass</strong></p>
+<p>For a data point <span class="math notranslate nohighlight">\( x \)</span>, the squared distance from <span class="math notranslate nohighlight">\( \phi(x) \)</span> to <span class="math notranslate nohighlight">\( \phi_S \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi(x) - \phi_S\|^2
+\]</div>
+<p>Using the identity:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi(x) - \phi_S\|^2 = \|\phi(x)\|^2 + \|\phi_S\|^2 - 2 \langle \phi(x), \phi_S \rangle
+\]</div>
+<p>Substitute <span class="math notranslate nohighlight">\( \|\phi(x)\|^2 = \kappa(x, x) \)</span> and <span class="math notranslate nohighlight">\( \langle \phi(x), \phi_S \rangle = \frac{1}{n} \sum_{i=1}^n \kappa(x, x_i) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\|\phi(x) - \phi_S\|^2 = \kappa(x, x) + \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \kappa(x_i, x_j) - \frac{2}{n} \sum_{i=1}^n \kappa(x, x_i)
+\]</div>
+</section>
+<section id="expected-squared-distance-from-center-of-mass">
+<h3>Expected Squared Distance from Center of Mass<a class="headerlink" href="#expected-squared-distance-from-center-of-mass" title="Link to this heading">#</a></h3>
+<p>For a set of points <span class="math notranslate nohighlight">\( \{x_s\}_{s=1}^s \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{s} \sum_{s=1}^s \|\phi(x_s) - \phi_S\|^2
+\]</div>
+<p>Expanding:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{s} \sum_{s=1}^s \|\phi(x_s) - \phi_S\|^2 = \frac{1}{s} \sum_{s=1}^s \left( \kappa(x_s, x_s) + \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \kappa(x_i, x_j) - \frac{2}{n} \sum_{i=1}^n \kappa(x_s, x_i) \right)
+\]</div>
+<p>Rearrange:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{s} \sum_{s=1}^s \|\phi(x_s) - \phi_S\|^2 = \frac{1}{s} \sum_{s=1}^s \kappa(x_s, x_s) - \frac{1}{2} \sum_{i=1}^n \sum_{j=1}^n \kappa(x_i, x_j)
+\]</div>
+</section>
+</section>
+<section id="support-vector-regression">
+<h2>Support Vector Regression<a class="headerlink" href="#support-vector-regression" title="Link to this heading">#</a></h2>
+<p>Given the initial objective function for regression with ε-insensitive loss:</p>
+<div class="math notranslate nohighlight">
+\[
+J(w) = \frac{1}{2n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{d} w_j^2
+\]</div>
+<p>and substituting the square loss with the ε-insensitive loss, the objective function becomes:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} \max(0, |e_i| - \epsilon)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( e_i = y_i - \hat{y}_i = y_i - (w^T x_i + b) \)</span>.</p>
+<p><strong>Introducing Slack Variables</strong></p>
+<p>We introduce slack variables <span class="math notranslate nohighlight">\( \xi_i \)</span> to represent the amount by which each error <span class="math notranslate nohighlight">\( |e_i| \)</span> exceeds <span class="math notranslate nohighlight">\( \epsilon \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\xi_i = \max(0, |e_i| - \epsilon)
+\]</div>
+<p>Thus, the objective function can be rewritten as:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} \xi_i
+\]</div>
+<p><strong>Constraints</strong></p>
+<p>The slack variables <span class="math notranslate nohighlight">\( \xi_i \)</span> must satisfy the following constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T x_i + b) \leq \epsilon + \xi_i \\
+(w^T x_i + b) - y_i \leq \epsilon + \xi_i \\
+\xi_i \geq 0
+\end{cases}
+\end{split}\]</div>
+<p>To handle this constraint without using the absolute value, we can split it into two separate constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T x_i + b) \leq \epsilon + \xi_i \\
+(w^T x_i + b) - y_i \leq \epsilon + \xi_i
+\end{cases}
+\end{split}\]</div>
+<p>Additionally, we need to ensure that <span class="math notranslate nohighlight">\( \xi_i \geq 0 \)</span>.</p>
+<p><em><strong>Primal Problem</strong></em></p>
+<p>Combining these constraints with the objective function, we get the primal problem:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} \xi_i
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T x_i + b) \leq \epsilon + \xi_i \\
+(w^T x_i + b) - y_i \leq \epsilon + \xi_i \\
+\xi_i \geq 0
+\end{cases}
+\end{split}\]</div>
+<p><em>Using Two Slack Variables</em></p>
+<p>To handle positive and negative deviations separately, we introduce two slack variables <span class="math notranslate nohighlight">\( \xi_i \)</span> and <span class="math notranslate nohighlight">\( \xi_i^* \)</span>. The formulation is as follows:</p>
+<p><strong><em>Objective Function</em></strong></p>
+<div class="math notranslate nohighlight">
+\[
+\min_{w, b, \xi, \xi^*} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} (\xi_i + \xi_i^*)
+\]</div>
+<p><strong>Constraints</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T x_i + b) \leq \epsilon + \xi_i \\
+(w^T x_i + b) - y_i \leq \epsilon + \xi_i^* \\
+\xi_i, \xi_i^* \geq 0
+\end{cases}
+\end{split}\]</div>
+<p><strong>Final Formulation</strong></p>
+<p>Thus, the final formulation of the Support Vector Regression (SVR) with ε-insensitive loss using two slack variables is:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{w, b, \xi, \xi^*} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} (\xi_i + \xi_i^*)
+\]</div>
+<p>subject to the constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T x_i + b) \leq \epsilon + \xi_i \\
+(w^T x_i + b) - y_i \leq \epsilon + \xi_i^* \\
+\xi_i, \xi_i^* \geq 0
+\end{cases}
+\end{split}\]</div>
+<section id="svr-in-feature-space-with-kernel-trick">
+<h3>SVR in Feature Space with Kernel Trick<a class="headerlink" href="#svr-in-feature-space-with-kernel-trick" title="Link to this heading">#</a></h3>
+<p>To implement SVR in the feature space using the kernel trick, we replace the inner product <span class="math notranslate nohighlight">\( w^T x \)</span> with a kernel function <span class="math notranslate nohighlight">\( \kappa(x, x') \)</span>:</p>
+<section id="primal-formulation">
+<h4>Primal Formulation<a class="headerlink" href="#primal-formulation" title="Link to this heading">#</a></h4>
+<p>The primal formulation in the feature space <span class="math notranslate nohighlight">\( \phi \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\mathbf{w}, b, \xi, \xi^*} \frac{1}{2} \|\mathbf{w}\|^2 + C \sum_{i=1}^{n} (\xi_i + \xi_i^*)
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (\mathbf{w}^T \phi(x_i) + b) \leq \epsilon + \xi_i \\
+(\mathbf{w}^T \phi(x_i) + b) - y_i \leq \epsilon + \xi_i^* \\
+\xi_i, \xi_i^* \geq 0
+\end{cases}
+\end{split}\]</div>
+</section>
+<section id="dual-formulation">
+<h4>Dual Formulation<a class="headerlink" href="#dual-formulation" title="Link to this heading">#</a></h4>
+<p>The dual formulation of the above problem using Lagrange multipliers <span class="math notranslate nohighlight">\( \alpha_i \)</span> and <span class="math notranslate nohighlight">\( \alpha_i^* \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;\max_{\alpha, \alpha^*} \sum_{i=1}^{n} ( \alpha_i - \alpha_i^* ) y_i - \epsilon \sum_{i=1}^{n} ( \alpha_i + \alpha_i^* ) \\
+&amp;- \frac{1}{2} \sum_{i=1}^{n} \sum_{j=1}^{n} ( \alpha_i - \alpha_i^* )( \alpha_j - \alpha_j^* ) \kappa(x_i, x_j)
+\end{aligned}
+\end{split}\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+\sum_{i=1}^{n} ( \alpha_i - \alpha_i^* ) = 0 \\
+0 \leq \alpha_i, \alpha_i^* \leq C
+\end{cases}
+\end{split}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( \kappa(x_i, x_j) \)</span> is the kernel function that computes the dot product in the high-dimensional feature space.</p>
+</section>
+<section id="final-prediction">
+<h4>Final Prediction<a class="headerlink" href="#final-prediction" title="Link to this heading">#</a></h4>
+<p>The final prediction for a test point <span class="math notranslate nohighlight">\( x \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = \sum_{i=1}^{n} ( \alpha_i - \alpha_i^* ) \kappa(x_i, x) + b
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \alpha_i \)</span> and <span class="math notranslate nohighlight">\( \alpha_i^* \)</span> are the solutions to the dual problem and <span class="math notranslate nohighlight">\( b \)</span> is the bias term.</p>
+<p>This SVR formulation in the feature space allows us to leverage the kernel trick to handle nonlinear regression tasks efficiently.</p>
+</section>
+</section>
+<section id="step-by-step-derivation-of-support-vector-regression-svr-in-kernel-space">
+<h3>Step-by-Step Derivation of Support Vector Regression (SVR) in Kernel Space<a class="headerlink" href="#step-by-step-derivation-of-support-vector-regression-svr-in-kernel-space" title="Link to this heading">#</a></h3>
+<section id="objective-and-constraints-in-the-primal-form">
+<h4>Objective and Constraints in the Primal Form<a class="headerlink" href="#objective-and-constraints-in-the-primal-form" title="Link to this heading">#</a></h4>
+<p>The primal problem for SVR with <span class="math notranslate nohighlight">\(\epsilon\)</span>-insensitive loss can be formulated as:</p>
+<p>Objective function:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{w, b, \xi, \xi^*} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} (\xi_i + \xi_i^*)
+\]</div>
+<p>Subject to constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T \phi(x_i) + b) \leq \epsilon + \xi_i \\
+(w^T \phi(x_i) + b) - y_i \leq \epsilon + \xi_i^* \\
+\xi_i, \xi_i^* \geq 0
+\end{cases}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(w\)</span> is the weight vector in the feature space, <span class="math notranslate nohighlight">\(b\)</span> is the bias term, <span class="math notranslate nohighlight">\(\xi_i\)</span> and <span class="math notranslate nohighlight">\(\xi_i^*\)</span> are slack variables for positive and negative deviations, respectively, and <span class="math notranslate nohighlight">\(C\)</span> is a regularization parameter.</p>
+</section>
+<section id="lagrangian-and-dual-problem">
+<h4>Lagrangian and Dual Problem<a class="headerlink" href="#lagrangian-and-dual-problem" title="Link to this heading">#</a></h4>
+<p>To solve the primal problem, we first construct the Lagrangian function. Introduce Lagrange multipliers <span class="math notranslate nohighlight">\(\alpha_i, \alpha_i^*, \eta_i, \eta_i^* \geq 0\)</span> for the constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+L(w, b, \xi, \xi^*, \alpha, \alpha^*, \eta, \eta^*) &amp;= \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} (\xi_i + \xi_i^*) \\
+&amp;\quad - \sum_{i=1}^{n} \alpha_i [\epsilon + \xi_i - y_i + (w^T \phi(x_i) + b)] \\
+&amp;\quad - \sum_{i=1}^{n} \alpha_i^* [\epsilon + \xi_i^* + y_i - (w^T \phi(x_i) + b)] \\
+&amp;\quad - \sum_{i=1}^{n} \eta_i \xi_i - \sum_{i=1}^{n} \eta_i^* \xi_i^*
+\end{aligned}
+\end{split}\]</div>
+</section>
+<section id="stationarity-conditions">
+<h4>Stationarity Conditions<a class="headerlink" href="#stationarity-conditions" title="Link to this heading">#</a></h4>
+<p>(stationary points are those points where the partial derivatives of Λ are zero)</p>
+<p>To find the dual problem, we need to set the partial derivatives of the Lagrangian with respect to the primal variables to zero.</p>
+<p><strong>With respect to <span class="math notranslate nohighlight">\(w\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial L}{\partial w} = w - \sum_{i=1}^{n} (\alpha_i - \alpha_i^*) \phi(x_i) = 0 \implies w = \sum_{i=1}^{n} (\alpha_i - \alpha_i^*) \phi(x_i)
+\]</div>
+<p><strong>With respect to <span class="math notranslate nohighlight">\(b\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial L}{\partial b} = - \sum_{i=1}^{n} (\alpha_i - \alpha_i^*) = 0 \implies \sum_{i=1}^{n} (\alpha_i - \alpha_i^*) = 0
+\]</div>
+<p><strong>With respect to <span class="math notranslate nohighlight">\(\xi_i\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial L}{\partial \xi_i} = C - \alpha_i - \eta_i = 0 \implies \alpha_i = C - \eta_i
+\]</div>
+<p><strong>With respect to <span class="math notranslate nohighlight">\(\xi_i^*\)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial L}{\partial \xi_i^*} = C - \alpha_i^* - \eta_i^* = 0 \implies \alpha_i^* = C - \eta_i^*
+\]</div>
+</section>
+<section id="substituting-back">
+<h4>Substituting Back<a class="headerlink" href="#substituting-back" title="Link to this heading">#</a></h4>
+<p>Substituting the stationarity conditions back into the Lagrangian, we get the dual problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+L_D &amp;= \frac{1}{2} \|w\|^2 - \sum_{i=1}^{n} \alpha_i [\epsilon + \xi_i - y_i + (w^T \phi(x_i) + b)] \\
+&amp;\quad - \sum_{i=1}^{n} \alpha_i^* [\epsilon + \xi_i^* + y_i - (w^T \phi(x_i) + b)]
+\end{aligned}
+\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\( w = \sum_{i=1}^{n} (\alpha_i - \alpha_i^*) \phi(x_i) \)</span>, substitute <span class="math notranslate nohighlight">\( w \)</span> into the Lagrangian:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2} \|\sum_{i=1}^{n} (\alpha_i - \alpha_i^*) \phi(x_i)\|^2
+\]</div>
+<p>This expands to:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2} \sum_{i=1}^{n} \sum_{j=1}^{n} (\alpha_i - \alpha_i^*) (\alpha_j - \alpha_j^*) \langle \phi(x_i), \phi(x_j) \rangle
+\]</div>
+<p>Using the kernel trick <span class="math notranslate nohighlight">\( \kappa(x_i, x_j) = \langle \phi(x_i), \phi(x_j) \rangle \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2} \sum_{i=1}^{n} \sum_{j=1}^{n} (\alpha_i - \alpha_i^*) (\alpha_j - \alpha_j^*) \kappa(x_i, x_j)
+\]</div>
+</section>
+<section id="dual-problem">
+<h4>Dual Problem<a class="headerlink" href="#dual-problem" title="Link to this heading">#</a></h4>
+<p>Combining all the terms, the dual problem becomes:</p>
+<p>Maximize:</p>
+<div class="math notranslate nohighlight">
+\[
+W(\alpha, \alpha^*) = -\frac{1}{2} \sum_{i=1}^{n} \sum_{j=1}^{n} (\alpha_i - \alpha_i^*) (\alpha_j - \alpha_j^*) \kappa(x_i, x_j) - \epsilon \sum_{i=1}^{n} (\alpha_i + \alpha_i^*) + \sum_{i=1}^{n} y_i (\alpha_i - \alpha_i^*)
+\]</div>
+<p>Subject to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+\sum_{i=1}^{n} (\alpha_i - \alpha_i^*) = 0 \\
+0 \leq \alpha_i, \alpha_i^* \leq C
+\end{cases}
+\end{split}\]</div>
+</section>
+<section id="prediction">
+<h4>Prediction<a class="headerlink" href="#prediction" title="Link to this heading">#</a></h4>
+<p>The prediction function for a new data point <span class="math notranslate nohighlight">\( x \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = \sum_{i=1}^{n} (\alpha_i - \alpha_i^*) \kappa(x_i, x) + b
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( b \)</span> can be determined by exploiting the Karush-Kuhn-Tucker (KKT) conditions.</p>
+</section>
+<section id="determining-b">
+<h4>Determining <span class="math notranslate nohighlight">\( b \)</span><a class="headerlink" href="#determining-b" title="Link to this heading">#</a></h4>
+<p>To determine <span class="math notranslate nohighlight">\( b \)</span>, we use the support vectors (data points with <span class="math notranslate nohighlight">\( 0 &lt; \alpha_i &lt; C \)</span> or <span class="math notranslate nohighlight">\( 0 &lt; \alpha_i^* &lt; C \)</span>):</p>
+<div class="math notranslate nohighlight">
+\[
+b = y_i - \sum_{j=1}^{n} (\alpha_j - \alpha_j^*) \kappa(x_j, x_i) - \epsilon \quad \text{if} \quad 0 &lt; \alpha_i &lt; C
+\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[
+b = y_i - \sum_{j=1}^{n} (\alpha_j - \alpha_j^*) \kappa(x_j, x_i) + \epsilon \quad \text{if} \quad 0 &lt; \alpha_i^* &lt; C
+\]</div>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/Regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Linearization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Linearization</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="EvaluationModelSelection.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Project : Evaluation and Model Selection</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods-and-the-kernel-trick">Kernel Methods and the Kernel Trick</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-kernels">Common Kernels</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-phi-x-from-kernel">Finding <span class="math notranslate nohighlight">\( \phi (x) \)</span> From Kernel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1"><span style="color:blue"><strong>Homework 1</strong></span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#methods-in-phi-space">Methods in <span class="math notranslate nohighlight">\( \phi \)</span> space</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#distance-in-phi-x-space">Distance in <span class="math notranslate nohighlight">\( \phi(x) \)</span> space</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fuzzy-c-means-clustering-in-phi-space">Fuzzy C-Means clustering in <span class="math notranslate nohighlight">\( \phi \)</span> space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-in-phi-space">Regression in <span class="math notranslate nohighlight">\( \phi \)</span> space</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-weight-vector-norm">The weight vector norm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normalizing">Normalizing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#norm-and-distance-from-the-centre-of-mass">Norm and distance from the centre of mass</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#center-of-mass-in-feature-space">Center of Mass in Feature Space</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-squared-distance-from-center-of-mass">Expected Squared Distance from Center of Mass</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-vector-regression">Support Vector Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svr-in-feature-space-with-kernel-trick">SVR in Feature Space with Kernel Trick</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#primal-formulation">Primal Formulation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-formulation">Dual Formulation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#final-prediction">Final Prediction</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-derivation-of-support-vector-regression-svr-in-kernel-space">Step-by-Step Derivation of Support Vector Regression (SVR) in Kernel Space</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-and-constraints-in-the-primal-form">Objective and Constraints in the Primal Form</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#lagrangian-and-dual-problem">Lagrangian and Dual Problem</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#stationarity-conditions">Stationarity Conditions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#substituting-back">Substituting Back</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-problem">Dual Problem</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#prediction">Prediction</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#determining-b">Determining <span class="math notranslate nohighlight">\( b \)</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

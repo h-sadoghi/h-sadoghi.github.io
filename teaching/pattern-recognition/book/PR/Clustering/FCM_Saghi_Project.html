@@ -1,0 +1,825 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Complementary of FCM &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/Clustering/FCM_Saghi_Project';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Project Linkage clustering" href="LinkageClustering_1.html" />
+    <link rel="prev" title="k-means and fuzzy-c-means clustering" href="FCM_1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="PR_intro_Clustering.html">Clustering Concept</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/Clustering/FCM_Saghi_Project.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Complementary of FCM</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-of-fcm">Introduction of FCM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function">Loss Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-the-algorithm">Summary of the algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-code">Python code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-constant-problem">A constant problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#init">Init</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-criteria">Convergence criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amazing-note">Amazing Note</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="complementary-of-fcm">
+<h1>Complementary of FCM<a class="headerlink" href="#complementary-of-fcm" title="Link to this heading">#</a></h1>
+<p><strong>Project Title: Complementary of FCM</strong></p>
+<p><strong>Project Overview:</strong></p>
+<p>This project involves the completion of Fuzzy C-Means (FCM) based on the following tasks:</p>
+<p><strong>Project Start Contact</strong>: Mr. Javad Saghi<br />
+Contact Email: <a class="reference external" href="mailto:jav&#46;saghi&#37;&#52;&#48;gmail&#46;com">jav<span>&#46;</span>saghi<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
+<p><strong>Project Importance</strong>: This project contributes 2 points out of a total of 20.</p>
+<p><strong>Enhancements for Improvement</strong>:</p>
+<ul class="simple">
+<li><p>Clarify the specific objectives and outcomes expected from completing the FCM project.</p></li>
+<li><p>Provide a clear timeline and milestones for project completion.</p></li>
+<li><p>Ensure regular communication and feedback loops with Mr. Javad Saghi to address any issues promptly.</p></li>
+</ul>
+<section id="introduction-of-fcm">
+<h2>Introduction of FCM<a class="headerlink" href="#introduction-of-fcm" title="Link to this heading">#</a></h2>
+<p>FCM (Fuzzy C-Means) is a form of Fuzzy clustering.
+The difference between fuzzy clustering and non-fuzzy clustering is that, in fuzzy clustering, each data point can belong to more than one cluster.</p>
+</section>
+<section id="loss-function">
+<h2>Loss Function<a class="headerlink" href="#loss-function" title="Link to this heading">#</a></h2>
+<p>If we consider our loss function as:
+$<span class="math notranslate nohighlight">\( \mathcal{L} = \sum_{j=1}^{C}{\sum_{i=1}^{n}{U_{ij}^m }\| x_i - \mu_j \|^2} \\
+s.t. \sum_{j=1}^{C}{U_{ij}} = 1  \hspace{10pt}  \forall i \)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\(C\)</span> is the number of clusters, <span class="math notranslate nohighlight">\(n\)</span> is the number of data points, <span class="math notranslate nohighlight">\(U_{ij}\)</span> is the degree of membership of point <span class="math notranslate nohighlight">\(x_i\)</span> in cluster <span class="math notranslate nohighlight">\(j\)</span>, <span class="math notranslate nohighlight">\(m\)</span> is an hyperparameter, <span class="math notranslate nohighlight">\(x_i\)</span> is a data point and <span class="math notranslate nohighlight">\(\mu_j\)</span> is the center of cluster <span class="math notranslate nohighlight">\(j\)</span>.</p>
+<p>To solve this problem we use lagrange multipliers method, the lagrangian function is defined as:</p>
+<div class="math notranslate nohighlight">
+\[ \mathcal{L} = \sum_{j=1}^{C}{\sum_{i=1}^{n}{U_{ij}^m }\| x_i - \mu_j \|^2} - \left(\sum_{i=1}^{n}{\lambda_i \left(\sum_{j=1}^{C}{U_{ij}}-1\right)}\right)\]</div>
+<p>By setting its derivative with respect to the <span class="math notranslate nohighlight">\(\mu_j\)</span> equal to 0, we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \frac{\partial \mathcal{L}}{\partial \mu_j} = 0 \\
+\Rightarrow \sum_{i=1}^{n}{-2U_{ij}^{m}(x_i - \mu_j )} - 0 = 0 \\
+\Rightarrow \sum_{i=1}^{n}{U_{ij}^{m}x_i} - \sum_{i=1}^{n}{U_{ij}^{m}\mu_j} = 0 \\
+\Rightarrow \boxed{\mu_j = \frac{\sum_{i=1}^{n}{U_{ij}^{m}x_i}}{\sum_{i=1}^{n}{U_{ij}^{m}}}}
+\end{split}\]</div>
+<p>By setting its derivative with respect to the <span class="math notranslate nohighlight">\(U_{ij}\)</span> equal to 0, we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \frac{\partial \mathcal{L}}{\partial U_{ij}} = 0 \\
+\Rightarrow mU_{ij}^{m-1}\|x_i - \mu_j \| - \lambda_i = 0 \\
+\Rightarrow U_{ij} = \left(\frac{\lambda_i}{m\|x_i - \mu_j \|^2}\right) ^ {\frac{1}{m-1}}
+\end{split}\]</div>
+<p>We know that <span class="math notranslate nohighlight">\(\sum_{j=1}^{C}{U_{ij}} = 1\)</span>, so:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\left. \begin{matrix} 
+U_{ij} = \left(\frac{\lambda_i}{m\|x_i - \mu_j \|^2}\right)^{\frac{1}{m-1}} \\
+\sum_{j=1}^{C}{U_{ij}} = 1
+\end{matrix} \right\}
+\Rightarrow \sum_{j=1}^{C}{\left(\frac{\lambda_i}{m\|x_i - \mu_j \|^2}\right)^{\frac{1}{m-1}}} = 1 \\
+\Rightarrow \lambda_i^{\frac{1}{m-1}} = \frac{1}{\sum_{j=1}^{C}{\frac{1}{\left(m\|x_i - \mu_j \|^2\right)^{\frac{1}{m-1}}}}} 
+\end{split}\]</div>
+<p>By renaming summation index to k, we have:
+$<span class="math notranslate nohighlight">\(
+\lambda_i^{\frac{1}{m-1}} = \frac{1}{\sum_{k=1}^{C}{\frac{1}{\left(m\|x_i - \mu_k \|^2\right)^{\frac{1}{m-1}}}}} 
+\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left. \begin{matrix} 
+U_{ij} = \left(\frac{\lambda_i}{m\|x_i - \mu_j \|^2}\right)^{\frac{1}{m-1}} \\
+\lambda_i^{\frac{1}{m-1}} = \frac{1}{\sum_{k=1}^{C}{\frac{1}{\left(m\|x_i - \mu_k \|^2\right)^{\frac{1}{m-1}}}}} 
+\end{matrix} \right\}
+\Rightarrow 
+U_{ij} = \frac{\frac{1}{\sum_{k=1}^{C}{\frac{1}{\left(m\|x_i - \mu_k \|^2\right)^{\frac{1}{m-1}}}}}}{\left(m\|x_i - \mu_j \|^2\right)^\frac{1}{m-1}} \end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\Rightarrow \boxed{U_{ij} = \frac{1}{\sum_{k=1}^{C}{ \frac{\left(m\|x_i - \mu_j \|^2\right)^{\frac{1}{m-1}}}{\left(m\|x_i - \mu_k \|^2\right)^{\frac{1}{m-1}}} }}}
+\]</div>
+</section>
+<section id="summary-of-the-algorithm">
+<h2>Summary of the algorithm<a class="headerlink" href="#summary-of-the-algorithm" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>choose the number of clusters <span class="math notranslate nohighlight">\(C\)</span> and the fuzziness hyperparameter <span class="math notranslate nohighlight">\(m\)</span>.</p></li>
+<li><p>initialize membership matrix <span class="math notranslate nohighlight">\(U\)</span> with random values such that <span class="math notranslate nohighlight">\(\sum_{j=1}^{C}{U_{ij}}=1 \hspace{5px} \forall i\)</span>.</p></li>
+<li><p>update cluster centers <span class="math notranslate nohighlight">\(\mu_j\)</span> using following formula: $<span class="math notranslate nohighlight">\( \mu_j = \frac{\sum_{i=1}^{n}{U_{ij}^{m}x_i}}{\sum_{i=1}^{n}{U_{ij}^{m}}} \)</span>$</p></li>
+<li><p>update membership degrees <span class="math notranslate nohighlight">\(U_{ij}\)</span> using following formula: $<span class="math notranslate nohighlight">\( U_{ij} = \frac{1}{\sum_{k=1}^{C}{ \frac{\left(m\|x_i - \mu_j \|^2\right)^{\frac{1}{m-1}}}{\left(m\|x_i - \mu_k \|^2\right)^{\frac{1}{m-1}}} }} \)</span>$</p></li>
+<li><p>repeat two updating steps until changes in parameters are below a specific threshold or the number of iteration limits is reached.</p></li>
+</ol>
+</section>
+<section id="python-code">
+<h2>Python code<a class="headerlink" href="#python-code" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.markers</span><span class="w"> </span><span class="kn">import</span> <span class="n">MarkerStyle</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_rgba</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="a-constant-problem">
+<h3>A constant problem<a class="headerlink" href="#a-constant-problem" title="Link to this heading">#</a></h3>
+<p>choose the number of clusters <span class="math notranslate nohighlight">\(C\)</span> and the fuzziness hyperparameter <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set hyperparameters</span>
+<span class="n">n_sample</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">n_cluster</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">m</span> <span class="o">=</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">markers</span> <span class="o">=</span> <span class="p">[</span><span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'o'</span><span class="p">),</span>
+           <span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'P'</span><span class="p">),</span>
+           <span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'s'</span><span class="p">),</span>
+           <span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'D'</span><span class="p">),</span>
+           <span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'X'</span><span class="p">),</span>
+           <span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'p'</span><span class="p">),</span>
+           <span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'v'</span><span class="p">),</span>
+           <span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'^'</span><span class="p">)][:</span><span class="n">n_cluster</span><span class="p">]</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="n">to_rgba</span><span class="p">(</span><span class="s1">'tab:blue'</span><span class="p">),</span>
+            <span class="n">to_rgba</span><span class="p">(</span><span class="s1">'tab:red'</span><span class="p">),</span>
+            <span class="n">to_rgba</span><span class="p">(</span><span class="s1">'tab:green'</span><span class="p">),</span>
+            <span class="n">to_rgba</span><span class="p">(</span><span class="s1">'tab:brown'</span><span class="p">),</span>
+            <span class="n">to_rgba</span><span class="p">(</span><span class="s1">'tab:cyan'</span><span class="p">),</span>
+            <span class="n">to_rgba</span><span class="p">(</span><span class="s1">'tab:olive'</span><span class="p">),</span>
+            <span class="n">to_rgba</span><span class="p">(</span><span class="s1">'tab:orange'</span><span class="p">),</span>
+            <span class="n">to_rgba</span><span class="p">(</span><span class="s1">'tab:pink'</span><span class="p">),</span>
+            <span class="n">to_rgba</span><span class="p">(</span><span class="s1">'tab:purple'</span><span class="p">)][:</span><span class="n">n_cluster</span><span class="p">]</span>
+
+<span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span>
+
+<span class="c1"># Make simple classification dataset</span>
+<span class="n">dataset_x</span><span class="p">,</span> <span class="n">dataset_y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="n">n_sample</span><span class="p">,</span>
+                                           <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                           <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                           <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                           <span class="n">n_classes</span><span class="o">=</span><span class="n">n_cluster</span><span class="p">,</span>
+                                           <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                           <span class="n">class_sep</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="init">
+<h3>Init<a class="headerlink" href="#init" title="Link to this heading">#</a></h3>
+<p>initialize membership matrix <span class="math notranslate nohighlight">\(U\)</span> with random values such that <span class="math notranslate nohighlight">\(\sum_{j=1}^{C}{U_{ij}}=1 \hspace{5px} \forall i\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize mu</span>
+<span class="n">mu_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">n_cluster</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">mu_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># Initialize U matrix with random values</span>
+<span class="n">U_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">n_sample</span><span class="p">,</span> <span class="n">n_cluster</span><span class="p">])</span>
+<span class="n">U_arr</span> <span class="o">=</span> <span class="p">(</span><span class="n">U_arr</span><span class="o">.</span><span class="n">T</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">U_arr</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+<span class="n">U_list</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="convergence-criteria">
+<h3>Convergence criteria<a class="headerlink" href="#convergence-criteria" title="Link to this heading">#</a></h3>
+<p>Update cluster centers <span class="math notranslate nohighlight">\(\mu_j\)</span> and membership degrees <span class="math notranslate nohighlight">\(U_{ij}\)</span> until changes in parameters are below a specific threshold or the number of iteration limits is reached.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">old_U_arr</span> <span class="o">=</span> <span class="n">U_arr</span> <span class="o">+</span> <span class="mf">1e5</span>
+<span class="n">ite</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># While membership degree U changes significantly do...</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">old_U_arr</span> <span class="o">-</span> <span class="n">U_arr</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">0.001</span> <span class="ow">and</span>  <span class="n">ite</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">):</span>
+    <span class="n">ite</span> <span class="o">=</span> <span class="n">ite</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">old_U_arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">U_arr</span><span class="p">)</span>
+
+    <span class="c1"># Compute mu points</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cluster</span><span class="p">):</span>
+        <span class="n">temp1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">U_arr</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">**</span> <span class="n">m</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dataset_x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">temp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">U_arr</span><span class="p">[:,</span> <span class="n">j</span><span class="p">]</span> <span class="o">**</span> <span class="n">m</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">mu_arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp1</span> <span class="o">/</span> <span class="n">temp2</span>
+
+    <span class="c1"># Compute U for each point and for each cluster</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cluster</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_sample</span><span class="p">):</span>
+            <span class="n">temp2</span> <span class="o">=</span> <span class="p">[(</span><span class="n">m</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">dataset_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">mu_arr</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cluster</span><span class="p">)]</span>
+            <span class="n">temp2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">temp2</span><span class="p">)</span>
+            <span class="n">temp1</span> <span class="o">=</span> <span class="n">temp2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">temp3</span> <span class="o">=</span> <span class="n">temp1</span> <span class="o">/</span> <span class="n">temp2</span>
+            <span class="n">U_arr</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">temp3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Appand scatter plots to a list for GIF file</span>
+    <span class="n">fig1</span><span class="p">,</span> <span class="n">axs1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">sample_color</span> <span class="o">=</span> <span class="n">U_arr</span> <span class="o">@</span> <span class="n">colors</span>
+    <span class="n">sample_color</span><span class="p">[</span><span class="n">sample_color</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">sample_color</span><span class="p">[</span><span class="n">sample_color</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">sample_color</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.7</span>
+
+    <span class="n">temp_marker</span> <span class="o">=</span> <span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">fillstyle</span><span class="o">=</span><span class="s1">'none'</span><span class="p">)</span>
+    <span class="n">axs1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">dataset_x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataset_x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="n">temp_marker</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">sample_color</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">marker</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">markers</span><span class="p">):</span>
+        <span class="n">axs1</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mu_arr</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                     <span class="n">mu_arr</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                     <span class="n">marker</span><span class="o">=</span><span class="n">markers</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+                     <span class="n">s</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                     <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">fig1</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+    <span class="n">image_from_plot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">fig1</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">buffer_rgba</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+    <span class="n">image_from_plot</span> <span class="o">=</span> <span class="n">image_from_plot</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">fig1</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">get_width_height</span><span class="p">()[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">4</span><span class="p">,))</span>
+    <span class="n">image_from_plot</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">image_from_plot</span><span class="p">)</span>
+    <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image_from_plot</span><span class="p">)</span>
+
+    <span class="n">mu_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">mu_arr</span><span class="p">))</span>
+    <span class="n">U_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">U_arr</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="amazing-note">
+<h3>Amazing Note<a class="headerlink" href="#amazing-note" title="Link to this heading">#</a></h3>
+<p>Showing the parameter update step by step in different frames. in each frame, each cluster center is shown in a different marker shape from the others with its own unique color. Also, the color of each data point is determined by the weighted sum of their membership degree to their cluster centers as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \text{sample color} = \sum_{j=1}^{C}{\left(U_{ij} \times \text{color of j-th cluster center}\right)} \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save scatter plots as one figure</span>
+<span class="n">col</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">ite</span> <span class="o">/</span> <span class="n">col</span><span class="p">))</span>
+<span class="n">fig2</span><span class="p">,</span> <span class="n">axs2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">[</span><span class="mi">6</span><span class="o">*</span><span class="n">col</span><span class="p">,</span> <span class="mi">4</span><span class="o">*</span><span class="n">row</span><span class="p">],</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ite</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">i</span> <span class="o">//</span> <span class="n">col</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="n">col</span>
+
+    <span class="n">sample_color</span> <span class="o">=</span> <span class="n">U_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">@</span> <span class="n">colors</span>
+    <span class="n">sample_color</span><span class="p">[</span><span class="n">sample_color</span> <span class="o">&gt;</span> <span class="mf">1.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">sample_color</span><span class="p">[</span><span class="n">sample_color</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">sample_color</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.7</span>
+
+    <span class="n">axs2</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'iteration </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+    <span class="n">axs2</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">dataset_x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataset_x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">sample_color</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">MarkerStyle</span><span class="p">(</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">fillstyle</span><span class="o">=</span><span class="s1">'none'</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">marker</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">markers</span><span class="p">):</span>
+        <span class="n">axs2</span><span class="p">[</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">mu_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                           <span class="n">mu_list</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+                           <span class="n">marker</span><span class="o">=</span><span class="n">markers</span><span class="p">[</span><span class="n">j</span><span class="p">],</span>
+                           <span class="n">s</span><span class="o">=</span><span class="mi">70</span><span class="p">,</span>
+                           <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/41646c7ac99b99a27ed8b3fcdd93e0fa6afa8d82657c269bed0bca63dbc1e21e.png" src="../../_images/41646c7ac99b99a27ed8b3fcdd93e0fa6afa8d82657c269bed0bca63dbc1e21e.png" />
+</div>
+</div>
+<p>Save images as a GIF file in which each frame represents one step of parameter update.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">'FCM.gif'</span><span class="p">,</span> <span class="n">save_all</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">append_images</span><span class="o">=</span><span class="n">images</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">duration</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'GIF file has been saved as FCM.gif'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fig2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>GIF file has been saved as FCM.gif
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/Clustering"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="FCM_1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">k-means and fuzzy-c-means clustering</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="LinkageClustering_1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Project Linkage clustering</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-of-fcm">Introduction of FCM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function">Loss Function</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-the-algorithm">Summary of the algorithm</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-code">Python code</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-constant-problem">A constant problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#init">Init</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-criteria">Convergence criteria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#amazing-note">Amazing Note</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

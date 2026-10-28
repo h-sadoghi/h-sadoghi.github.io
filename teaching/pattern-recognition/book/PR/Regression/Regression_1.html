@@ -1,0 +1,1758 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Linear Regression &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/Regression/Regression_1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Non-linear Regression: The starting point" href="NonLinearRegression.html" />
+    <link rel="prev" title="Regression" href="Introduction_Regression.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Introduction_Regression.html">Regression</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/Regression/Regression_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Linear Regression</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function-of-regression">Loss function of regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function-for-regression">Cost Function for regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduce-a-regularization-term">1-Introduce a regularization term</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression-l2-regularization">Ridge Regression (L2 Regularization)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression-l1-regularization">Lasso Regression (L1 Regularization)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effect-of-regularization">Effect of Regularization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivation-of-the-closed-form-solution">Derivation of the Closed-Form Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-the-solution">Interpretation of the Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-ordinary-least-squares-ols">Comparison with Ordinary Least Squares (OLS)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-regularization-reduces-overfitting">Why Regularization Reduces Overfitting:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-explained">Overfitting Explained:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-perspective">Mathematical Perspective:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-what-occurs-with-regularization">Visualizing what occurs with regularization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-from-the-perspective-of-smoothness">Regularization from the perspective of smoothness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-from-the-perspective-of-maximum-margin">Regularization from the perspective of maximum margin</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-from-perspective-of-bias-variance">Regularization from perspective of Bias-variance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-loss-function-for-regression">Some loss function for Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-loss-functions">Robust Loss Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#huber-loss">1. <strong>Huber Loss</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-loss">2. <strong>Quantile Loss</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#log-cosh-loss">3. <strong>Log-Cosh Loss</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-using-huber-loss-in-regression">Example: Using Huber Loss in Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages-of-robust-loss-functions">Advantages of Robust Loss Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-correntropy-loss-has-improved-the-robustness-of-our-model-against-outliers">Working with correntropy loss has improved the robustness of our model against outliers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-loss">Correntropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution-for-correntropy-loss">Analytical Solution for Correntropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-approach">Gradient Descent Approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-in-python">Implementation in Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">HomeWork</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-with-epsilon-insensitive-loss">Regression with <span class="math notranslate nohighlight">\(\epsilon \)</span>-insensitive loss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-slack-variables">Introducing Slack Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints">Constraints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primal-problem">Primal Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-formulation">Final Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-two-slack-variables-xi-i-and-xi-i">Using Two Slack Variables <span class="math notranslate nohighlight">\(\xi_i\)</span> and <span class="math notranslate nohighlight">\(\xi_i^*\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-function">Objective Function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Constraints</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#differences-and-reasons">Differences and Reasons</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-example-solved-by">Simple Example Solved by</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-with-varepsilon-insensitive-loss-without-regularization-term">Regression with <span class="math notranslate nohighlight">\(\varepsilon\)</span>-insensitive loss without regularization term</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function">Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slack-variable">slack variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-programming">Linear Programming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reminder"><strong>Reminder</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-saghi-work">End Saghi Work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-regression">Some of my papers about <strong>Regression</strong></a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="linear-regression">
+<h1>Linear Regression<a class="headerlink" href="#linear-regression" title="Link to this heading">#</a></h1>
+<p>The expression <span class="math notranslate nohighlight">\( \widehat{y} = w^T x + b \)</span> represents a linear model commonly used in machine learning and regression tasks. Here’s how each component fits into this equation:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( x \)</span>: This is an input vector of independent variables (a d-dimensional feature vector). This vector is connected to <span class="math notranslate nohighlight">\( y \)</span>, which is the scalar output. One way to model this is by projecting <span class="math notranslate nohighlight">\( x \)</span> onto the weight vector <span class="math notranslate nohighlight">\( w \)</span>. The bias term <span class="math notranslate nohighlight">\( b \)</span> is also included to account for any offset.</p></li>
+</ul>
+<p>The main value of the output is <span class="math notranslate nohighlight">\( y \)</span>, and the error is defined as <span class="math notranslate nohighlight">\( e = y - \widehat{y} \)</span>. To optimize the model, we minimize the expectation of the loss function. As we iterate over the data, we focus on regression where the data is modeled with pairs <span class="math notranslate nohighlight">\((\mathbf{x}, y)\)</span>. This state, known as supervised learning, includes the feature vector <span class="math notranslate nohighlight">\( x \)</span> and the desired output value <span class="math notranslate nohighlight">\( y \)</span>.</p>
+<p>The expression <span class="math notranslate nohighlight">\( \widehat{y} = w^T x + b \)</span> represents a linear model commonly used in machine learning and regression tasks. Here’s how each component fits into this equation:</p>
+<p><span class="math notranslate nohighlight">\( x \)</span>: This is an input vector of independent variables (a d-dimensional feature vector). This vector is connected to <span class="math notranslate nohighlight">\( y \)</span>, which is the scalar output. One way to model this is by projecting <span class="math notranslate nohighlight">\( x \)</span> onto the weight vector <span class="math notranslate nohighlight">\( w \)</span>. Of course, this requires the bias term <span class="math notranslate nohighlight">\( b \)</span>.
+main value of output is <span class="math notranslate nohighlight">\( y \)</span> and error is <span class="math notranslate nohighlight">\( e=y-\widehat{y} \)</span> we again encountered by minimization of expection of loss function. Also, again index of data iterate. in regression we model data with two tuple <span class="math notranslate nohighlight">\( (\textbf{x},y) \)</span>. this state name supervised data include feature vector of <span class="math notranslate nohighlight">\( x \)</span> and desired value of <span class="math notranslate nohighlight">\( y \)</span>. This time linear model describe data <span class="math notranslate nohighlight">\( D=\{\textbf{x}_i,y_i; i=1,\cdots ,n \} \)</span>
+again review of all of work in pattern recognition, we try model data with linear or non-linear form over data unsupervised or supervised form. emphaziz of this book is over cost function. with minimizing of cost function desirable model is discovered. Solution method also needs for solving minimization to form of online or offline.</p>
+<section id="loss-function-of-regression">
+<h2>Loss function of regression<a class="headerlink" href="#loss-function-of-regression" title="Link to this heading">#</a></h2>
+<p>is the same as that used in clustering.  For more information about loss functions, see the <a class="reference internal" href="../Clustering/Clustering_1.html"><span class="std std-doc">Loss function in clustering</span></a> section, specifically the Introduction of Loss Functions part.</p>
+<p>Here is a simple example to better understand regression.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"age"</span><span class="p">:</span> <span class="p">[</span> <span class="mi">21</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">22</span> <span class="p">],</span>
+    <span class="s2">"tall"</span><span class="p">:</span> <span class="p">[</span> <span class="mi">174</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">170</span><span class="p">,</span><span class="mi">171</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">173</span><span class="p">,</span><span class="mi">170</span><span class="p">,</span><span class="mi">165</span><span class="p">,</span><span class="mi">184</span> <span class="p">],</span>
+    <span class="s2">"shoeSize"</span><span class="p">:</span> <span class="p">[</span> <span class="mi">44</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mf">43.5</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">46</span> <span class="p">],</span>
+<span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   age  tall  shoeSize
+0   21   174      44.0
+1   18   168      41.0
+2   20   170      42.0
+3   19   171      42.0
+4   19   175      43.5
+5   20   180      45.0
+6   21   173      43.0
+7   22   170      44.0
+8   18   165      41.0
+9   22   184      46.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Now, we will explore the relationship between height and age. Before doing so, let’s plot it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'tall'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'.r'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Age'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Tall'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">'Data'</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">'best'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/547266105d19e2d34a8880df0295a6d7b6b501b7333f984f30a2d62197e83a7e.png" src="../../_images/547266105d19e2d34a8880df0295a6d7b6b501b7333f984f30a2d62197e83a7e.png" />
+</div>
+</div>
+<p>If we try fitting the linear model introduced in Linear Regression use the following code:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Get the regression line</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Plot the data points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'.r'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="s1">'-b'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Age'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Tall'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">'Data'</span><span class="p">,</span> <span class="s1">'Regression Line'</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">'best'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1"># Get the coefficients</span>
+<span class="n">slope</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">intercept</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Slope (Coefficient): </span><span class="si">{</span><span class="n">slope</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intercept: </span><span class="si">{</span><span class="n">intercept</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/01da1f150a4598cf231e35b4173090fb6881a7c5ed9c2fc11d52a0de2a300005.png" src="../../_images/01da1f150a4598cf231e35b4173090fb6881a7c5ed9c2fc11d52a0de2a300005.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Slope (Coefficient): 2.1499999999999995
+Intercept: 130.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the above example, the equation <span class="math notranslate nohighlight">\( \hat{y} = w_1 \cdot x + w_0 \)</span> represents a linear model. Here, <span class="math notranslate nohighlight">\( w_1 \)</span> represents the slope, and <span class="math notranslate nohighlight">\( w_0 \)</span> represents the intercept.</p>
+</section>
+<section id="cost-function-for-regression">
+<h2>Cost Function for regression<a class="headerlink" href="#cost-function-for-regression" title="Link to this heading">#</a></h2>
+<p>ُimilar to previous cost function,the cost function is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{E}\left\{l\left( e \right)  \right\}+\lambda*Reularization Term
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( e \)</span> define as,</p>
+<div class="math notranslate nohighlight">
+\[
+e=y-\hat{y}
+\]</div>
+<p>And as shown in the following figure, I need to include additional code here.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"age"</span><span class="p">:</span> <span class="p">[</span> <span class="mi">21</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">21</span><span class="p">,</span><span class="mi">22</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">22</span> <span class="p">],</span>
+    <span class="s2">"tall"</span><span class="p">:</span> <span class="p">[</span> <span class="mi">174</span><span class="p">,</span><span class="mi">168</span><span class="p">,</span><span class="mi">170</span><span class="p">,</span><span class="mi">171</span><span class="p">,</span><span class="mi">175</span><span class="p">,</span><span class="mi">180</span><span class="p">,</span><span class="mi">173</span><span class="p">,</span><span class="mi">170</span><span class="p">,</span><span class="mi">165</span><span class="p">,</span><span class="mi">184</span> <span class="p">],</span>
+    <span class="s2">"shoeSize"</span><span class="p">:</span> <span class="p">[</span> <span class="mi">44</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mi">42</span><span class="p">,</span><span class="mf">43.5</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">43</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">46</span> <span class="p">],</span>
+<span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'tall'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Get the regression line</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Plot the data points</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">'.r'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="s1">'-b'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Age'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Tall'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">'Data'</span><span class="p">,</span> <span class="s1">'Regression Line'</span><span class="p">],</span> <span class="n">loc</span><span class="o">=</span><span class="s1">'best'</span><span class="p">)</span>
+
+<span class="c1"># Plot residuals as vertical lines</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="s1">'g'</span><span class="p">,</span> <span class="n">linestyles</span><span class="o">=</span><span class="s1">'dashed'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/a705546186131b7bb973a2db8b5653218f5e90ead03f39fcc07d76a67ab961cd.png" src="../../_images/a705546186131b7bb973a2db8b5653218f5e90ead03f39fcc07d76a67ab961cd.png" />
+</div>
+</div>
+<p>Each sample shows an error between the model and the main value in the dataset. These errors affect the parameters <span class="math notranslate nohighlight">\( w \)</span> and <span class="math notranslate nohighlight">\( b \)</span> in the equation <span class="math notranslate nohighlight">\( \hat{y}=w^{T}x+b \)</span>.</p>
+<p>The error for each sample can be expressed as <span class="math notranslate nohighlight">\( e_1 = y_1 - \hat{y}_1 \)</span>, and similarly, <span class="math notranslate nohighlight">\( e_n = y_n - \hat{y}_n \)</span>.</p>
+<p>With a square loss function, the loss <span class="math notranslate nohighlight">\( J(w, b) \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[ 
+J(w, b) = \sum_{i=1}^{n} e_i^2 
+\]</div>
+<p>or equivalently,</p>
+<div class="math notranslate nohighlight">
+\[
+J(w, b) = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 
+\]</div>
+<p>Notes: Samples with age 22 and height 184, and age 20 and height 180 generate large errors. These cause a significant impact on the parameters <span class="math notranslate nohighlight">\( w \)</span> and <span class="math notranslate nohighlight">\( b \)</span>.</p>
+<p>To correct this, we can follow two approaches:</p>
+<ol class="arabic simple">
+<li><p>Introduce a regularization term.</p></li>
+<li><p>Change the loss function.</p></li>
+</ol>
+</section>
+<section id="introduce-a-regularization-term">
+<h2>1-Introduce a regularization term<a class="headerlink" href="#introduce-a-regularization-term" title="Link to this heading">#</a></h2>
+<section id="ridge-regression-l2-regularization">
+<h3>Ridge Regression (L2 Regularization)<a class="headerlink" href="#ridge-regression-l2-regularization" title="Link to this heading">#</a></h3>
+<p>In Ridge regression, we add a regularization term to the standard linear regression cost function. The cost function for Ridge regression is:</p>
+<div class="math notranslate nohighlight">
+\[
+J(w) = \frac{1}{2n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{d} w_j^2
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( n \)</span> is the number of training examples.</p></li>
+<li><p><span class="math notranslate nohighlight">\( y_i \)</span> is the actual value of the target variable for the <span class="math notranslate nohighlight">\( i \)</span>-th example.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \hat{y_i} \)</span> is the predicted value of the target variable for the <span class="math notranslate nohighlight">\( i \)</span>-th example.</p></li>
+<li><p><span class="math notranslate nohighlight">\( d \)</span> is the number of features (or coefficients).</p></li>
+<li><p><span class="math notranslate nohighlight">\( w_j \)</span> is the <span class="math notranslate nohighlight">\( j \)</span>-th coefficient (or weight) in the model.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \lambda \)</span> is the regularization parameter that controls the strength of the regularization. It’s a non-negative value, typically chosen using cross-validation.</p></li>
+</ul>
+<p>The term <span class="math notranslate nohighlight">\( \lambda \sum_{j=1}^{d} w_j^2 \)</span> is the regularization term added to the mean squared error (MSE) loss function <span class="math notranslate nohighlight">\( \frac{1}{2n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 \)</span>. This term penalizes large values of <span class="math notranslate nohighlight">\( w_j \)</span>, effectively shrinking them towards zero. The larger the value of <span class="math notranslate nohighlight">\( \lambda \)</span>, the stronger the regularization effect.</p>
+</section>
+<section id="lasso-regression-l1-regularization">
+<h3>Lasso Regression (L1 Regularization)<a class="headerlink" href="#lasso-regression-l1-regularization" title="Link to this heading">#</a></h3>
+<p>In Lasso regression, the regularization term is different. The cost function for Lasso regression is:</p>
+<div class="math notranslate nohighlight">
+\[
+J(w) = \frac{1}{2n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{d} |w_j|
+\]</div>
+<p>regularization.</p>
+<p>In Lasso regression, <span class="math notranslate nohighlight">\( \lambda \sum_{j=1}^{d} |w_j| \)</span> is the regularization term. Unlike Ridge regression, Lasso can lead some coefficients <span class="math notranslate nohighlight">\( w_j \)</span> to be exactly zero, effectively performing feature selection.</p>
+</section>
+</section>
+<section id="effect-of-regularization">
+<h2>Effect of Regularization<a class="headerlink" href="#effect-of-regularization" title="Link to this heading">#</a></h2>
+<p>in <strong>Ridge Regression (L2 Regularization)</strong> the goal is to minimize the following objective function:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{w} \left[ (Y - Xw)^T(Y - Xw) + \lambda ||w||_2^2 \right]
+\]</div>
+<p>Where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( Y \)</span> is the vector of observed values.</p></li>
+<li><p><span class="math notranslate nohighlight">\( X \)</span> is the matrix of input features.</p></li>
+<li><p><span class="math notranslate nohighlight">\( w \)</span> is the vector of coefficients.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \lambda \)</span> is the regularization parameter controlling the strength of the penalty.</p></li>
+<li><p><span class="math notranslate nohighlight">\( ||w||_2^2 = w^T w \)</span> is the squared L2 norm of the coefficient vector.</p></li>
+</ul>
+<section id="derivation-of-the-closed-form-solution">
+<h3>Derivation of the Closed-Form Solution<a class="headerlink" href="#derivation-of-the-closed-form-solution" title="Link to this heading">#</a></h3>
+<p>To find the closed-form solution for <span class="math notranslate nohighlight">\( w \)</span>, we take the derivative of the objective function with respect to <span class="math notranslate nohighlight">\( w \)</span> and set it to zero.</p>
+<ol class="arabic simple">
+<li><p><strong>Objective Function</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+J(w) = (Y - Xw)^T(Y - Xw) + \lambda w^T w
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p><strong>Gradient of <span class="math notranslate nohighlight">\( J(w) \)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial J(w)}{\partial w} = -2X^T(Y - Xw) + 2\lambda w
+\]</div>
+<ol class="arabic simple" start="3">
+<li><p><strong>Setting the Gradient to Zero</strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+0 = -2X^T(Y - Xw) + 2\lambda w
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+0 = -2X^T Y + 2X^T X w + 2\lambda w
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+X^T Y = (X^T X + \lambda I) w
+\]</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Solving for <span class="math notranslate nohighlight">\( w \)</span></strong>:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+w = (X^T X + \lambda I)^{-1} X^T Y
+\]</div>
+</section>
+<section id="interpretation-of-the-solution">
+<h3>Interpretation of the Solution<a class="headerlink" href="#interpretation-of-the-solution" title="Link to this heading">#</a></h3>
+<p>The closed-form solution for Ridge regression is:</p>
+<div class="math notranslate nohighlight">
+\[
+w_{\text{ridge}} = (X^T X + \lambda I)^{-1} X^T Y
+\]</div>
+</section>
+<section id="comparison-with-ordinary-least-squares-ols">
+<h3>Comparison with Ordinary Least Squares (OLS)<a class="headerlink" href="#comparison-with-ordinary-least-squares-ols" title="Link to this heading">#</a></h3>
+<p>For ordinary least squares (without regularization), the solution is:</p>
+<div class="math notranslate nohighlight">
+\[
+w_{\text{OLS}} = (X^T X)^{-1} X^T Y
+\]</div>
+<p>The only difference between the two solutions is the added regularization term <span class="math notranslate nohighlight">\( \lambda I \)</span> in the Ridge regression solution.</p>
+</section>
+<section id="why-regularization-reduces-overfitting">
+<h3>Why Regularization Reduces Overfitting:<a class="headerlink" href="#why-regularization-reduces-overfitting" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Effect of the Regularization Term <span class="math notranslate nohighlight">\( \lambda I \)</span></strong>:</p>
+<ul class="simple">
+<li><p>The term <span class="math notranslate nohighlight">\( \lambda I \)</span> added to <span class="math notranslate nohighlight">\( X^T X \)</span> increases the diagonal elements of the matrix.</p></li>
+<li><p>This makes the matrix <span class="math notranslate nohighlight">\( X^T X + \lambda I \)</span> better conditioned and more stable for inversion.</p></li>
+</ul>
+</li>
+<li><p><strong>Impact on the Inverse</strong>:</p>
+<ul class="simple">
+<li><p>Inverting a larger matrix (due to the added <span class="math notranslate nohighlight">\( \lambda \)</span>) results in smaller values in the inverse matrix.</p></li>
+<li><p>This effectively shrinks the coefficients <span class="math notranslate nohighlight">\( w \)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Reduction of Coefficients</strong>:</p>
+<ul class="simple">
+<li><p>Smaller coefficients <span class="math notranslate nohighlight">\( w \)</span> indicate that the model places less emphasis on fitting the training data exactly, thereby reducing the impact of noise and specific variations in the training set.</p></li>
+<li><p>This constraint (penalty) on the size of the coefficients leads to a simpler model.</p></li>
+</ul>
+</li>
+<li><p><strong>Generalization</strong>: Refers to the performance of the trained model on unseen data.</p>
+<ul class="simple">
+<li><p>By reducing the magnitude of the coefficients, the model becomes less complex and less likely to overfit the training data.</p></li>
+<li><p>A simpler model generalizes better to new, unseen data because it captures the underlying patterns rather than the noise.</p></li>
+</ul>
+</li>
+</ol>
+<p><img alt="Generalization Versus Optimization" src="../../_images/generalization_optimization.JPG" /></p>
+<p>The figure above shows that if the optimization process reaches the optimal values for the training data, overfitting can occur. Overfitting means that the model performs very well on the training data but poorly on test data. To achieve good generalization, we need the model to perform well on test data as well. This highlights the trade-off between optimization and generalization.</p>
+<p>When optimization goes very well on the training data, resulting in overfitting, the model might not perform well on test data for several reasons:</p>
+</section>
+<section id="overfitting-explained">
+<h3>Overfitting Explained:<a class="headerlink" href="#overfitting-explained" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Memorizing Noise and Outliers</strong>:</p>
+<ul class="simple">
+<li><p>During optimization, the model tries to minimize the error on the training data.</p></li>
+<li><p>If the model becomes too good at minimizing this error, it may start memorizing the noise and outliers in the training data.</p></li>
+<li><p>This memorization does not capture the true underlying patterns in the data and instead fits to specific, non-generalizable details.</p></li>
+</ul>
+</li>
+<li><p><strong>High Model Complexity</strong>:</p>
+<ul class="simple">
+<li><p>When the model fits the training data too perfectly, it usually means that the model is too complex.</p></li>
+<li><p>High complexity models (<em>with many parameters or very flexible structures</em>) can adapt to every nuance in the training data.</p></li>
+<li><p>Such models are more sensitive to variations in the training data, leading to poor performance on new, unseen data because these nuances do not generalize.</p></li>
+</ul>
+</li>
+<li><p><strong>Lack of Generalization</strong>:</p>
+<ul class="simple">
+<li><p>Generalization refers to the model’s ability to perform well on new, unseen data.</p></li>
+<li><p>Overfitting means the model is highly tuned to the training data, so it may not generalize well to the test data which has different patterns and variations.</p></li>
+<li><p>A model that generalizes well captures the underlying trends and patterns in the data, not the specific details.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="mathematical-perspective">
+<h3>Mathematical Perspective:<a class="headerlink" href="#mathematical-perspective" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Regularization</strong>:</p>
+<ul>
+<li><p>Adding regularization during the optimization process helps prevent overfitting by penalizing large coefficients.</p></li>
+<li><p>This keeps the model simpler and forces it to learn the most important features rather than all the nuances of the training data.</p></li>
+</ul>
+</li>
+<li><p><strong>Bias-Variance Trade-off</strong>:</p>
+<ul>
+<li><p>There is a trade-off between bias (error due to assumptions in the model) and variance (error due to sensitivity to fluctuations in the training set).</p></li>
+<li><p>An optimal model finds a balance where it minimizes both bias and variance, leading to better performance on test data.</p></li>
+<li><p>Overfitting indicates low bias and high variance, which is why the model fails to generalize.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="visualizing-what-occurs-with-regularization">
+<h3>Visualizing what occurs with regularization<a class="headerlink" href="#visualizing-what-occurs-with-regularization" title="Link to this heading">#</a></h3>
+<p>If we assume that <span class="math notranslate nohighlight">\( J(w) \)</span> is a quadratic function and the constraint is a circle in the form of <span class="math notranslate nohighlight">\( ||w||_2^2 \leqslant  r \)</span>, satisfying both the optimization and the constraint as regularization will cause a collision between the two functions, as shown in the following figure.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Define the quadratic function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">quadratic_function</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">3</span><span class="o">*</span><span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+<span class="c1"># Generate a grid of points</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>
+<span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">quadratic_function</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+
+<span class="c1"># Define the circular region</span>
+<span class="n">circle</span> <span class="o">=</span> <span class="n">x1</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">x2</span><span class="o">**</span><span class="mi">2</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+
+<span class="c1"># Plotting the contour of the quadratic function</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">contour</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'viridis'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+
+<span class="c1"># Plotting the circular region boundary</span>
+<span class="n">circle_contour</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">circle</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Highlight the intersection area</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">circle</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="c1"># Labels and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x1'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'x2'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Contour Plot of the Quadratic Function with Circular Region'</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/91fed7597205c2c9b5f007e1904e05ef3f104e304f3e628a2910a1c2a0079e32.png" src="../../_images/91fed7597205c2c9b5f007e1904e05ef3f104e304f3e628a2910a1c2a0079e32.png" />
+</div>
+</div>
+<p>As we move the optimization point using a learning rule towards minimizing <span class="math notranslate nohighlight">\( J(w) \)</span>, it crosses the constraint <span class="math notranslate nohighlight">\( ||w||_2^2 \leqslant r \)</span> at the point shown in the above figure. This point represents the optimal value.Compare the two types of Ridge regression (using the L2 norm) and Lasso regression (using the L1 norm) in the following figure.
+<img alt="Compare L1 &amp; L2" src="../../_images/Ridge_Lasso.JPG" /></p>
+<p>The optimal <span class="math notranslate nohighlight">\(\hat{\beta}\)</span> minimizes the objective function <span class="math notranslate nohighlight">\(J\)</span>. When the optimal contour of <span class="math notranslate nohighlight">\(J\)</span> intersects with L1 regularization, it encourages sparsity in <span class="math notranslate nohighlight">\(\beta\)</span>. In contrast, L2 regularization typically results in smaller values for <span class="math notranslate nohighlight">\(\beta\)</span> or shrinks them, without promoting sparsity.</p>
+<p>If <span class="math notranslate nohighlight">\( J(w; X, y) \)</span> is not quadratic, we approximate it using quadratic functions.</p>
+<p><span class="math notranslate nohighlight">\(\tilde{J}(w; X, y) = \frac{\alpha}{2} w^T w + J(w; X, y),\)</span></p>
+<p><span class="math notranslate nohighlight">\(\tilde{J}(w) = \frac{\alpha}{2} w^T w + J(w^*) + \frac{1}{2}(w - w^*)^T H(w - w^*),\)</span></p>
+<p>For minimization</p>
+<p><span class="math notranslate nohighlight">\(\nabla_w \tilde{J}(w; X, y) = \alpha w + \nabla_w J(w; X, y).\)</span></p>
+<p>Then</p>
+<p><span class="math notranslate nohighlight">\(\nabla_w \tilde{J}(w) = \alpha w + H(w - w^*)\)</span></p>
+<p>Let <span class="math notranslate nohighlight">\(\tilde{w}\)</span> represent the minimizer of the regularized objective function. The slope at this point is equal to zero.</p>
+<p><span class="math notranslate nohighlight">\(\nabla_{\tilde{w}} J(\tilde{w}) = 0\)</span></p>
+<p><span class="math notranslate nohighlight">\(\alpha \tilde{w} + H(\tilde{w} - w^*) = 0\)</span></p>
+<p><span class="math notranslate nohighlight">\((H + \alpha I)\tilde{w} = Hw^*\)</span></p>
+<p><span class="math notranslate nohighlight">\(\tilde{w} = (H + \alpha I)^{-1}Hw^*\)</span>.</p>
+<p>In the equation above, if <span class="math notranslate nohighlight">\( H \)</span> is a positive semi-definite, real, and symmetric matrix, it can be decomposed into a diagonal matrix <span class="math notranslate nohighlight">\( \Lambda \)</span> and an orthonormal basis of eigenvectors <span class="math notranslate nohighlight">\( Q \)</span>, such that:</p>
+<div class="math notranslate nohighlight">
+\[
+ H = Q \Lambda Q^T.
+\]</div>
+<p><span class="math notranslate nohighlight">\(\nabla_{\tilde{w}} J(\tilde{w}) = 0\)</span></p>
+<p><span class="math notranslate nohighlight">\(\alpha \tilde{w} + H(\tilde{w} - w^*) = 0\)</span></p>
+<p><span class="math notranslate nohighlight">\((H + \alpha I)\tilde{w} = Hw^*\)</span></p>
+<p><span class="math notranslate nohighlight">\(\tilde{w} = (H + \alpha I)^{-1}Hw^*\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(H = Q\Lambda Q^T\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\tilde{w} = (Q\Lambda Q^T + \alpha I)^{-1}Q\Lambda Q^T w^*\)</span></p>
+<p><span class="math notranslate nohighlight">\( = [Q(\Lambda + \alpha I)Q^T]^{-1}Q\Lambda Q^T w^*\)</span></p>
+<p><span class="math notranslate nohighlight">\( = Q(\Lambda + \alpha I)^{-1}\Lambda Q^T w^*\)</span>.</p>
+<p>The effect of weight decay is to rescale <span class="math notranslate nohighlight">\(w^*\)</span> along the axes defined by the eigenvectors of <span class="math notranslate nohighlight">\(H\)</span>. The component of <span class="math notranslate nohighlight">\( \tilde{w} \)</span> along the <span class="math notranslate nohighlight">\( i^{th} \)</span> eigenvector of <span class="math notranslate nohighlight">\(H\)</span> is rescaled.</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde{w}_i = \frac{\lambda_i}{\lambda_i + \alpha}w_i^*
+\]</div>
+<p>If <span class="math notranslate nohighlight">\(\lambda_i &gt;&gt; \alpha\)</span>, the effect of regularisation is relatively small. However, components with <span class="math notranslate nohighlight">\(\lambda_i &lt;&lt; \alpha\)</span> will be shrunk to have nearly zero magnitudes. Only directions along which the parameters contribute significantly to reducing the objective function are preserved relatively intact. In other unimportant parameters, indicated by a small eigenvalue of the Hessian, weight vectors are decayed away through the use of the regularisation throughout the training.</p>
+<p>The regularisation constant, <span class="math notranslate nohighlight">\(\alpha\)</span> is a hyperparameter and is tuned to get the best results. As the value of <span class="math notranslate nohighlight">\(\alpha\)</span> increases, weights are decayed more.</p>
+</section>
+<section id="regularization-from-the-perspective-of-smoothness">
+<h3>Regularization from the perspective of smoothness<a class="headerlink" href="#regularization-from-the-perspective-of-smoothness" title="Link to this heading">#</a></h3>
+<p>If smoothness is considered for the regularization function, we follow a function without noise or a smoothed function, as shown below,
+<img alt="Smmothed Function" src="../../_images/f_x.JPG" /></p>
+<p>The function with the blue color includes more variation and has a higher absolute gradient, while the function with the green color has a smaller absolute gradient. If regularization defined <span class="math notranslate nohighlight">\( \left\| \nabla f \right\|^2 \)</span> and <span class="math notranslate nohighlight">\( f(x) = w^{T}x+b \)</span> so
+<span class="math notranslate nohighlight">\( \left\| \nabla f \right\|^2 = \left\| w \right\|^2\)</span></p>
+</section>
+<section id="regularization-from-the-perspective-of-maximum-margin">
+<h3>Regularization from the perspective of maximum margin<a class="headerlink" href="#regularization-from-the-perspective-of-maximum-margin" title="Link to this heading">#</a></h3>
+<p>Assuming the farthest points ( x_0 ) and ( x_1 ) from the parallel hyperplanes ( w^{T}x + b = 1 ) and ( w^{T}x + b = -1 ) respectively, the distance between the two hyperplanes is
+<img alt="Margin" src="../../_images/MarginPerspective.jpg" /></p>
+<p>So, the maximum margin is the largest region that the data can be described by the regressor. From this perspective, minimizing <span class="math notranslate nohighlight">\( ||w|| \)</span> is expected, so we use <span class="math notranslate nohighlight">\( ||w||^2 \)</span>.</p>
+</section>
+<section id="regularization-from-perspective-of-bias-variance">
+<h3>Regularization from perspective of Bias-variance<a class="headerlink" href="#regularization-from-perspective-of-bias-variance" title="Link to this heading">#</a></h3>
+<p>First, let me explain bias-variance. The derivation of the bias–variance decomposition for squared error proceeds as follows. <span class="math notranslate nohighlight">\( y=f(x)+\epsilon \)</span>  is the main function that we expect to find. now,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+MSE &amp;= E[(y - \hat{f}(x))^2] \\
+&amp;= E[(y^{2} -2 y\hat{f}(x) + \hat{f}(x)^{2})] \\
+&amp;= E[(y^{2})]-2E[y\hat{f}(x)]+E[(\hat{f}(x)^{2})]\\
+\end{align*}
+\end{split}\]</div>
+<p>replave <span class="math notranslate nohighlight">\( y \)</span> with <span class="math notranslate nohighlight">\( f(x)+\epsilon \)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align*}
+E[(y^{2})]=E[(f+\epsilon)^{2}]
+\end{align*}
+\]</div>
+<p>Because of <span class="math notranslate nohighlight">\( f \)</span> is deterministic,</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align*}
+E[(y^{2})]=f^2+fE[(\epsilon)]+E[\epsilon^{2}]
+\end{align*}
+\]</div>
+<p>We assume that <span class="math notranslate nohighlight">\( \epsilon \sim N(0,\sigma^{2}) \)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align*}
+E[(y^{2})]=f^2+\sigma^{2}
+\end{align*}
+\]</div>
+<p>Regarding <span class="math notranslate nohighlight">\( \hat{f} \)</span>, it is an estimation based on the observation <span class="math notranslate nohighlight">\( y \)</span> for approximating <span class="math notranslate nohighlight">\( f \)</span> ,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+E[y\hat{f}(x)]\\
+&amp;=E[(f(x)+\epsilon)\hat{f}(x)]\\
+&amp;=fE[\hat{f}(x)]+E[\epsilon]E[\hat{f}(x)]\\
+&amp;=fE[\hat{f}(x)]
+\end{align*}
+\end{split}\]</div>
+<p>Also</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align*}
+E[\hat{f}(x)^{2}]=var(\hat{f}(x))+E[\hat{f}(x)]^{2}
+\end{align*}
+\]</div>
+<p>Finally,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+MSE &amp;=E[(y^{2})]-2E[y\hat{f}(x)]+E[(\hat{f}(x)^{2})]\\
+&amp;=f^2+\sigma^{2}-2fE[\hat{f}(x)]+var(\hat{f}(x))+E[\hat{f}(x)]^{2}\\
+&amp;=(f-E[\hat{f}(x)])^{2}+\sigma^{2}+var(\hat{f}(x))
+\end{align*}
+\end{split}\]</div>
+<p>If the estimator is unbiased, then <span class="math notranslate nohighlight">\( (f-E[\hat{f}(x)])=0 \)</span>, In this case Minimum MSE (MMSE) is</p>
+<div class="math notranslate nohighlight">
+\[
+w^{*}=\arg \min_{w}var(\hat{f}(x))
+\]</div>
+<p>Our discussion was about <strong>regularization</strong> and the bias-variance tradeoff. If <span class="math notranslate nohighlight">\(\hat{f} = w^{T}x + b\)</span>, then <span class="math notranslate nohighlight">\(\mathrm{var}(\hat{f}) = w^{T} \mathrm{cov}(x) w\)</span>. Now, if <span class="math notranslate nohighlight">\(\mathrm{cov}(x) = I\)</span>, then regularization can be expressed as the minimization of mean squared error (MMSE), which is <span class="math notranslate nohighlight">\( w^{T}w \)</span>.</p>
+</section>
+</section>
+<section id="some-loss-function-for-regression">
+<h2>Some loss function for Regression<a class="headerlink" href="#some-loss-function-for-regression" title="Link to this heading">#</a></h2>
+<p>Another effective approach for reducing the effect of noise in regression models is to use a robust loss function that is less sensitive to outliers. The traditional squared error loss function <span class="math notranslate nohighlight">\( (y - \hat{y})^2 \)</span> is highly sensitive to outliers because the error term is squared, causing large errors to have a disproportionately high impact on the loss. Robust loss functions mitigate this issue by reducing the influence of large errors.</p>
+<section id="robust-loss-functions">
+<h3>Robust Loss Functions<a class="headerlink" href="#robust-loss-functions" title="Link to this heading">#</a></h3>
+<section id="huber-loss">
+<h4>1. <strong>Huber Loss</strong><a class="headerlink" href="#huber-loss" title="Link to this heading">#</a></h4>
+<p>The Huber loss function combines the properties of squared error loss and absolute error loss. It is less sensitive to outliers in data than the squared error loss. The Huber loss is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+    L_\delta(y, \hat{y}) = \begin{cases} 
+\frac{1}{2}(y - \hat{y})^2 &amp; \text{for} \ |y - \hat{y}| \leq \delta \\
+\delta \left( |y - \hat{y}| - \frac{1}{2}\delta \right) &amp; \text{for} \ |y - \hat{y}| &gt; \delta 
+\end{cases} 
+\end{align*}
+\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\delta\)</span> is a threshold parameter that determines the point where the loss function transitions from quadratic to linear. This makes the Huber loss quadratic for small errors and linear for large errors, reducing the influence of outliers.</p>
+</section>
+<section id="quantile-loss">
+<h4>2. <strong>Quantile Loss</strong><a class="headerlink" href="#quantile-loss" title="Link to this heading">#</a></h4>
+<p>Quantile loss is useful in regression tasks where we are interested in predicting a specific quantile of the response variable. The quantile loss function for the <span class="math notranslate nohighlight">\(q\)</span>th quantile is defined as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align*}
+ L_q(y, \hat{y}) = \begin{cases} 
+q (y - \hat{y}) &amp; \text{if} \ y \geq \hat{y} \\
+(1 - q) (\hat{y} - y) &amp; \text{if} \ y &lt; \hat{y} 
+\end{cases} 
+\end{align*}
+\end{split}\]</div>
+<p>This loss function is asymmetric, giving different weights to overestimation and underestimation. It can be particularly effective when the data has skewed distributions or when different types of errors have different costs.</p>
+</section>
+<section id="log-cosh-loss">
+<h4>3. <strong>Log-Cosh Loss</strong><a class="headerlink" href="#log-cosh-loss" title="Link to this heading">#</a></h4>
+<p>The Log-Cosh loss is another robust loss function that is less sensitive to outliers than the squared error loss. It is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+ L(y, \hat{y}) = \log(\cosh(\hat{y} - y)) 
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\cosh(x)\)</span> is the hyperbolic cosine function. The Log-Cosh loss behaves similarly to the squared error loss for small differences, but it grows more slowly for large differences, reducing the impact of outliers.</p>
+</section>
+</section>
+<section id="example-using-huber-loss-in-regression">
+<h3>Example: Using Huber Loss in Regression<a class="headerlink" href="#example-using-huber-loss-in-regression" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">HuberRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+<span class="c1"># Example data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"age"</span><span class="p">:</span> <span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">],</span>
+    <span class="s2">"height"</span><span class="p">:</span> <span class="p">[</span><span class="mi">174</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">173</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">184</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">'age'</span><span class="p">]]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'height'</span><span class="p">]</span>
+
+<span class="c1"># Fit Huber Regressor</span>
+<span class="n">huber</span> <span class="o">=</span> <span class="n">HuberRegressor</span><span class="p">(</span><span class="n">epsilon</span><span class="o">=</span><span class="mf">1.35</span><span class="p">)</span>
+<span class="n">huber</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Predict and plot results</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">huber</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Huber Regression Line'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Age'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Height'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Calculate and print Mean Squared Error</span>
+<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Mean Squared Error: </span><span class="si">{</span><span class="n">mse</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/843fb734562d74df364b01292d63f347a6e5b3b5a791dc9e653667cb5bcb2e98.png" src="../../_images/843fb734562d74df364b01292d63f347a6e5b3b5a791dc9e653667cb5bcb2e98.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mean Squared Error: 19.66467222387491
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="advantages-of-robust-loss-functions">
+<h3>Advantages of Robust Loss Functions<a class="headerlink" href="#advantages-of-robust-loss-functions" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Reduced Sensitivity to Outliers</strong>: By using robust loss functions, models become less sensitive to outliers, which often represent noise in the data.</p></li>
+<li><p><strong>Better Generalization</strong>: Robust loss functions help in achieving better generalization performance, as they prevent the model from being unduly influenced by a few extreme data points.</p></li>
+<li><p><strong>Improved Model Performance</strong>: For datasets with noisy measurements or outliers, robust loss functions can lead to better overall model performance and more reliable predictions.</p></li>
+</ol>
+</section>
+<section id="working-with-correntropy-loss-has-improved-the-robustness-of-our-model-against-outliers">
+<h3>Working with correntropy loss has improved the robustness of our model against outliers<a class="headerlink" href="#working-with-correntropy-loss-has-improved-the-robustness-of-our-model-against-outliers" title="Link to this heading">#</a></h3>
+<p>To replace the Mean Squared Error (MSE) loss function with the correntropy loss in a regression model and solve it analytically, we first need to understand what correntropy is and how it can be used as a loss function.</p>
+</section>
+<section id="correntropy-loss">
+<h3>Correntropy Loss<a class="headerlink" href="#correntropy-loss" title="Link to this heading">#</a></h3>
+<p>Correntropy is a robust similarity measure that combines the concepts of information theory and kernel methods. It is particularly effective for handling non-Gaussian noise and outliers. The correntropy loss for a single prediction can be defined using a Gaussian kernel as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{L}(y_i, \hat{y}_i) = \exp \left( -\frac{(y_i - \hat{y}_i)^2}{2\sigma^2} \right) 
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\sigma\)</span> is a kernel bandwidth parameter that controls the width of the Gaussian kernel.</p>
+<p>The overall correntropy loss for a dataset can be written as:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align*} J(w) = -\frac{1}{n} \sum_{i=1}^{n} \exp \left( -\frac{(y_i - \hat{y}_i)^2}{2\sigma^2} \right) + \lambda \sum_{j=1}^{d} w_j^2 \end{align*}
+\]</div>
+<p>The first term represents the negative correntropy (since we usually maximize correntropy, but as a loss function, we minimize the negative correntropy), and the second term is the regularization term.</p>
+</section>
+<section id="analytical-solution-for-correntropy-loss">
+<h3>Analytical Solution for Correntropy Loss<a class="headerlink" href="#analytical-solution-for-correntropy-loss" title="Link to this heading">#</a></h3>
+<p>To derive an analytical solution for the weights <span class="math notranslate nohighlight">\( w \)</span> using the correntropy loss, we typically face a challenge since the correntropy loss is non-convex and does not have a closed-form solution like the MSE. Instead, we often rely on iterative optimization techniques. Here, we’ll outline a gradient descent approach to minimize the correntropy loss function.</p>
+</section>
+<section id="gradient-descent-approach">
+<h3>Gradient Descent Approach<a class="headerlink" href="#gradient-descent-approach" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p><strong>Gradient of Correntropy Loss</strong>:</p>
+<p>The gradient of the correntropy loss with respect to the weights <span class="math notranslate nohighlight">\( w \)</span> can be derived as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+   \begin{align*}
+   \frac{\partial J(w)}{\partial w_j} = \frac{1}{n} \sum_{i=1}^{n} \frac{(y_i - \hat{y}_i)}{\sigma^2} \exp \left( -\frac{(y_i - \hat{y}_i)^2}{2\sigma^2} \right) x_{ij} + 2\lambda w_j
+   \end{align*}
+   \]</div>
+<p>Here, <span class="math notranslate nohighlight">\( x_{ij} \)</span> is the <span class="math notranslate nohighlight">\( j \)</span>-th feature of the <span class="math notranslate nohighlight">\( i \)</span>-th training example.</p>
+</li>
+<li><p><strong>Gradient Descent Update Rule</strong>:</p>
+<p>Using gradient descent, we update the weights <span class="math notranslate nohighlight">\( w \)</span> iteratively as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+   \begin{align*}
+   w_j^{(t+1)} = w_j^{(t)} - \eta \left( \frac{1}{n} \sum_{i=1}^{n} \frac{(y_i - \hat{y}_i)}{\sigma^2} \exp \left( -\frac{(y_i - \hat{y}_i)^2}{2\sigma^2} \right) x_{ij} + 2\lambda w_j^{(t)} \right)
+   \end{align*}
+   \]</div>
+<p>Here, <span class="math notranslate nohighlight">\( \eta \)</span> is the learning rate, and <span class="math notranslate nohighlight">\( t \)</span> denotes the iteration index.</p>
+</li>
+</ol>
+</section>
+<section id="implementation-in-python">
+<h3>Implementation in Python<a class="headerlink" href="#implementation-in-python" title="Link to this heading">#</a></h3>
+<p>Let’s implement the gradient descent approach to minimize the correntropy loss function for a simple regression problem.</p>
+</section>
+</section>
+<section id="homework">
+<h2>HomeWork<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
+<p>Correct the following code, identify any errors, and explain how to fix them</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Example data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"age"</span><span class="p">:</span> <span class="p">[</span><span class="mi">21</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">22</span><span class="p">],</span>
+    <span class="s2">"height"</span><span class="p">:</span> <span class="p">[</span><span class="mi">174</span><span class="p">,</span> <span class="mi">168</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">171</span><span class="p">,</span> <span class="mi">175</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">173</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="mi">165</span><span class="p">,</span> <span class="mi">184</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">'age'</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'height'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="c1"># Add bias term</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">x</span><span class="p">])</span>
+
+<span class="c1"># Initialize weights</span>
+<span class="n">w</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># Parameters</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">lambda_reg</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">1.4</span>
+<span class="n">num_iterations</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="c1"># Gradient descent</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_iterations</span><span class="p">):</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+    <span class="n">error</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_pred</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">error</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">error</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">sigma</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">lambda_reg</span> <span class="o">*</span> <span class="n">w</span>
+    <span class="n">w</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">gradient</span>
+
+<span class="c1"># Predict and plot results</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'age'</span><span class="p">],</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'age'</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Correntropy Regression Line'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Age'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Height'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Weights: </span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="regression-with-epsilon-insensitive-loss">
+<h2>Regression with <span class="math notranslate nohighlight">\(\epsilon \)</span>-insensitive loss<a class="headerlink" href="#regression-with-epsilon-insensitive-loss" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[
+J(w) = \frac{1}{2n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{d} w_j^2
+\]</div>
+<p>By substituting the square loss with the <span class="math notranslate nohighlight">\( \epsilon \)</span>-insensitive loss we have,</p>
+<p>The initial objective function incorporating the <span class="math notranslate nohighlight">\(\epsilon\)</span>-insensitive loss is:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} \max(0, |e_i| - \epsilon)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(e_i = y_i - \hat{y}_i = y_i - (w^T x_i + b)\)</span>.</p>
+<section id="introducing-slack-variables">
+<h3>Introducing Slack Variables<a class="headerlink" href="#introducing-slack-variables" title="Link to this heading">#</a></h3>
+<p>We introduce slack variables <span class="math notranslate nohighlight">\(\xi_i\)</span> to represent the amount by which each error <span class="math notranslate nohighlight">\(|e_i|\)</span> exceeds <span class="math notranslate nohighlight">\(\epsilon\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\xi_i = \max(0, |e_i| - \epsilon)
+\]</div>
+<p>Thus, the objective function can be rewritten as:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} \xi_i
+\]</div>
+</section>
+<section id="constraints">
+<h3>Constraints<a class="headerlink" href="#constraints" title="Link to this heading">#</a></h3>
+<p>The slack variables <span class="math notranslate nohighlight">\(\xi_i\)</span> must satisfy the following constraints:
+<span class="math notranslate nohighlight">\( \xi_i\geqslant 0 \)</span>
+,</p>
+<div class="math notranslate nohighlight">
+\[
+|y_i - (w^T x_i + b)| -\epsilon  \leq  \xi_i
+\]</div>
+<p>To handle this constraint without using the absolute value, we can split it into two separate constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T x_i + b) \leq \epsilon + \xi_i \\
+(w^T x_i + b) - y_i \leq \epsilon + \xi_i
+\end{cases}
+\end{split}\]</div>
+<p>Additionally, we need to ensure that <span class="math notranslate nohighlight">\(\xi_i \geq 0\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\xi_i \geq 0
+\]</div>
+</section>
+<section id="primal-problem">
+<h3>Primal Problem<a class="headerlink" href="#primal-problem" title="Link to this heading">#</a></h3>
+<p>Combining these constraints with the objective function, we get the primal problem:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} \xi_i
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T x_i + b) \leq \epsilon + \xi_i \\
+(w^T x_i + b) - y_i \leq \epsilon + \xi_i \\
+\xi_i \geq 0
+\end{cases}
+\end{split}\]</div>
+</section>
+<section id="final-formulation">
+<h3>Final Formulation<a class="headerlink" href="#final-formulation" title="Link to this heading">#</a></h3>
+<p>Thus, the final formulation of the Support Vector Regression (SVR) with <span class="math notranslate nohighlight">\(\epsilon\)</span>-insensitive loss is:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{w, b, \xi} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} \xi_i
+\]</div>
+<p>subject to the constraints:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T x_i + b) \leq \epsilon + \xi_i \\
+(w^T x_i + b) - y_i \leq \epsilon + \xi_i \\
+\xi_i \geq 0
+\end{cases}
+\end{split}\]</div>
+<p>We use two slack variables, <span class="math notranslate nohighlight">\(\xi_i\)</span> and <span class="math notranslate nohighlight">\(\xi_i^*\)</span>, instead of one slack variable, <span class="math notranslate nohighlight">\(\xi_i\)</span>, which can lead to slightly different formulations of the optimization problem.
+When we use a single slack variable <span class="math notranslate nohighlight">\(\xi_i\)</span>, we are simplifying the problem by using one variable to capture deviations from the <span class="math notranslate nohighlight">\(\epsilon\)</span>-insensitive zone. Here, <span class="math notranslate nohighlight">\(\xi_i\)</span> captures the extent to which the prediction <span class="math notranslate nohighlight">\(w^T x_i + b\)</span> falls outside the <span class="math notranslate nohighlight">\(\epsilon\)</span>-tube, both for positive and negative deviations.</p>
+</section>
+<section id="using-two-slack-variables-xi-i-and-xi-i">
+<h3>Using Two Slack Variables <span class="math notranslate nohighlight">\(\xi_i\)</span> and <span class="math notranslate nohighlight">\(\xi_i^*\)</span><a class="headerlink" href="#using-two-slack-variables-xi-i-and-xi-i" title="Link to this heading">#</a></h3>
+<p>Using two slack variables <span class="math notranslate nohighlight">\(\xi_i\)</span> and <span class="math notranslate nohighlight">\(\xi_i^*\)</span> allows us to separately handle positive and negative deviations outside the <span class="math notranslate nohighlight">\(\epsilon\)</span>-tube. This formulation is as follows:</p>
+<section id="objective-function">
+<h4>Objective Function<a class="headerlink" href="#objective-function" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[
+\min_{w, b, \xi, \xi^*} \frac{1}{2} \|w\|^2 + C \sum_{i=1}^{n} (\xi_i + \xi_i^*)
+\]</div>
+</section>
+<section id="id1">
+<h4>Constraints<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{cases}
+y_i - (w^T x_i + b) \leq \epsilon + \xi_i \\
+(w^T x_i + b) - y_i \leq \epsilon + \xi_i^* \\
+\xi_i, \xi_i^* \geq 0
+\end{cases}
+\end{split}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\xi_i\)</span> captures the positive deviation  and <span class="math notranslate nohighlight">\(\xi_i^*\)</span> captures the negative deviation.</p>
+</section>
+</section>
+<section id="differences-and-reasons">
+<h3>Differences and Reasons<a class="headerlink" href="#differences-and-reasons" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Flexibility</strong>:</p>
+<ul class="simple">
+<li><p><strong>One Slack Variable</strong>: This approach is simpler and assumes that deviations in both directions can be captured using a single variable. It’s a straightforward way to enforce the <span class="math notranslate nohighlight">\(\epsilon\)</span>-insensitive loss.</p></li>
+<li><p><strong>Two Slack Variables</strong>: This approach provides more flexibility by separately accounting for positive and negative deviations. It allows for different penalization of overestimation and underestimation errors.</p></li>
+</ul>
+</li>
+<li><p><strong>Formulation Complexity</strong>:</p>
+<ul class="simple">
+<li><p><strong>One Slack Variable</strong>: Leads to a simpler optimization problem with fewer variables and constraints.</p></li>
+<li><p><strong>Two Slack Variables</strong>: Adds complexity to the optimization problem with more variables and constraints but offers finer control over error handling.</p></li>
+</ul>
+</li>
+<li><p><strong>Practical Implications</strong>:</p>
+<ul class="simple">
+<li><p>In practice, the choice between one or two slack variables depends on the specific requirements of the regression problem. If the errors are expected to be symmetric, one slack variable might suffice. If asymmetric error handling is required, two slack variables might be more appropriate.</p></li>
+</ul>
+</li>
+</ol>
+<p>This note discusses the use of two slack variables with the selection of coefficients <span class="math notranslate nohighlight">\(C_1\)</span> and <span class="math notranslate nohighlight">\(C_2\)</span> to better show their effects. The expression can be written as:</p>
+<div class="math notranslate nohighlight">
+\[
+C_1 \sum_{i=1}^{n} (\xi_i) + C_2 \sum_{i=1}^{n} (\xi_i)^*
+\]</div>
+<p>or, in a more optimal form, as:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{n} c_i (\xi_i + \xi_i^*)
+\]</div>
+</section>
+</section>
+<section id="simple-example-solved-by">
+<h2>Simple Example Solved by<a class="headerlink" href="#simple-example-solved-by" title="Link to this heading">#</a></h2>
+<p><strong>Mr. Javad Saghi</strong><br />
+<strong>Contact Email: <a class="reference external" href="mailto:jav&#46;saghi&#37;&#52;&#48;gmail&#46;com">jav<span>&#46;</span>saghi<span>&#64;</span>gmail<span>&#46;</span>com</a></strong></p>
+</section>
+<section id="regression-with-varepsilon-insensitive-loss-without-regularization-term">
+<h2>Regression with <span class="math notranslate nohighlight">\(\varepsilon\)</span>-insensitive loss without regularization term<a class="headerlink" href="#regression-with-varepsilon-insensitive-loss-without-regularization-term" title="Link to this heading">#</a></h2>
+<section id="loss-function">
+<h3>Loss Function<a class="headerlink" href="#loss-function" title="Link to this heading">#</a></h3>
+<p>If we consider our loss function as:</p>
+<div class="math notranslate nohighlight">
+\[
+l(e) = \max(|e|-\varepsilon, 0)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+e = y - \hat{y}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{y}\)</span> is the output of the model.</p>
+<p>and choose our model to be a linear model,</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{y} = \mathbf{w}^\top \mathbf{x}
+\]</div>
+<p>Then we need to optimize,</p>
+<div class="math notranslate nohighlight">
+\[
+\min{\sum_{i=1}^{n}\max{\left(\left|e\right|-\varepsilon,\ 0\right)}}
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\(n\)</span> is the total number of the data points.</p>
+</section>
+<section id="slack-variable">
+<h3>slack variable<a class="headerlink" href="#slack-variable" title="Link to this heading">#</a></h3>
+<p>By considering <span class="math notranslate nohighlight">\(\xi_i \geq |y_i -(w^\top x_i )|-\varepsilon \)</span> and <span class="math notranslate nohighlight">\(\xi_i \geq 0\)</span> we can optimize the following function instead:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{\xi} \sum_{i}^{n} \xi_i
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left\{
+    \begin{matrix} 
+    \xi_i \geq 0 \\
+    \xi_i \geq |y_i - (\mathbf{w}^\top \mathbf{x}_i)|-\varepsilon
+    \end{matrix} \right.
+\end{split}\]</div>
+<p>The second condition can be written as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\xi_i \geq |y_i - (\mathbf{w}^\top \mathbf{x}_i)|-\varepsilon \\
+\Rightarrow |y_i - (\mathbf{w}^\top \mathbf{x}_i)| \leq \xi_i + \varepsilon \\
+\Rightarrow -\xi_i - \varepsilon \leq y_i - (\mathbf{w}^\top \mathbf{x}_i) \leq \xi_i - \varepsilon 
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Rightarrow \left\{ \begin{matrix}
+-\xi_i - \varepsilon \leq y_i - (\mathbf{w}^\top \mathbf{x}_i) \\
+y_i - (\mathbf{w}^\top \mathbf{x}_i) \leq \xi_i - \varepsilon
+\end{matrix} \right. 
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Rightarrow \left\{ \begin{matrix}
+-y_i + (\mathbf{w}^\top x_i) \leq \xi_i +\varepsilon \\
+y_i - (\mathbf{w}^\top \mathbf{x}_i) \leq \xi_i - \varepsilon
+\end{matrix} \right.
+\end{split}\]</div>
+<p>Finally, we can consider our function as follow:
+$<span class="math notranslate nohighlight">\(
+\min \sum_{i=1}^{n} \xi_i \\
+s.t. \left\{
+    \begin{matrix} 
+    \xi_i \geq 0 \\
+    -y_i + (\mathbf{w}^\top \mathbf{x}_i ) \leq \xi_i + \varepsilon \\
+    y_i - (\mathbf{w}^\top \mathbf{x}_i ) \leq \xi_i + \varepsilon
+    \end{matrix} \right.
+\)</span>$</p>
+</section>
+<section id="linear-programming">
+<h3>Linear Programming<a class="headerlink" href="#linear-programming" title="Link to this heading">#</a></h3>
+<p>The standard form of LP is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\min \mathbf{c}^\top \mathbf{x} \\
+s.t. \left\{ \begin{matrix} 
+A_{ub} \mathbf{x} \leq b_ub\\
+A_{eq} \mathbf{x} = b_eq
+\end{matrix} \right.
+\end{split}\]</div>
+<p>So, we need to convert our problem to the standard form of linear programmin.</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}
+\min{\begin{bmatrix}
+1 &amp; 1 &amp; \dots &amp; 1 &amp; &amp; 0 &amp; \dots &amp; 0 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+\xi_1 \\ \xi_2 \\ \vdots \\ \xi_n \\ w_1 \\ w_2 \\ \vdots \\ w_d \\ b
+\end{bmatrix}} 
+\\
+A_{ub} \mathbf{x} \leq \mathbf{b}_{ub} 
+\Leftrightarrow 
+\begin{bmatrix}
+-1\ &amp;0&amp;\ldots&amp;0&amp;0&amp;0&amp;\ldots&amp;0&amp;0\\0&amp;-1&amp;\ldots&amp;0&amp;0&amp;0&amp;\ldots&amp;0&amp;0\\\vdots &amp;\vdots &amp;\ddots &amp;\vdots &amp;\vdots &amp;\vdots &amp;\ddots&amp;\vdots &amp;\vdots \\0&amp;0&amp;\ldots&amp;-1&amp;0&amp;0&amp;\ldots&amp;0&amp;0\\-1&amp;0&amp;\ldots&amp;0&amp;X_11&amp;X_12&amp;\ldots&amp;X_1d&amp;1\\0&amp;-1&amp;\ldots&amp;0&amp;X_21&amp;X_22&amp;\ldots&amp;X_2d&amp;1\\\vdots &amp;\vdots &amp;\ddots&amp;\vdots &amp;\vdots &amp;\vdots &amp;\ddots&amp;\vdots &amp;\vdots \\0&amp;0&amp;\ldots&amp;-1&amp;X_n1&amp;X_n2&amp;\ldots&amp;X_nd&amp;1\\-1&amp;0&amp;\ldots&amp;0&amp;-X_11&amp;-X_12&amp;\ldots&amp;-X_1d&amp;-1\\0&amp;-1&amp;\ldots&amp;0&amp;-X_21&amp;-X_22&amp;\ldots&amp;-X_2d&amp;-1\\\vdots &amp;\vdots &amp;\ddots&amp;\vdots &amp;\vdots &amp;\vdots &amp;\ddots&amp;\vdots &amp;\vdots \\0&amp;0&amp;\ldots&amp;-1&amp;-X_n1&amp;-X_n2&amp;\ldots&amp;-X_nd&amp;-1
+\end{bmatrix}\end{split}\\\begin{split}\begin{bmatrix}
+\xi_1\\\xi_2\\\vdots \\\xi_n\\w_1\\w_2\\\vdots \\w_d\\b
+\end{bmatrix}
+\leq\end{split}\\\begin{split}\begin{bmatrix}
+0\\0\\\vdots \\0\\y_1+\varepsilon \\y_2+\varepsilon \\\vdots \\y_n+\varepsilon \\-y_1+\varepsilon \\-y_2+\varepsilon \\\vdots \\-y_n+\varepsilon
+\end{bmatrix}
+\end{split}\end{aligned}\end{align} \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_regression</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">linprog</span>
+<span class="c1"># Set hyperparameters</span>
+<span class="n">n_sample</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">n_feature</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">eps</span> <span class="o">=</span> <span class="mf">0.3</span>
+
+<span class="c1"># Make a simple regression dataset</span>
+<span class="n">dataset_x</span><span class="p">,</span> <span class="n">dataset_y</span> <span class="o">=</span> <span class="n">make_regression</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="n">n_sample</span><span class="p">,</span>
+                                       <span class="n">n_features</span><span class="o">=</span><span class="n">n_feature</span><span class="p">,</span>
+                                       <span class="n">n_informative</span><span class="o">=</span><span class="n">n_feature</span><span class="p">,</span>
+                                       <span class="n">n_targets</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                       <span class="n">noise</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span>
+                                       <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">dataset_y</span> <span class="o">=</span> <span class="n">dataset_y</span> <span class="o">/</span> <span class="mi">20</span>
+
+<span class="c1"># Plot the dataset's data points</span>
+<span class="n">fig</span> <span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="s1">'tight'</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">dataset_x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataset_y</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x24b355afe30&gt;
+</pre></div>
+</div>
+<img alt="../../_images/ee0c8a855b06e537f3aed071923b0367d4b26c0bffba5841ca5be10533149bf9.png" src="../../_images/ee0c8a855b06e537f3aed071923b0367d4b26c0bffba5841ca5be10533149bf9.png" />
+</div>
+</div>
+</section>
+<section id="reminder">
+<h3><strong>Reminder</strong><a class="headerlink" href="#reminder" title="Link to this heading">#</a></h3>
+<p>Standard form of LP is as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\min \mathbf{c}^\top \mathbf{x} \\
+s.t. \left\{ \begin{matrix} 
+A_{ub} \mathbf{x} \leq b_ub\\
+A_{eq} \mathbf{x} = b_eq
+\end{matrix} \right.
+\end{split}\]</div>
+<p>Since there are no equality constraints, we only need to define <span class="math notranslate nohighlight">\(c, A_{ub} \text{ and } b_{ub}\)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create matrices in standard LP form</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="n">n_sample</span><span class="p">),</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="n">n_feature</span><span class="p">),</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+<span class="p">])</span>
+
+
+<span class="n">A_ub1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_sample</span><span class="p">,</span> <span class="n">n_sample</span><span class="o">+</span><span class="n">n_feature</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">A_ub2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_sample</span><span class="p">,</span> <span class="n">n_sample</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">dataset_x</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">([</span><span class="n">n_sample</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">A_ub3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">n_sample</span><span class="p">,</span> <span class="n">n_sample</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+    <span class="o">-</span><span class="n">dataset_x</span><span class="p">,</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">([</span><span class="n">n_sample</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">A_ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">A_ub1</span><span class="p">,</span> <span class="n">A_ub2</span><span class="p">,</span> <span class="n">A_ub3</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+
+<span class="n">b_ub</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">n_sample</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="n">dataset_y</span><span class="o">+</span><span class="n">eps</span><span class="p">,</span>
+    <span class="o">-</span><span class="n">dataset_y</span><span class="o">+</span><span class="n">eps</span>
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Linear programming</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">linprog</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">A_ub</span><span class="o">=</span><span class="n">A_ub</span><span class="p">,</span> <span class="n">b_ub</span><span class="o">=</span><span class="n">b_ub</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>linprog returns <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> vector that consists of <span class="math notranslate nohighlight">\((\mathbf{\xi} , \mathbf{w} , b)\)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf{x} = \begin{bmatrix} \xi_1\\\xi_2\\\vdots \\\xi_n\\w_1\\w_2\\\vdots \\w_d\\b \end{bmatrix}
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get weights</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)[</span><span class="n">n_sample</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot">
+<h3>Plot<a class="headerlink" href="#plot" title="Link to this heading">#</a></h3>
+<p>Showing the results as a scatter plot beside the first scatter plot, in which the size of each data point is proportional to its <span class="math notranslate nohighlight">\(\xi\)</span> value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the dataset's data points according to their xi values</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">dataset_x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">dataset_y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)[:</span><span class="n">n_sample</span><span class="p">]</span><span class="o">*</span><span class="mi">160</span><span class="o">+</span><span class="mi">15</span><span class="p">)</span>
+
+<span class="c1"># Draw regression line with epsilon bandwidth</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">dataset_x</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">dataset_x</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">b</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">-</span><span class="n">eps</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span><span class="n">eps</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">fig</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/56725a118769220a803b580d5e803a56776417371d61806f2050216e414b45f8.png" src="../../_images/56725a118769220a803b580d5e803a56776417371d61806f2050216e414b45f8.png" />
+</div>
+</div>
+</section>
+<section id="end-saghi-work">
+<h3>End Saghi Work<a class="headerlink" href="#end-saghi-work" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="some-of-my-papers-about-regression">
+<h2>Some of my papers about <strong>Regression</strong><a class="headerlink" href="#some-of-my-papers-about-regression" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Vahedian, A., Sadoghi Yazdi, M., Effati, S., &amp; Sadoghi Yazdi, H. (2011). Fuzzy cost support vector regression on the fuzzy samples. <em>Applied Intelligence, 35</em>, 428-435.</p></li>
+<li><p>Hajiabadi, H., Monsefi, R., &amp; Sadoghi Yazdi, H. (2019). RELF: Robust regression extended with ensemble loss function. <em>Applied Intelligence, 49</em>, 1437-1450.</p></li>
+<li><p>Sadoghi Yazdi, H., Royani, T., Sadoghi Yazdi, M., &amp; Effati, S. (2008). Fuzzy cost support vector regression. <em>International Journal of Mathematical and Computational Sciences, 2</em>(8), 587-592.</p></li>
+<li><p>Sadoghi Yazdi, H., Arghiani, M., &amp; Nemati, E. (2011). Nonlinear regression model of a human hand volume: A nondestructive method. <em>International Journal of Control and Automation, 4</em>(2), 111-124.</p></li>
+<li><p>Sadoghi Yazdi, H., Sadoghi Yazdi, M., &amp; Vahedian, A. (2010). A new regressor for bandwidth calculation of a rectangular microstrip antenna. <em>International Journal of Microwave and Optical Technology, 4</em>(6).</p></li>
+</ol>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/Regression"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Introduction_Regression.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Regression</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="NonLinearRegression.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Non-linear Regression: The starting point</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function-of-regression">Loss function of regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-function-for-regression">Cost Function for regression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduce-a-regularization-term">1-Introduce a regularization term</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ridge-regression-l2-regularization">Ridge Regression (L2 Regularization)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lasso-regression-l1-regularization">Lasso Regression (L1 Regularization)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#effect-of-regularization">Effect of Regularization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#derivation-of-the-closed-form-solution">Derivation of the Closed-Form Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-the-solution">Interpretation of the Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparison-with-ordinary-least-squares-ols">Comparison with Ordinary Least Squares (OLS)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-regularization-reduces-overfitting">Why Regularization Reduces Overfitting:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#overfitting-explained">Overfitting Explained:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-perspective">Mathematical Perspective:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualizing-what-occurs-with-regularization">Visualizing what occurs with regularization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-from-the-perspective-of-smoothness">Regularization from the perspective of smoothness</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-from-the-perspective-of-maximum-margin">Regularization from the perspective of maximum margin</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#regularization-from-perspective-of-bias-variance">Regularization from perspective of Bias-variance</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-loss-function-for-regression">Some loss function for Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#robust-loss-functions">Robust Loss Functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#huber-loss">1. <strong>Huber Loss</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#quantile-loss">2. <strong>Quantile Loss</strong></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#log-cosh-loss">3. <strong>Log-Cosh Loss</strong></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-using-huber-loss-in-regression">Example: Using Huber Loss in Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advantages-of-robust-loss-functions">Advantages of Robust Loss Functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-with-correntropy-loss-has-improved-the-robustness-of-our-model-against-outliers">Working with correntropy loss has improved the robustness of our model against outliers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-loss">Correntropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution-for-correntropy-loss">Analytical Solution for Correntropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-approach">Gradient Descent Approach</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-in-python">Implementation in Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">HomeWork</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-with-epsilon-insensitive-loss">Regression with <span class="math notranslate nohighlight">\(\epsilon \)</span>-insensitive loss</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-slack-variables">Introducing Slack Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#constraints">Constraints</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#primal-problem">Primal Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#final-formulation">Final Formulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-two-slack-variables-xi-i-and-xi-i">Using Two Slack Variables <span class="math notranslate nohighlight">\(\xi_i\)</span> and <span class="math notranslate nohighlight">\(\xi_i^*\)</span></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#objective-function">Objective Function</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Constraints</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#differences-and-reasons">Differences and Reasons</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-example-solved-by">Simple Example Solved by</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-with-varepsilon-insensitive-loss-without-regularization-term">Regression with <span class="math notranslate nohighlight">\(\varepsilon\)</span>-insensitive loss without regularization term</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loss-function">Loss Function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#slack-variable">slack variable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-programming">Linear Programming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reminder"><strong>Reminder</strong></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot">Plot</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#end-saghi-work">End Saghi Work</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-regression">Some of my papers about <strong>Regression</strong></a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

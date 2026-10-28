@@ -1,0 +1,1158 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Covariance &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/SupplementaryDocuments/Covariance1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Contact Me" href="../../Contact_Me.html" />
+    <link rel="prev" title="Twin SVM" href="twin_svm.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="Supplementary1.html">Supplementary Documents</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/SupplementaryDocuments/Covariance1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Covariance</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preliminaries">Preliminaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sample-mean-bar-x-is-an-unbiased-estimator">The sample mean <span class="math notranslate nohighlight">\( \bar{x} \)</span> is an unbiased estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-an-unbiased-estimator">Definition of an Unbiased Estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">Proof</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variance">Variance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Covariance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-matrix">Covariance Matrix</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-sampling-from-mean-and-different-types-of-covariance">Example: Sampling from mean and different types of covariance.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-and-eigenvectors-of-the-covariance-matrix">Eigenvalues and Eigenvectors of the Covariance Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Covariance Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-and-eigenvectors">Eigenvalues and Eigenvectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-and-interpretation">Properties and Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-eigenvalues-and-eigenvectors">Calculating Eigenvalues and Eigenvectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-elongation-of-data">Problem: Elongation of data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Covariance Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigen-decomposition-of-the-covariance-matrix">Eigen Decomposition of the Covariance Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-eigenvalues-and-eigenvectors">Interpretation of Eigenvalues and Eigenvectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-proof-and-intuition">Mathematical Proof and Intuition</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation-to-principal-component-space">Transformation to Principal Component Space</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-in-the-new-coordinate-system">Variance in the New Coordinate System</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-interpretation">Geometric Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-with-2d-data">Example with 2D Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-spread-and-its-benefits">Eigenvalue Spread and Its Benefits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eigenvalue-spread">What is Eigenvalue Spread?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-eigenvalue-spread">Understanding Eigenvalue Spread</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-understanding-eigenvalue-spread">Benefits of Understanding Eigenvalue Spread</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-insight-into-eigenvalue-spread">Mathematical Insight into Eigenvalue Spread</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-working-with-eigen-values-of-covariance">Homework: Working with eigen values of covariance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-to-image-denoising-2-check-for-human-face-images">1- Check to image denoising 2-Check for human face images</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="covariance">
+<h1>Covariance<a class="headerlink" href="#covariance" title="Link to this heading">#</a></h1>
+<section id="preliminaries">
+<h2>Preliminaries<a class="headerlink" href="#preliminaries" title="Link to this heading">#</a></h2>
+<section id="the-sample-mean-bar-x-is-an-unbiased-estimator">
+<h3>The sample mean <span class="math notranslate nohighlight">\( \bar{x} \)</span> is an unbiased estimator<a class="headerlink" href="#the-sample-mean-bar-x-is-an-unbiased-estimator" title="Link to this heading">#</a></h3>
+<p>The sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> is an unbiased estimator of the population mean <span class="math notranslate nohighlight">\(\mu\)</span> because its expected value is equal to the population mean.</p>
+</section>
+<section id="definition-of-an-unbiased-estimator">
+<h3>Definition of an Unbiased Estimator<a class="headerlink" href="#definition-of-an-unbiased-estimator" title="Link to this heading">#</a></h3>
+<p>An estimator <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> of a parameter <span class="math notranslate nohighlight">\(\theta\)</span> is said to be unbiased if the expected value of the estimator is equal to the true value of the parameter:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\hat{\theta}] = \theta
+\]</div>
+<p>In this context, <span class="math notranslate nohighlight">\(\bar{x}\)</span> is the estimator of <span class="math notranslate nohighlight">\(\mu\)</span>, and it is unbiased if:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\bar{x}] = \mu
+\]</div>
+</section>
+<section id="proof">
+<h3>Proof<a class="headerlink" href="#proof" title="Link to this heading">#</a></h3>
+<p>Let’s prove that the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> is an unbiased estimator of the population mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+<p><strong>Sample Mean</strong>: The sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> for a random sample <span class="math notranslate nohighlight">\(\{x_1, x_2, \ldots, x_n\}\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[ \bar{x} = \frac{1}{n} \sum_{i=1}^n x_i \]</div>
+<p><strong>Expected Value of the Sample Mean</strong>: To find the expected value of <span class="math notranslate nohighlight">\(\bar{x}\)</span>, we use the linearity property of expectation:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\bar{x}] = E\left[\frac{1}{n} \sum_{i=1}^n x_i\right]
+\]</div>
+<p>By the linearity of expectation, this can be written as:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\bar{x}] = \frac{1}{n} \sum_{i=1}^n E[x_i] \]</div>
+<p><strong>Expected Value of Each Sample</strong>: Since each <span class="math notranslate nohighlight">\(x_i\)</span> is an individual sample from the population with mean <span class="math notranslate nohighlight">\(\mu\)</span>, we have:</p>
+<p><span class="math notranslate nohighlight">\( E[x_i] = \mu \)</span></p>
+<p><strong>Summing the Expected Values</strong>: Substituting <span class="math notranslate nohighlight">\(E[x_i] = \mu\)</span> into the previous equation gives:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\bar{x}] = \frac{1}{n} \sum_{i=1}^n \mu
+\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\mu\)</span> is a constant, we can factor it out of the sum:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\bar{x}] = \frac{1}{n} \cdot n \mu
+\]</div>
+<p><strong>Simplifying</strong>: The <span class="math notranslate nohighlight">\(n\)</span> terms cancel out, leaving:</p>
+<div class="math notranslate nohighlight">
+\[
+E[\bar{x}] = \mu
+\]</div>
+<p>This shows that the expected value of the sample mean <span class="math notranslate nohighlight">\(\bar{x}\)</span> is equal to the population mean <span class="math notranslate nohighlight">\(\mu\)</span>.</p>
+</section>
+<section id="variance">
+<h3>Variance<a class="headerlink" href="#variance" title="Link to this heading">#</a></h3>
+<p>Variance measures the spread of a single random variable around its mean. For a random variable <span class="math notranslate nohighlight">\( x \)</span> with <span class="math notranslate nohighlight">\( n \)</span> samples, the variance <span class="math notranslate nohighlight">\( \sigma^2_x \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2_x = \frac{1}{n-1} \sum^{n}_{i=1}(x_i - \bar{x})^2
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( n \)</span> is the number of samples.</p></li>
+<li><p><span class="math notranslate nohighlight">\( x_i \)</span> is the <span class="math notranslate nohighlight">\( i \)</span>-th sample.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \bar{x} \)</span> is the mean of the samples, defined as <span class="math notranslate nohighlight">\( \bar{x} = \frac{1}{n} \sum^{n}_{i=1} x_i \)</span>.</p></li>
+</ul>
+<p>The following figure shows concept of spread over mean.</p>
+<p><img alt="Std_1" src="../../_images/std1.PNG" /></p>
+<p>Why is the variance calculated with a coefficient of <span class="math notranslate nohighlight">\( \frac{1}{n-1} \)</span> ? This is known as Bessel’s Correction.</p>
+<p>The use of <span class="math notranslate nohighlight">\( n-1 \)</span> instead of <span class="math notranslate nohighlight">\( n \)</span> ensures an unbiased estimate of the population variance.</p>
+</section>
+<section id="id1">
+<h3>Covariance<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<p>Covariance measures the degree to which two random variables vary together. For two random variables <span class="math notranslate nohighlight">\( x \)</span> and <span class="math notranslate nohighlight">\( y \)</span> with <span class="math notranslate nohighlight">\( n \)</span> samples, the covariance <span class="math notranslate nohighlight">\( \sigma(x, y) \)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma(x, y) = \frac{1}{n-1} \sum^{n}_{i=1}(x_i - \bar{x})(y_i - \bar{y})
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( y_i \)</span> is the <span class="math notranslate nohighlight">\( i \)</span>-th sample of <span class="math notranslate nohighlight">\( y \)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \bar{y} \)</span> is the mean of the samples of <span class="math notranslate nohighlight">\( y \)</span>, defined as <span class="math notranslate nohighlight">\( \bar{y} = \frac{1}{n} \sum^{n}_{i=1} y_i \)</span>.</p></li>
+</ul>
+<p>The variance <span class="math notranslate nohighlight">\( \sigma^2_x \)</span> of a random variable <span class="math notranslate nohighlight">\( x \)</span> can also be expressed as the covariance of <span class="math notranslate nohighlight">\( x \)</span> with itself:</p>
+<div class="math notranslate nohighlight">
+\[ \sigma^2_x = \sigma(x, x) \]</div>
+</section>
+<section id="covariance-matrix">
+<h3>Covariance Matrix<a class="headerlink" href="#covariance-matrix" title="Link to this heading">#</a></h3>
+<p>The covariance matrix generalizes the concept of covariance to multiple dimensions (random variables). For <span class="math notranslate nohighlight">\( d \)</span> random variables, the covariance matrix <span class="math notranslate nohighlight">\( C \)</span> is a <span class="math notranslate nohighlight">\( d \times d \)</span> matrix where each element <span class="math notranslate nohighlight">\( C_{i,j} \)</span> represents the covariance between the <span class="math notranslate nohighlight">\( i \)</span>-th and <span class="math notranslate nohighlight">\( j \)</span>-th random variables:</p>
+<div class="math notranslate nohighlight">
+\[
+C_{i,j} = \sigma(x_i, x_j)
+\]</div>
+<p>Properties of the covariance matrix:</p>
+<ul class="simple">
+<li><p><strong>Dimension</strong>: <span class="math notranslate nohighlight">\( C \in \mathbb{R}^{d \times d} \)</span>, where <span class="math notranslate nohighlight">\( d \)</span> is the number of random variables.</p></li>
+<li><p><strong>Symmetry</strong>: The covariance matrix is symmetric since <span class="math notranslate nohighlight">\( \sigma(x_i, x_j) = \sigma(x_j, x_i) \)</span>.</p></li>
+<li><p><strong>Diagonal Entries</strong>: The diagonal entries are the variances of the individual random variables.</p></li>
+<li><p><strong>Off-Diagonal Entries</strong>: The off-diagonal entries are the covariances between different random variables.</p></li>
+</ul>
+<p>The covariance matrix <span class="math notranslate nohighlight">\( C \)</span> for <span class="math notranslate nohighlight">\( n \)</span> samples and <span class="math notranslate nohighlight">\( d \)</span> dimensions can be calculated as:</p>
+<div class="math notranslate nohighlight">
+\[ C = \frac{1}{n-1} \sum^{n}_{i=1} (x_i - \bar{x})(x_i - \bar{x})^T \]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( x_i \)</span> is the <span class="math notranslate nohighlight">\( i \)</span>-th sample vector (a <span class="math notranslate nohighlight">\( d \)</span>-dimensional vector).</p></li>
+<li><p><span class="math notranslate nohighlight">\( \bar{x} \)</span> is the mean vector of the samples, defined as <span class="math notranslate nohighlight">\( \bar{x} = \frac{1}{n} \sum^{n}_{i=1} x_i \)</span>.</p></li>
+</ul>
+<p>For a two-dimensional example with variables <span class="math notranslate nohighlight">\( x \)</span> and <span class="math notranslate nohighlight">\( y \)</span>, the covariance matrix <span class="math notranslate nohighlight">\( C \)</span> can be written as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} C = \left( \begin{array}{cc} \sigma(x, x) &amp; \sigma(x, y) \\ \sigma(y, x) &amp; \sigma(y, y) \end{array} \right) \end{split}\]</div>
+<p>If <span class="math notranslate nohighlight">\( x \)</span> and <span class="math notranslate nohighlight">\( y \)</span> are independent (or uncorrelated), the covariance matrix simplifies to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} C = \left( \begin{array}{cc} \sigma_x^2 &amp; 0 \\ 0 &amp; \sigma_y^2 \end{array} \right) \end{split}\]</div>
+<p>For standardized variables (with mean 0 and variance 1), the covariance matrix would approximate:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} C = \left( \begin{array}{cc} 1 &amp; 0 \\ 0 &amp; 1 \end{array} \right) \end{split}\]</div>
+<p>This matrix indicates that the variables are uncorrelated and have unit variance.</p>
+</section>
+</section>
+<section id="example-sampling-from-mean-and-different-types-of-covariance">
+<h2>Example: Sampling from mean and different types of covariance.<a class="headerlink" href="#example-sampling-from-mean-and-different-types-of-covariance" title="Link to this heading">#</a></h2>
+<p>You can modify the elements of</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cov_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+</pre></div>
+</div>
+<p>in the following code.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Number of samples</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="c1"># Desired mean vector</span>
+<span class="n">mean</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+
+<span class="c1"># Covariance matrix</span>
+<span class="n">cov_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+
+<span class="c1"># Generate samples from the multivariate normal distribution</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">cov_matrix</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+
+<span class="c1"># Split the data into x and y components</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Calculate the mean and covariance of the generated data</span>
+<span class="n">calculated_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">calculated_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Generated Data Mean Vector:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">calculated_mean</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Generated Data Covariance Matrix:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">calculated_cov</span><span class="p">)</span>
+
+<span class="c1"># Plot the generated samples</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Generated Samples from Multivariate Normal Distribution'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'y'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'equal'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Generated Data Mean Vector:
+[2.9513738 5.0252921]
+
+Generated Data Covariance Matrix:
+[[4.74521289 0.97253844]
+ [0.97253844 1.01687577]]
+</pre></div>
+</div>
+<img alt="../../_images/6f9d7ee7530de0e2cf0e6030752b3bb838ec62da718405c52d79b41dbcda3145.png" src="../../_images/6f9d7ee7530de0e2cf0e6030752b3bb838ec62da718405c52d79b41dbcda3145.png" />
+</div>
+</div>
+</section>
+<section id="eigenvalues-and-eigenvectors-of-the-covariance-matrix">
+<h2>Eigenvalues and Eigenvectors of the Covariance Matrix<a class="headerlink" href="#eigenvalues-and-eigenvectors-of-the-covariance-matrix" title="Link to this heading">#</a></h2>
+<p>The eigenvalues and eigenvectors of the covariance matrix play a crucial role in understanding the spread and orientation of the data. They are foundational in techniques like Principal Component Analysis (PCA), which is widely used for dimensionality reduction.</p>
+<section id="id2">
+<h3>Covariance Matrix<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<p>Given a dataset with <span class="math notranslate nohighlight">\(n\)</span> samples and <span class="math notranslate nohighlight">\(d\)</span> features, we can represent the data as a matrix <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{n \times d}\)</span>, where each row corresponds to a sample, and each column corresponds to a feature. The covariance matrix <span class="math notranslate nohighlight">\(C \in \mathbb{R}^{d \times d}\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+C = \frac{1}{n-1} X^T X
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(X^T\)</span> is the transpose of <span class="math notranslate nohighlight">\(X\)</span>.</p>
+</section>
+<section id="eigenvalues-and-eigenvectors">
+<h3>Eigenvalues and Eigenvectors<a class="headerlink" href="#eigenvalues-and-eigenvectors" title="Link to this heading">#</a></h3>
+<p>An eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span> and corresponding eigenvector <span class="math notranslate nohighlight">\(v\)</span> of the covariance matrix <span class="math notranslate nohighlight">\(C\)</span> satisfy the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+C v = \lambda v
+\]</div>
+</section>
+<section id="properties-and-interpretation">
+<h3>Properties and Interpretation<a class="headerlink" href="#properties-and-interpretation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Variance and Principal Components</strong>:</p>
+<ul>
+<li><p>The eigenvalue <span class="math notranslate nohighlight">\(\lambda_i\)</span> represents the amount of variance in the data along the eigenvector <span class="math notranslate nohighlight">\(v_i\)</span>.</p></li>
+</ul>
+</li>
+<li><p><strong>Dimensionality Reduction</strong>:</p>
+<ul>
+<li><p>By projecting the data onto the first <span class="math notranslate nohighlight">\(k\)</span> principal components, we can reduce the dimensionality of the data while retaining most of its variance. This is done by selecting the eigenvectors corresponding to the largest <span class="math notranslate nohighlight">\(k\)</span> eigenvalues.</p></li>
+</ul>
+</li>
+<li><p><strong>Orthogonality</strong>:</p>
+<ul>
+<li><p>The eigenvectors of a covariance matrix are orthogonal to each other. This means they are uncorrelated.</p></li>
+</ul>
+</li>
+<li><p><strong>Symmetric Matrix</strong>:</p>
+<ul>
+<li><p>Since the covariance matrix is symmetric, it has real eigenvalues and orthogonal eigenvectors.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="calculating-eigenvalues-and-eigenvectors">
+<h3>Calculating Eigenvalues and Eigenvectors<a class="headerlink" href="#calculating-eigenvalues-and-eigenvectors" title="Link to this heading">#</a></h3>
+<p>To calculate the eigenvalues and eigenvectors of the covariance matrix <span class="math notranslate nohighlight">\(C\)</span>:</p>
+<ul class="simple">
+<li><p><strong>Form the Covariance Matrix</strong>:
+$<span class="math notranslate nohighlight">\(
+C = \frac{1}{n-1} X^T X
+\)</span>$</p></li>
+<li><p><strong>Solve the Characteristic Equation</strong>:
+$<span class="math notranslate nohighlight">\(
+\text{det}(C - \lambda I) = 0
+\)</span><span class="math notranslate nohighlight">\(
+where \)</span>\text{det}<span class="math notranslate nohighlight">\( denotes the determinant and \)</span>I<span class="math notranslate nohighlight">\( is the identity matrix. Solving this equation gives the eigenvalues \)</span>\lambda_1, \lambda_2, \ldots, \lambda_d$.</p></li>
+</ul>
+<p><strong>Find the Eigenvectors</strong>:
+For each eigenvalue <span class="math notranslate nohighlight">\(\lambda_i\)</span>, solve:</p>
+<div class="math notranslate nohighlight">
+\[
+(C - \lambda_i I) v_i = 0
+\]</div>
+<p>to find the corresponding eigenvector <span class="math notranslate nohighlight">\(v_i\)</span>.</p>
+</section>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
+<p>Let’s consider a simple example with a 2-dimensional dataset to illustrate the concept:</p>
+<p><strong>Data Matrix</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   X = \begin{pmatrix}
+   2 &amp; 3 \\
+   3 &amp; 4 \\
+   4 &amp; 5 \\
+   5 &amp; 6
+   \end{pmatrix}
+\end{split}\]</div>
+<p><strong>Mean-Center the Data</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Mean} = \begin{pmatrix}
+   3.5 &amp; 4.5
+   \end{pmatrix}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   X_{\text{centered}} = \begin{pmatrix}
+   -1.5 &amp; -1.5 \\
+   -0.5 &amp; -0.5 \\
+   0.5 &amp; 0.5 \\
+   1.5 &amp; 1.5
+   \end{pmatrix}
+\end{split}\]</div>
+<p><strong>Covariance Matrix</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   C = \frac{1}{4-1} X_{\text{centered}}^T X_{\text{centered}} = \begin{pmatrix}
+   1.6667 &amp; 1.6667 \\
+   1.6667 &amp; 1.6667
+   \end{pmatrix}
+\end{split}\]</div>
+<p><strong>Solve for Eigenvalues and Eigenvectors</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{det}(C - \lambda I) = 0 \Rightarrow \begin{vmatrix}
+   1.6667 - \lambda &amp; 1.6667 \\
+   1.6667 &amp; 1.6667 - \lambda
+   \end{vmatrix} = 0
+\end{split}\]</div>
+<p>Solving this gives <span class="math notranslate nohighlight">\(\lambda_1 = 3.3333\)</span> and <span class="math notranslate nohighlight">\(\lambda_2 = 0\)</span>.</p>
+<p>The corresponding eigenvectors can be calculated as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+v_1 = \begin{pmatrix}
+   0.7071 \\
+   0.7071
+   \end{pmatrix}, \quad v_2 = \begin{pmatrix}
+   -0.7071 \\
+   0.7071
+   \end{pmatrix}
+\end{split}\]</div>
+</section>
+</section>
+<section id="problem-elongation-of-data">
+<h2>Problem: Elongation of data<a class="headerlink" href="#problem-elongation-of-data" title="Link to this heading">#</a></h2>
+<p>To mathematically show why eigenvalues represent the elongation of data and eigenvectors represent the main axes of these elongations.</p>
+<section id="id3">
+<h3>Covariance Matrix<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>Given a dataset <span class="math notranslate nohighlight">\(X\)</span> with <span class="math notranslate nohighlight">\(n\)</span> samples and <span class="math notranslate nohighlight">\(d\)</span> features, the covariance matrix <span class="math notranslate nohighlight">\(C\)</span> of the centered data (mean-subtracted) is:</p>
+<div class="math notranslate nohighlight">
+\[
+C = \frac{1}{n-1} X^T X
+\]</div>
+</section>
+<section id="eigen-decomposition-of-the-covariance-matrix">
+<h3>Eigen Decomposition of the Covariance Matrix<a class="headerlink" href="#eigen-decomposition-of-the-covariance-matrix" title="Link to this heading">#</a></h3>
+<p>The covariance matrix <span class="math notranslate nohighlight">\(C\)</span> can be decomposed into its eigenvalues and eigenvectors:</p>
+<div class="math notranslate nohighlight">
+\[
+C = V \Lambda V^T
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(V\)</span> is a matrix whose columns are the eigenvectors <span class="math notranslate nohighlight">\(v_1, v_2, \ldots, v_d\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Lambda\)</span> is a diagonal matrix with eigenvalues <span class="math notranslate nohighlight">\(\lambda_1, \lambda_2, \ldots, \lambda_d\)</span> on the diagonal.</p></li>
+</ul>
+</section>
+<section id="interpretation-of-eigenvalues-and-eigenvectors">
+<h3>Interpretation of Eigenvalues and Eigenvectors<a class="headerlink" href="#interpretation-of-eigenvalues-and-eigenvectors" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Eigenvectors as Principal Axes</strong>:</p></li>
+</ul>
+<p>The eigenvectors <span class="math notranslate nohighlight">\(v_i\)</span> are the directions in the feature space along which the variance of the data is maximized. These directions are orthogonal to each other, forming a new coordinate system. In this new coordinate system, the data variance is decoupled and each coordinate axis corresponds to one of the eigenvectors.</p>
+<p><strong>Eigenvalues as Measures of Variance</strong>:</p>
+<p>The eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span> corresponding to each eigenvector <span class="math notranslate nohighlight">\(v_i\)</span> quantify the variance of the data along that direction. Specifically, <span class="math notranslate nohighlight">\(\lambda_i\)</span> is the variance of the data when projected onto the eigenvector <span class="math notranslate nohighlight">\(v_i\)</span>.</p>
+</section>
+<section id="mathematical-proof-and-intuition">
+<h3>Mathematical Proof and Intuition<a class="headerlink" href="#mathematical-proof-and-intuition" title="Link to this heading">#</a></h3>
+<p>To understand why eigenvalues represent the elongation and eigenvectors the main axes, consider the transformation of the data using the eigen decomposition:</p>
+<section id="transformation-to-principal-component-space">
+<h4>Transformation to Principal Component Space<a class="headerlink" href="#transformation-to-principal-component-space" title="Link to this heading">#</a></h4>
+<p>Let <span class="math notranslate nohighlight">\(Y\)</span> be the transformed data in the new basis defined by the eigenvectors:</p>
+<div class="math notranslate nohighlight">
+\[ Y = X V \]</div>
+<p>Here, <span class="math notranslate nohighlight">\(V\)</span> is the matrix of eigenvectors. Each row of <span class="math notranslate nohighlight">\(Y\)</span> is a sample represented in the new coordinate system (principal component space).</p>
+</section>
+<section id="variance-in-the-new-coordinate-system">
+<h4>Variance in the New Coordinate System<a class="headerlink" href="#variance-in-the-new-coordinate-system" title="Link to this heading">#</a></h4>
+<p>In the principal component space, the covariance matrix of <span class="math notranslate nohighlight">\(Y\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[ \text{Cov}(Y) = \frac{1}{n-1} Y^T Y \]</div>
+<p>Since <span class="math notranslate nohighlight">\(Y = X V\)</span>, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Cov}(Y) = \frac{1}{n-1} (X V)^T (X V)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \frac{1}{n-1} V^T X^T X V
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= V^T \left( \frac{1}{n-1} X^T X \right) V \]</div>
+<div class="math notranslate nohighlight">
+\[ = V^T C V \]</div>
+<p>By the eigen decomposition of <span class="math notranslate nohighlight">\(C\)</span>, we know <span class="math notranslate nohighlight">\(C = V \Lambda V^T\)</span>, so:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Cov}(Y) = V^T (V \Lambda V^T) V
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= V^T V \Lambda V^T V
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+= \Lambda
+\]</div>
+<p>since <span class="math notranslate nohighlight">\(V^T V = I\)</span>, the identity matrix.</p>
+<p>Thus, the covariance matrix of the transformed data <span class="math notranslate nohighlight">\(Y\)</span> is <span class="math notranslate nohighlight">\(\Lambda\)</span>, which is a diagonal matrix with eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span>. This shows that the variance in the direction of each principal component (eigenvector) is given by the corresponding eigenvalue.</p>
+</section>
+</section>
+<section id="geometric-interpretation">
+<h3>Geometric Interpretation<a class="headerlink" href="#geometric-interpretation" title="Link to this heading">#</a></h3>
+<p><strong>Elongation of Data</strong>:</p>
+<ul class="simple">
+<li><p>The eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span> represent the amount of variance (spread) in the data along the direction of the eigenvector <span class="math notranslate nohighlight">\(v_i\)</span>. Larger eigenvalues indicate greater spread (elongation) along that axis.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\lambda_i\)</span> is large, the data is stretched along the eigenvector <span class="math notranslate nohighlight">\(v_i\)</span>. If <span class="math notranslate nohighlight">\(\lambda_i\)</span> is small, the data is compressed along <span class="math notranslate nohighlight">\(v_i\)</span>.</p></li>
+</ul>
+<p><strong>Main Axes of Elongation</strong>:</p>
+<ul class="simple">
+<li><p>The eigenvectors <span class="math notranslate nohighlight">\(v_i\)</span> indicate the directions of the principal axes of the data. The data points are spread out along these directions.</p></li>
+<li><p>In the principal component space, the data is aligned with the eigenvectors, and the amount of spread along each axis is quantified by the corresponding eigenvalue.</p></li>
+</ul>
+</section>
+<section id="example-with-2d-data">
+<h3>Example with 2D Data<a class="headerlink" href="#example-with-2d-data" title="Link to this heading">#</a></h3>
+<p>Consider a 2D dataset where the covariance matrix <span class="math notranslate nohighlight">\(C\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+C = \begin{pmatrix}
+4 &amp; 2 \\
+2 &amp; 3
+\end{pmatrix}
+\end{split}\]</div>
+<p><strong>Eigenvalues and Eigenvectors</strong>:</p>
+<ul class="simple">
+<li><p>Solve the characteristic equation <span class="math notranslate nohighlight">\(\text{det}(C - \lambda I) = 0\)</span>:
+$<span class="math notranslate nohighlight">\(
+\text{det} \begin{pmatrix}
+4-\lambda &amp; 2 \\
+2 &amp; 3-\lambda
+\end{pmatrix} = (4-\lambda)(3-\lambda) - 4 = \lambda^2 - 7\lambda + 8 = 0
+\)</span>$</p></li>
+<li><p>The eigenvalues are <span class="math notranslate nohighlight">\(\lambda_1 = 5\)</span> and <span class="math notranslate nohighlight">\(\lambda_2 = 2\)</span>.</p></li>
+<li><p>The corresponding eigenvectors are <span class="math notranslate nohighlight">\(v_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}\)</span> and <span class="math notranslate nohighlight">\(v_2 = \begin{pmatrix} -1 \\ 2 \end{pmatrix}\)</span>.</p></li>
+</ul>
+<p><strong>Interpretation</strong>:</p>
+<ul class="simple">
+<li><p>The data is stretched more along <span class="math notranslate nohighlight">\(v_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}\)</span> (eigenvalue 5) than along <span class="math notranslate nohighlight">\(v_2 = \begin{pmatrix} -1 \\ 2 \end{pmatrix}\)</span> (eigenvalue 2).</p></li>
+<li><p>The direction <span class="math notranslate nohighlight">\(v_1\)</span> corresponds to the principal axis with the largest variance (elongation), and <span class="math notranslate nohighlight">\(v_2\)</span> corresponds to the second principal axis with a smaller variance.</p></li>
+</ul>
+</section>
+<section id="eigenvalue-spread-and-its-benefits">
+<h3>Eigenvalue Spread and Its Benefits<a class="headerlink" href="#eigenvalue-spread-and-its-benefits" title="Link to this heading">#</a></h3>
+<section id="what-is-eigenvalue-spread">
+<h4>What is Eigenvalue Spread?<a class="headerlink" href="#what-is-eigenvalue-spread" title="Link to this heading">#</a></h4>
+<p>The eigenvalue spread refers to the distribution and range of eigenvalues of a matrix, such as the covariance matrix in Principal Component Analysis (PCA). The spread gives insight into how the variance is distributed across the different dimensions (principal components) of the data.</p>
+</section>
+<section id="understanding-eigenvalue-spread">
+<h4>Understanding Eigenvalue Spread<a class="headerlink" href="#understanding-eigenvalue-spread" title="Link to this heading">#</a></h4>
+<p><strong>Wide Spread</strong>:</p>
+<ul class="simple">
+<li><p>A wide eigenvalue spread means that there is a significant difference between the largest and smallest eigenvalues.</p></li>
+<li><p>This indicates that the data has a few principal components (dimensions) with large variances and many with small variances.</p></li>
+</ul>
+<p><strong>Narrow Spread</strong>:</p>
+<ul class="simple">
+<li><p>A narrow eigenvalue spread means that the eigenvalues are relatively close to each other.</p></li>
+</ul>
+</section>
+<section id="benefits-of-understanding-eigenvalue-spread">
+<h4>Benefits of Understanding Eigenvalue Spread<a class="headerlink" href="#benefits-of-understanding-eigenvalue-spread" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p><strong>Dimensionality Reduction</strong></p></li>
+<li><p><strong>Data Interpretation and Visualization</strong></p></li>
+<li><p><strong>Noise Reduction</strong></p></li>
+</ul>
+</section>
+</section>
+<section id="mathematical-insight-into-eigenvalue-spread">
+<h3>Mathematical Insight into Eigenvalue Spread<a class="headerlink" href="#mathematical-insight-into-eigenvalue-spread" title="Link to this heading">#</a></h3>
+<p>Given a covariance matrix <span class="math notranslate nohighlight">\(C\)</span> of the data, the eigenvalues <span class="math notranslate nohighlight">\(\lambda_1, \lambda_2, \ldots, \lambda_d\)</span></p>
+<p><strong>Range</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Range} = \lambda_{\max} - \lambda_{\min}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda_{\max}\)</span> and <span class="math notranslate nohighlight">\(\lambda_{\min}\)</span> are the largest and smallest eigenvalues, respectively.</p>
+<p><strong>Variance Explained</strong>:</p>
+<ul class="simple">
+<li><p>The proportion of variance explained by the <span class="math notranslate nohighlight">\(i\)</span>-th principal component is:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\text{Variance Explained}_i = \frac{\lambda_i}{\sum_{j=1}^d \lambda_j}
+\]</div>
+</section>
+</section>
+<section id="homework-working-with-eigen-values-of-covariance">
+<h2>Homework: Working with eigen values of covariance<a class="headerlink" href="#homework-working-with-eigen-values-of-covariance" title="Link to this heading">#</a></h2>
+<p>Let’s check the following code. It selects the class 0 images from the MNIST dataset, displays 9 sample images, and then calculates the mean and covariance of the data. It then reduces the feature dimensions to 16 using the principal eigenvalues and reshapes the covariance matrix to 4x4. Finally, it resamples and generates 9 new samples from this distribution and displays them.</p>
+<section id="check-to-image-denoising-2-check-for-human-face-images">
+<h3>1- Check to image denoising 2-Check for human face images<a class="headerlink" href="#check-to-image-denoising-2-check-for-human-face-images" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">fetch_openml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">multivariate_normal</span>
+
+<span class="c1"># Load MNIST dataset</span>
+<span class="n">mnist</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="s1">'mnist_784'</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">data</span><span class="p">,</span> <span class="n">targets</span> <span class="o">=</span> <span class="n">mnist</span><span class="p">[</span><span class="s1">'data'</span><span class="p">],</span> <span class="n">mnist</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># Filter class 0 images</span>
+<span class="n">class_0_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">targets</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Display 9 sample images of class 0</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_images</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">""</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">9</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">'off'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Select 9 random samples</span>
+<span class="n">sample_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">class_0_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">9</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">sample_images</span> <span class="o">=</span> <span class="n">class_0_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">sample_indices</span><span class="p">]</span>
+<span class="n">plot_images</span><span class="p">(</span><span class="n">sample_images</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"9 Sample Images of Class 0"</span><span class="p">)</span>
+
+<span class="c1"># Calculate the mean vector</span>
+<span class="n">mean_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">class_0_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Calculate the covariance matrix</span>
+<span class="n">covariance_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">class_0_data</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Perform PCA to reduce dimensions to 16</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">reduced_data</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">class_0_data</span><span class="p">)</span>
+
+<span class="c1"># Get the reduced covariance matrix</span>
+<span class="n">reduced_cov_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Reshape the 16x16 covariance matrix to 4x4</span>
+<span class="n">reshaped_cov_matrix</span> <span class="o">=</span> <span class="n">reduced_cov_matrix</span><span class="p">[:</span><span class="mi">4</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="c1"># Generate 9 new samples</span>
+<span class="n">generated_samples</span> <span class="o">=</span> <span class="n">multivariate_normal</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">mean</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">reduced_data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)[:</span><span class="mi">4</span><span class="p">],</span> <span class="n">cov</span><span class="o">=</span><span class="n">reshaped_cov_matrix</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="c1"># Transform back to original space using PCA components</span>
+<span class="n">generated_samples_original_space</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">generated_samples</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">))]))</span>
+
+<span class="c1"># Display the generated samples</span>
+<span class="n">plot_images</span><span class="p">(</span><span class="n">generated_samples_original_space</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"9 Generated Samples"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/71679df5dc64e42912fad0cd6cbde9f00d5ee9192a5648ae94843bc5045b98fc.png" src="../../_images/71679df5dc64e42912fad0cd6cbde9f00d5ee9192a5648ae94843bc5045b98fc.png" />
+<img alt="../../_images/b5b298ae742cbc6240f428420274a39964a51af90b25496dd927b02eaa60ebf9.png" src="../../_images/b5b298ae742cbc6240f428420274a39964a51af90b25496dd927b02eaa60ebf9.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/SupplementaryDocuments"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="twin_svm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Twin SVM</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../Contact_Me.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Contact Me</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preliminaries">Preliminaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-sample-mean-bar-x-is-an-unbiased-estimator">The sample mean <span class="math notranslate nohighlight">\( \bar{x} \)</span> is an unbiased estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-an-unbiased-estimator">Definition of an Unbiased Estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">Proof</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variance">Variance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Covariance</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#covariance-matrix">Covariance Matrix</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-sampling-from-mean-and-different-types-of-covariance">Example: Sampling from mean and different types of covariance.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-and-eigenvectors-of-the-covariance-matrix">Eigenvalues and Eigenvectors of the Covariance Matrix</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Covariance Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalues-and-eigenvectors">Eigenvalues and Eigenvectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-and-interpretation">Properties and Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-eigenvalues-and-eigenvectors">Calculating Eigenvalues and Eigenvectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-elongation-of-data">Problem: Elongation of data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Covariance Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigen-decomposition-of-the-covariance-matrix">Eigen Decomposition of the Covariance Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-eigenvalues-and-eigenvectors">Interpretation of Eigenvalues and Eigenvectors</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-proof-and-intuition">Mathematical Proof and Intuition</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation-to-principal-component-space">Transformation to Principal Component Space</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-in-the-new-coordinate-system">Variance in the New Coordinate System</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-interpretation">Geometric Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-with-2d-data">Example with 2D Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#eigenvalue-spread-and-its-benefits">Eigenvalue Spread and Its Benefits</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-eigenvalue-spread">What is Eigenvalue Spread?</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-eigenvalue-spread">Understanding Eigenvalue Spread</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#benefits-of-understanding-eigenvalue-spread">Benefits of Understanding Eigenvalue Spread</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-insight-into-eigenvalue-spread">Mathematical Insight into Eigenvalue Spread</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-working-with-eigen-values-of-covariance">Homework: Working with eigen values of covariance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-to-image-denoising-2-check-for-human-face-images">1- Check to image denoising 2-Check for human face images</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

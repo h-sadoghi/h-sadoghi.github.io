@@ -1,0 +1,977 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Clustering &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/Clustering/Clustering_1';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="k-means and fuzzy-c-means clustering" href="FCM_1.html" />
+    <link rel="prev" title="Clustering Concept" href="PR_intro_Clustering.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="PR_intro_Clustering.html">Clustering Concept</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/Clustering/Clustering_1.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Clustering</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#index-of-data-calculation">Index of Data Calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-of-loss-functions">Introduction of loss functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-various-loss-functions">Introducing various loss functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#square-loss">1. Square Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-loss">2. Absolute Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#huber-loss">3. Huber Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudo-huber-loss">4. Pseudo-Huber Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pinball-loss">5. Pinball Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-loss">6. Correntropy Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#epsilon-insensitive-loss">7. Epsilon-Insensitive Loss:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1">Homework_1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#epsilon-insensitive-loss-for-index-of-data"><span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss for Index of Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-using-linear-programming">Solution Using Linear Programming</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-for-linear-programming-solver">Formulation for Linear Programming Solver:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-2">Homework_2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#epsilon-insensitive-loss-for-index-of-d-dimensional-data"><span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss for Index of d-dimensional Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-svdd">Some of my papers about <strong>SVDD</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-3">Homework_3</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="clustering">
+<h1>Clustering<a class="headerlink" href="#clustering" title="Link to this heading">#</a></h1>
+<p>This section mention to</p>
+<ul class="simple">
+<li><p>Index of Data Calculation</p></li>
+<li><p>kmeans and fuzzy-c-means clustering</p></li>
+</ul>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>From now on, all issues will be presented from the perspective of minimizing the cost function. Therefore, the method of solution, the application of data for learning, the learning rule, and the type of model will be explained in the context of the cost function. We will place greater emphasis on the cost function.</p>
+</section>
+<section id="index-of-data-calculation">
+<h2>Index of Data Calculation<a class="headerlink" href="#index-of-data-calculation" title="Link to this heading">#</a></h2>
+<p>In the field of data analysis and pattern recognition, the term “Index of Data Calculation” refers to various statistical and mathematical indices used to describe and summarize datasets. These indices help in understanding the Data. Some common indices include the mean, variance, as well as other measures such as central tendencies and support vector data description.One look at the issue is the sample selection that is mentioned below.</p>
+<p><strong>Instance selection</strong> in machine learning is a technique used to improve the performance and e ciency of a machine learning algorithm. It involves selecting a subset of instances (or data points) from a larger dataset that is representative of the original data but smaller in size. The process of instance selection involves analyzing the dataset and identifying instances that are similar or redundant, and removing them. This reduces the size of the dataset and the complexity of the model. Instance selection techniques can be
+divided into two categories:</p>
+<ol class="arabic simple">
+<li><p>Sampling-based techniques: These methods randomly sample a subset of instances from the original dataset. Examples include simple random sampling, other systematic sampling.</p></li>
+<li><p>Optimization-based techniques: These methods select a subset of instances that maximizes a specific objective function, such as minimizing redundancy or maximizing diversity. Examples include clustering-based techniques, entropy-based techniques, and so on.</p></li>
+</ol>
+<p>We mentioned the sampling technique in the Bayesian chapter. Now, we will discuss the optimization technique. The cost function for optimization is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{n}\left( \left\| x_i-\mu \right\|^2 \right)
+\]</div>
+<p>We define the above relationship more generally as the mean statistic (We found earlier that the above is variance or dispersion) over the error variable’s loss function:</p>
+<div class="math notranslate nohighlight">
+\[
+E\left\{ l\left( e \right) \right\}
+\]</div>
+<p>where 𝑒 represents the error, 𝑙 is the loss function, and 𝐸{⋅} denotes the expectation. This is defined as:</p>
+<p>where e is error and l is loss function and E{.} is expectation define is,</p>
+<div class="math notranslate nohighlight">
+\[
+E\left\{ l\left( e \right) \right\}=\int_{}^{}\left( l\left( e \right)f\left( e \right)de \right)
+\]</div>
+<p>Of course, we can now abstract this to the following form:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{i=1}^{n}\left( l(e_i)\right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( e_{i} \)</span> is error of <span class="math notranslate nohighlight">\( i^{th} \)</span> sample. If all data reduce to <span class="math notranslate nohighlight">\( \mu \)</span> then <span class="math notranslate nohighlight">\( e_{i}=x_{i}-\mu \)</span>. additionally for the first try, <span class="math notranslate nohighlight">\( l(e_{i})=e_{i}^2 \)</span> representing the same square loss. I solve this over 𝑛 samples, which are logged in the dataset <span class="math notranslate nohighlight">\( D=\{x_1,x_2, ..., x_{n}\} \)</span> as follows,</p>
+<div class="math notranslate nohighlight">
+\[
+\mu^{*}=\arg\min_\mu \sum_{i=1}^{n}\left( \left\| x_i-\mu \right\|^2 \right)
+\]</div>
+<p>After taking the derivative of the above function with respect to 𝜇 and setting it equal to zero, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu=\frac{\sum_{}{x{i}}}{n}
+\]</div>
+<p>In the following section, we emphasize the introduction of some loss functions</p>
+</section>
+<section id="introduction-of-loss-functions">
+<h2>Introduction of loss functions<a class="headerlink" href="#introduction-of-loss-functions" title="Link to this heading">#</a></h2>
+<p><strong>Square loss</strong> is introduced first, followed by the introduction of <strong>correntropy loss</strong>.</p>
+<p>Correntropy is a localized similarity measure derived from information-theoretic learning
+that combines the concepts of information theory and kernel methods.
+It is particularly effective in handling non-Gaussian noise and outliers,
+making it a robust alternative to traditional loss functions such as
+mean squared error (MSE) (<span class="math notranslate nohighlight">\( \sum_{i=1}^{n}\left( \left\| x_i-\mu \right\|^2 \right) \)</span>).</p>
+<p>Given two random variables X and Y , the correntropy between them is defined as:</p>
+<div class="math notranslate nohighlight">
+\[
+V_{\sigma}(X, Y) = \mathbb{E} \left[ \kappa_{\sigma}(X - Y) \right] 
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\( \kappa_{\sigma} \)</span> is a kernel function, commonly the Gaussian kernel:</p>
+<div class="math notranslate nohighlight">
+\[
+ \kappa_{\sigma}(u) = \exp \left( -\frac{u^2}{2\sigma^2} \right) 
+\]</div>
+<p>In practice, given a set of data points <span class="math notranslate nohighlight">\( \{ (x_i, \mu) \}_{i=1}^N \)</span>, the empirical estimate of correntropy is:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat{V}_{\sigma}(X, \mu) = \frac{1}{N} \sum_{i=1}^N \exp \left( -\frac{(x_i - \mu)^2}{2\sigma^2} \right) 
+\]</div>
+<p>Correntropy loss leverages the concept of correntropy to define a loss function that is robust to outliers. For a Index of Data Calculation model, the correntropy loss is:</p>
+<div class="math notranslate nohighlight">
+\[ 
+1-\exp(-\left\| x_i-\mu \right\|^2)
+\]</div>
+<p><em>Robustness to Outliers:</em> The exponential decay in the Gaussian kernel reduces the influence of large deviations, making the correntropy loss robust to outliers.</p>
+</section>
+<section id="introducing-various-loss-functions">
+<h2>Introducing various loss functions<a class="headerlink" href="#introducing-various-loss-functions" title="Link to this heading">#</a></h2>
+<section id="square-loss">
+<h3>1. Square Loss:<a class="headerlink" href="#square-loss" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\(  \text{Square Loss} = \|x - \mu\|^2 \)</span></p>
+</section>
+<section id="absolute-loss">
+<h3>2. Absolute Loss:<a class="headerlink" href="#absolute-loss" title="Link to this heading">#</a></h3>
+<p><span class="math notranslate nohighlight">\( \text{Absolute Loss} = |x - \mu| \)</span></p>
+</section>
+<section id="huber-loss">
+<h3>3. Huber Loss:<a class="headerlink" href="#huber-loss" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{Huber Loss} = \begin{cases}
+\frac{1}{2}(x - \mu)^2 &amp; \text{if } |x - \mu| \leq \delta \\
+\delta(|x - \mu| - \frac{1}{2}\delta) &amp; \text{otherwise}
+\end{cases} 
+\end{split}\]</div>
+</section>
+<section id="pseudo-huber-loss">
+<h3>4. Pseudo-Huber Loss:<a class="headerlink" href="#pseudo-huber-loss" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\text{Pseudo-Huber Loss} = \delta^2 \left( \sqrt{1 + \left(\frac{x - \mu}{\delta}\right)^2} - 1 \right) 
+\]</div>
+</section>
+<section id="pinball-loss">
+<h3>5. Pinball Loss:<a class="headerlink" href="#pinball-loss" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\text{Pinball Loss} = \begin{cases}
+\tau (x - \mu) &amp; \text{if } x - \mu \geq 0 \\
+(1-\tau) (x - \mu) &amp; \text{if } x - \mu &lt; 0
+\end{cases} 
+\end{split}\]</div>
+</section>
+<section id="correntropy-loss">
+<h3>6. Correntropy Loss:<a class="headerlink" href="#correntropy-loss" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+ \text{Correntropy Loss} = \exp \left( -\frac{(x - \mu)^2}{2\sigma^2} \right) 
+\]</div>
+</section>
+<section id="epsilon-insensitive-loss">
+<h3>7. Epsilon-Insensitive Loss:<a class="headerlink" href="#epsilon-insensitive-loss" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\text{Epsilon-Insensitive Loss} = \max(0, |x - \mu| - \epsilon) 
+\]</div>
+<p>These formulas summarize the mathematical expressions for each loss function. They describe how each loss quantifies the discrepancy between the sample values x and the index of data <span class="math notranslate nohighlight">\( \mu \)</span>.
+Below is a <em>Python code</em> snippet using Matplotlib to visualize various loss functions commonly used in pattern recognition, machine learning and statistics. Each function is defined and plotted with different parameters to demonstrate their characteristics.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Define the loss functions</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">square_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">absolute_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">huber_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">residual</span> <span class="o">&lt;=</span> <span class="n">delta</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">residual</span><span class="p">),</span> <span class="n">delta</span> <span class="o">*</span> <span class="p">(</span><span class="n">residual</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">delta</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">pseudo_huber_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span>
+    <span class="k">return</span> <span class="n">delta</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">residual</span> <span class="o">/</span> <span class="n">delta</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">pinball_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">tau</span> <span class="o">*</span> <span class="n">residual</span><span class="p">,</span> <span class="p">(</span><span class="n">tau</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">residual</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">correntropy_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">residual</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">epsilon_insensitive_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">residual</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">)</span>
+
+<span class="c1"># Generate data for plotting</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Assume true values are zeros for simplicity</span>
+
+<span class="c1"># Compute losses for each function</span>
+<span class="n">loss_functions</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Square Loss'</span><span class="p">:</span> <span class="n">square_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span>
+    <span class="s1">'Absolute Loss'</span><span class="p">:</span> <span class="n">absolute_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span>
+    <span class="s1">'Huber Loss (delta=1.0)'</span><span class="p">:</span> <span class="n">huber_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="s1">'Pseudo-Huber Loss (delta=1.0)'</span><span class="p">:</span> <span class="n">pseudo_huber_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="s1">'Pinball Loss (tau=0.5)'</span><span class="p">:</span> <span class="n">pinball_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">tau</span><span class="o">=</span><span class="mf">0.3</span><span class="p">),</span>
+    <span class="s1">'Correntropy Loss (sigma=1.0)'</span><span class="p">:</span> <span class="n">correntropy_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
+    <span class="s1">'Epsilon-Insensitive Loss (epsilon=1.0)'</span><span class="p">:</span> <span class="n">epsilon_insensitive_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">loss</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">loss_functions</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Prediction Error'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Loss'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/f2bb0a6bec46aed44b828fb877d286558febe66b0d192d20d3ae09bc016bac58.png" src="../../_images/f2bb0a6bec46aed44b828fb877d286558febe66b0d192d20d3ae09bc016bac58.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="homework-1">
+<h2>Homework_1<a class="headerlink" href="#homework-1" title="Link to this heading">#</a></h2>
+<p>Below, you will find Python code specifically for <strong>log_cosh_loss</strong>, <strong>quantile_loss</strong>, and <strong>tukey_loss</strong>. You are tasked with solving the index data calculation from the total of loss functions. Please provide an IPython Notebook (<code class="docutils literal notranslate"><span class="pre">.ipynb</span></code> file) with suitable Markdown for:</p>
+<p>a) <strong>Why Different Types of Loss Functions</strong></p>
+<p>b) <strong>Derivation of</strong> <span class="math notranslate nohighlight">\( \mu \)</span></p>
+<p>c) <strong>Write code on a synthetic 2D dataset, then compare the results using various loss functions. Finally, select a practical dataset like Iris and repeat the process.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Define the loss functions</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">log_cosh_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">residual</span><span class="p">))</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">quantile_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">quantile</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">residual</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">quantile</span> <span class="o">*</span> <span class="n">residual</span><span class="p">,</span> <span class="p">(</span><span class="n">quantile</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">residual</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tukey_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">residual</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_true</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">residual</span> <span class="o">&lt;=</span> <span class="n">c</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">residual</span><span class="p">),</span> <span class="n">c</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="n">residual</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">c</span><span class="p">))</span>
+
+<span class="c1"># Generate data for plotting</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">y_true</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>  <span class="c1"># Assume true values are zeros for simplicity</span>
+
+<span class="c1"># Compute losses for each function</span>
+<span class="n">log_cosh</span> <span class="o">=</span> <span class="n">log_cosh_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="n">quantile_05</span> <span class="o">=</span> <span class="n">quantile_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">quantile</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">tukey_1</span> <span class="o">=</span> <span class="n">tukey_loss</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+
+<span class="c1"># Plotting</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">log_cosh</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Log-Cosh Loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Log-Cosh Loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Prediction Error'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">quantile_05</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Quantile Loss (0.5)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Quantile Loss (0.5)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Prediction Error'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tukey_1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Tukey Loss (c=1.0)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Tukey Loss (c=1.0)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Prediction Error'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Loss'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/1f542490ca050769fcc476742ad0e007585f78cc7f2e3a9031fb89e10a1ef9e9.png" src="../../_images/1f542490ca050769fcc476742ad0e007585f78cc7f2e3a9031fb89e10a1ef9e9.png" />
+</div>
+</div>
+</section>
+<section id="epsilon-insensitive-loss-for-index-of-data">
+<h2><span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss for Index of Data<a class="headerlink" href="#epsilon-insensitive-loss-for-index-of-data" title="Link to this heading">#</a></h2>
+<p>Before leaving this topic, we can obtain the index of data by utilizing the (\epsilon)-insensitive loss function. For simplicity, let’s assume a 1-dimensional dataset.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial }{\partial \mu} \sum_{i=1}^{n} \max(e_i - \epsilon, 0) = 0
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( e_i = x_i - \mu \)</span>.</p>
+<p>Note: <span class="math notranslate nohighlight">\( l(e_i) = \max(e_i - \epsilon, 0) \)</span> is the <span class="math notranslate nohighlight">\(\epsilon\)</span>-insensitive loss function. For <span class="math notranslate nohighlight">\( e_i - \epsilon \)</span> smaller than 0, the result is zero. Otherwise, it is a linear equation shifted by <span class="math notranslate nohighlight">\(\epsilon\)</span>.</p>
+<section id="solution">
+<h3>Solution<a class="headerlink" href="#solution" title="Link to this heading">#</a></h3>
+<p>We change the variable by setting <span class="math notranslate nohighlight">\( \max(e_i - \epsilon, 0) = \xi_i \)</span>. Due to the max operator, <span class="math notranslate nohighlight">\( \xi_i \)</span> is greater than or equal to both 0 and <span class="math notranslate nohighlight">\( e_i - \epsilon \)</span>. Therefore, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\min_\mu \sum_{i=1}^{n} \xi_i 
+\]</div>
+<p>subject to:
+$<span class="math notranslate nohighlight">\( 
+\xi_i \ge 0 \quad \text{and} \quad \xi_i \ge e_i - \epsilon 
+\)</span>$</p>
+</section>
+<section id="solution-using-linear-programming">
+<h3>Solution Using Linear Programming<a class="headerlink" href="#solution-using-linear-programming" title="Link to this heading">#</a></h3>
+<p>To solve the problem using linear programming, we need to set up the optimization problem with the given constraints. The objective is to minimize the sum of the slack variables <span class="math notranslate nohighlight">\( \xi_i \)</span>.</p>
+<p><strong>Convert to Standard Linear Programming Form:</strong></p>
+<ul>
+<li><p>Variables: <span class="math notranslate nohighlight">\( \mu \)</span> and <span class="math notranslate nohighlight">\( \xi_i \)</span> for <span class="math notranslate nohighlight">\( i = 1, \ldots, n \)</span></p></li>
+<li><p>Objective: Minimize <span class="math notranslate nohighlight">\( \sum_{i=1}^{n} \xi_i \)</span></p></li>
+<li><p>Constraints:</p>
+<div class="math notranslate nohighlight">
+\[
+     \xi_i \ge 0
+     \]</div>
+<div class="math notranslate nohighlight">
+\[
+     \xi_i \ge x_i - \mu - \epsilon
+     \]</div>
+</li>
+</ul>
+<section id="formulation-for-linear-programming-solver">
+<h4>Formulation for Linear Programming Solver:<a class="headerlink" href="#formulation-for-linear-programming-solver" title="Link to this heading">#</a></h4>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp; \text{minimize} &amp; &amp; \sum_{i=1}^{n} \xi_i \\
+&amp; \text{subject to} &amp; &amp; \xi_i \ge 0 \quad \forall i \\
+&amp; &amp; &amp; \xi_i \ge x_i - \mu - \epsilon \quad \forall i
+\end{aligned}
+\end{split}\]</div>
+</section>
+</section>
+</section>
+<section id="homework-2">
+<h2>Homework_2<a class="headerlink" href="#homework-2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Write code on a synthetic 2D dataset, then compare the results using various loss functions. Finally, select a practical dataset like Iris and repeat the process.</strong></p></li>
+<li><p><strong>Then provide a suitable report for inclusion in an IPython Notebook.</strong></p></li>
+</ul>
+<p>Guide: You can utilize SciPy for this purpose.</p>
+</section>
+<section id="epsilon-insensitive-loss-for-index-of-d-dimensional-data">
+<h2><span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss for Index of d-dimensional Data<a class="headerlink" href="#epsilon-insensitive-loss-for-index-of-d-dimensional-data" title="Link to this heading">#</a></h2>
+<p>To address the problem of converting a d-dimensional solution into a scalar value and applying the <span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss, we proceed as follows. Define <span class="math notranslate nohighlight">\( e_i=\|x_i-\mu\|^2 \)</span> where <span class="math notranslate nohighlight">\(\mu\)</span> represents the centroid or center, and <span class="math notranslate nohighlight">\( x_i \)</span> is the <span class="math notranslate nohighlight">\( i^{th} \)</span> sample. The loss function for each <span class="math notranslate nohighlight">\( i^{th} \)</span> sample is given by <span class="math notranslate nohighlight">\( l(e_i)=\max(e_i - \epsilon, 0) \)</span>.
+Continuing from the above setup, we aim to find the optimal <span class="math notranslate nohighlight">\(\mu\)</span> by minimizing the sum of slack variables <span class="math notranslate nohighlight">\(\xi_i\)</span>, subject to the constraints:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial }{\partial \mu} \sum_{i=1}^{n} \max(e_i - \epsilon, 0) = 0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\min_\mu \sum_{i=1}^{n} \xi_i 
+\]</div>
+<p>subject to:</p>
+<div class="math notranslate nohighlight">
+\[ 
+\xi_i \ge 0 \quad \text{and} \quad \xi_i \ge e_i - \epsilon 
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\xi_i \ge e_i - \epsilon \quad \text{or} \quad \xi_i \ge \|x_i - \mu\|^2 - \epsilon
+\]</div>
+<p>With careful observation, we understand that for all samples <span class="math notranslate nohighlight">\( x_i \)</span> inside a circle with radius <span class="math notranslate nohighlight">\( \xi_i + \epsilon \)</span>. In other words, the samples are enclosed by a circle centered at <span class="math notranslate nohighlight">\( \mu \)</span> with radius <span class="math notranslate nohighlight">\( \xi_i + \epsilon \)</span>. The value of <span class="math notranslate nohighlight">\( \xi_i \)</span> must be non-negative ( <span class="math notranslate nohighlight">\( \xi_i \ge 0 \)</span> ). If <span class="math notranslate nohighlight">\( \epsilon \)</span> is small enough, the circle will accurately describe the data.
+<img alt="SVDD 1" src="../../_images/circle.png" /></p>
+<p>In the above figure, we want the radius of the circle to be <span class="math notranslate nohighlight">\( \epsilon \)</span>. Some of the samples positioned outside the circle will have a positive slack variable (<span class="math notranslate nohighlight">\( \xi_i \gt 0 \)</span>), while the slack variable for the samples inside the circle will be zero. In addition to the above cost function, we add a regularization term in the form of</p>
+<div class="math notranslate nohighlight">
+\[
+\text{E}\left\{l\left( e \right)  \right\} + \lambda \cdot \text{Regularization Term}
+\]</div>
+<p>where the Regularization Term is <span class="math notranslate nohighlight">\( \epsilon^2 \)</span>.</p>
+<p>The resulting optimization problem is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp; \text{minimize} &amp; &amp; \sum_{i=1}^{n} \xi_i + \lambda \cdot \epsilon^2 \\
+&amp; \text{subject to} &amp; &amp; \xi_i \ge 0 \quad \forall i \\
+&amp; &amp; &amp; \|x_i - \mu\|^2 \le \epsilon + \xi_i \quad \forall i
+\end{aligned}
+\end{split}\]</div>
+<p>This model is called <strong>Support Vector Data Description (SVDD)</strong>. The optimization involves finding a circle that perfectly encloses the main samples, allowing noise to fall outside the circle.</p>
+</section>
+<section id="some-of-my-papers-about-svdd">
+<h2>Some of my papers about <strong>SVDD</strong><a class="headerlink" href="#some-of-my-papers-about-svdd" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Eghdami, M., Yazdi, H. S., &amp; Salehi, N. (2022). Sparsity-aware support vector data description reinforced by expectation maximization. <em>Expert Systems</em>, 39(1). First published: 16 August 2021. <a class="reference external" href="https://doi.org/10.1111/exsy.12794">https://doi.org/10.1111/exsy.12794</a></p></li>
+<li><p>Forghani, Y., Effati, S., Yazdi, H. S., &amp; Tabrizi, R. S. (2011). Support vector data description by using hyper-ellipse instead of hyper-sphere. <em>IEEE</em>. Conference date: 13-14 October 2011. <a class="reference external" href="https://doi.org/10.1109/ICCKE.2011.6413318">https://doi.org/10.1109/ICCKE.2011.6413318</a>. Published: 17 January 2013.</p></li>
+<li><p>Gorgani, M. E., Moradi, M., &amp; Yazdi, H. S. (2010). An empirical modeling of companies using support vector data description. <em>International Journal of Trade, Economics and Finance (IJTEF)</em>, 1(2), 221-224. <a class="reference external" href="https://doi.org/10.7763/IJTEF.2010.V1.41">https://doi.org/10.7763/IJTEF.2010.V1.41</a></p></li>
+<li><p>Yazdi, H. S., Forghani, Y., &amp; Effati, S. (2012). An extension to fuzzy support vector data description-FSVDD. <em>Pattern Analysis and Applications (ISI)</em>, 15(1), 237-247.</p></li>
+<li><p>Moradi, M., Salehi, M., Gorgani, M. E., &amp; Yazdi, H. S. (2013). Financial distress prediction of Iranian companies using data mining techniques. <em>Business and Economics, Business Management, Management, Organization, Corporate Governance</em>, 46(1).</p></li>
+<li><p>Yazdi, J. S., Kalantary, F., &amp; Yazdi, H. S. (2012). Investigation on the effect of data imbalance on prediction of liquefaction. <em>International Journal of Geomechanics</em>, 13(4). <a class="reference external" href="https://doi.org/10.1061/(ASCE)GM.1943-5622.0000217">https://doi.org/10.1061/(ASCE)GM.1943-5622.0000217</a></p></li>
+<li><p>Allahyari, Y., &amp; Yazdi, H. S. (2012). Quasi support vector data description (QSVDD). <em>International Journal of Signal Processing, Image Processing and Pattern Recognition (IJSIP)</em>, 5(3), 65-74.</p></li>
+<li><p>Yazdi, J. S., Kalantary, F., &amp; Yazdi, H. S. (2013). Prediction of elastic modulus of concrete using support vector committee method. <em>Journal of Materials in Civil Engineering</em>, 25(1), 9-20.</p></li>
+<li><p>Foroughi, H., Yazdi, H. S., Pourreza, H., &amp; Javidi, M. (2008). An eigenspace-based approach for human fall detection using integrated time motion image and multi-class support vector machine. <em>4th International Conference on Intelligent Computer Communication and Processing</em>.</p></li>
+<li><p>Haghighi, M. S., Vahedian, A., &amp; Yazdi, H. S. (2011). Creating and measuring diversity in multiple classifier systems using support vector data description. <em>Applied Soft Computing</em>, 11(8), 4931-4942.</p></li>
+<li><p>GhasemiGol, M., Monsefi, R., &amp; Yazdi, H. S. (2010). Ellipse support vector data description. <em>Engineering Applications of Neural Networks: 11th International Conference</em>.</p></li>
+<li><p>GhasemiGol, M., Sabzekar, M., Monsefi, R., Naghibzadeh, M., &amp; Yazdi, H. S. (2010). A new support vector data description with fuzzy constraints. <em>2010 International Conference on Intelligent Systems, Modelling and Simulation</em>.</p></li>
+<li><p>Ghafarian, H., Sadoughi, Y. H., &amp; Allahyari, Y. (2010). Gravity oriented one-class classifier based on support vector data descriptor. <em>Nashriyyah-I Muhandisi-I Barq Va Muhandisi-I Kampyutar-I Iran, B-Muhandisi</em>.</p></li>
+</ol>
+</section>
+<section id="homework-3">
+<h2>Homework_3<a class="headerlink" href="#homework-3" title="Link to this heading">#</a></h2>
+<p>Try SVDD with tukey loss and log-cosh loss</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/Clustering"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="PR_intro_Clustering.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Clustering Concept</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="FCM_1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">k-means and fuzzy-c-means clustering</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#index-of-data-calculation">Index of Data Calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction-of-loss-functions">Introduction of loss functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introducing-various-loss-functions">Introducing various loss functions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#square-loss">1. Square Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absolute-loss">2. Absolute Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#huber-loss">3. Huber Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudo-huber-loss">4. Pseudo-Huber Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pinball-loss">5. Pinball Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-loss">6. Correntropy Loss:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#epsilon-insensitive-loss">7. Epsilon-Insensitive Loss:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-1">Homework_1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#epsilon-insensitive-loss-for-index-of-data"><span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss for Index of Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution">Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-using-linear-programming">Solution Using Linear Programming</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#formulation-for-linear-programming-solver">Formulation for Linear Programming Solver:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-2">Homework_2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#epsilon-insensitive-loss-for-index-of-d-dimensional-data"><span class="math notranslate nohighlight">\(\epsilon\)</span>-Insensitive Loss for Index of d-dimensional Data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-svdd">Some of my papers about <strong>SVDD</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-3">Homework_3</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

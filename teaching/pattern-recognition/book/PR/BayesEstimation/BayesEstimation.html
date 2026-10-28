@@ -1,0 +1,922 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Bayes Estimation &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/BayesEstimation/BayesEstimation';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="kernel-based density estimation" href="KDE_1.html" />
+    <link rel="prev" title="Project Induction in Decision Trees" href="../Classification/DecisionTree1.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../Visualization/PR_intro_Visualization.html">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Bayes Estimation</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/BayesEstimation/BayesEstimation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Bayes Estimation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-rule">Bayes’ Rule</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-distribution">Prior Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#epistemological-and-metaphysical-perspective">Epistemological and Metaphysical Perspective:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-minimization-in-the-bayesian-perspective">Risk minimization in the Bayesian perspective</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood">Likelihood</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-distribution">Posterior Distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-likelihood-evidence">Marginal Likelihood (Evidence)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-estimator">Bayesian Estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-one-loss">Zero-One Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#square-loss">Square Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-loss">Correntropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-bayesian-estimation-for-gaussian-distribution">Example: Bayesian Estimation for Gaussian Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Prior Distribution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Likelihood</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-continue-and-obtain-the-following">HomeWork : Continue and obtain the following</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="bayes-estimation">
+<h1>Bayes Estimation<a class="headerlink" href="#bayes-estimation" title="Link to this heading">#</a></h1>
+<p>Bayesian estimation is a statistical technique that applies Bayes’ rule. It combines prior knowledge (prior distribution) with data (likelihood) to form an updated knowledge (posterior distribution).</p>
+<section id="bayes-rule">
+<h2>Bayes’ Rule<a class="headerlink" href="#bayes-rule" title="Link to this heading">#</a></h2>
+<div class="math notranslate nohighlight">
+\[
+P(\theta | \mathbf{D}) = \frac{P(\mathbf{D} | \theta) P(\theta)}{P(\mathbf{D})}
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \theta \)</span> is the parameter or hypothesis.</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mathbf{D} \)</span> is the observed data (Data set).</p></li>
+<li><p><span class="math notranslate nohighlight">\( P(\theta | \mathbf{D}) \)</span> is the posterior probability, the probability of the parameter given the data.</p></li>
+<li><p><span class="math notranslate nohighlight">\( P(\mathbf{D} | \theta) \)</span> is the likelihood, the probability of the data given the parameter.</p></li>
+<li><p><span class="math notranslate nohighlight">\( P(\theta) \)</span> is the prior probability, the initial belief about the parameter before observing the data.</p></li>
+<li><p><span class="math notranslate nohighlight">\( P(\mathbf{D}) \)</span> is the total probability of the data.</p></li>
+</ul>
+<section id="prior-distribution">
+<h3>Prior Distribution<a class="headerlink" href="#prior-distribution" title="Link to this heading">#</a></h3>
+<p>The prior distribution <span class="math notranslate nohighlight">\( P(\theta) \)</span> represents our beliefs about the parameter <span class="math notranslate nohighlight">\( \theta \)</span> before observing any data. The choice of the prior can be subjective or  objective.</p>
+<p><strong>Source of Prior Knowledge</strong>
+The notion that prior knowledge must be received from a divine or transcendent source, such as God, touches on epistemological and metaphysical questions:</p>
+<section id="epistemological-and-metaphysical-perspective">
+<h4>Epistemological and Metaphysical Perspective:<a class="headerlink" href="#epistemological-and-metaphysical-perspective" title="Link to this heading">#</a></h4>
+<p>From an epistemological and metaphysical standpoint, prior knowledge can be seen as originating from various sources, including</p>
+<ul class="simple">
+<li><p>intuition</p></li>
+<li><p>previous experience</p></li>
+<li><p>expert opinion</p></li>
+<li><p>theoretical consideration</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="risk-minimization-in-the-bayesian-perspective">
+<h2>Risk minimization in the Bayesian perspective<a class="headerlink" href="#risk-minimization-in-the-bayesian-perspective" title="Link to this heading">#</a></h2>
+<p>Steps for Bayesian Risk Minimization</p>
+<p><strong>Determine the Posterior Distribution</strong>: Compute the posterior distribution <span class="math notranslate nohighlight">\(p(\theta | X)\)</span> using Bayes’ Rule.</p>
+<div class="math notranslate nohighlight">
+\[
+p(\theta | X) = \frac{p(X | \theta) p(\theta)}{p(X)}
+\]</div>
+<p><strong>Define the Loss Function</strong>: Choose an appropriate loss function <span class="math notranslate nohighlight">\(L(\theta, \theta^{*})\)</span> based on the problem context.</p>
+<p><strong>Compute the Expected Posterior Loss</strong>: Integrate the loss function over the posterior distribution to get the expected loss for each possible action.</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = \int L(\theta, \theta^{*}) p(\theta | X) \, d\theta
+\]</div>
+<p><strong>Minimize the Expected Loss</strong>: Select the action <span class="math notranslate nohighlight">\(a^*\)</span> that minimizes the expected posterior loss.</p>
+<div class="math notranslate nohighlight">
+\[
+\theta^{optimal} = \arg\min_\theta R(\theta | X)
+\]</div>
+<section id="likelihood">
+<h3>Likelihood<a class="headerlink" href="#likelihood" title="Link to this heading">#</a></h3>
+<p>The likelihood function <span class="math notranslate nohighlight">\( P(\mathbf{D} | \theta) \)</span> describes how likely the observed data <span class="math notranslate nohighlight">\( \mathbf{D} \)</span> is for different values of the parameter <span class="math notranslate nohighlight">\( \theta \)</span>. It is a function of <span class="math notranslate nohighlight">\( \theta \)</span> given the data <span class="math notranslate nohighlight">\( \mathbf{D} \)</span>.</p>
+</section>
+<section id="posterior-distribution">
+<h3>Posterior Distribution<a class="headerlink" href="#posterior-distribution" title="Link to this heading">#</a></h3>
+<p>The posterior distribution <span class="math notranslate nohighlight">\( P(\theta | \mathbf{D}) \)</span> combines the prior distribution and the likelihood to give the updated belief about the parameter <span class="math notranslate nohighlight">\( \theta \)</span> after observing the data <span class="math notranslate nohighlight">\( \mathbf{D} \)</span>.</p>
+</section>
+<section id="marginal-likelihood-evidence">
+<h3>Marginal Likelihood (Evidence)<a class="headerlink" href="#marginal-likelihood-evidence" title="Link to this heading">#</a></h3>
+<p>The marginal likelihood <span class="math notranslate nohighlight">\( P(\mathbf{D}) \)</span> is the normalizing constant ensuring that the posterior distribution is a proper probability distribution. It is computed as:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\mathbf{D}) = \int P(\mathbf{D} | \theta) P(\theta) \, d\theta
+\]</div>
+</section>
+<section id="bayesian-estimator">
+<h3>Bayesian Estimator<a class="headerlink" href="#bayesian-estimator" title="Link to this heading">#</a></h3>
+<p>The Bayesian estimator is a point estimate derived from the posterior distribution. Common Bayesian estimators include:</p>
+<ul class="simple">
+<li><p><strong>Maximum A Posteriori (MAP) Estimate</strong>: The mode of the posterior distribution, which maximizes <span class="math notranslate nohighlight">\( P(\theta | \mathbf{D}) \)</span>.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \hat{\theta}_{MAP} = \arg\max_\theta P(\theta | \mathbf{D}) \]</div>
+<p>Follow for proof it.</p>
+</section>
+<section id="zero-one-loss">
+<h3>Zero-One Loss<a class="headerlink" href="#zero-one-loss" title="Link to this heading">#</a></h3>
+<p>Sure, let’s substitute <span class="math notranslate nohighlight">\( L(\theta, \theta^{*}) = 1 - \delta(\theta, \theta^{*}) \)</span> into the given integral expression for <span class="math notranslate nohighlight">\( R(\theta^{*} | X) \)</span>.</p>
+<p>Given:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = \int L(\theta, \theta^{*}) p(\theta | X) \, d\theta
+\]</div>
+<p>Substitute <span class="math notranslate nohighlight">\( L(\theta, \theta^{*}) = 1 - \delta(\theta, \theta^{*}) \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = \int (1 - \delta(\theta, \theta^{*})) p(\theta | X) \, d\theta
+\]</div>
+<p>Now, let’s break this down into two separate integrals:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = \int p(\theta | X) \, d\theta - \int \delta(\theta, \theta^{*}) p(\theta | X) \, d\theta
+\]</div>
+<p>The first term is the integral of the probability density function <span class="math notranslate nohighlight">\( p(\theta | X) \)</span> over the entire domain of <span class="math notranslate nohighlight">\( \theta \)</span>, which is equal to 1 (since it is a probability density function):</p>
+<div class="math notranslate nohighlight">
+\[
+\int p(\theta | X) \, d\theta = 1
+\]</div>
+<p>The second term involves the Kronecker delta function, which is 1 if <span class="math notranslate nohighlight">\( \theta = \theta^{*} \)</span> and 0 otherwise. Thus, the integral simplifies to evaluating <span class="math notranslate nohighlight">\( p(\theta | X) \)</span> at <span class="math notranslate nohighlight">\( \theta = \theta^{*} \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\int \delta(\theta, \theta^{*}) p(\theta | X) \, d\theta = p(\theta^{*} | X)
+\]</div>
+<p>Putting it all together:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = 1 - p(\theta^{*} | X)
+\]</div>
+<p>So the substituted expression is:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = 1 - p(\theta^{*} | X)
+\]</div>
+<p><strong>Bayesian Risk Minimization</strong></p>
+<p>To find the value of <span class="math notranslate nohighlight">\(\theta^*\)</span> that minimizes <span class="math notranslate nohighlight">\(R(\theta^* | X)\)</span>, we can set up the optimization problem as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \theta^* =\arg \min_{\theta} R(\theta | X) \]</div>
+<p>Since we have:</p>
+<div class="math notranslate nohighlight">
+\[ R(\theta^* | X) = 1 - p(\theta^* | X) \]</div>
+<p>we want to minimize <span class="math notranslate nohighlight">\(1 - p(\theta^* | X)\)</span>. Minimizing this expression is equivalent to maximizing <span class="math notranslate nohighlight">\(p(\theta^* | X)\)</span> because 1 is a constant and does not affect the optimization.</p>
+<p>Therefore, we have:</p>
+<div class="math notranslate nohighlight">
+\[
+\arg \min_{\theta^*} (1 - p(\theta^* | X)) = \arg \max_{\theta^*} p(\theta^* | X)
+\]</div>
+<p>So the value of <span class="math notranslate nohighlight">\(\theta^*\)</span> that minimizes <span class="math notranslate nohighlight">\(R(\theta^* | X)\)</span> is the same as the value of <span class="math notranslate nohighlight">\(\theta^*\)</span> that maximizes <span class="math notranslate nohighlight">\(p(\theta^* | X)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \theta^* = \arg \max_{\theta} p(\theta | X) 
+\]</div>
+<p>This is often referred to as the maximum a posteriori (MAP) estimate in Bayesian inference.</p>
+<ul class="simple">
+<li><p><strong>Posterior Mean</strong>: The expected value of the posterior distribution.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ \hat{\theta}_{mean} = \mathbb{E}[\theta | \mathbf{D}] = \int \theta P(\theta | \mathbf{D}) \, d\theta \]</div>
+</section>
+<section id="square-loss">
+<h3>Square Loss<a class="headerlink" href="#square-loss" title="Link to this heading">#</a></h3>
+<p>Sure, let’s substitute <span class="math notranslate nohighlight">\( L(\theta, \theta^{*}) = |\theta-\theta^{*}|^2 \)</span> into the given integral expression for <span class="math notranslate nohighlight">\( R(\theta^{*} | X) \)</span>.</p>
+<p>Given:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^{*} | X) = \int  |\theta-\theta^{*}|^2 p(\theta | X) \, d\theta
+\]</div>
+<p>To find the partial derivative of <span class="math notranslate nohighlight">\( R(\theta^* | X) = \int  |\theta - \theta^*|^2 p(\theta | X) \, d\theta \)</span> with respect to <span class="math notranslate nohighlight">\(\theta^*\)</span>, we can follow these steps:</p>
+<p><strong>Define the function <span class="math notranslate nohighlight">\( R(\theta^* | X) \)</span>:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^* | X) = \int  |\theta - \theta^*|^2 p(\theta | X) \, d\theta
+\]</div>
+<p><strong>Compute the partial derivative relative to <span class="math notranslate nohighlight">\(\theta^*\)</span>:</strong>
+Let’s denote <span class="math notranslate nohighlight">\( |\theta - \theta^*|^2 \)</span> as the integrand function <span class="math notranslate nohighlight">\( f(\theta, \theta^*) = |\theta - \theta^*|^2 \)</span>.</p>
+<p><strong>Use the Leibniz integral rule:</strong>
+The Leibniz rule for differentiation under the integral sign allows us to differentiate an integral with respect to a parameter:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = \frac{\partial}{\partial \theta^*} \int |\theta - \theta^*|^2 p(\theta | X) \, d\theta
+\]</div>
+<p><strong>Apply the derivative inside the integral:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = \int (-2\theta + 2\theta^*) p(\theta | X) \, d\theta
+\]</div>
+<p><strong>Simplify the expression:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = 2 \int (\theta^* - \theta) p(\theta | X) \, d\theta
+\]</div>
+<p>Thus, the partial derivative of <span class="math notranslate nohighlight">\( R(\theta^* | X) \)</span> with respect to <span class="math notranslate nohighlight">\(\theta^*\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = 2 \int (\theta^* - \theta) p(\theta | X) \, d\theta=0
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\hat{\theta}_{mean} = \mathbb{E}[\theta | \mathbf{X}] = \int \theta P(\theta | \mathbf{X}) \, d\theta
+\]</div>
+</section>
+<section id="correntropy-loss">
+<h3>Correntropy Loss<a class="headerlink" href="#correntropy-loss" title="Link to this heading">#</a></h3>
+<p>Let’s continue by substituting <span class="math notranslate nohighlight">\(L(\theta, \theta^{*}) = 1 - \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right)\)</span> into the integral expression for <span class="math notranslate nohighlight">\( R(\theta^* | X) \)</span>.</p>
+<p>Given:</p>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^* | X) = \int L(\theta, \theta^{*}) p(\theta | X) \, d\theta
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+R(\theta^* | X) = \int \left(1 - \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right)\right) p(\theta | X) \, d\theta
+\]</div>
+<p>Now, let’s differentiate <span class="math notranslate nohighlight">\( R(\theta^* | X) \)</span> with respect to <span class="math notranslate nohighlight">\( \theta^* \)</span>.</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = \frac{\partial}{\partial \theta^*} \int \left(1 - \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right)\right) p(\theta | X) \, d\theta
+\]</div>
+<p>Since <span class="math notranslate nohighlight">\( 1 \)</span> is a constant and does not depend on <span class="math notranslate nohighlight">\( \theta^* \)</span>, we only need to differentiate the exponential term:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = -\int \frac{\partial}{\partial \theta^*} \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) p(\theta | X) \, d\theta
+\]</div>
+<p><strong>Differentiate the exponential term:</strong></p>
+<p>To differentiate <span class="math notranslate nohighlight">\(\exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right)\)</span> with respect to <span class="math notranslate nohighlight">\(\theta^*\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) = \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) \cdot \frac{\partial}{\partial \theta^*} \left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right)
+\]</div>
+<p><strong>Differentiate the inner term:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} \left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) = \frac{-1}{2\sigma^2} \cdot 2(\theta^* - \theta) = \frac{-(\theta^* - \theta)}{\sigma^2}
+\]</div>
+<p>Putting it all together:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) = \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) \cdot \frac{-(\theta^* - \theta)}{\sigma^2}
+\]</div>
+<p><strong>Substitute back into the integral:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = -\int \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) \cdot \frac{-(\theta^* - \theta)}{\sigma^2} p(\theta | X) \, d\theta
+\]</div>
+<p><strong>Simplify the expression:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = \frac{1}{\sigma^2} \int (\theta^* - \theta) \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) p(\theta | X) \, d\theta
+\]</div>
+<p>Thus, the partial derivative of <span class="math notranslate nohighlight">\( R(\theta^* | X) \)</span> with respect to <span class="math notranslate nohighlight">\(\theta^*\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = \frac{1}{\sigma^2} \int (\theta^* - \theta) \exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) p(\theta | X) \, d\theta
+\]</div>
+<p>Let’s follow the given instructions to simplify and solve for <span class="math notranslate nohighlight">\(\theta^*\)</span>.</p>
+<p>Given:</p>
+<div class="math notranslate nohighlight">
+\[
+\exp\left(\frac{-|\theta - \theta^*|^2}{2\sigma^2}\right) = w(\theta, \theta^*)
+\]</div>
+<p>We assume <span class="math notranslate nohighlight">\(w(\theta, \theta^*)\)</span> is fixed. Now, the partial derivative of <span class="math notranslate nohighlight">\( R(\theta^* | X) \)</span> with respect to <span class="math notranslate nohighlight">\(\theta^*\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial \theta^*} R(\theta^* | X) = \frac{1}{\sigma^2} \int (\theta^* - \theta) w(\theta, \theta^*) p(\theta | X) \, d\theta
+\]</div>
+<p>Setting the derivative equal to zero to find the critical points:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{\sigma^2} \int (\theta^* - \theta) w(\theta, \theta^*) p(\theta | X) \, d\theta = 0
+\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\frac{1}{\sigma^2}\)</span> is a constant and <span class="math notranslate nohighlight">\(\sigma^2 \neq 0\)</span>, we can ignore it in the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+\int (\theta^* - \theta) w(\theta, \theta^*) p(\theta | X) \, d\theta = 0
+\]</div>
+<p>Now, factor out <span class="math notranslate nohighlight">\(\theta^*\)</span> from the integral:</p>
+<div class="math notranslate nohighlight">
+\[
+\theta^* \int w(\theta, \theta^*) p(\theta | X) \, d\theta - \int \theta w(\theta, \theta^*) p(\theta | X) \, d\theta = 0
+\]</div>
+<p>Thus,</p>
+<div class="math notranslate nohighlight">
+\[
+\theta^* = \frac{\int \theta w(\theta, \theta^*) p(\theta | X) \, d\theta}{\int w(\theta, \theta^*) p(\theta | X) \, d\theta}
+\]</div>
+</section>
+<section id="example-bayesian-estimation-for-gaussian-distribution">
+<h3>Example: Bayesian Estimation for Gaussian Distribution<a class="headerlink" href="#example-bayesian-estimation-for-gaussian-distribution" title="Link to this heading">#</a></h3>
+<p>Let’s consider a simple example where the observed data <span class="math notranslate nohighlight">\( \mathbf{D} = \{x_1, x_2, \ldots, x_n\} \)</span> is assumed to come from a Gaussian distribution with unknown mean <span class="math notranslate nohighlight">\( \mu \)</span> and known variance <span class="math notranslate nohighlight">\( \sigma^2 \)</span>.</p>
+<section id="id1">
+<h4>Prior Distribution<a class="headerlink" href="#id1" title="Link to this heading">#</a></h4>
+<p>Assume a normal prior for the mean <span class="math notranslate nohighlight">\( \mu \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ \mu \sim \mathcal{N}(\mu_0, \sigma_0^2) \]</div>
+</section>
+<section id="id2">
+<h4>Likelihood<a class="headerlink" href="#id2" title="Link to this heading">#</a></h4>
+<p>The likelihood of the independent observed data given <span class="math notranslate nohighlight">\( \mu \)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[ P(\mathbf{D} | \mu) = P(\mathbf{x_1,...,x_n} | \mu)=
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(\mathbf{x_1} | \mu)*...*P(\mathbf{x_2} | \mu)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\prod_{i=1}^n \mathcal{N}(x_i | \mu, \sigma^2)
+\]</div>
+<p><strong>Bayes’ Rule:</strong></p>
+<div class="math notranslate nohighlight">
+\[
+P(\mu | \mathbf{D}) = \frac{P(\mathbf{D} | \mu) P(\mu)}{P(\mathbf{D})}
+\]</div>
+<p><strong>Prior Distribution <span class="math notranslate nohighlight">\(P(\mu)\)</span>:</strong></p>
+<p>Assume the prior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> is normal:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu \sim \mathcal{N}(\mu_0, \sigma_0^2)
+\]</div>
+<p>So,</p>
+<div class="math notranslate nohighlight">
+\[
+P(\mu) = \frac{1}{\sqrt{2\pi\sigma_0^2}} \exp\left(-\frac{(\mu - \mu_0)^2}{2\sigma_0^2}\right)
+\]</div>
+<p><strong>Likelihood <span class="math notranslate nohighlight">\(P(\mathbf{D} | \mu)\)</span>:</strong></p>
+<p>Assume the data <span class="math notranslate nohighlight">\(\mathbf{D} = \{x_1, x_2, \ldots, x_n\}\)</span> are i.i.d. samples from a normal distribution with mean <span class="math notranslate nohighlight">\(\mu\)</span> and known variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+x_i \sim \mathcal{N}(\mu, \sigma^ i)
+\]</div>
+<p>follows <span class="math notranslate nohighlight">\(\mathcal{N}(\mu, \sigma^2)\)</span>.</p>
+<p>The likelihood function is:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\mathbf{D} | \mu) = \left(\frac{1}{\sqrt{2\pi\sigma^2}}\right)^n \exp\left(-\sum_{i=1}^n \frac{(x_i - \mu)^2}{2\sigma^2}\right)
+\]</div>
+<p>Simplify further using the sample mean <span class="math notranslate nohighlight">\(\bar{x} = \frac{1}{n} \sum_{i=1}^n x_i\)</span>:</p>
+<p><strong>Posterior Distribution <span class="math notranslate nohighlight">\(P(\mu | \mathbf{D})\)</span>:</strong></p>
+<p>Combine the prior and the likelihood:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\mu | \mathbf{D}) \propto P(\mathbf{D} | \mu) P(\mu)
+\]</div>
+</section>
+</section>
+</section>
+<section id="homework-continue-and-obtain-the-following">
+<h2>HomeWork : Continue and obtain the following<a class="headerlink" href="#homework-continue-and-obtain-the-following" title="Link to this heading">#</a></h2>
+<p><strong>Resulting Posterior Distribution:</strong></p>
+<p>The resulting posterior distribution is a normal distribution with:</p>
+<ul class="simple">
+<li><p>Mean: <span class="math notranslate nohighlight">\(\mu_{\text{post}} = \frac{\sigma^2\mu_0 + n\sigma_0^2\bar{x}}{\sigma^2 + n\sigma_0^2}\)</span></p></li>
+<li><p>Variance: <span class="math notranslate nohighlight">\(\sigma^2_{\text{post}} = \frac{\sigma^2 \sigma_0^2}{\sigma^2 + n\sigma_0^2}\)</span></p></li>
+</ul>
+<p>Therefore, the posterior distribution of <span class="math notranslate nohighlight">\(\mu\)</span> given the data <span class="math notranslate nohighlight">\(\mathbf{D}\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu | \mathbf{D} \sim \mathcal{N}\left(\frac{\sigma^2 \mu_0 + n \sigma_0^2 \bar{x}}{\sigma^2 + n \sigma_0^2}, \frac{\sigma^2 \sigma_0^2}{\sigma^2 + n \sigma_0^2}\right)
+\]</div>
+</section>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/BayesEstimation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Classification/DecisionTree1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Project Induction in Decision Trees</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="KDE_1.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">kernel-based density estimation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-rule">Bayes’ Rule</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prior-distribution">Prior Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#epistemological-and-metaphysical-perspective">Epistemological and Metaphysical Perspective:</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#risk-minimization-in-the-bayesian-perspective">Risk minimization in the Bayesian perspective</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#likelihood">Likelihood</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#posterior-distribution">Posterior Distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-likelihood-evidence">Marginal Likelihood (Evidence)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-estimator">Bayesian Estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-one-loss">Zero-One Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#square-loss">Square Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#correntropy-loss">Correntropy Loss</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-bayesian-estimation-for-gaussian-distribution">Example: Bayesian Estimation for Gaussian Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Prior Distribution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Likelihood</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework-continue-and-obtain-the-following">HomeWork : Continue and obtain the following</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

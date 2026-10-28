@@ -1,0 +1,868 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Visualization &#8212; Pattern Recognition</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'PR/Visualization/PR_intro_Visualization';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Clustering Concept" href="../Clustering/PR_intro_Clustering.html" />
+    <link rel="prev" title="Learning_Rule" href="../Introduction/LearningRule.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../pattern_recognition.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-light" alt="Pattern Recognition - Home"/>
+    <script>document.write(`<img src="../../_static/Hadi_Sadoghi_Yazdi.png" class="logo__image only-dark" alt="Pattern Recognition - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../pattern_recognition.html">
+                    Pattern Recognition
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Introduction/PR_intro.html">Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/DataSet.html">Dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Model.html">Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/Cost.html">Cost_Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/LearningRule.html">Learning_Rule</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Visualization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Clustering/PR_intro_Clustering.html">Clustering Concept</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/Clustering_1.html">Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_1.html">k-means and fuzzy-c-means clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/FCM_Saghi_Project.html">Complementary of FCM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/LinkageClustering_1.html">Project Linkage clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/e_insensitive_linkage.html">Project <span class="math notranslate nohighlight">\( \epsilon \)</span> -insensitive Linkage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Clustering/SOFM_Project.html">Project Title: Self-Organizing Feature Map (SOFM)</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Regression/Introduction_Regression.html">Regression</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Regression_1.html">Linear Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/NonLinearRegression.html">Non-linear Regression: The starting point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Linearization.html">Linearization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Kernel_for_Regression.html">Kernel method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/EvaluationModelSelection.html">Project : Evaluation and Model Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/Solution_for_Regression.html">Solution Method</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/TheoryRegression.html">Theoretical Aspects of Regression</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Regression/ApplicationsPatternRecognition.html">Applications in Pattern Recognition</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../Classification/PR_intro_Classification.html">Classification</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVDD.html">Support Vector Data Description (SVDD)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/SVM1.html">Support Vector Machine (SVM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/Fisherclassifier.html">Fihser Classifier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/KernelFisherDiscriminantAnalysis.html">Kernel Fisher Discriminant Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Classification/DecisionTree1.html">Project Induction in Decision Trees</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../BayesEstimation/BayesEstimation.html">Bayes Estimation</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/KDE_1.html">kernel-based density estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/MeanShift.html">Mean Shift Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/ParametricDensityEstimation1.html">Parametric Density Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BayesEstimation/GMM.html">Gaussian Mixture Model</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../SupplementaryDocuments/Supplementary1.html">Supplementary Documents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/EVD.html">Eigen Value Decomposition</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/twin_svm.html">Twin SVM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../SupplementaryDocuments/Covariance1.html">Covariance</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Contact_Me.html">Contact Me</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../About_Me.html">About Me</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/h-sadoghi/h-sadoghi.github.io" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/PR/Visualization/PR_intro_Visualization.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Visualization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-scatter-plot">2-D scatter plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chernoff-faces">Chernoff Faces:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#star-coordinates">Star Coordinates:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#innovation-in-this-paper">Innovation in this paper:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#andrews-plot">Andrews plot:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-explanation">Mathematical Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-in-python">Implementation in Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#andrews-plot-visualization">Andrews plot Visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-organizing-map-som">Self-Organizing Map (SOM):</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-principle">Working Principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Applications</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-implementation-in-python">Example Implementation in Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-the-som">Visualization of the SOM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-check-the-above-code-with-another-applicable-dataset-and-interpret-the-output-carefully">Exercise: Check the above code with another applicable dataset and interpret the output carefully.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-som-are">Some of my papers about <strong>SOM</strong> are:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation-of-first-paper-ref-1">Explanation of First Paper [[Ref. 1]]</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">Homework</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="visualization">
+<h1>Visualization<a class="headerlink" href="#visualization" title="Link to this heading">#</a></h1>
+<p>We start the <strong>Pattern Recognition</strong> with a better view of the d-dimensional pattern
+We understand that each pattern comprises multiple features, essentially forming a feature vector. For instance, <span class="math notranslate nohighlight">\( \left(x_1, x_2, ...,x_d \right)^T \)</span> is such a vector of features. Using appropriate methods to model and visualize data is beneficial. However, the challenge of visualizing multidimensional data can be so significant that it becomes an intriguing area of research. While tables are effective for organizing and visualizing data, they may not always suffice. Sometimes it is much easier to interpret graphs than numbers.Below, various methods for visualizing multidimensional data are presented.</p>
+<section id="d-scatter-plot">
+<h2>2-D scatter plot<a class="headerlink" href="#d-scatter-plot" title="Link to this heading">#</a></h2>
+<p>To begin with, the visualization of two-dimensional data, commonly employed for illustration in pattern recognition courses, is known as a 2-D scatter plot. An example is provided below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Sample data</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+
+<span class="c1"># Create scatter plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>  <span class="c1"># Optional: set the figure size</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'blue'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'o'</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Data Points'</span><span class="p">)</span>
+
+<span class="c1"># Add labels and title</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'X-axis'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Y-axis'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'2D Scatter Plot'</span><span class="p">)</span>
+
+<span class="c1"># Add legend</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># Display plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Optional: add grid</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/b529755a6837156e86b13863fb1ca190495fe50b80cf3162ac70602173ae88ec.png" src="../../_images/b529755a6837156e86b13863fb1ca190495fe50b80cf3162ac70602173ae88ec.png" />
+</div>
+</div>
+<p><strong>Scatter Plots</strong></p>
+<p>A <em>scatter plot</em> displays the relation between two numerical variables.</p>
+<p>Chernoff Faces and Star Coordinates are alternative methods for data visualization that offer unique perspectives:</p>
+</section>
+<section id="chernoff-faces">
+<h2>Chernoff Faces:<a class="headerlink" href="#chernoff-faces" title="Link to this heading">#</a></h2>
+<p>This technique represents multivariate data using facial features. Each variable corresponds to a different facial feature (e.g., eyes, nose, mouth), allowing for the visualization of complex datasets in a human-understandable format. ( see <a class="reference external" href="https://gist.github.com/aflaxman/4043086">https://gist.github.com/aflaxman/4043086</a>). Also you can use <a class="reference external" href="https://pypi.org/project/ChernoffFace/">https://pypi.org/project/ChernoffFace/</a></p>
+<p>Results:
+<img alt="chernof face" src="../../_images/Chernof_1.JPG" /></p>
+</section>
+<section id="star-coordinates">
+<h2>Star Coordinates:<a class="headerlink" href="#star-coordinates" title="Link to this heading">#</a></h2>
+<p>This method maps high-dimensional data onto a low-dimensional space using geometric shapes, typically a star. Each axis of the star represents a different dimension, and the position of points within the star reflects their data values. For example, for 8 features, each feature is displayed on one of the axes.</p>
+<p><img alt="Star_coordinate" src="../../_images/StarCoordinate.jpg" /></p>
+<p>This approach enables the visualization of relationships and patterns that may not be apparent in traditional scatter plots or bar charts. Coordinates on the page are calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+Horizontal Axis=\sum_{i=1}^{d}\left(x_i* cos\left( \theta _{i} \right) \right)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Vertical Axis=\sum_{i=1}^{d}\left(x_i* sin\left( \theta _{i} \right) \right)
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \ x_i \)</span>  is i’ th feature. in the above figure <span class="math notranslate nohighlight">\( \theta_{1}=1*\frac{360}{8}, ..., \theta_{i}=i*\frac{360}{8} \)</span></p>
+<p>One of our published works is in the journal Applied Soft Computing, which addresses this topic.</p>
+<p><strong>H. Sadoghi Yazdi, et, al. “Discernible visualization of high dimensional data using label  information” 27, 2015, 474-486</strong></p>
+<p><a class="reference download internal" download="" href="../../_downloads/853907ade05201916b01e7eb359aaa02/DiscernibleVisualization.pdf"><span class="xref download myst">Visualization Paper</span></a></p>
+<p>In this work, we attempt to correct the angle between axes using user feedback, a technique known as relevance feedback, which is also related to semi-supervised learning.
+abstract of this work: This method aims to identify the best two-dimensional perspective that reduces intra-cluster distances while increasing inter-cluster distances, utilizing label information. We refer to this perspective as a discernible visualization, making clusters easily distinguishable to the human eye. Labels can come from user input or from a traditional clustering algorithm applied to the dataset. Our approach optimizes the Star Coordinate representation by framing the problem as a Fisher discriminant maximization, ensuring a singular global solution with polynomial time complexity. We also demonstrate that adjusting the scaling factor alone effectively creates any desired visualization mapping. Additionally, we establish that visualizing k-dimensional data can be represented as an eigenvalue problem. Using this framework, optimal adjustments to axes in the Star Coordinate method for high-dimensional data can be achieved without requiring user intervention.</p>
+<section id="innovation-in-this-paper">
+<h3>Innovation in this paper:<a class="headerlink" href="#innovation-in-this-paper" title="Link to this heading">#</a></h3>
+<p>Here is the corrected version of your equations:</p>
+<div class="math notranslate nohighlight">
+\[
+Horizontal Axis = \sum_{i=1}^{d} \left( \alpha_i \cdot x_i \cdot \cos \left( \theta_i \right) \right)
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Vertical Axis = \sum_{i=1}^{d} \left( \alpha_i \cdot x_i \cdot \sin \left( \theta_i \right) \right)
+\]</div>
+<p>In this method, the parameter <span class="math notranslate nohighlight">\(\alpha_i\)</span> is controlled by relevance feedback. After observing the mapped data in two dimensions, the user determines which data points need labeling. Once the user labels these data points, a new Star Coordinate representation is constructed with updated <span class="math notranslate nohighlight">\(\alpha_i\)</span> values. This iterative process helps identify which samples require labeling. This operation is well-suited for <a class="reference external" href="https://en.wikipedia.org/wiki/Active_learning_(machine_learning)">Active Learning in machine learning</a>.</p>
+<p>By leveraging user feedback, the system continually refines the visualization, ensuring that the most relevant data points are highlighted for further analysis. This feedback loop enhances the overall effectiveness of the data exploration process, making it more interactive and adaptive. Additionally, incorporating user input helps in managing the labeling process more efficiently, focusing on the most informative samples and thereby reducing the overall labeling effort. This technique aligns well with active learning principles, where the goal is to achieve high accuracy with minimal labeled data by selecting the most useful samples for training.</p>
+</section>
+</section>
+<section id="andrews-plot">
+<h2>Andrews plot:<a class="headerlink" href="#andrews-plot" title="Link to this heading">#</a></h2>
+<p>The Andrews plot, also known as Andrews curve, is a way to visualize multidimensional data by representing each data point as a function in a two-dimensional plot. This method is particularly useful for identifying patterns and clusters in high-dimensional datasets.</p>
+<section id="mathematical-explanation">
+<h3>Mathematical Explanation<a class="headerlink" href="#mathematical-explanation" title="Link to this heading">#</a></h3>
+<p>Given a data point  <span class="math notranslate nohighlight">\(x = (x_1, x_2, ..., x_p)\)</span>  in a p -dimensional space, the Andrews plot maps it to a function  <span class="math notranslate nohighlight">\( f(t) \)</span>  defined on the interval  <span class="math notranslate nohighlight">\( [- \pi, \pi] \)</span> :</p>
+<div class="math notranslate nohighlight">
+\[
+f_x(t) = \frac{x_1}{\sqrt{2}} + x_2 \sin(t) + x_3 \cos(t) + x_4 \sin(2t) + x_5 \cos(2t) + \ldots 
+\]</div>
+<p>In general, the function is expressed as:</p>
+<div class="math notranslate nohighlight">
+\[
+f_x(t) = \frac{x_1}{\sqrt{2}} + \sum_{i=2}^{p} \left( x_i \sin\left(\left\lceil \frac{i}{2} \right\rceil t\right) + x_i \cos\left(\left\lfloor \frac{i}{2} \right\rfloor t\right) \right) 
+\]</div>
+<p>Where <span class="math notranslate nohighlight">\( ( \lceil \cdot \rceil ) and ( \lfloor \cdot \rfloor )\)</span>  represent the ceiling and floor functions, respectively.</p>
+</section>
+<section id="explanation">
+<h3>Explanation<a class="headerlink" href="#explanation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Mapping High Dimensions to 2D</strong>: Each data point in the high-dimensional space is represented as a unique curve in the Andrews plot. The idea is that similar data points will produce similar curves, making clusters and outliers visually identifiable.</p></li>
+<li><p><strong>Periodicity</strong>: The interval  <span class="math notranslate nohighlight">\( ([- \pi, \pi])\)</span>  ensures that the functions are periodic, allowing the entire range of the data to be represented within a fixed interval.</p></li>
+<li><p><strong>Smoothing</strong>: The use of sinusoidal functions helps in smoothing the representation, which can make patterns more discernible.</p></li>
+</ul>
+</section>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h3>
+<p>Let’s consider a simple example with three-dimensional data points <span class="math notranslate nohighlight">\( ((x_1, x_2, x_3))\)</span> :</p>
+<div class="math notranslate nohighlight">
+\[
+f_x(t) = \frac{x_1}{\sqrt{2}} + x_2 \sin(t) + x_3 \cos(t)
+\]</div>
+<p>This means each data point is represented as a function combining the constant, sine, and cosine components.</p>
+</section>
+<section id="implementation-in-python">
+<h3>Implementation in Python<a class="headerlink" href="#implementation-in-python" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pandas.plotting</span><span class="w"> </span><span class="kn">import</span> <span class="n">andrews_curves</span>
+
+<span class="c1"># Sample data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">'feature1'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+    <span class="s1">'feature2'</span><span class="p">:</span> <span class="mf">0.1</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+    <span class="s1">'feature3'</span><span class="p">:</span> <span class="mf">1.4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+    <span class="s1">'label'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">'A'</span><span class="p">,</span> <span class="s1">'B'</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="p">})</span>
+
+<span class="c1"># Plotting Andrews Curves</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">andrews_curves</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">'label'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Andrews Curves'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'t'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'f(t)'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/93589b23f616ea9a00d853bfa4514e6100b1f50a5e53ded6493a5fea4efd0786.png" src="../../_images/93589b23f616ea9a00d853bfa4514e6100b1f50a5e53ded6493a5fea4efd0786.png" />
+</div>
+</div>
+</section>
+<section id="andrews-plot-visualization">
+<h3>Andrews plot Visualization<a class="headerlink" href="#andrews-plot-visualization" title="Link to this heading">#</a></h3>
+<p>In the Andrews plot:</p>
+<ul class="simple">
+<li><p>Each curve represents a data point from the dataset.</p></li>
+<li><p>Similar data points (in terms of their features) will have similar shapes.</p></li>
+<li><p>Different clusters or categories can be easily distinguished by the shape and behavior of their corresponding curves.</p></li>
+</ul>
+</section>
+<section id="applications">
+<h3>Applications<a class="headerlink" href="#applications" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Cluster Analysis</strong>: By observing the shape and grouping of curves, one can identify natural clusters in the data.</p></li>
+<li><p><strong>Outlier Detection</strong>: Outliers will appear as curves that significantly differ from the rest.</p></li>
+<li><p><strong>Feature Analysis</strong>: Helps in understanding the influence of different features on the data distribution.</p></li>
+</ul>
+</section>
+</section>
+<section id="self-organizing-map-som">
+<h2>Self-Organizing Map (SOM):<a class="headerlink" href="#self-organizing-map-som" title="Link to this heading">#</a></h2>
+<p>A Self-Organizing Map (SOM) is a type of artificial neural network that is trained using unsupervised learning to produce a low-dimensional (typically two-dimensional) representation of high-dimensional data. This representation is often referred to as a “map” and is useful for visualizing complex data. Here’s an overview of SOM, including its characteristics, working principles, and applications:</p>
+<section id="working-principle">
+<h3>Working Principle<a class="headerlink" href="#working-principle" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Initialization</strong>: The weight vectors of the neurons are initialized, typically with small random values or by sampling from the input space.</p></li>
+<li><p><strong>Training Process</strong>: The SOM training involves iteratively updating the weight vectors based on the input data. Each iteration consists of the following steps:</p>
+<ul class="simple">
+<li><p><strong>Input Selection</strong>: A data point from the input space is randomly selected.</p></li>
+<li><p><strong>Best Matching Unit (BMU)</strong>: The neuron with the weight vector closest to the input data point (according to some distance metric, usually Euclidean distance) is identified. This neuron is called the Best Matching Unit (BMU).</p></li>
+<li><p><strong>Weight Update</strong>: The weight vectors of the BMU and its neighboring neurons are adjusted to be closer to the input data point. The update rule typically involves a learning rate and a neighborhood function that decreases over time and with distance from the BMU.</p></li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+[
+\mathbf{w}_i(t+1) = \mathbf{w}_i(t) + \alpha(t) \cdot h_{ci}(t) \cdot (\mathbf{x}(t) - \mathbf{w}_i(t))
+]
+\]</div>
+<p>where:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \mathbf{w}_i(t) \)</span>  is the weight vector of neuron (i) at time (t),</p></li>
+<li><p><span class="math notranslate nohighlight">\( \alpha(t) \)</span>  is the learning rate at time (t),</p></li>
+<li><p><span class="math notranslate nohighlight">\( h_{ci}(t) \)</span> is the neighborhood function centered on the BMU (c),</p></li>
+<li><p><span class="math notranslate nohighlight">\( \mathbf{x}(t) \)</span> is the input vector at time (t).</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p><strong>Convergence</strong>: The training process continues for a predefined number of iterations or until the changes in the map become negligible. Over time, the map organizes itself to reflect the structure of the input data.</p></li>
+</ol>
+</section>
+<section id="id1">
+<h3>Applications<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Data Visualization</strong>: SOMs are widely used for visualizing high-dimensional data in a two-dimensional space, making it easier to identify clusters, patterns, and relationships.</p></li>
+<li><p><strong>Clustering</strong>: SOMs can be used for clustering similar data points together, making them useful in exploratory data analysis.</p></li>
+<li><p><strong>Dimensionality Reduction</strong>: SOMs reduce the dimensionality of data while preserving its topological features, making it easier to handle and interpret large datasets.</p></li>
+<li><p><strong>Feature Extraction</strong>: SOMs can be used to extract important features from the data, which can then be used in other machine learning models.</p></li>
+<li><p><strong>Anomaly Detection</strong>: By identifying data points that do not fit well into the established clusters, SOMs can be used to detect anomalies or outliers in the data.</p></li>
+</ol>
+</section>
+<section id="example-implementation-in-python">
+<h3>Example Implementation in Python<a class="headerlink" href="#example-implementation-in-python" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">minisom</span><span class="w"> </span><span class="kn">import</span> <span class="n">MiniSom</span>
+
+<span class="c1"># Sample data: 100 points in a 3D space</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># Initialize SOM with a 10x10 grid and input dimension of 3</span>
+<span class="n">som</span> <span class="o">=</span> <span class="n">MiniSom</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Train the SOM</span>
+<span class="n">som</span><span class="o">.</span><span class="n">train_random</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Plotting the SOM</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Self-Organizing Map (SOM)'</span><span class="p">)</span>
+
+<span class="c1"># Plotting the data points</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">som</span><span class="o">.</span><span class="n">winner</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">rainbow</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">),</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">'weight'</span><span class="p">:</span> <span class="s1">'bold'</span><span class="p">,</span> <span class="s1">'size'</span><span class="p">:</span> <span class="mi">11</span><span class="p">})</span>
+
+<span class="c1"># Creating a heatmap of distances</span>
+<span class="n">distance_map</span> <span class="o">=</span> <span class="n">som</span><span class="o">.</span><span class="n">distance_map</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">distance_map</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">'bone_r'</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">'nearest'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/6d6dd2e93cf721e7cec03e170b8a10a114330994e6b4d0ac238665b86348e44d.png" src="../../_images/6d6dd2e93cf721e7cec03e170b8a10a114330994e6b4d0ac238665b86348e44d.png" />
+</div>
+</div>
+</section>
+<section id="visualization-of-the-som">
+<h3>Visualization of the SOM<a class="headerlink" href="#visualization-of-the-som" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Grid Representation</strong>: The resulting SOM grid shows how different data points map to different neurons. Each neuron’s position on the grid corresponds to a weight vector that represents a cluster center in the input space.</p></li>
+<li><p><strong>Clustering</strong>: Similar data points map to the same or nearby neurons, forming clusters. This makes it easy to identify patterns and relationships in the data.</p></li>
+</ul>
+<p>The Self-Organizing Map is a powerful tool for visualizing and interpreting high-dimensional data, making it a valuable technique in the data scientist’s toolkit.</p>
+</section>
+<section id="exercise-check-the-above-code-with-another-applicable-dataset-and-interpret-the-output-carefully">
+<h3>Exercise: Check the above code with another applicable dataset and interpret the output carefully.<a class="headerlink" href="#exercise-check-the-above-code-with-another-applicable-dataset-and-interpret-the-output-carefully" title="Link to this heading">#</a></h3>
+</section>
+</section>
+<section id="some-of-my-papers-about-som-are">
+<h2>Some of my papers about <strong>SOM</strong> are:<a class="headerlink" href="#some-of-my-papers-about-som-are" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>A Allahyar, HS Yazdi, A Harati. “Constrained Semi-Supervised Growing Self-Organizing Map.” Neurocomputing, vol. 147, pp. 456-471.</p></li>
+<li><p>A Allahyar, HS Yazdi. “Initial Free Self-Organizing Map by Aggregation.” International Journal of Control and Automation, vol. 6, no. 2, pp. 81-98.</p></li>
+<li><p>H Sadoghi Yazdi, A Mohiaddini, M Khademi. “Geometrical Self-Organizing Map Classifier Based on Active Learning for Steganalysis in the Video Environment by Spending at Least a Label.” Nashriyyah-i Muhandisi-i Barq va Muhandisi-i Kampyutar-i Iran, vol. 62, no. 1, pp. 28.</p></li>
+<li><p>A Mehrizi, HS Yazdi, AH Taherinia. “Robust Semi-Supervised Growing Self-Organizing Map.” Expert Systems with Applications, vol. 105, pp. 23-33.</p></li>
+</ol>
+<section id="explanation-of-first-paper-ref-1">
+<h3>Explanation of First Paper [[Ref. 1]]<a class="headerlink" href="#explanation-of-first-paper-ref-1" title="Link to this heading">#</a></h3>
+<p>One of the papers mentioned above is about the <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S092523121400811X">Semi-Supervised Growing Self-Organizing Map (SOM)</a>. This study explores how adding the growing property to the SOM network, known as the <a class="reference external" href="https://en.wikipedia.org/wiki/Growing_self-organizing_map">Growing Self-Organizing Map (GSOM)</a>, enhances its capabilities.</p>
+<p>This paper first addresses the concept of semi-supervised learning in conjunction with classification and clustering, as illustrated in the following figure.</p>
+<p><img alt="SemiSupervised Concept Classification" src="../../_images/SemiSupervisedConcept.JPG" /></p>
+<p>At the same time, GSOM and supervised classification learn data with and without labeles as shown below,
+<img alt="SSGSOM Network" src="../../_images/StructureofSemiSupervisedGSOM.JPG" /></p>
+</section>
+</section>
+<section id="homework">
+<h2>Homework<a class="headerlink" href="#homework" title="Link to this heading">#</a></h2>
+<p>Students have the opportunity to review Figure 3 presented in this document and submit their assignments, including the necessary code, in a Jupyter Notebook format.
+Or
+Review the <a class="reference external" href="https://seaborn.pydata.org/">seaborn : statistical data visualization</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./PR/Visualization"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Introduction/LearningRule.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Learning_Rule</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../Clustering/PR_intro_Clustering.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Clustering Concept</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#d-scatter-plot">2-D scatter plot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chernoff-faces">Chernoff Faces:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#star-coordinates">Star Coordinates:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#innovation-in-this-paper">Innovation in this paper:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#andrews-plot">Andrews plot:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-explanation">Mathematical Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation">Explanation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-in-python">Implementation in Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#andrews-plot-visualization">Andrews plot Visualization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications">Applications</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#self-organizing-map-som">Self-Organizing Map (SOM):</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#working-principle">Working Principle</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Applications</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-implementation-in-python">Example Implementation in Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-of-the-som">Visualization of the SOM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-check-the-above-code-with-another-applicable-dataset-and-interpret-the-output-carefully">Exercise: Check the above code with another applicable dataset and interpret the output carefully.</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#some-of-my-papers-about-som-are">Some of my papers about <strong>SOM</strong> are:</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explanation-of-first-paper-ref-1">Explanation of First Paper [[Ref. 1]]</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#homework">Homework</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Dr. Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024 Pattern Recognition Lab.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
