@@ -26,3 +26,8 @@
         title: 'فصل سوم: تبدیلات شدت و پالایش مکانی'
         summary: 'title: "فصل سوم: تبدیلات شدت و پالایش مکانی"'
         book_url: /teaching/image-processing/book/gonzalez/chapter-03.html
+      - number: 10
+        title: 'فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء'
+        summary: 'نقشۀ مفهومی فصل: قطعه‌بندی از دو ایدۀ بنیادی «ناپیوستگی» و «شباهت» به خانواده‌های لبه، آستانه، ناحیه، خوشه، گراف و آبخیز می‌رسد. این شکل برای همین
+          فصل از نو طراحی شده است.'
+        book_url: /teaching/image-processing/book/gonzalez/chapter-10.html

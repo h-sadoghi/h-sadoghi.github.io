@@ -176,6 +176,9 @@ jobs:
             _site/**/*.html
             pr-validation/summary.json
           retention-days: 7
+      - name: Build and stage Pattern Recognition Jupyter Book
+        run: python tools/pattern_book_ci.py
+
       - name: Deploy 🚀
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4

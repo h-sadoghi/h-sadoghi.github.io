@@ -1,0 +1,50 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+format: jb-book
+root: pattern_recognition.ipynb
+chapters:
+- file: PR/Introduction/PR_intro
+  sections:
+  - file: PR/Introduction/DataSet
+  - file: PR/Introduction/Model
+  - file: PR/Introduction/Cost
+  - file: PR/Introduction/LearningRule
+- file: PR/Visualization/PR_intro_Visualization
+- file: PR/Clustering/PR_intro_Clustering
+  sections:
+  - file : PR/Clustering/Clustering_1.ipynb
+  - file : PR/Clustering/FCM_1.ipynb
+  - file : PR/Clustering/FCM_Saghi_Project.ipynb #Project 2 points of 20
+  - file : PR/Clustering/LinkageClustering_1.ipynb  #Project 2 points of 20
+  - file : PR/Clustering/e_insensitive_linkage.ipynb #Project 2 points of 20
+  - file : PR/Clustering/SOFM_Project.ipynb #Project 2 points of 20
+- file: PR/Regression/Introduction_Regression.ipynb
+  sections:
+  - file : PR/Regression/Regression_1.ipynb #Linear Regression
+  - file : PR/Regression/NonLinearRegression.ipynb #Non-Linear Regression
+  - file : PR/Regression/Linearization.ipynb #Linearization
+  - file : PR/Regression/Kernel_for_Regression.ipynb #Kernel Regression
+  - file : PR/Regression/EvaluationModelSelection.ipynb #EvaluationModelSelection 2 points out of 20 for each section
+  - file : PR/Regression/Solution_for_Regression.ipynb #Solution approach each section Project 2 points of 20
+  - file : PR/Regression/TheoryRegression.ipynb #Theoretical aspect of regression Project 2 points of 20
+  - file : PR/Regression/ApplicationsPatternRecognition.ipynb #Some Applications Project 2 points of 20 
+- file: PR/Classification/PR_intro_Classification
+  sections:
+  - file : PR/Classification/SVDD.ipynb
+  - file : PR/Classification/SVM1.ipynb
+  - file : PR/Classification/Fisherclassifier.ipynb
+  - file : PR/Classification/KernelFisherDiscriminantAnalysis.ipynb
+  - file : PR/Classification/DecisionTree1.ipynb #Project 2 points of 20
+- file: PR/BayesEstimation/BayesEstimation
+  sections:
+  - file : PR/BayesEstimation/KDE_1.ipynb
+  - file : PR/BayesEstimation/MeanShift.ipynb #2 points
+  - file : PR/BayesEstimation/ParametricDensityEstimation1.ipynb
+  - file : PR/BayesEstimation/GMM.ipynb
+- file: PR/SupplementaryDocuments/Supplementary1.ipynb
+  sections :
+  - file : PR/SupplementaryDocuments/EVD.ipynb
+  - file : PR/SupplementaryDocuments/twin_svm.ipynb
+  - file : PR/SupplementaryDocuments/Covariance1.ipynb
+- file: Contact_Me
+- file: About_Me

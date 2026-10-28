@@ -1,0 +1,17 @@
+# Pattern Recognition; Jupyter Book 1.x (no automatic notebook execution).
+title: "Pattern Recognition"
+author: "Dr. Hadi Sadoghi Yazdi"
+logo: "Hadi_Sadoghi_Yazdi.png"
+favicon: "HSY_favicon.png"
+copyright: "2024 Pattern Recognition Lab"
+execute:
+  execute_notebooks: "off"
+bibtex_bibfiles:
+  - "references.bib"
+repository:
+  url: "https://github.com/h-sadoghi/h-sadoghi.github.io"
+  path_to_book: "courses/pattern-recognition/book"
+  branch: "master"
+html:
+  use_repository_button: true
+  use_issues_button: false
