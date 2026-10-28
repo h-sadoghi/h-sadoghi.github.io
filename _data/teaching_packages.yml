@@ -1,68 +1,73 @@
-- id: gonzalez
-  course_id: image-processing
-  title: Gonzalez — جزوه‌ها و فایل‌های آموزشی
-  chapters:
-    - number: 1
-      title: فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال
-      summary: مفهوم تصویر دیجیتال، تاریخچه، کاربردها، مراحل پردازش تصویر و اجزای یک سامانه، بر پایه فصل اول گنزالس و وودز.
-      book_url: /teaching/image-processing/book/gonzalez/chapter-01.html
-      downloads:
-        - kind: zip
-          title: دریافت متن و شکل‌های فصل اول
-          description: نسخه قابل دانلود متن Markdown فصل اول به همراه شش تصویر SVG؛ شامل کتاب اصلی یا کد اجرایی نیست.
-          url: /assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.zip
-          size: 14604
-          size_label: 14.3 KB
-          sha256: b750b395922f60d4b3033bc76849d64151b3a683a2dc7bfa085188779fc357ab
-      zip_url: /assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.zip
-      zip_size: 14604
-      zip_size_label: 14.3 KB
-      zip_sha256: b750b395922f60d4b3033bc76849d64151b3a683a2dc7bfa085188779fc357ab
-    - number: 2
-      title: "فصل دوم: مبانی تصویر دیجیتال"
-      summary: 'title: "فصل دوم: مبانی تصویر دیجیتال"'
-      book_url: /teaching/image-processing/book/gonzalez/chapter-02.html
-    - number: 3
-      title: "فصل سوم: تبدیلات شدت و پالایش مکانی"
-      summary: 'title: "فصل سوم: تبدیلات شدت و پالایش مکانی"'
-      book_url: /teaching/image-processing/book/gonzalez/chapter-03.html
-    - number: 10
-      title: "فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء"
-      summary:
-        "نقشۀ مفهومی فصل: قطعه‌بندی از دو ایدۀ بنیادی «ناپیوستگی» و «شباهت» به خانواده‌های لبه، آستانه، ناحیه، خوشه، گراف و آبخیز می‌رسد. این شکل برای همین
-        فصل از نو طراحی شده است."
-      book_url: /teaching/image-processing/book/gonzalez/chapter-10.html
-    - number: 11
-      title: "فصل ۱۱: بافت تصویر و توصیفگر SIFT"
-      summary:
-        "نقشۀ مفهومی فصل: بخش نخست بافت را از آمار تک‌پیکسلی به روابط فضایی GLCM و سپس طیف فوریه می‌برد؛ بخش دوم SIFT را از فضای مقیاس و DoG تا مکان‌یابی،
-        جهت‌دهی، توصیفگر ۱۲۸بعدی و تطبیق ویژگی دنبال می‌کند. این شکل برای همین فصل از نو طراحی شده است."
-      book_url: /teaching/image-processing/book/gonzalez/chapter-11.html
-      downloads:
-        - kind: py
-          title: کد مستقل Python فصل ۱۱
-          description: نسخه مستقل Python مثال‌های فصل.
-          url: /assets/downloads/courses/image-processing/gonzalez/chapter-11/chapter11_examples.py
-          size: 4977
-          size_label: 4.9 KB
-          sha256: 318f60cae3121e0fd300953e4402d86f57e9ce6605d12f80fe5f2409138282f3
-        - kind: zip
-          title: بستۀ ZIP کدها و Notebook فصل ۱۱
-          description: بسته فشرده شامل Python، Jupyter Notebook، تولید شکل‌ها و فهرست وابستگی‌ها؛ Notebook هنگام Build اجرا نمی‌شود.
-          url: /assets/downloads/courses/image-processing/gonzalez/chapter-11/Chapter11_Code_Examples.zip
-          size: 7242
-          size_label: 7.1 KB
-          sha256: 52b3157201bfcfc0aa3bbb50c47554aacd02320aa4050c492c885b689bb51153
-        - kind: zip
-          title: بستۀ ZIP شکل‌های اصیل فصل
-          description: شکل‌های آموزشی فصل ۱۱ در یک بسته دانلودی.
-          url: /assets/downloads/courses/image-processing/gonzalez/chapter-11/Chapter11_Original_Figures.zip
-          size: 1600788
-          size_label: 1.5 MB
-          sha256: 4c199cec9e602567289888e655a48c1e4bd429600db8cbcb1afb88b5df540083
-      zip_url: /assets/downloads/courses/image-processing/gonzalez/chapter-11/Chapter11_Code_Examples.zip
-      zip_size_label: 7.1 KB
-- id: course-notes
-  course_id: pattern-recognition
-  title: Pattern Recognition — Course Materials
-  chapters: []
+  - id: gonzalez
+    course_id: image-processing
+    title: Gonzalez — جزوه‌ها و فایل‌های آموزشی
+    chapters:
+      - number: 1
+        title: فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال
+        summary: مفهوم تصویر دیجیتال، تاریخچه، کاربردها، مراحل پردازش تصویر و اجزای یک سامانه، بر پایه فصل اول گنزالس و وودز.
+        book_url: /teaching/image-processing/book/gonzalez/chapter-01.html
+        downloads:
+          - kind: zip
+            title: دریافت متن و شکل‌های فصل اول
+            description: نسخه قابل دانلود متن Markdown فصل اول به همراه شش تصویر SVG؛ شامل کتاب اصلی یا کد اجرایی نیست.
+            url: /assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.zip
+            size: 14604
+            size_label: 14.3 KB
+            sha256: b750b395922f60d4b3033bc76849d64151b3a683a2dc7bfa085188779fc357ab
+        zip_url: /assets/downloads/courses/image-processing/gonzalez/chapter-01/chapter-01.zip
+        zip_size: 14604
+        zip_size_label: 14.3 KB
+        zip_sha256: b750b395922f60d4b3033bc76849d64151b3a683a2dc7bfa085188779fc357ab
+      - number: 2
+        title: "فصل دوم: مبانی تصویر دیجیتال"
+        summary: 'title: "فصل دوم: مبانی تصویر دیجیتال"'
+        book_url: /teaching/image-processing/book/gonzalez/chapter-02.html
+      - number: 3
+        title: "فصل سوم: تبدیلات شدت و پالایش مکانی"
+        summary: 'title: "فصل سوم: تبدیلات شدت و پالایش مکانی"'
+        book_url: /teaching/image-processing/book/gonzalez/chapter-03.html
+      - id: chapter-05
+        number: 5
+        title: 'فصل ۵: ترمیم و بازسازی تصویر'
+        summary: این فصل بر پایۀ محتوای علمی آماده‌شدۀ پیوست‌شده تنظیم شده است. هدف، حفظ مسیر آموزشی آن از **مدل تخریب و نویز** تا **ترمیم کلاسیک** و سپس **بازسازی
+          تصویر از پروجکشن‌ها** است. در نسخهٔ Jupyter Book، توضیحات فارسی منبع حفظ شده‌اند؛ روابط محوری به MathJax بازنویسی شده‌اند و تصویر تمام روابط شماره‌دار نیز
+          برای تطبیق مستقیم با منبع باقی مانده است.
+        book_url: /teaching/image-processing/book/gonzalez/chapter-05.html
+      - number: 10
+        title: "فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء"
+        summary: "نقشۀ مفهومی فصل: قطعه‌بندی از دو ایدۀ بنیادی «ناپیوستگی» و «شباهت» به خانواده‌های لبه، آستانه، ناحیه، خوشه، گراف و آبخیز می‌رسد. این شکل برای همین
+          فصل از نو طراحی شده است."
+        book_url: /teaching/image-processing/book/gonzalez/chapter-10.html
+      - number: 11
+        title: "فصل ۱۱: بافت تصویر و توصیفگر SIFT"
+        summary: "نقشۀ مفهومی فصل: بخش نخست بافت را از آمار تک‌پیکسلی به روابط فضایی GLCM و سپس طیف فوریه می‌برد؛ بخش دوم SIFT را از فضای مقیاس و DoG تا مکان‌یابی،
+          جهت‌دهی، توصیفگر ۱۲۸بعدی و تطبیق ویژگی دنبال می‌کند. این شکل برای همین فصل از نو طراحی شده است."
+        book_url: /teaching/image-processing/book/gonzalez/chapter-11.html
+        downloads:
+          - kind: py
+            title: کد مستقل Python فصل ۱۱
+            description: نسخه مستقل Python مثال‌های فصل.
+            url: /assets/downloads/courses/image-processing/gonzalez/chapter-11/chapter11_examples.py
+            size: 4977
+            size_label: 4.9 KB
+            sha256: 318f60cae3121e0fd300953e4402d86f57e9ce6605d12f80fe5f2409138282f3
+          - kind: zip
+            title: بستۀ ZIP کدها و Notebook فصل ۱۱
+            description: بسته فشرده شامل Python، Jupyter Notebook، تولید شکل‌ها و فهرست وابستگی‌ها؛ Notebook هنگام Build اجرا نمی‌شود.
+            url: /assets/downloads/courses/image-processing/gonzalez/chapter-11/Chapter11_Code_Examples.zip
+            size: 7242
+            size_label: 7.1 KB
+            sha256: 52b3157201bfcfc0aa3bbb50c47554aacd02320aa4050c492c885b689bb51153
+          - kind: zip
+            title: بستۀ ZIP شکل‌های اصیل فصل
+            description: شکل‌های آموزشی فصل ۱۱ در یک بسته دانلودی.
+            url: /assets/downloads/courses/image-processing/gonzalez/chapter-11/Chapter11_Original_Figures.zip
+            size: 1600788
+            size_label: 1.5 MB
+            sha256: 4c199cec9e602567289888e655a48c1e4bd429600db8cbcb1afb88b5df540083
+        zip_url: /assets/downloads/courses/image-processing/gonzalez/chapter-11/Chapter11_Code_Examples.zip
+        zip_size_label: 7.1 KB
+  - id: course-notes
+    course_id: pattern-recognition
+    title: Pattern Recognition — Course Materials
+    chapters: []

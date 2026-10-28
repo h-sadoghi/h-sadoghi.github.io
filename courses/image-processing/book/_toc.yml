@@ -11,6 +11,8 @@ chapters:
         title: 'فصل دوم: مبانی تصویر دیجیتال'
       - file: gonzalez/chapter-03
         title: 'فصل سوم: تبدیلات شدت و پالایش مکانی'
+      - file: gonzalez/chapter-05
+        title: 'فصل ۵: ترمیم و بازسازی تصویر'
       - file: gonzalez/chapter-10
         title: 'فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء'
       - file: gonzalez/chapter-11
