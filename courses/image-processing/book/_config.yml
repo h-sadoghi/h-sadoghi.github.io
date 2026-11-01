@@ -11,8 +11,8 @@ execute:
 
 parse:
   myst_enable_extensions:
-    - amsmath
-    - dollarmath
+  - amsmath
+  - dollarmath
 
 repository:
   url: https://github.com/h-sadoghi/h-sadoghi.github.io
@@ -25,3 +25,4 @@ html:
   home_page_in_navbar: true
   extra_footer: |
     <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
+  max_navbar_depth: 6
