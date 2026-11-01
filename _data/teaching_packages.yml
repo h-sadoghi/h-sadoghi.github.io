@@ -26,6 +26,11 @@
         title: "فصل سوم: تبدیلات شدت و پالایش مکانی"
         summary: 'title: "فصل سوم: تبدیلات شدت و پالایش مکانی"'
         book_url: /teaching/image-processing/book/gonzalez/chapter-03.html
+      - id: chapter-04
+        number: 4
+        title: 'فصل چهارم: پالایش تصویر در حوزه فرکانس'
+        summary: 'title: "فصل چهارم: پالایش تصویر در حوزه فرکانس"'
+        book_url: /teaching/image-processing/book/gonzalez/chapter-04.html
       - id: chapter-05
         number: 5
         title: 'فصل ۵: ترمیم و بازسازی تصویر'
