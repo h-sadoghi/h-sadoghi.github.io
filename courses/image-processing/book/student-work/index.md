@@ -5,11 +5,11 @@ This section presents the coursework, experiments, and projects submitted by stu
 
 ## Browse projects
 
-### [Image Processing — Gonzalez](catalog/gonzalez/index.md)
+### [Digital Image Processing — Gonzalez & Woods](catalog/gonzalez/index.md)
 
-**Chapter 1**
+**Sections not assigned to a chapter**
 
-- **[Section 3](catalog/gonzalez/chapter-01/section-03.md)**
+- **[Section 3](catalog/gonzalez/other-sections/section-03.md)**
 
   - [Low-Rank Approximation of 2-D Convolution Filters Using SVD](section-03/svd-low-rank-separable-convolution.md) — This student project studies how singular value decomposition (SVD) can approximate a non-separable 2-D convolution kernel with lower-rank separable filters. The package includes a Persian report, Python implementation, numerical resul…
 
