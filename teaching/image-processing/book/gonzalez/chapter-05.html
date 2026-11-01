@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء" href="chapter-10.html" />
-    <link rel="prev" title="فصل سوم — تبدیلات شدت و پالایش مکانی" href="chapter-03.html" />
+    <link rel="prev" title="فصل چهارم — پالایش تصویر در حوزه فرکانس" href="chapter-04.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -180,6 +180,7 @@
 <li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-02.html">فصل دوم: مبانی تصویر دیجیتال</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل ۵: ترمیم و بازسازی تصویر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-11.html">فصل ۱۱: بافت تصویر و توصیفگر SIFT</a></li>
@@ -565,7 +566,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/fig05_00_concept_map.png"><img alt="../_images/fig05_00_concept_map.png" src="../_images/fig05_00_concept_map.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 39 </span><span class="caption-text">نقشۀ مفهومی فصل: از مدل تخریب و نویز، به ترمیم پایدار و سپس بازسازی از پروجکشن‌ها.</span><a class="headerlink" href="#fig-ch05-concept-map" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 71 </span><span class="caption-text">نقشۀ مفهومی فصل: از مدل تخریب و نویز، به ترمیم پایدار و سپس بازسازی از پروجکشن‌ها.</span><a class="headerlink" href="#fig-ch05-concept-map" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -621,7 +622,7 @@ g(x,y)=h(x,y)*f(x,y)+\eta(x,y).
 <a class="reference internal image-reference" href="../_images/eq05_001.png"><img alt="../_images/eq05_001.png" src="../_images/eq05_001.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 40 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-1) - مدل تخریب در حوزهٔ مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-1" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 72 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-1) - مدل تخریب در حوزهٔ مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> در اینجا <span class="math notranslate nohighlight">\(f\)</span> تصویر مطلوب، <span class="math notranslate nohighlight">\(h\)</span> پاسخ تخریب/PSF، <span class="math notranslate nohighlight">\(\eta\)</span> نویز و <span class="math notranslate nohighlight">\(g\)</span> تصویر مشاهده‌شده است. کانولوشن نشان می‌دهد هر نقطهٔ تصویر اصلی توسط سامانه پخش می‌شود و سپس نویز اضافه می‌گردد.</p>
@@ -637,7 +638,7 @@ G(u,v)=H(u,v)F(u,v)+N(u,v).
 <a class="reference internal image-reference" href="../_images/eq05_002.png"><img alt="../_images/eq05_002.png" src="../_images/eq05_002.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 41 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-2) - مدل تخریب در حوزهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-2" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 73 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-2) - مدل تخریب در حوزهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> تبدیل فوریه کانولوشن را به ضرب تبدیل می‌کند؛ بنابراین تحلیل و طراحی فیلترهای ترمیمی در حوزهٔ فرکانس بسیار ساده‌تر می‌شود.</p>
@@ -646,7 +647,7 @@ G(u,v)=H(u,v)F(u,v)+N(u,v).
 <a class="reference internal image-reference" href="../_images/fig05_01.png"><img alt="../_images/fig05_01.png" src="../_images/fig05_01.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 42 </span><span class="caption-text"><strong>شکل 5.1.</strong> نمودار کل فصل را در یک نگاه نشان می‌دهد: <span class="math notranslate nohighlight">\(f\)</span> وارد بلوک تخریب می‌شود، نویز افزوده می‌گردد و <span class="math notranslate nohighlight">\(g\)</span> حاصل می‌شود؛ بلوک Restoration با دانستن/تخمین مدل تخریب و نویز، <span class="math notranslate nohighlight">\(\hat f\)</span> را تولید می‌کند. هنگام تدریس تأکید کنید که Restoration یک مسئلهٔ معکوس است.</span><a class="headerlink" href="#fig-ch05-5-1" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 74 </span><span class="caption-text"><strong>شکل 5.1.</strong> نمودار کل فصل را در یک نگاه نشان می‌دهد: <span class="math notranslate nohighlight">\(f\)</span> وارد بلوک تخریب می‌شود، نویز افزوده می‌گردد و <span class="math notranslate nohighlight">\(g\)</span> حاصل می‌شود؛ بلوک Restoration با دانستن/تخمین مدل تخریب و نویز، <span class="math notranslate nohighlight">\(\hat f\)</span> را تولید می‌کند. هنگام تدریس تأکید کنید که Restoration یک مسئلهٔ معکوس است.</span><a class="headerlink" href="#fig-ch05-5-1" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 318 کتاب، شکل 5.1.</em></p>
@@ -673,7 +674,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_003.png"><img alt="../_images/eq05_003.png" src="../_images/eq05_003.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 43 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-3) - چگالی احتمال نویز گاوسی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-3" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 75 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-3) - چگالی احتمال نویز گاوسی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «چگالی احتمال نویز گاوسی» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.</p>
@@ -685,7 +686,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_004.png"><img alt="../_images/eq05_004.png" src="../_images/eq05_004.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 44 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-4) - چگالی احتمال نویز رایلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-4" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 76 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-4) - چگالی احتمال نویز رایلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-4" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «چگالی احتمال نویز رایلی» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.</p>
@@ -697,7 +698,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_005.png"><img alt="../_images/eq05_005.png" src="../_images/eq05_005.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 45 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-5) - میانگین توزیع رایلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-5" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 77 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-5) - میانگین توزیع رایلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «میانگین توزیع رایلی» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -709,7 +710,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_006.png"><img alt="../_images/eq05_006.png" src="../_images/eq05_006.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 46 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-6) - واریانس توزیع رایلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-6" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 78 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-6) - واریانس توزیع رایلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «واریانس توزیع رایلی» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -718,7 +719,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/fig05_02.png"><img alt="../_images/fig05_02.png" src="../_images/fig05_02.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 47 </span><span class="caption-text"><strong>شکل 5.2.</strong> شش PDF مهم کنار هم مقایسه شده‌اند. به تقارن گاوسی، چولگی رایلی/ارلانگ/نمایی، تخت‌بودن یکنواخت و دو ضربهٔ نمک‌وفلفل دقت کنید؛ شکل هیستوگرام تعیین‌کنندهٔ رفتار فیلتر است.</span><a class="headerlink" href="#fig-ch05-5-2" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 79 </span><span class="caption-text"><strong>شکل 5.2.</strong> شش PDF مهم کنار هم مقایسه شده‌اند. به تقارن گاوسی، چولگی رایلی/ارلانگ/نمایی، تخت‌بودن یکنواخت و دو ضربهٔ نمک‌وفلفل دقت کنید؛ شکل هیستوگرام تعیین‌کنندهٔ رفتار فیلتر است.</span><a class="headerlink" href="#fig-ch05-5-2" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 320 کتاب، شکل 5.2.</em></p>
@@ -729,7 +730,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_007.png"><img alt="../_images/eq05_007.png" src="../_images/eq05_007.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 48 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-7) - چگالی احتمال نویز ارلانگ از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-7" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 80 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-7) - چگالی احتمال نویز ارلانگ از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-7" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «چگالی احتمال نویز ارلانگ» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.</p>
@@ -741,7 +742,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_008.png"><img alt="../_images/eq05_008.png" src="../_images/eq05_008.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 49 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-8) - میانگین توزیع ارلانگ از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-8" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 81 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-8) - میانگین توزیع ارلانگ از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-8" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «میانگین توزیع ارلانگ» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -753,7 +754,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_009.png"><img alt="../_images/eq05_009.png" src="../_images/eq05_009.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 50 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-9) - واریانس توزیع ارلانگ از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-9" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 82 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-9) - واریانس توزیع ارلانگ از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-9" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «واریانس توزیع ارلانگ» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -765,7 +766,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_010.png"><img alt="../_images/eq05_010.png" src="../_images/eq05_010.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 51 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-10) - چگالی احتمال نویز نمایی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-10" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 83 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-10) - چگالی احتمال نویز نمایی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-10" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «چگالی احتمال نویز نمایی» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.</p>
@@ -777,7 +778,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_011.png"><img alt="../_images/eq05_011.png" src="../_images/eq05_011.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 52 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-11) - میانگین توزیع نمایی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-11" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 84 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-11) - میانگین توزیع نمایی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-11" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «میانگین توزیع نمایی» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -789,7 +790,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_012.png"><img alt="../_images/eq05_012.png" src="../_images/eq05_012.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 53 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-12) - واریانس توزیع نمایی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-12" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 85 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-12) - واریانس توزیع نمایی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-12" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «واریانس توزیع نمایی» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -801,7 +802,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_013.png"><img alt="../_images/eq05_013.png" src="../_images/eq05_013.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 54 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-13) - چگالی احتمال نویز یکنواخت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-13" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 86 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-13) - چگالی احتمال نویز یکنواخت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-13" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «چگالی احتمال نویز یکنواخت» را تعریف می‌کند. پارامترهای توزیع شکل هیستوگرام نویز را تعیین می‌کنند و از روی آن‌ها می‌توان نوع نویز و فیلتر مناسب را انتخاب کرد.</p>
@@ -813,7 +814,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_014.png"><img alt="../_images/eq05_014.png" src="../_images/eq05_014.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 55 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-14) - میانگین توزیع یکنواخت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-14" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 87 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-14) - میانگین توزیع یکنواخت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-14" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «میانگین توزیع یکنواخت» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -825,7 +826,7 @@ p(z)=\frac{1}{\sqrt{2\pi}\sigma}\exp\!\left[-\frac{(z-\mu)^2}{2\sigma^2}\right].
 <a class="reference internal image-reference" href="../_images/eq05_015.png"><img alt="../_images/eq05_015.png" src="../_images/eq05_015.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 56 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-15) - واریانس توزیع یکنواخت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-15" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 88 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-15) - واریانس توزیع یکنواخت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-15" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «واریانس توزیع یکنواخت» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -846,7 +847,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/eq05_016.png"><img alt="../_images/eq05_016.png" src="../_images/eq05_016.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 57 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-16) - چگالی احتمال نویز نمک‌وفلفل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-16" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 89 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-16) - چگالی احتمال نویز نمک‌وفلفل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-16" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> در نویز نمک‌وفلفل فقط دو شدت ویژه احتمال غیرصفر دارند: یک مقدار بسیار تیره (pepper) و یک مقدار بسیار روشن (salt). همین گسسته‌بودن علت کارایی فیلتر میانه است.</p>
@@ -858,7 +859,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/eq05_017.png"><img alt="../_images/eq05_017.png" src="../_images/eq05_017.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 58 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-17) - میانگین نویز نمک‌وفلفل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-17" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 90 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-17) - میانگین نویز نمک‌وفلفل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-17" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «میانگین نویز نمک‌وفلفل» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -870,7 +871,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/eq05_018.png"><img alt="../_images/eq05_018.png" src="../_images/eq05_018.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 59 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-18) - واریانس نویز نمک‌وفلفل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-18" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 91 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-18) - واریانس نویز نمک‌وفلفل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-18" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «واریانس نویز نمک‌وفلفل» را از پارامترهای توزیع به‌دست می‌دهد. این ممان آماری برای برآورد شدت نویز و تنظیم فیلترهای تطبیقی به‌کار می‌رود.</p>
@@ -879,7 +880,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/fig05_03.png"><img alt="../_images/fig05_03.png" src="../_images/fig05_03.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 60 </span><span class="caption-text"><strong>شکل 5.3.</strong> الگوی آزمون دارای نواحی تقریباً یکنواخت و مرزهای واضح است؛ بنابراین هم اثر نویز روی هیستوگرام و هم اثر فیلتر روی لبه‌ها را می‌توان به‌وضوح دید.</span><a class="headerlink" href="#fig-ch05-5-3" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 92 </span><span class="caption-text"><strong>شکل 5.3.</strong> الگوی آزمون دارای نواحی تقریباً یکنواخت و مرزهای واضح است؛ بنابراین هم اثر نویز روی هیستوگرام و هم اثر فیلتر روی لبه‌ها را می‌توان به‌وضوح دید.</span><a class="headerlink" href="#fig-ch05-5-3" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 323 کتاب، شکل 5.3.</em></p>
@@ -887,7 +888,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/fig05_04_a.png"><img alt="../_images/fig05_04_a.png" src="../_images/fig05_04_a.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 61 </span><span class="caption-text"><strong>شکل 5.4-a.</strong> با افزودن انواع نویز به یک تصویر ثابت، تفاوت «ظاهر مکانی» و «هیستوگرام» آشکار می‌شود. نکتهٔ مهم این است که چند نویز می‌توانند از نظر بصری شبیه باشند ولی هیستوگرام‌های بسیار متفاوتی داشته باشند؛ نمک‌وفلفل استثنای واضح است.</span><a class="headerlink" href="#fig-ch05-5-4-a" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 93 </span><span class="caption-text"><strong>شکل 5.4-a.</strong> با افزودن انواع نویز به یک تصویر ثابت، تفاوت «ظاهر مکانی» و «هیستوگرام» آشکار می‌شود. نکتهٔ مهم این است که چند نویز می‌توانند از نظر بصری شبیه باشند ولی هیستوگرام‌های بسیار متفاوتی داشته باشند؛ نمک‌وفلفل استثنای واضح است.</span><a class="headerlink" href="#fig-ch05-5-4-a" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 324 کتاب، شکل 5.4-a.</em></p>
@@ -895,7 +896,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/fig05_04_b.png"><img alt="../_images/fig05_04_b.png" src="../_images/fig05_04_b.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 62 </span><span class="caption-text"><strong>شکل 5.4-b.</strong> با افزودن انواع نویز به یک تصویر ثابت، تفاوت «ظاهر مکانی» و «هیستوگرام» آشکار می‌شود. نکتهٔ مهم این است که چند نویز می‌توانند از نظر بصری شبیه باشند ولی هیستوگرام‌های بسیار متفاوتی داشته باشند؛ نمک‌وفلفل استثنای واضح است. این بخش ادامهٔ همان مقایسه و شامل نویز نمایی، یکنواخت و نمک‌وفلفل است.</span><a class="headerlink" href="#fig-ch05-5-4-b" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 94 </span><span class="caption-text"><strong>شکل 5.4-b.</strong> با افزودن انواع نویز به یک تصویر ثابت، تفاوت «ظاهر مکانی» و «هیستوگرام» آشکار می‌شود. نکتهٔ مهم این است که چند نویز می‌توانند از نظر بصری شبیه باشند ولی هیستوگرام‌های بسیار متفاوتی داشته باشند؛ نمک‌وفلفل استثنای واضح است. این بخش ادامهٔ همان مقایسه و شامل نویز نمایی، یکنواخت و نمک‌وفلفل است.</span><a class="headerlink" href="#fig-ch05-5-4-b" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 325 کتاب، شکل 5.4-b.</em></p>
@@ -906,7 +907,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/eq05_019.png"><img alt="../_images/eq05_019.png" src="../_images/eq05_019.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 63 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-19) - برآورد میانگین از هیستوگرام محلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-19" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 95 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-19) - برآورد میانگین از هیستوگرام محلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-19" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «برآورد میانگین از هیستوگرام محلی» را مستقیماً از هیستوگرام یک ناحیهٔ تقریباً یکنواخت برآورد می‌کند؛ روشی عملی وقتی نمونهٔ نویز مستقل در اختیار نداریم.</p>
@@ -915,7 +916,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/fig05_05.png"><img alt="../_images/fig05_05.png" src="../_images/fig05_05.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 64 </span><span class="caption-text"><strong>شکل 5.5.</strong> یک سینوس دوبعدی در مکان به دو ضربهٔ مزدوج در طیف تبدیل می‌شود. این تصویر پیوند مستقیم بین تداخل تناوبی و ناچ‌فیلتر را به‌صورت شهودی نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-5" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 96 </span><span class="caption-text"><strong>شکل 5.5.</strong> یک سینوس دوبعدی در مکان به دو ضربهٔ مزدوج در طیف تبدیل می‌شود. این تصویر پیوند مستقیم بین تداخل تناوبی و ناچ‌فیلتر را به‌صورت شهودی نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-5" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 326 کتاب، شکل 5.5.</em></p>
@@ -926,7 +927,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/eq05_020.png"><img alt="../_images/eq05_020.png" src="../_images/eq05_020.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 65 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-20) - برآورد واریانس از هیستوگرام محلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-20" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 97 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-20) - برآورد واریانس از هیستوگرام محلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-20" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «برآورد واریانس از هیستوگرام محلی» را مستقیماً از هیستوگرام یک ناحیهٔ تقریباً یکنواخت برآورد می‌کند؛ روشی عملی وقتی نمونهٔ نویز مستقل در اختیار نداریم.</p>
@@ -935,7 +936,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/fig05_06.png"><img alt="../_images/fig05_06.png" src="../_images/fig05_06.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 66 </span><span class="caption-text"><strong>شکل 5.6.</strong> هیستوگرام از نوارهای کوچک و نسبتاً یکنواخت تصویر گرفته شده است تا سهم ساختار تصویر کم شود و شکل PDF نویز بهتر دیده شود. این همان ایدهٔ عملی تخمین پارامترهای نویز از خود تصویر است.</span><a class="headerlink" href="#fig-ch05-5-6" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 98 </span><span class="caption-text"><strong>شکل 5.6.</strong> هیستوگرام از نوارهای کوچک و نسبتاً یکنواخت تصویر گرفته شده است تا سهم ساختار تصویر کم شود و شکل PDF نویز بهتر دیده شود. این همان ایدهٔ عملی تخمین پارامترهای نویز از خود تصویر است.</span><a class="headerlink" href="#fig-ch05-5-6" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 327 کتاب، شکل 5.6.</em></p>
@@ -951,7 +952,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/fig05_demo_noise_filters.png"><img alt="../_images/fig05_demo_noise_filters.png" src="../_images/fig05_demo_noise_filters.png" style="width: 92%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 67 </span><span class="caption-text">آزمایش بازتولیدشدنی: مقایسۀ نویز گاوسی و نمک‌وفلفل و رفتار فیلتر میانگین و میانه. کد تولید این شکل در فایل‌های اجرایی فصل قرار دارد.</span><a class="headerlink" href="#fig-ch05-demo-noise" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 99 </span><span class="caption-text">آزمایش بازتولیدشدنی: مقایسۀ نویز گاوسی و نمک‌وفلفل و رفتار فیلتر میانگین و میانه. کد تولید این شکل در فایل‌های اجرایی فصل قرار دارد.</span><a class="headerlink" href="#fig-ch05-demo-noise" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>وقتی تابع تخریب اپتیکی یا حرکتی وجود ندارد و تنها نویز جمع‌شونده داریم، مسئله به حذف نویز در حوزهٔ مکان تبدیل می‌شود. خانوادهٔ فیلترهای میانگین، آماری ترتیبی و تطبیقی مقایسه می‌شوند. پیام کلیدی این بخش این است که نوع نویز تعیین می‌کند کدام میانگین یا آمارهٔ ترتیبی مناسب‌تر است؛ یک فیلتر واحد برای همهٔ نویزها وجود ندارد.</p>
@@ -965,7 +966,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/eq05_021.png"><img alt="../_images/eq05_021.png" src="../_images/eq05_021.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 68 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-21) - مدل نویز جمع‌شونده در مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-21" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 100 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-21) - مدل نویز جمع‌شونده در مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-21" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «مدل نویز جمع‌شونده در مکان» است. پاسخ فیلتر از پیکسل‌های همسایگی <span class="math notranslate nohighlight">\(S_{xy}\)</span> ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.</p>
@@ -977,7 +978,7 @@ P_b,&amp; z=b,\\
 <a class="reference internal image-reference" href="../_images/eq05_022.png"><img alt="../_images/eq05_022.png" src="../_images/eq05_022.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 69 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-22) - مدل نویز جمع‌شونده در فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-22" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 101 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-22) - مدل نویز جمع‌شونده در فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-22" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «مدل نویز جمع‌شونده در فرکانس» است. پاسخ فیلتر از پیکسل‌های همسایگی <span class="math notranslate nohighlight">\(S_{xy}\)</span> ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.</p>
@@ -993,7 +994,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_023.png"><img alt="../_images/eq05_023.png" src="../_images/eq05_023.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 70 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-23) - فیلتر میانگین حسابی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-23" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 102 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-23) - فیلتر میانگین حسابی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-23" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> هر پیکسل با متوسط همسایگی جایگزین می‌شود. کاهش واریانس نویز بهای خود را با محوشدن لبه‌ها و جزئیات ریز می‌پردازد.</p>
@@ -1010,7 +1011,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_024.png"><img alt="../_images/eq05_024.png" src="../_images/eq05_024.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 71 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-24) - فیلتر میانگین هندسی مکانی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-24" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 103 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-24) - فیلتر میانگین هندسی مکانی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-24" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> میانگین هندسی نسبت به میانگین حسابی معمولاً جزئیات را بهتر حفظ می‌کند و برای برخی نویزهای ضربی/گاوسی رفتار مناسب‌تری دارد.</p>
@@ -1027,7 +1028,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_025.png"><img alt="../_images/eq05_025.png" src="../_images/eq05_025.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 72 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-25) - فیلتر میانگین هارمونیک از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-25" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 104 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-25) - فیلتر میانگین هارمونیک از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-25" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> میانگین هارمونیک در برابر نقاط روشن شدید مقاوم‌تر است، اما برای نویز pepper مناسب نیست چون وجود صفر در مخرج مشکل‌ساز می‌شود.</p>
@@ -1045,7 +1046,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_026.png"><img alt="../_images/eq05_026.png" src="../_images/eq05_026.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 73 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-26) - فیلتر میانگین پادهارمونیک از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-26" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 105 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-26) - فیلتر میانگین پادهارمونیک از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-26" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> پارامتر <span class="math notranslate nohighlight">\(Q\)</span> قطبیت فیلتر را تعیین می‌کند: <span class="math notranslate nohighlight">\(Q&gt;0\)</span> برای pepper و <span class="math notranslate nohighlight">\(Q&lt;0\)</span> برای salt. انتخاب علامت اشتباه می‌تواند نویز را تشدید کند.</p>
@@ -1061,7 +1062,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_027.png"><img alt="../_images/eq05_027.png" src="../_images/eq05_027.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 74 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-27) - فیلتر میانه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-27" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 106 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-27) - فیلتر میانه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-27" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> میانه یک آمارهٔ مقاوم است؛ به‌جای میانگین‌گیری عددی، مقدار میانیِ داده‌های مرتب‌شده را انتخاب می‌کند و به همین دلیل لبه‌ها را بهتر از فیلتر خطی حفظ می‌کند.</p>
@@ -1070,7 +1071,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_07.png"><img alt="../_images/fig05_07.png" src="../_images/fig05_07.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 75 </span><span class="caption-text"><strong>شکل 5.7.</strong> میانگین حسابی و هندسی روی نویز گاوسی مقایسه می‌شوند. هر دو نویز را کاهش می‌دهند، اما میانگین حسابی معمولاً محوشدگی بیشتری ایجاد می‌کند و میانگین هندسی بخشی از جزئیات را بهتر نگه می‌دارد.</span><a class="headerlink" href="#fig-ch05-5-7" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 107 </span><span class="caption-text"><strong>شکل 5.7.</strong> میانگین حسابی و هندسی روی نویز گاوسی مقایسه می‌شوند. هر دو نویز را کاهش می‌دهند، اما میانگین حسابی معمولاً محوشدگی بیشتری ایجاد می‌کند و میانگین هندسی بخشی از جزئیات را بهتر نگه می‌دارد.</span><a class="headerlink" href="#fig-ch05-5-7" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 330 کتاب، شکل 5.7.</em></p>
@@ -1078,7 +1079,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_08.png"><img alt="../_images/fig05_08.png" src="../_images/fig05_08.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 76 </span><span class="caption-text"><strong>شکل 5.8.</strong> علامت <span class="math notranslate nohighlight">\(Q\)</span> در فیلتر پادهارمونیک را به تصویر وصل کنید: <span class="math notranslate nohighlight">\(Q&gt;0\)</span> لکه‌های تیرهٔ pepper را بهتر حذف می‌کند و <span class="math notranslate nohighlight">\(Q&lt;0\)</span> لکه‌های روشن salt را. این شکل بهترین شاهد بصری برای نقش علامت <span class="math notranslate nohighlight">\(Q\)</span> است.</span><a class="headerlink" href="#fig-ch05-5-8" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 108 </span><span class="caption-text"><strong>شکل 5.8.</strong> علامت <span class="math notranslate nohighlight">\(Q\)</span> در فیلتر پادهارمونیک را به تصویر وصل کنید: <span class="math notranslate nohighlight">\(Q&gt;0\)</span> لکه‌های تیرهٔ pepper را بهتر حذف می‌کند و <span class="math notranslate nohighlight">\(Q&lt;0\)</span> لکه‌های روشن salt را. این شکل بهترین شاهد بصری برای نقش علامت <span class="math notranslate nohighlight">\(Q\)</span> است.</span><a class="headerlink" href="#fig-ch05-5-8" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 331 کتاب، شکل 5.8.</em></p>
@@ -1086,7 +1087,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_09.png"><img alt="../_images/fig05_09.png" src="../_images/fig05_09.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 77 </span><span class="caption-text"><strong>شکل 5.9.</strong> وقتی علامت <span class="math notranslate nohighlight">\(Q\)</span> برعکس انتخاب شود، فیلتر نه‌تنها مناسب نیست بلکه artifactهای شدید ایجاد می‌کند. این شکل یادآور می‌شود پارامتر فیلتر باید با مدل نویز سازگار باشد.</span><a class="headerlink" href="#fig-ch05-5-9" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 109 </span><span class="caption-text"><strong>شکل 5.9.</strong> وقتی علامت <span class="math notranslate nohighlight">\(Q\)</span> برعکس انتخاب شود، فیلتر نه‌تنها مناسب نیست بلکه artifactهای شدید ایجاد می‌کند. این شکل یادآور می‌شود پارامتر فیلتر باید با مدل نویز سازگار باشد.</span><a class="headerlink" href="#fig-ch05-5-9" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 331 کتاب، شکل 5.9.</em></p>
@@ -1097,7 +1098,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_028.png"><img alt="../_images/eq05_028.png" src="../_images/eq05_028.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 78 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-28) - فیلتر بیشینه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-28" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 110 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-28) - فیلتر بیشینه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-28" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «فیلتر بیشینه» است. پاسخ فیلتر از پیکسل‌های همسایگی <span class="math notranslate nohighlight">\(S_{xy}\)</span> ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.</p>
@@ -1109,7 +1110,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_029.png"><img alt="../_images/eq05_029.png" src="../_images/eq05_029.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 79 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-29) - فیلتر کمینه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-29" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 111 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-29) - فیلتر کمینه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-29" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «فیلتر کمینه» است. پاسخ فیلتر از پیکسل‌های همسایگی <span class="math notranslate nohighlight">\(S_{xy}\)</span> ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.</p>
@@ -1121,7 +1122,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_030.png"><img alt="../_images/eq05_030.png" src="../_images/eq05_030.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 80 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-30) - فیلتر نقطهٔ میانی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-30" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 112 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-30) - فیلتر نقطهٔ میانی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-30" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «فیلتر نقطهٔ میانی» است. پاسخ فیلتر از پیکسل‌های همسایگی <span class="math notranslate nohighlight">\(S_{xy}\)</span> ساخته می‌شود؛ تفاوت این خانواده‌ها در نوع میانگین/رتبه‌بندی و در نتیجه حساسیت آن‌ها به outlierهای روشن و تیره است.</p>
@@ -1137,7 +1138,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_031.png"><img alt="../_images/eq05_031.png" src="../_images/eq05_031.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 81 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-31) - فیلتر میانگین آلفا-بریده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-31" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 113 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-31) - فیلتر میانگین آلفا-بریده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-31" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> ابتدا <span class="math notranslate nohighlight">\(d/2\)</span> مقدار کوچک و <span class="math notranslate nohighlight">\(d/2\)</span> مقدار بزرگ حذف می‌شوند، سپس از بقیه میانگین گرفته می‌شود؛ بنابراین فیلتر بین میانگین و میانه قابل تنظیم است.</p>
@@ -1146,7 +1147,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_10.png"><img alt="../_images/fig05_10.png" src="../_images/fig05_10.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 82 </span><span class="caption-text"><strong>شکل 5.10.</strong> چند عبور پیاپی فیلتر میانه نویز نمک‌وفلفل را کم می‌کند، اما هر عبور اضافی خطر حذف جزئیات ریز و گردشدن گوشه‌ها را افزایش می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-10" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 114 </span><span class="caption-text"><strong>شکل 5.10.</strong> چند عبور پیاپی فیلتر میانه نویز نمک‌وفلفل را کم می‌کند، اما هر عبور اضافی خطر حذف جزئیات ریز و گردشدن گوشه‌ها را افزایش می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-10" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 334 کتاب، شکل 5.10.</em></p>
@@ -1154,7 +1155,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_11.png"><img alt="../_images/fig05_11.png" src="../_images/fig05_11.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 83 </span><span class="caption-text"><strong>شکل 5.11.</strong> فیلتر max برای pepper و فیلتر min برای salt مؤثر است، چون به‌ترتیب مقادیر بسیار کوچک و بسیار بزرگ را در همسایگی کنار می‌زنند. در عوض شکل اشیای تیره/روشن را نیز می‌توانند تغییر دهند.</span><a class="headerlink" href="#fig-ch05-5-11" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 115 </span><span class="caption-text"><strong>شکل 5.11.</strong> فیلتر max برای pepper و فیلتر min برای salt مؤثر است، چون به‌ترتیب مقادیر بسیار کوچک و بسیار بزرگ را در همسایگی کنار می‌زنند. در عوض شکل اشیای تیره/روشن را نیز می‌توانند تغییر دهند.</span><a class="headerlink" href="#fig-ch05-5-11" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 334 کتاب، شکل 5.11.</em></p>
@@ -1162,7 +1163,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_12.png"><img alt="../_images/fig05_12.png" src="../_images/fig05_12.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 84 </span><span class="caption-text"><strong>شکل 5.12.</strong> یک نویز ترکیبی (یکنواخت + نمک‌وفلفل) معیار خوبی برای مقایسهٔ خانواده‌هاست. فیلتر alpha-trimmed در این حالت مزیت دارد چون هم outlierها را حذف می‌کند و هم از بقیه میانگین می‌گیرد.</span><a class="headerlink" href="#fig-ch05-5-12" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 116 </span><span class="caption-text"><strong>شکل 5.12.</strong> یک نویز ترکیبی (یکنواخت + نمک‌وفلفل) معیار خوبی برای مقایسهٔ خانواده‌هاست. فیلتر alpha-trimmed در این حالت مزیت دارد چون هم outlierها را حذف می‌کند و هم از بقیه میانگین می‌گیرد.</span><a class="headerlink" href="#fig-ch05-5-12" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 335 کتاب، شکل 5.12.</em></p>
@@ -1180,7 +1181,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_032.png"><img alt="../_images/eq05_032.png" src="../_images/eq05_032.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 85 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-32) - فیلتر تطبیقی کاهش نویز محلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-32" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 117 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-32) - فیلتر تطبیقی کاهش نویز محلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-32" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> اصلاح هر پیکسل بر اساس نسبت واریانس نویز به واریانس محلی تصویر تنظیم می‌شود: در نواحی تخت صاف‌سازی بیشتر و در لبه‌ها/جزئیات صاف‌سازی کمتر است.</p>
@@ -1189,7 +1190,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_13.png"><img alt="../_images/fig05_13.png" src="../_images/fig05_13.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 86 </span><span class="caption-text"><strong>شکل 5.13.</strong> فیلتر تطبیقی کاهش نویز محلی نسبت به میانگین‌های ثابت، لبه‌ها و ساختار برد را بهتر حفظ می‌کند. دلیل، استفاده از واریانس محلی برای تعیین مقدار صاف‌سازی است.</span><a class="headerlink" href="#fig-ch05-5-13" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 118 </span><span class="caption-text"><strong>شکل 5.13.</strong> فیلتر تطبیقی کاهش نویز محلی نسبت به میانگین‌های ثابت، لبه‌ها و ساختار برد را بهتر حفظ می‌کند. دلیل، استفاده از واریانس محلی برای تعیین مقدار صاف‌سازی است.</span><a class="headerlink" href="#fig-ch05-5-13" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 337 کتاب، شکل 5.13.</em></p>
@@ -1197,7 +1198,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_14.png"><img alt="../_images/fig05_14.png" src="../_images/fig05_14.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 87 </span><span class="caption-text"><strong>شکل 5.14.</strong> در چگالی بالای نمک‌وفلفل، یک median ثابت 7×7 جزئیات زیادی را خراب می‌کند؛ median تطبیقی اندازهٔ پنجره را فقط در صورت نیاز بزرگ می‌کند و جزئیات را بهتر نگه می‌دارد.</span><a class="headerlink" href="#fig-ch05-5-14" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 119 </span><span class="caption-text"><strong>شکل 5.14.</strong> در چگالی بالای نمک‌وفلفل، یک median ثابت 7×7 جزئیات زیادی را خراب می‌کند؛ median تطبیقی اندازهٔ پنجره را فقط در صورت نیاز بزرگ می‌کند و جزئیات را بهتر نگه می‌دارد.</span><a class="headerlink" href="#fig-ch05-5-14" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 340 کتاب، شکل 5.14.</em></p>
@@ -1220,7 +1221,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_033.png"><img alt="../_images/eq05_033.png" src="../_images/eq05_033.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 88 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-33) - ساخت فیلتر ناچ‌رد چندگانه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-33" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 120 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-33) - ساخت فیلتر ناچ‌رد چندگانه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-33" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> چون مؤلفه‌های سینوسی حقیقی در DFT به‌صورت جفت‌های مزدوج ظاهر می‌شوند، ناچ‌ها نیز باید به‌صورت جفت متقارن قرار گیرند.</p>
@@ -1232,7 +1233,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_034.png"><img alt="../_images/eq05_034.png" src="../_images/eq05_034.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 89 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-34) - فاصله تا مرکز ناچ مثبت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-34" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 121 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-34) - فاصله تا مرکز ناچ مثبت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-34" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «فاصله تا مرکز ناچ مثبت» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1244,7 +1245,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_035.png"><img alt="../_images/eq05_035.png" src="../_images/eq05_035.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 90 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-35) - فاصله تا ناچ مزدوج از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-35" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 122 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-35) - فاصله تا ناچ مزدوج از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-35" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «فاصله تا ناچ مزدوج» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1256,7 +1257,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_036.png"><img alt="../_images/eq05_036.png" src="../_images/eq05_036.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 91 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-36) - نمونهٔ ناچ‌رد باتروورث از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-36" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 123 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-36) - نمونهٔ ناچ‌رد باتروورث از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-36" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «نمونهٔ ناچ‌رد باتروورث» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1268,7 +1269,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_037.png"><img alt="../_images/eq05_037.png" src="../_images/eq05_037.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 92 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-37) - تبدیل ناچ‌رد به ناچ‌پَس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-37" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 124 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-37) - تبدیل ناچ‌رد به ناچ‌پَس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-37" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> مکمل ناچ‌رد، دقیقاً همان مؤلفه‌هایی را عبور می‌دهد که قرار است حذف شوند؛ این ابزار برای مشاهده و برآورد خودِ الگوی تداخل بسیار مفید است.</p>
@@ -1277,7 +1278,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_15.png"><img alt="../_images/fig05_15.png" src="../_images/fig05_15.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 93 </span><span class="caption-text"><strong>شکل 5.15.</strong> سه شکل سه‌بعدی ناچ‌رد ایده‌آل، گاوسی و باتروورث را نشان می‌دهند. ایده‌آل گذار ناگهانی و ringing بیشتر دارد؛ گاوسی نرم‌ترین گذار را دارد؛ باتروورث بین این دو قابل تنظیم است.</span><a class="headerlink" href="#fig-ch05-5-15" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 125 </span><span class="caption-text"><strong>شکل 5.15.</strong> سه شکل سه‌بعدی ناچ‌رد ایده‌آل، گاوسی و باتروورث را نشان می‌دهند. ایده‌آل گذار ناگهانی و ringing بیشتر دارد؛ گاوسی نرم‌ترین گذار را دارد؛ باتروورث بین این دو قابل تنظیم است.</span><a class="headerlink" href="#fig-ch05-5-15" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 342 کتاب، شکل 5.15.</em></p>
@@ -1285,7 +1286,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_16.png"><img alt="../_images/fig05_16.png" src="../_images/fig05_16.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 94 </span><span class="caption-text"><strong>شکل 5.16.</strong> فرایند کامل ناچ‌فیلترگذاری دیده می‌شود: تصویر خراب، طیف با قله‌های تداخل، محل ناچ‌ها و تصویر خروجی. این توالی را در ویدیو مرحله‌به‌مرحله توضیح دهید.</span><a class="headerlink" href="#fig-ch05-5-16" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 126 </span><span class="caption-text"><strong>شکل 5.16.</strong> فرایند کامل ناچ‌فیلترگذاری دیده می‌شود: تصویر خراب، طیف با قله‌های تداخل، محل ناچ‌ها و تصویر خروجی. این توالی را در ویدیو مرحله‌به‌مرحله توضیح دهید.</span><a class="headerlink" href="#fig-ch05-5-16" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 343 کتاب، شکل 5.16.</em></p>
@@ -1293,7 +1294,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_17.png"><img alt="../_images/fig05_17.png" src="../_images/fig05_17.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 95 </span><span class="caption-text"><strong>شکل 5.17.</strong> ناچ‌پَس دقیقاً مؤلفه‌ای را که ناچ‌رد حذف می‌کند استخراج کرده است؛ نتیجه در مکان تقریباً یک الگوی سینوسی خالص است و صحت تشخیص قله‌های طیفی را تأیید می‌کند.</span><a class="headerlink" href="#fig-ch05-5-17" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 127 </span><span class="caption-text"><strong>شکل 5.17.</strong> ناچ‌پَس دقیقاً مؤلفه‌ای را که ناچ‌رد حذف می‌کند استخراج کرده است؛ نتیجه در مکان تقریباً یک الگوی سینوسی خالص است و صحت تشخیص قله‌های طیفی را تأیید می‌کند.</span><a class="headerlink" href="#fig-ch05-5-17" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 343 کتاب، شکل 5.17.</em></p>
@@ -1301,7 +1302,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_18.png"><img alt="../_images/fig05_18.png" src="../_images/fig05_18.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 96 </span><span class="caption-text"><strong>شکل 5.18.</strong> در تصویر ماهواره‌ای، خطوط اسکن حسگر یک نویز تناوبی ساختاری ایجاد کرده‌اند. طیف جهت و فرکانس این خطوط را آشکار می‌کند و ناچ‌رد نتیجهٔ بصری را به‌طور محسوسی بهبود می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-18" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 128 </span><span class="caption-text"><strong>شکل 5.18.</strong> در تصویر ماهواره‌ای، خطوط اسکن حسگر یک نویز تناوبی ساختاری ایجاد کرده‌اند. طیف جهت و فرکانس این خطوط را آشکار می‌کند و ناچ‌رد نتیجهٔ بصری را به‌طور محسوسی بهبود می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-18" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 344 کتاب، شکل 5.18.</em></p>
@@ -1309,7 +1310,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_19.png"><img alt="../_images/fig05_19.png" src="../_images/fig05_19.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 97 </span><span class="caption-text"><strong>شکل 5.19.</strong> الگوی استخراج‌شده از شکل قبل نشان می‌دهد تداخل الزاماً یک سینوس ساده نیست؛ با چند مؤلفهٔ طیفی می‌توان یک ساختار فضایی پیچیده‌تر ساخت.</span><a class="headerlink" href="#fig-ch05-5-19" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 129 </span><span class="caption-text"><strong>شکل 5.19.</strong> الگوی استخراج‌شده از شکل قبل نشان می‌دهد تداخل الزاماً یک سینوس ساده نیست؛ با چند مؤلفهٔ طیفی می‌توان یک ساختار فضایی پیچیده‌تر ساخت.</span><a class="headerlink" href="#fig-ch05-5-19" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 344 کتاب، شکل 5.19.</em></p>
@@ -1320,7 +1321,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_038.png"><img alt="../_images/eq05_038.png" src="../_images/eq05_038.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 98 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-38) - استخراج طیف نویز تناوبی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-38" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 130 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-38) - استخراج طیف نویز تناوبی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-38" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «استخراج طیف نویز تناوبی» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1332,7 +1333,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_039.png"><img alt="../_images/eq05_039.png" src="../_images/eq05_039.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 99 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-39) - بازگردانی الگوی نویز به حوزهٔ مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-39" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 131 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-39) - بازگردانی الگوی نویز به حوزهٔ مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-39" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «بازگردانی الگوی نویز به حوزهٔ مکان» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1344,7 +1345,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_040.png"><img alt="../_images/eq05_040.png" src="../_images/eq05_040.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 100 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-40) - تفریق وزن‌دار الگوی نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-40" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 132 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-40) - تفریق وزن‌دار الگوی نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-40" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> اگر <span class="math notranslate nohighlight">\(\eta\)</span> استخراج‌شده کامل نباشد، تفریق کامل آن می‌تواند جزئیات تصویر را هم حذف کند؛ وزن <span class="math notranslate nohighlight">\(w(x,y)\)</span> شدت تفریق را محلی تنظیم می‌کند.</p>
@@ -1356,7 +1357,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_041.png"><img alt="../_images/eq05_041.png" src="../_images/eq05_041.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 101 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-41) - واریانس محلی تصویر برآوردشده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-41" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 133 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-41) - واریانس محلی تصویر برآوردشده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-41" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «واریانس محلی تصویر برآوردشده» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1368,7 +1369,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_042.png"><img alt="../_images/eq05_042.png" src="../_images/eq05_042.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 102 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-42) - میانگین محلی تصویر برآوردشده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-42" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 134 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-42) - میانگین محلی تصویر برآوردشده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-42" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «میانگین محلی تصویر برآوردشده» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1380,7 +1381,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_043.png"><img alt="../_images/eq05_043.png" src="../_images/eq05_043.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 103 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-43) - گسترش واریانس پس از جایگذاری مدل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-43" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 135 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-43) - گسترش واریانس پس از جایگذاری مدل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-43" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «گسترش واریانس پس از جایگذاری مدل» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1392,7 +1393,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_044.png"><img alt="../_images/eq05_044.png" src="../_images/eq05_044.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 104 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-44) - فرض ثابت‌بودن وزن در همسایگی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-44" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 136 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-44) - فرض ثابت‌بودن وزن در همسایگی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-44" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «فرض ثابت‌بودن وزن در همسایگی» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1404,7 +1405,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_045.png"><img alt="../_images/eq05_045.png" src="../_images/eq05_045.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 105 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-45) - ساده‌سازی میانگین حاصل‌ضرب وزن و نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-45" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 137 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-45) - ساده‌سازی میانگین حاصل‌ضرب وزن و نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-45" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «ساده‌سازی میانگین حاصل‌ضرب وزن و نویز» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1416,7 +1417,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_046.png"><img alt="../_images/eq05_046.png" src="../_images/eq05_046.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 106 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-46) - صورت ساده‌شدهٔ واریانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-46" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 138 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-46) - صورت ساده‌شدهٔ واریانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-46" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «صورت ساده‌شدهٔ واریانس» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1428,7 +1429,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_047.png"><img alt="../_images/eq05_047.png" src="../_images/eq05_047.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 107 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-47) - شرط مشتق صفر برای وزن بهینه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-47" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 139 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-47) - شرط مشتق صفر برای وزن بهینه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-47" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این گام «شرط مشتق صفر برای وزن بهینه» را در طراحی/برآورد فیلتر تداخل تناوبی بیان می‌کند. هدف حفظ طیف مفید تصویر و جداسازی مؤلفه‌های باریک و قابل‌شناسایی نویز است.</p>
@@ -1440,7 +1441,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_048.png"><img alt="../_images/eq05_048.png" src="../_images/eq05_048.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 108 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-48) - وزن بهینهٔ حذف تداخل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-48" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 140 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-48) - وزن بهینهٔ حذف تداخل از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-48" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه وزن بهینه را از آمار محلی تصویر خراب و الگوی نویز استخراج‌شده می‌سازد؛ هدف کمینه‌کردن واریانس محلی خروجی است، نه صرفاً کمینه‌کردن انرژی نویز.</p>
@@ -1449,7 +1450,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_20.png"><img alt="../_images/fig05_20.png" src="../_images/fig05_20.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 109 </span><span class="caption-text"><strong>شکل 5.20.</strong> طیف تصویر مریخ دارای تداخل‌های تناوبی متعدد است. این مثال انگیزهٔ روش بهینه‌ترِ استخراج و تفریق وزن‌دار نویز را فراهم می‌کند، چون انتخاب ناچ‌های دستی ممکن است اطلاعات واقعی را نیز حذف کند.</span><a class="headerlink" href="#fig-ch05-5-20" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 141 </span><span class="caption-text"><strong>شکل 5.20.</strong> طیف تصویر مریخ دارای تداخل‌های تناوبی متعدد است. این مثال انگیزهٔ روش بهینه‌ترِ استخراج و تفریق وزن‌دار نویز را فراهم می‌کند، چون انتخاب ناچ‌های دستی ممکن است اطلاعات واقعی را نیز حذف کند.</span><a class="headerlink" href="#fig-ch05-5-20" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 347 کتاب، شکل 5.20.</em></p>
@@ -1457,7 +1458,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_21.png"><img alt="../_images/fig05_21.png" src="../_images/fig05_21.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 110 </span><span class="caption-text"><strong>شکل 5.21.</strong> طیف بدون center کردن نمایش داده شده تا محل واقعی مؤلفه‌ها نسبت به اندیس‌های DFT روشن شود. این موضوع هنگام پیاده‌سازی بسیار مهم است چون اشتباه در shift باعث قرارگرفتن ناچ در جای نادرست می‌شود.</span><a class="headerlink" href="#fig-ch05-5-21" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 142 </span><span class="caption-text"><strong>شکل 5.21.</strong> طیف بدون center کردن نمایش داده شده تا محل واقعی مؤلفه‌ها نسبت به اندیس‌های DFT روشن شود. این موضوع هنگام پیاده‌سازی بسیار مهم است چون اشتباه در shift باعث قرارگرفتن ناچ در جای نادرست می‌شود.</span><a class="headerlink" href="#fig-ch05-5-21" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 348 کتاب، شکل 5.21.</em></p>
@@ -1465,7 +1466,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_22.png"><img alt="../_images/fig05_22.png" src="../_images/fig05_22.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 111 </span><span class="caption-text"><strong>شکل 5.22.</strong> در چپ، طیف برآوردشدهٔ نویز و در راست، الگوی فضایی متناظر دیده می‌شود. این زوج نشان می‌دهد چگونه با IFFT از قله‌های انتخاب‌شده به یک الگوی تداخل قابل‌تفریق می‌رسیم.</span><a class="headerlink" href="#fig-ch05-5-22" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 143 </span><span class="caption-text"><strong>شکل 5.22.</strong> در چپ، طیف برآوردشدهٔ نویز و در راست، الگوی فضایی متناظر دیده می‌شود. این زوج نشان می‌دهد چگونه با IFFT از قله‌های انتخاب‌شده به یک الگوی تداخل قابل‌تفریق می‌رسیم.</span><a class="headerlink" href="#fig-ch05-5-22" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 348 کتاب، شکل 5.22.</em></p>
@@ -1473,7 +1474,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_23.png"><img alt="../_images/fig05_23.png" src="../_images/fig05_23.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 112 </span><span class="caption-text"><strong>شکل 5.23.</strong> تصویر ترمیم‌شده پس از تفریق وزن‌دار نویز نشان می‌دهد می‌توان تداخل تناوبی را بدون حذف گستردهٔ فرکانس‌های تصویر کاهش داد.</span><a class="headerlink" href="#fig-ch05-5-23" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 144 </span><span class="caption-text"><strong>شکل 5.23.</strong> تصویر ترمیم‌شده پس از تفریق وزن‌دار نویز نشان می‌دهد می‌توان تداخل تناوبی را بدون حذف گستردهٔ فرکانس‌های تصویر کاهش داد.</span><a class="headerlink" href="#fig-ch05-5-23" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 349 کتاب، شکل 5.23.</em></p>
@@ -1496,7 +1497,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_049.png"><img alt="../_images/eq05_049.png" src="../_images/eq05_049.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 113 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-49) - مدل عمومی عملگر تخریب از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-49" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 145 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-49) - مدل عمومی عملگر تخریب از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-49" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «مدل عمومی عملگر تخریب» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1508,7 +1509,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_050.png"><img alt="../_images/eq05_050.png" src="../_images/eq05_050.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 114 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-50) - تعریف خطی‌بودن عملگر از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-50" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 146 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-50) - تعریف خطی‌بودن عملگر از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-50" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> خطی‌بودن یعنی پاسخ به ترکیب خطی ورودی‌ها برابر همان ترکیب خطی پاسخ‌هاست. این فرض اجازه می‌دهد از ابزارهای قدرتمند نظریهٔ سیستم‌های خطی استفاده کنیم.</p>
@@ -1520,7 +1521,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_051.png"><img alt="../_images/eq05_051.png" src="../_images/eq05_051.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 115 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-51) - خاصیت جمع‌پذیری از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-51" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 147 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-51) - خاصیت جمع‌پذیری از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-51" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «خاصیت جمع‌پذیری» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1532,7 +1533,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_052.png"><img alt="../_images/eq05_052.png" src="../_images/eq05_052.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 116 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-52) - خاصیت همگنی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-52" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 148 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-52) - خاصیت همگنی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-52" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «خاصیت همگنی» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1544,7 +1545,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_053.png"><img alt="../_images/eq05_053.png" src="../_images/eq05_053.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 117 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-53) - ناوردایی نسبت به انتقال از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-53" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 149 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-53) - ناوردایی نسبت به انتقال از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-53" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> اگر ورودی را جابه‌جا کنیم، خروجی نیز فقط به همان مقدار جابه‌جا می‌شود و شکل پاسخ تغییر نمی‌کند. این شرط برای تبدیل پاسخ ضربه به یک کانولوشن ضروری است.</p>
@@ -1556,7 +1557,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_054.png"><img alt="../_images/eq05_054.png" src="../_images/eq05_054.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 118 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-54) - نمایش تصویر با ضربه‌های دیراک از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-54" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 150 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-54) - نمایش تصویر با ضربه‌های دیراک از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-54" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «نمایش تصویر با ضربه‌های دیراک» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1568,7 +1569,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_055.png"><img alt="../_images/eq05_055.png" src="../_images/eq05_055.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 119 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-55) - اعمال عملگر به نمایش ضربه‌ای از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-55" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 151 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-55) - اعمال عملگر به نمایش ضربه‌ای از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-55" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «اعمال عملگر به نمایش ضربه‌ای» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1580,7 +1581,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_056.png"><img alt="../_images/eq05_056.png" src="../_images/eq05_056.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 120 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-56) - انتقال عملگر خطی به داخل انتگرال از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-56" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 152 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-56) - انتقال عملگر خطی به داخل انتگرال از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-56" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «انتقال عملگر خطی به داخل انتگرال» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1592,7 +1593,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_057.png"><img alt="../_images/eq05_057.png" src="../_images/eq05_057.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 121 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-57) - برهم‌نهی پاسخ‌ها از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-57" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 153 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-57) - برهم‌نهی پاسخ‌ها از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-57" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «برهم‌نهی پاسخ‌ها» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1604,7 +1605,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_058.png"><img alt="../_images/eq05_058.png" src="../_images/eq05_058.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 122 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-58) - تعریف پاسخ ضربه/PSF از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-58" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 154 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-58) - تعریف پاسخ ضربه/PSF از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-58" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> در اپتیک، پاسخ به یک نقطهٔ نورانی «تابع پخش نقطه‌ای» است. اگر PSF را بدانیم، سامانهٔ خطی را می‌شناسیم.</p>
@@ -1616,7 +1617,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_059.png"><img alt="../_images/eq05_059.png" src="../_images/eq05_059.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 123 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-59) - انتگرال برهم‌نهی فردهلم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-59" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 155 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-59) - انتگرال برهم‌نهی فردهلم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-59" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «انتگرال برهم‌نهی فردهلم» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1628,7 +1629,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_060.png"><img alt="../_images/eq05_060.png" src="../_images/eq05_060.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 124 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-60) - پاسخ ضربه در سامانهٔ ناوردای مکانی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-60" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 156 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-60) - پاسخ ضربه در سامانهٔ ناوردای مکانی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-60" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «پاسخ ضربه در سامانهٔ ناوردای مکانی» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1644,7 +1645,7 @@ g(x,y)=h(x,y)*f(x,y).
 <a class="reference internal image-reference" href="../_images/eq05_061.png"><img alt="../_images/eq05_061.png" src="../_images/eq05_061.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 125 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-61) - فرم کانولوشن برای سامانهٔ LSI از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-61" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 157 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-61) - فرم کانولوشن برای سامانهٔ LSI از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-61" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه نتیجهٔ کلیدی بخش است: خروجی سامانهٔ خطی و ناوردای مکانی برابر کانولوشن تصویر با PSF است.</p>
@@ -1656,7 +1657,7 @@ g(x,y)=h(x,y)*f(x,y).
 <a class="reference internal image-reference" href="../_images/eq05_062.png"><img alt="../_images/eq05_062.png" src="../_images/eq05_062.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 126 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-62) - سامانهٔ خطی مکان‌متغیر با نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-62" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 158 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-62) - سامانهٔ خطی مکان‌متغیر با نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-62" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «سامانهٔ خطی مکان‌متغیر با نویز» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1668,7 +1669,7 @@ g(x,y)=h(x,y)*f(x,y).
 <a class="reference internal image-reference" href="../_images/eq05_063.png"><img alt="../_images/eq05_063.png" src="../_images/eq05_063.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 127 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-63) - سامانهٔ خطی ناوردای مکانی با نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-63" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 159 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-63) - سامانهٔ خطی ناوردای مکانی با نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-63" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «سامانهٔ خطی ناوردای مکانی با نویز» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1684,7 +1685,7 @@ g(x,y)=h(x,y)*f(x,y)+\eta(x,y).
 <a class="reference internal image-reference" href="../_images/eq05_064.png"><img alt="../_images/eq05_064.png" src="../_images/eq05_064.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 128 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-64) - مدل کانولوشنی فشرده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-64" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 160 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-64) - مدل کانولوشنی فشرده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-64" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «مدل کانولوشنی فشرده» را در زنجیرهٔ استنتاج نظریهٔ سیستم خطی بیان می‌کند. این زنجیره در نهایت نشان می‌دهد که یک سامانهٔ خطی و ناوردای مکانی با PSF و کانولوشن توصیف می‌شود.</p>
@@ -1700,7 +1701,7 @@ G(u,v)=H(u,v)F(u,v)+N(u,v).
 <a class="reference internal image-reference" href="../_images/eq05_065.png"><img alt="../_images/eq05_065.png" src="../_images/eq05_065.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 129 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-65) - مدل نهایی در حوزهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-65" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 161 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-65) - مدل نهایی در حوزهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-65" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این همان مدل پایهٔ فصل در حوزهٔ فرکانس است و مبنای فیلتر معکوس، وینر و حداقل مربعات مقید قرار می‌گیرد.</p>
@@ -1724,7 +1725,7 @@ G(u,v)=H(u,v)F(u,v)+N(u,v).
 <a class="reference internal image-reference" href="../_images/eq05_066.png"><img alt="../_images/eq05_066.png" src="../_images/eq05_066.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 130 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-66) - برآورد تابع تخریب از زیرتصویر از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-66" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 162 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-66) - برآورد تابع تخریب از زیرتصویر از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-66" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «برآورد تابع تخریب از زیرتصویر» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل <span class="math notranslate nohighlight">\(H(u,v)\)</span> دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.</p>
@@ -1736,7 +1737,7 @@ G(u,v)=H(u,v)F(u,v)+N(u,v).
 <a class="reference internal image-reference" href="../_images/eq05_067.png"><img alt="../_images/eq05_067.png" src="../_images/eq05_067.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 131 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-67) - برآورد تابع انتقال با ورودی ضربه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-67" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 163 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-67) - برآورد تابع انتقال با ورودی ضربه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-67" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «برآورد تابع انتقال با ورودی ضربه» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل <span class="math notranslate nohighlight">\(H(u,v)\)</span> دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.</p>
@@ -1753,7 +1754,7 @@ H(u,v)=\exp\!\left[-k\left(u^2+v^2\right)^{5/6}\right],
 <a class="reference internal image-reference" href="../_images/eq05_068.png"><img alt="../_images/eq05_068.png" src="../_images/eq05_068.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 132 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-68) - مدل تاری ناشی از آشفتگی جو از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-68" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 164 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-68) - مدل تاری ناشی از آشفتگی جو از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-68" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> پارامتر <span class="math notranslate nohighlight">\(k\)</span> شدت آشفتگی را کنترل می‌کند. با افزایش فرکانس مکانی، تابع انتقال سریع‌تر افت می‌کند؛ یعنی جزئیات ریز بیش از ساختارهای درشت از بین می‌روند.</p>
@@ -1762,7 +1763,7 @@ H(u,v)=\exp\!\left[-k\left(u^2+v^2\right)^{5/6}\right],
 <a class="reference internal image-reference" href="../_images/fig05_24.png"><img alt="../_images/fig05_24.png" src="../_images/fig05_24.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 133 </span><span class="caption-text"><strong>شکل 5.24.</strong> یک نقطهٔ نورانی ایده‌آل پس از عبور از سامانه به لکه تبدیل می‌شود. شکل لکه همان PSF است؛ اندازه‌گیری آن یکی از مستقیم‌ترین روش‌های شناسایی تابع تخریب است.</span><a class="headerlink" href="#fig-ch05-5-24" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 165 </span><span class="caption-text"><strong>شکل 5.24.</strong> یک نقطهٔ نورانی ایده‌آل پس از عبور از سامانه به لکه تبدیل می‌شود. شکل لکه همان PSF است؛ اندازه‌گیری آن یکی از مستقیم‌ترین روش‌های شناسایی تابع تخریب است.</span><a class="headerlink" href="#fig-ch05-5-24" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 353 کتاب، شکل 5.24.</em></p>
@@ -1770,7 +1771,7 @@ H(u,v)=\exp\!\left[-k\left(u^2+v^2\right)^{5/6}\right],
 <a class="reference internal image-reference" href="../_images/fig05_25.png"><img alt="../_images/fig05_25.png" src="../_images/fig05_25.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 134 </span><span class="caption-text"><strong>شکل 5.25.</strong> مدل آشفتگی جو با چند مقدار <span class="math notranslate nohighlight">\(k\)</span> مقایسه شده است. هرچه <span class="math notranslate nohighlight">\(k\)</span> بزرگ‌تر شود، مؤلفه‌های فرکانس بالا بیشتر تضعیف و تصویر نرم‌تر/تارتر می‌شود.</span><a class="headerlink" href="#fig-ch05-5-25" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 166 </span><span class="caption-text"><strong>شکل 5.25.</strong> مدل آشفتگی جو با چند مقدار <span class="math notranslate nohighlight">\(k\)</span> مقایسه شده است. هرچه <span class="math notranslate nohighlight">\(k\)</span> بزرگ‌تر شود، مؤلفه‌های فرکانس بالا بیشتر تضعیف و تصویر نرم‌تر/تارتر می‌شود.</span><a class="headerlink" href="#fig-ch05-5-25" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 354 کتاب، شکل 5.25.</em></p>
@@ -1781,7 +1782,7 @@ H(u,v)=\exp\!\left[-k\left(u^2+v^2\right)^{5/6}\right],
 <a class="reference internal image-reference" href="../_images/eq05_069.png"><img alt="../_images/eq05_069.png" src="../_images/eq05_069.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 135 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-69) - مدل زمانی تشکیل تصویر در حضور حرکت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-69" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 167 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-69) - مدل زمانی تشکیل تصویر در حضور حرکت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-69" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «مدل زمانی تشکیل تصویر در حضور حرکت» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل <span class="math notranslate nohighlight">\(H(u,v)\)</span> دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.</p>
@@ -1793,7 +1794,7 @@ H(u,v)=\exp\!\left[-k\left(u^2+v^2\right)^{5/6}\right],
 <a class="reference internal image-reference" href="../_images/eq05_070.png"><img alt="../_images/eq05_070.png" src="../_images/eq05_070.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 136 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-70) - تبدیل فوریهٔ تصویر تاری‌دار از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-70" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 168 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-70) - تبدیل فوریهٔ تصویر تاری‌دار از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-70" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تبدیل فوریهٔ تصویر تاری‌دار» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل <span class="math notranslate nohighlight">\(H(u,v)\)</span> دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.</p>
@@ -1805,7 +1806,7 @@ H(u,v)=\exp\!\left[-k\left(u^2+v^2\right)^{5/6}\right],
 <a class="reference internal image-reference" href="../_images/eq05_071.png"><img alt="../_images/eq05_071.png" src="../_images/eq05_071.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 137 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-71) - جایگذاری مدل حرکت در تبدیل فوریه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-71" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 169 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-71) - جایگذاری مدل حرکت در تبدیل فوریه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-71" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «جایگذاری مدل حرکت در تبدیل فوریه» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل <span class="math notranslate nohighlight">\(H(u,v)\)</span> دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.</p>
@@ -1817,7 +1818,7 @@ H(u,v)=\exp\!\left[-k\left(u^2+v^2\right)^{5/6}\right],
 <a class="reference internal image-reference" href="../_images/eq05_072.png"><img alt="../_images/eq05_072.png" src="../_images/eq05_072.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 138 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-72) - تغییر ترتیب انتگرال‌گیری از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-72" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 170 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-72) - تغییر ترتیب انتگرال‌گیری از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-72" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تغییر ترتیب انتگرال‌گیری» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل <span class="math notranslate nohighlight">\(H(u,v)\)</span> دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.</p>
@@ -1829,7 +1830,7 @@ H(u,v)=\exp\!\left[-k\left(u^2+v^2\right)^{5/6}\right],
 <a class="reference internal image-reference" href="../_images/eq05_073.png"><img alt="../_images/eq05_073.png" src="../_images/eq05_073.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 139 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-73) - جداکردن طیف تصویر اصلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-73" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 171 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-73) - جداکردن طیف تصویر اصلی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-73" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «جداکردن طیف تصویر اصلی» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل <span class="math notranslate nohighlight">\(H(u,v)\)</span> دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.</p>
@@ -1846,7 +1847,7 @@ H(u,v)=\int_0^T
 <a class="reference internal image-reference" href="../_images/eq05_074.png"><img alt="../_images/eq05_074.png" src="../_images/eq05_074.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 140 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-74) - تابع انتقال عمومی تاری حرکت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-74" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 172 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-74) - تابع انتقال عمومی تاری حرکت از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-74" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه نشان می‌دهد تاری حرکت اساساً تبدیل فوریهٔ مسیر زمانی حرکت دوربین/صحنه است. دانستن <span class="math notranslate nohighlight">\(x_0(t),y_0(t)\)</span> یعنی دانستن تابع انتقال تاری.</p>
@@ -1858,7 +1859,7 @@ H(u,v)=\int_0^T
 <a class="reference internal image-reference" href="../_images/eq05_075.png"><img alt="../_images/eq05_075.png" src="../_images/eq05_075.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 141 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-75) - رابطهٔ ضربی طیفی در نبود نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-75" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 173 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-75) - رابطهٔ ضربی طیفی در نبود نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-75" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «رابطهٔ ضربی طیفی در نبود نویز» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل <span class="math notranslate nohighlight">\(H(u,v)\)</span> دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.</p>
@@ -1870,7 +1871,7 @@ H(u,v)=\int_0^T
 <a class="reference internal image-reference" href="../_images/eq05_076.png"><img alt="../_images/eq05_076.png" src="../_images/eq05_076.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 142 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-76) - تابع انتقال حرکت یکنواخت در راستای x از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-76" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 174 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-76) - تابع انتقال حرکت یکنواخت در راستای x از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-76" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تابع انتقال حرکت یکنواخت در راستای x» را برای تخمین یا مدل‌سازی تابع تخریب ارائه می‌کند. نکتهٔ عملی آن است که هرچه مدل <span class="math notranslate nohighlight">\(H(u,v)\)</span> دقیق‌تر باشد، ترمیم بعدی پایدارتر و قابل‌اعتمادتر است.</p>
@@ -1889,7 +1890,7 @@ e^{-j\pi(ua+vb)}.
 <a class="reference internal image-reference" href="../_images/eq05_077.png"><img alt="../_images/eq05_077.png" src="../_images/eq05_077.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 143 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-77) - تابع انتقال حرکت یکنواخت دوبعدی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-77" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 175 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-77) - تابع انتقال حرکت یکنواخت دوبعدی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-77" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> عبارت sinc مانند در این تابع باعث صفرهای طیفی می‌شود. همین صفرها علت اصلی ناپایداری فیلتر معکوس برای تاری حرکت هستند.</p>
@@ -1898,7 +1899,7 @@ e^{-j\pi(ua+vb)}.
 <a class="reference internal image-reference" href="../_images/fig05_26.png"><img alt="../_images/fig05_26.png" src="../_images/fig05_26.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 144 </span><span class="caption-text"><strong>شکل 5.26.</strong> تاری حرکت یکنواخت روی یک تصویر متنی اعمال شده است. جهت کشیدگی حروف مستقیماً جهت حرکت نسبی دوربین/صحنه را نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-26" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 176 </span><span class="caption-text"><strong>شکل 5.26.</strong> تاری حرکت یکنواخت روی یک تصویر متنی اعمال شده است. جهت کشیدگی حروف مستقیماً جهت حرکت نسبی دوربین/صحنه را نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-26" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 356 کتاب، شکل 5.26.</em></p>
@@ -1925,7 +1926,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_078.png"><img alt="../_images/eq05_078.png" src="../_images/eq05_078.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 145 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-78) - فیلتر معکوس مستقیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-78" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 177 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-78) - فیلتر معکوس مستقیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-78" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> در نبود نویز و صفرهای طیفی، این تقسیم می‌تواند تاری را خنثی کند. در عمل تقریباً همیشه نویز وجود دارد و <span class="math notranslate nohighlight">\(H\)</span> در بعضی فرکانس‌ها کوچک است.</p>
@@ -1942,7 +1943,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_079.png"><img alt="../_images/eq05_079.png" src="../_images/eq05_079.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 146 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-79) - آشکارشدن تقویت نویز در معکوس‌سازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-79" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 178 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-79) - آشکارشدن تقویت نویز در معکوس‌سازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-79" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> ترم <span class="math notranslate nohighlight">\(N/H\)</span> هشدار اصلی است: اگر <span class="math notranslate nohighlight">\(|H|\)</span> کوچک باشد، حتی نویز بسیار کم چندین برابر می‌شود.</p>
@@ -1951,7 +1952,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_27.png"><img alt="../_images/fig05_27.png" src="../_images/fig05_27.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 147 </span><span class="caption-text"><strong>شکل 5.27.</strong> فیلتر معکوس کامل شکست می‌خورد؛ محدودکردن شعاع فرکانسی در بعضی محدوده‌ها بهتر است اما انتخاب شعاع حساس است. این شکل ناپایداری روش معکوس را به‌وضوح نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-27" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 179 </span><span class="caption-text"><strong>شکل 5.27.</strong> فیلتر معکوس کامل شکست می‌خورد؛ محدودکردن شعاع فرکانسی در بعضی محدوده‌ها بهتر است اما انتخاب شعاع حساس است. این شکل ناپایداری روش معکوس را به‌وضوح نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-27" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 358 کتاب، شکل 5.27.</em></p>
@@ -1967,7 +1968,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_demo_wiener.png"><img alt="../_images/fig05_demo_wiener.png" src="../_images/fig05_demo_wiener.png" style="width: 92%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 148 </span><span class="caption-text">آزمایش بازتولیدشدنی: تصویر اصلی، تاری و نویز، فیلتر معکوس پایدارشده و فیلتر Wiener. هدف شکل نشان‌دادن مصالحۀ معکوس‌سازی و مهار نویز است.</span><a class="headerlink" href="#fig-ch05-demo-wiener" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 180 </span><span class="caption-text">آزمایش بازتولیدشدنی: تصویر اصلی، تاری و نویز، فیلتر معکوس پایدارشده و فیلتر Wiener. هدف شکل نشان‌دادن مصالحۀ معکوس‌سازی و مهار نویز است.</span><a class="headerlink" href="#fig-ch05-demo-wiener" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>فیلتر وینر تخریب و نویز را هم‌زمان وارد مدل می‌کند و از دیدگاه آماری، میانگین مربعات خطای بین تصویر اصلی و برآورد را کمینه می‌سازد. نسبت طیف توان نویز به تصویر نقش تنظیم‌کننده دارد: در فرکانس‌هایی که نویز غالب است، از معکوس‌سازی تهاجمی جلوگیری می‌شود. نسخهٔ عملی با ثابت K نیز معرفی می‌شود.</p>
@@ -1985,7 +1986,7 @@ e^2=E\!\left\{\big[f(x,y)-\hat f(x,y)\big]^2\right\}.
 <a class="reference internal image-reference" href="../_images/eq05_080.png"><img alt="../_images/eq05_080.png" src="../_images/eq05_080.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 149 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-80) - معیار میانگین مربعات خطا از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-80" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 181 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-80) - معیار میانگین مربعات خطا از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-80" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> فیلتر وینر به‌جای بازیابی دقیقِ غیرممکن، خطای متوسط مربعی را کمینه می‌کند؛ بنابراین یک مصالحهٔ آماری بین رفع تاری و مهار نویز است.</p>
@@ -2005,7 +2006,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_081.png"><img alt="../_images/eq05_081.png" src="../_images/eq05_081.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 150 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-81) - فیلتر وینر در حوزهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-81" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 182 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-81) - فیلتر وینر در حوزهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-81" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> عامل <span class="math notranslate nohighlight">\(H^*\)</span> فاز تخریب را جبران می‌کند و جملهٔ <span class="math notranslate nohighlight">\(S_\eta/S_f\)</span> مانع تقسیم خطرناک بر مقادیر کوچک <span class="math notranslate nohighlight">\(|H|\)</span> می‌شود.</p>
@@ -2017,7 +2018,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_082.png"><img alt="../_images/eq05_082.png" src="../_images/eq05_082.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 151 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-82) - تعریف SNR در حوزهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-82" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 183 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-82) - تعریف SNR در حوزهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-82" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> SNR در این تعریف نسبت انرژی طیفی سیگنال اصلی به انرژی نویز است. هرچه این نسبت بزرگ‌تر باشد، مسئلهٔ ترمیم خوش‌شرط‌تر است.</p>
@@ -2029,7 +2030,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_083.png"><img alt="../_images/eq05_083.png" src="../_images/eq05_083.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 152 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-83) - MSE نمونه‌ای در حوزهٔ مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-83" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 184 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-83) - MSE نمونه‌ای در حوزهٔ مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-83" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «MSE نمونه‌ای در حوزهٔ مکان» را در مقایسهٔ فیلتر معکوس و وینر نشان می‌دهد. محور اصلی این بخش کنترل تقویت نویز در فرکانس‌هایی است که پاسخ سامانه ضعیف است.</p>
@@ -2041,7 +2042,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_084.png"><img alt="../_images/eq05_084.png" src="../_images/eq05_084.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 153 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-84) - SNR بر اساس تصویر بازسازی‌شده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-84" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 185 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-84) - SNR بر اساس تصویر بازسازی‌شده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-84" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «SNR بر اساس تصویر بازسازی‌شده» را در مقایسهٔ فیلتر معکوس و وینر نشان می‌دهد. محور اصلی این بخش کنترل تقویت نویز در فرکانس‌هایی است که پاسخ سامانه ضعیف است.</p>
@@ -2061,7 +2062,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_085.png"><img alt="../_images/eq05_085.png" src="../_images/eq05_085.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 154 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-85) - تقریب عملی وینر با ثابت K از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-85" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 186 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-85) - تقریب عملی وینر با ثابت K از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-85" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> وقتی طیف توان تصویر و نویز معلوم نیست، نسبت آن‌ها با ثابت <span class="math notranslate nohighlight">\(K\)</span> جایگزین می‌شود. <span class="math notranslate nohighlight">\(K\)</span> عملاً پارامتر تنظیم بین شارپ‌سازی و کاهش نویز است.</p>
@@ -2070,7 +2071,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_28.png"><img alt="../_images/fig05_28.png" src="../_images/fig05_28.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 155 </span><span class="caption-text"><strong>شکل 5.28.</strong> سه خروجی کنار هم نقطهٔ عطف فصل‌اند: inverse کامل، inverse محدود و Wiener. وینر با واردکردن نویز در مدل، بهترین مصالحهٔ دیداری را ارائه می‌کند.</span><a class="headerlink" href="#fig-ch05-5-28" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 187 </span><span class="caption-text"><strong>شکل 5.28.</strong> سه خروجی کنار هم نقطهٔ عطف فصل‌اند: inverse کامل، inverse محدود و Wiener. وینر با واردکردن نویز در مدل، بهترین مصالحهٔ دیداری را ارائه می‌کند.</span><a class="headerlink" href="#fig-ch05-5-28" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 361 کتاب، شکل 5.28.</em></p>
@@ -2078,7 +2079,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/fig05_29.png"><img alt="../_images/fig05_29.png" src="../_images/fig05_29.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 156 </span><span class="caption-text"><strong>شکل 5.29.</strong> با کاهش واریانس نویز، وینر پیوسته بهتر می‌شود؛ inverse حتی با نویز بسیار کم هنوز streak/noise قابل‌توجه دارد، چون تقسیم بر مقادیر کوچک <span class="math notranslate nohighlight">\(H\)</span> نویز را بزرگ می‌کند.</span><a class="headerlink" href="#fig-ch05-5-29" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 188 </span><span class="caption-text"><strong>شکل 5.29.</strong> با کاهش واریانس نویز، وینر پیوسته بهتر می‌شود؛ inverse حتی با نویز بسیار کم هنوز streak/noise قابل‌توجه دارد، چون تقسیم بر مقادیر کوچک <span class="math notranslate nohighlight">\(H\)</span> نویز را بزرگ می‌کند.</span><a class="headerlink" href="#fig-ch05-5-29" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 362 کتاب، شکل 5.29.</em></p>
@@ -2101,7 +2102,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_086.png"><img alt="../_images/eq05_086.png" src="../_images/eq05_086.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 157 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-86) - مدل برداری-ماتریسی تخریب از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-86" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 189 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-86) - مدل برداری-ماتریسی تخریب از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-86" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «مدل برداری-ماتریسی تخریب» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.</p>
@@ -2113,7 +2114,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_087.png"><img alt="../_images/eq05_087.png" src="../_images/eq05_087.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 158 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-87) - معیار هموارسازی حداقل مربعات مقید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-87" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 190 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-87) - معیار هموارسازی حداقل مربعات مقید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-87" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> کمینه‌کردن انرژی لاپلاسین یعنی ترجیح پاسخ‌های هموارتر؛ اما این هموارسازی باید با قید سازگاری با داده و سطح نویز متوازن شود.</p>
@@ -2125,7 +2126,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_088.png"><img alt="../_images/eq05_088.png" src="../_images/eq05_088.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 159 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-88) - قید انرژی باقیمانده برابر انرژی نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-88" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 191 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-88) - قید انرژی باقیمانده برابر انرژی نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-88" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> قید می‌گوید اختلاف بین تصویر پیش‌بینی‌شده از مدل و دادهٔ واقعی باید از نظر انرژی تقریباً به اندازهٔ نویز باشد؛ نه صفر و نه بسیار بزرگ.</p>
@@ -2145,7 +2146,7 @@ $<span class="math notranslate nohighlight">\(
 <a class="reference internal image-reference" href="../_images/eq05_089.png"><img alt="../_images/eq05_089.png" src="../_images/eq05_089.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 160 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-89) - حل فرکانسی حداقل مربعات مقید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-89" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 192 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-89) - حل فرکانسی حداقل مربعات مقید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-89" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> پارامتر <span class="math notranslate nohighlight">\(\gamma\)</span> وزن جریمهٔ هموارسازی را کنترل می‌کند. <span class="math notranslate nohighlight">\(|P|^2\)</span> پاسخ فرکانسی لاپلاسین و <span class="math notranslate nohighlight">\(|H|^2\)</span> مدل تخریب را وارد مخرج می‌کنند.</p>
@@ -2166,7 +2167,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/eq05_090.png"><img alt="../_images/eq05_090.png" src="../_images/eq05_090.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 161 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-90) - کرنل لاپلاسین مورد استفاده در قید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-90" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 193 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-90) - کرنل لاپلاسین مورد استفاده در قید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-90" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «کرنل لاپلاسین مورد استفاده در قید» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.</p>
@@ -2178,7 +2179,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/eq05_091.png"><img alt="../_images/eq05_091.png" src="../_images/eq05_091.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 162 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-91) - تعریف بردار باقیمانده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-91" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 194 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-91) - تعریف بردار باقیمانده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-91" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تعریف بردار باقیمانده» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.</p>
@@ -2190,7 +2191,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/eq05_092.png"><img alt="../_images/eq05_092.png" src="../_images/eq05_092.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 163 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-92) - تابع انرژی باقیمانده برحسب پارامتر قید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-92" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 195 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-92) - تابع انرژی باقیمانده برحسب پارامتر قید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-92" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تابع انرژی باقیمانده برحسب پارامتر قید» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.</p>
@@ -2202,7 +2203,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/eq05_093.png"><img alt="../_images/eq05_093.png" src="../_images/eq05_093.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 164 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-93) - شرط توقف برای پارامتر قید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-93" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 196 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-93) - شرط توقف برای پارامتر قید از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-93" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> با تغییر <span class="math notranslate nohighlight">\(\gamma\)</span>، انرژی باقیمانده به سطح مورد انتظار نویز نزدیک می‌شود؛ این رابطه معیار توقف تکرار است.</p>
@@ -2211,7 +2212,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/fig05_30.png"><img alt="../_images/fig05_30.png" src="../_images/fig05_30.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 165 </span><span class="caption-text"><strong>شکل 5.30.</strong> نتایج حداقل مربعات مقید با نتایج وینر قابل مقایسه‌اند. مزیت نظری CLS این است که به‌جای طیف توان تصویر اصلی، از سطح نویز و قید هموارسازی استفاده می‌کند.</span><a class="headerlink" href="#fig-ch05-5-30" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 197 </span><span class="caption-text"><strong>شکل 5.30.</strong> نتایج حداقل مربعات مقید با نتایج وینر قابل مقایسه‌اند. مزیت نظری CLS این است که به‌جای طیف توان تصویر اصلی، از سطح نویز و قید هموارسازی استفاده می‌کند.</span><a class="headerlink" href="#fig-ch05-5-30" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 365 کتاب، شکل 5.30.</em></p>
@@ -2222,7 +2223,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/eq05_094.png"><img alt="../_images/eq05_094.png" src="../_images/eq05_094.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 166 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-94) - طیف باقیمانده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-94" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 198 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-94) - طیف باقیمانده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-94" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «طیف باقیمانده» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.</p>
@@ -2234,7 +2235,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/eq05_095.png"><img alt="../_images/eq05_095.png" src="../_images/eq05_095.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 167 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-95) - نُرم مربعی باقیمانده در حوزهٔ مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-95" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 199 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-95) - نُرم مربعی باقیمانده در حوزهٔ مکان از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-95" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «نُرم مربعی باقیمانده در حوزهٔ مکان» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.</p>
@@ -2246,7 +2247,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/eq05_096.png"><img alt="../_images/eq05_096.png" src="../_images/eq05_096.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 168 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-96) - انرژی نمونه‌ای نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-96" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 200 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-96) - انرژی نمونه‌ای نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-96" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «انرژی نمونه‌ای نویز» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.</p>
@@ -2258,7 +2259,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/eq05_097.png"><img alt="../_images/eq05_097.png" src="../_images/eq05_097.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 169 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-97) - میانگین نمونه‌ای نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-97" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 201 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-97) - میانگین نمونه‌ای نویز از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-97" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «میانگین نمونه‌ای نویز» را در روش حداقل مربعات مقید بیان می‌کند. قید آماری نویز و جریمهٔ هموارسازی با هم مانع راه‌حل‌های ناپایدار می‌شوند.</p>
@@ -2270,7 +2271,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/eq05_098.png"><img alt="../_images/eq05_098.png" src="../_images/eq05_098.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 170 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-98) - برآورد انرژی کل نویز از میانگین و واریانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-98" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 202 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-98) - برآورد انرژی کل نویز از میانگین و واریانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-98" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> با فرض نویز با میانگین و واریانس معلوم، انرژی کل نویز را می‌توان بدون دانستن نمونهٔ دقیق نویز برآورد کرد؛ این مزیت اصلی روش مقید است.</p>
@@ -2279,7 +2280,7 @@ p(x,y)=
 <a class="reference internal image-reference" href="../_images/fig05_31.png"><img alt="../_images/fig05_31.png" src="../_images/fig05_31.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 171 </span><span class="caption-text"><strong>شکل 5.31.</strong> اگر میانگین/واریانس نویز درست باشند، تنظیم تکراری <span class="math notranslate nohighlight">\(\gamma\)</span> خروجی خوبی می‌دهد؛ برآورد غلط نویز به بیش‌هموارسازی یا ترمیم ناکافی می‌انجامد.</span><a class="headerlink" href="#fig-ch05-5-31" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 203 </span><span class="caption-text"><strong>شکل 5.31.</strong> اگر میانگین/واریانس نویز درست باشند، تنظیم تکراری <span class="math notranslate nohighlight">\(\gamma\)</span> خروجی خوبی می‌دهد؛ برآورد غلط نویز به بیش‌هموارسازی یا ترمیم ناکافی می‌انجامد.</span><a class="headerlink" href="#fig-ch05-5-31" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 367 کتاب، شکل 5.31.</em></p>
@@ -2315,7 +2316,7 @@ G(u,v).
 <a class="reference internal image-reference" href="../_images/eq05_099.png"><img alt="../_images/eq05_099.png" src="../_images/eq05_099.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 172 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-99) - فیلتر میانگین هندسی تعمیم‌یافته از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-99" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 204 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-99) - فیلتر میانگین هندسی تعمیم‌یافته از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-99" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> پارامتر <span class="math notranslate nohighlight">\(\alpha\)</span> وزن نسبی رفتار معکوس و وینر را کنترل می‌کند و <span class="math notranslate nohighlight">\(\beta\)</span> نقش پارامتر نویز را دارد. بنابراین این فیلتر یک خانوادهٔ پیوسته از راه‌حل‌هاست.</p>
@@ -2332,7 +2333,7 @@ G(u,v).
 <a class="reference internal image-reference" href="../_images/fig05_demo_fbp.png"><img alt="../_images/fig05_demo_fbp.png" src="../_images/fig05_demo_fbp.png" style="width: 92%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 173 </span><span class="caption-text">آزمایش بازتولیدشدنی: یک phantom مصنوعی، سینوگرام و بازسازی تقریبی با filtered backprojection.</span><a class="headerlink" href="#fig-ch05-demo-fbp" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 205 </span><span class="caption-text">آزمایش بازتولیدشدنی: یک phantom مصنوعی، سینوگرام و بازسازی تقریبی با filtered backprojection.</span><a class="headerlink" href="#fig-ch05-demo-fbp" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>بخش پایانی از «ترمیم تصویر موجود» به «ساختن تصویر از اندازه‌گیری‌های خطی» می‌رود. ابتدا پروجکشن و پس‌پراکنش شهودی معرفی می‌شوند، سپس تبدیل رادون و قضیهٔ برش فوریه به فرمول بازسازی با پس‌پراکنش فیلترشده می‌انجامند. در پایان، هندسهٔ فن‌بیمِ CT و تبدیل آن به هندسهٔ پرتوهای موازی بررسی می‌شود.</p>
@@ -2344,7 +2345,7 @@ G(u,v).
 <a class="reference internal image-reference" href="../_images/fig05_32.png"><img alt="../_images/fig05_32.png" src="../_images/fig05_32.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 174 </span><span class="caption-text"><strong>شکل 5.32.</strong> پس‌پراکنش را با یک جسم ساده نشان می‌دهد: پروجکشن یک‌بعدی روی همان خطوط در تصویر پخش می‌شود. تقاطع چند پس‌پراکنش محل جسم را برجسته می‌کند، اما halo باقی می‌ماند.</span><a class="headerlink" href="#fig-ch05-5-32" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 206 </span><span class="caption-text"><strong>شکل 5.32.</strong> پس‌پراکنش را با یک جسم ساده نشان می‌دهد: پروجکشن یک‌بعدی روی همان خطوط در تصویر پخش می‌شود. تقاطع چند پس‌پراکنش محل جسم را برجسته می‌کند، اما halo باقی می‌ماند.</span><a class="headerlink" href="#fig-ch05-5-32" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 369 کتاب، شکل 5.32.</em></p>
@@ -2352,7 +2353,7 @@ G(u,v).
 <a class="reference internal image-reference" href="../_images/fig05_33.png"><img alt="../_images/fig05_33.png" src="../_images/fig05_33.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 175 </span><span class="caption-text"><strong>شکل 5.33.</strong> با افزایش تعداد زوایا، شکل جسم بهتر تعیین می‌شود ولی backprojection ساده همچنان تار است. این تاری زمینهٔ نیاز به فیلتر ramp قبل از backprojection است.</span><a class="headerlink" href="#fig-ch05-5-33" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 207 </span><span class="caption-text"><strong>شکل 5.33.</strong> با افزایش تعداد زوایا، شکل جسم بهتر تعیین می‌شود ولی backprojection ساده همچنان تار است. این تاری زمینهٔ نیاز به فیلتر ramp قبل از backprojection است.</span><a class="headerlink" href="#fig-ch05-5-33" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 370 کتاب، شکل 5.33.</em></p>
@@ -2360,7 +2361,7 @@ G(u,v).
 <a class="reference internal image-reference" href="../_images/fig05_34.png"><img alt="../_images/fig05_34.png" src="../_images/fig05_34.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 176 </span><span class="caption-text"><strong>شکل 5.34.</strong> دو جسم با ضرایب جذب متفاوت نشان می‌دهند پروجکشن فقط مکان را حمل نمی‌کند؛ مقدار انتگرال خطی نیز شدت/جذب را کد می‌کند. افزایش تعداد نما جزئیات را بهتر بازسازی می‌کند.</span><a class="headerlink" href="#fig-ch05-5-34" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 208 </span><span class="caption-text"><strong>شکل 5.34.</strong> دو جسم با ضرایب جذب متفاوت نشان می‌دهند پروجکشن فقط مکان را حمل نمی‌کند؛ مقدار انتگرال خطی نیز شدت/جذب را کد می‌کند. افزایش تعداد نما جزئیات را بهتر بازسازی می‌کند.</span><a class="headerlink" href="#fig-ch05-5-34" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 371 کتاب، شکل 5.34.</em></p>
@@ -2368,7 +2369,7 @@ G(u,v).
 <a class="reference internal image-reference" href="../_images/fig05_35.png"><img alt="../_images/fig05_35.png" src="../_images/fig05_35.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 177 </span><span class="caption-text"><strong>شکل 5.35.</strong> تکامل نسل‌های CT از translate-rotate به آرایه‌های بزرگ detector و چرخش سریع را نشان می‌دهد. هدف مهندسی: جمع‌آوری پروجکشن‌های بیشتر با زمان کمتر و خطای حرکتی کمتر.</span><a class="headerlink" href="#fig-ch05-5-35" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 209 </span><span class="caption-text"><strong>شکل 5.35.</strong> تکامل نسل‌های CT از translate-rotate به آرایه‌های بزرگ detector و چرخش سریع را نشان می‌دهد. هدف مهندسی: جمع‌آوری پروجکشن‌های بیشتر با زمان کمتر و خطای حرکتی کمتر.</span><a class="headerlink" href="#fig-ch05-5-35" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 372 کتاب، شکل 5.35.</em></p>
@@ -2382,7 +2383,7 @@ x\cos\theta+y\sin\theta=\rho.
 <a class="reference internal image-reference" href="../_images/eq05_100.png"><img alt="../_images/eq05_100.png" src="../_images/eq05_100.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 178 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-100) - نمایش نرمال یک خط از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-100" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 210 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-100) - نمایش نرمال یک خط از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-100" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> به‌جای شیب و عرض از مبدأ، خط با فاصلهٔ عمود از مبدأ <span class="math notranslate nohighlight">\(\rho\)</span> و زاویهٔ نرمال <span class="math notranslate nohighlight">\(\theta\)</span> نمایش داده می‌شود؛ این پارامترگذاری اساس تبدیل رادون است.</p>
@@ -2398,7 +2399,7 @@ g(\rho,\theta)=\int_{L(\rho,\theta)} f(x,y)\,ds.
 <a class="reference internal image-reference" href="../_images/eq05_101.png"><img alt="../_images/eq05_101.png" src="../_images/eq05_101.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 179 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-101) - پروجکشن به‌صورت انتگرال خطی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-101" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 211 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-101) - پروجکشن به‌صورت انتگرال خطی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-101" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «پروجکشن به‌صورت انتگرال خطی» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.</p>
@@ -2407,7 +2408,7 @@ g(\rho,\theta)=\int_{L(\rho,\theta)} f(x,y)\,ds.
 <a class="reference internal image-reference" href="../_images/fig05_36.png"><img alt="../_images/fig05_36.png" src="../_images/fig05_36.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 180 </span><span class="caption-text"><strong>شکل 5.36.</strong> نمایش نرمال خط با <span class="math notranslate nohighlight">\(\rho\)</span> و <span class="math notranslate nohighlight">\(\theta\)</span> از مشکلات شیب بی‌نهایت دوری می‌کند و برای همهٔ جهت‌ها یک پارامترگذاری یکنواخت دارد.</span><a class="headerlink" href="#fig-ch05-5-36" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 212 </span><span class="caption-text"><strong>شکل 5.36.</strong> نمایش نرمال خط با <span class="math notranslate nohighlight">\(\rho\)</span> و <span class="math notranslate nohighlight">\(\theta\)</span> از مشکلات شیب بی‌نهایت دوری می‌کند و برای همهٔ جهت‌ها یک پارامترگذاری یکنواخت دارد.</span><a class="headerlink" href="#fig-ch05-5-36" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 374 کتاب، شکل 5.36.</em></p>
@@ -2425,7 +2426,7 @@ f(x,y)\,
 <a class="reference internal image-reference" href="../_images/eq05_102.png"><img alt="../_images/eq05_102.png" src="../_images/eq05_102.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 181 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-102) - تبدیل رادون پیوسته از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-102" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 213 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-102) - تبدیل رادون پیوسته از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-102" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> هر مقدار <span class="math notranslate nohighlight">\(g(\rho,\theta)\)</span> مجموع/انتگرال جذب روی یک خط است. مجموعهٔ این مقادیر برای زوایای مختلف دادهٔ خام توموگرافی را تشکیل می‌دهد.</p>
@@ -2437,7 +2438,7 @@ f(x,y)\,
 <a class="reference internal image-reference" href="../_images/eq05_103.png"><img alt="../_images/eq05_103.png" src="../_images/eq05_103.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 182 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-103) - تبدیل رادون گسسته از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-103" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 214 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-103) - تبدیل رادون گسسته از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-103" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> دلتا فقط پیکسل‌هایی را نگه می‌دارد که روی خط <span class="math notranslate nohighlight">\(x\cos\theta+y\sin\theta=\rho\)</span> هستند؛ بنابراین نسخهٔ گسسته مستقیماً raysum را پیاده می‌کند.</p>
@@ -2446,7 +2447,7 @@ f(x,y)\,
 <a class="reference internal image-reference" href="../_images/fig05_37.png"><img alt="../_images/fig05_37.png" src="../_images/fig05_37.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 183 </span><span class="caption-text"><strong>شکل 5.37.</strong> هندسهٔ پرتوهای موازی، منبع و detector و مختصات <span class="math notranslate nohighlight">\(\rho,\theta\)</span> را به تبدیل رادون متصل می‌کند. هر detector یک انتگرال خطی روی جسم ثبت می‌کند.</span><a class="headerlink" href="#fig-ch05-5-37" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 215 </span><span class="caption-text"><strong>شکل 5.37.</strong> هندسهٔ پرتوهای موازی، منبع و detector و مختصات <span class="math notranslate nohighlight">\(\rho,\theta\)</span> را به تبدیل رادون متصل می‌کند. هر detector یک انتگرال خطی روی جسم ثبت می‌کند.</span><a class="headerlink" href="#fig-ch05-5-37" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 375 کتاب، شکل 5.37.</em></p>
@@ -2454,7 +2455,7 @@ f(x,y)\,
 <a class="reference internal image-reference" href="../_images/fig05_38.png"><img alt="../_images/fig05_38.png" src="../_images/fig05_38.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 184 </span><span class="caption-text"><strong>شکل 5.38.</strong> برای یک دیسک، تبدیل رادون را می‌توان تحلیلی به‌دست آورد: طول وترِ عبوری از دیسک تابعی از <span class="math notranslate nohighlight">\(\rho\)</span> است و به‌دلیل تقارن، به <span class="math notranslate nohighlight">\(\theta\)</span> وابسته نیست.</span><a class="headerlink" href="#fig-ch05-5-38" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 216 </span><span class="caption-text"><strong>شکل 5.38.</strong> برای یک دیسک، تبدیل رادون را می‌توان تحلیلی به‌دست آورد: طول وترِ عبوری از دیسک تابعی از <span class="math notranslate nohighlight">\(\rho\)</span> است و به‌دلیل تقارن، به <span class="math notranslate nohighlight">\(\theta\)</span> وابسته نیست.</span><a class="headerlink" href="#fig-ch05-5-38" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 376 کتاب، شکل 5.38.</em></p>
@@ -2465,7 +2466,7 @@ f(x,y)\,
 <a class="reference internal image-reference" href="../_images/eq05_104.png"><img alt="../_images/eq05_104.png" src="../_images/eq05_104.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 185 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-104) - پس‌پراکنش یک پروجکشن از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-104" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 217 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-104) - پس‌پراکنش یک پروجکشن از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-104" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> در پس‌پراکنش، یک مقدار پروجکشن روی تمام پیکسل‌های خط متناظر «پخش» می‌شود. این عملیات به‌تنهایی تصویر را تار می‌کند.</p>
@@ -2477,7 +2478,7 @@ f(x,y)\,
 <a class="reference internal image-reference" href="../_images/eq05_105.png"><img alt="../_images/eq05_105.png" src="../_images/eq05_105.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 186 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-105) - جمع پیوستهٔ پس‌پراکنش‌ها از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-105" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 218 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-105) - جمع پیوستهٔ پس‌پراکنش‌ها از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-105" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «جمع پیوستهٔ پس‌پراکنش‌ها» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.</p>
@@ -2486,7 +2487,7 @@ f(x,y)\,
 <a class="reference internal image-reference" href="../_images/fig05_39.png"><img alt="../_images/fig05_39.png" src="../_images/fig05_39.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 187 </span><span class="caption-text"><strong>شکل 5.39.</strong> سینوگرام‌ها تصویر دوبعدیِ مجموعهٔ پروجکشن‌ها هستند. یک نقطه/ساختار در جسم هنگام تغییر زاویه مسیر سینوسی روی سینوگرام می‌سازد؛ خواندن سینوگرام برای فهم CT بسیار مهم است.</span><a class="headerlink" href="#fig-ch05-5-39" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 219 </span><span class="caption-text"><strong>شکل 5.39.</strong> سینوگرام‌ها تصویر دوبعدیِ مجموعهٔ پروجکشن‌ها هستند. یک نقطه/ساختار در جسم هنگام تغییر زاویه مسیر سینوسی روی سینوگرام می‌سازد؛ خواندن سینوگرام برای فهم CT بسیار مهم است.</span><a class="headerlink" href="#fig-ch05-5-39" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 378 کتاب، شکل 5.39.</em></p>
@@ -2497,7 +2498,7 @@ f(x,y)\,
 <a class="reference internal image-reference" href="../_images/eq05_106.png"><img alt="../_images/eq05_106.png" src="../_images/eq05_106.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 188 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-106) - جمع گسستهٔ پس‌پراکنش‌ها از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-106" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 220 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-106) - جمع گسستهٔ پس‌پراکنش‌ها از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-106" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «جمع گسستهٔ پس‌پراکنش‌ها» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.</p>
@@ -2515,7 +2516,7 @@ g(\rho,\theta)e^{-j2\pi\omega\rho}\,d\rho.
 <a class="reference internal image-reference" href="../_images/eq05_107.png"><img alt="../_images/eq05_107.png" src="../_images/eq05_107.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 189 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-107) - تبدیل فوریهٔ یک‌بعدی یک پروجکشن از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-107" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 221 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-107) - تبدیل فوریهٔ یک‌بعدی یک پروجکشن از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-107" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تبدیل فوریهٔ یک‌بعدی یک پروجکشن» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.</p>
@@ -2524,7 +2525,7 @@ g(\rho,\theta)e^{-j2\pi\omega\rho}\,d\rho.
 <a class="reference internal image-reference" href="../_images/fig05_40.png"><img alt="../_images/fig05_40.png" src="../_images/fig05_40.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 190 </span><span class="caption-text"><strong>شکل 5.40.</strong> backprojection خام سینوگرام‌ها ساختار کلی را برمی‌گرداند اما شدیداً تار است. این شکل نشان می‌دهد مشکل از کمبود نما نیست؛ از پاسخ فرکانسی خود backprojection است.</span><a class="headerlink" href="#fig-ch05-5-40" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 222 </span><span class="caption-text"><strong>شکل 5.40.</strong> backprojection خام سینوگرام‌ها ساختار کلی را برمی‌گرداند اما شدیداً تار است. این شکل نشان می‌دهد مشکل از کمبود نما نیست؛ از پاسخ فرکانسی خود backprojection است.</span><a class="headerlink" href="#fig-ch05-5-40" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 379 کتاب، شکل 5.40.</em></p>
@@ -2535,7 +2536,7 @@ g(\rho,\theta)e^{-j2\pi\omega\rho}\,d\rho.
 <a class="reference internal image-reference" href="../_images/eq05_108.png"><img alt="../_images/eq05_108.png" src="../_images/eq05_108.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 191 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-108) - جایگذاری تبدیل رادون در تبدیل یک‌بعدی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-108" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 223 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-108) - جایگذاری تبدیل رادون در تبدیل یک‌بعدی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-108" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «جایگذاری تبدیل رادون در تبدیل یک‌بعدی» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.</p>
@@ -2547,7 +2548,7 @@ g(\rho,\theta)e^{-j2\pi\omega\rho}\,d\rho.
 <a class="reference internal image-reference" href="../_images/eq05_109.png"><img alt="../_images/eq05_109.png" src="../_images/eq05_109.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 192 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-109) - حذف دلتا و ساده‌سازی انتگرال از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-109" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 224 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-109) - حذف دلتا و ساده‌سازی انتگرال از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-109" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «حذف دلتا و ساده‌سازی انتگرال» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.</p>
@@ -2565,7 +2566,7 @@ F(\omega\cos\theta,\omega\sin\theta).
 <a class="reference internal image-reference" href="../_images/eq05_110.png"><img alt="../_images/eq05_110.png" src="../_images/eq05_110.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 193 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-110) - قضیهٔ برش فوریه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-110" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 225 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-110) - قضیهٔ برش فوریه از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-110" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این قضیه قلب بازسازی CT است: تبدیل فوریهٔ ۱بعدی یک پروجکشن، یک برش شعاعی از تبدیل فوریهٔ ۲بعدی جسم در همان زاویه است.</p>
@@ -2577,7 +2578,7 @@ F(\omega\cos\theta,\omega\sin\theta).
 <a class="reference internal image-reference" href="../_images/eq05_111.png"><img alt="../_images/eq05_111.png" src="../_images/eq05_111.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 194 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-111) - تبدیل فوریهٔ معکوس دوبعدی تصویر از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-111" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 226 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-111) - تبدیل فوریهٔ معکوس دوبعدی تصویر از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-111" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تبدیل فوریهٔ معکوس دوبعدی تصویر» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.</p>
@@ -2589,7 +2590,7 @@ F(\omega\cos\theta,\omega\sin\theta).
 <a class="reference internal image-reference" href="../_images/eq05_112.png"><img alt="../_images/eq05_112.png" src="../_images/eq05_112.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 195 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-112) - تبدیل مختصات دکارتی به قطبی در صفحهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-112" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 227 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-112) - تبدیل مختصات دکارتی به قطبی در صفحهٔ فرکانس از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-112" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تبدیل مختصات دکارتی به قطبی در صفحهٔ فرکانس» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.</p>
@@ -2601,7 +2602,7 @@ F(\omega\cos\theta,\omega\sin\theta).
 <a class="reference internal image-reference" href="../_images/eq05_113.png"><img alt="../_images/eq05_113.png" src="../_images/eq05_113.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 196 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-113) - جایگذاری قضیهٔ برش در بازسازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-113" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 228 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-113) - جایگذاری قضیهٔ برش در بازسازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-113" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «جایگذاری قضیهٔ برش در بازسازی» یکی از گام‌های استخراج بازسازی پرتو موازی است. مسیر استنتاج از هندسهٔ خط، تبدیل رادون، قضیهٔ برش فوریه و در نهایت فیلترکردن و پس‌پراکنش عبور می‌کند.</p>
@@ -2613,7 +2614,7 @@ F(\omega\cos\theta,\omega\sin\theta).
 <a class="reference internal image-reference" href="../_images/eq05_114.png"><img alt="../_images/eq05_114.png" src="../_images/eq05_114.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 197 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-114) - کاهش بازهٔ زاویه به نیم‌دایره از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-114" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 229 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-114) - کاهش بازهٔ زاویه به نیم‌دایره از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-114" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> به‌دلیل تقارن پروجکشن‌های ۱۸۰ درجه، اطلاعات مستقل فقط در بازهٔ صفر تا <span class="math notranslate nohighlight">\(\pi\)</span> قرار دارد.</p>
@@ -2632,7 +2633,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_115.png"><img alt="../_images/eq05_115.png" src="../_images/eq05_115.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 198 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-115) - تفکیک مرحلهٔ فیلترکردن از پس‌پراکنش از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-115" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 230 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-115) - تفکیک مرحلهٔ فیلترکردن از پس‌پراکنش از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-115" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> عبارت داخل کروشه همان فیلترکردن هر پروجکشن با پاسخ فرکانسی <span class="math notranslate nohighlight">\(|\omega|\)</span> است؛ سپس نتیجه در همهٔ زوایا پس‌پراکنش می‌شود.</p>
@@ -2641,7 +2642,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/fig05_41.png"><img alt="../_images/fig05_41.png" src="../_images/fig05_41.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 199 </span><span class="caption-text"><strong>شکل 5.41.</strong> قضیهٔ Fourier slice به‌صورت هندسی رسم شده: FT یک‌بعدی هر پروجکشن یک خط شعاعی در FT دوبعدی جسم است. با نماهای متعدد، صفحهٔ فرکانس نمونه‌برداری می‌شود.</span><a class="headerlink" href="#fig-ch05-5-41" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 231 </span><span class="caption-text"><strong>شکل 5.41.</strong> قضیهٔ Fourier slice به‌صورت هندسی رسم شده: FT یک‌بعدی هر پروجکشن یک خط شعاعی در FT دوبعدی جسم است. با نماهای متعدد، صفحهٔ فرکانس نمونه‌برداری می‌شود.</span><a class="headerlink" href="#fig-ch05-5-41" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 381 کتاب، شکل 5.41.</em></p>
@@ -2652,7 +2653,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_116.png"><img alt="../_images/eq05_116.png" src="../_images/eq05_116.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 200 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-116) - پنجرهٔ هَمینگ/هَن برای محدودکردن فیلتر رمپ از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-116" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 232 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-116) - پنجرهٔ هَمینگ/هَن برای محدودکردن فیلتر رمپ از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-116" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> پنجره‌کردن رمپ فرکانس‌های بالا را نرم‌تر قطع می‌کند. نتیجه: نویز و ringing کمتر، با بهای اندکی کاهش تفکیک مکانی.</p>
@@ -2661,7 +2662,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/fig05_42.png"><img alt="../_images/fig05_42.png" src="../_images/fig05_42.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 201 </span><span class="caption-text"><strong>شکل 5.42.</strong> رمپ <span class="math notranslate nohighlight">\(|\omega|\)</span> تاری backprojection را جبران می‌کند ولی high-frequency را تقویت می‌کند. پنجرهٔ Hamming جلوی قطع تند را می‌گیرد و ringing/noise را کاهش می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-42" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 233 </span><span class="caption-text"><strong>شکل 5.42.</strong> رمپ <span class="math notranslate nohighlight">\(|\omega|\)</span> تاری backprojection را جبران می‌کند ولی high-frequency را تقویت می‌کند. پنجرهٔ Hamming جلوی قطع تند را می‌گیرد و ringing/noise را کاهش می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-42" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 382 کتاب، شکل 5.42.</em></p>
@@ -2669,7 +2670,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/fig05_43.png"><img alt="../_images/fig05_43.png" src="../_images/fig05_43.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 202 </span><span class="caption-text"><strong>شکل 5.43.</strong> برای مستطیلِ با لبه‌های تیز، ramp خالص لبه را شارپ‌تر نگه می‌دارد ولی ringing بیشتری دارد؛ ramp پنجره‌شده ringing کمتر و کمی blur بیشتر دارد.</span><a class="headerlink" href="#fig-ch05-5-43" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 234 </span><span class="caption-text"><strong>شکل 5.43.</strong> برای مستطیلِ با لبه‌های تیز، ramp خالص لبه را شارپ‌تر نگه می‌دارد ولی ringing بیشتری دارد؛ ramp پنجره‌شده ringing کمتر و کمی blur بیشتر دارد.</span><a class="headerlink" href="#fig-ch05-5-43" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 384 کتاب، شکل 5.43.</em></p>
@@ -2680,7 +2681,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_117.png"><img alt="../_images/eq05_117.png" src="../_images/eq05_117.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 203 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-117) - فرمول کانولوشن-پس‌پراکنش فیلترشده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-117" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 235 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-117) - فرمول کانولوشن-پس‌پراکنش فیلترشده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-117" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این همان الگوریتم عملی FBP است: هر پروجکشن با کرنل <span class="math notranslate nohighlight">\(s\)</span> کانولوشن می‌شود و سپس روی مسیر هندسی متناظر پس‌پراکنش می‌گردد.</p>
@@ -2689,7 +2690,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/fig05_44.png"><img alt="../_images/fig05_44.png" src="../_images/fig05_44.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 204 </span><span class="caption-text"><strong>شکل 5.44.</strong> همان مصالحه روی phantom سر دیده می‌شود. این تصویر مستقیماً رابطهٔ رزولوشن-نویز/رینگینگ را در انتخاب پنجرهٔ فیلتر بازسازی نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-44" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 236 </span><span class="caption-text"><strong>شکل 5.44.</strong> همان مصالحه روی phantom سر دیده می‌شود. این تصویر مستقیماً رابطهٔ رزولوشن-نویز/رینگینگ را در انتخاب پنجرهٔ فیلتر بازسازی نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-44" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 385 کتاب، شکل 5.44.</em></p>
@@ -2700,7 +2701,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_118.png"><img alt="../_images/eq05_118.png" src="../_images/eq05_118.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 205 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-118) - رابطهٔ زاویه‌های پرتو فن‌بیم و پرتو موازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-118" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 237 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-118) - رابطهٔ زاویه‌های پرتو فن‌بیم و پرتو موازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-118" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «رابطهٔ زاویه‌های پرتو فن‌بیم و پرتو موازی» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2712,7 +2713,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_119.png"><img alt="../_images/eq05_119.png" src="../_images/eq05_119.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 206 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-119) - رابطهٔ فاصلهٔ شعاعی با زاویهٔ فن از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-119" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 238 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-119) - رابطهٔ فاصلهٔ شعاعی با زاویهٔ فن از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-119" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «رابطهٔ فاصلهٔ شعاعی با زاویهٔ فن» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2724,7 +2725,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_120.png"><img alt="../_images/eq05_120.png" src="../_images/eq05_120.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 207 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-120) - فرمول بازسازی محدود به شعاع T از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-120" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 239 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-120) - فرمول بازسازی محدود به شعاع T از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-120" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «فرمول بازسازی محدود به شعاع T» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2736,7 +2737,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_121.png"><img alt="../_images/eq05_121.png" src="../_images/eq05_121.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 208 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-121) - بازنویسی ضرب داخلی در مختصات قطبی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-121" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 240 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-121) - بازنویسی ضرب داخلی در مختصات قطبی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-121" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «بازنویسی ضرب داخلی در مختصات قطبی» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2745,7 +2746,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/fig05_45.png"><img alt="../_images/fig05_45.png" src="../_images/fig05_45.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 209 </span><span class="caption-text"><strong>شکل 5.45.</strong> هندسهٔ فن‌بیم شامل زاویهٔ چرخش منبع <span class="math notranslate nohighlight">\(\beta\)</span>، زاویهٔ پرتو نسبت به center ray یعنی <span class="math notranslate nohighlight">\(\alpha\)</span>، و فاصلهٔ منبع تا مرکز است. همهٔ فرمول‌های بعدی از همین شکل می‌آیند.</span><a class="headerlink" href="#fig-ch05-5-45" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 241 </span><span class="caption-text"><strong>شکل 5.45.</strong> هندسهٔ فن‌بیم شامل زاویهٔ چرخش منبع <span class="math notranslate nohighlight">\(\beta\)</span>، زاویهٔ پرتو نسبت به center ray یعنی <span class="math notranslate nohighlight">\(\alpha\)</span>، و فاصلهٔ منبع تا مرکز است. همهٔ فرمول‌های بعدی از همین شکل می‌آیند.</span><a class="headerlink" href="#fig-ch05-5-45" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 387 کتاب، شکل 5.45.</em></p>
@@ -2756,7 +2757,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_122.png"><img alt="../_images/eq05_122.png" src="../_images/eq05_122.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 210 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-122) - فرمول بازسازی موازی در مختصات قطبی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-122" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 242 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-122) - فرمول بازسازی موازی در مختصات قطبی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-122" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «فرمول بازسازی موازی در مختصات قطبی» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2768,7 +2769,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_123.png"><img alt="../_images/eq05_123.png" src="../_images/eq05_123.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 211 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-123) - تغییر متغیرها از پرتو موازی به فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-123" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 243 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-123) - تغییر متغیرها از پرتو موازی به فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-123" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تغییر متغیرها از پرتو موازی به فن‌بیم» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2780,7 +2781,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_124.png"><img alt="../_images/eq05_124.png" src="../_images/eq05_124.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 212 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-124) - فرمول بنیادی بازسازی فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-124" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 244 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-124) - فرمول بنیادی بازسازی فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-124" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه نسخهٔ بنیادی FBP برای هندسهٔ فن‌بیم است و هم وزن هندسی و هم تغییر مختصات از فن‌بیم به دستگاه جسم را در خود دارد.</p>
@@ -2792,7 +2793,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_125.png"><img alt="../_images/eq05_125.png" src="../_images/eq05_125.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 213 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-125) - رابطهٔ هندسی برای تبدیل به فرم کانولوشن از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-125" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 245 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-125) - رابطهٔ هندسی برای تبدیل به فرم کانولوشن از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-125" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «رابطهٔ هندسی برای تبدیل به فرم کانولوشن» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2804,7 +2805,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_126.png"><img alt="../_images/eq05_126.png" src="../_images/eq05_126.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 214 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-126) - جایگذاری رابطهٔ هندسی در بازسازی فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-126" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 246 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-126) - جایگذاری رابطهٔ هندسی در بازسازی فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-126" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «جایگذاری رابطهٔ هندسی در بازسازی فن‌بیم» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2816,7 +2817,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_127.png"><img alt="../_images/eq05_127.png" src="../_images/eq05_127.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 215 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-127) - خاصیت مقیاس فیلتر بازسازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-127" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 247 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-127) - خاصیت مقیاس فیلتر بازسازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-127" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «خاصیت مقیاس فیلتر بازسازی» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2828,7 +2829,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_128.png"><img alt="../_images/eq05_128.png" src="../_images/eq05_128.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 216 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-128) - فرم کانولوشنی بازسازی فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-128" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 248 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-128) - فرم کانولوشنی بازسازی فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-128" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> فرم کانولوشنی باعث می‌شود بازسازی فن‌بیم قابل پیاده‌سازی سریع شود؛ انتگرال داخلی به کانولوشنِ پروجکشن وزن‌دار با کرنل بازسازی تبدیل شده است.</p>
@@ -2840,7 +2841,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_129.png"><img alt="../_images/eq05_129.png" src="../_images/eq05_129.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 217 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-129) - تعریف کرنل فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-129" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 249 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-129) - تعریف کرنل فن‌بیم از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-129" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تعریف کرنل فن‌بیم» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2852,7 +2853,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_130.png"><img alt="../_images/eq05_130.png" src="../_images/eq05_130.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 218 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-130) - تعریف پروجکشن وزن‌دهی‌شده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-130" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 250 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-130) - تعریف پروجکشن وزن‌دهی‌شده از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-130" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «تعریف پروجکشن وزن‌دهی‌شده» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2861,7 +2862,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/fig05_46.png"><img alt="../_images/fig05_46.png" src="../_images/fig05_46.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 219 </span><span class="caption-text"><strong>شکل 5.46.</strong> حداکثر زاویهٔ فن لازم برای پوشاندن ناحیهٔ مورد علاقه از شعاع جسم و فاصلهٔ منبع تعیین می‌شود. detectorها باید کل این زاویه را پوشش دهند.</span><a class="headerlink" href="#fig-ch05-5-46" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 251 </span><span class="caption-text"><strong>شکل 5.46.</strong> حداکثر زاویهٔ فن لازم برای پوشاندن ناحیهٔ مورد علاقه از شعاع جسم و فاصلهٔ منبع تعیین می‌شود. detectorها باید کل این زاویه را پوشش دهند.</span><a class="headerlink" href="#fig-ch05-5-46" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 389 کتاب، شکل 5.46.</em></p>
@@ -2872,7 +2873,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_131.png"><img alt="../_images/eq05_131.png" src="../_images/eq05_131.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 220 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-131) - نگاشت نمونهٔ فن‌بیم به پروجکشن موازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-131" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 252 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-131) - نگاشت نمونهٔ فن‌بیم به پروجکشن موازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-131" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> به‌جای پیاده‌سازی مستقیم فرمول فن‌بیم، داده‌ها را می‌توان rebin کرد: هر پرتو فن‌بیم به یک نمونه در هندسهٔ موازی نگاشت می‌شود.</p>
@@ -2884,7 +2885,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_132.png"><img alt="../_images/eq05_132.png" src="../_images/eq05_132.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 221 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-132) - یکسان‌سازی گام‌های زاویه‌ای نمونه‌برداری از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-132" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 253 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-132) - یکسان‌سازی گام‌های زاویه‌ای نمونه‌برداری از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-132" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه «یکسان‌سازی گام‌های زاویه‌ای نمونه‌برداری» را در تبدیل هندسهٔ فن‌بیم و استخراج الگوریتم بازسازی آن بیان می‌کند. نقش اصلی آن اصلاح هندسیِ زاویه، فاصله یا وزن هر پرتو پیش از پس‌پراکنش است.</p>
@@ -2896,7 +2897,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/eq05_133.png"><img alt="../_images/eq05_133.png" src="../_images/eq05_133.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 222 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-133) - رابطهٔ شاخصی برای بازچینی فن‌بیم به موازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-133" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 254 </span><span class="caption-text">تصویر رابطۀ شماره‌دار (5-133) - رابطهٔ شاخصی برای بازچینی فن‌بیم به موازی از منبع علمی مبنا.</span><a class="headerlink" href="#eq-ch05-133" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>توضیح:</strong> این رابطه نگاشت شاخص‌های نمونه‌برداری را صریح می‌کند و نشان می‌دهد چرا در تبدیل فن‌بیم به موازی معمولاً به درون‌یابی در راستای <span class="math notranslate nohighlight">\(\rho\)</span> نیاز داریم.</p>
@@ -2905,7 +2906,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/fig05_47.png"><img alt="../_images/fig05_47.png" src="../_images/fig05_47.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 223 </span><span class="caption-text"><strong>شکل 5.47.</strong> نمایش قطبی یک نقطه روی یک پرتو فن‌بیم برای استخراج وزن <span class="math notranslate nohighlight">\(1/R^2\)</span> و تبدیل آرگومان فیلتر در فرمول بازسازی استفاده می‌شود.</span><a class="headerlink" href="#fig-ch05-5-47" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 255 </span><span class="caption-text"><strong>شکل 5.47.</strong> نمایش قطبی یک نقطه روی یک پرتو فن‌بیم برای استخراج وزن <span class="math notranslate nohighlight">\(1/R^2\)</span> و تبدیل آرگومان فیلتر در فرمول بازسازی استفاده می‌شود.</span><a class="headerlink" href="#fig-ch05-5-47" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 390 کتاب، شکل 5.47.</em></p>
@@ -2913,7 +2914,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/fig05_48.png"><img alt="../_images/fig05_48.png" src="../_images/fig05_48.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 224 </span><span class="caption-text"><strong>شکل 5.48.</strong> با ریزترکردن گام زاویه‌ای <span class="math notranslate nohighlight">\(\alpha\)</span> و <span class="math notranslate nohighlight">\(\beta\)</span>، aliasing در بازسازی مستطیل کمتر می‌شود. این شکل اثر مستقیم چگالی نمونه‌برداری فن‌بیم را نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-48" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 256 </span><span class="caption-text"><strong>شکل 5.48.</strong> با ریزترکردن گام زاویه‌ای <span class="math notranslate nohighlight">\(\alpha\)</span> و <span class="math notranslate nohighlight">\(\beta\)</span>، aliasing در بازسازی مستطیل کمتر می‌شود. این شکل اثر مستقیم چگالی نمونه‌برداری فن‌بیم را نشان می‌دهد.</span><a class="headerlink" href="#fig-ch05-5-48" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 391 کتاب، شکل 5.48.</em></p>
@@ -2921,7 +2922,7 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
 <a class="reference internal image-reference" href="../_images/fig05_49.png"><img alt="../_images/fig05_49.png" src="../_images/fig05_49.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 225 </span><span class="caption-text"><strong>شکل 5.49.</strong> phantom سر نیز همان روند را تأیید می‌کند: detector/زاویه‌های بیشتر artifactها را کم می‌کنند و نتیجه به بازسازی پرتو موازیِ شکل 5.44 نزدیک می‌شود.</span><a class="headerlink" href="#fig-ch05-5-49" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 257 </span><span class="caption-text"><strong>شکل 5.49.</strong> phantom سر نیز همان روند را تأیید می‌کند: detector/زاویه‌های بیشتر artifactها را کم می‌کنند و نتیجه به بازسازی پرتو موازیِ شکل 5.44 نزدیک می‌شود.</span><a class="headerlink" href="#fig-ch05-5-49" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><em>ارجاع به منبع: صفحهٔ 392 کتاب، شکل 5.49.</em></p>
@@ -3015,12 +3016,12 @@ Q_\theta(x\cos\theta+y\sin\theta)\,d\theta,
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="chapter-03.html"
+       href="chapter-04.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">فصل سوم — تبدیلات شدت و پالایش مکانی</p>
+        <p class="prev-next-title">فصل چهارم — پالایش تصویر در حوزه فرکانس</p>
       </div>
     </a>
     <a class="right-next"

@@ -1,0 +1,2010 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل چهارم — پالایش تصویر در حوزه فرکانس &#8212; Image Processing Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gonzalez/chapter-04';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="فصل ۵: ترمیم و بازسازی تصویر" href="chapter-05.html" />
+    <link rel="prev" title="فصل سوم — تبدیلات شدت و پالایش مکانی" href="chapter-03.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Image Processing Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Image Processing Course Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gonzalez Notes and Learning Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">فصل دوم: مبانی تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-11.html">فصل ۱۱: بافت تصویر و توصیفگر SIFT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../student-work/index.html">Student Work</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/index.html">Image Processing — Gonzalez</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-01/index.html">Chapter 1</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-01/section-03.html">Section 3</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/gonzalez/chapter-04.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل چهارم — پالایش تصویر در حوزه فرکانس</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.1 پیش زمینه و مزیت محاسباتی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2 مفاهیم مقدماتی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">عدد مختلط و نمایش قطبی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">سری فوریه، ضربه و خاصیت غربالی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">تبدیل فوریه پیوسته و قضیه کانولوشن</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.3 نمونه برداری و تبدیل تابع نمونه برداری شده</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">آزمایش اجرایی: نرخ نایکوئیست</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.4 تبدیل فوریه گسسته یک بعدی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4.5 گسترش به توابع دوبعدی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">4.6 ویژگی های تبدیل فوریه گسسته دوبعدی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">فاصله ها، انتقال و تناوب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">تقارن، اندازه، فاز و توان</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">آزمایش اجرایی: اندازه و فاز</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">کانولوشن دوری و صفرگذاری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4.7 مبانی پالایش در حوزه فرکانس</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">آزمایش اجرایی: زنجیره کامل پالایش</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.8 هموارسازی با پایین گذرهای فرکانسی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4.9 تیزسازی با بالاگذرها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#high-boost">ماسک ناتیز، high-boost و تاکید فرکانس بالا</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">پالایش همومورفیک</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">4.10 پالایش انتخابی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">4.11 تبدیل فوریه سریع</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">4.12 جمع بندی عملی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">4.13 نکات احتیاطی، انتخاب روش و خطاهای متداول</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۱. فرکانسِ مرکز طیف را با فرکانس‌های گوشه اشتباه نگیرید</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۲. «صفرگذاری» به معنی افزودن اطلاعات واقعی نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۳. پخش نور و روشنایی در همومورفیک، جدایی دقیق نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۴. فیلتر ایده‌آل همیشه خروجی ایده‌آل نمی‌سازد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۵. قواعد نرمال‌سازی را بررسی کنید</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۶. نکات درباره نمادگذاری منبع</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">4.14 سه مثال آموزشی حل‌شده</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">مثال اول: تغییر فاز بدون تغییر اندازه طیف</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">مثال دوم: انتخاب صفرگذاری برای هسته ۷ در ۷</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">مثال سوم: حذف نویز راه‌راه بدون تخریب کل جزئیات</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">4.15 تمرین‌های دانشجویی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">4.16 راهنمای تطبیق عنوان شکل‌های منبع با درس</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">4.17 جمع‌بندی نهایی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">دانلود کدها و شکل‌های آموزشی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">منابع</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل چهارم — پالایش تصویر در حوزه فرکانس<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p>در فصل سوم روش‌های پردازش مستقیم روی پیکسل و همسایه‌های آن را شناختیم. در این فصل به جای دست‌کاری مستقیم شدت هر پیکسل، تصویر را به مؤلفه‌های نوسانی تجزیه می‌کنیم. بعضی مؤلفه‌ها نماینده تغییرات آهسته روشنایی‌اند و برخی تغییرات ریز و لبه‌ها را بیان می‌کنند. می‌توان هر گروه را جداگانه تضعیف یا تقویت کرد، سپس با تبدیل معکوس تصویر را بازسازی کرد. <strong>درک نقش فاز، اثر مرزها، چرایی zero padding و انتخاب فیلتر مناسب</strong> از حفظ فرمول‌ها مهم‌تر است.</p>
+<figure class="align-default" id="fig-ch4-fig04-00-concept-map">
+<a class="reference internal image-reference" href="../_images/fig04_00_concept_map.png"><img alt="../_images/fig04_00_concept_map.png" src="../_images/fig04_00_concept_map.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">نقشه مفهومی از تصویر مکانی تا طیف، تابع انتقال و تصویر بازسازی‌شده.</span><a class="headerlink" href="#fig-ch4-fig04-00-concept-map" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id2">
+<h2>اهداف یادگیری<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>تفسیر موج سینوسی، عدد مختلط و نقش دامنه و فاز در نمایش فوریه</p></li>
+<li><p>تشخیص شرط نایکوئیست و پیامد aliasing در نمونه‌برداری</p></li>
+<li><p>محاسبه و تفسیر DFT و IDFT یک‌بعدی و دوبعدی</p></li>
+<li><p>توضیح تناوب، جابه‌جایی، چرخش، تقارن مزدوج، طیف توان و مؤلفه DC</p></li>
+<li><p>تمایز کانولوشن دوری از خطی و انتخاب درست zero padding</p></li>
+<li><p>طراحی و مقایسه پایین‌گذرهای ایده‌آل، گوسی و باتروورث</p></li>
+<li><p>طراحی بالاگذر، unsharp و high-boost و درک رابطه با لاپلاسین</p></li>
+<li><p>توضیح مدل روشنایی-بازتاب و اجرای پالایش همومورفیک</p></li>
+<li><p>حذف نویز تناوبی با فیلترهای bandreject و notch متقارن</p></li>
+<li><p>درک ایده FFT و تفاوت هزینه آن با DFT مستقیم</p></li>
+</ul>
+<p><strong>راهنمای نمادگذاری:</strong> <span class="math notranslate nohighlight">\(f(x,y)\)</span> تصویر در حوزه مکان، <span class="math notranslate nohighlight">\(F(u,v)\)</span> تبدیل دوبعدی، <span class="math notranslate nohighlight">\(H(u,v)\)</span> تابع انتقال فیلتر، <span class="math notranslate nohighlight">\(G(u,v)=H(u,v)F(u,v)\)</span> طیف خروجی، <span class="math notranslate nohighlight">\(g(x,y)\)</span> تصویر بازسازی‌شده و <span class="math notranslate nohighlight">\(j^2=-1\)</span> هستند. نماد <span class="math notranslate nohighlight">\(\star\)</span> در روابط کتاب کانولوشن است، نه ضرب عنصر به عنصر. در کد، معمولاً فرکانس‌ها را برای نمایش با <code class="docutils literal notranslate"><span class="pre">fftshift</span></code> به مرکز می‌بریم.</p>
+<p><strong>نکته درباره شماره‌گذاری:</strong> برای امکان تطبیق با فایل LaTeX پیوست‌شده، شماره فرمول‌های همان فایل از (4-1) تا (4-174) حفظ شده‌اند. شکل‌ها در این نسخه اصیل/آموزشی هستند و شماره فایل آنها لزوماً با تصویر کتاب یکی نیست.</p>
+</section>
+<section id="id3">
+<h2>4.1 پیش زمینه و مزیت محاسباتی<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>اگر قرار باشد هر پیکسل را با یک هسته بزرگ پردازش کنیم، روش مستقیم به تعداد زیادی جمع و ضرب نیاز دارد. در مقابل، به کمک قضیه کانولوشن می‌توان تصویر را تبدیل فوریه کرد، در تابع انتقال ضرب کرد و به حوزه مکان بازگشت. البته <strong>FFT همیشه سریع‌تر نیست</strong>: اندازه تصویر، اندازه هسته، جدایی‌پذیری، هزینه پُرکردن با صفر و پیاده‌سازی سخت‌افزاری تعیین می‌کنند کدام روش مناسب‌تر است. نسبت‌های زیر تخمین نظری عملیات هستند، نه زمان قطعی اجرا.</p>
+<p><strong>مثال:</strong> برای تصویر <span class="math notranslate nohighlight">\(512\times512\)</span> و هسته <span class="math notranslate nohighlight">\(5\times5\)</span>، پالایش مکانی غالباً قابل رقابت است؛ اما با بزرگ‌تر شدن هسته غیرجدایی‌پذیر، محاسبه در حوزه فرکانس جذاب‌تر می‌شود.</p>
+<figure class="align-default" id="fig-ch4-fig04-01-fourier-sum">
+<a class="reference internal image-reference" href="../_images/fig04_01_fourier_sum.png"><img alt="../_images/fig04_01_fourier_sum.png" src="../_images/fig04_01_fourier_sum.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">ترکیب موج‌های ساده برای ساخت سیگنال پیچیده‌تر؛ ایده تجزیه فوریه.</span><a class="headerlink" href="#fig-ch4-fig04-01-fourier-sum" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-02-cost">
+<a class="reference internal image-reference" href="../_images/fig04_02_cost.png"><img alt="../_images/fig04_02_cost.png" src="../_images/fig04_02_cost.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">مقایسه مدل نظری هزینه پالایش مکانی و FFT، وابسته به اندازه هسته.</span><a class="headerlink" href="#fig-ch4-fig04-02-cost" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>اگر تصویر و هسته مربع و به ترتیب دارای اندازه های <span class="math notranslate nohighlight">\(M\times M\)</span> و <span class="math notranslate nohighlight">\(m\times m\)</span> باشند، نسبت هزینه پالایش مکانی به روش فوریه برای هسته جداناپذیر و جداپذیر چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+C_n(m)=\frac{M^2m^2}{2M^2\log_2 M^2}=\frac{m^2}{4\log_2M}, \tag{4-1}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C_s(m)=\frac{2M^2m}{2M^2\log_2 M^2}=\frac{m}{2\log_2M}. \tag{4-2}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-1)</strong> — اگر <span class="math notranslate nohighlight">\(C_n&gt;1\)</span> باشد، پیاده سازی فوریه عملیات کمتری می خواهد. رشد مربعی <span class="math notranslate nohighlight">\(m^2\)</span> نشان می دهد مزیت FFT برای هسته های بزرگ بسیار سریع زیاد می شود.</p>
+<p><strong>تفسیر رابطه‌های (4-2)</strong> — جداپذیری هزینه مکانی را از مرتبه <span class="math notranslate nohighlight">\(m^2\)</span> به <span class="math notranslate nohighlight">\(m\)</span> کاهش می دهد؛ از این رو نقطه برتری FFT دیرتر فرا می رسد.</p>
+</section>
+<section id="id4">
+<h2>4.2 مفاهیم مقدماتی<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>در حوزه فرکانس هر نقطه «یک پیکسل دیگر» نیست؛ آن نقطه مقدار مشارکت یک الگوی نوسانی مشخص در ساخت تصویر را بیان می‌کند. برای نمایش هم‌زمان قدرت و جابه‌جایی مکانی هر نوسان، به عدد مختلط احتیاج داریم: <strong>اندازه</strong> سهم آن فرکانس و <strong>فاز</strong> مکان قرارگیری الگو را نشان می‌دهد. در ادامه، ضربه و قطار ضربه را معرفی می‌کنیم تا رابطه نمونه‌برداری با تکرار طیف روشن شود.</p>
+<figure class="align-default" id="fig-ch4-fig04-03-complex-plane">
+<a class="reference internal image-reference" href="../_images/fig04_03_complex_plane.png"><img alt="../_images/fig04_03_complex_plane.png" src="../_images/fig04_03_complex_plane.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 42 </span><span class="caption-text">نشان‌دادن هم‌زمان جزء حقیقی، موهومی، اندازه و فاز عدد مختلط.</span><a class="headerlink" href="#fig-ch4-fig04-03-complex-plane" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-04-impulse-train">
+<a class="reference internal image-reference" href="../_images/fig04_04_impulse_train.png"><img alt="../_images/fig04_04_impulse_train.png" src="../_images/fig04_04_impulse_train.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 43 </span><span class="caption-text">قطار ضربه گسسته و مفهوم فاصله نمونه‌ها.</span><a class="headerlink" href="#fig-ch4-fig04-04-impulse-train" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-05-box-sinc">
+<a class="reference internal image-reference" href="../_images/fig04_05_box_sinc.png"><img alt="../_images/fig04_05_box_sinc.png" src="../_images/fig04_05_box_sinc.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 44 </span><span class="caption-text">جفت آموزشی تابع مستطیلی و طیف sinc؛ مرز تند در یک حوزه باعث دنباله نوسانی در حوزه دیگر می‌شود.</span><a class="headerlink" href="#fig-ch4-fig04-05-box-sinc" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id5">
+<h3>عدد مختلط و نمایش قطبی<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>یک عدد مختلط را می‌توان با دو مؤلفه حقیقی و موهومی یا با اندازه و زاویه توصیف کرد. نمایش دوم برای بیان دامنه و فاز فوریه مناسب‌تر است.</p>
+<div class="math notranslate nohighlight">
+\[
+C=R+jI, \tag{4-3}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C^*=R-jI, \tag{4-4}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C=|C|(\cos\theta+j\sin\theta), \tag{4-5}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+e^{j\theta}=\cos\theta+j\sin\theta, \tag{4-6}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C=|C|e^{j\theta}. \tag{4-7}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-3) تا (4-5)</strong> — <span class="math notranslate nohighlight">\(R\)</span> بخش حقیقی، <span class="math notranslate nohighlight">\(I\)</span> بخش موهومی، <span class="math notranslate nohighlight">\(C^*\)</span> مزدوج و <span class="math notranslate nohighlight">\(|C|=\sqrt{R^2+I^2}\)</span> اندازه است. نمایش قطبی، اندازه و فاز را از هم جدا می کند.</p>
+<p><strong>تفسیر رابطه‌های (4-6) و (4-7)</strong> — رابطه اویلر پلی میان توابع مثلثاتی و نمایی مختلط است و دلیل حضور طبیعی سینوس و کسینوس در تبدیل فوریه را روشن می کند.</p>
+</section>
+<section id="id6">
+<h3>سری فوریه، ضربه و خاصیت غربالی<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>سری فوریه تابع دوره‌ای را از موج‌های ساده بازسازی می‌کند. ضربه دیراک یک ابزار ریاضی ایده‌آل است؛ نباید آن را با پالس فیزیکی دارای دامنه واقعاً بی‌نهایت اشتباه گرفت.</p>
+<div class="math notranslate nohighlight">
+\[
+f(t)=\sum_{n=-\infty}^{\infty}c_ne^{j2\pi nt/T}, \tag{4-8}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+c_n=\frac{1}{T}\int_{-T/2}^{T/2}f(t)e^{-j2\pi nt/T}\,dt, \tag{4-9}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\delta(t)=\begin{cases}\infty&amp;t=0\\0&amp;t\ne0,\end{cases} \tag{4-10}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\infty}^{\infty}\delta(t)\,dt=1, \tag{4-11}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\int f(t)\delta(t)\,dt=f(0), \tag{4-12}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\int f(t)\delta(t-t_0)\,dt=f(t_0), \tag{4-13}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+s_{\Delta T}(t)=\sum_{k=-\infty}^{\infty}\delta(t-k\Delta T), \tag{4-14}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\delta(x)=\begin{cases}1&amp;x=0\\0&amp;x\ne0,\end{cases} \tag{4-15}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum_x\delta(x)=1, \tag{4-16}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum_x f(x)\delta(x)=f(0), \tag{4-17}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum_x f(x)\delta(x-x_0)=f(x_0). \tag{4-18}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-8) و (4-9)</strong> — رابطه نخست بازسازی تابع دوره ای از مولفه ها و رابطه دوم وزن هر فرکانس را تعیین می کند.</p>
+<p><strong>تفسیر رابطه‌های (4-10) تا (4-13)</strong> — ضربه دیراک با وجود عرض صفر مساحت واحد دارد و در انتگرال، مقدار تابع را در محل ضربه انتخاب می کند.</p>
+<p><strong>تفسیر رابطه‌های (4-14) تا (4-18)</strong> — قطار ضربه مدل ریاضی نمونه برداری است. نسخه گسسته همان نقش انتخاب یک نمونه مشخص را دارد.</p>
+</section>
+<section id="id7">
+<h3>تبدیل فوریه پیوسته و قضیه کانولوشن<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>قضیه کانولوشن پایه طراحی فیلتر در حوزه فرکانس است. با این حال رابطه ضرب/کانولوشن در هر دو طرف، به قرارداد نرمال‌سازی تبدیل بستگی دارد.</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{F}\{f(t)\}=\int_{-\infty}^{\infty}f(t)e^{-j2\pi\mu t}\,dt, \tag{4-19}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(\mu)=\int_{-\infty}^{\infty}f(t)e^{-j2\pi\mu t}\,dt, \tag{4-20}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(t)=\int_{-\infty}^{\infty}F(\mu)e^{j2\pi\mu t}\,d\mu, \tag{4-21}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(\mu)=\int f(t)[\cos(2\pi\mu t)-j\sin(2\pi\mu t)]\,dt, \tag{4-22}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{sinc}(\mu)=\frac{\sin(\pi\mu)}{\pi\mu}, \tag{4-23}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+(f\star h)(t)=\int f(\tau)h(t-\tau)\,d\tau, \tag{4-24}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+(f\star h)(t)\Longleftrightarrow F(\mu)H(\mu), \tag{4-25}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(t)h(t)\Longleftrightarrow F(\mu)\star H(\mu). \tag{4-26}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-19) تا (4-22)</strong> — تبدیل مستقیم، تابع را به فرکانس ها می برد و تبدیل معکوس بدون اتلاف آن را بازمی گرداند. رابطه (4-22) بخش حقیقی و موهومی را آشکار می کند.</p>
+<p><strong>تفسیر رابطه‌های (4-23)</strong> — تابع sinc پاسخ فرکانسی مهم یک تابع جعبه ای و هسته بازسازی ایده آل است.</p>
+<p><strong>تفسیر رابطه‌های (4-24) تا (4-26)</strong> — کانولوشن در یک حوزه به ضرب در حوزه دیگر تبدیل می شود؛ این خاصیت اساس همه پالایش های فرکانسی فصل است.</p>
+</section>
+</section>
+<section id="id8">
+<h2>4.3 نمونه برداری و تبدیل تابع نمونه برداری شده<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>چرا یک خط‌خطی ریز ممکن است در دوربین به نوارهایی درشت یا حرکت ظاهری معکوس تبدیل شود؟ چون نمونه‌برداری فقط چند نقطه از سیگنال پیوسته را نگاه می‌کند. از نظر طیفی این کار <strong>چند نسخه جابه‌جا شده طیف</strong> ایجاد می‌کند. اگر این نسخه‌ها روی هم بیفتند، بعداً با بزرگ‌نمایی یا فیلتر ساده قابل تفکیک نیستند. این پدیده <em>aliasing</em> نام دارد.</p>
+<p><strong>مثال عددی:</strong> موجی با فرکانس <span class="math notranslate nohighlight">\(7\)</span> هرتز اگر با نرخ <span class="math notranslate nohighlight">\(10\)</span> نمونه بر ثانیه ثبت شود، در نمونه‌ها می‌تواند شبیه موجی با فرکانس <span class="math notranslate nohighlight">\(3\)</span> هرتز دیده شود. نرخ بیشتر از <span class="math notranslate nohighlight">\(14\)</span> نمونه در ثانیه (با فرض باند محدود) برای جلوگیری از این ابهام لازم است.</p>
+<figure class="align-default" id="fig-ch4-fig04-06-sampling-spectra">
+<a class="reference internal image-reference" href="../_images/fig04_06_sampling_spectra.png"><img alt="../_images/fig04_06_sampling_spectra.png" src="../_images/fig04_06_sampling_spectra.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 45 </span><span class="caption-text">تکرار دوره‌ای طیف پس از نمونه‌برداری و هم‌پوشانی نسخه‌ها در حالت کم‌نمونه‌برداری.</span><a class="headerlink" href="#fig-ch4-fig04-06-sampling-spectra" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-23-nyquist-experiment">
+<a class="reference internal image-reference" href="../_images/fig04_23_nyquist_experiment.png"><img alt="../_images/fig04_23_nyquist_experiment.png" src="../_images/fig04_23_nyquist_experiment.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 46 </span><span class="caption-text">خروجی آزمایش محاسباتی ساخته‌شده به‌وسیله اسکریپت ارسالی فصل چهارم: sampling_aliasing_result.png</span><a class="headerlink" href="#fig-ch4-fig04-23-nyquist-experiment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[
+\tilde f(t)=f(t)s_{\Delta T}(t)=\sum_{n=-\infty}^{\infty}f(t)\delta(t-n\Delta T), \tag{4-27}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\tilde f(t)=\sum_{n=-\infty}^{\infty}f(n\Delta T)\delta(t-n\Delta T), \tag{4-28}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\tilde F(\mu)=F(\mu)\star S(\mu), \tag{4-29}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+S(\mu)=\frac{1}{\Delta T}\sum_{n=-\infty}^{\infty}\delta\!\left(\mu-\frac{n}{\Delta T}\right), \tag{4-30}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\tilde F(\mu)=\frac{1}{\Delta T}\sum_{n=-\infty}^{\infty}F\!\left(\mu-\frac{n}{\Delta T}\right), \tag{4-31}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{\Delta T}&gt;2\mu_{\max}, \tag{4-32}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+H(\mu)=\begin{cases}\Delta T&amp;|\mu|\le\mu_{\max}\\0&amp;\text{otherwise},\end{cases} \tag{4-33}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(\mu)=H(\mu)\tilde F(\mu), \tag{4-34}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(t)=\int F(\mu)e^{j2\pi\mu t}\,d\mu, \tag{4-35}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+h(t)=2\mu_{\max}\operatorname{sinc}(2\mu_{\max}t), \tag{4-36}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(t)=\mathcal{F}^{-1}\{H(\mu)\tilde F(\mu)\}, \tag{4-37}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(t)=\sum_{n=-\infty}^{\infty}f(n\Delta T)\operatorname{sinc}\!\left(\frac{t-n\Delta T}{\Delta T}\right). \tag{4-38}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-27) تا (4-31)</strong> — نمونه برداری ضرب تابع در قطار ضربه است. در حوزه فرکانس، این ضرب به تکرار دوره ای طیف با فاصله <span class="math notranslate nohighlight">\(1/\Delta T\)</span> تبدیل می شود.</p>
+<p><strong>تفسیر رابطه‌های (4-32)</strong> — نرخ نمونه برداری باید از دو برابر بیشترین فرکانس بیشتر باشد؛ در غیر این صورت نسخه های طیف روی هم می افتند.</p>
+<p><strong>تفسیر رابطه‌های (4-33) تا (4-38)</strong> — پایین گذر ایده آل یک نسخه طیف را جدا می کند و در حوزه زمان، بازسازی با جمع sincهای وزن دار انجام می شود.</p>
+<section id="id9">
+<h3>آزمایش اجرایی: نرخ نایکوئیست<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p><strong>فایل اجرای این آزمایش:</strong> <code class="docutils literal notranslate"><span class="pre">sampling_aliasing_demo.py</span></code> (در بسته ZIP کدهای همراه موجود است).</p>
+<p>در نمودار بالایی، نمونه ها شکل واقعی سینوس را نگه می دارند. در نمودار پایینی، نقاط نمونه یک نوسان کندتر را القا می کنند؛ این فرکانس کاذب پس از نمونه برداری از داده قابل تشخیص از یک فرکانس واقعی نیست.</p>
+</section>
+</section>
+<section id="id10">
+<h2>4.4 تبدیل فوریه گسسته یک بعدی<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>از این بخش به بعد با داده محدود رایانه‌ای سروکار داریم، نه تابع پیوسته نامحدود. تبدیل فوریه گسسته یا DFT از <span class="math notranslate nohighlight">\(M\)</span> نمونه، دقیقاً <span class="math notranslate nohighlight">\(M\)</span> ضریب مختلط می‌سازد. هر ضریب پاسخ به این پرسش است: «الگوی نمایی مختلط این فرکانس چقدر در سیگنال حضور دارد؟» DFT بر اساس ادامه دوره‌ای آرایه تعریف می‌شود؛ این همان نکته‌ای است که بعدها در کانولوشن دوری به‌کار می‌آید.</p>
+<figure class="align-default" id="fig-ch4-fig04-07-dft-basis">
+<a class="reference internal image-reference" href="../_images/fig04_07_dft_basis.png"><img alt="../_images/fig04_07_dft_basis.png" src="../_images/fig04_07_dft_basis.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 47 </span><span class="caption-text">نمونه‌های چند پایه کسینوسی گسسته برای فهم ضرایب DFT.</span><a class="headerlink" href="#fig-ch4-fig04-07-dft-basis" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-08-periodicity">
+<a class="reference internal image-reference" href="../_images/fig04_08_periodicity.png"><img alt="../_images/fig04_08_periodicity.png" src="../_images/fig04_08_periodicity.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 48 </span><span class="caption-text">تفسیر تناوبی DFT و رابطه آن با پیچش از مرز در کانولوشن دوری.</span><a class="headerlink" href="#fig-ch4-fig04-08-periodicity" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[
+\tilde F(\mu)=\int\tilde f(t)e^{-j2\pi\mu t}\,dt, \tag{4-39}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\tilde F(\mu)=\sum_{n=-\infty}^{\infty}f(n\Delta T)e^{-j2\pi\mu n\Delta T}, \tag{4-40}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mu=\frac{m}{M\Delta T},\quad m=0,\ldots,M-1, \tag{4-41}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F_m=\sum_{n=0}^{M-1}f_ne^{-j2\pi mn/M}, \tag{4-42}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f_n=\frac1M\sum_{m=0}^{M-1}F_me^{j2\pi mn/M}, \tag{4-43}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u)=\sum_{x=0}^{M-1}f(x)e^{-j2\pi ux/M}, \tag{4-44}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(x)=\frac1M\sum_{u=0}^{M-1}F(u)e^{j2\pi ux/M}, \tag{4-45}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u)=F(u+kM), \tag{4-46}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(x)=f(x+kM), \tag{4-47}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+(f\star h)(x)=\sum_{m=0}^{M-1}f(m)h(x-m), \tag{4-48}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+T=M\Delta T, \tag{4-49}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\Delta u=\frac{1}{M\Delta T}=\frac1T, \tag{4-50}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+R=M\Delta u=\frac1{\Delta T}. \tag{4-51}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-39) تا (4-45)</strong> — با محدود کردن تابع به <span class="math notranslate nohighlight">\(M\)</span> نمونه و نمونه برداری فرکانس در <span class="math notranslate nohighlight">\(M\)</span> نقطه، جفت DFT/IDFT به دست می آید. ضریب <span class="math notranslate nohighlight">\(1/M\)</span> بازسازی را مقیاس می کند.</p>
+<p><strong>تفسیر رابطه‌های (4-46) تا (4-48)</strong> — داده و طیف در مدل DFT دوره ای اند؛ بنابراین کانولوشن مستقیم در این مدل دوری است.</p>
+<p><strong>تفسیر رابطه‌های (4-49) تا (4-51)</strong> — افزایش طول ثبت <span class="math notranslate nohighlight">\(T\)</span> تفکیک فرکانسی را بهتر می کند، اما فاصله نمونه ها محدوده فرکانسی قابل مشاهده را تعیین می کند.</p>
+</section>
+<section id="id11">
+<h2>4.5 گسترش به توابع دوبعدی<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>در تصویر دو مسیر مستقل تغییر وجود دارد: ردیف‌ها و ستون‌ها. بنابراین هر نوسان با دو فرکانس <span class="math notranslate nohighlight">\((u,v)\)</span> مشخص می‌شود. یک نوار عمودی در تصویر عمدتاً در جهت افقی تغییر شدت دارد؛ به همین دلیل جهت نوسان تصویر و آرایش انرژی در طیف باید دقیق تفسیر شود. DFT دوبعدی را می‌توان نخست روی سطرها و سپس روی ستون‌ها اجرا کرد؛ همین جدایی‌پذیری مبنای پیاده‌سازی کارآمد است.</p>
+<figure class="align-default" id="fig-ch4-fig04-09-orientation-spectrum">
+<a class="reference internal image-reference" href="../_images/fig04_09_orientation_spectrum.png"><img alt="../_images/fig04_09_orientation_spectrum.png" src="../_images/fig04_09_orientation_spectrum.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 49 </span><span class="caption-text">چگونه جهت و تناوب بافت در تصویر به قله‌های متقارن طیف تبدیل می‌شود.</span><a class="headerlink" href="#fig-ch4-fig04-09-orientation-spectrum" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\delta(t,z)=\begin{cases}\infty&amp;(t,z)=(0,0)\\0&amp;\text{otherwise},\end{cases} \tag{4-52}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\iint\delta(t,z)\,dt\,dz=1, \tag{4-53}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\iint f(t,z)\delta(t,z)\,dt\,dz=f(0,0), \tag{4-54}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\iint f(t,z)\delta(t-t_0,z-z_0)\,dt\,dz=f(t_0,z_0), \tag{4-55}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\delta(x,y)=\begin{cases}1&amp;(x,y)=(0,0)\\0&amp;\text{otherwise},\end{cases} \tag{4-56}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum_x\sum_y\delta(x,y)=1, \tag{4-57}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum_x\sum_y f(x,y)\delta(x-x_0,y-y_0)=f(x_0,y_0), \tag{4-58}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(\mu,\nu)=\iint f(t,z)e^{-j2\pi(\mu t+\nu z)}\,dt\,dz, \tag{4-59}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(t,z)=\iint F(\mu,\nu)e^{j2\pi(\mu t+\nu z)}\,d\mu\,d\nu, \tag{4-60}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+s_{\Delta T\Delta Z}(t,z)=\sum_m\sum_n\delta(t-m\Delta T,z-n\Delta Z), \tag{4-61}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(\mu,\nu)=0\quad\text{for }|\mu|\ge\mu_{\max},\ |\nu|\ge\nu_{\max}, \tag{4-62}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\Delta T&lt;\frac1{2\mu_{\max}}, \tag{4-63}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\Delta Z&lt;\frac1{2\nu_{\max}}, \tag{4-64}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac1{\Delta T}&gt;2\mu_{\max}, \tag{4-65}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\frac1{\Delta Z}&gt;2\nu_{\max}, \tag{4-66}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u,v)=\sum_{x=0}^{M-1}\sum_{y=0}^{N-1}f(x,y)e^{-j2\pi(ux/M+vy/N)}, \tag{4-67}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(x,y)=\frac1{MN}\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}F(u,v)e^{j2\pi(ux/M+vy/N)}. \tag{4-68}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-52) تا (4-58)</strong> — ضربه دوبعدی یک پیکسل واحد است و خاصیت غربالی آن مقدار تصویر را در یک مختصات انتخاب می کند.</p>
+<p><strong>تفسیر رابطه‌های (4-59) تا (4-66)</strong> — تبدیل پیوسته و قضیه نمونه برداری باید در هر دو راستا جداگانه رعایت شوند. کم نمونه برداری در هر محور می تواند aliasing فضایی بسازد.</p>
+<p><strong>تفسیر رابطه‌های (4-67) و (4-68)</strong> — این جفت، تعریف عملی DFT دوبعدی تصویر و بازسازی آن است. هر ضریب <span class="math notranslate nohighlight">\(F(u,v)\)</span> سهم یک الگوی موج دوبعدی را بیان می کند.</p>
+</section>
+<section id="id12">
+<h2>4.6 ویژگی های تبدیل فوریه گسسته دوبعدی<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>این ویژگی‌ها صرفاً قواعد نمادین نیستند؛ برای تفسیر طیف و طراحی فیلتر ضروری‌اند. جابه‌جایی هندسیِ تصویر به‌تنهایی اندازه طیف را تغییر نمی‌دهد، ولی فاز را تغییر می‌دهد. چرخش هندسی تصویر نیز در طیف بازتاب می‌یابد. برای نمایش مناسب معمولاً فرکانس صفر را به وسط تصویر طیف منتقل می‌کنیم، ولی هنگام ضرب و تبدیل معکوس باید جای‌گذاری <span class="math notranslate nohighlight">\(fftshift\)</span> و <span class="math notranslate nohighlight">\(ifftshift\)</span> یکدست بماند.</p>
+<figure class="align-default" id="fig-ch4-fig04-10-shift-phase">
+<a class="reference internal image-reference" href="../_images/fig04_10_shift_phase.png"><img alt="../_images/fig04_10_shift_phase.png" src="../_images/fig04_10_shift_phase.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 50 </span><span class="caption-text">انتقال مکانی اندازه طیف را تغییر نمی‌دهد ولی فاز را عوض می‌کند.</span><a class="headerlink" href="#fig-ch4-fig04-10-shift-phase" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-24-phase-experiment">
+<a class="reference internal image-reference" href="../_images/fig04_24_phase_experiment.png"><img alt="../_images/fig04_24_phase_experiment.png" src="../_images/fig04_24_phase_experiment.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 51 </span><span class="caption-text">خروجی آزمایش محاسباتی ساخته‌شده به‌وسیله اسکریپت ارسالی فصل چهارم: spectrum_phase_result.png</span><a class="headerlink" href="#fig-ch4-fig04-24-phase-experiment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-11-padding">
+<a class="reference internal image-reference" href="../_images/fig04_11_padding.png"><img alt="../_images/fig04_11_padding.png" src="../_images/fig04_11_padding.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 52 </span><span class="caption-text">فرق ادامه تناوبی تصویر و گسترش با صفر برای جلوگیری از هم‌پوشانی ناخواسته.</span><a class="headerlink" href="#fig-ch4-fig04-11-padding" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-25-padding-experiment">
+<a class="reference internal image-reference" href="../_images/fig04_25_padding_experiment.png"><img alt="../_images/fig04_25_padding_experiment.png" src="../_images/fig04_25_padding_experiment.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 53 </span><span class="caption-text">خروجی آزمایش محاسباتی ساخته‌شده به‌وسیله اسکریپت ارسالی فصل چهارم: convolution_padding_result.png</span><a class="headerlink" href="#fig-ch4-fig04-25-padding-experiment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id13">
+<h3>فاصله ها، انتقال و تناوب<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>در تعریف DFT، انتقال با اندیس‌های پیمانه‌ای تفسیر می‌شود؛ نتیجه برای انتقال ساده در آرایه بدون درنظرگرفتن مرزها ممکن است متفاوت باشد.</p>
+<div class="math notranslate nohighlight">
+\[
+\Delta u=\frac1{M\Delta T}, \tag{4-69}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\Delta v=\frac1{N\Delta Z}, \tag{4-70}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(x,y)e^{j2\pi(u_0x/M+v_0y/N)}\Longleftrightarrow F(u-u_0,v-v_0), \tag{4-71}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(x-x_0,y-y_0)\Longleftrightarrow F(u,v)e^{-j2\pi(x_0u/M+y_0v/N)}, \tag{4-72}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(r,\theta+\theta_0)\Longleftrightarrow F(\rho,\phi+\theta_0), \tag{4-73}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u,v)=F(u+k_1M,v+k_2N), \tag{4-74}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(x,y)=f(x+k_1M,y+k_2N), \tag{4-75}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(x,y)(-1)^{x+y}\Longleftrightarrow F(u-M/2,v-N/2). \tag{4-76}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-69) و (4-70)</strong> — تفکیک فرکانسی هر محور به تعداد نمونه و گام مکانی همان محور بستگی دارد.</p>
+<p><strong>تفسیر رابطه‌های (4-71) تا (4-73)</strong> — مدولاسیون، طیف را جابه جا می کند؛ جابه جایی تصویر فقط فاز را تغییر می دهد؛ و چرخش در هر دو حوزه با همان زاویه رخ می دهد.</p>
+<p><strong>تفسیر رابطه‌های (4-74) تا (4-76)</strong> — تبدیل گسسته دوره ای است. ضرب در <span class="math notranslate nohighlight">\((-1)^{x+y}\)</span> مولفه صفر را به مرکز آرایه می برد و نمایش طیف را خواناتر می کند.</p>
+</section>
+<section id="id14">
+<h3>تقارن، اندازه، فاز و توان<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>برای تصویر حقیقی، طیف تقارن مزدوج دارد. این موضوع هم در تشخیص نویز تناوبی و هم در ساخت فیلترهایی که خروجی حقیقی داشته باشند استفاده می‌شود.</p>
+<div class="math notranslate nohighlight">
+\[
+w(x,y)=w_e(x,y)+w_o(x,y), \tag{4-77}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w_e(x,y)=\frac{w(x,y)+w(-x,-y)}2, \tag{4-78}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w_o(x,y)=\frac{w(x,y)-w(-x,-y)}2, \tag{4-79}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w_e(x,y)=w_e(-x,-y), \tag{4-80}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w_o(x,y)=-w_o(-x,-y), \tag{4-81}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w_e(x,y)=w_e(M-x,N-y), \tag{4-82}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+w_o(x,y)=-w_o(M-x,N-y), \tag{4-83}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\sum_x\sum_y w_e(x,y)w_o(x,y)=0, \tag{4-84}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F^*(u,v)=F(-u,-v), \tag{4-85}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u,v)=R(u,v)+jI(u,v)=|F(u,v)|e^{j\phi(u,v)}, \tag{4-86}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+|F(u,v)|=\sqrt{R^2(u,v)+I^2(u,v)}, \tag{4-87}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\phi(u,v)=\operatorname{atan2}(I(u,v),R(u,v)), \tag{4-88}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P(u,v)=|F(u,v)|^2=R^2(u,v)+I^2(u,v), \tag{4-89}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+|F(u,v)|=|F(-u,-v)|, \tag{4-90}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\phi(u,v)=-\phi(-u,-v), \tag{4-91}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(0,0)=\sum_x\sum_y f(x,y), \tag{4-92}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(0,0)=MN\bar f. \tag{4-93}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-77) تا (4-85)</strong> — هر تابع از بخش زوج و فرد تشکیل می شود. برای تصویر حقیقی، طیف تقارن مزدوج دارد؛ این تقارن در طراحی تابع انتقال حقیقی بسیار مهم است.</p>
+<p><strong>تفسیر رابطه‌های (4-86) تا (4-89)</strong> — نمایش قطبی، اندازه طیف و فاز را جدا می کند. توان مربع اندازه است. برای محاسبه فاز باید از تابع چهارناحیه ای atan2 استفاده کرد.</p>
+<p><strong>تفسیر رابطه‌های (4-90) تا (4-93)</strong> — اندازه طیف زوج و فاز فرد است. مولفه <span class="math notranslate nohighlight">\(F(0,0)\)</span> مجموع شدت ها و متناسب با میانگین روشنایی تصویر است.</p>
+<p><strong>تقارن‌های مهم:</strong> برای تصویر حقیقی، <span class="math notranslate nohighlight">\(F(u,v)=F^*(-u,-v)\)</span>. اگر تصویر حقیقی و زوج باشد، تبدیل آن حقیقی و زوج است. این شرط هنگام طراحی فیلترهای متقارن اهمیت دارد.</p>
+</section>
+<section id="id15">
+<h3>آزمایش اجرایی: اندازه و فاز<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p><strong>فایل اجرای این آزمایش:</strong> <code class="docutils literal notranslate"><span class="pre">spectrum_phase_demo.py</span></code> (در بسته ZIP کدهای همراه موجود است).</p>
+<p>بازسازی فازمحور مرز و مکان اشیا را حفظ می کند، در حالی که بازسازی اندازه محور بیشتر توزیع کلی انرژی را نشان می دهد. این نتیجه توضیح می دهد چرا دستکاری ناآگاهانه فاز می تواند هندسه تصویر را به شدت تغییر دهد.</p>
+</section>
+<section id="id16">
+<h3>کانولوشن دوری و صفرگذاری<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>اگر تصویر با هسته بدون padding در فرکانس ضرب شود، پیکسل‌های نزدیک یک لبه می‌توانند به لبه مقابل «بپیچند». در خروجی علمی این یک خطای مرزی جدی است.</p>
+<div class="math notranslate nohighlight">
+\[
+(f\star h)(x,y)=\sum_{m=0}^{M-1}\sum_{n=0}^{N-1}f(m,n)h(x-m,y-n), \tag{4-94}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+(f\star h)(x,y)\Longleftrightarrow F(u,v)H(u,v), \tag{4-95}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f(x,y)h(x,y)\Longleftrightarrow \frac1{MN}[F\star H](u,v), \tag{4-96}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P\ge A+B-1, \tag{4-97}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+f_p(x,y)=\begin{cases}f(x,y)&amp;0\le x&lt;A,\ 0\le y&lt;B\\0&amp;\text{otherwise},\end{cases} \tag{4-98}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+h_p(x,y)=\begin{cases}h(x,y)&amp;0\le x&lt;C,\ 0\le y&lt;D\\0&amp;\text{otherwise},\end{cases} \tag{4-99}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+P\ge A+C-1, \tag{4-100}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Q\ge B+D-1, \tag{4-101}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P=2M, \tag{4-102}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Q=2N. \tag{4-103}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-94) تا (4-96)</strong> — قضیه کانولوشن در دو بعد برقرار است، اما DFT به طور ضمنی توابع دوره ای را کانولوشن می کند.</p>
+<p><strong>تفسیر رابطه‌های (4-97) تا (4-103)</strong> — صفرگذاری طول دوره را به اندازه کافی زیاد می کند تا نسخه های کانولوشن روی هم نیفتند. انتخاب <span class="math notranslate nohighlight">\(2M\times2N\)</span> ساده و ایمن است.</p>
+<p><strong>فایل اجرای این آزمایش:</strong> <code class="docutils literal notranslate"><span class="pre">convolution_padding_demo.py</span></code> (در بسته ZIP کدهای همراه موجود است).</p>
+<p>در خروجی دوری، اطلاعات از یک مرز به مرز مقابل بازمی گردد. صفرگذاری این تداخل را حذف می کند و نتیجه هم ارز کانولوشن خطی می شود.</p>
+</section>
+</section>
+<section id="id17">
+<h2>4.7 مبانی پالایش در حوزه فرکانس<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>تابع انتقال <span class="math notranslate nohighlight">\(H(u,v)\)</span> را مانند یک «ولوم مستقل برای هر فرکانس» تصور کنید. مقدار صفر به معنی حذف آن مؤلفه، یک به معنی عبور بدون تغییر و مقادیر بین صفر و یک به معنی تضعیف هستند. مقادیر بزرگ‌تر از یک برای تقویت هم استفاده می‌شوند. پس از ضرب <span class="math notranslate nohighlight">\(G=HF\)</span>، با IDFT به پیکسل‌ها برمی‌گردیم. <strong>نکته اصلی:</strong> DFT ذاتاً دوره‌ای است؛ برای هم‌ارزی با کانولوشن خطی معمولاً به zero padding نیاز داریم.</p>
+<figure class="align-default" id="fig-ch4-fig04-26-pipeline-experiment">
+<a class="reference internal image-reference" href="../_images/fig04_26_pipeline_experiment.png"><img alt="../_images/fig04_26_pipeline_experiment.png" src="../_images/fig04_26_pipeline_experiment.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">خروجی آزمایش محاسباتی ساخته‌شده به‌وسیله اسکریپت ارسالی فصل چهارم: frequency_filter_pipeline_result.png</span><a class="headerlink" href="#fig-ch4-fig04-26-pipeline-experiment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=\operatorname{Re}\left\{\mathcal{F}^{-1}[H(u,v)F(u,v)]\right\}, \tag{4-104}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=\mathcal{F}^{-1}[H(u,v)R(u,v)+jH(u,v)I(u,v)], \tag{4-105}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+h(x,y)\Longleftrightarrow H(u,v), \tag{4-106}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(u)=Ae^{-u^2/(2\sigma^2)}, \tag{4-107}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+h(x)=\sqrt{2\pi}\sigma A e^{-2\pi^2\sigma^2x^2}, \tag{4-108}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(u)=Ae^{-u^2/(2\sigma_1^2)}-Be^{-u^2/(2\sigma_2^2)}, \tag{4-109}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+h(x)=\sqrt{2\pi}\sigma_1Ae^{-2\pi^2\sigma_1^2x^2}-\sqrt{2\pi}\sigma_2Be^{-2\pi^2\sigma_2^2x^2}. \tag{4-110}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-104) و (4-105)</strong> — طیف تصویر در تابع انتقال ضرب و سپس تبدیل معکوس گرفته می شود. بخش حقیقی برای حذف خطاهای عددی کوچک نگه داشته می شود.</p>
+<p><strong>تفسیر رابطه‌های (4-106)</strong> — تابع انتقال و پاسخ ضربه یک زوج فوریه اند؛ بنابراین می توان رفتار یک هسته مکانی را از طیف آن تحلیل کرد.</p>
+<p><strong>تفسیر رابطه‌های (4-107) تا (4-110)</strong> — گوسی در هر دو حوزه گوسی می ماند و پهنای دو حوزه رابطه معکوس دارد. تفاضل دو گوسی یک بالاگذر نرم و بدون برش ناگهانی می سازد.</p>
+<section id="id18">
+<h3>آزمایش اجرایی: زنجیره کامل پالایش<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p><strong>فایل اجرای این آزمایش:</strong> <code class="docutils literal notranslate"><span class="pre">frequency_filter_pipeline.py</span></code> (در بسته ZIP کدهای همراه موجود است).</p>
+</section>
+</section>
+<section id="id19">
+<h2>4.8 هموارسازی با پایین گذرهای فرکانسی<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>بافت نرم و تغییرات آهسته تصویر معمولاً در فرکانس‌های نزدیک مرکز طیف قرار دارند؛ مرزهای تند و ریزبافت‌ها سهم بیشتری در فرکانس‌های بالا دارند. پایین‌گذر بخشی از فرکانس‌های بالا را کاهش می‌دهد و تصویر را هموار می‌کند. <strong>پایین‌گذر ایده‌آل</strong> مرز تند دارد و می‌تواند اطراف لبه‌ها نوسان (ringing) ایجاد کند؛ <strong>گوسی</strong> گذار نرم دارد و <strong>باتروورث</strong> میان این دو قابل تنظیم است. در همه روش‌ها باید افت جزئیات واقعی را در برابر کاهش نویز سنجید.</p>
+<figure class="align-default" id="fig-ch4-fig04-12-lowpass-profiles">
+<a class="reference internal image-reference" href="../_images/fig04_12_lowpass_profiles.png"><img alt="../_images/fig04_12_lowpass_profiles.png" src="../_images/fig04_12_lowpass_profiles.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">مقایسه مرز تند پایین‌گذر ایده‌آل با گذار نرم گوسی و باتروورث.</span><a class="headerlink" href="#fig-ch4-fig04-12-lowpass-profiles" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-14-enclosed-energy">
+<a class="reference internal image-reference" href="../_images/fig04_14_enclosed_energy.png"><img alt="../_images/fig04_14_enclosed_energy.png" src="../_images/fig04_14_enclosed_energy.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 56 </span><span class="caption-text">درصد انرژی طیف که داخل شعاع انتخابی جمع می‌شود؛ راهنمای انتخاب cutoff.</span><a class="headerlink" href="#fig-ch4-fig04-14-enclosed-energy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-13-ringing">
+<a class="reference internal image-reference" href="../_images/fig04_13_ringing.png"><img alt="../_images/fig04_13_ringing.png" src="../_images/fig04_13_ringing.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 57 </span><span class="caption-text">نوسان‌های ringing نزدیک مرز تند در اثر برش ناگهانی طیف.</span><a class="headerlink" href="#fig-ch4-fig04-13-ringing" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-27-lowpass-experiment">
+<a class="reference internal image-reference" href="../_images/fig04_27_lowpass_experiment.png"><img alt="../_images/fig04_27_lowpass_experiment.png" src="../_images/fig04_27_lowpass_experiment.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 58 </span><span class="caption-text">خروجی آزمایش محاسباتی ساخته‌شده به‌وسیله اسکریپت ارسالی فصل چهارم: lowpass_filter_comparison_result.png</span><a class="headerlink" href="#fig-ch4-fig04-27-lowpass-experiment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+H(u,v)=\begin{cases}1&amp;D(u,v)\le D_0\\0&amp;D(u,v)&gt;D_0,\end{cases} \tag{4-111}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+D(u,v)=\sqrt{(u-P/2)^2+(v-Q/2)^2}, \tag{4-112}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+P_T=\sum_{u=0}^{P-1}\sum_{v=0}^{Q-1}P(u,v), \tag{4-113}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\alpha=100\frac{\sum_{D(u,v)\le D_0}P(u,v)}{P_T}, \tag{4-114}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(u,v)=e^{-D^2(u,v)/(2\sigma^2)}, \tag{4-115}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(u,v)=e^{-D^2(u,v)/(2D_0^2)}, \tag{4-116}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(u,v)=\frac{1}{1+[D(u,v)/D_0]^{2n}}. \tag{4-117}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-111) و (4-112)</strong> — پایین گذر ایده آل همه فرکانس های داخل شعاع <span class="math notranslate nohighlight">\(D_0\)</span> را کامل عبور می دهد. مرز ناگهانی آن در حوزه مکانی ringing ایجاد می کند.</p>
+<p><strong>تفسیر رابطه‌های (4-113) و (4-114)</strong> — توان محصور در شعاع <span class="math notranslate nohighlight">\(D_0\)</span> معیار کمی برای انتخاب cutoff است؛ توان کم پرفرکانس می تواند جزئیات مهم مرزها را حمل کند.</p>
+<p><strong>تفسیر رابطه‌های (4-115) تا (4-117)</strong> — گوسی گذار نرم و بدون ringing دارد. باتروورث با مرتبه <span class="math notranslate nohighlight">\(n\)</span> میان گوسی و ایده آل قابل تنظیم است.</p>
+<p><strong>مقایسه انتخاب فیلتر:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>فیلتر</p></th>
+<th class="head"><p>گذار فرکانسی</p></th>
+<th class="head"><p>مزیت</p></th>
+<th class="head"><p>محدودیت</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ایده‌آل</p></td>
+<td><p>ناگهانی</p></td>
+<td><p>تفسیر آسان مرز عبور</p></td>
+<td><p>ringing در اطراف لبه‌ها</p></td>
+</tr>
+<tr class="row-odd"><td><p>گوسی</p></td>
+<td><p>پیوسته و نرم</p></td>
+<td><p>نتیجه هموار و بدون گذار تند</p></td>
+<td><p>ممکن است جزئیات بیشتری را محو کند</p></td>
+</tr>
+<tr class="row-even"><td><p>باتروورث</p></td>
+<td><p>قابل تغییر با مرتبه</p></td>
+<td><p>مصالحه قابل تنظیم</p></td>
+<td><p>مرتبه زیاد رفتار نوسانی بیشتر دارد</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>فایل اجرای این آزمایش:</strong> <code class="docutils literal notranslate"><span class="pre">lowpass_filter_comparison.py</span></code> (در بسته ZIP کدهای همراه موجود است).</p>
+<p>خروجی ایده آل حلقه های روشن اطراف مرز دایره را ایجاد کرده است. گوسی نرم ترین نتیجه را می دهد و باتروورث مرتبه سه مرز را بیشتر نگه می دارد، اما نوسان خفیف تری نسبت به ایده آل دارد.</p>
+</section>
+<section id="id20">
+<h2>4.9 تیزسازی با بالاگذرها<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>بالاگذر بخش آهسته تصویر را کم می‌کند و تغییرات سریع را برجسته می‌سازد. ولی اگر نتیجه خام بالاگذر را تصویر خروجی نهایی فرض کنیم، روشنایی پایه از دست می‌رود. راه عملی‌تر آن است که جزئیات استخراج‌شده را با وزن کنترل‌شده دوباره به تصویر اصلی بیفزاییم (unsharp/high-boost). در تصاویر پرنویز این کار نویز را هم تقویت می‌کند؛ بنابراین نباید «تیزتر» را همیشه معادل «بهتر» دانست.</p>
+<figure class="align-default" id="fig-ch4-fig04-15-highpass-profiles">
+<a class="reference internal image-reference" href="../_images/fig04_15_highpass_profiles.png"><img alt="../_images/fig04_15_highpass_profiles.png" src="../_images/fig04_15_highpass_profiles.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 59 </span><span class="caption-text">بالاگذرهای ایده‌آل، گوسی و باتروورث به‌صورت مکمل پایین‌گذر.</span><a class="headerlink" href="#fig-ch4-fig04-15-highpass-profiles" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-16-unsharp">
+<a class="reference internal image-reference" href="../_images/fig04_16_unsharp.png"><img alt="../_images/fig04_16_unsharp.png" src="../_images/fig04_16_unsharp.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 60 </span><span class="caption-text">ساخت ماسک جزئیات و افزودن کنترل‌شده آن برای تیزسازی.</span><a class="headerlink" href="#fig-ch4-fig04-16-unsharp" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-28-sharpen-experiment">
+<a class="reference internal image-reference" href="../_images/fig04_28_sharpen_experiment.png"><img alt="../_images/fig04_28_sharpen_experiment.png" src="../_images/fig04_28_sharpen_experiment.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 61 </span><span class="caption-text">خروجی آزمایش محاسباتی ساخته‌شده به‌وسیله اسکریپت ارسالی فصل چهارم: highpass_sharpening_result.png</span><a class="headerlink" href="#fig-ch4-fig04-28-sharpen-experiment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-17-homomorphic-gain">
+<a class="reference internal image-reference" href="../_images/fig04_17_homomorphic_gain.png"><img alt="../_images/fig04_17_homomorphic_gain.png" src="../_images/fig04_17_homomorphic_gain.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 62 </span><span class="caption-text">بهره کمتر برای تغییرات آهسته روشنایی و بهره بیشتر برای جزئیات بازتاب.</span><a class="headerlink" href="#fig-ch4-fig04-17-homomorphic-gain" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-29-homomorphic-experiment">
+<a class="reference internal image-reference" href="../_images/fig04_29_homomorphic_experiment.png"><img alt="../_images/fig04_29_homomorphic_experiment.png" src="../_images/fig04_29_homomorphic_experiment.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 63 </span><span class="caption-text">خروجی آزمایش محاسباتی ساخته‌شده به‌وسیله اسکریپت ارسالی فصل چهارم: homomorphic_filter_result.png</span><a class="headerlink" href="#fig-ch4-fig04-29-homomorphic-experiment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[
+H_{HP}(u,v)=1-H_{LP}(u,v), \tag{4-118}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+H(u,v)=\begin{cases}0&amp;D(u,v)\le D_0\\1&amp;D(u,v)&gt;D_0,\end{cases} \tag{4-119}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(u,v)=1-e^{-D^2(u,v)/(2D_0^2)}, \tag{4-120}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(u,v)=\frac{1}{1+[D_0/D(u,v)]^{2n}}, \tag{4-121}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+h_{HP}(x,y)=\delta(x,y)-h_{LP}(x,y), \tag{4-122}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H_{\nabla^2}(u,v)=-4\pi^2(u^2+v^2), \tag{4-123}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H_{\nabla^2}(u,v)=-4\pi^2[(u-P/2)^2+(v-Q/2)^2]=-4\pi^2D^2(u,v), \tag{4-124}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\nabla^2f(x,y)=\mathcal{F}^{-1}[H_{\nabla^2}(u,v)F(u,v)], \tag{4-125}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=f(x,y)+c\nabla^2f(x,y), \tag{4-126}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=\mathcal{F}^{-1}\{[1-H_{\nabla^2}(u,v)]F(u,v)\}. \tag{4-127}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-118) تا (4-122)</strong> — بالاگذر مکمل پایین گذر است و در حوزه مکانی از ضربه منهای هسته هموارساز به دست می آید. مولفه ثابت صفر می شود، پس خروجی خام میانگین نزدیک صفر دارد.</p>
+<p><strong>تفسیر رابطه‌های (4-123) تا (4-127)</strong> — لاپلاس وزن فرکانس های بالا را متناسب با مربع فاصله از مرکز زیاد می کند. برای ترکیب با تصویر باید مقیاس لاپلاس کنترل شود.</p>
+<section id="high-boost">
+<h3>ماسک ناتیز، high-boost و تاکید فرکانس بالا<a class="headerlink" href="#high-boost" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+g_{mask}(x,y)=f(x,y)-f_{LP}(x,y), \tag{4-128}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+f_{LP}(x,y)=\mathcal{F}^{-1}[H_{LP}(u,v)F(u,v)], \tag{4-129}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=f(x,y)+kg_{mask}(x,y), \tag{4-130}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=\mathcal{F}^{-1}\{[1+k(1-H_{LP}(u,v))]F(u,v)\}, \tag{4-131}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=\mathcal{F}^{-1}\{[1+kH_{HP}(u,v)]F(u,v)\}, \tag{4-132}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=\mathcal{F}^{-1}\{[k_1+k_2H_{HP}(u,v)]F(u,v)\}. \tag{4-133}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-128) تا (4-132)</strong> — جزئیات از تفاضل تصویر و نسخه هموار به دست می آیند. <span class="math notranslate nohighlight">\(k=1\)</span> ماسک ناتیز و <span class="math notranslate nohighlight">\(k&gt;1\)</span> پالایش high-boost است.</p>
+<p><strong>تفسیر رابطه‌های (4-133)</strong> — <span class="math notranslate nohighlight">\(k_1\)</span> روشنایی پایه و <span class="math notranslate nohighlight">\(k_2\)</span> سهم فرکانس بالا را مستقل کنترل می کند؛ بنابراین تونالیته تصویر از بین نمی رود.</p>
+<p><strong>فایل اجرای این آزمایش:</strong> <code class="docutils literal notranslate"><span class="pre">highpass_sharpening_demo.py</span></code> (در بسته ZIP کدهای همراه موجود است).</p>
+</section>
+<section id="id21">
+<h3>پالایش همومورفیک<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>مدل <span class="math notranslate nohighlight">\(f=i\,r\)</span> ترکیبی از روشنایی صحنه و بازتاب جسم است. لگاریتم، ضرب را به جمع تبدیل می‌کند تا تغییرات آهسته روشنایی جداگانه تضعیف شود.</p>
+<div class="math notranslate nohighlight">
+\[
+f(x,y)=i(x,y)r(x,y), \tag{4-134}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{F}\{f\}\ne\mathcal{F}\{i\}\mathcal{F}\{r\}, \tag{4-135}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+z(x,y)=\ln f(x,y)=\ln i(x,y)+\ln r(x,y), \tag{4-136}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{F}\{z\}=\mathcal{F}\{\ln i\}+\mathcal{F}\{\ln r\}, \tag{4-137}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+Z(u,v)=F_i(u,v)+F_r(u,v), \tag{4-138}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+S(u,v)=H(u,v)Z(u,v), \tag{4-139}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+s(x,y)=\mathcal{F}^{-1}\{S(u,v)\}, \tag{4-140}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+i'(x,y)=\mathcal{F}^{-1}\{H(u,v)F_i(u,v)\}, \tag{4-141}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+r'(x,y)=\mathcal{F}^{-1}\{H(u,v)F_r(u,v)\}, \tag{4-142}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+s(x,y)=i'(x,y)+r'(x,y), \tag{4-143}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+g(x,y)=e^{s(x,y)}=e^{i'(x,y)}e^{r'(x,y)}=i_0(x,y)r_0(x,y), \tag{4-144}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+i_0(x,y)=e^{i'(x,y)}, \tag{4-145}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+r_0(x,y)=e^{r'(x,y)}, \tag{4-146}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H(u,v)=(\gamma_H-\gamma_L)\left[1-e^{-cD^2(u,v)/D_0^2}\right]+\gamma_L. \tag{4-147}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-134) تا (4-138)</strong> — مدل روشنایی-بازتاب ضربی است. لگاریتم آن را جمعی می کند تا مولفه آهسته روشنایی و مولفه سریع بازتاب جداگانه قابل وزن دهی شوند.</p>
+<p><strong>تفسیر رابطه‌های (4-139) تا (4-146)</strong> — پس از پالایش لگاریتم تصویر، تبدیل معکوس و نمایی گرفتن، مدل ضربی بازسازی می شود.</p>
+<p><strong>تفسیر رابطه‌های (4-147)</strong> — <span class="math notranslate nohighlight">\(\gamma_L&lt;1\)</span> تغییرات روشنایی را فشرده و <span class="math notranslate nohighlight">\(\gamma_H&gt;1\)</span> جزئیات بازتاب را تقویت می کند؛ <span class="math notranslate nohighlight">\(c\)</span> تندی گذار را تعیین می کند.</p>
+<p><strong>فایل اجرای این آزمایش:</strong> <code class="docutils literal notranslate"><span class="pre">homomorphic_filter_demo.py</span></code> (در بسته ZIP کدهای همراه موجود است).</p>
+</section>
+</section>
+<section id="id22">
+<h2>4.10 پالایش انتخابی<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>گاهی نویز در همه فرکانس‌ها پخش نشده است؛ برای مثال خطوط تداخل منظم، تنها چند قله دور از مرکز طیف ایجاد می‌کنند. به‌جای هموار کردن کل تصویر، می‌توان <strong>ناتچ‌های کوچک و متقارن</strong> روی همان فرکانس‌ها قرار داد. برای تصاویر حقیقی، تقارن مزدوج طیف ایجاب می‌کند قله‌های مزاحم معمولاً جفت حذف شوند. روش مناسب حذف نویز تناوبی، خطوط راه‌راه و برخی الگوهای moiré است، نه نویز تصادفی عمومی.</p>
+<figure class="align-default" id="fig-ch4-fig04-18-band-filters">
+<a class="reference internal image-reference" href="../_images/fig04_18_band_filters.png"><img alt="../_images/fig04_18_band_filters.png" src="../_images/fig04_18_band_filters.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 64 </span><span class="caption-text">باندحذف و باندگذر مکمل یکدیگر هستند؛ پهنای باند با W کنترل می‌شود.</span><a class="headerlink" href="#fig-ch4-fig04-18-band-filters" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-19-notch-symmetry">
+<a class="reference internal image-reference" href="../_images/fig04_19_notch_symmetry.png"><img alt="../_images/fig04_19_notch_symmetry.png" src="../_images/fig04_19_notch_symmetry.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 65 </span><span class="caption-text">مکان دو ناتچ متقارن حول مرکز برای حذف فرکانس‌های نویز تناوبی.</span><a class="headerlink" href="#fig-ch4-fig04-19-notch-symmetry" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-30-notch-experiment">
+<a class="reference internal image-reference" href="../_images/fig04_30_notch_experiment.png"><img alt="../_images/fig04_30_notch_experiment.png" src="../_images/fig04_30_notch_experiment.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 66 </span><span class="caption-text">خروجی آزمایش محاسباتی ساخته‌شده به‌وسیله اسکریپت ارسالی فصل چهارم: notch_filter_result.png</span><a class="headerlink" href="#fig-ch4-fig04-30-notch-experiment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[
+H_{BP}(u,v)=1-H_{BR}(u,v), \tag{4-148}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H_{BR}(u,v)=1-\exp\!\left[-\frac{(D(u,v)-C_0)^2}{2W^2}\right], \tag{4-149}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H_{BR}(u,v)=1-\exp\!\left[-\left(\frac{D^2(u,v)-C_0^2}{D(u,v)W}\right)^2\right], \tag{4-150}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H_{NR}(u,v)=\prod_{k=1}^{Q}H_k(u,v)H_{-k}(u,v), \tag{4-151}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D_k(u,v)=\sqrt{(u-P/2-u_k)^2+(v-Q/2-v_k)^2}, \tag{4-152}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D_{-k}(u,v)=\sqrt{(u-P/2+u_k)^2+(v-Q/2+v_k)^2}, \tag{4-153}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H_{NR}(u,v)=\prod_{k=1}^{Q}\frac{1}{1+[D_{0k}/D_k(u,v)]^{2n}}\frac{1}{1+[D_{0k}/D_{-k}(u,v)]^{2n}}, \tag{4-154}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+H_{NP}(u,v)=1-H_{NR}(u,v). \tag{4-155}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-148) تا (4-150)</strong> — باندگذر مکمل باندحذف است. تابع اصلاح شده در مرکز و بیرون باند مقدار درست دارد و پهنای <span class="math notranslate nohighlight">\(W\)</span> قابل کنترل است.</p>
+<p><strong>تفسیر رابطه‌های (4-151) تا (4-155)</strong> — ناتچ ها باید به صورت جفت متقارن نسبت به مرکز طیف ساخته شوند تا خروجی مکانی حقیقی بماند. هر جفت یک مولفه تناوبی خاص را حذف می کند.</p>
+<p><strong>فایل اجرای این آزمایش:</strong> <code class="docutils literal notranslate"><span class="pre">notch_filter_demo.py</span></code> (در بسته ZIP کدهای همراه موجود است).</p>
+<p>دو قله متقارن خارج از مرکز نشانه نویز سینوسی اند. تابع ناتچ فقط همسایگی همان دو قله را تضعیف می کند، پس بیشتر اطلاعات تصویر دست نخورده می ماند.</p>
+</section>
+<section id="id23">
+<h2>4.11 تبدیل فوریه سریع<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>FFT تبدیل جدیدی نیست؛ <strong>همان DFT را با محاسبات کمتر</strong> به‌دست می‌آورد. یک روش رایج، نمونه‌های زوج و فرد را جدا می‌کند و از دو تبدیل کوچک‌تر برای ساخت تبدیل بزرگ‌تر بهره می‌گیرد. در الگوریتم radix-2، برای طول <span class="math notranslate nohighlight">\(M=2^p\)</span> هزینه نظری از مرتبه <span class="math notranslate nohighlight">\(M^2\)</span> به <span class="math notranslate nohighlight">\(M\log_2M\)</span> کاهش می‌یابد. در NumPy تابع <code class="docutils literal notranslate"><span class="pre">fft2</span></code> برای محاسبات دوبعدی در دسترس است و نیازی نیست الگوریتم پروانه‌ای را در پروژه‌های معمول از صفر بنویسیم.</p>
+<figure class="align-default" id="fig-ch4-fig04-20-fft-butterfly">
+<a class="reference internal image-reference" href="../_images/fig04_20_fft_butterfly.png"><img alt="../_images/fig04_20_fft_butterfly.png" src="../_images/fig04_20_fft_butterfly.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 67 </span><span class="caption-text">ساختار نمادین پروانه FFT؛ دو نیم‌تبدیل با جمع و تفریق ترکیب می‌شوند.</span><a class="headerlink" href="#fig-ch4-fig04-20-fft-butterfly" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-21-fft-cost">
+<a class="reference internal image-reference" href="../_images/fig04_21_fft_cost.png"><img alt="../_images/fig04_21_fft_cost.png" src="../_images/fig04_21_fft_cost.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 68 </span><span class="caption-text">مقایسه رشد نظری عملیات DFT مستقیم و FFT، مستقل از سخت‌افزار.</span><a class="headerlink" href="#fig-ch4-fig04-21-fft-cost" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch4-fig04-31-fft-runtime-experiment">
+<a class="reference internal image-reference" href="../_images/fig04_31_fft_runtime_experiment.png"><img alt="../_images/fig04_31_fft_runtime_experiment.png" src="../_images/fig04_31_fft_runtime_experiment.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 69 </span><span class="caption-text">خروجی آزمایش محاسباتی ساخته‌شده به‌وسیله اسکریپت ارسالی فصل چهارم: fft_runtime_result.png</span><a class="headerlink" href="#fig-ch4-fig04-31-fft-runtime-experiment" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight">
+\[
+F(u,v)=\sum_{x=0}^{M-1}F(x,v)e^{-j2\pi ux/M}, \tag{4-156}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(x,v)=\sum_{y=0}^{N-1}f(x,y)e^{-j2\pi vy/N}, \tag{4-157}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+MNf^*(x,y)=\sum_{u=0}^{M-1}\sum_{v=0}^{N-1}F^*(u,v)e^{-j2\pi(ux/M+vy/N)}, \tag{4-158}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u)=\sum_{x=0}^{M-1}f(x)W_M^{ux}, \tag{4-159}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+W_M=e^{-j2\pi/M}, \tag{4-160}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+M=2^p, \tag{4-161}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+M=2K, \tag{4-162}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u)=\sum_{x=0}^{K-1}f(2x)W_K^{ux}+\sum_{x=0}^{K-1}f(2x+1)W_K^{ux}W_{2K}^{u}, \tag{4-163}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u)=F_{even}(u)+W_{2K}^{u}F_{odd}(u), \tag{4-164}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F_{even}(u)=\sum_{x=0}^{K-1}f(2x)W_K^{ux}, \tag{4-165}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F_{odd}(u)=\sum_{x=0}^{K-1}f(2x+1)W_K^{ux}, \tag{4-166}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u)=F_{even}(u)+W_{2K}^{u}F_{odd}(u), \tag{4-167}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+F(u+K)=F_{even}(u)-W_{2K}^{u}F_{odd}(u), \tag{4-168}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{M}(p)=2\mathcal{M}(p-1)+2^{p-1}, \tag{4-169}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{A}(p)=2\mathcal{A}(p-1)+2^p, \tag{4-170}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{M}(p)=\frac12M\log_2M, \tag{4-171}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{A}(p)=M\log_2M, \tag{4-172}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C(M)=\frac{M^2}{M\log_2M}=\frac{M}{\log_2M}, \tag{4-173}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+C(p)=\frac{2^p}{p}. \tag{4-174}
+\]</div>
+<p><strong>تفسیر رابطه‌های (4-156) تا (4-158)</strong> — تبدیل دوبعدی جداپذیر است: ابتدا DFT سطرها و سپس ستون ها محاسبه می شود. تبدیل معکوس نیز با مزدوج گرفتن و یک تبدیل مستقیم قابل ساخت است.</p>
+<p><strong>تفسیر رابطه‌های (4-159) تا (4-168)</strong> — الگوریتم FFT نمونه های زوج و فرد را جدا می کند. دو تبدیل نصف اندازه با یک پروانه ترکیب می شوند و نیمه دوم خروجی تقریبا رایگان به دست می آید.</p>
+<p><strong>تفسیر رابطه‌های (4-169) تا (4-174)</strong> — حل روابط بازگشتی هزینه را از مرتبه <span class="math notranslate nohighlight">\(M^2\)</span> به <span class="math notranslate nohighlight">\(M\log_2M\)</span> کاهش می دهد. مزیت با بزرگ شدن <span class="math notranslate nohighlight">\(M\)</span> به سرعت افزایش می یابد.</p>
+<p><strong>فایل اجرای این آزمایش:</strong> <code class="docutils literal notranslate"><span class="pre">fft_runtime_demo.py</span></code> (در بسته ZIP کدهای همراه موجود است).</p>
+</section>
+<section id="id24">
+<h2>4.12 جمع بندی عملی فصل<a class="headerlink" href="#id24" title="Link to this heading">#</a></h2>
+<p>برای فهم کامل فصل کافی نیست فقط فرمول‌های فوریه را حفظ کنیم؛ باید بتوانیم یک زنجیره عملی قابل اجرا طراحی کنیم: تحلیل تصویر، مشاهده طیف، انتخاب تابع انتقال، کنترل مرزها با padding، اعمال فیلتر، تبدیل معکوس و ارزیابی نتیجه. این الگوریتم عمومی پایه‌ای برای بسیاری از کاربردهای حذف تداخل، صاف‌کردن و افزایش جزئیات تصویر است.</p>
+<figure class="align-default" id="fig-ch4-fig04-22-zoneplate">
+<a class="reference internal image-reference" href="../_images/fig04_22_zoneplate.png"><img alt="../_images/fig04_22_zoneplate.png" src="../_images/fig04_22_zoneplate.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 70 </span><span class="caption-text">الگوی مصنوعی zone plate برای آشکار کردن تفاوت پایین‌گذر و بالاگذر.</span><a class="headerlink" href="#fig-ch4-fig04-22-zoneplate" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای اجرای مطمئن پالایش فرکانسی، این ترتیب را حفظ کنید:</p>
+<ul class="simple">
+<li><p>تصویر و هسته را به اندازه کافی padding کنید تا کانولوشن دوری به نتیجه خطی آسیب نزند.</p></li>
+<li><p>طیف را با FFT محاسبه و برای نمایش با fftshift مرکز کنید.</p></li>
+<li><p>تابع انتقال حقیقی و متقارن را با همان اندازه طیف بسازید.</p></li>
+<li><p>ضرب عنصر به عنصر <span class="math notranslate nohighlight">\(G=HF\)</span> را انجام دهید.</p></li>
+<li><p>با IDFT بازگردید، بخش حقیقی را بگیرید و ناحیه اصلی تصویر را استخراج کنید.</p></li>
+<li><p>دامنه نتیجه را برای نمایش مقیاس بندی کنید، اما در محاسبات علمی علامت و دامنه واقعی را زودهنگام حذف نکنید.</p></li>
+</ul>
+<p>سه خطای رایج عبارت اند از: حذف padding و ایجاد wraparound، جابه جا کردن ناهماهنگ طیف و تابع انتقال، و تفسیر مستقیم تصویر لگاریتم طیف به عنوان دامنه خطی. کدهای این فصل برای هر سه مورد نمونه قابل اجرا فراهم می کنند.</p>
+</section>
+<section id="id25">
+<h2>4.13 نکات احتیاطی، انتخاب روش و خطاهای متداول<a class="headerlink" href="#id25" title="Link to this heading">#</a></h2>
+<section id="id26">
+<h3>۱. فرکانسِ مرکز طیف را با فرکانس‌های گوشه اشتباه نگیرید<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>در خروجی خام <code class="docutils literal notranslate"><span class="pre">fft2</span></code>، مؤلفه DC در اندیس <span class="math notranslate nohighlight">\((0,0)\)</span> قرار دارد. <code class="docutils literal notranslate"><span class="pre">fftshift</span></code> برای نمایش آن را به مرکز می‌برد؛ بنابراین ساخت تابع انتقال شعاعی حول مرکز فقط وقتی درست است که همان جابه‌جایی را برای طیف نیز انجام دهید. برای برگشت، <code class="docutils literal notranslate"><span class="pre">ifftshift</span></code> به همان قرارداد مربوط است.</p>
+</section>
+<section id="id27">
+<h3>۲. «صفرگذاری» به معنی افزودن اطلاعات واقعی نیست<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>افزودن صفر برای جلوگیری از کانولوشن دوری یا نمونه‌برداری متراکم‌تر از نمودار طیف به کار می‌رود، اما به‌تنهایی تفکیک فیزیکی جدیدی ایجاد نمی‌کند. برای کانولوشن خطی کامل دو آرایه <span class="math notranslate nohighlight">\(A\times B\)</span> و <span class="math notranslate nohighlight">\(C\times D\)</span>، حداقل اندازه FFT برابر <span class="math notranslate nohighlight">\((A+C-1)\times(B+D-1)\)</span> است؛ برای برش <code class="docutils literal notranslate"><span class="pre">same</span></code> باید شاخص‌گذاری مرکز هسته نیز درست باشد.</p>
+</section>
+<section id="id28">
+<h3>۳. پخش نور و روشنایی در همومورفیک، جدایی دقیق نیست<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<p>فرض آهسته‌بودن روشنایی و سریع‌بودن بازتاب، یک <strong>مدل تقریبی مهندسی</strong> است. بازتاب می‌تواند روند آهسته داشته باشد و سایه‌ها می‌توانند لبه تند تولید کنند. همچنین برای گرفتن لگاریتم باید ورودی نامنفی باشد و از صفر محافظت کنیم (<code class="docutils literal notranslate"><span class="pre">log1p</span></code> در بعضی پیاده‌سازی‌ها به همین دلیل استفاده می‌شود). تفاوت <code class="docutils literal notranslate"><span class="pre">log</span></code> و <code class="docutils literal notranslate"><span class="pre">log1p</span></code> را در تفسیر خروجی در نظر بگیرید.</p>
+</section>
+<section id="id29">
+<h3>۴. فیلتر ایده‌آل همیشه خروجی ایده‌آل نمی‌سازد<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p>لبه تند در تابع انتقال یعنی پاسخ مکانی دنباله‌دار و نوسانی. اگر نزدیک مرزهای پرکنتراست حلقه‌های مصنوعی ظاهر شد، به‌جای افزایش مرتبه باتروورث ممکن است گذار نرم‌تر یا فیلتر گوسی مفیدتر باشد.</p>
+</section>
+<section id="id30">
+<h3>۵. قواعد نرمال‌سازی را بررسی کنید<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<p>قرار دادن ضریب <span class="math notranslate nohighlight">\(1/MN\)</span> در تعریف تبدیل مستقیم یا معکوس قراردادی است، اما باید در کل محاسبه سازگار باشد. در NumPy، <code class="docutils literal notranslate"><span class="pre">fft2</span></code> نرمال‌سازی پیش‌فرض ندارد و <code class="docutils literal notranslate"><span class="pre">ifft2</span></code> ضریب معکوس را اعمال می‌کند. در مقایسه دامنه‌های پردازش‌شده، بدون هماهنگی قرارداد نتیجه‌گیری نکنید.</p>
+</section>
+<section id="id31">
+<h3>۶. نکات درباره نمادگذاری منبع<a class="headerlink" href="#id31" title="Link to this heading">#</a></h3>
+<p>در معادله (4-62)، بیان دقیق خارج‌بودن از مستطیل باند محدود آن است که با خروج از بازه مجاز <strong>در هر کدام</strong> از محورهای فرکانسی، طیف صفر باشد. در روابط (4-123) و (4-124)، تفسیر مشتق پیوسته و مختصات فرکانسیِ نرمال‌شده را از تفاوت عملگر لاپلاسین گسسته جدا کنید. علامت ضریب در (4-126) باید مطابق قرارداد لاپلاسین انتخاب شود؛ رابطه (4-127) یک انتخاب خاص را نشان می‌دهد. در (4-151) نماد <span class="math notranslate nohighlight">\(Q\)</span> برای تعداد جفت ناتچ به‌کار رفته و نباید با طول یکی از ابعاد FFT اشتباه گرفته شود. این توضیحات برای پیشگیری از سوءبرداشت آمده‌اند و شماره‌ها را نسبت به منبع تغییر نمی‌دهند.</p>
+</section>
+</section>
+<section id="id32">
+<h2>4.14 سه مثال آموزشی حل‌شده<a class="headerlink" href="#id32" title="Link to this heading">#</a></h2>
+<section id="id33">
+<h3>مثال اول: تغییر فاز بدون تغییر اندازه طیف<a class="headerlink" href="#id33" title="Link to this heading">#</a></h3>
+<p>یک تصویر را <span class="math notranslate nohighlight">\(10\)</span> پیکسل به راست جابه‌جا کنید. اگر جابه‌جایی در چارچوب مدل دوره‌ای DFT انجام شود، اندازه تمام ضرایب <span class="math notranslate nohighlight">\(|F(u,v)|\)</span> یکسان می‌ماند، اما هر ضریب یک فاز وابسته به <span class="math notranslate nohighlight">\(u\)</span> می‌گیرد. بنابراین اگر فقط <strong>قدر مطلق طیف</strong> را ببینید ممکن است جابه‌جایی را متوجه نشوید. در کاربرد ثبت تصویر، همین وابستگی فاز مفید است.</p>
+</section>
+<section id="id34">
+<h3>مثال دوم: انتخاب صفرگذاری برای هسته ۷ در ۷<a class="headerlink" href="#id34" title="Link to this heading">#</a></h3>
+<p>فرض کنید تصویر <span class="math notranslate nohighlight">\(128\times192\)</span> و هسته <span class="math notranslate nohighlight">\(7\times7\)</span> داریم. نتیجه کامل کانولوشن خطی باید <span class="math notranslate nohighlight">\(134\times198\)</span> باشد؛ چون <span class="math notranslate nohighlight">\(128+7-1=134\)</span> و <span class="math notranslate nohighlight">\(192+7-1=198\)</span>. انتخاب FFT با همین اندازه یا اندازه بزرگ‌تر با قرارداد صحیح هسته، از پیچش دوری جلوگیری می‌کند.</p>
+</section>
+<section id="id35">
+<h3>مثال سوم: حذف نویز راه‌راه بدون تخریب کل جزئیات<a class="headerlink" href="#id35" title="Link to this heading">#</a></h3>
+<p>در تصویر با خطوط تناوبی افقی یا عمودی، ابتدا لگاریتم قدر مطلق FFT مرکزی را رسم کنید. نقاط روشنِ منفردِ خارج از مرکز را از مؤلفه DC و ساختار واقعی تصویر تشخیص دهید. سپس برای هر قله مزاحم، ناتچ متقارن کوچک قرار دهید؛ اثر اندازه ناتچ را بر حذف نویز و افت جزئیات واقعی آزمایش کنید.</p>
+</section>
+</section>
+<section id="id36">
+<h2>4.15 تمرین‌های دانشجویی<a class="headerlink" href="#id36" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>برای <span class="math notranslate nohighlight">\(M=256\)</span> و هسته‌های با عرض <span class="math notranslate nohighlight">\(5\)</span>، <span class="math notranslate nohighlight">\(15\)</span> و <span class="math notranslate nohighlight">\(41\)</span> نسبت هزینه تقریبی دو روش فضایی و FFT را از روابط (4-1) و (4-2) حساب کنید. کدام فرض‌ها نتیجه را محدود می‌کنند؟</p></li>
+<li><p>نشان دهید چگونه یک سینوس با فرکانس <span class="math notranslate nohighlight">\(13\)</span> هرتز در نرخ نمونه‌برداری <span class="math notranslate nohighlight">\(20\)</span> هرتز می‌تواند با موجی کندتر اشتباه شود.</p></li>
+<li><p>با یک تصویر مصنوعی، فاز تصویر را صفر بگذارید ولی قدر مطلق طیف را حفظ کنید. سپس حالت معکوس را آزمایش و مقایسه کنید.</p></li>
+<li><p>تفاوت کانولوشن دوری و خطی را روی تصویری با یک نقطه روشن نزدیک لبه بررسی کنید.</p></li>
+<li><p>سه پایین‌گذر با cutoff برابر بسازید؛ ringing، محوشدگی و تضعیف نویز را مقایسه کنید.</p></li>
+<li><p>روی تصویری با سایه تدریجی، خروجی همومورفیک را برای <span class="math notranslate nohighlight">\(\gamma_L=0.5\)</span> و <span class="math notranslate nohighlight">\(\gamma_H=1.8\)</span> با حالت بدون پردازش مقایسه کنید.</p></li>
+<li><p>یک نویز تناوبی سینوسی با دو فرکانس در تصویر قرار دهید. چهار قله بیرون مرکز را پیدا و ناتچ‌های لازم را طراحی کنید.</p></li>
+<li><p>DFT مستقیم یک بردار <span class="math notranslate nohighlight">\(8\)</span> عضوی را با ضرب ماتریسی حساب کنید و با <code class="docutils literal notranslate"><span class="pre">np.fft.fft</span></code> مقایسه کنید.</p></li>
+</ol>
+</section>
+<section id="id37">
+<h2>4.16 راهنمای تطبیق عنوان شکل‌های منبع با درس<a class="headerlink" href="#id37" title="Link to this heading">#</a></h2>
+<p>فایل LaTeX ارسالی برای فصل چهارم به شکل‌های شماره‌دار کتاب اشاره می‌کند. برای حفظ ردّ آموزشی آنها، <strong>توصیف علمی این ۶۷ ارجاع</strong> در ادامه آمده است. تصویرهای داخل بسته جدید، نمودارهای اصیل ساخته‌شده برای همین جزوه‌اند و <em>تصویر کپی‌شده کتاب</em> نیستند. شماره ارجاع منبع با شماره تصاویر بازطراحی‌شده در <code class="docutils literal notranslate"><span class="pre">images/</span></code> متفاوت است.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>شکل در منبع</p></th>
+<th class="head"><p>موضوع و نکته آموزشی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>4-1</p></td>
+<td><p>نمایش یک تابع پیچیده به صورت جمع سینوس ها و کسینوس ها. شکل، ایده بنیادی فوریه یعنی تجزیه ساختار پیچیده به مولفه های ساده را نشان می دهد.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-2</p></td>
+<td><p>مزیت محاسباتی FFT نسبت به هسته های جداناپذیر و جداپذیر. برای هسته های بزرگ، فاصله دو روش چشمگیر می شود.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-3</p></td>
+<td><p>ضربه پیوسته، قطار ضربه و همتایان گسسته آنها. فاصله ضربه ها همان گام نمونه برداری است.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-4</p></td>
+<td><p>تابع جعبه ای، تبدیل فوریه و طیف sinc. باریک شدن جعبه به پهن شدن طیف می انجامد و برعکس.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-5</p></td>
+<td><p>نمونه برداری یک تابع با قطار ضربه و نمایش نمونه های حاصل.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-6</p></td>
+<td><p>تکرار طیف در بیش نمونه برداری، نمونه برداری بحرانی و کم نمونه برداری. هم پوشانی طیف همان aliasing است.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-7</p></td>
+<td><p>طیف تابع باند محدود و نسخه های دوره ای آن در فرکانس.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-8</p></td>
+<td><p>بازیابی یک نسخه طیف با پایین گذر ایده آل.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-9</p></td>
+<td><p>نمونه ای از هم پوشانی طیف ها هنگامی که شرط نایکوئیست رعایت نمی شود.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-10</p></td>
+<td><p>طیف کم نمونه برداری شده و مولفه کاذب حاصل از تداخل نسخه های طیف.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-11</p></td>
+<td><p>یک سینوس سریع که نمونه های کم آن شبیه سینوسی بسیار کندتر دیده می شوند.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-12</p></td>
+<td><p>رابطه میان طول ثبت، گام نمونه برداری و نقاط گسسته فرکانس.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-13</p></td>
+<td><p>ضربه گسسته دوبعدی.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-14</p></td>
+<td><p>تابع جعبه ای دوبعدی و طیف دوبعدی آن.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-15</p></td>
+<td><p>قطار ضربه دوبعدی برای مدل کردن شبکه نمونه برداری تصویر.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-16</p></td>
+<td><p>طیف دوبعدی درست نمونه برداری شده و حالت هم پوشانی ناشی از کم نمونه برداری.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-17</p></td>
+<td><p>برهم کنش شبکه نمونه برداری با مولفه های کم، میانی و پرفرکانس.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-18</p></td>
+<td><p>aliasing در الگوی شطرنجی؛ مربع های زیر حد تفکیک به الگوی کاذب تبدیل می شوند.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-19</p></td>
+<td><p>aliasing در بازنمونه برداری تصویر طبیعی و تغییر الگوی موآره.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-20</p></td>
+<td><p>نمونه های تصویری از الگوهای موآره و تاثیر جهت و بسامد شبکه.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-21</p></td>
+<td><p>نمونه aliasing روی یک تصویر دارای بافت تکراری.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-22</p></td>
+<td><p>مرکز کردن تبدیل یک بعدی و دوبعدی با جابه جایی نیم دوره.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-23</p></td>
+<td><p>اثر جهت یک خط عمودی بر اندازه طیف.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-24</p></td>
+<td><p>چرخش خط در تصویر، طیف را با همان زاویه می چرخاند.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-25</p></td>
+<td><p>تصاویر متفاوت با اندازه طیف نزدیک، اما فازهای متفاوت.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-26</p></td>
+<td><p>بازسازی فقط با فاز و فقط با اندازه؛ ساختار مکانی عمدتا در فاز نهفته است.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-27</p></td>
+<td><p>مقایسه کانولوشن خطی و دوری و نمایش خطای پیچش از مرز.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-28</p></td>
+<td><p>تصویر میکروسکوپی و طیف آن؛ خطوط روشن طیف جهت غالب ساختار را نشان می دهند.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-29</p></td>
+<td><p>اثر یک پایین گذر بر تصویر و کاهش جزئیات سریع.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-30</p></td>
+<td><p>توابع انتقال پایین گذر، بالاگذر و بالاگذر دارای آفست و نتیجه هر یک.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-31</p></td>
+<td><p>خطای دوری در پالایش بدون padding و نتیجه درست پس از padding.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-32</p></td>
+<td><p>دوره ای بودن آرایه بدون padding و پس از افزودن ناحیه صفر.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-33</p></td>
+<td><p>رابطه تابع انتقال ایده آل، هسته مکانی و ringing ناشی از ناپیوستگی.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-34</p></td>
+<td><p>تغییر علامت فاز و اثر آن بر هندسه تصویر بازسازی شده.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-35</p></td>
+<td><p>مراحل کامل padding، مرکز کردن، ضرب طیف، تبدیل معکوس و برش نتیجه.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-36</p></td>
+<td><p>رابطه متقابل گوسی در دو حوزه و ساختار تفاضل گوسی برای تیزسازی.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-37</p></td>
+<td><p>تصویر نمونه و طیف آن برای استخراج تابع انتقال یک هسته مکانی.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-38</p></td>
+<td><p>هسته سوبل، تابع انتقال متناظر و نتایج پالایش در دو حوزه.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-39</p></td>
+<td><p>نمای سه بعدی، تصویر و برش شعاعی پایین گذر ایده آل.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-40</p></td>
+<td><p>الگوی آزمون و طیف آن با دایره های توان محصور.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-41</p></td>
+<td><p>نتایج پایین گذر ایده آل برای cutoffهای مختلف؛ محوشدگی و ringing هم زمان دیده می شوند.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-42</p></td>
+<td><p>تابع انتقال ایده آل و پاسخ مکانی نوسانی متناظر.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-43</p></td>
+<td><p>پایین گذر گوسی و برش های شعاعی برای cutoffهای مختلف.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-44</p></td>
+<td><p>نتایج پایین گذر گوسی؛ گذار محوشدگی نرم و بدون حلقه است.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-45</p></td>
+<td><p>پایین گذر باتروورث و تاثیر مرتبه بر شیب گذار.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-46</p></td>
+<td><p>نتایج باتروورث؛ رفتار میان ایده آل و گوسی قرار می گیرد.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-47</p></td>
+<td><p>هسته های مکانی باتروورث و افزایش نوسان با زیاد شدن مرتبه.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-48</p></td>
+<td><p>ترمیم پیوستگی حروف کم تفکیک با پایین گذر مناسب.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-49</p></td>
+<td><p>هموارسازی چهره و کاهش جزئیات ریز پوست.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-50</p></td>
+<td><p>کاربرد پایین گذر برای کاهش خطوط اسکن و هموارسازی ساختار.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-51</p></td>
+<td><p>توابع انتقال بالاگذر ایده آل، گوسی و باتروورث و برش شعاعی آنها.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-52</p></td>
+<td><p>هسته های مکانی بالاگذر و نوسان متناظر با برش تند فرکانسی.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-53</p></td>
+<td><p>نتیجه سه بالاگذر؛ خروجی شامل مقادیر مثبت و منفی پیرامون مرزها است.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-54</p></td>
+<td><p>مقیاس بندی خروجی بالاگذر برای نمایش علامت و دامنه پاسخ.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-55</p></td>
+<td><p>تقویت شیارهای اثر انگشت با بالاگذر و آستانه گذاری.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-56</p></td>
+<td><p>تیزسازی تصویر با لاپلاس کامل فرکانسی.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-57</p></td>
+<td><p>تیزسازی پرتو ایکس با تاکید فرکانس بالا و تکمیل آن با همسان سازی هیستوگرام.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-58</p></td>
+<td><p>زنجیره محاسبات پالایش همومورفیک از لگاریتم تا نمایی گرفتن.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-59</p></td>
+<td><p>برش شعاعی تابع انتقال همومورفیک و دو سطح بهره کم و زیاد.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-60</p></td>
+<td><p>فشرده سازی دامنه روشنایی و تقویت جزئیات در تصویر پزشکی.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-61</p></td>
+<td><p>برش های شعاعی باندحذف ایده آل و دو ساخت گوسی.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-62</p></td>
+<td><p>نماهای سه بعدی باندحذف ایده آل، گوسی و باتروورث.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-63</p></td>
+<td><p>نمایش تصویری سه تابع باندگذر متناظر.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-64</p></td>
+<td><p>حذف الگوی موآره با ناتچ های متقارن انتخاب شده از روی طیف.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-65</p></td>
+<td><p>حذف تداخل تناوبی در تصویر زحل با ناتچ باریک.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-66</p></td>
+<td><p>تابع ناتچ گذر و الگوی مکانی متناظر با مولفه حذف شده.</p></td>
+</tr>
+<tr class="row-even"><td><p>4-67</p></td>
+<td><p>رشد مزیت محاسباتی FFT نسبت به محاسبه مستقیم DFT.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id38">
+<h2>4.17 جمع‌بندی نهایی<a class="headerlink" href="#id38" title="Link to this heading">#</a></h2>
+<p>در حوزه مکان، پیکسل‌ها و همسایگی‌شان را تغییر می‌دهیم؛ در حوزه فرکانس، <strong>مؤلفه‌های نوسانی تصویر</strong> را وزن می‌دهیم. DFT نگاشتی کامل بین این دو نمایش است و FFT همان نگاشت را با الگوریتم کارآمد اجرا می‌کند. آنچه نتیجه را علمی و قابل اعتماد می‌سازد، رعایت قرارداد نرمال‌سازی، مدیریت فاز، پرهیز از پیچش دوری، انتخاب تابع انتقال مناسب و ارزیابی تصویر بازسازی‌شده است.</p>
+</section>
+<section id="id39">
+<h2>دانلود کدها و شکل‌های آموزشی<a class="headerlink" href="#id39" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-04/chapter04_examples.ipynb" download>Notebook آزمایش‌های فصل چهارم</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-04/chapter04_examples.py" download>اسکریپت یکپارچه و مستقل آموزشی</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-04/Chapter04_Code_Examples.zip" download>بسته ZIP همه کدها و داده آزمایشی</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-04/Chapter04_Original_Figures.zip" download>بسته ZIP تمام نمودارها و تصاویر آموزشی اصیل</a></p></li>
+</ul>
+</section>
+<section id="id40">
+<h2>منابع<a class="headerlink" href="#id40" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>R. C. Gonzalez and R. E. Woods, <em>Digital Image Processing</em>, 4th Edition, Pearson, Chapter 4: <strong>Filtering in the Frequency Domain</strong>.</p></li>
+<li><p>فایل فارسی ارسالی <code class="docutils literal notranslate"><span class="pre">chapter_04_filtering_frequency_domain_fa.tex</span></code>، به‌عنوان منبع اصلی ترتیب مطالب، فرمول‌ها و توضیح‌های این نسخه.</p></li>
+<li><p>کدها و نمونه مصنوعیِ مجموعه <code class="docutils literal notranslate"><span class="pre">chapter04_code</span></code> از بسته ارسالی استفاده شده‌اند؛ نمودارهای جدید در <code class="docutils literal notranslate"><span class="pre">images/</span></code> بازطراحی مستقل آموزشی‌اند.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./gonzalez"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-03.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل سوم — تبدیلات شدت و پالایش مکانی</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter-05.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">فصل ۵: ترمیم و بازسازی تصویر</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.1 پیش زمینه و مزیت محاسباتی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2 مفاهیم مقدماتی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">عدد مختلط و نمایش قطبی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">سری فوریه، ضربه و خاصیت غربالی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">تبدیل فوریه پیوسته و قضیه کانولوشن</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.3 نمونه برداری و تبدیل تابع نمونه برداری شده</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">آزمایش اجرایی: نرخ نایکوئیست</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">4.4 تبدیل فوریه گسسته یک بعدی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">4.5 گسترش به توابع دوبعدی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">4.6 ویژگی های تبدیل فوریه گسسته دوبعدی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">فاصله ها، انتقال و تناوب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">تقارن، اندازه، فاز و توان</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">آزمایش اجرایی: اندازه و فاز</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">کانولوشن دوری و صفرگذاری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">4.7 مبانی پالایش در حوزه فرکانس</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">آزمایش اجرایی: زنجیره کامل پالایش</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">4.8 هموارسازی با پایین گذرهای فرکانسی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">4.9 تیزسازی با بالاگذرها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#high-boost">ماسک ناتیز، high-boost و تاکید فرکانس بالا</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">پالایش همومورفیک</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">4.10 پالایش انتخابی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">4.11 تبدیل فوریه سریع</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">4.12 جمع بندی عملی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">4.13 نکات احتیاطی، انتخاب روش و خطاهای متداول</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۱. فرکانسِ مرکز طیف را با فرکانس‌های گوشه اشتباه نگیرید</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۲. «صفرگذاری» به معنی افزودن اطلاعات واقعی نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۳. پخش نور و روشنایی در همومورفیک، جدایی دقیق نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۴. فیلتر ایده‌آل همیشه خروجی ایده‌آل نمی‌سازد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۵. قواعد نرمال‌سازی را بررسی کنید</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۶. نکات درباره نمادگذاری منبع</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">4.14 سه مثال آموزشی حل‌شده</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">مثال اول: تغییر فاز بدون تغییر اندازه طیف</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">مثال دوم: انتخاب صفرگذاری برای هسته ۷ در ۷</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">مثال سوم: حذف نویز راه‌راه بدون تخریب کل جزئیات</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">4.15 تمرین‌های دانشجویی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">4.16 راهنمای تطبیق عنوان شکل‌های منبع با درس</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">4.17 جمع‌بندی نهایی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">دانلود کدها و شکل‌های آموزشی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">منابع</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
