@@ -70,4 +70,4 @@ The student name appears in the manuscript source, but the public site metadata 
 - [Source files — Part 2 of 2 (ZIP)](https://h-sadoghi.github.io/assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/rgb-based-segmentation-project-02.zip) (35.4 MB) — Download all parts and run RESTORE_LARGE_FILES.py if any original file was split.
 - [main](https://h-sadoghi.github.io/assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/rgb-based-segmentation-project-03.pdf) (4.0 MB) — PDF supplied with the project
 
-[← Back to Section 3](index.md)
+[← Student Work](../index.md)

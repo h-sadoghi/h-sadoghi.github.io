@@ -47,4 +47,4 @@ The experimental image is synthetic. These results demonstrate approximation beh
 - [Persian project report (PDF)](https://h-sadoghi.github.io/assets/downloads/courses/image-processing/student-works/svd-low-rank-separable-convolution/svd-low-rank-separable-convolution-02.pdf) (534.9 KB) — Main Persian report explaining SVD, low-rank approximation, separable convolution, implementation details, and discussion.
 - [Filtered output comparison figure (PDF)](https://h-sadoghi.github.io/assets/downloads/courses/image-processing/student-works/svd-low-rank-separable-convolution/svd-low-rank-separable-convolution-03.pdf) (328.1 KB) — Example figure comparing the original filtered image with rank-1, rank-2, and rank-4 approximations.
 
-[← Back to Section 3](index.md)
+[← Student Work](../index.md)
