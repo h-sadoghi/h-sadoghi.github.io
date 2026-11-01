@@ -23,5 +23,5 @@ description: Course materials for Image Processing.
 Learning materials cover selected chapters of <cite>Digital Image Processing</cite> (4th ed.) by Rafael C. Gonzalez and Richard E. Woods. This site provides original notes, diagrams, and code prepared for the course.
 
 - **[Gonzalez — notes and learning files]({{ '/teaching/image-processing/gonzalez/' | relative_url }})** — numbered chapter packages and optional PDF notes.
-- **[Student assignments and projects]({{ '/teaching/image-processing/student-work/' | relative_url }})** — approved course work shared by students.
+- **[Student assignments and projects]({{ '/teaching/image-processing/book/student-work/index.html' | relative_url }})** — approved course work shared by students.
 - **[Interactive course book]({{ '/teaching/image-processing/book/' | relative_url }})** — a three-column Jupyter Book for notes and notebooks.
