@@ -5,6 +5,20 @@
 
 A student image-processing project documenting RGB color segmentation with channel-dominance masks, Gaussian-smoothed histograms, adaptive peak intervals, and morphological post-processing. The report also compares the RGB approach conceptually with HSV segmentation. The uploaded archive contains LaTeX documentation; any locally supplied figures will be displayed as submitted, not represented as independently reproduced results.
 
+## Project figures
+
+![Submitted project figure 1](../media/rgb-based-segmentation-project/cover.png)
+
+![Submitted project figure 2](../media/rgb-based-segmentation-project/gallery_01.png)
+
+![Submitted project figure 3](../media/rgb-based-segmentation-project/gallery_02.png)
+
+![Submitted project figure 4](../media/rgb-based-segmentation-project/gallery_03.png)
+
+![Submitted project figure 5](../media/rgb-based-segmentation-project/gallery_04.png)
+
+*Figures are taken from the files submitted for this project.*
+
 ## Project description
 
 ### Project overview

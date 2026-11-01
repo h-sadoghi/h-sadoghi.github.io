@@ -9,6 +9,8 @@ description: "A student image-processing project documenting RGB color segmentat
 
 # RGB Color Segmentation Using Dominant Channels and Histogram Peaks
 
+![Project figure]({{ "/assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/cover.png" | relative_url }})
+
 ## Project overview
 
 This submission documents a color-image segmentation workflow based on the RGB channel intensities and adaptive intensity intervals derived from smoothed histograms. For each pixel, the method first determines which of the red, green, and blue channels is dominant. Within each channel, it identifies histogram peaks, constructs local intervals around them, and combines intensity thresholding with the dominant-channel mask. The masks are subsequently refined with morphological opening and closing.
@@ -47,9 +49,20 @@ The student name appears in the manuscript source, but the public site metadata 
 ## Source and verification notes
 
 - LaTeX figure references: 20; not found by filename in local source tree: 0
-- Pillow not installed: cover skipped. Run python -m pip install Pillow in .venv-jupyterbook
+- Offline Windows GDI+ image generation used; no Pillow or internet required
+- Gallery: 4 actual submitted figures compressed for the website
 
 *The page describes the supplied materials; correctness and runtime performance have not been independently verified.*
+
+## Selected figures from the submitted project
+
+![Submitted figure 1]({{ "/assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/gallery_01.png" | relative_url }})
+
+![Submitted figure 2]({{ "/assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/gallery_02.png" | relative_url }})
+
+![Submitted figure 3]({{ "/assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/gallery_03.png" | relative_url }})
+
+![Submitted figure 4]({{ "/assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/gallery_04.png" | relative_url }})
 
 ## Downloads
 

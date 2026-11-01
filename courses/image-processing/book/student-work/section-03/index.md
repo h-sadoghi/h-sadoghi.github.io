@@ -12,3 +12,5 @@ This student project studies how singular value decomposition (SVD) can approxim
 ## [RGB Color Segmentation Using Dominant Channels and Histogram Peaks](rgb-based-segmentation-project.md)
 
 A student image-processing project documenting RGB color segmentation with channel-dominance masks, Gaussian-smoothed histograms, adaptive peak intervals, and morphological post-processing. The report also compares the RGB approach conceptually with HSV segmentation. The uploaded archive contains LaTeX documentation; any locally supplied figures will be displayed as submitted, not represented as independently reproduced results.
+
+![RGB Color Segmentation Using Dominant Channels and Histogram Peaks](../media/rgb-based-segmentation-project/cover.png)
