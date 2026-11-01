@@ -53,13 +53,29 @@
 {%- elsif include.view == 'student_work' -%}
   {%- assign student_works = site.data.teaching_student_works | where: 'course_id', include.course_id -%}
   {%- assign visible_count = 0 -%}
+  {%- assign previous_section = 'not-started' -%}
   <div class="student-work-list">
   {%- for work in student_works %}
     {%- if work.published == true -%}
       {%- assign visible_count = visible_count | plus: 1 %}
+      {%- assign current_section = work.section_number | default: 'no-section' -%}
+      {%- if current_section != previous_section -%}
+        {%- if work.section_number %}
+    <h2 class="mt-4">Section {{ work.section_number }}</h2>
+        {%- endif -%}
+        {%- assign previous_section = current_section -%}
+      {%- endif %}
     <article id="{{ work.id | slugify }}" class="mb-4">
-      <h2>{{ work.title | escape }}</h2>
+      {%- if work.cover_url %}
+      <p><a href="{{ work.detail_url | relative_url }}"><img src="{{ work.cover_url | relative_url }}" alt="Illustration for {{ work.title | escape }}" loading="lazy" style="max-width: 320px; width: 100%; height: auto;"></a></p>
+      {%- endif %}
+      {%- if work.section_number %}
+      <h3>{% if work.detail_url %}<a href="{{ work.detail_url | relative_url }}">{% endif %}{{ work.title | escape }}{% if work.detail_url %}</a>{% endif %}</h3>
+      {%- else %}
+      <h2>{% if work.detail_url %}<a href="{{ work.detail_url | relative_url }}">{% endif %}{{ work.title | escape }}{% if work.detail_url %}</a>{% endif %}</h2>
+      {%- endif %}
       <p>{{ work.summary | escape }}</p>
+      {%- if work.detail_url %}<p><a href="{{ work.detail_url | relative_url }}">Read the full project description</a></p>{% endif %}
       {%- if work.students %}<p><strong>دانشجو:</strong> {{ work.students | escape }}</p>{% endif -%}
       {%- if work.term %}<p><strong>نیم‌سال:</strong> {{ work.term | escape }}</p>{% endif -%}
       {%- if work.downloads and work.downloads.size > 0 %}

@@ -1,3 +1,42 @@
+  - id: svd-low-rank-separable-convolution
+    course_id: image-processing
+    title: Low-Rank Approximation of 2-D Convolution Filters Using SVD
+    summary: This student project studies how singular value decomposition (SVD) can approximate a non-separable 2-D convolution kernel with lower-rank
+      separable filters. The package includes a Persian report, Python implementation, numerical results, and example figures comparing full filtering
+      with rank-1, rank-2, and rank-4 approximations. It is directly relevant to image processing topics such as spatial filtering, separability,
+      computational efficiency, and approximation error.
+    students: ''
+    term: ''
+    published: true
+    downloads:
+      - kind: zip
+        title: Project source package (ZIP)
+        description: Converted ZIP package containing the original project files, report source, Python code, numerical outputs, and figures.
+        url: /assets/downloads/courses/image-processing/student-works/svd-low-rank-separable-convolution/svd-low-rank-separable-convolution-01.zip
+        size: 937790
+        size_label: 915.8 KB
+        sha256: f0810a2102db2810a285d057a41880019b6054667c6b3f076ee448c98c220c0d
+      - kind: pdf
+        title: Persian project report (PDF)
+        description: Main Persian report explaining SVD, low-rank approximation, separable convolution, implementation details, and discussion.
+        url: /assets/downloads/courses/image-processing/student-works/svd-low-rank-separable-convolution/svd-low-rank-separable-convolution-02.pdf
+        size: 547723
+        size_label: 534.9 KB
+        sha256: eae0c56f8327f04b703e5aef1c672b7efe13630e0ab6d88f5ec40aaf2b9abedb
+      - kind: pdf
+        title: Filtered output comparison figure (PDF)
+        description: Example figure comparing the original filtered image with rank-1, rank-2, and rank-4 approximations.
+        url: /assets/downloads/courses/image-processing/student-works/svd-low-rank-separable-convolution/svd-low-rank-separable-convolution-03.pdf
+        size: 335964
+        size_label: 328.1 KB
+        sha256: 90e2e6555ee306228f41cf60ec17372b34b6cf49f3baedf6e70857ab364c6923
+    detail_url: /teaching/image-processing/student-work/section-3/svd-low-rank-separable-convolution/
+    cover_url: /assets/downloads/courses/image-processing/student-works/svd-low-rank-separable-convolution/cover.png
+    section_number: 3
+    zip_url: /assets/downloads/courses/image-processing/student-works/svd-low-rank-separable-convolution/svd-low-rank-separable-convolution-01.zip
+    zip_size_label: 915.8 KB
+    pdf_url: /assets/downloads/courses/image-processing/student-works/svd-low-rank-separable-convolution/svd-low-rank-separable-convolution-02.pdf
+    pdf_size_label: 534.9 KB
   - id: bezdek-fuzzy-clustering-project
     course_id: pattern-recognition
     title: پروژه خوشه‌بندی فازی بزدک
