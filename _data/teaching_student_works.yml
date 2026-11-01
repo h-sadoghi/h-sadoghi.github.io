@@ -1,3 +1,41 @@
+  - id: rgb-based-segmentation-project
+    course_id: image-processing
+    title: RGB Color Segmentation Using Dominant Channels and Histogram Peaks
+    summary: A student image-processing project documenting RGB color segmentation with channel-dominance masks, Gaussian-smoothed histograms,
+      adaptive peak intervals, and morphological post-processing. The report also compares the RGB approach conceptually with HSV segmentation.
+      The uploaded archive contains LaTeX documentation; any locally supplied figures will be displayed as submitted, not represented as independently
+      reproduced results.
+    students: ''
+    term: ''
+    published: true
+    downloads:
+      - kind: zip
+        title: Source files — Part 1 of 2 (ZIP)
+        description: Download all parts and run RESTORE_LARGE_FILES.py if any original file was split.
+        url: /assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/rgb-based-segmentation-project-01.zip
+        size: 46119839
+        size_label: 44.0 MB
+        sha256: 4e4ddacac7ced6e8fd0c729eeb032ea68bdfabd71ae542309b786fe33d2d6548
+      - kind: zip
+        title: Source files — Part 2 of 2 (ZIP)
+        description: Download all parts and run RESTORE_LARGE_FILES.py if any original file was split.
+        url: /assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/rgb-based-segmentation-project-02.zip
+        size: 37088940
+        size_label: 35.4 MB
+        sha256: 4f1c1fe918f79c604a6ff66a7aa95af29c1a7964d79480b6db252b7c593ed03a
+      - kind: pdf
+        title: main
+        description: PDF supplied with the project
+        url: /assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/rgb-based-segmentation-project-03.pdf
+        size: 4201713
+        size_label: 4.0 MB
+        sha256: e47f1a18ef3a94e796a32b3e8d608e2842d682ad18c0a800af8a83693c0476a5
+    detail_url: /teaching/image-processing/student-work/section-3/rgb-based-segmentation-project/
+    section_number: 3
+    zip_url: /assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/rgb-based-segmentation-project-01.zip
+    zip_size_label: 44.0 MB
+    pdf_url: /assets/downloads/courses/image-processing/student-works/rgb-based-segmentation-project/rgb-based-segmentation-project-03.pdf
+    pdf_size_label: 4.0 MB
   - id: svd-low-rank-separable-convolution
     course_id: image-processing
     title: Low-Rank Approximation of 2-D Convolution Filters Using SVD
