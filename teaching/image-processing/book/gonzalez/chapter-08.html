@@ -1,0 +1,1215 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل هشتم — از «اطلاعات تصویر» تا فشرده‌سازی واقعی در وب &#8212; Image Processing Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gonzalez/chapter-08';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="فصل نهم — مورفولوژی ریاضی دودویی: از چهار عمل ساده تا کاربرد واقعی" href="chapter-09.html" />
+    <link rel="prev" title="فصل ۵: ترمیم و بازسازی تصویر" href="chapter-05.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Image Processing Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Image Processing Course Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gonzalez Notes and Learning Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">فصل دوم: مبانی تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل هشتم: اطلاعات تصویر، آنتروپی و فشرده‌سازی کاربردی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-09.html">فصل نهم: مورفولوژی ریاضی دودویی — چهار عمل بنیادی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-11.html">فصل ۱۱: بافت تصویر و توصیفگر SIFT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../student-work/index.html">Student Work</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/index.html">Digital Image Processing — Gonzalez &amp; Woods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/other-sections/index.html">Sections not assigned to a chapter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../student-work/catalog/gonzalez/other-sections/section-03.html">Section 3</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/gonzalez/chapter-08.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل هشتم — از «اطلاعات تصویر» تا فشرده‌سازی واقعی در وب</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۸.۱ — چرا به فشرده‌سازی احتیاج داریم؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-image-information">۸.۲ — Measuring Image Information: یک پیکسل چقدر غافلگیرمان می‌کند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۸.۲.۱ — اطلاعات، به زبان ساده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۸.۲.۲ — از اطلاعات یک رخداد به آنتروپی کل تصویر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۸.۲.۳ — مثال عددی: تنها با چهار شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۸.۲.۴ — چه زمانی آنتروپی کمینه یا بیشینه است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۸.۲.۵ — نکته مهم: آنتروپی پیکسلی همه داستان نیست</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۸.۳ — از آنتروپی به نخستین فشرده‌سازی واقعی: هافمن</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۸.۳.۱ — ایده یک خطی هافمن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۸.۳.۲ — مراحل الگوریتم با زبان ساده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۸.۳.۳ — ساخت درخت برای تصویر چهارشدتی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۸.۳.۴ — چرا کدهای هافمن را می‌توان بدون جداکننده خواند؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۸.۳.۵ — حجم واقعی فایل و نسبت فشرده‌سازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۸.۳.۶ — کد اجرایی خیلی کوتاه: شمارش آنتروپی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webp">۸.۴ — از هافمن تا یک قالب واقعی و پرکاربرد: WebP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۸.۴.۱ — WebP بدون اتلاف: ادامه طبیعی بحث هافمن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۸.۴.۲ — WebP با اتلاف: چرا اجازه می‌دهیم بعضی عددها تغییر کنند؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quality">۸.۴.۳ — <code class="docutils literal notranslate"><span class="pre">quality</span></code> یعنی چه؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۸.۴.۴ — نمونه تصویری واقعیِ همین بسته</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۸.۴.۵ — اندازه فقط یک معیار است؛ خطا را هم بسنجیم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-webp">۸.۴.۶ — چند خط Python برای آزمایش WebP</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۸.۵ — در سایت آموزشی کدام گزینه بهتر است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۸.۶ — یک آزمایش بسیار مهم: دو تصویر با آنتروپی یکسان</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۸.۷ — چهار خطای مفهومی که باید از آن‌ها پرهیز کنیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۸.۸ — آزمایشگاه، تمرین و پرسش‌های مرور</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">آزمایشگاه ۱: محاسبه اطلاعات تصویر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">آزمایشگاه ۲: هافمن، از نماد تا بیت و بازگشت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">آزمایشگاه ۳: کاربرد امروزی در وب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">تمرین‌های مفهومی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">پاسخ راهنمای سه تمرین نخست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">فایل‌های همراه فصل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۸.۹ — جمع‌بندی به زبان ساده</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۸.۱۰ — منابع علمی و فنی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">یادداشت اصالت، دامنه و قابلیت بازتولید</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل هشتم — از «اطلاعات تصویر» تا فشرده‌سازی واقعی در وب<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p><strong>دامنه این جزوه:</strong> تمرکز ما بر بخش «اندازه‌گیری اطلاعات تصویر» از فصل هشتم کتاب <em>Digital Image Processing</em> نوشتهٔ گنزالز و وودز، یک نمونه کامل از <strong>کدگذاری هافمن</strong> و سپس یک قالب کاربردی معاصر به نام <strong>WebP</strong> است. در این نسخه قرار نیست دانشجو فهرست بلند روش‌های فشرده‌سازی، کدهای گوناگون و واترمارکینگ را حفظ کند. هدف، فهم سازوکار اصلی است. [منبع کتابی S1]</p>
+<p>یک تصویر روی تلفن همراه یا سایت آموزشی، در نهایت به یک رشته از صفر و یک تبدیل می‌شود. اما چرا دو تصویر با اندازهٔ یکسان ممکن است حجم فایل‌های بسیار متفاوتی داشته باشند؟ و آیا «کوچک‌تر شدن فایل» یعنی بخشی از تصویر حتماً حذف شده است؟</p>
+<p>در این فصل به این دو سؤال پاسخ می‌دهیم و در پایان، خودمان با چند خط کد یک تصویر را فشرده و بازیابی می‌کنیم.</p>
+<figure class="align-default" id="fig-ch08-concept">
+<a class="reference internal image-reference" href="../_images/fig08_00_concept_map.png"><img alt="../_images/fig08_00_concept_map.png" src="../_images/fig08_00_concept_map.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 258 </span><span class="caption-text">مسیر یادگیری: از فراوانی شدت‌های تصویر، مقدار اطلاعات متوسط را به دست می‌آوریم؛ سپس آن را برای طراحی کدهای کوتاه و درک فشرده‌سازی فایل‌های واقعی به کار می‌بریم. این شکل برای جزوه از نو تولید شده است.</span><a class="headerlink" href="#fig-ch08-concept" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id2">
+<h2>اهداف یادگیری<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>پس از پایان فصل باید بتوانید به زبان خودتان توضیح دهید:</p>
+<ul class="simple">
+<li><p>چرا تکرار یک مقدار، پیش‌بینی آن را آسان‌تر می‌کند و این موضوع چه ارتباطی با فشرده‌سازی دارد؛</p></li>
+<li><p>«آنتروپی» دقیقاً میانگین چه چیزی است و واحد آن چیست؛</p></li>
+<li><p>تفاوت <strong>آنتروپی پیکسلی</strong>، <strong>طول متوسط کد</strong>، <strong>حجم واقعی فایل</strong> و <strong>کیفیت بازسازی</strong> چیست؛</p></li>
+<li><p>چگونه یک درخت هافمن از فراوانی نمادها ساخته می‌شود و چرا بازسازی آن بدون خطا است؛</p></li>
+<li><p>چرا عکس‌هایی با هیستوگرام یکسان ممکن است حجم فایل متفاوتی داشته باشند؛</p></li>
+<li><p>تفاوت فشرده‌سازی بدون اتلاف و با اتلاف در چیست؛</p></li>
+<li><p>چرا WebP برای تصاویر امروزی وب انتخاب مهمی است و پارامتر <code class="docutils literal notranslate"><span class="pre">quality</span></code> چه می‌کند؛</p></li>
+<li><p>چگونه با Python اندازه فایل، خطای بازیابی و نسبت فشرده‌سازی را بررسی کنید.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>۸.۱ — چرا به فشرده‌سازی احتیاج داریم؟<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>تصویر خاکستری با ابعاد <span class="math notranslate nohighlight">\(1000\times1000\)</span> را در نظر بگیرید. اگر هر پیکسل را با <strong>۸ بیت</strong> نگه داریم، برای ذخیرهٔ <em>فقط شدت پیکسل‌ها</em> به این مقدار نیاز است:</p>
+<div class="math notranslate nohighlight">
+\[
+N_{\mathrm{raw}} = 1000\times1000\times8
+=8{,}000{,}000\;\mathrm{bits}
+=1{,}000{,}000\;\mathrm{bytes}.
+\]</div>
+<p><strong>تفسیر:</strong> اندازه دادهٔ خام تقریباً یک مگابایت ده‌دهی است؛ اما فایل PNG یا WebP همان تصویر الزاماً همین حجم را ندارد. قالب فایل می‌تواند اطلاعات تکراری را حذف کند و در عین حال برای بازکردن فایل، سرآیند و سایر اطلاعات کمکی ذخیره کند.</p>
+<p>یک تصویر کاملاً سفید یک‌میلیون پیکسل دارد، ولی همهٔ پیکسل‌ها شبیه هم هستند. لازم نیست مقدار «۲۵۵» را یک‌میلیون بار به شیوهٔ خام بنویسیم. می‌توانیم یک بار مقدار و سپس نحوه تکرار آن را توصیف کنیم. در مقابل، تصویری که پیکسل‌هایش دائماً و بدون نظم آشکار تغییر می‌کنند، معمولاً سخت‌تر فشرده می‌شود.</p>
+<p><strong>سه نوع سؤال متفاوت:</strong></p>
+<ol class="arabic simple">
+<li><p>چه مقدار <em>اطلاعات آماری</em> در شدت‌های تصویر هست؟ این سؤال ما را به آنتروپی می‌رساند.</p></li>
+<li><p>آن اطلاعات را با چند بیت کدگذاری می‌کنیم؟ این سؤال دربارهٔ هافمن و روش‌های مشابه است.</p></li>
+<li><p>فایل نهایی چند بایت است و آیا تصویر بازسازی‌شده دقیقاً همان ورودی است؟ این سؤال دربارهٔ قالب فایل، سرآیند و اتلاف اطلاعات است.</p></li>
+</ol>
+<p>تا پایان این فصل این سه سؤال را از هم جدا نگه دارید.</p>
+</section>
+<section id="measuring-image-information">
+<h2>۸.۲ — Measuring Image Information: یک پیکسل چقدر غافلگیرمان می‌کند؟<a class="headerlink" href="#measuring-image-information" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>۸.۲.۱ — اطلاعات، به زبان ساده<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>فرض کنید در یک تصویر تقریباً تمام پیکسل‌ها سیاه‌اند. اگر بگوییم «پیکسل بعدی هم سیاه است»، خبر مهمی نداده‌ایم، چون احتمال آن زیاد است. اما اگر در همان تصویر یک پیکسل سفیدِ بسیار نادر دیده شود، این رویداد غیرمنتظره‌تر است.</p>
+<p>در نظریه اطلاعات، <strong>رویداد کم‌احتمال اطلاعات بیشتری منتقل می‌کند</strong>. برای رویدادی با احتمال <span class="math notranslate nohighlight">\(p\)</span>، یک تعریف استاندارد از مقدار اطلاعات آن چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+I(a)=-\log_2 p(a)=\log_2\frac{1}{p(a)}.
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(a\)</span> می‌تواند یک مقدار شدت پیکسل، مثلاً ۸۵، باشد.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(a)\)</span> احتمال مشاهده آن مقدار در تصویر است.</p></li>
+<li><p>واحد <span class="math notranslate nohighlight">\(I\)</span> برابر <strong>بیت</strong> است.</p></li>
+</ul>
+<p>مثلاً اگر احتمال یک مقدار <span class="math notranslate nohighlight">\(1/2\)</span> باشد، مشاهده آن <span class="math notranslate nohighlight">\(1\)</span> بیت اطلاعات دارد؛ اگر احتمال آن <span class="math notranslate nohighlight">\(1/8\)</span> باشد، <span class="math notranslate nohighlight">\(3\)</span> بیت اطلاعات دارد. این رابطه به این معنا <strong>نیست</strong> که فایل حتماً به ترتیب یک یا سه بیت برای هر بار وقوع آن مصرف می‌کند؛ این فقط مقدار اطلاعات نظری رویداد است.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>احتمال رویداد</p></th>
+<th class="head text-right"><p>اطلاعات یک رخداد</p></th>
+<th class="head"><p>برداشت ساده</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(0\)</span> بیت</p></td>
+<td><p>کاملاً قابل پیش‌بینی</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(1/2\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(1\)</span> بیت</p></td>
+<td><p>دو حالت هم‌احتمال</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(1/4\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(2\)</span> بیت</p></td>
+<td><p>نسبتاً کم‌احتمال</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(1/8\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(3\)</span> بیت</p></td>
+<td><p>رویدادی نادرتر</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id5">
+<h3>۸.۲.۲ — از اطلاعات یک رخداد به آنتروپی کل تصویر<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>تصویر از میلیون‌ها پیکسل تشکیل می‌شود؛ به‌جای اینکه اطلاعات تک‌تک رویدادها را جداگانه بررسی کنیم، <strong>متوسط مقدار اطلاعات پیکسل‌ها</strong> را محاسبه می‌کنیم. این متوسط آنتروپی است:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{H=-\sum_{k=0}^{L-1}p(r_k)\log_2p(r_k)}
+\]</div>
+<p>در این رابطه:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(L\)</span> تعداد سطوح شدت در الفبای تصویر است؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(r_k\)</span> شدت شمارهٔ <span class="math notranslate nohighlight">\(k\)</span> است؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(r_k)\)</span> احتمال این شدت است؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(H\)</span> آنتروپیِ توزیع شدت‌ها، با واحد <strong>بیت بر پیکسل</strong> است.</p></li>
+</ul>
+<p>اگر <span class="math notranslate nohighlight">\(p(r_k)=0\)</span> باشد، سهم آن شدت را صفر در نظر می‌گیریم؛ چون <span class="math notranslate nohighlight">\(\lim_{p\to0^+}p\log_2p=0\)</span>.</p>
+<p><strong>چگونه احتمال را به دست بیاوریم؟</strong> اگر تصویر <span class="math notranslate nohighlight">\(M\times N\)</span> پیکسل دارد و مقدار <span class="math notranslate nohighlight">\(r_k\)</span> دقیقاً <span class="math notranslate nohighlight">\(n_k\)</span> بار دیده شود:</p>
+<div class="math notranslate nohighlight">
+\[
+p(r_k)=\frac{n_k}{MN}.
+\]</div>
+<p>این همان هیستوگرام نرمال‌شده‌ای است که در فصل سوم آموختیم. به این ترتیب موضوع تازه‌ای از هیچ شروع نشده است؛ <strong>هیستوگرام فصل سوم، ورودی محاسبه آنتروپی فصل هشتم است.</strong></p>
+<figure class="align-default" id="fig-ch08-entropy-distributions">
+<a class="reference internal image-reference" href="../_images/fig08_01_probability_entropy.png"><img alt="../_images/fig08_01_probability_entropy.png" src="../_images/fig08_01_probability_entropy.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 259 </span><span class="caption-text">سه حالت با چهار نماد ممکن: در تصویر چپ، احتمال نمادها برابر نیست و آنتروپی کمتر از دو بیت است؛ در حالت میانی، چهار نماد هم‌احتمال‌اند و آنتروپی دو بیت است؛ در حالت راست، تنها یک نماد دیده می‌شود و آنتروپی صفر است.</span><a class="headerlink" href="#fig-ch08-entropy-distributions" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id6">
+<h3>۸.۲.۳ — مثال عددی: تنها با چهار شدت<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>تصویر آموزشی <span class="math notranslate nohighlight">\(8\times8\)</span> ما فقط چهار مقدار شدت دارد: <span class="math notranslate nohighlight">\(0\)</span>، <span class="math notranslate nohighlight">\(85\)</span>، <span class="math notranslate nohighlight">\(170\)</span> و <span class="math notranslate nohighlight">\(255\)</span>. تعداد وقوع آن‌ها به‌ترتیب <span class="math notranslate nohighlight">\(32\)</span>، <span class="math notranslate nohighlight">\(16\)</span>، <span class="math notranslate nohighlight">\(8\)</span> و <span class="math notranslate nohighlight">\(8\)</span> است. در مجموع <span class="math notranslate nohighlight">\(64\)</span> پیکسل داریم.</p>
+<figure class="align-default" id="fig-ch08-four-tones">
+<a class="reference internal image-reference" href="../_images/toy_four_symbols.png"><img alt="../_images/toy_four_symbols.png" src="../_images/toy_four_symbols.png" style="width: 48%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 260 </span><span class="caption-text">تصویر چهارسطحی واقعیِ این مثال: مقدارهای ۰، ۸۵، ۱۷۰ و ۲۵۵ به‌ترتیب فراوانی ۳۲، ۱۶، ۸ و ۸ پیکسل دارند. این تصویر فقط برای آموزش ساخته شده است.</span><a class="headerlink" href="#fig-ch08-four-tones" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>مقدار شدت</p></th>
+<th class="head text-right"><p>تعداد</p></th>
+<th class="head text-right"><p>احتمال</p></th>
+<th class="head text-right"><p>اطلاعات یک‌بار مشاهده</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(32\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(1/2\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(1\)</span> بیت</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(85\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(16\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(1/4\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(2\)</span> بیت</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(170\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(8\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(1/8\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(3\)</span> بیت</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(255\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(8\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(1/8\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(3\)</span> بیت</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>پس:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+H&amp;=-\left(\frac12\log_2\frac12+\frac14\log_2\frac14
++\frac18\log_2\frac18+\frac18\log_2\frac18\right)\\
+&amp;=\frac12(1)+\frac14(2)+\frac18(3)+\frac18(3)\\
+&amp;=\boxed{1.75\ \text{bits/pixel}}.
+\end{aligned}
+\end{split}\]</div>
+<p><strong>این عدد چه می‌گوید؟</strong> اگر پیکسل‌ها را صرفاً بر اساس فراوانی چهار مقدار و در قالب یک منبع بدون حافظه در نظر بگیریم، با کدگذاری بدون اتلافِ مناسب می‌توان به متوسط طول کدی نزدیک به <span class="math notranslate nohighlight">\(1.75\)</span> بیت برای هر پیکسل رسید. این عدد به‌خودی‌خود اندازه فایل نهایی نیست.</p>
+<p>در همین مثال چهار نماد داریم، پس یک کد با طول ثابت <strong>دو بیت برای هر نماد</strong> کفایت می‌کند. تفاوت <span class="math notranslate nohighlight">\(2\)</span> و <span class="math notranslate nohighlight">\(1.75\)</span> به ما می‌گوید با استفاده از فراوانی نامساوی نمادها، جای صرفه‌جویی وجود دارد.</p>
+<figure class="align-default" id="fig-ch08-four-hist">
+<a class="reference internal image-reference" href="../_images/fig08_03_toy_histogram.png"><img alt="../_images/fig08_03_toy_histogram.png" src="../_images/fig08_03_toy_histogram.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 261 </span><span class="caption-text">هیستوگرام چهارنمادی نمونه (نوارهای یک سمت) در مقایسه با حالت هم‌احتمال. هر دو چهار نماد دارند، ولی توزیع احتمال و در نتیجه آنتروپی‌شان یکسان نیست.</span><a class="headerlink" href="#fig-ch08-four-hist" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id7">
+<h3>۸.۲.۴ — چه زمانی آنتروپی کمینه یا بیشینه است؟<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>برای یک الفبای <span class="math notranslate nohighlight">\(L\)</span> نمادی، وقتی همه نمادها هم‌احتمال باشند:</p>
+<div class="math notranslate nohighlight">
+\[
+H_{\max}=\log_2 L.
+\]</div>
+<p>برای مثال، اگر ۲۵۶ سطح شدت با احتمال مساوی رخ دهند، <span class="math notranslate nohighlight">\(H=8\)</span> بیت/پیکسل است؛ اگر کل تصویر فقط یک مقدار ثابت داشته باشد، <span class="math notranslate nohighlight">\(H=0\)</span> می‌شود. در مورد تصویر <strong>دودویی</strong> با احتمال روشن بودن <span class="math notranslate nohighlight">\(p\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+H(p)=-p\log_2p-(1-p)\log_2(1-p).
+\]</div>
+<figure class="align-default" id="fig-ch08-binary-entropy">
+<a class="reference internal image-reference" href="../_images/fig08_02_binary_entropy_curve.png"><img alt="../_images/fig08_02_binary_entropy_curve.png" src="../_images/fig08_02_binary_entropy_curve.png" style="width: 82%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 262 </span><span class="caption-text">آنتروپیِ یک پیکسل دودویی. در <span class="math notranslate nohighlight">\(p=0.5\)</span> بیشترین عدم قطعیت داریم؛ در <span class="math notranslate nohighlight">\(p\)</span> نزدیک صفر یا یک، مقدار بعدی آسان‌تر پیش‌بینی می‌شود.</span><a class="headerlink" href="#fig-ch08-binary-entropy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch08-alphabet-size">
+<a class="reference internal image-reference" href="../_images/fig08_08_alphabet_size_entropy.png"><img alt="../_images/fig08_08_alphabet_size_entropy.png" src="../_images/fig08_08_alphabet_size_entropy.png" style="width: 82%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 263 </span><span class="caption-text">اگر نمادها هم‌احتمال باشند، با زیاد شدن تعداد نمادهای ممکن از ۲ به ۴، ۸ و ۲۵۶، آنتروپی به‌ترتیب ۱، ۲، ۳ و ۸ بیت در هر نماد می‌شود. این نتیجه فقط برای حالت هم‌احتمال است.</span><a class="headerlink" href="#fig-ch08-alphabet-size" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id8">
+<h3>۸.۲.۵ — نکته مهم: آنتروپی پیکسلی همه داستان نیست<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>دو تصویر ممکن است هیستوگرام کاملاً یکسان داشته باشند؛ پس <strong>آنتروپی تک‌پیکسلی</strong> آن‌ها نیز یکسان است. ولی یکی می‌تواند از دو ناحیه بزرگ سیاه و سفید تشکیل شده باشد، و دیگری پیکسل‌های سیاه و سفید پراکنده و تقریباً تصادفی داشته باشد.</p>
+<p>در تصویر اول، اگر پیکسل سمت چپ سفید است، پیکسل بعدی نیز احتمالاً سفید است؛ بنابراین از <strong>همسایگی پیکسل‌ها</strong> می‌توان اطلاعات بیشتری گرفت. در تصویر تصادفی چنین پیش‌بینی‌ای دشوارتر است.</p>
+<figure class="align-default" id="fig-ch08-same-entropy">
+<a class="reference internal image-reference" href="../_images/fig08_06_same_entropy_different_structure.png"><img alt="../_images/fig08_06_same_entropy_different_structure.png" src="../_images/fig08_06_same_entropy_different_structure.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 264 </span><span class="caption-text">دو تصویر با تعداد پیکسل سیاه و سفید یکسان و آنتروپی پیکسلی برابر یک بیت/پیکسل؛ اما ساختار مکانی بسیار متفاوت. این تفاوت را یک فشرده‌ساز مجهز به پیش‌بینی یا تشخیص تکرارهای مکانی می‌تواند به کار گیرد.</span><a class="headerlink" href="#fig-ch08-same-entropy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>پس <strong>آنتروپی هیستوگرام، یک معیار درباره توزیع شدت‌هاست، نه بیان کامل همه قابلیت فشرده‌سازی تصویر</strong>. روش‌های پیشرفته‌تر از وابستگی مکانی و زمینه هم استفاده می‌کنند. در زبان نظری، می‌توان آنتروپی شرطی یا مدل‌های پیش‌بینی را مطالعه کرد؛ فعلاً درک همین تفاوت کافی است.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id9">
+<h2>۸.۳ — از آنتروپی به نخستین فشرده‌سازی واقعی: هافمن<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<section id="id10">
+<h3>۸.۳.۱ — ایده یک خطی هافمن<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>در یک کد با طول ثابت، به همه نمادها به یک اندازه بیت اختصاص می‌دهیم. ولی وقتی بعضی نمادها پرتکرارتر هستند، می‌توان <strong>نماد پرتکرار را کوتاه‌تر</strong> و <strong>نماد کم‌تکرار را بلندتر</strong> نوشت؛ به شرطی که بازکردن کد همچنان بدون ابهام باشد.</p>
+<p>هافمن همین کار را انجام می‌دهد. این روش یک کد <strong>بدون اتلاف</strong> است: اگر کد و اطلاعات لازم برای بازکردن آن موجود باشند، تمام نمادها دقیقاً به همان ترتیب اولیه بازیابی می‌شوند. [S1، S2]</p>
+</section>
+<section id="id11">
+<h3>۸.۳.۲ — مراحل الگوریتم با زبان ساده<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>تعداد وقوع هر مقدار شدت را می‌شماریم.</p></li>
+<li><p>دو نماد (یا گره) کم‌تکرارتر را انتخاب می‌کنیم و آن‌ها را به یک گره جدید متصل می‌کنیم.</p></li>
+<li><p>احتمال یا فراوانی گره جدید برابر مجموع آن دو است.</p></li>
+<li><p>این کار را ادامه می‌دهیم تا یک درخت تشکیل شود.</p></li>
+<li><p>به شاخه‌های چپ و راست برچسب‌های ۰ و ۱ می‌دهیم.</p></li>
+<li><p>کد هر نماد، رشته صفر و یک از ریشه درخت تا برگ آن است.</p></li>
+</ol>
+<figure class="align-default" id="fig-ch08-huffman-flow">
+<a class="reference internal image-reference" href="../_images/fig08_05_huffman_flowchart.png"><img alt="../_images/fig08_05_huffman_flowchart.png" src="../_images/fig08_05_huffman_flowchart.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 265 </span><span class="caption-text">فلوچارت مراحل اصلی هافمن. بخش «سرآیند» برای آن اضافه شده که تفاوت بین طول نظری کد و حجم فایل واقعی فراموش نشود.</span><a class="headerlink" href="#fig-ch08-huffman-flow" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id12">
+<h3>۸.۳.۳ — ساخت درخت برای تصویر چهارشدتی<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>چهار احتمال ما عبارت‌اند از <span class="math notranslate nohighlight">\(0.5,0.25,0.125,0.125\)</span>. ابتدا دو احتمال کوچک <span class="math notranslate nohighlight">\(0.125\)</span> را به هم متصل می‌کنیم و به <span class="math notranslate nohighlight">\(0.25\)</span> می‌رسیم. سپس آن گره را با گره <span class="math notranslate nohighlight">\(0.25\)</span> دیگر ترکیب می‌کنیم تا احتمال <span class="math notranslate nohighlight">\(0.5\)</span> حاصل شود. در آخر آن را به گره اولیه <span class="math notranslate nohighlight">\(0.5\)</span> متصل می‌کنیم.</p>
+<figure class="align-default" id="fig-ch08-huffman-tree">
+<a class="reference internal image-reference" href="../_images/fig08_04_huffman_tree.png"><img alt="../_images/fig08_04_huffman_tree.png" src="../_images/fig08_04_huffman_tree.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 266 </span><span class="caption-text">درخت آموزشی هافمن. از ریشه به سمت نماد بروید و صفر/یکِ روی شاخه‌ها را کنار هم قرار دهید. این شکل دقیقاً با فراوانی مثال ما ساخته شده است.</span><a class="headerlink" href="#fig-ch08-huffman-tree" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>یکی از پاسخ‌های معتبر برای کدها چنین است (در جابه‌جایی شاخه‌های هم‌احتمال، کدها ممکن است متفاوت شوند ولی میانگین طول ثابت بماند):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>مقدار شدت</p></th>
+<th class="head"><p>نماد</p></th>
+<th class="head"><p>کد</p></th>
+<th class="head text-right"><p>طول</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+<td><p>A</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td class="text-right"><p>۱ بیت</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(85\)</span></p></td>
+<td><p>B</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">10</span></code></p></td>
+<td class="text-right"><p>۲ بیت</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(170\)</span></p></td>
+<td><p>C</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">110</span></code></p></td>
+<td class="text-right"><p>۳ بیت</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(255\)</span></p></td>
+<td><p>D</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">111</span></code></p></td>
+<td class="text-right"><p>۳ بیت</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>میانگین طول کد:</p>
+<div class="math notranslate nohighlight">
+\[
+L_{\rm avg}=\sum_{k}p(r_k)\ell_k
+=\frac12(1)+\frac14(2)+\frac18(3)+\frac18(3)
+=1.75\ \text{bits/pixel}.
+\]</div>
+<p><strong>نتیجه عددی برای ۶۴ پیکسل</strong>:</p>
+<ul class="simple">
+<li><p>کد ثابتِ چهار نمادی: <span class="math notranslate nohighlight">\(64\times2=128\)</span> بیت.</p></li>
+<li><p>کد هافمن: <span class="math notranslate nohighlight">\(32\times1+16\times2+8\times3+8\times3=112\)</span> بیت.</p></li>
+<li><p>صرفه‌جویی <strong>فقط در رشته بیت کدشده</strong>: <span class="math notranslate nohighlight">\(16\)</span> بیت، یعنی <span class="math notranslate nohighlight">\(12.5\%\)</span> نسبت به کد ثابت دو بیتی.</p></li>
+</ul>
+<p>اگر آن ۶۴ مقدار شدت را در آرایه خامِ ۸بیتی ذخیره کنیم، داده خام <span class="math notranslate nohighlight">\(64\times8=512\)</span> بیت است؛ اما برای مقایسه منصفانه با کد ثابت دو بیتی باید هزینه معرفی چهار سطح شدت و شیوه ذخیره را هم در نظر بگیریم. <strong>کاهش از ۵۱۲ به ۱۱۲ بیت به معنی نسبت فشرده‌سازی یک فایل کامل و استاندارد نیست.</strong></p>
+</section>
+<section id="id13">
+<h3>۸.۳.۴ — چرا کدهای هافمن را می‌توان بدون جداکننده خواند؟<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>فرض کنید دنباله شدت‌ها <code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">85,</span> <span class="pre">0,</span> <span class="pre">255</span></code> باشد. با جدول بالا به ترتیب کدها را کنار هم می‌گذاریم:</p>
+<p><code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">|</span> <span class="pre">10</span> <span class="pre">|</span> <span class="pre">0</span> <span class="pre">|</span> <span class="pre">111</span></code>  →  <code class="docutils literal notranslate"><span class="pre">0100111</span></code></p>
+<p>برای بازکردن، از چپ پیش می‌رویم: <code class="docutils literal notranslate"><span class="pre">0</span></code> بلافاصله A است، <code class="docutils literal notranslate"><span class="pre">10</span></code> برابر B، <code class="docutils literal notranslate"><span class="pre">0</span></code> برابر A و <code class="docutils literal notranslate"><span class="pre">111</span></code> برابر D. هیچ کدی، ابتدای یک کد طولانی‌تر نیست؛ به این ویژگی <strong>Prefix-free</strong> می‌گوییم. بنابراین مرز نمادها بدون درج فاصله قابل تشخیص است.</p>
+<p><strong>محدودیت مهم:</strong> گیرنده باید درخت یا جدول کد را بداند. پس اگر فایل ذخیره می‌کنیم، معمولاً اطلاعاتی دربارهٔ کدها یا مدل لازم است؛ هزینه این اطلاعات نیز جزو حجم فایل است.</p>
+</section>
+<section id="id14">
+<h3>۸.۳.۵ — حجم واقعی فایل و نسبت فشرده‌سازی<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+C_R=\frac{S_{\rm original}}{S_{\rm compressed}},
+\qquad
+\text{saving}(\%)=100\left(1-\frac{S_{\rm compressed}}{S_{\rm original}}\right).
+\]</div>
+<p>در این روابط باید <strong>دو اندازه قابل مقایسه</strong> را برحسب یک واحد (مثلاً بایت) قرار دهیم. اگر یک تصویر از ۱۰۰ کیلوبایت به ۲۵ کیلوبایت برسد، نسبت فشرده‌سازی <span class="math notranslate nohighlight">\(4:1\)</span> و صرفه‌جویی حجمی <span class="math notranslate nohighlight">\(75\%\)</span> است.</p>
+<p>تفاوت بایت و بیت: هر بایت هشت بیت است. وقتی کد هافمن تعداد فردی بیت تولید کند، برای ذخیره در فایل باید آخرین بایت با چند بیت اضافی پر شود؛ همچنین طول معتبر بیت‌ها، شکل تصویر و اطلاعات درخت باید نگهداری شوند.</p>
+<figure class="align-default" id="fig-ch08-lossless-flow">
+<a class="reference internal image-reference" href="../_images/fig08_07_lossless_pipeline.png"><img alt="../_images/fig08_07_lossless_pipeline.png" src="../_images/fig08_07_lossless_pipeline.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 267 </span><span class="caption-text">در فشرده‌سازی بدون اتلاف، پس از رمزگشایی پیکسل‌های بازسازی‌شده دقیقاً با پیکسل‌های ورودی برابرند. خود فایل فشرده لزوماً کوچک‌تر از داده اولیه نیست.</span><a class="headerlink" href="#fig-ch08-lossless-flow" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id15">
+<h3>۸.۳.۶ — کد اجرایی خیلی کوتاه: شمارش آنتروپی<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>این مثال فقط از کتابخانه استاندارد Python استفاده می‌کند:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">log2</span>
+
+<span class="n">pixels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">32</span> <span class="o">+</span> <span class="p">[</span><span class="mi">85</span><span class="p">]</span><span class="o">*</span><span class="mi">16</span> <span class="o">+</span> <span class="p">[</span><span class="mi">170</span><span class="p">]</span><span class="o">*</span><span class="mi">8</span> <span class="o">+</span> <span class="p">[</span><span class="mi">255</span><span class="p">]</span><span class="o">*</span><span class="mi">8</span>
+<span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">pixels</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pixels</span><span class="p">)</span>
+<span class="n">H</span> <span class="o">=</span> <span class="o">-</span><span class="nb">sum</span><span class="p">((</span><span class="n">c</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">log2</span><span class="p">(</span><span class="n">c</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Entropy = </span><span class="si">{</span><span class="n">H</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> bits/pixel"</span><span class="p">)</span>  <span class="c1"># 1.75</span>
+</pre></div>
+</div>
+<p>کد کامل ساخت درخت هافمن و <strong>بازیابی بدون اتلاف</strong> را در فایل دانلودی پایین همین جزوه گذاشته‌ایم. در آن فقط تعداد بیت‌های بدنه چاپ نمی‌شود؛ یک فایل آموزشی واقعی با سرآیند و جدول کد نیز ساخته می‌شود.</p>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/chapter08_huffman.py" download>کد مستقل و قابل اجرای هافمن</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/chapter08_examples.ipynb" download>دفتر Jupyter شامل محاسبه دستی و آزمایش هافمن</a></p></li>
+</ul>
+<p><strong>نکته نرم‌افزاری:</strong> فایل <code class="docutils literal notranslate"><span class="pre">HF08</span></code> تولیدشده توسط کد، قالبی ساده برای آموزش است؛ PNG، JPEG یا WebP نیست. این مرز میان «نمایش ایده فشرده‌سازی» و «پیاده‌سازی یک استاندارد صنعتی» باید روشن باشد.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="webp">
+<h2>۸.۴ — از هافمن تا یک قالب واقعی و پرکاربرد: WebP<a class="headerlink" href="#webp" title="Link to this heading">#</a></h2>
+<p>اکنون با یک مسئله واقعی روبه‌رو می‌شویم: استاد می‌خواهد تصاویر درس را در سایت قرار دهد؛ عکس، اسکرین‌شات، شکل و نمودار. اگر حجم تصاویر زیاد باشد، بارگذاری صفحات کند می‌شود و اینترنت بیشتری مصرف می‌شود. یک فرمت فشرده‌سازی کاربردی مانند <strong>WebP</strong> راه‌حل مهمی برای بسیاری از این تصاویر است.</p>
+<p>وب‌پی یک فرمت تصویر است که می‌تواند تصویر را <strong>بدون اتلاف (Lossless)</strong> یا <strong>با اتلاف کنترل‌شده (Lossy)</strong> ذخیره کند و از شفافیت و انیمیشن هم پشتیبانی دارد. این ویژگی‌ها در مشخصات استاندارد IETF، مستندات Google و راهنمای MDN تصریح شده‌اند. [S3، S4، S5]</p>
+<figure class="align-default" id="fig-ch08-two-modes">
+<a class="reference internal image-reference" href="../_images/fig08_09_lossless_vs_lossy.png"><img alt="../_images/fig08_09_lossless_vs_lossy.png" src="../_images/fig08_09_lossless_vs_lossy.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 268 </span><span class="caption-text">تفاوت دو انتخاب در WebP: در حالت بدون اتلاف اعداد پیکسل‌ها دقیقاً برمی‌گردند؛ در حالت با اتلاف مقداری از جزئیات کنار گذاشته می‌شود تا فایل کوچک‌تر شود.</span><a class="headerlink" href="#fig-ch08-two-modes" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id16">
+<h3>۸.۴.۱ — WebP بدون اتلاف: ادامه طبیعی بحث هافمن<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>در حالت Lossless، فشرده‌ساز تلاش می‌کند الگوهای تکراری را پیدا کند و به‌جای ذخیره تکراری تمام داده‌ها، اطلاعات را با توصیف فشرده‌تری نگه دارد. طبق استاندارد <strong>RFC 9649</strong>، الگوریتم بدون اتلاف WebP از ایده‌های تکرارهای پیشین (<code class="docutils literal notranslate"><span class="pre">LZ77</span></code>)، کدگذاری هافمن و کش رنگ استفاده می‌کند. [S3]</p>
+<p>به زبان دانشجویی:</p>
+<ol class="arabic simple">
+<li><p>برخی بخش‌ها را می‌شود با «این قسمت شبیه قسمت قبلی است» توصیف کرد.</p></li>
+<li><p>پس از تبدیل داده به نمادها، برای نمادهای رایج کدهای کوتاه‌تری به کار می‌رود.</p></li>
+<li><p>هنگام بازکردن فایل، تمام پیکسل‌ها دقیقاً بازسازی می‌شوند.</p></li>
+</ol>
+<p>نیازی نیست در این درس پیاده‌سازی کامل LZ77 یا ساختار پیچیده فایل WebP را بنویسیم؛ <strong>هافمن را واقعاً کدنویسی می‌کنیم تا فلسفه کدگذاری مشخص باشد، و سپس WebP را با کتابخانه استانداردِ کاربردی آزمایش می‌کنیم.</strong></p>
+</section>
+<section id="id17">
+<h3>۸.۴.۲ — WebP با اتلاف: چرا اجازه می‌دهیم بعضی عددها تغییر کنند؟<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>وقتی عکس منظره را در اندازه معمول می‌بینید، ممکن است حذف بخشی از تفاوت‌های بسیار کوچکِ رنگی یا جزئیات ریز برای چشم چندان محسوس نباشد. WebP در حالت Lossy از یک روش مبتنی بر پیش‌بینی و فناوری VP8 استفاده می‌کند. تصویر به بلوک‌هایی تقسیم می‌شود، اطلاعات قابل پیش‌بینی به‌صرفه‌تر نمایش داده می‌شود و کنترل شدت کاهش دقت بر حجم و کیفیت اثر می‌گذارد. [S3، S4]</p>
+<figure class="align-default" id="fig-ch08-webp-prediction">
+<a class="reference internal image-reference" href="../_images/fig08_10_webp_prediction_idea.png"><img alt="../_images/fig08_10_webp_prediction_idea.png" src="../_images/fig08_10_webp_prediction_idea.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 269 </span><span class="caption-text">ایده ساده‌شده پیش‌بینی در فشرده‌سازی با اتلاف WebP: اگر بتوان یک بخش را از بخش‌های اطراف حدس زد، ذخیرهٔ اطلاعات باقی‌مانده می‌تواند کم‌هزینه‌تر باشد. این شکل، نمودار کامل استاندارد VP8 نیست.</span><a class="headerlink" href="#fig-ch08-webp-prediction" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در یک تصویر طبیعی، در ناحیه آسمان معمولاً رنگ پیکسل‌های مجاور نزدیک است. کدگذار می‌تواند از همین شباهت بهره ببرد. اما در لبه یک نوشته یا خط نازک، کوچک‌ترین تغییر ممکن است از نظر بصری مهم باشد. از این رو <strong>بهترین تنظیمات برای عکس و نمودار یکسان نیستند</strong>.</p>
+</section>
+<section id="quality">
+<h3>۸.۴.۳ — <code class="docutils literal notranslate"><span class="pre">quality</span></code> یعنی چه؟<a class="headerlink" href="#quality" title="Link to this heading">#</a></h3>
+<p>در کدگذاری WebP با اتلاف، پارامتر <code class="docutils literal notranslate"><span class="pre">quality</span></code> معمولاً عددی میان صفر و صد است. این عدد <strong>درصد کیفیت تصویر بازسازی‌شده نیست</strong> و تضمین نمی‌کند اگر آن را از ۵۰ به ۸۰ ببریم، حجم دقیقاً با نسبت مشخصی زیاد شود. فقط یک تنظیم داخلی برای مبادله میان حجم و کیفیت است.</p>
+<ul class="simple">
+<li><p>مقدار پایین‌تر: معمولاً فایل کوچک‌تر و احتمال اعوجاج بیشتر.</p></li>
+<li><p>مقدار بالاتر: معمولاً جزئیات بیشتر و فایل بزرگ‌تر.</p></li>
+<li><p>گزینه <code class="docutils literal notranslate"><span class="pre">lossless=True</span></code>: پیکسل‌های بازشده دقیقاً برابر ورودی خواهند بود؛ در این حالت آزمایش Lossless را با آزمایش‌های کیفیت Lossy مخلوط نمی‌کنیم.</p></li>
+</ul>
+</section>
+<section id="id18">
+<h3>۸.۴.۴ — نمونه تصویری واقعیِ همین بسته<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>برای اینکه از تصویر ناشناس در وب استفاده نکنیم، یک <strong>صحنه مصنوعی اصیل</strong> شامل آسمان، کوه، خانه و جاده تولید کرده‌ایم. این صحنه را با کیفیت‌های مختلف WebP و همچنین در قالب PNG نگه می‌داریم و حجم فایل را واقعاً اندازه می‌گیریم.</p>
+<figure class="align-default" id="fig-ch08-webp-gallery">
+<a class="reference internal image-reference" href="../_images/fig08_11_webp_quality_gallery.png"><img alt="../_images/fig08_11_webp_quality_gallery.png" src="../_images/fig08_11_webp_quality_gallery.png" style="width: 98%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 270 </span><span class="caption-text">یک ورودی یکسان در PNG، سه کیفیت مختلف WebP و WebP بدون اتلاف. روی صفحه، کاهش حجم ممکن است بسیار بیشتر از کاهش کیفیت ظاهری به نظر برسد؛ اما قضاوت کیفیت به بزرگ‌نمایی و نوع محتوای تصویر وابسته است.</span><a class="headerlink" href="#fig-ch08-webp-gallery" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>مقادیر زیر نتیجه <strong>اجرای واقعی کد تولید همین بسته</strong> هستند، نه نتیجه‌ای نقل‌شده از وب:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>نوع فایل</p></th>
+<th class="head text-right"><p>اندازه اندازه‌گیری‌شده</p></th>
+<th class="head"><p>ویژگی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>PNG بدون اتلاف</p></td>
+<td class="text-right"><p>121,656 بایت</p></td>
+<td><p>بازسازی دقیق پیکسل‌ها</p></td>
+</tr>
+<tr class="row-odd"><td><p>WebP کیفیت ۳۵</p></td>
+<td class="text-right"><p>2,242 بایت</p></td>
+<td><p>با اتلاف؛ جزئیات کمتر</p></td>
+</tr>
+<tr class="row-even"><td><p>WebP کیفیت ۶۵</p></td>
+<td class="text-right"><p>4,870 بایت</p></td>
+<td><p>با اتلاف؛ تعادل نمونه</p></td>
+</tr>
+<tr class="row-odd"><td><p>WebP کیفیت ۹۰</p></td>
+<td class="text-right"><p>22,948 بایت</p></td>
+<td><p>با اتلاف؛ جزئیات بیشتر</p></td>
+</tr>
+<tr class="row-even"><td><p>WebP بدون اتلاف</p></td>
+<td class="text-right"><p>61,846 بایت</p></td>
+<td><p>بازسازی دقیق پیکسل‌ها</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>توجه کنید:</strong> این نسبت‌ها فقط به تصویر مصنوعی بالا و تنظیمات همین آزمایش مربوط‌اند و برای همه عکس‌ها ثابت نیستند. همچنین کیفیت ۸۰ در JPEG و کیفیت ۸۰ در WebP، معیار ادراکی یکسان و تضمین‌شده‌ای نیستند.</p>
+<figure class="align-default" id="fig-ch08-file-sizes">
+<a class="reference internal image-reference" href="../_images/fig08_12_actual_file_sizes.png"><img alt="../_images/fig08_12_actual_file_sizes.png" src="../_images/fig08_12_actual_file_sizes.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 271 </span><span class="caption-text">حجم واقعی فایل‌های ساخته‌شده از یک تصویر: نمودار برای همان ورودی و شرایط یکسان تولید شده است. ستون JPEG صرفاً معیار مقایسه تجربی است و وارد جزئیات الگوریتم JPEG نمی‌شویم.</span><a class="headerlink" href="#fig-ch08-file-sizes" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id19">
+<h3>۸.۴.۵ — اندازه فقط یک معیار است؛ خطا را هم بسنجیم<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>فرض کنید <span class="math notranslate nohighlight">\(f(x,y,c)\)</span> مقدار یک مؤلفهٔ رنگ در ورودی و <span class="math notranslate nohighlight">\(\hat f(x,y,c)\)</span> مقدار متناظر در تصویر بازسازی‌شده باشد. اگر <span class="math notranslate nohighlight">\(K\)</span> تعداد کل مؤلفه‌های رنگی/شدت مورد مقایسه باشد، خطای میانگین مربعات چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{MSE}=\frac1K\sum_{i=1}^{K}(f_i-\hat f_i)^2.
+\]</div>
+<p>اگر دو تصویر پس از بازکردن فایل در تمام پیکسل‌ها برابر باشند، <span class="math notranslate nohighlight">\(\mathrm{MSE}=0\)</span>. اگر با اتلاف باشند، معمولاً خطا غیرصفر است. برای تصویر ۸بیتی، معیار پرکاربرد <code class="docutils literal notranslate"><span class="pre">PSNR</span></code> نیز از همین خطا ساخته می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{PSNR}=10\log_{10}\left(\frac{255^2}{\mathrm{MSE}}\right)\quad\mathrm{dB}.
+\]</div>
+<p>هرچه PSNR بالاتر باشد، بر اساس این معیار عددی، تصویر بازسازی‌شده به تصویر ورودی نزدیک‌تر است. اگر MSE صفر باشد PSNR به‌صورت نظری بی‌نهایت است. <strong>PSNR شاخص کامل کیفیت ادراکی انسان نیست</strong>؛ ممکن است دو تصویر با PSNR نزدیک، از دید چشم متفاوت باشند.</p>
+<figure class="align-default" id="fig-ch08-psnr">
+<a class="reference internal image-reference" href="../_images/fig08_13_quality_psnr.png"><img alt="../_images/fig08_13_quality_psnr.png" src="../_images/fig08_13_quality_psnr.png" style="width: 84%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 272 </span><span class="caption-text">مقدار PSNR در آزمایش همین تصویر مصنوعی با افزایش پارامتر کیفیت WebP. روندِ مشاهده‌شده مختص همین داده و تنظیمات است.</span><a class="headerlink" href="#fig-ch08-psnr" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch08-webp-difference">
+<a class="reference internal image-reference" href="../_images/fig08_14_lossy_difference_map.png"><img alt="../_images/fig08_14_lossy_difference_map.png" src="../_images/fig08_14_lossy_difference_map.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 273 </span><span class="caption-text">در نقشه سمت راست، تفاوت قدرمطلق پیکسل‌های ورودی و خروجی نمایش داده شده است. روشن بودن تصویر اختلاف به این معنا نیست که خروجی الزاماً از نظر انسانی همان‌قدر بد دیده می‌شود؛ فقط نشان می‌دهد تغییر عددی در کجا رخ داده است.</span><a class="headerlink" href="#fig-ch08-webp-difference" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="python-webp">
+<h3>۸.۴.۶ — چند خط Python برای آزمایش WebP<a class="headerlink" href="#python-webp" title="Link to this heading">#</a></h3>
+<p>این برنامه برای اجرا به <strong>Pillow</strong> نیاز دارد. اگر روی رایانه Python 3.12 و Pillow نصب باشد، به کتابخانه‌های سنگین‌تری مانند scikit-image یا SciPy نیاز نداریم:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"input.png"</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"RGB"</span><span class="p">)</span>
+<span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"photo_small.webp"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"WEBP"</span><span class="p">,</span> <span class="n">quality</span><span class="o">=</span><span class="mi">55</span><span class="p">)</span>
+<span class="n">img</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"photo_exact.webp"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">"WEBP"</span><span class="p">,</span> <span class="n">lossless</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">restored</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">"photo_exact.webp"</span><span class="p">)</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"RGB"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">img</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span> <span class="o">==</span> <span class="n">restored</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Lossless reconstruction is exact"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>اگر عکس شخصی در اختیار ندارید، فایل‌های نمونهٔ همین بسته را بگیرید؛ همچنین کد اجرایی مستقل، تصویر آزمایشی را خودش می‌سازد:</p>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/chapter08_webp.py" download>دانلود کد ساده آزمایش WebP</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/synthetic_scene.png" download>تصویر اصیل نمونه برای آزمایش</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/webp_q35.webp" download>نمونه WebP کیفیت ۳۵</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/webp_q90.webp" download>نمونه WebP کیفیت ۹۰</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/webp_lossless.webp" download>نمونه WebP بدون اتلاف</a></p></li>
+</ul>
+<p>کافی است فایل Python را اجرا کنید. بدون ورودی، یک نمونه تصویری تولید می‌کند؛ اگر مسیر یک عکس را پس از نام برنامه بدهید، همان عکس را آزمایش می‌کند. اندازه فایل و PSNR چاپ می‌شوند.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id20">
+<h2>۸.۵ — در سایت آموزشی کدام گزینه بهتر است؟<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>انتخاب قالب فایل را باید به <em>ماهیت تصویر</em> وابسته کنیم:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>نوع محتوا</p></th>
+<th class="head"><p>پیشنهاد برای شروع</p></th>
+<th class="head"><p>چرا؟</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>عکس‌های معمولی کلاس یا طبیعت</p></td>
+<td><p>WebP با اتلاف و آزمایش چند کیفیت</p></td>
+<td><p>کاهش حجم ممکن است بدون افت محسوس برای نیاز مورد نظر حاصل شود</p></td>
+</tr>
+<tr class="row-odd"><td><p>شکل علمی با نوشته‌های ریز</p></td>
+<td><p>PNG یا WebP بدون اتلاف</p></td>
+<td><p>تغییر چند پیکسل می‌تواند خوانایی متن و خطوط را کاهش دهد</p></td>
+</tr>
+<tr class="row-even"><td><p>نمودار با خطوط و محورهای دقیق</p></td>
+<td><p>SVG در صورت امکان، یا PNG/WebP بدون اتلاف</p></td>
+<td><p>حفظ دقت لبه و نوشته اهمیت دارد</p></td>
+</tr>
+<tr class="row-odd"><td><p>ماسک صفر و یک که بعداً تحلیل عددی می‌شود</p></td>
+<td><p>ذخیره بدون اتلاف</p></td>
+<td><p>تغییر یک پیکسل ممکن است نتیجه الگوریتم را عوض کند</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>این توصیه‌ها با راهنمای رسمی MDN درباره انتخاب فرمت تصویر و تفاوت فایل‌های بااتلاف و بدون‌اتلاف سازگارند. [S5]</p>
+<figure class="align-default" id="fig-ch08-format-decision">
+<a class="reference internal image-reference" href="../_images/fig08_15_choose_web_image_format.png"><img alt="../_images/fig08_15_choose_web_image_format.png" src="../_images/fig08_15_choose_web_image_format.png" style="width: 98%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 274 </span><span class="caption-text">راهنمای ساده تصمیم‌گیری درباره تصاویر سایت؛ معیار نهایی همیشه مشاهده نتیجه، اندازه‌گیری حجم و توجه به نوع استفاده است.</span><a class="headerlink" href="#fig-ch08-format-decision" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>سؤال کاربردی:</strong> آیا بهتر است برای سایت تمام تصاویر را بدون بررسی به WebP با کیفیت ۳۰ تبدیل کنیم؟ خیر. برای تصویر دارای نوشته، عدد و خط باریک ممکن است اعوجاج کوچک باعث تغییر مفهوم علمی شود. در مقابل برای یک عکس تزیینی، تنظیم دیگری مناسب‌تر است.</p>
+</section>
+<section id="id21">
+<h2>۸.۶ — یک آزمایش بسیار مهم: دو تصویر با آنتروپی یکسان<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p>اکنون به شکل بخش ۸.۲.۵ برگردید. تصاویر «بلوک‌های بزرگ» و «پیکسل‌های پراکنده» را با دو دستور زیر در نظر بگیرید:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">H</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">-</span><span class="nb">sum</span><span class="p">((</span><span class="n">c</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">c</span><span class="o">/</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+<span class="n">structured</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">64</span> <span class="o">+</span> <span class="p">[</span><span class="mi">255</span><span class="p">]</span><span class="o">*</span><span class="mi">64</span><span class="p">)</span> <span class="o">*</span> <span class="mi">128</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">H</span><span class="p">(</span><span class="n">structured</span><span class="p">))</span>  <span class="c1"># 1.0 bit/pixel</span>
+</pre></div>
+</div>
+<p>اگر همان ۱۶٬۳۸۴ مقدار را فقط جابه‌جا کنیم، فراوانی سیاه و سفید عوض نمی‌شود، پس آنتروپی پیکسلی تغییر نمی‌کند. اما ترتیب مکانی متفاوت می‌شود و فشرده‌سازی واقعی ممکن است خروجی دیگری بدهد. این همان نقطه‌ای است که <strong>«اندازه‌گیری اطلاعاتِ تنها یک پیکسل» به «مدل‌کردن ساختار تصویر»</strong> می‌رسد.</p>
+<p>در آزمایشگاه همراه، همین موضوع با داده اصیل قابل آزمودن است.</p>
+</section>
+<section id="id22">
+<h2>۸.۷ — چهار خطای مفهومی که باید از آن‌ها پرهیز کنیم<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p><strong>خطای اول: «آنتروپی ۱٫۷۵ یعنی حجم فایل دقیقاً ۱٫۷۵ بیت بر پیکسل است.»</strong> نادرست است. آنتروپی کمیت آماریِ توزیع است. کدبوک، طول بیت معتبر، بسته‌بندی بایتی، قالب فایل و وابستگی‌های مکانی بر حجم فایل اثر دارند.</p>
+<p><strong>خطای دوم: «اگر آنتروپی کم است، یک عکس حتماً با هر الگوریتمی عالی فشرده می‌شود.»</strong> نادرست است. الگوریتم باید بتواند نظم موجود را کشف کند؛ همچنین کوچک بودن اندازه داده می‌تواند هزینه سرآیند را غالب کند.</p>
+<p><strong>خطای سوم: «WebP همیشه از PNG و JPEG کوچک‌تر است.»</strong> نادرست است. عملکرد به تصویر، تنظیمات، فرمت مبنا و معیار کیفیت بستگی دارد. اعداد مقایسه‌ای عمومی را نباید تضمینِ همه تصاویر دانست.</p>
+<p><strong>خطای چهارم: «فشرده‌سازی با اتلاف، همان فشرده‌سازی با مقدار آنتروپی بیشتر است.»</strong> نادرست است. در فشرده‌سازی بااتلاف، داده ورودی عمداً تقریب زده می‌شود و سپس می‌توان آن تقریب را فشرده کرد؛ باید خطا را جداگانه بسنجیم.</p>
+</section>
+<hr class="docutils" />
+<section id="id23">
+<h2>۸.۸ — آزمایشگاه، تمرین و پرسش‌های مرور<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<section id="id24">
+<h3>آزمایشگاه ۱: محاسبه اطلاعات تصویر<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>ابتدا تصویر ۸×۸ این فصل را بسازید و هیستوگرام آن را محاسبه کنید. برای چهار مقدار <span class="math notranslate nohighlight">\(0,85,170,255\)</span>، احتمال‌ها را به دست بیاورید. سپس مقدار <span class="math notranslate nohighlight">\(H\)</span> را یک بار دستی و یک بار با کد محاسبه کنید. باید به <span class="math notranslate nohighlight">\(1.75\)</span> برسید.</p>
+</section>
+<section id="id25">
+<h3>آزمایشگاه ۲: هافمن، از نماد تا بیت و بازگشت<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>با کدهای <code class="docutils literal notranslate"><span class="pre">0</span></code>، <code class="docutils literal notranslate"><span class="pre">10</span></code>، <code class="docutils literal notranslate"><span class="pre">110</span></code> و <code class="docutils literal notranslate"><span class="pre">111</span></code> دنباله <code class="docutils literal notranslate"><span class="pre">0,85,0,255</span></code> را رمز کنید؛ پاسخ باید <code class="docutils literal notranslate"><span class="pre">0100111</span></code> باشد.</p></li>
+<li><p>آن را دوباره رمزگشایی کنید و با ورودی مقایسه کنید.</p></li>
+<li><p>نسبت طول بدنه کد به کد ثابت دو بیتی را محاسبه کنید.</p></li>
+<li><p>بررسی کنید چرا فایل واقعی آموزشیِ دارای سرآیند ممکن است برای داده کوچک، از خود داده بزرگ‌تر شود.</p></li>
+</ul>
+</section>
+<section id="id26">
+<h3>آزمایشگاه ۳: کاربرد امروزی در وب<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>با یک تصویر دلخواه، WebP با کیفیت‌های <span class="math notranslate nohighlight">\(35\)</span>, <span class="math notranslate nohighlight">\(65\)</span>, <span class="math notranslate nohighlight">\(90\)</span> و WebP بدون اتلاف را بسازید. جدول اندازه فایل‌ها را پر کنید. سپس تصویر بازشده را با ورودی مقایسه کنید. آیا کاهش حجم همیشه به یک اندازه بر ظاهر عکس و شکل آموزشی اثر دارد؟</p>
+</section>
+<section id="id27">
+<h3>تمرین‌های مفهومی<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>اگر تصویر خاکستری فقط یک مقدار شدت داشته باشد، چرا آنتروپی پیکسلی آن صفر است؟ آیا حجم فایل نهایی نیز صفر خواهد بود؟</p></li>
+<li><p>چرا یک مقدار شدت با احتمال <span class="math notranslate nohighlight">\(1/16\)</span>، اطلاعات بیشتری از مقداری با احتمال <span class="math notranslate nohighlight">\(1/2\)</span> دارد؟ مقدار هرکدام را حساب کنید.</p></li>
+<li><p>چهار شدت با احتمال‌های <span class="math notranslate nohighlight">\(1/4\)</span> داریم. آیا هافمن نسبت به کد ثابت دو بیتی می‌تواند در طول متوسط کدهای تک‌نمادیِ دودویی صرفه‌جویی کند؟</p></li>
+<li><p>اگر پیکسل‌های یک تصویر را بی‌آنکه مقدارشان عوض شود فقط تصادفی جابه‌جا کنیم، چه چیزی درباره آنتروپی هیستوگرام ثابت می‌ماند؟ درباره حجم WebP چه می‌توان گفت؟</p></li>
+<li><p>تصویر علمی با نوشته ریز را برای انتشار وب دارید. حالت بااتلاف یا بدون اتلاف را ابتدا آزمایش می‌کنید؟ چرا؟</p></li>
+<li><p>اگر خروجی WebP بااتلاف <span class="math notranslate nohighlight">\(\mathrm{MSE}=0\)</span> داشته باشد، چه نتیجه‌ای می‌گیرید؟ آیا «با اتلاف بودن قالب» الزاماً به معنی تفاوت در تک‌تک تصاویر است؟</p></li>
+<li><p>چرا مقایسه PNG و WebP تنها با تنظیم عدد <code class="docutils literal notranslate"><span class="pre">quality=80</span></code> معیار منصفانه‌ای برای «کیفیت برابر» نیست؟</p></li>
+</ol>
+</section>
+<section id="id28">
+<h3>پاسخ راهنمای سه تمرین نخست<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<p>۱. چون مقدار هر پیکسل با قطعیت قابل پیش‌بینی است، اطلاعات غافلگیرکننده‌ای ندارد؛ اما فایل واقعی به قالب و متاداده نیاز دارد، پس صفر بایت نمی‌شود. ۲. برای <span class="math notranslate nohighlight">\(1/16\)</span> چهار بیت و برای <span class="math notranslate nohighlight">\(1/2\)</span> یک بیت است. ۳. خیر، برای چهار نماد هم‌احتمال، میانگین دو بیت برای کد هافمن بهینه است.</p>
+</section>
+<section id="id29">
+<h3>فایل‌های همراه فصل<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/chapter08_examples.ipynb" download>Notebook کامل مثال‌های اجرایی</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/chapter08_examples.py" download>Python: آنتروپی و اجرای همه مثال‌ها</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/chapter08_huffman.py" download>Python: هافمن، ذخیره و بازیابی</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/chapter08_webp.py" download>Python: WebP، اندازه فایل و PSNR</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/Chapter08_Code_Examples.zip" download>بسته ZIP کامل کدهای آموزشی</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/Chapter08_Original_Figures.zip" download>بسته ZIP تمام تصاویر اصیل فصل</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-08/README_EXAMPLES_FA.md" download>راهنمای اجرای مثال‌ها</a></p></li>
+</ul>
+<p>این فایل‌ها <strong>از اینترنت چیزی دانلود نمی‌کنند</strong> و به هیچ تنظیم تازه‌ای در Jupyter Book، سایت یا CMD نیاز ندارند. بسته کدهای قابل دانلود را نیز می‌توان جداگانه نزد خود نگه داشت.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id30">
+<h2>۸.۹ — جمع‌بندی به زبان ساده<a class="headerlink" href="#id30" title="Link to this heading">#</a></h2>
+<p>اگر بخواهیم تمام فصل را در چند جمله خلاصه کنیم:</p>
+<ul class="simple">
+<li><p>آنتروپی می‌پرسد: «با توجه به فراوانی مقدارهای شدت، دیدن یک مقدار جدید چقدر غیرمنتظره است؟»</p></li>
+<li><p>هافمن می‌گوید: «به مقدارهای پرتکرار، کد کوتاه‌تر بده تا متوسط تعداد بیت‌ها کم شود.»</p></li>
+<li><p>هافمن بدون اتلاف است؛ اما برای یک فایل واقعی باید جدول کد و اطلاعات لازم برای بازکردن نیز ذخیره شود.</p></li>
+<li><p>هیستوگرام و آنتروپی پیکسلی، نظم مکانی پیکسل‌ها را به‌تنهایی نمی‌بینند.</p></li>
+<li><p>WebP نشان می‌دهد ایده‌های فشرده‌سازی در یک قالب واقعی امروزی چگونه به کار می‌آیند؛ در حالت Lossless بازسازی دقیق است و در حالت Lossy باید کیفیت را هم ارزیابی کرد.</p></li>
+</ul>
+<p><strong>مهم‌ترین نتیجه برای دانشجو:</strong> «اطلاعات تصویر» یک مفهوم آماری است؛ «فشرده‌سازی» عملیاتی برای نمایش کم‌حجم‌تر داده است؛ و «کیفیت تصویر» پرسشی جداگانه است که فقط در مسئلهٔ اتلاف اطلاعات مطرح می‌شود.</p>
+</section>
+<section id="id31">
+<h2>۸.۱۰ — منابع علمی و فنی<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<p><strong>[S1] کتاب پایه درس:</strong> Rafael C. Gonzalez and Richard E. Woods, <em>Digital Image Processing</em>, 4th ed., Chapter 8, sections on fundamentals, measuring image information, and Huffman coding. بخش‌هایی مانند سایر روش‌های کدگذاری و واترمارکینگ عمداً در برنامه آموزشی این نسخه انتخاب نشده‌اند.</p>
+<p><strong>[S2] مبنای تعریف آنتروپی:</strong> NIST Computer Security Resource Center, <em>Entropy — Glossary</em>. <a class="reference external" href="https://csrc.nist.gov/glossary/term/entropy">صفحه معتبر تعریف آنتروپی</a>. این منبع تعریف ریاضی عمومی را تأیید می‌کند؛ کاربرد در تصویر از S1 پیروی می‌کند.</p>
+<p><strong>[S3] استاندارد رسمی WebP:</strong> IETF, <em>RFC 9649: WebP Image Format</em> (2024). <a class="reference external" href="https://www.rfc-editor.org/rfc/rfc9649.html">متن استاندارد</a>. تمایز حالت بااتلاف و بدون‌اتلاف، و کاربرد LZ77 و Huffman در WebP بدون اتلاف در این سند مشخص شده است.</p>
+<p><strong>[S4] مستندات سازنده WebP:</strong> Google for Developers, <a class="reference external" href="https://developers.google.com/speed/webp/">An image format for the Web</a>. مرجع معرفی WebP، فشرده‌سازی Lossy/Lossless و سازوکار پیش‌بینی.</p>
+<p><strong>[S5] راهنمای انتخاب فرمت برای وب:</strong> Mozilla Developer Network (MDN), <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types">Image file type and format guide</a>. مرجع کاربرد PNG، JPEG، WebP و انتخاب Lossless/Lossy برای انواع محتوا.</p>
+<section id="id32">
+<h3>یادداشت اصالت، دامنه و قابلیت بازتولید<a class="headerlink" href="#id32" title="Link to this heading">#</a></h3>
+<p>تمام نمودارها، فلوچارت‌ها، نمونه‌ها و تصاویر آموزشی این بسته <strong>از نو تولید شده‌اند</strong> و تصویرِ استخراج‌شده از صفحات کتاب در بسته عمومی وجود ندارد. مقادیر اندازه فایل و PSNR در جدول‌ها مربوط به تصویر ساختگی همین بسته است و جای نتایج پژوهشی یا مقایسه فراگیر فرمت‌ها را نمی‌گیرد. کدهای آموزشی و Notebook همراه برای بازتولید آزمایش‌ها فراهم‌اند.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./gonzalez"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-05.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل ۵: ترمیم و بازسازی تصویر</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter-09.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">فصل نهم — مورفولوژی ریاضی دودویی: از چهار عمل ساده تا کاربرد واقعی</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۸.۱ — چرا به فشرده‌سازی احتیاج داریم؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-image-information">۸.۲ — Measuring Image Information: یک پیکسل چقدر غافلگیرمان می‌کند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۸.۲.۱ — اطلاعات، به زبان ساده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۸.۲.۲ — از اطلاعات یک رخداد به آنتروپی کل تصویر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۸.۲.۳ — مثال عددی: تنها با چهار شدت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۸.۲.۴ — چه زمانی آنتروپی کمینه یا بیشینه است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۸.۲.۵ — نکته مهم: آنتروپی پیکسلی همه داستان نیست</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۸.۳ — از آنتروپی به نخستین فشرده‌سازی واقعی: هافمن</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۸.۳.۱ — ایده یک خطی هافمن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۸.۳.۲ — مراحل الگوریتم با زبان ساده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۸.۳.۳ — ساخت درخت برای تصویر چهارشدتی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۸.۳.۴ — چرا کدهای هافمن را می‌توان بدون جداکننده خواند؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۸.۳.۵ — حجم واقعی فایل و نسبت فشرده‌سازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۸.۳.۶ — کد اجرایی خیلی کوتاه: شمارش آنتروپی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#webp">۸.۴ — از هافمن تا یک قالب واقعی و پرکاربرد: WebP</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۸.۴.۱ — WebP بدون اتلاف: ادامه طبیعی بحث هافمن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۸.۴.۲ — WebP با اتلاف: چرا اجازه می‌دهیم بعضی عددها تغییر کنند؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#quality">۸.۴.۳ — <code class="docutils literal notranslate"><span class="pre">quality</span></code> یعنی چه؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۸.۴.۴ — نمونه تصویری واقعیِ همین بسته</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۸.۴.۵ — اندازه فقط یک معیار است؛ خطا را هم بسنجیم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-webp">۸.۴.۶ — چند خط Python برای آزمایش WebP</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۸.۵ — در سایت آموزشی کدام گزینه بهتر است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۸.۶ — یک آزمایش بسیار مهم: دو تصویر با آنتروپی یکسان</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۸.۷ — چهار خطای مفهومی که باید از آن‌ها پرهیز کنیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۸.۸ — آزمایشگاه، تمرین و پرسش‌های مرور</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">آزمایشگاه ۱: محاسبه اطلاعات تصویر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">آزمایشگاه ۲: هافمن، از نماد تا بیت و بازگشت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">آزمایشگاه ۳: کاربرد امروزی در وب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">تمرین‌های مفهومی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">پاسخ راهنمای سه تمرین نخست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">فایل‌های همراه فصل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۸.۹ — جمع‌بندی به زبان ساده</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۸.۱۰ — منابع علمی و فنی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">یادداشت اصالت، دامنه و قابلیت بازتولید</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

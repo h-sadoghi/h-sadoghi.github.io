@@ -63,7 +63,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء" href="chapter-10.html" />
-    <link rel="prev" title="فصل ۵: ترمیم و بازسازی تصویر" href="chapter-05.html" />
+    <link rel="prev" title="فصل هشتم — از «اطلاعات تصویر» تا فشرده‌سازی واقعی در وب" href="chapter-08.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -182,6 +182,7 @@
 <li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-04.html">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-08.html">فصل هشتم: اطلاعات تصویر، آنتروپی و فشرده‌سازی کاربردی</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل نهم: مورفولوژی ریاضی دودویی — چهار عمل بنیادی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-11.html">فصل ۱۱: بافت تصویر و توصیفگر SIFT</a></li>
@@ -444,7 +445,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/fig09_00_concept_map.png"><img alt="../_images/fig09_00_concept_map.png" src="../_images/fig09_00_concept_map.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 258 </span><span class="caption-text">نقشهٔ مفهومی فصل: یک ماسک دودویی با دو عمل اولیه بررسی می‌شود و از ترکیب ترتیبی آن‌ها دو عمل ساختاری به‌دست می‌آید. در کاربرد واقعی باید اثر عملیات روی شکل و صحت ماسک سنجیده شود.</span><a class="headerlink" href="#fig-ch09-concept-map" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 275 </span><span class="caption-text">نقشهٔ مفهومی فصل: یک ماسک دودویی با دو عمل اولیه بررسی می‌شود و از ترکیب ترتیبی آن‌ها دو عمل ساختاری به‌دست می‌آید. در کاربرد واقعی باید اثر عملیات روی شکل و صحت ماسک سنجیده شود.</span><a class="headerlink" href="#fig-ch09-concept-map" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="id2">
@@ -469,7 +470,7 @@ A=\{(r,c)\in\Omega\mid f(r,c)=1\}.
 <a class="reference internal image-reference" href="../_images/fig09_01_binary_set.png"><img alt="../_images/fig09_01_binary_set.png" src="../_images/fig09_01_binary_set.png" style="width: 94%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 259 </span><span class="caption-text">همان تصویر دودویی را می‌توان هم آرایه‌ای از صفر و یک و هم مجموعه‌ای از مختصات پیکسل‌های سفید دید. تصویر وسط مکمل مجموعه است؛ در نتیجه «شیء» و «پس‌زمینه» با تغییر قرارداد جای یکدیگر را می‌گیرند.</span><a class="headerlink" href="#fig-ch09-binary-set" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 276 </span><span class="caption-text">همان تصویر دودویی را می‌توان هم آرایه‌ای از صفر و یک و هم مجموعه‌ای از مختصات پیکسل‌های سفید دید. تصویر وسط مکمل مجموعه است؛ در نتیجه «شیء» و «پس‌زمینه» با تغییر قرارداد جای یکدیگر را می‌گیرند.</span><a class="headerlink" href="#fig-ch09-binary-set" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>مثال عددی.</strong> اگر <span class="math notranslate nohighlight">\(A=\{(1,1),(1,2),(2,1),(2,2)\}\)</span> باشد، تصویر حاوی یک بلوک <span class="math notranslate nohighlight">\(2\times2\)</span> سفید است؛ اما از دید مجموعه، صرفاً چهار زوج مرتب داریم. این نگاه برای تعریف عمل‌های بعدی کافی است. ترتیب سطر و ستون باید در پیاده‌سازی روشن باشد؛ <code class="docutils literal notranslate"><span class="pre">numpy</span></code> به شکل <code class="docutils literal notranslate"><span class="pre">image[row,</span> <span class="pre">column]</span></code> دسترسی می‌دهد.</p>
@@ -496,7 +497,7 @@ B_{\rm cross}=\{(-1,0),(0,-1),(0,0),(0,1),(1,0)\}.
 <a class="reference internal image-reference" href="../_images/fig09_02_structuring_elements.png"><img alt="../_images/fig09_02_structuring_elements.png" src="../_images/fig09_02_structuring_elements.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 260 </span><span class="caption-text">پنج عنصر ساختاری نمونه با شعاع اسمی یکسان. شکل، جهت و تعداد نقاط فعال آن‌ها متفاوت است؛ پس نتیجهٔ پردازش نیز الزاماً یکسان نخواهد بود. سلول‌های آبی نقاط عضو <span class="math notranslate nohighlight">\(B\)</span> هستند.</span><a class="headerlink" href="#fig-ch09-footprints" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 277 </span><span class="caption-text">پنج عنصر ساختاری نمونه با شعاع اسمی یکسان. شکل، جهت و تعداد نقاط فعال آن‌ها متفاوت است؛ پس نتیجهٔ پردازش نیز الزاماً یکسان نخواهد بود. سلول‌های آبی نقاط عضو <span class="math notranslate nohighlight">\(B\)</span> هستند.</span><a class="headerlink" href="#fig-ch09-footprints" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -521,7 +522,7 @@ B_z=\{b+z\mid b\in B\}.
 <a class="reference internal image-reference" href="../_images/fig09_03_fit_test.png"><img alt="../_images/fig09_03_fit_test.png" src="../_images/fig09_03_fit_test.png" style="width: 97%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 261 </span><span class="caption-text">مربع زرد جایگاه آزمایش عنصر ساختاری و نقطهٔ قرمز مبدأ آن است. فرسایش فقط در موقعیت‌هایی خروجی ۱ می‌دهد که تمام قالب درون شیء جا شود.</span><a class="headerlink" href="#fig-ch09-fit-test" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 278 </span><span class="caption-text">مربع زرد جایگاه آزمایش عنصر ساختاری و نقطهٔ قرمز مبدأ آن است. فرسایش فقط در موقعیت‌هایی خروجی ۱ می‌دهد که تمام قالب درون شیء جا شود.</span><a class="headerlink" href="#fig-ch09-fit-test" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -565,7 +566,7 @@ g_{\ominus}(r,c)=f(r,c)\land f(r-1,c)\land f(r+1,c)\land f(r,c-1)\land f(r,c+1).
 <a class="reference internal image-reference" href="../_images/fig09_05_grid_step.png"><img alt="../_images/fig09_05_grid_step.png" src="../_images/fig09_05_grid_step.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 262 </span><span class="caption-text">مقایسهٔ شش نقشهٔ کوچک با عنصر صلیبی: از ورودی و عنصر ساختاری تا فرسایش، اتساع و نتایج دو ترکیب. به‌خصوص اثر حفرهٔ سیاهِ مرکز را دنبال کنید.</span><a class="headerlink" href="#fig-ch09-grid-step" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 279 </span><span class="caption-text">مقایسهٔ شش نقشهٔ کوچک با عنصر صلیبی: از ورودی و عنصر ساختاری تا فرسایش، اتساع و نتایج دو ترکیب. به‌خصوص اثر حفرهٔ سیاهِ مرکز را دنبال کنید.</span><a class="headerlink" href="#fig-ch09-grid-step" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>تمرین عددی کوتاه:</strong> اگر همسایگی صلیبیِ یک پیکسل <span class="math notranslate nohighlight">\([1,1,1,0,1]\)</span> باشد، خروجی فرسایش صفر است، چون عنصر در آن مکان به‌طور کامل داخل جسم نیست. اگر به‌جای آن <span class="math notranslate nohighlight">\([1,1,1,1,1]\)</span> باشد، خروجی یک می‌شود.</p>
@@ -609,7 +610,7 @@ g_{\oplus}(r,c)=f(r,c)\lor f(r-1,c)\lor f(r+1,c)\lor f(r,c-1)\lor f(r,c+1).
 <a class="reference internal image-reference" href="../_images/fig09_13_1d_geometry.png"><img alt="../_images/fig09_13_1d_geometry.png" src="../_images/fig09_13_1d_geometry.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 263 </span><span class="caption-text">شهود هندسی در یک بعد: فرسایش انتهای قطعه‌ها را به داخل می‌برد و اتساع آن‌ها را به بیرون. نسخهٔ دوبعدی همان منطق را روی مرز شکل اجرا می‌کند.</span><a class="headerlink" href="#fig-ch09-one-dimensional" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 280 </span><span class="caption-text">شهود هندسی در یک بعد: فرسایش انتهای قطعه‌ها را به داخل می‌برد و اتساع آن‌ها را به بیرون. نسخهٔ دوبعدی همان منطق را روی مرز شکل اجرا می‌کند.</span><a class="headerlink" href="#fig-ch09-one-dimensional" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -620,7 +621,7 @@ g_{\oplus}(r,c)=f(r,c)\lor f(r-1,c)\lor f(r+1,c)\lor f(r,c-1)\lor f(r,c+1).
 <a class="reference internal image-reference" href="../_images/fig09_04_four_operations.png"><img alt="../_images/fig09_04_four_operations.png" src="../_images/fig09_04_four_operations.png" style="width: 97%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 264 </span><span class="caption-text">اثر چهار عمل روی شکلی دارای پل، نقطهٔ کوچک و حفره. به تفاوت فرسایش و اتساع با گشودن و بستن توجه کنید: دو ترکیب اخیر برای اصلاح نوع مشخصی از نقص به‌کار می‌روند.</span><a class="headerlink" href="#fig-ch09-four-operations" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 281 </span><span class="caption-text">اثر چهار عمل روی شکلی دارای پل، نقطهٔ کوچک و حفره. به تفاوت فرسایش و اتساع با گشودن و بستن توجه کنید: دو ترکیب اخیر برای اصلاح نوع مشخصی از نقص به‌کار می‌روند.</span><a class="headerlink" href="#fig-ch09-four-operations" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -689,7 +690,7 @@ A\circ B=\bigcup_{z:B_z\subseteq A}B_z.
 <a class="reference internal image-reference" href="../_images/fig09_06_opening_stages.png"><img alt="../_images/fig09_06_opening_stages.png" src="../_images/fig09_06_opening_stages.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 265 </span><span class="caption-text">گشودن مرحله‌به‌مرحله: ابتدا پل باریک و ذرهٔ کوچک در فرسایش حذف می‌شوند؛ سپس با اتساع بخش‌های اصلی دوباره گسترش می‌یابند. پل حذف‌شده بازنمی‌گردد.</span><a class="headerlink" href="#fig-ch09-opening-stages" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 282 </span><span class="caption-text">گشودن مرحله‌به‌مرحله: ابتدا پل باریک و ذرهٔ کوچک در فرسایش حذف می‌شوند؛ سپس با اتساع بخش‌های اصلی دوباره گسترش می‌یابند. پل حذف‌شده بازنمی‌گردد.</span><a class="headerlink" href="#fig-ch09-opening-stages" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -714,7 +715,7 @@ A\circ B=\bigcup_{z:B_z\subseteq A}B_z.
 <a class="reference internal image-reference" href="../_images/fig09_07_closing_stages.png"><img alt="../_images/fig09_07_closing_stages.png" src="../_images/fig09_07_closing_stages.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 266 </span><span class="caption-text">بستن مرحله‌به‌مرحله: در اتساع، حفره و تورفتگی باریک کوچک می‌شوند؛ فرسایش بعدی بخش زیادی از گسترش بیرونی را پس می‌گیرد. تفاوت بین «پرکردن حفرهٔ کوچک» و «پرکردن هر حفره با هر اندازه» را فراموش نکنید.</span><a class="headerlink" href="#fig-ch09-closing-stages" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 283 </span><span class="caption-text">بستن مرحله‌به‌مرحله: در اتساع، حفره و تورفتگی باریک کوچک می‌شوند؛ فرسایش بعدی بخش زیادی از گسترش بیرونی را پس می‌گیرد. تفاوت بین «پرکردن حفرهٔ کوچک» و «پرکردن هر حفره با هر اندازه» را فراموش نکنید.</span><a class="headerlink" href="#fig-ch09-closing-stages" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -736,7 +737,7 @@ A\circ B=\bigcup_{z:B_z\subseteq A}B_z.
 <a class="reference internal image-reference" href="../_images/fig09_10_order_matters.png"><img alt="../_images/fig09_10_order_matters.png" src="../_images/fig09_10_order_matters.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 267 </span><span class="caption-text">مقایسهٔ دو ترتیب روی یک تصویر مصنوعی؛ پنل آخر پیکسل‌هایی را نشان می‌دهد که با تغییر ترتیب متفاوت شده‌اند. دو دستور ظاهراً مشابه الزاماً هم‌ارز نیستند.</span><a class="headerlink" href="#fig-ch09-order" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 284 </span><span class="caption-text">مقایسهٔ دو ترتیب روی یک تصویر مصنوعی؛ پنل آخر پیکسل‌هایی را نشان می‌دهد که با تغییر ترتیب متفاوت شده‌اند. دو دستور ظاهراً مشابه الزاماً هم‌ارز نیستند.</span><a class="headerlink" href="#fig-ch09-order" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -790,7 +791,7 @@ A\circ B\subseteq C\circ B,
 <a class="reference internal image-reference" href="../_images/fig09_11_idempotence.png"><img alt="../_images/fig09_11_idempotence.png" src="../_images/fig09_11_idempotence.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 268 </span><span class="caption-text">یک بار و دو بار گشودن یا بستن با عنصر ساختاری ثابت. بخش‌های اصلی تصویر باید یکسان بمانند؛ این آزمایش برای کنترل کد مفید است.</span><a class="headerlink" href="#fig-ch09-idempotence" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 285 </span><span class="caption-text">یک بار و دو بار گشودن یا بستن با عنصر ساختاری ثابت. بخش‌های اصلی تصویر باید یکسان بمانند؛ این آزمایش برای کنترل کد مفید است.</span><a class="headerlink" href="#fig-ch09-idempotence" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -824,7 +825,7 @@ z\notin A\ominus B
 <a class="reference internal image-reference" href="../_images/fig09_09_duality.png"><img alt="../_images/fig09_09_duality.png" src="../_images/fig09_09_duality.png" style="width: 93%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 269 </span><span class="caption-text">مقایسهٔ فرسایش مستقیم با مکمل اتساعِ مکمل. در ناحیهٔ داخلی تصویر توافق مشاهده می‌شود؛ در اطراف مرز فیزیکی آرایه باید به سیاست padding دقت کرد.</span><a class="headerlink" href="#fig-ch09-duality" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 286 </span><span class="caption-text">مقایسهٔ فرسایش مستقیم با مکمل اتساعِ مکمل. در ناحیهٔ داخلی تصویر توافق مشاهده می‌شود؛ در اطراف مرز فیزیکی آرایه باید به سیاست padding دقت کرد.</span><a class="headerlink" href="#fig-ch09-duality" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>برای دو عمل ترکیبی هم دوگانگی برقرار است:</p>
@@ -852,14 +853,14 @@ A\oplus B_1\subseteq A\oplus B_2.
 <a class="reference internal image-reference" href="../_images/fig09_08_scale_selection.png"><img alt="../_images/fig09_08_scale_selection.png" src="../_images/fig09_08_scale_selection.png" style="width: 97%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 270 </span><span class="caption-text">گشودن یک ماسک ثابت با دیسک‌های دارای شعاع متفاوت. پدیده‌ای که در یک مقیاس «نویز» تلقی می‌شود، در مقیاس بزرگ‌تر ممکن است دیگر از یک شیء واقعی قابل تفکیک نباشد.</span><a class="headerlink" href="#fig-ch09-scale" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 287 </span><span class="caption-text">گشودن یک ماسک ثابت با دیسک‌های دارای شعاع متفاوت. پدیده‌ای که در یک مقیاس «نویز» تلقی می‌شود، در مقیاس بزرگ‌تر ممکن است دیگر از یک شیء واقعی قابل تفکیک نباشد.</span><a class="headerlink" href="#fig-ch09-scale" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="fig-ch09-directional">
 <a class="reference internal image-reference" href="../_images/fig09_21_directional_footprints.png"><img alt="../_images/fig09_21_directional_footprints.png" src="../_images/fig09_21_directional_footprints.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 271 </span><span class="caption-text">تأثیر انتخاب صلیب، دیسک، مربع و خط افقی بر نتیجهٔ گشودن. عنصر ساختاری جهت‌دار می‌تواند اتصال‌های همسو با جهت خود را بهتر حفظ کند، ولی در جهت دیگر باعث حذف ساختار شود.</span><a class="headerlink" href="#fig-ch09-directional" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 288 </span><span class="caption-text">تأثیر انتخاب صلیب، دیسک، مربع و خط افقی بر نتیجهٔ گشودن. عنصر ساختاری جهت‌دار می‌تواند اتصال‌های همسو با جهت خود را بهتر حفظ کند، ولی در جهت دیگر باعث حذف ساختار شود.</span><a class="headerlink" href="#fig-ch09-directional" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -882,7 +883,7 @@ A\oplus B_1\subseteq A\oplus B_2.
 <a class="reference internal image-reference" href="../_images/fig09_14_area_vs_radius.png"><img alt="../_images/fig09_14_area_vs_radius.png" src="../_images/fig09_14_area_vs_radius.png" style="width: 94%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 272 </span><span class="caption-text">آزمایش عددی: تغییر مساحت ماسک با شعاع عنصر ساختاری. تفاوت مقدار مساحت با کیفیت تشخیص باید تفکیک شود.</span><a class="headerlink" href="#fig-ch09-area-radius" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 289 </span><span class="caption-text">آزمایش عددی: تغییر مساحت ماسک با شعاع عنصر ساختاری. تفاوت مقدار مساحت با کیفیت تشخیص باید تفکیک شود.</span><a class="headerlink" href="#fig-ch09-area-radius" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -899,7 +900,7 @@ A\oplus B_1\subseteq A\oplus B_2.
 <a class="reference internal image-reference" href="../_images/fig09_12_border_policy.png"><img alt="../_images/fig09_12_border_policy.png" src="../_images/fig09_12_border_policy.png" style="width: 94%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 273 </span><span class="caption-text">یک تصویر تمام‌سفید که به مرز قاب رسیده است. بستن با <code class="docutils literal notranslate"><span class="pre">border_value=0</span></code> روی آرایهٔ محدود ممکن است مرز را از دست بدهد؛ با حاشیه‌گذاری مناسب نتیجه فرق می‌کند.</span><a class="headerlink" href="#fig-ch09-border-policy" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 290 </span><span class="caption-text">یک تصویر تمام‌سفید که به مرز قاب رسیده است. بستن با <code class="docutils literal notranslate"><span class="pre">border_value=0</span></code> روی آرایهٔ محدود ممکن است مرز را از دست بدهد؛ با حاشیه‌گذاری مناسب نتیجه فرق می‌کند.</span><a class="headerlink" href="#fig-ch09-border-policy" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -922,7 +923,7 @@ A\oplus B_1\subseteq A\oplus B_2.
 <a class="reference internal image-reference" href="../_images/fig09_20_geometric_not_arithmetic.png"><img alt="../_images/fig09_20_geometric_not_arithmetic.png" src="../_images/fig09_20_geometric_not_arithmetic.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 274 </span><span class="caption-text">مقایسهٔ هندسی: بدون آنکه روشنایی یا میانگین شدت مطرح باشد، فقط عضویت/عدم‌عضویت پیکسل در مجموعه تغییر می‌کند.</span><a class="headerlink" href="#fig-ch09-not-arithmetic" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 291 </span><span class="caption-text">مقایسهٔ هندسی: بدون آنکه روشنایی یا میانگین شدت مطرح باشد، فقط عضویت/عدم‌عضویت پیکسل در مجموعه تغییر می‌کند.</span><a class="headerlink" href="#fig-ch09-not-arithmetic" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1004,7 +1005,7 @@ A\oplus B_1\subseteq A\oplus B_2.
 <a class="reference internal image-reference" href="../_images/fig09_16_road_overlays.png"><img alt="../_images/fig09_16_road_overlays.png" src="../_images/fig09_16_road_overlays.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 275 </span><span class="caption-text">عکس چپ <em>بازسازی مصنوعیِ بصری</em> از سطح جاده است، نه عکس واقعی پهپاد. در وسط، مرز ماسک پرنویز نمایش داده شده و در راست مرز پاک‌سازی‌شده قرار دارد. هدف، مشاهدهٔ معنای هندسی تغییرهاست.</span><a class="headerlink" href="#fig-ch09-road-overlays" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 292 </span><span class="caption-text">عکس چپ <em>بازسازی مصنوعیِ بصری</em> از سطح جاده است، نه عکس واقعی پهپاد. در وسط، مرز ماسک پرنویز نمایش داده شده و در راست مرز پاک‌سازی‌شده قرار دارد. هدف، مشاهدهٔ معنای هندسی تغییرهاست.</span><a class="headerlink" href="#fig-ch09-road-overlays" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1034,14 +1035,14 @@ R=A_{\rm outer}\setminus A_{\rm inner}.
 <a class="reference internal image-reference" href="../_images/fig09_15_road_pipeline.png"><img alt="../_images/fig09_15_road_pipeline.png" src="../_images/fig09_15_road_pipeline.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 276 </span><span class="caption-text">هشت گام تصویری از دادهٔ مصنوعی: تصویر شبه‌هوایی، ماسک مرجع، ماسک پرنویز، فرسایش، گشودن، اتساع، بستن و نوار مرزی. هر مرحله فقط به چهار عملِ مجاز یا ترکیب مجموعه‌ای ساده وابسته است.</span><a class="headerlink" href="#fig-ch09-road-pipeline" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 293 </span><span class="caption-text">هشت گام تصویری از دادهٔ مصنوعی: تصویر شبه‌هوایی، ماسک مرجع، ماسک پرنویز، فرسایش، گشودن، اتساع، بستن و نوار مرزی. هر مرحله فقط به چهار عملِ مجاز یا ترکیب مجموعه‌ای ساده وابسته است.</span><a class="headerlink" href="#fig-ch09-road-pipeline" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="fig-ch09-band">
 <a class="reference internal image-reference" href="../_images/fig09_17_inner_outer_band.png"><img alt="../_images/fig09_17_inner_outer_band.png" src="../_images/fig09_17_inner_outer_band.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 277 </span><span class="caption-text">نمای مستقل از محدودهٔ داخلی و بیرونی و تفاوت آن‌ها. نوارِ بین دو حد، محل مناسب‌تری برای بازبینی خطای مرز است تا نقاط کاملاً داخلی شیء.</span><a class="headerlink" href="#fig-ch09-band" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 294 </span><span class="caption-text">نمای مستقل از محدودهٔ داخلی و بیرونی و تفاوت آن‌ها. نوارِ بین دو حد، محل مناسب‌تری برای بازبینی خطای مرز است تا نقاط کاملاً داخلی شیء.</span><a class="headerlink" href="#fig-ch09-band" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1089,7 +1090,7 @@ A_{\rm clean}=
 <a class="reference internal image-reference" href="../_images/fig09_19_iou_tuning.png"><img alt="../_images/fig09_19_iou_tuning.png" src="../_images/fig09_19_iou_tuning.png" style="width: 94%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 278 </span><span class="caption-text">تغییر IoU و مساحت خروجی با شعاع عنصر ساختاری روی مسئلهٔ مصنوعی این فصل. بهترین شعاع از یک رابطهٔ نظریِ ثابت به‌دست نمی‌آید؛ باید آن را روی نمونه‌های نماینده بررسی کرد.</span><a class="headerlink" href="#fig-ch09-iou" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 295 </span><span class="caption-text">تغییر IoU و مساحت خروجی با شعاع عنصر ساختاری روی مسئلهٔ مصنوعی این فصل. بهترین شعاع از یک رابطهٔ نظریِ ثابت به‌دست نمی‌آید؛ باید آن را روی نمونه‌های نماینده بررسی کرد.</span><a class="headerlink" href="#fig-ch09-iou" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1100,7 +1101,7 @@ A_{\rm clean}=
 <a class="reference internal image-reference" href="../_images/fig09_18_thin_crack_failure.png"><img alt="../_images/fig09_18_thin_crack_failure.png" src="../_images/fig09_18_thin_crack_failure.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 279 </span><span class="caption-text">مثال نقضِ آموزشی: ترک ظریفِ مصنوعی ممکن است در گشودن با دیسک بیش‌ازحد بزرگ ناپدید شود. این شکل، دلیل هندسی هشدار پژوهش جدید دربارهٔ قطعه‌بندی ترک‌ها را روشن می‌کند.</span><a class="headerlink" href="#fig-ch09-thin-crack" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 296 </span><span class="caption-text">مثال نقضِ آموزشی: ترک ظریفِ مصنوعی ممکن است در گشودن با دیسک بیش‌ازحد بزرگ ناپدید شود. این شکل، دلیل هندسی هشدار پژوهش جدید دربارهٔ قطعه‌بندی ترک‌ها را روشن می‌کند.</span><a class="headerlink" href="#fig-ch09-thin-crack" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>در مطالعهٔ واقعی منتشرشده در سال ۲۰۲۶، پژوهشگران نیز گزارش کردند که عملیات مورفولوژیک روی بعضی ماسک‌های ترک، شاخص‌های دقت را نسبت به ماسک خام کاهش داده است. این <strong>یافتهٔ همان مقاله</strong> است، نه نتیجهٔ آزمایش مصنوعی ما. برای موضوعی با عارضه‌های باریک، راه‌حل درست ممکن است کوچک‌ترکردن عنصر، انتخاب قالب جهت‌دار یا حتی <strong>حذف مورفولوژی</strong> از زنجیره باشد؛ این تصمیم باید با دادهٔ اعتبارسنجی اتخاذ شود. <a class="reference external" href="https://doi.org/10.3390/drones10020119">López و همکاران، ۲۰۲۶</a>.</p>
@@ -1266,12 +1267,12 @@ A_{\rm clean}=
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="chapter-05.html"
+       href="chapter-08.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">فصل ۵: ترمیم و بازسازی تصویر</p>
+        <p class="prev-next-title">فصل هشتم — از «اطلاعات تصویر» تا فشرده‌سازی واقعی در وب</p>
       </div>
     </a>
     <a class="right-next"
