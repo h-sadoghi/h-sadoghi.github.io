@@ -1,0 +1,1440 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل نهم — مورفولوژی ریاضی دودویی: از چهار عمل ساده تا کاربرد واقعی &#8212; Image Processing Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gonzalez/chapter-09';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء" href="chapter-10.html" />
+    <link rel="prev" title="فصل ۵: ترمیم و بازسازی تصویر" href="chapter-05.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Image Processing Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Image Processing Course Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gonzalez Notes and Learning Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">فصل دوم: مبانی تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل نهم: مورفولوژی ریاضی دودویی — چهار عمل بنیادی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-11.html">فصل ۱۱: بافت تصویر و توصیفگر SIFT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../student-work/index.html">Student Work</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/index.html">Digital Image Processing — Gonzalez &amp; Woods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/other-sections/index.html">Sections not assigned to a chapter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../student-work/catalog/gonzalez/other-sections/section-03.html">Section 3</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/gonzalez/chapter-09.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل نهم — مورفولوژی ریاضی دودویی: از چهار عمل ساده تا کاربرد واقعی</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">9.1 — مبانی و زبان مجموعه‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">9.1.1 چرا مورفولوژی با فیلتر مکانی عادی فرق دارد؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">9.1.2 عنصر ساختاری چیست؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">9.1.3 مبدأ، انتقال و بازتاب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">9.1.4 قاعدهٔ نگاه‌کردن به عنصر ساختاری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">9.1.5 فاصله، مقیاس و پیوستگی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#erosion">9.2 — فرسایش (Erosion)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">9.2.1 تعریف و تفسیر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">9.2.2 محاسبهٔ دستی با ماتریس کوچک</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">9.2.3 چه کاربردی دارد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dilation">9.3 — اتساع (Dilation)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">9.3.1 تعریف مجموعه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">9.3.2 محاسبهٔ منطقی در یک همسایگی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">9.3.3 اتساع چه چیزهایی را خراب می‌کند؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">9.3.4 مقایسهٔ فوری دو عمل اولیه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening">9.4 — گشودن (Opening)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">9.4.1 چرا یک فرسایش به‌تنهایی کافی نیست؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">9.4.2 تفسیر هندسی: یک دیسک درون جسم حرکت می‌کند</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">9.4.3 گشودن و حفظ اجسام کوچک</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#closing">9.5 — بستن (Closing)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">9.5.1 مسئلهٔ حفره و شکاف سیاه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">9.5.2 تشبیه هندسی با فضای بیرون جسم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">9.5.3 کدام ترتیب؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">9.6 — خواص ریاضی چهار عمل: چرا روابط واقعاً مفیدند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monotonicity">9.6.1 خاصیت شمول (Monotonicity)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">9.6.2 گشودن ضدگسترنده و بستن گسترنده است</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">9.6.3 یک بار گشودن/بستن برای عنصر ثابت کافی است: ایدمپوتنت بودن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">9.6.4 دوگانگی میان فرسایش و اتساع</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">9.6.5 اثر اندازه و جهت عنصر ساختاری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">9.6.6 مقایسهٔ پارامترها از راه اندازهٔ ماسک</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">9.7 — جزئیات اجرا که اگر ندانیم، روابط درست هم خروجی غلط می‌دهند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#padding">9.7.1 مرز تصویر و Padding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">9.7.2 سه خطای بسیار رایج</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">9.7.3 آیا چهار عمل خطی‌اند؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">9.7.4 تصمیم‌گیری دربارهٔ شعاع، شکل و ترتیب</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">9.8 — آزمایشگاه Python: چهار تابع مستقل و کاملاً روشن</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">9.8.1 آزمایش مقایسهٔ نوع عنصر ساختاری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">9.8.2 آزمایش ایدمپوتنت بودن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">9.8.3 پیچیدگی محاسباتی و مقیاس</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">9.9 — مطالعهٔ موردی امروزی: پاک‌سازی ماسکِ خرابی‌های پهن سطح جاده در بازرسی تصویری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">9.9.1 این مثال از کجا آمده است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">9.9.2 ورودی، خروجی و هدف عملی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">9.9.3 اجرای الگوریتم گام‌به‌گام</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">9.9.4 معادلهٔ خلاصهٔ زنجیره</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">9.9.5 سنجش نتیجه: یک مثال عددی بازتولیدپذیر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">9.9.6 شکست مهم: وقتی آنچه «نویز» می‌بینیم، ترک واقعی است</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">9.9.7 کد کامل کاربردی و اجرای آن</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">9.10 — کارگاه تصمیم‌گیری: کدام عمل، برای کدام مسئله؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">9.10.1 سه سؤال راهبردی برای انتخاب پارامتر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">9.10.2 مثال مقایسهٔ اولویت دو عمل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">9.10.3 آموزش پژوهش‌محور: ادعای «بهبود» باید قابل سنجش باشد</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">9.11 — مرور مفهومی و مسئله‌های پیشنهادی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">پرسش‌های مفهومی با پاسخ کوتاه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">تمرین‌های تحلیلی و اجرایی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">جمع‌بندی فصل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">دریافت فایل‌های همراه و کد قابل اجرا</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">منابع و مرزبندی علمی</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل نهم — مورفولوژی ریاضی دودویی: از چهار عمل ساده تا کاربرد واقعی<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p><strong>منبع ساختاری:</strong> فصل نهم کتاب <em>Digital Image Processing</em>، ویرایش چهارم، نوشتهٔ Gonzalez و Woods؛ با تمرکز دقیق بر مقدمات و چهار عمل دودویی <code class="docutils literal notranslate"><span class="pre">Erosion</span></code>، <code class="docutils literal notranslate"><span class="pre">Dilation</span></code>، <code class="docutils literal notranslate"><span class="pre">Opening</span></code> و <code class="docutils literal notranslate"><span class="pre">Closing</span></code> در بخش‌های 9.1 تا 9.3. مطالب دیگر فصل اصلی کتاب ــ مانند تبدیل <code class="docutils literal notranslate"><span class="pre">Hit-or-Miss</span></code>، اسکلت‌سازی، نازک‌سازی، بازسازی مورفولوژیک و مورفولوژی خاکستری ــ <strong>آگاهانه خارج از محدودهٔ درخواستی این جزوه‌اند</strong>.</p>
+<p>فرض کنید سامانه‌ای با دوربین یا یک مدل یادگیری ماشین از تصویر خیابان، ماسک دودویی خرابی‌های سطح آسفالت را استخراج کرده است. معمولاً نتیجه بی‌نقص نیست: نقطه‌های سفید بی‌ربط دیده می‌شوند، درون نواحی خرابی حفره‌های سیاه وجود دارد و گاهی بخش‌هایی که نباید به هم وصل باشند، با یک پل نازک متصل‌اند. آیا می‌شود فقط با دانستن <em>شکل</em> این نواحی ــ نه رنگ، نه بافت و نه میزان روشنایی ــ بخشی از خطاها را اصلاح کرد؟ چهار ابزار این فصل دقیقاً برای همین نوع سؤال ساخته شده‌اند.</p>
+<figure class="align-default" id="fig-ch09-concept-map">
+<a class="reference internal image-reference" href="../_images/fig09_00_concept_map.png"><img alt="../_images/fig09_00_concept_map.png" src="../_images/fig09_00_concept_map.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 258 </span><span class="caption-text">نقشهٔ مفهومی فصل: یک ماسک دودویی با دو عمل اولیه بررسی می‌شود و از ترکیب ترتیبی آن‌ها دو عمل ساختاری به‌دست می‌آید. در کاربرد واقعی باید اثر عملیات روی شکل و صحت ماسک سنجیده شود.</span><a class="headerlink" href="#fig-ch09-concept-map" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id2">
+<h2>اهداف یادگیری<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>پس از مطالعه، دانشجو باید بتواند توضیح دهد چرا مورفولوژی به شکل جسم حساس است، عنصر ساختاری را با مبدأ مشخص تعریف کند، هر چهار عمل را روی آرایهٔ صفر و یک <strong>دستی</strong> محاسبه کند، روابط مجموعه‌ای و قوانین اصلی را به زبان روشن تفسیر کند، اثر اندازه و جهت عنصر ساختاری و رفتار مرز تصویر را بسنجد، در Python ماسک‌ها را پردازش کند و برای پاک‌سازی ماسک قطعه‌بندی تصمیمی مستند و قابل آزمایش بگیرد.</p>
+</section>
+<section id="id3">
+<h2>9.1 — مبانی و زبان مجموعه‌ها<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<section id="id4">
+<h3>9.1.1 چرا مورفولوژی با فیلتر مکانی عادی فرق دارد؟<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>در فصل سوم فیلتر میانگین به عدد پیکسل‌های همسایه نگاه می‌کرد و میانگین می‌گرفت. فیلتر گوسی هم ترکیبی وزن‌دار از شدت‌ها می‌ساخت. اما در مورفولوژی دودویی، مسئله این نیست که شدت متوسط چقدر است؛ پرسش این است که <strong>آیا یک شکل کوچک کاملاً روی جسم جا می‌شود، یا حتی بخشی از آن با جسم تماس پیدا می‌کند؟</strong></p>
+<p>برای مثال، ناحیه‌ای سفید با یک زائدهٔ باریک را در نظر بگیرید. مقدار سفید در همه جا دقیقاً یکسان است؛ ولی اگر یک دیسک کوچک را روی زائده بگذاریم، کاملاً در آن جا نمی‌شود. همین مشاهده کافی است تا بتوانیم زائده را از بدنهٔ ضخیم تفکیک کنیم. چنین رفتاری به هندسه وابسته است، نه به جمع و میانگین اعداد.</p>
+<p>یک تصویر دودویی را تابع زیر در نظر می‌گیریم:</p>
+<div class="math notranslate nohighlight">
+\[
+f:\Omega\subset\mathbb Z^2\longrightarrow\{0,1\},
+\qquad
+A=\{(r,c)\in\Omega\mid f(r,c)=1\}.
+\]</div>
+<p>در این رابطه، <span class="math notranslate nohighlight">\(\Omega\)</span> شبکهٔ مختصات محدود تصویر، <span class="math notranslate nohighlight">\(r\)</span> شمارهٔ سطر، <span class="math notranslate nohighlight">\(c\)</span> شمارهٔ ستون و <span class="math notranslate nohighlight">\(A\)</span> مجموعهٔ تمام نقاط <strong>پیش‌زمینه</strong> است. ما قرارداد می‌کنیم <strong>یک/سفید = موضوع مورد علاقه</strong> و <strong>صفر/سیاه = پس‌زمینه</strong>. این قرارداد را تا انتهای فصل تغییر نمی‌دهیم. اگر شیء در تصویر واقعی سیاه باشد، ابتدا باید ماسک را وارونه یا آستانه‌گذاری متناسب انتخاب کرد؛ وگرنه عمل روی پس‌زمینه انجام می‌شود.</p>
+<figure class="align-default" id="fig-ch09-binary-set">
+<a class="reference internal image-reference" href="../_images/fig09_01_binary_set.png"><img alt="../_images/fig09_01_binary_set.png" src="../_images/fig09_01_binary_set.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 259 </span><span class="caption-text">همان تصویر دودویی را می‌توان هم آرایه‌ای از صفر و یک و هم مجموعه‌ای از مختصات پیکسل‌های سفید دید. تصویر وسط مکمل مجموعه است؛ در نتیجه «شیء» و «پس‌زمینه» با تغییر قرارداد جای یکدیگر را می‌گیرند.</span><a class="headerlink" href="#fig-ch09-binary-set" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>مثال عددی.</strong> اگر <span class="math notranslate nohighlight">\(A=\{(1,1),(1,2),(2,1),(2,2)\}\)</span> باشد، تصویر حاوی یک بلوک <span class="math notranslate nohighlight">\(2\times2\)</span> سفید است؛ اما از دید مجموعه، صرفاً چهار زوج مرتب داریم. این نگاه برای تعریف عمل‌های بعدی کافی است. ترتیب سطر و ستون باید در پیاده‌سازی روشن باشد؛ <code class="docutils literal notranslate"><span class="pre">numpy</span></code> به شکل <code class="docutils literal notranslate"><span class="pre">image[row,</span> <span class="pre">column]</span></code> دسترسی می‌دهد.</p>
+</section>
+<section id="id5">
+<h3>9.1.2 عنصر ساختاری چیست؟<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>عنصر ساختاری یا <code class="docutils literal notranslate"><span class="pre">Structuring</span> <span class="pre">Element</span></code> را با <span class="math notranslate nohighlight">\(B\)</span> نشان می‌دهیم. <span class="math notranslate nohighlight">\(B\)</span> نیز یک مجموعهٔ کوچک از مختصات نسبی است که نقش <strong>قالب آزمایش</strong> را دارد. نمونه‌های معمول آن مربع، دیسک، لوزی، صلیب و خط افقی هستند. به شکل کوچک آن در Python گاهی <code class="docutils literal notranslate"><span class="pre">footprint</span></code> می‌گویند.</p>
+<p>برای یک صلیب <span class="math notranslate nohighlight">\(3\times3\)</span> با مبدأ در مرکز داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+B_{\rm cross}=\{(-1,0),(0,-1),(0,0),(0,1),(1,0)\}.
+\]</div>
+<p>در نمایش شبکه‌ای:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+0&amp;1&amp;0\\
+1&amp;\boxed{1}&amp;1\\
+0&amp;1&amp;0
+\end{bmatrix}
+\end{split}\]</div>
+<p>مربع <span class="math notranslate nohighlight">\(3\times3\)</span> هر ۹ مکان را در بر می‌گیرد، در حالی که صلیب تنها ۵ مکان را بررسی می‌کند. <strong>صفرهای بیرون صلیب در تعریف چهار عمل این جزوه «جزء عنصر ساختاری نیستند»؛ شرطِ تطبیق با پس‌زمینه هم به شمار نمی‌آیند.</strong> این تفاوت در کدنویسی بسیار مهم است.</p>
+<figure class="align-default" id="fig-ch09-footprints">
+<a class="reference internal image-reference" href="../_images/fig09_02_structuring_elements.png"><img alt="../_images/fig09_02_structuring_elements.png" src="../_images/fig09_02_structuring_elements.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 260 </span><span class="caption-text">پنج عنصر ساختاری نمونه با شعاع اسمی یکسان. شکل، جهت و تعداد نقاط فعال آن‌ها متفاوت است؛ پس نتیجهٔ پردازش نیز الزاماً یکسان نخواهد بود. سلول‌های آبی نقاط عضو <span class="math notranslate nohighlight">\(B\)</span> هستند.</span><a class="headerlink" href="#fig-ch09-footprints" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id6">
+<h3>9.1.3 مبدأ، انتقال و بازتاب<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>وقتی عنصر ساختاری را روی تصویر حرکت می‌دهیم باید معلوم باشد «نقطهٔ مرکزی» کجاست. اگر <span class="math notranslate nohighlight">\(z=(z_r,z_c)\)</span> جابه‌جایی باشد، انتقال عنصر چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+B_z=\{b+z\mid b\in B\}.
+\]</div>
+<p>و بازتاب نسبت به مبدأ چنین تعریف می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat B=\{-b\mid b\in B\}.
+\]</div>
+<p><strong>چرا بازتاب مهم است؟</strong> در تعریف مجموعه‌ای اتساع، بازتاب نقش دارد؛ شبیه احتیاطی که در کانولوشن نسبت به چرخاندن هسته داشتیم. اگر <span class="math notranslate nohighlight">\(B\)</span> یک دیسک یا مربع متقارنِ مرکزی باشد، <span class="math notranslate nohighlight">\(\widehat B=B\)</span> و اختلافی دیده نمی‌شود. اما برای عنصر نامتقارن، نتیجهٔ استفاده از <span class="math notranslate nohighlight">\(B\)</span> و بازتابش می‌تواند متفاوت باشد. برای همین در تمرین‌های اصلی ما ابتدا از عناصر متقارن استفاده می‌کنیم.</p>
+</section>
+<section id="id7">
+<h3>9.1.4 قاعدهٔ نگاه‌کردن به عنصر ساختاری<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>دو سؤال را همیشه به خاطر بسپارید: <strong>(۱) آیا همهٔ خانه‌های فعال <span class="math notranslate nohighlight">\(B\)</span> روی پیکسل‌های سفید قرار گرفته‌اند؟ (۲) آیا دست‌کم یکی از خانه‌های فعال <span class="math notranslate nohighlight">\(B\)</span> با سفیدی تماس دارد؟</strong> پاسخ سؤال اول به فرسایش و سؤال دوم به اتساع مربوط است.</p>
+<figure class="align-default" id="fig-ch09-fit-test">
+<a class="reference internal image-reference" href="../_images/fig09_03_fit_test.png"><img alt="../_images/fig09_03_fit_test.png" src="../_images/fig09_03_fit_test.png" style="width: 97%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 261 </span><span class="caption-text">مربع زرد جایگاه آزمایش عنصر ساختاری و نقطهٔ قرمز مبدأ آن است. فرسایش فقط در موقعیت‌هایی خروجی ۱ می‌دهد که تمام قالب درون شیء جا شود.</span><a class="headerlink" href="#fig-ch09-fit-test" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id8">
+<h3>9.1.5 فاصله، مقیاس و پیوستگی<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>در شبکهٔ دیجیتال، قطر دیسک کوچک <span class="math notranslate nohighlight">\(2r+1\)</span> پیکسل است؛ اما تعداد پیکسل‌های آن دقیقاً برابر مساحت دیسک پیوسته نیست. «دیسک با شعاع ۳» روی شبکهٔ گسسته شکل پله‌پله دارد. اگر تصویر در ابعاد دیگری نمونه‌برداری شود، همان شعاعِ پیکسلی معنای فیزیکی دیگری خواهد داشت. مثلاً اگر هر پیکسل ۲ میلی‌متر باشد، شعاع ۳ پیکسل معادل ۶ میلی‌متر است؛ و اگر هر پیکسل ۲۰ میلی‌متر باشد، معادل ۶ سانتی‌متر است. پس <strong>اندازهٔ <span class="math notranslate nohighlight">\(B\)</span> باید متناسب با مقیاس مسئله انتخاب شود</strong>.</p>
+<p>مفهوم همسایگی ۴تایی و ۸تایی که در فصل دوم خواندیم، در تحلیل جدا یا متصل بودن شکل‌ها کاربرد دارد؛ ولی صرفاً دانستن همسایگی کافی نیست: عنصر ساختاری می‌تواند خطی، صلیبی، دایره‌ای یا جهت‌دار باشد و از همسایگی فراتر رود.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="erosion">
+<h2>9.2 — فرسایش (Erosion)<a class="headerlink" href="#erosion" title="Link to this heading">#</a></h2>
+<section id="id9">
+<h3>9.2.1 تعریف و تفسیر<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>فرسایشِ مجموعهٔ <span class="math notranslate nohighlight">\(A\)</span> به‌وسیلهٔ عنصر ساختاری <span class="math notranslate nohighlight">\(B\)</span> را <span class="math notranslate nohighlight">\(A\ominus B\)</span> می‌نویسیم:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{A\ominus B=\{z\in\mathbb Z^2\mid B_z\subseteq A\}.}
+\tag{9-1}
+\]</div>
+<p>ترجمهٔ کلامی فرمول: «تمام مکان‌هایی را پیدا کن که اگر مرکز <span class="math notranslate nohighlight">\(B\)</span> را آنجا قرار دهیم، <strong>تمام قسمت‌های فعال</strong> عنصر ساختاری داخل جسم سفید قرار بگیرند.» این مکان‌ها پیش‌زمینهٔ تصویر خروجی‌اند.</p>
+<p>تعریف معادل را با مکمل <span class="math notranslate nohighlight">\(A^c\)</span> نیز می‌توان نوشت:</p>
+<div class="math notranslate nohighlight">
+\[
+A\ominus B=\{z\mid B_z\cap A^c=\varnothing\}.
+\tag{9-2}
+\]</div>
+<p>یعنی عنصر ساختاری نباید به هیچ نقطهٔ پس‌زمینه برخورد کند. فرسایش معمولاً جسم را کوچک می‌کند، زائده‌های نازک را می‌زداید و اتصال‌های باریک را از میان می‌برد. دقت کنید کلمهٔ «معمولاً» به هندسه و انتخاب مبدأ وابسته است؛ در مثال‌های ما <span class="math notranslate nohighlight">\(0\in B\)</span> برقرار است و در نتیجه <span class="math notranslate nohighlight">\(A\ominus B\subseteq A\)</span>.</p>
+</section>
+<section id="id10">
+<h3>9.2.2 محاسبهٔ دستی با ماتریس کوچک<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>فرض کنید <span class="math notranslate nohighlight">\(B\)</span> همان صلیب <span class="math notranslate nohighlight">\(3\times3\)</span> و پنج خانهٔ فعال آن باشند. برای اینکه پیکسل مرکزی خروجی برابر ۱ شود، باید <strong>خود مرکز و چهار همسایهٔ بالا، پایین، چپ و راست</strong> در ورودی سفید باشند. اگر حتی یکی از آن پنج خانه صفر باشد، نتیجه صفر است. هیچ میانگین‌گیری یا ضریب وزنی در کار نیست.</p>
+<p>برای هر مکان <span class="math notranslate nohighlight">\((r,c)\)</span> در تصویر دودویی، وقتی عنصر ساختاری صلیبی و متقارن است می‌توان نوشت:</p>
+<div class="math notranslate nohighlight">
+\[
+g_{\ominus}(r,c)=f(r,c)\land f(r-1,c)\land f(r+1,c)\land f(r,c-1)\land f(r,c+1).
+\tag{9-3}
+\]</div>
+<p>علامت <span class="math notranslate nohighlight">\(\land\)</span> عمل منطقی <code class="docutils literal notranslate"><span class="pre">AND</span></code> است. اگر همهٔ جملات برابر ۱ باشند خروجی ۱ است؛ در غیراین‌صورت صفر.</p>
+<figure class="align-default" id="fig-ch09-grid-step">
+<a class="reference internal image-reference" href="../_images/fig09_05_grid_step.png"><img alt="../_images/fig09_05_grid_step.png" src="../_images/fig09_05_grid_step.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 262 </span><span class="caption-text">مقایسهٔ شش نقشهٔ کوچک با عنصر صلیبی: از ورودی و عنصر ساختاری تا فرسایش، اتساع و نتایج دو ترکیب. به‌خصوص اثر حفرهٔ سیاهِ مرکز را دنبال کنید.</span><a class="headerlink" href="#fig-ch09-grid-step" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>تمرین عددی کوتاه:</strong> اگر همسایگی صلیبیِ یک پیکسل <span class="math notranslate nohighlight">\([1,1,1,0,1]\)</span> باشد، خروجی فرسایش صفر است، چون عنصر در آن مکان به‌طور کامل داخل جسم نیست. اگر به‌جای آن <span class="math notranslate nohighlight">\([1,1,1,1,1]\)</span> باشد، خروجی یک می‌شود.</p>
+</section>
+<section id="id11">
+<h3>9.2.3 چه کاربردی دارد؟<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>در کنترل کیفیت تصویری، یک زائدهٔ بسیار نازک از بدنهٔ شیء با یک فرسایش مناسب از بین می‌رود. در تحلیل ماسکِ قطعه‌بندی نیز با فرسایش می‌توان ناحیهٔ <strong>داخلی‌تر و مطمئن‌تر</strong> جسم را مشخص کرد. ولی فرسایش تنها، اندازهٔ واقعی ناحیه را کوچک‌تر گزارش می‌کند و ممکن است شیء کوچک را کلاً حذف کند؛ بنابراین نباید آن را به‌تنهایی برای تخمین مساحت واقعی استفاده کرد.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="dilation">
+<h2>9.3 — اتساع (Dilation)<a class="headerlink" href="#dilation" title="Link to this heading">#</a></h2>
+<section id="id12">
+<h3>9.3.1 تعریف مجموعه‌ای<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>اتساع مجموعهٔ <span class="math notranslate nohighlight">\(A\)</span> با <span class="math notranslate nohighlight">\(B\)</span> را به‌صورت زیر تعریف می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{A\oplus B=\{z\in\mathbb Z^2\mid (\widehat B)_z\cap A\ne\varnothing\}.}
+\tag{9-4}
+\]</div>
+<p>به زبان ساده، هرجا حتی بخشی از عنصر ساختاری با پیش‌زمینه تماس پیدا کند، مرکز آن در خروجی سفید می‌شود. شکل معادل و گاهی شهودی‌تر رابطه این است:</p>
+<div class="math notranslate nohighlight">
+\[
+A\oplus B=\bigcup_{b\in B}(A+b),
+\qquad A+b=\{a+b\mid a\in A\}.
+\tag{9-5}
+\]</div>
+<p>پس اتساع را می‌توان «قرار دادن یک نسخه از <span class="math notranslate nohighlight">\(B\)</span> در هر پیکسل سفید و گرفتن اجتماع شکل‌های حاصل» تصور کرد. برای عنصر متقارنِ مبدأدار، <span class="math notranslate nohighlight">\(A\subseteq A\oplus B\)</span>.</p>
+</section>
+<section id="id13">
+<h3>9.3.2 محاسبهٔ منطقی در یک همسایگی<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>برای صلیب متقارن <span class="math notranslate nohighlight">\(3\times3\)</span>، فرمول خروجی در پیکسل <span class="math notranslate nohighlight">\((r,c)\)</span> چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+g_{\oplus}(r,c)=f(r,c)\lor f(r-1,c)\lor f(r+1,c)\lor f(r,c-1)\lor f(r,c+1).
+\tag{9-6}
+\]</div>
+<p>در اینجا <span class="math notranslate nohighlight">\(\lor\)</span> همان <code class="docutils literal notranslate"><span class="pre">OR</span></code> است؛ با وجود حتی یک ۱ در همسایگی، خروجی ۱ خواهد شد. به همین دلیل، اتساع شکاف‌های کوتاه را کمتر می‌کند، اجسام را کلفت‌تر نشان می‌دهد و گاهی دو جسم نزدیک را به هم متصل می‌کند.</p>
+<p><strong>محاسبهٔ نمونه:</strong> برای ورودی همسایگی <span class="math notranslate nohighlight">\([0,0,1,0,0]\)</span>، اتساع در مرکز ۱ می‌دهد؛ فرسایش برای همان همسایگی ۰ می‌دهد. این تنها یک مثال است؛ کافی است هر دو پرسش «همه؟» و «دست‌کم یکی؟» را از خود بپرسید.</p>
+<figure class="align-default" id="fig-ch09-one-dimensional">
+<a class="reference internal image-reference" href="../_images/fig09_13_1d_geometry.png"><img alt="../_images/fig09_13_1d_geometry.png" src="../_images/fig09_13_1d_geometry.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 263 </span><span class="caption-text">شهود هندسی در یک بعد: فرسایش انتهای قطعه‌ها را به داخل می‌برد و اتساع آن‌ها را به بیرون. نسخهٔ دوبعدی همان منطق را روی مرز شکل اجرا می‌کند.</span><a class="headerlink" href="#fig-ch09-one-dimensional" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id14">
+<h3>9.3.3 اتساع چه چیزهایی را خراب می‌کند؟<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>اگر دو شیء فقط یک یا دو پیکسل فاصله داشته باشند، یک اتساعِ نسبتاً بزرگ ممکن است آن‌ها را یکی کند. از سوی دیگر اندازه‌گیری مساحت روی ماسک اتساع‌یافته به‌صورت سیستماتیک بیشتر از مقدار ماسک اصلی می‌شود. در نتیجه اتساع یک ابزار <strong>هندسی و هدفمند</strong> است، نه یک بهبود خودکارِ همه‌جانبه.</p>
+<figure class="align-default" id="fig-ch09-four-operations">
+<a class="reference internal image-reference" href="../_images/fig09_04_four_operations.png"><img alt="../_images/fig09_04_four_operations.png" src="../_images/fig09_04_four_operations.png" style="width: 97%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 264 </span><span class="caption-text">اثر چهار عمل روی شکلی دارای پل، نقطهٔ کوچک و حفره. به تفاوت فرسایش و اتساع با گشودن و بستن توجه کنید: دو ترکیب اخیر برای اصلاح نوع مشخصی از نقص به‌کار می‌روند.</span><a class="headerlink" href="#fig-ch09-four-operations" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id15">
+<h3>9.3.4 مقایسهٔ فوری دو عمل اولیه<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>پرسش</p></th>
+<th class="head"><p>فرسایش <span class="math notranslate nohighlight">\(\ominus\)</span></p></th>
+<th class="head"><p>اتساع <span class="math notranslate nohighlight">\(\oplus\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>آزمون عنصر ساختاری</p></td>
+<td><p>همهٔ نقاط فعال داخل جسم باشند</p></td>
+<td><p>دست‌کم یک نقطهٔ فعال با جسم تماس داشته باشد</p></td>
+</tr>
+<tr class="row-odd"><td><p>معادل منطقی برای <span class="math notranslate nohighlight">\(B\)</span> متقارن</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AND</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OR</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>اثر معمول بر مرز سفید</p></td>
+<td><p>حرکت به داخل</p></td>
+<td><p>حرکت به بیرون</p></td>
+</tr>
+<tr class="row-odd"><td><p>اثر بر نویز سفیدِ کوچک</p></td>
+<td><p>احتمال حذف</p></td>
+<td><p>احتمال بزرگ‌شدن</p></td>
+</tr>
+<tr class="row-even"><td><p>اثر بر حفرهٔ سیاهِ کوچک</p></td>
+<td><p>بزرگ‌شدن</p></td>
+<td><p>احتمال کوچک‌شدن</p></td>
+</tr>
+<tr class="row-odd"><td><p>خطر رایج</p></td>
+<td><p>از دست رفتن بخش باریک یا شیء کوچک</p></td>
+<td><p>ادغام دو شیء مستقل</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="opening">
+<h2>9.4 — گشودن (Opening)<a class="headerlink" href="#opening" title="Link to this heading">#</a></h2>
+<section id="id16">
+<h3>9.4.1 چرا یک فرسایش به‌تنهایی کافی نیست؟<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>اگر نویز سفید را با فرسایش حذف کنیم، ممکن است جسم سالم نیز کوچک شود. پس از حذف نقاط خیلی باریک، می‌خواهیم بخش‌های ضخیم و باقی‌مانده را تقریباً به اندازهٔ قبلی برگردانیم. راه‌حل این است که <strong>ابتدا فرسایش و سپس اتساع با همان عنصر ساختاری</strong> اجرا کنیم. به این دو مرحله «گشودن» می‌گویند:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{A\circ B=(A\ominus B)\oplus B.}
+\tag{9-7}
+\]</div>
+<p>گشودن معمولاً نقطه‌های سفید کوچک، زائده‌های سفید باریک و پل‌هایی را که عنصر ساختاری در آن‌ها جا نمی‌شود حذف می‌کند، ولی اندازهٔ بخش ضخیم جسم را تا حدی بازمی‌گرداند. نکتهٔ بسیار مهم این است که <strong>اتساع دوم قادر نیست ناحیه‌ای را که در فرسایش کاملاً محو شده زنده کند</strong>. به همین دلیل یک پل باریک ممکن است برای همیشه قطع شود.</p>
+</section>
+<section id="id17">
+<h3>9.4.2 تفسیر هندسی: یک دیسک درون جسم حرکت می‌کند<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>فرض کنید یک دیسک کوچک درون ناحیهٔ سفید حرکت می‌کند، بدون آنکه حتی بخشی از آن به بیرون جسم برود. اجتماع تمام جاهایی که این دیسک می‌تواند اشغال کند، نتیجهٔ گشودن است:</p>
+<div class="math notranslate nohighlight">
+\[
+A\circ B=\bigcup_{z:B_z\subseteq A}B_z.
+\tag{9-8}
+\]</div>
+<p>این فرمول فقط تعریف دیگری نیست؛ نشان می‌دهد <strong>چرا هیچ نقطه‌ای خارج از مجموعهٔ اولیه به گشودن اضافه نمی‌شود</strong>. تمام دیسک‌های اجتماع از ابتدا درون <span class="math notranslate nohighlight">\(A\)</span> بوده‌اند.</p>
+<figure class="align-default" id="fig-ch09-opening-stages">
+<a class="reference internal image-reference" href="../_images/fig09_06_opening_stages.png"><img alt="../_images/fig09_06_opening_stages.png" src="../_images/fig09_06_opening_stages.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 265 </span><span class="caption-text">گشودن مرحله‌به‌مرحله: ابتدا پل باریک و ذرهٔ کوچک در فرسایش حذف می‌شوند؛ سپس با اتساع بخش‌های اصلی دوباره گسترش می‌یابند. پل حذف‌شده بازنمی‌گردد.</span><a class="headerlink" href="#fig-ch09-opening-stages" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id18">
+<h3>9.4.3 گشودن و حفظ اجسام کوچک<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>گاهی شیء اصلی خود بسیار کوچک است و تنها ۳ یا ۴ پیکسل پهنا دارد. اگر دیسک ساختاری شعاع ۵ پیکسل انتخاب کنیم، همان شیء معتبر هم حذف می‌شود. پس جملهٔ «گشودن برای حذف نویز خوب است» یک شرط پنهان دارد: <strong>اجسام مورد نظر باید از نویز بزرگ‌تر یا ضخیم‌تر باشند تا با یک <span class="math notranslate nohighlight">\(B\)</span> مناسب قابل تفکیک باشند</strong>. اگر اندازهٔ نویز و شیء تقریباً یکسان باشد، چهار عمل این فصل نمی‌توانند به‌تنهایی بین آن‌ها تفاوت معنایی قائل شوند.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="closing">
+<h2>9.5 — بستن (Closing)<a class="headerlink" href="#closing" title="Link to this heading">#</a></h2>
+<section id="id19">
+<h3>9.5.1 مسئلهٔ حفره و شکاف سیاه<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>این بار ماسک یک جسم نسبتاً ضخیم دارد، ولی درون آن چند نقطهٔ سیاهِ اشتباه دیده می‌شود یا مرز جسم، بریدگی باریکی دارد. اتساع، این حفره‌ها و شکاف‌ها را کوچک می‌کند، اما کل جسم را هم بزرگ می‌کند. بنابراین پس از اتساع، یک فرسایش با همان عنصر ساختاری انجام می‌دهیم:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{A\bullet B=(A\oplus B)\ominus B.}
+\tag{9-9}
+\]</div>
+<p>به این عملیات <strong>بستن</strong> می‌گویند. بستن معمولاً حفره‌ها و شکاف‌های کوچکِ تیره درون زمینهٔ روشن را پر و دو بخش سفید نزدیک را به یکدیگر متصل می‌کند. فرسایش دوم ضخامت اضافه‌شدهٔ بسیاری از مرزهای بیرونی را بازمی‌گرداند، ولی لزوماً هندسه را کاملاً به شکل نخست برنمی‌گرداند؛ وگرنه هیچ حفره‌ای پر نمی‌شد!</p>
+<figure class="align-default" id="fig-ch09-closing-stages">
+<a class="reference internal image-reference" href="../_images/fig09_07_closing_stages.png"><img alt="../_images/fig09_07_closing_stages.png" src="../_images/fig09_07_closing_stages.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 266 </span><span class="caption-text">بستن مرحله‌به‌مرحله: در اتساع، حفره و تورفتگی باریک کوچک می‌شوند؛ فرسایش بعدی بخش زیادی از گسترش بیرونی را پس می‌گیرد. تفاوت بین «پرکردن حفرهٔ کوچک» و «پرکردن هر حفره با هر اندازه» را فراموش نکنید.</span><a class="headerlink" href="#fig-ch09-closing-stages" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id20">
+<h3>9.5.2 تشبیه هندسی با فضای بیرون جسم<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>اگر در گشودن، دیسک را <strong>داخل</strong> جسم می‌غلتاندیم، در بستن می‌توان از حرکت دیسک در <strong>فضای بیرون</strong> استفاده کرد: هر شیار تیره‌ای که دیسک نتواند به آن وارد شود، ممکن است به‌وسیلهٔ بستن پُر شود. این تشبیه برای فهم اینکه چرا بستن حفره‌های <em>کوچک‌تر از عنصر ساختاری</em> را هدف می‌گیرد بسیار مفید است؛ اما برای شکل‌های نامنظم و مرزهای متصل به لبهٔ تصویر، باید شرایط دقیق مجموعه‌ای را بررسی کرد.</p>
+</section>
+<section id="id21">
+<h3>9.5.3 کدام ترتیب؟<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>گشودن و بستن جابه‌جاپذیر نیستند:</p>
+<div class="math notranslate nohighlight">
+\[
+(A\circ B)\bullet B\;\ne\;(A\bullet B)\circ B
+\quad\text{(در حالت کلی)}.
+\tag{9-10}
+\]</div>
+<p>اگر ابتدا Opening کنیم، نقطه‌های سفید و پل‌های باریک حذف می‌شوند و سپس Closing حفره‌های کوچک را ترمیم می‌کند. اگر ترتیب را برعکس کنیم، ممکن است Closing ابتدا دو شیء را به هم متصل کند و Opening بعدی نتواند آن اتصال را حذف کند. <strong>ترتیب را باید از نوع خطایی که می‌خواهیم اصلاح کنیم و از نتیجهٔ آزمایش روی داده تعیین کنیم.</strong></p>
+<figure class="align-default" id="fig-ch09-order">
+<a class="reference internal image-reference" href="../_images/fig09_10_order_matters.png"><img alt="../_images/fig09_10_order_matters.png" src="../_images/fig09_10_order_matters.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 267 </span><span class="caption-text">مقایسهٔ دو ترتیب روی یک تصویر مصنوعی؛ پنل آخر پیکسل‌هایی را نشان می‌دهد که با تغییر ترتیب متفاوت شده‌اند. دو دستور ظاهراً مشابه الزاماً هم‌ارز نیستند.</span><a class="headerlink" href="#fig-ch09-order" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id22">
+<h2>9.6 — خواص ریاضی چهار عمل: چرا روابط واقعاً مفیدند؟<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>در این بخش تنها به فرمول‌نویسی اکتفا نمی‌کنیم؛ هر خاصیت را به یک تصمیم عملی در پردازش تصویر وصل می‌کنیم. در همهٔ روابط فرض می‌کنیم مجموعه‌ها روی شبکهٔ کامل <span class="math notranslate nohighlight">\(\mathbb Z^2\)</span> تعریف شده‌اند، <span class="math notranslate nohighlight">\(B\)</span> محدود و ناتهی است و وقتی دربارهٔ کوچک‌کردن و بزرگ‌کردن صحبت می‌کنیم، مبدأ <span class="math notranslate nohighlight">\(0\in B\)</span> باشد. تصاویر رایانه‌ای مرز محدود دارند؛ اثر این محدودیت را جداگانه بررسی خواهیم کرد.</p>
+<section id="monotonicity">
+<h3>9.6.1 خاصیت شمول (Monotonicity)<a class="headerlink" href="#monotonicity" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(A\subseteq C\)</span> باشد، یعنی همهٔ پیکسل‌های سفید <span class="math notranslate nohighlight">\(A\)</span> در <span class="math notranslate nohighlight">\(C\)</span> نیز سفیدند، آنگاه:</p>
+<div class="math notranslate nohighlight">
+\[
+A\ominus B\subseteq C\ominus B,
+\qquad
+A\oplus B\subseteq C\oplus B.
+\tag{9-11}
+\]</div>
+<p>چرا؟ اگر قالب <span class="math notranslate nohighlight">\(B\)</span> داخل <span class="math notranslate nohighlight">\(A\)</span> جا شود، حتماً داخل مجموعهٔ بزرگ‌تر <span class="math notranslate nohighlight">\(C\)</span> هم جا می‌شود؛ و اگر <span class="math notranslate nohighlight">\(B\)</span> با <span class="math notranslate nohighlight">\(A\)</span> تماس داشته باشد، با مجموعهٔ بزرگ‌تر هم تماس دارد. این نتیجه در تحلیل اثر اصلاح ماسک‌ها مفید است: با بزرگ‌شدن مجموعهٔ ورودی، خروجی هیچ‌کدام از این دو عمل نباید در معنای مجموعه‌ای «برعکس» کوچک شود.</p>
+<p>همین اصل برای گشودن و بستن نیز برقرار است:</p>
+<div class="math notranslate nohighlight">
+\[
+A\subseteq C\quad\Longrightarrow\quad
+A\circ B\subseteq C\circ B,
+\quad A\bullet B\subseteq C\bullet B.
+\tag{9-12}
+\]</div>
+</section>
+<section id="id23">
+<h3>9.6.2 گشودن ضدگسترنده و بستن گسترنده است<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+\boxed{A\circ B\subseteq A\subseteq A\bullet B.}
+\tag{9-13}
+\]</div>
+<p>این رابطه یکی از مهم‌ترین آزمون‌های صحت پیاده‌سازی است. وقتی <strong>همان</strong> عنصر ساختاری و قرارداد مرزی استاندارد را استفاده می‌کنیم، گشودن نمی‌تواند پیکسل سفید تازه‌ای در خارج از ناحیهٔ اولیه بسازد، و بستن نباید بخشی از سفیدی اولیه را حذف کند. اگر خلاف این را در شبیه‌سازی دیدیم، ابتدا باید قرارداد مرز، نوع داده و مبدأ عنصر ساختاری را بررسی کنیم.</p>
+<p><strong>استدلال گشودن:</strong> نتیجهٔ رابطهٔ (9-8) اجتماع نسخه‌هایی از <span class="math notranslate nohighlight">\(B\)</span> است که همگی کاملاً در <span class="math notranslate nohighlight">\(A\)</span> جا می‌شدند؛ پس اجتماع آن‌ها نیز زیرمجموعهٔ <span class="math notranslate nohighlight">\(A\)</span> است. <strong>استدلال بستن:</strong> از دوگانگی گشودن و بستن نسبت به مکمل که در ادامه می‌آید نتیجه می‌شود؛ یا می‌توان آن را مستقیم از تعریف مجموعه‌ای استخراج کرد.</p>
+</section>
+<section id="id24">
+<h3>9.6.3 یک بار گشودن/بستن برای عنصر ثابت کافی است: ایدمپوتنت بودن<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+(A\circ B)\circ B=A\circ B,
+\qquad
+(A\bullet B)\bullet B=A\bullet B.
+\tag{9-14}
+\]</div>
+<p>این خاصیت را <code class="docutils literal notranslate"><span class="pre">idempotence</span></code> می‌نامند. تصور کنید با یک دیسکِ ثابت، تمام برجستگی‌هایی که دیسک در آن‌ها جا نمی‌شود از بین رفته‌اند. اجرای دوبارهٔ همان عملیات چیزی برای حذف‌کردن باقی نمی‌گذارد. مشابه آن، بستن دوباره با همان قالب نباید حفرهٔ تازه‌ای را پر کند.</p>
+<p><strong>نکتهٔ عملی:</strong> اگر بار دوم خروجی شما عوض شد، احتمال دارد هر بار خروجی به نوع دیگری تبدیل یا اندازهٔ عنصر ساختاری تغییر داده شده باشد، یا رفتار مرز تصویرِ محدود با تعریف ایده‌آل مجموعه‌ای فرق کند.</p>
+<figure class="align-default" id="fig-ch09-idempotence">
+<a class="reference internal image-reference" href="../_images/fig09_11_idempotence.png"><img alt="../_images/fig09_11_idempotence.png" src="../_images/fig09_11_idempotence.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 268 </span><span class="caption-text">یک بار و دو بار گشودن یا بستن با عنصر ساختاری ثابت. بخش‌های اصلی تصویر باید یکسان بمانند؛ این آزمایش برای کنترل کد مفید است.</span><a class="headerlink" href="#fig-ch09-idempotence" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id25">
+<h3>9.6.4 دوگانگی میان فرسایش و اتساع<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>برای <span class="math notranslate nohighlight">\(A^c\)</span> به‌عنوان مجموعهٔ پس‌زمینه، و <span class="math notranslate nohighlight">\(\widehat B\)</span> به‌عنوان بازتاب قالب، داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{(A\ominus B)^c=A^c\oplus\widehat B,}
+\tag{9-15}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\boxed{(A\oplus B)^c=A^c\ominus\widehat B.}
+\tag{9-16}
+\]</div>
+<p><strong>به زبان فارسی:</strong> «نقاطی که بعد از فرسایش سفید نمانده‌اند» همان نقاطی هستند که اگر پس‌زمینه را با قالب بازتاب‌یافته اتساع دهیم سفید می‌شوند. در واقع، فرسایش شیء از یک سمت، به اتساع پس‌زمینه از سمت مکمل مربوط است.</p>
+<p><strong>اثبات کوتاه رابطهٔ اول:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+z\notin A\ominus B
+&amp;\iff B_z\not\subseteq A\\
+&amp;\iff B_z\cap A^c\ne\varnothing\\
+&amp;\iff z\in A^c\oplus\widehat B.
+\end{aligned}
+\tag{9-17}
+\end{split}\]</div>
+<p>عبارت آخر دقیقاً از تعریف اتساع و بازتاب عنصر ساختاری به‌دست می‌آید. پس دو طرف مجموعهٔ یکسانی از مختصات را مشخص می‌کنند. برای عنصر مرکزی‌متقارن <span class="math notranslate nohighlight">\(\widehat B=B\)</span> و رابطه ساده‌تر می‌شود.</p>
+<figure class="align-default" id="fig-ch09-duality">
+<a class="reference internal image-reference" href="../_images/fig09_09_duality.png"><img alt="../_images/fig09_09_duality.png" src="../_images/fig09_09_duality.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 269 </span><span class="caption-text">مقایسهٔ فرسایش مستقیم با مکمل اتساعِ مکمل. در ناحیهٔ داخلی تصویر توافق مشاهده می‌شود؛ در اطراف مرز فیزیکی آرایه باید به سیاست padding دقت کرد.</span><a class="headerlink" href="#fig-ch09-duality" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای دو عمل ترکیبی هم دوگانگی برقرار است:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{(A\circ B)^c=A^c\bullet\widehat B,}
+\qquad
+\boxed{(A\bullet B)^c=A^c\circ\widehat B.}
+\tag{9-18}
+\]</div>
+<p>این روابط کمک می‌کنند بفهمیم چرا <strong>گشودن لکه‌های سفید</strong> و <strong>بستن لکه‌های سیاه</strong> به هم نزدیک‌اند: یکی را می‌توان با وارونه‌کردن پیش‌زمینه و پس‌زمینه به دیگری تبدیل کرد.</p>
+</section>
+<section id="id26">
+<h3>9.6.5 اثر اندازه و جهت عنصر ساختاری<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(B_1\subseteq B_2\)</span>، آنگاه:</p>
+<div class="math notranslate nohighlight">
+\[
+A\ominus B_2\subseteq A\ominus B_1,
+\qquad
+A\oplus B_1\subseteq A\oplus B_2.
+\tag{9-19}
+\]</div>
+<p>یعنی قالب بزرگ‌تر <strong>شرطِ فرسایش را سخت‌تر</strong> و <strong>دامنهٔ اتساع را گسترده‌تر</strong> می‌کند. اما برای انتخاب میان دو قالبِ دارای <em>شکل متفاوت</em>، صرفاً مقایسهٔ شعاع کافی نیست: یک خط افقی بلند روی ترک افقی رفتاری متفاوت از یک دیسک دارد. همچنین نباید این قانون را بدون فرض لازم، به شکل نادرست به نتیجهٔ دو ترکیب گشودن و بستن تعمیم دهیم؛ خود آزمایش تصویری معیار بهتری است.</p>
+<figure class="align-default" id="fig-ch09-scale">
+<a class="reference internal image-reference" href="../_images/fig09_08_scale_selection.png"><img alt="../_images/fig09_08_scale_selection.png" src="../_images/fig09_08_scale_selection.png" style="width: 97%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 270 </span><span class="caption-text">گشودن یک ماسک ثابت با دیسک‌های دارای شعاع متفاوت. پدیده‌ای که در یک مقیاس «نویز» تلقی می‌شود، در مقیاس بزرگ‌تر ممکن است دیگر از یک شیء واقعی قابل تفکیک نباشد.</span><a class="headerlink" href="#fig-ch09-scale" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch09-directional">
+<a class="reference internal image-reference" href="../_images/fig09_21_directional_footprints.png"><img alt="../_images/fig09_21_directional_footprints.png" src="../_images/fig09_21_directional_footprints.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 271 </span><span class="caption-text">تأثیر انتخاب صلیب، دیسک، مربع و خط افقی بر نتیجهٔ گشودن. عنصر ساختاری جهت‌دار می‌تواند اتصال‌های همسو با جهت خود را بهتر حفظ کند، ولی در جهت دیگر باعث حذف ساختار شود.</span><a class="headerlink" href="#fig-ch09-directional" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id27">
+<h3>9.6.6 مقایسهٔ پارامترها از راه اندازهٔ ماسک<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(|A|\)</span> تعداد پیکسل‌های سفیدِ ماسک باشد، برای عنصر دارای مبدأ:</p>
+<div class="math notranslate nohighlight">
+\[
+|A\ominus B|\le |A|\le |A\oplus B|.
+\tag{9-20}
+\]</div>
+<p>و در چارچوب تعریف ایده‌آل:</p>
+<div class="math notranslate nohighlight">
+\[
+|A\circ B|\le |A|\le |A\bullet B|.
+\tag{9-21}
+\]</div>
+<p>این روابط به‌تنهایی نمی‌گویند کدام خروجی <em>صحیح‌تر</em> است. فرض کنید یک حفرهٔ سیاه واقعی در آسفالت وجود دارد: بستن ممکن است آن را حذف کند و مساحت را زیادتر نمایش دهد؛ اما اگر حفره فقط یک خطای ماسک بوده، همان تغییر مفید است. در نتیجه <strong>درستیِ هندسی باید در برابر تعریف مسئله یا دادهٔ مرجع بررسی شود، نه صرفاً تعداد پیکسل سفید.</strong></p>
+<figure class="align-default" id="fig-ch09-area-radius">
+<a class="reference internal image-reference" href="../_images/fig09_14_area_vs_radius.png"><img alt="../_images/fig09_14_area_vs_radius.png" src="../_images/fig09_14_area_vs_radius.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 272 </span><span class="caption-text">آزمایش عددی: تغییر مساحت ماسک با شعاع عنصر ساختاری. تفاوت مقدار مساحت با کیفیت تشخیص باید تفکیک شود.</span><a class="headerlink" href="#fig-ch09-area-radius" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id28">
+<h2>9.7 — جزئیات اجرا که اگر ندانیم، روابط درست هم خروجی غلط می‌دهند<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
+<section id="padding">
+<h3>9.7.1 مرز تصویر و Padding<a class="headerlink" href="#padding" title="Link to this heading">#</a></h3>
+<p>در کتاب، تعریف‌ها روی مجموعه‌های دوبعدی بیان می‌شوند؛ اما فایل تصویر، یک مستطیل محدود است. وقتی عنصر ساختاری به لبهٔ تصویر می‌رسد، چند خانهٔ آن خارج از آرایه قرار می‌گیرند. برنامه باید تصمیم بگیرد خارج آرایه چه مقدار محسوب شود. چند قرارداد رایج وجود دارد: صفر فرض‌کردن، یک فرض‌کردن، بازتاب مقادیر داخل، نادیده‌گرفتن اثر نقاط بیرونی، یا پیش از محاسبه بزرگ‌کردن بوم تصویر با یک حاشیه.</p>
+<p>در کد مستقل این فصل برای شفافیت از <code class="docutils literal notranslate"><span class="pre">scipy.ndimage</span></code> با <code class="docutils literal notranslate"><span class="pre">border_value=0</span></code> استفاده می‌کنیم و نمونه‌های عملی را با حاشیهٔ امن می‌سازیم. <strong>اما</strong> اگر جسمی تا مرز تصویر امتداد داشته باشد، همین انتخاب می‌تواند باعث شود بستنِ محدود روی آرایه کاملاً گسترنده نباشد؛ زیرا اتساع بیرون از قاب بریده می‌شود و فرسایش بعدی آن قسمت را از دست می‌دهد.</p>
+<p>راه‌حل آزمایشگاهی برای اشیای نزدیک لبه: ابتدا به اندازهٔ کافی تصویر را با پس‌زمینهٔ معلوم بزرگ کنید، زنجیرهٔ عملیات را روی آرایهٔ بزرگ‌تر انجام دهید، سپس به اندازهٔ اصلی برش دهید. اگر داده در واقع بخشی از یک شیء ادامه‌دار بیرون قاب باشد، باز هم باید قرارداد فیزیکی مناسب را مشخص کنیم.</p>
+<figure class="align-default" id="fig-ch09-border-policy">
+<a class="reference internal image-reference" href="../_images/fig09_12_border_policy.png"><img alt="../_images/fig09_12_border_policy.png" src="../_images/fig09_12_border_policy.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 273 </span><span class="caption-text">یک تصویر تمام‌سفید که به مرز قاب رسیده است. بستن با <code class="docutils literal notranslate"><span class="pre">border_value=0</span></code> روی آرایهٔ محدود ممکن است مرز را از دست بدهد؛ با حاشیه‌گذاری مناسب نتیجه فرق می‌کند.</span><a class="headerlink" href="#fig-ch09-border-policy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id29">
+<h3>9.7.2 سه خطای بسیار رایج<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p><strong>اول:</strong> تصویری با شدت‌های ۰ تا ۲۵۵ را مستقیماً به‌جای تصویر بولی به عملیات دودویی دادن. در این حالت مقادیر غیرصفر به پیش‌زمینه تبدیل می‌شوند؛ حتی یک خاکستری بسیار تیره هم ممکن است «۱» تلقی شود. باید ابتدا ماسک را با آستانه‌ای مناسب به <code class="docutils literal notranslate"><span class="pre">bool</span></code> تبدیل کنیم. <strong>دوم:</strong> انتخاب اندازهٔ فرد/زوج و محل مبدأ عنصر بدون توجه به سیاست کتابخانه. بهتر است برای مثال‌های ابتدایی، عناصر فرداندازه با مرکز مشخص انتخاب شوند. <strong>سوم:</strong> استفاده از عنصر نامتقارن بدون توجه به بازتاب؛ به‌خصوص اگر از دو کتابخانهٔ متفاوت استفاده می‌کنیم. در این جزوه محاسبات اصلی با دیسک، مربع و صلیبِ متقارن انجام می‌شوند.</p>
+</section>
+<section id="id30">
+<h3>9.7.3 آیا چهار عمل خطی‌اند؟<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<p>خیر. این‌ها عملیات مجموعه‌ای/منطقی‌اند، نه میانگین‌گیری یا کانولوشن خطی معمول. به طور کلی نمی‌توان قانون جمع و ضریب را مثل یک سیستم خطی بر آن‌ها اعمال کرد. در تصویر دودویی، رابطهٔ زیر فقط وقتی عنصر <span class="math notranslate nohighlight">\(B\)</span> متقارن فرض شده باشد، به شکل سادهٔ <code class="docutils literal notranslate"><span class="pre">min</span></code> و <code class="docutils literal notranslate"><span class="pre">max</span></code> در همسایگی ظاهر می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+(f\ominus B)(z)=\min_{b\in B}f(z+b),
+\qquad
+(f\oplus B)(z)=\max_{b\in B}f(z-b).
+\tag{9-22}
+\]</div>
+<p>برای عناصر متقارن، علامت <span class="math notranslate nohighlight">\(+\)</span> و <span class="math notranslate nohighlight">\(-\)</span> در آرگومان صرفاً بازتابی از مختصات است و نتیجهٔ مجموعه‌ای یکی می‌شود؛ اما برای قالب نامتقارن این نکته را نمی‌توان نادیده گرفت. مهم‌تر اینکه این <code class="docutils literal notranslate"><span class="pre">min/max</span></code> فقط روش نوشتن منطق صفر/یک است و نباید از آن نتیجه گرفت که موضوع این فصل مورفولوژی تصاویر خاکستری است.</p>
+<figure class="align-default" id="fig-ch09-not-arithmetic">
+<a class="reference internal image-reference" href="../_images/fig09_20_geometric_not_arithmetic.png"><img alt="../_images/fig09_20_geometric_not_arithmetic.png" src="../_images/fig09_20_geometric_not_arithmetic.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 274 </span><span class="caption-text">مقایسهٔ هندسی: بدون آنکه روشنایی یا میانگین شدت مطرح باشد، فقط عضویت/عدم‌عضویت پیکسل در مجموعه تغییر می‌کند.</span><a class="headerlink" href="#fig-ch09-not-arithmetic" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id31">
+<h3>9.7.4 تصمیم‌گیری دربارهٔ شعاع، شکل و ترتیب<a class="headerlink" href="#id31" title="Link to this heading">#</a></h3>
+<p>برای انتخاب <span class="math notranslate nohighlight">\(B\)</span> از این منطق استفاده کنید: نخست عرض تقریبی <strong>کوچک‌ترین شیء معتبر</strong> و <strong>بزرگ‌ترین نویزی که می‌خواهید حذف کنید</strong> را در واحد پیکسل تعیین کنید. سپس قالبی انتخاب کنید که در شیء معتبر جا شود ولی در نویز نجا شود. اگر یک خط باریک واقعاً بخشی از شیء است، نباید آن را بی‌دلیل با یک دیسک بزرگ حذف کنید. اگر حفره واقعاً اطلاعات معناداری دارد، بستن آن خطا است. در عمل، شعاع ۱، ۲، ۳ و … را روی مجموعه‌ای از تصاویر اعتبارسنجی امتحان کنید؛ انتخاب عدد ثابت از روی یک تصویر زیبا کافی نیست.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="python">
+<h2>9.8 — آزمایشگاه Python: چهار تابع مستقل و کاملاً روشن<a class="headerlink" href="#python" title="Link to this heading">#</a></h2>
+<p>همهٔ توابع زیر بر آرایه‌های <code class="docutils literal notranslate"><span class="pre">bool</span></code> و عناصر ساختاری متقارن کار می‌کنند. فرسایش و اتساع پایهٔ دو تابع دیگرند؛ این همان رابطهٔ ریاضی بخش‌های پیشین است.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">ndimage</span> <span class="k">as</span> <span class="n">ndi</span>
+
+<span class="c1"># Disk-like 5x5 footprint, centered at (2, 2)</span>
+<span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="o">*</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">erosion</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ndi</span><span class="o">.</span><span class="n">binary_erosion</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">),</span> <span class="n">structure</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">border_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dilation</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ndi</span><span class="o">.</span><span class="n">binary_dilation</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">bool</span><span class="p">),</span> <span class="n">structure</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">border_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">opening</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">dilation</span><span class="p">(</span><span class="n">erosion</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">B</span><span class="p">),</span> <span class="n">B</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">closing</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">erosion</span><span class="p">(</span><span class="n">dilation</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">B</span><span class="p">),</span> <span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>اگر <code class="docutils literal notranslate"><span class="pre">mask</span></code> تصویر دودویی نباشد، ابتدا باید آن را به صورت مناسب بسازیم. به‌عنوان مثال <code class="docutils literal notranslate"><span class="pre">mask</span> <span class="pre">=</span> <span class="pre">gray</span> <span class="pre">&lt;</span> <span class="pre">90</span></code> برای جست‌وجوی نواحی <strong>تیره</strong>‌تر از آستانهٔ ۹۰ استفاده می‌شود. برعکس <code class="docutils literal notranslate"><span class="pre">gray</span> <span class="pre">&gt;</span> <span class="pre">200</span></code> نواحی روشن را انتخاب می‌کند. خود عمل آستانه‌گذاری در اینجا یک مرحلهٔ <strong>آماده‌سازی داده</strong> است، نه پنجمین عمل مورفولوژیک.</p>
+<p><strong>مثال کدنویسی کوچک:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">A</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># tiny dark hole</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'input area:'</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'eroded area:'</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">erosion</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'dilated area:'</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">dilation</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'opening area:'</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">opening</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'closing area:'</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">closing</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
+</pre></div>
+</div>
+<p>در این مثال دو سؤال را بررسی کنید: آیا فرسایش ابعاد ناحیهٔ سفید را کم کرده است؟ آیا بستن حفرهٔ مرکزی را ترمیم کرده است؟ پاسخ به هندسهٔ <span class="math notranslate nohighlight">\(B\)</span>، مقدار آستانهٔ ماسک و فاصلهٔ جسم از لبه بستگی دارد؛ برای تصویرهای آموزشی حاشیهٔ امن انتخاب کنید.</p>
+<section id="id32">
+<h3>9.8.1 آزمایش مقایسهٔ نوع عنصر ساختاری<a class="headerlink" href="#id32" title="Link to this heading">#</a></h3>
+<p>به‌جای فرمول‌زدگی، یک ماسک ثابت را با چهار عنصر دیسک، مربع، صلیب و خط افقی پردازش کنید. مشاهده کنید چگونه نتیجهٔ گشودنِ خطی می‌تواند یک بخش افقی را حفظ و بخش عمودی مشابه را حذف کند. چنین اثر جهت‌داری در سامانهٔ واقعی گاهی مفید و گاهی مخرب است.</p>
+</section>
+<section id="id33">
+<h3>9.8.2 آزمایش ایدمپوتنت بودن<a class="headerlink" href="#id33" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">opened</span> <span class="o">=</span> <span class="n">opening</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+<span class="n">opened_twice</span> <span class="o">=</span> <span class="n">opening</span><span class="p">(</span><span class="n">opened</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">opened</span><span class="p">,</span> <span class="n">opened_twice</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>همین آزمون را برای Closing انجام دهید. اگر در مورد تصویر برخوردکننده با مرز نتیجه درست نبود، مطابق بخش 9.7.1 مرز را جداگانه تحلیل کنید.</p>
+</section>
+<section id="id34">
+<h3>9.8.3 پیچیدگی محاسباتی و مقیاس<a class="headerlink" href="#id34" title="Link to this heading">#</a></h3>
+<p>پیاده‌سازی مستقیم یک عمل با عنصر دارای <span class="math notranslate nohighlight">\(K\)</span> نقطهٔ فعال روی تصویر <span class="math notranslate nohighlight">\(M\times N\)</span> در حدود <span class="math notranslate nohighlight">\(O(MNK)\)</span> بررسی عضویت انجام می‌دهد. Opening و Closing هرکدام شامل دو مرحله‌اند. کتابخانه‌های علمی می‌توانند با پیاده‌سازی بهینه و استفاده از ساختار هسته سرعت را بهتر کنند؛ این رابطه تخمین روش ساده است، نه الزاماً اندازهٔ دقیق زمان SciPy. برای قالب‌های بزرگ بهتر است زمان را اندازه بگیریم و از ادعاهای سرعت بدون آزمایش پرهیز کنیم.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id35">
+<h2>9.9 — مطالعهٔ موردی امروزی: پاک‌سازی ماسکِ خرابی‌های پهن سطح جاده در بازرسی تصویری<a class="headerlink" href="#id35" title="Link to this heading">#</a></h2>
+<section id="id36">
+<h3>9.9.1 این مثال از کجا آمده است؟<a class="headerlink" href="#id36" title="Link to this heading">#</a></h3>
+<p>بازرسی تصویری جاده با دوربین پهپاد و مدل‌های قطعه‌بندی یکی از کاربردهای معاصر پردازش تصویر است. در مقالهٔ پژوهشی <strong>López و همکاران (۲۰۲۶)</strong> با عنوان <em>A UAV-Based Framework for Visual Detection and Geospatial Mapping of Real Road Surface Defects</em>، تصاویر جاده به ماسک‌های دودویی خرابی تبدیل و خروجی‌ها برای تحلیل هندسی بررسی شده‌اند. پژوهشگران در یک آزمایش مقایسه‌ای، وضعیت خام، پردازش‌های مورفولوژیک و ترکیب آن‌ها با پالایش اجزای کوچک را بررسی کرده‌اند. نتیجهٔ مهم آن‌ها این است که <strong>در ماسک ترک‌های نازک</strong>، گشودن و بستن می‌توانند اتفاقاً امتیازهای <code class="docutils literal notranslate"><span class="pre">IoU</span></code> و <code class="docutils literal notranslate"><span class="pre">Dice</span></code> را کاهش دهند، زیرا جزئیات باریکِ درست را پاک می‌کنند. <a class="reference external" href="https://doi.org/10.3390/drones10020119">منبع پژوهش: <em>Drones</em>, 2026, 10(2), 119</a>.</p>
+<p>بنابراین کاربرد این فصل را <strong>با دقت از یافتهٔ مقاله تفکیک می‌کنیم</strong>: مقاله، انگیزهٔ علمی و هشدار دربارهٔ ترک‌های باریک را فراهم می‌کند؛ اما تصویر و نتیجهٔ عددیِ آزمایش ما از آن مقاله استخراج نشده‌اند. ما برای اینکه مراحل به‌وضوح دیده شوند، یک <strong>نمونهٔ مصنوعی آموزشی از ماسک لکه‌های نسبتاً پهن خرابی سطح جاده</strong> می‌سازیم؛ نوع لکه‌ها برای نمایش چهار عمل ساده مناسب‌تر است. نه ادعای استفاده از دادهٔ پهپاد واقعی داریم و نه مدعی هستیم که بهبود مصنوعی ما، نتیجهٔ آماری یک مدل در دنیای واقعی است.</p>
+<p>برای شرح تعریف‌ها و پیاده‌سازی خود چهار عملیات از <a class="reference external" href="https://scikit-image.org/docs/stable/api/skimage.morphology">مستندات رسمی <code class="docutils literal notranslate"><span class="pre">scikit-image</span></code> نسخهٔ پایدار</a> و <a class="reference external" href="https://scikit-image.org/docs/0.25.x/auto_examples/applications/plot_morphology.html">مثال رسمی Morphological Filtering</a> نیز استفاده شده است. این منابع توضیح می‌دهند که <code class="docutils literal notranslate"><span class="pre">opening</span></code> و <code class="docutils literal notranslate"><span class="pre">closing</span></code> چگونه از <code class="docutils literal notranslate"><span class="pre">erosion</span></code> و <code class="docutils literal notranslate"><span class="pre">dilation</span></code> ساخته می‌شوند و چرا انتخاب عنصر ساختاری مهم است.</p>
+</section>
+<section id="id37">
+<h3>9.9.2 ورودی، خروجی و هدف عملی<a class="headerlink" href="#id37" title="Link to this heading">#</a></h3>
+<p>ورودی یک تصویر شبه‌هوایی <strong>مصنوعی</strong> از سطح آسفالت و یک ماسک دودویی پرنویز است. ماسک می‌گوید کدام نقاط «احتمالاً خرابی سطحی» هستند. درون خرابی‌های پهن چند پیکسل صفرِ اشتباه افتاده و نقاط سفید پراکنده‌ای در آسفالت سالم دیده می‌شود. ما یک ماسک «حقیقت مصنوعی» نیز داریم تا بتوانیم نتیجهٔ چهار عملیات را به صورت کمّی بسنجیم.</p>
+<p>به‌جای آموزش مدل هوش مصنوعی یا ورود به مبحث قطعه‌بندی، فرض می‌کنیم <strong>ماسکِ دودویی از مرحلهٔ قبل به دست آمده است</strong>؛ زیرا محدودهٔ این فصل صرفاً چهار عمل مورفولوژیک است. خروجی مورد انتظار، ماسکی تمیزتر و نواری باریک در حوالی مرز خرابی‌هاست که برای بازبینی دستی قابل استفاده باشد.</p>
+<figure class="align-default" id="fig-ch09-road-overlays">
+<a class="reference internal image-reference" href="../_images/fig09_16_road_overlays.png"><img alt="../_images/fig09_16_road_overlays.png" src="../_images/fig09_16_road_overlays.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 275 </span><span class="caption-text">عکس چپ <em>بازسازی مصنوعیِ بصری</em> از سطح جاده است، نه عکس واقعی پهپاد. در وسط، مرز ماسک پرنویز نمایش داده شده و در راست مرز پاک‌سازی‌شده قرار دارد. هدف، مشاهدهٔ معنای هندسی تغییرهاست.</span><a class="headerlink" href="#fig-ch09-road-overlays" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id38">
+<h3>9.9.3 اجرای الگوریتم گام‌به‌گام<a class="headerlink" href="#id38" title="Link to this heading">#</a></h3>
+<p><strong>گام اول — ساخت ماسک دودویی.</strong> یک ماتریس از صفر/یک داریم که ۱ به معنای ناحیهٔ خرابیِ هدف است. اگر ورودی یک نقشهٔ احتمال باشد، در مرحلهٔ پیش از مورفولوژی با آستانهٔ مشخص آن را دودویی می‌کنیم؛ در این مثال، ماسک از پیش آماده و مصنوعی است.</p>
+<p><strong>گام دوم — فرسایش با دیسک کوچک.</strong> دیسکِ شعاع ۲ پیکسل را در هر نقطه امتحان می‌کنیم. نقاط سفید منفرد و بسیاری از زائده‌های باریک حذف می‌شوند؛ نواحی پهن کمی منقبض می‌شوند. این اولین نیمهٔ Opening است.</p>
+<p><strong>گام سوم — اتساع همان نتیجه با همان دیسک.</strong> نواحی معتبرِ باقی‌مانده دوباره رشد می‌کنند. دو مرحلهٔ قبل با هم گشودن را ساخته‌اند: <span class="math notranslate nohighlight">\(A_1=A\circ B_2\)</span>. لکه‌های سفید بی‌ارتباط کوچک که در فرسایش محو شدند برنمی‌گردند.</p>
+<p><strong>گام چهارم — اتساع با دیسکِ شعاع ۳.</strong> این بار با هدف اصلاح سوراخ‌های کوچک، نواحی سفید را گسترش می‌دهیم. بخش زیادی از صفرهای منفرد درون نواحی پهن پوشانده می‌شوند. این نیمهٔ نخست Closing است.</p>
+<p><strong>گام پنجم — فرسایش با همان دیسکِ شعاع ۳.</strong> گسترش بیرونی را تا حد زیادی پس می‌گیریم و ماسک نهایی <span class="math notranslate nohighlight">\(A_2=A_1\bullet B_3\)</span> را می‌سازیم. باید توجه کنیم که اگر دو ناحیهٔ مجزا نزدیک هم بودند، شاید همین مرحله آن‌ها را ناخواسته به یک جسم تبدیل کرده باشد؛ بنابراین به شکل نهایی نگاه می‌کنیم، نه فقط عدد مساحت.</p>
+<p><strong>گام ششم — ساخت دو حد داخلی و بیرونی برای بازبینی مرز.</strong> با یک عنصر کوچک دیگر، یک بار ماسک تمیز را فرسایش و یک بار اتساع می‌دهیم:</p>
+<div class="math notranslate nohighlight">
+\[
+A_{\rm inner}=A_2\ominus B_2,
+\qquad
+A_{\rm outer}=A_2\oplus B_2.
+\tag{9-23}
+\]</div>
+<p>تفاضل مجموعه‌ای آن دو را برای نمایش نواری اطراف مرز می‌گیریم:</p>
+<div class="math notranslate nohighlight">
+\[
+R=A_{\rm outer}\setminus A_{\rm inner}.
+\tag{9-24}
+\]</div>
+<p>این تفاضل <strong>عمل پنجم مورفولوژیک نیست</strong>؛ صرفاً یک عملیات معمول مجموعه‌ای روی نتایج فرسایش و اتساع است. نوار حاصل «عدم قطعیت آماری» نیست؛ بلکه یک نوار <strong>هندسی</strong> با عرضی وابسته به <span class="math notranslate nohighlight">\(B_2\)</span> است. کاربرد آن مشخص‌کردن محدوده‌ای است که بازبین می‌تواند مرز خرابی را در آن کنترل کند.</p>
+<figure class="align-default" id="fig-ch09-road-pipeline">
+<a class="reference internal image-reference" href="../_images/fig09_15_road_pipeline.png"><img alt="../_images/fig09_15_road_pipeline.png" src="../_images/fig09_15_road_pipeline.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 276 </span><span class="caption-text">هشت گام تصویری از دادهٔ مصنوعی: تصویر شبه‌هوایی، ماسک مرجع، ماسک پرنویز، فرسایش، گشودن، اتساع، بستن و نوار مرزی. هر مرحله فقط به چهار عملِ مجاز یا ترکیب مجموعه‌ای ساده وابسته است.</span><a class="headerlink" href="#fig-ch09-road-pipeline" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig-ch09-band">
+<a class="reference internal image-reference" href="../_images/fig09_17_inner_outer_band.png"><img alt="../_images/fig09_17_inner_outer_band.png" src="../_images/fig09_17_inner_outer_band.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 277 </span><span class="caption-text">نمای مستقل از محدودهٔ داخلی و بیرونی و تفاوت آن‌ها. نوارِ بین دو حد، محل مناسب‌تری برای بازبینی خطای مرز است تا نقاط کاملاً داخلی شیء.</span><a class="headerlink" href="#fig-ch09-band" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id39">
+<h3>9.9.4 معادلهٔ خلاصهٔ زنجیره<a class="headerlink" href="#id39" title="Link to this heading">#</a></h3>
+<p>با <span class="math notranslate nohighlight">\(B_2\)</span> و <span class="math notranslate nohighlight">\(B_3\)</span> به‌عنوان دو دیسک متقارن و با شعاع‌های ۲ و ۳ پیکسل داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+\boxed{
+A_{\rm clean}=
+\Big(\big((A\ominus B_2)\oplus B_2\big)\oplus B_3\Big)\ominus B_3
+=(A\circ B_2)\bullet B_3.
+}
+\tag{9-25}
+\]</div>
+<p>این رابطه <strong>پنج خط برنامه را به یک فرمول معنی‌دار تبدیل می‌کند</strong>: «ابتدا نقاط سفید اضافی را بزدای؛ سپس حفره‌های سیاه کوچک را اصلاح کن.» دلیل مناسب‌بودن آن در این مسئله، نسبت مقیاس نویز و لکه‌های نسبتاً پهن است، نه برتری عمومی این ترتیب برای همهٔ تصاویر.</p>
+</section>
+<section id="id40">
+<h3>9.9.5 سنجش نتیجه: یک مثال عددی بازتولیدپذیر<a class="headerlink" href="#id40" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(P\)</span> ماسک پیش‌بینی و <span class="math notranslate nohighlight">\(G\)</span> ماسک حقیقت مرجع باشد، معیار اشتراک به اجتماع چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{IoU}(P,G)=\frac{|P\cap G|}{|P\cup G|}.
+\tag{9-26}
+\]</div>
+<p>این معیار <strong>ابزار ارزیابی</strong> است، نه عمل مورفولوژی. در آزمایش مصنوعیِ پیوست با بذر تصادفی مشخص، اجرای کد عددهای زیر را تولید کرده است:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>وضعیت ماسک</p></th>
+<th class="head text-right"><p>IoU نسبت به حقیقت مصنوعی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ماسک اولیهٔ پرنویز</p></td>
+<td class="text-right"><p>0.8703</p></td>
+</tr>
+<tr class="row-odd"><td><p>پس از Opening با شعاع ۲ و Closing با شعاع ۳</p></td>
+<td class="text-right"><p>0.9900</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>این دو عدد فقط دربارهٔ <strong>همین تصویر مصنوعی</strong> معتبرند و تعمیم به عکس واقعی یا مدل یادگیری ماشین ندارند. دانشجو باید با تغییر <code class="docutils literal notranslate"><span class="pre">seed</span></code>، نوع لکه‌ها، ابعاد و شعاع‌ها بررسی کند آیا این بهبود پایدار می‌ماند یا نه. با تغییر کوچک در شکل هدف (مثلاً از لکهٔ پهن به ترک باریک)، ممکن است نتیجه برعکس شود.</p>
+<figure class="align-default" id="fig-ch09-iou">
+<a class="reference internal image-reference" href="../_images/fig09_19_iou_tuning.png"><img alt="../_images/fig09_19_iou_tuning.png" src="../_images/fig09_19_iou_tuning.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 278 </span><span class="caption-text">تغییر IoU و مساحت خروجی با شعاع عنصر ساختاری روی مسئلهٔ مصنوعی این فصل. بهترین شعاع از یک رابطهٔ نظریِ ثابت به‌دست نمی‌آید؛ باید آن را روی نمونه‌های نماینده بررسی کرد.</span><a class="headerlink" href="#fig-ch09-iou" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id41">
+<h3>9.9.6 شکست مهم: وقتی آنچه «نویز» می‌بینیم، ترک واقعی است<a class="headerlink" href="#id41" title="Link to this heading">#</a></h3>
+<p>تصور کنید ماسک واقعی، ترک باریکِ آسفالت با پهنای ۲ یا ۳ پیکسل را نشان می‌دهد. اگر دیسک شعاع ۳ را برای گشودن انتخاب کنیم، دیسک ممکن است در هیچ قسمت از ترک کاملاً جا نشود؛ پس تمام ترک در فرسایش محو می‌شود. اتساع بعدی دیگر چیزی برای بازگرداندن ندارد. بنابراین می‌توان با اجرای الگوریتم کاملاً درست، <strong>اطلاعات واقعی و مهم</strong> را از دست داد.</p>
+<figure class="align-default" id="fig-ch09-thin-crack">
+<a class="reference internal image-reference" href="../_images/fig09_18_thin_crack_failure.png"><img alt="../_images/fig09_18_thin_crack_failure.png" src="../_images/fig09_18_thin_crack_failure.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 279 </span><span class="caption-text">مثال نقضِ آموزشی: ترک ظریفِ مصنوعی ممکن است در گشودن با دیسک بیش‌ازحد بزرگ ناپدید شود. این شکل، دلیل هندسی هشدار پژوهش جدید دربارهٔ قطعه‌بندی ترک‌ها را روشن می‌کند.</span><a class="headerlink" href="#fig-ch09-thin-crack" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در مطالعهٔ واقعی منتشرشده در سال ۲۰۲۶، پژوهشگران نیز گزارش کردند که عملیات مورفولوژیک روی بعضی ماسک‌های ترک، شاخص‌های دقت را نسبت به ماسک خام کاهش داده است. این <strong>یافتهٔ همان مقاله</strong> است، نه نتیجهٔ آزمایش مصنوعی ما. برای موضوعی با عارضه‌های باریک، راه‌حل درست ممکن است کوچک‌ترکردن عنصر، انتخاب قالب جهت‌دار یا حتی <strong>حذف مورفولوژی</strong> از زنجیره باشد؛ این تصمیم باید با دادهٔ اعتبارسنجی اتخاذ شود. <a class="reference external" href="https://doi.org/10.3390/drones10020119">López و همکاران، ۲۰۲۶</a>.</p>
+</section>
+<section id="id42">
+<h3>9.9.7 کد کامل کاربردی و اجرای آن<a class="headerlink" href="#id42" title="Link to this heading">#</a></h3>
+<p>فایل <code class="docutils literal notranslate"><span class="pre">downloads/chapter09_examples.py</span></code> بدون نیاز به تصویر اینترنتی نمونه را می‌سازد و همهٔ مراحل را ذخیره می‌کند. مسیر اجرای معمول پس از خارج‌کردن فایل از بستهٔ آموزشی:</p>
+<p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">chapter09_examples.py</span> <span class="pre">--output</span> <span class="pre">outputs_ch09</span></code></p>
+<p>این یک <strong>فایل Python آموزشی</strong> است و هیچ ارتباطی با برنامهٔ One-Click سایت ندارد. فایل <code class="docutils literal notranslate"><span class="pre">downloads/chapter09_examples.ipynb</span></code> همان ایده را در Notebook قابل اجرا ارائه می‌کند. تمام ورودی‌ها مصنوعی و همراه بسته‌اند؛ نتیجهٔ اجرا با Seed ثابت قابل بازتولید است.</p>
+<p><strong>پرسش عملی:</strong> اگر در خروجی نهایی، دو لکهٔ خرابی که واقعاً جدا هستند به هم متصل شدند، کدام مرحله را ابتدا بررسی می‌کنید؟ پاسخ کوتاه: دیسکِ Closing احتمالاً نسبت به فاصلهٔ دو لکه بزرگ بوده است؛ شعاع آن و ترتیب مراحل را مقایسه کنید. اگر یک لکهٔ کوچک واقعی حذف شد، شعاع Opening یا نسبت اندازهٔ آن لکه به قالب را بازبینی کنید.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id43">
+<h2>9.10 — کارگاه تصمیم‌گیری: کدام عمل، برای کدام مسئله؟<a class="headerlink" href="#id43" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>مسئلهٔ قابل مشاهده</p></th>
+<th class="head"><p>انتخاب اولیه</p></th>
+<th class="head"><p>دلیل</p></th>
+<th class="head"><p>خطر/کنترل لازم</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>نقطهٔ سفید بسیار کوچک در پس‌زمینه</p></td>
+<td><p>Opening</p></td>
+<td><p>در مرحلهٔ فرسایش حذف و دیگر بازیابی نمی‌شود</p></td>
+<td><p>حذف شیء معتبر کوچک</p></td>
+</tr>
+<tr class="row-odd"><td><p>حفرهٔ سیاه کوچک داخل یک جسم سفید</p></td>
+<td><p>Closing</p></td>
+<td><p>اتساع حفره را کم می‌کند و فرسایش اندازه را پس می‌گیرد</p></td>
+<td><p>حذف حفرهٔ واقعی</p></td>
+</tr>
+<tr class="row-even"><td><p>زائدهٔ سفید باریک متصل به جسم</p></td>
+<td><p>Erosion یا Opening</p></td>
+<td><p>قالب در زائده جا نمی‌شود</p></td>
+<td><p>حذف ساختار باریکِ معتبر</p></td>
+</tr>
+<tr class="row-odd"><td><p>گسستگی خیلی کوچک بین دو بخش یک جسم</p></td>
+<td><p>Dilation یا Closing</p></td>
+<td><p>تماس و اتصال را ممکن می‌کند</p></td>
+<td><p>ادغام دو شیء مستقل</p></td>
+</tr>
+<tr class="row-even"><td><p>تعیین هستهٔ داخلی جسم برای تحلیل مطمئن‌تر</p></td>
+<td><p>Erosion</p></td>
+<td><p>فاصله گرفتن از مرز</p></td>
+<td><p>کوچک‌نمایی مساحت</p></td>
+</tr>
+<tr class="row-odd"><td><p>ایجاد پوشش بیرونی محافظه‌کارانه دور جسم</p></td>
+<td><p>Dilation</p></td>
+<td><p>گسترش ناحیه</p></td>
+<td><p>بزرگ‌نمایی مساحت</p></td>
+</tr>
+<tr class="row-even"><td><p>نویز سفید و حفرهٔ سیاه در یک ماسک</p></td>
+<td><p>Opening سپس Closing</p></td>
+<td><p>دو نقص با دو ترکیب مکمل رفع می‌شوند</p></td>
+<td><p>ممکن است ترتیب معکوس بهتر باشد</p></td>
+</tr>
+<tr class="row-odd"><td><p>ترک باریک و پرپیچ‌وخم</p></td>
+<td><p>لزوماً هیچ‌کدام</p></td>
+<td><p>مورفولوژی می‌تواند ترک را حذف کند</p></td>
+<td><p>ارزیابی IoU/Recall ضروری است</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="id44">
+<h3>9.10.1 سه سؤال راهبردی برای انتخاب پارامتر<a class="headerlink" href="#id44" title="Link to this heading">#</a></h3>
+<p>۱. <strong>شیء واقعی چند پیکسل پهنا دارد؟</strong> پیش از اعمال دیسکِ شعاع ۳ روی ترکِ ۲پیکسلی، باید انتظار نابودی ترک را داشته باشیم. ۲. <strong>خطا از چه نوع است؟</strong> لکهٔ سفیدِ اضافه با گشودن و حفرهٔ سیاهِ کاذب با بستن تفاوت دارد. ۳. <strong>ارزش کدام خطا بیشتر است؟</strong> در کاربردی که از دست‌رفتن ترک باریک بسیار پرهزینه است، شاید حفظ نویز اضافه از حذف ترک واقعی بهتر باشد. این قضاوت از مسئله و داده می‌آید، نه از زیبایی بصری خروجی.</p>
+</section>
+<section id="id45">
+<h3>9.10.2 مثال مقایسهٔ اولویت دو عمل<a class="headerlink" href="#id45" title="Link to this heading">#</a></h3>
+<p><strong>حالت الف:</strong> یک صفحهٔ دارای ذرات سفید پراکنده روی زمینهٔ سیاه داریم. Opening را ابتدا انجام می‌دهیم، زیرا ذراتی که کوچک‌تر از قالب‌اند پاک می‌شوند. <strong>حالت ب:</strong> دو تکهٔ یک شیء به‌وسیلهٔ شکافی باریک از هم جدا شده‌اند و می‌خواهیم اتصال برگردد. Closing را امتحان می‌کنیم، زیرا اتساع اولیه فاصلهٔ کوتاه را پُر می‌کند. اینکه این اتصال درست یا غلط است، فقط از خود تصویر و تعریف شیء معلوم می‌شود.</p>
+</section>
+<section id="id46">
+<h3>9.10.3 آموزش پژوهش‌محور: ادعای «بهبود» باید قابل سنجش باشد<a class="headerlink" href="#id46" title="Link to this heading">#</a></h3>
+<p>در گزارش علمی، عبارت «تصویر پس از مورفولوژی بهتر شد» به‌تنهایی کافی نیست. باید مشخص کنیم چه چیزی بهتر شده: تعداد نقاط اشتباه، مساحت ناحیه، جدایی دو جسم، دقت <code class="docutils literal notranslate"><span class="pre">IoU</span></code>، یا قابلیت مشاهدهٔ انسان؟ همچنین باید پارامترهای قالب، سیاست مرز، ترتیب عملیات، نوع ماسک و تصویر مرجع ذکر شوند. کد پیوست همهٔ این بخش‌ها را در یک آزمایش مصنوعی شفاف نشان می‌دهد.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id47">
+<h2>9.11 — مرور مفهومی و مسئله‌های پیشنهادی<a class="headerlink" href="#id47" title="Link to this heading">#</a></h2>
+<section id="id48">
+<h3>پرسش‌های مفهومی با پاسخ کوتاه<a class="headerlink" href="#id48" title="Link to this heading">#</a></h3>
+<p><strong>پرسش ۱.</strong> تفاوت فرسایش با کم‌کردن یک مقدار ثابت از شدت تصویر چیست؟<br />
+<strong>پاسخ:</strong> فرسایش دودویی، عضویت پیکسل در مجموعه را با جا شدن عنصر ساختاری می‌سنجد؛ کم‌کردن شدت، مقدار عددی یک پیکسل را عوض می‌کند و اطلاعات هندسیِ همسایگی را به این صورت بررسی نمی‌کند.</p>
+<p><strong>پرسش ۲.</strong> چرا فرسایش مرحلهٔ اول گشودن است؟<br />
+<strong>پاسخ:</strong> ابتدا بخش‌های نازک و نقاطی که قالب در آن‌ها جا نمی‌شود حذف می‌شوند؛ اتساع بعدی بخش‌های ضخیم باقی‌مانده را گسترش می‌دهد.</p>
+<p><strong>پرسش ۳.</strong> چرا نمی‌توان Closing را «همان Dilation» نامید؟<br />
+<strong>پاسخ:</strong> بستن شامل اتساع و سپس فرسایش است و هدف آن ترمیم ساختارهای کوچک تیره با بازگرداندن نسبی مرز بیرونی است؛ اتساع تنها تقریباً همهٔ بخش‌های سفید را ضخیم‌تر می‌کند.</p>
+<p><strong>پرسش ۴.</strong> چرا دو بار گشودن با همان <span class="math notranslate nohighlight">\(B\)</span> خروجی را تغییر نمی‌دهد؟<br />
+<strong>پاسخ:</strong> چون ویژگی‌های هندسی حذف‌پذیر با همان قالب قبلاً حذف شده‌اند؛ عمل ایدمپوتنت است.</p>
+<p><strong>پرسش ۵.</strong> اگر شیء در تصویر سیاه و زمینه سفید باشد چه می‌شود؟<br />
+<strong>پاسخ:</strong> قرارداد پیش‌زمینه عوض می‌شود و نقش حذف/پرکردن ساختارها به صورت شهودی جابه‌جا خواهد شد. باید ابتدا ماسک را به‌شکلی بسازیم که شیء هدف «یک» باشد.</p>
+<p><strong>پرسش ۶.</strong> چرا در تصویرهای پزشکی و بازرسی مهندسی، استفادهٔ خودکار از Opening ممکن است خطا باشد؟<br />
+<strong>پاسخ:</strong> چون ساختار باریک ممکن است اطلاعات بسیار مهم را حمل کند و توسط عنصر ساختاری بزرگ از بین برود.</p>
+<p><strong>پرسش ۷.</strong> آیا نوار حاصل از <span class="math notranslate nohighlight">\(A_{\rm outer}\setminus A_{\rm inner}\)</span> یک سنجهٔ آماری عدم‌قطعیت است؟<br />
+<strong>پاسخ:</strong> خیر. فقط نوار هندسیِ حاصل از انبساط و انقباض یک ماسک است و به‌تنهایی توزیع احتمال خطای مدل را بیان نمی‌کند.</p>
+</section>
+<section id="id49">
+<h3>تمرین‌های تحلیلی و اجرایی<a class="headerlink" href="#id49" title="Link to this heading">#</a></h3>
+<p>۱. یک تصویر <span class="math notranslate nohighlight">\(7\times7\)</span> با مربع سفید <span class="math notranslate nohighlight">\(5\times5\)</span> در وسط بسازید. عنصر ساختاری صلیبی <span class="math notranslate nohighlight">\(3\times3\)</span> را روی آن حرکت دهید و <strong>خروجی ۴ عمل</strong> را دستی حساب کنید. سپس جواب را با Python مقایسه کنید.</p>
+<p>۲. یک مربع <span class="math notranslate nohighlight">\(3\times3\)</span> را در گوشهٔ تصویر قرار دهید. تفاوت اجرای فرسایش، اتساع و Closing با <code class="docutils literal notranslate"><span class="pre">border_value=0</span></code> و روش حاشیه‌گذاریِ کافی را توضیح دهید. کدام قرارداد با فرض فیزیکی مسئلهٔ شما تناسب بیشتری دارد؟</p>
+<p>۳. فرمول دوگانگی فرسایش و اتساع را برای یک عنصر مرکزی‌متقارن از روی تعریف مجموعه‌ای اثبات کنید. سپس آن را برای یک ماسک کوچک و نقطه‌هایی دور از مرز آزمایش کنید.</p>
+<p>۴. با دیسک‌های شعاع ۱ تا ۱۰، نمودار مساحت <span class="math notranslate nohighlight">\(|A\circ B_r|\)</span> و <span class="math notranslate nohighlight">\(|A\bullet B_r|\)</span> را رسم کنید. کدام تغییرها نتیجهٔ مستقیم گسترده‌ترشدن قالب‌اند؟ چرا اندازهٔ نهایی به‌تنهایی معیار دقت نیست؟</p>
+<p>۵. در مثال جاده، ترتیب Opening و Closing را معکوس کنید و <code class="docutils literal notranslate"><span class="pre">IoU</span></code> را اندازه بگیرید. آیا این تغییر همیشه بهتر/بدتر است؟ دلیل هندسی خود را بنویسید.</p>
+<p>۶. تصویر باریکِ شکل <code class="docutils literal notranslate"><span class="pre">fig-ch09-thin-crack</span></code> را با یک عنصر خطی همسو با ترک یا دیسک شعاع کوچک‌تر پردازش کنید. مشخص کنید کدام حالت جزئیات را بهتر حفظ می‌کند و چرا.</p>
+<p>۷. روی ماسک مصنوعی، تعداد پیکسل‌های حذف‌شده در Opening و اضافه‌شده در Closing را ثبت کنید. آن‌ها را به‌صورت درصدی از اندازهٔ ماسک اولیه بنویسید؛ تفاوت این اعداد را با معیار <code class="docutils literal notranslate"><span class="pre">IoU</span></code> توضیح دهید.</p>
+<p>۸. یک نمونه طراحی کنید که <span class="math notranslate nohighlight">\( (A\circ B)\bullet B \neq (A\bullet B)\circ B \)</span> باشد. به‌جای اکتفا به نتیجهٔ کد، نشان دهید کدام پیکسل‌ها باعث اختلاف می‌شوند.</p>
+</section>
+<section id="id50">
+<h3>جمع‌بندی فصل<a class="headerlink" href="#id50" title="Link to this heading">#</a></h3>
+<p>تمام محتوای این فصل بر یک ایده بنا شد: <strong>«شکل کوچک را روی مجموعهٔ پیکسل‌های هدف امتحان کن.»</strong> اگر قالب باید کاملاً جا شود، فرسایش داریم؛ اگر تماسِ جزئی کافی باشد، اتساع داریم. از فرسایش و اتساعِ ترتیبی گشودن و بستن ساخته می‌شود. گشودن بیشتر برای حذف ساختارهای کوچک سفید و بستن برای ترمیم شکاف‌ها یا حفره‌های کوچک تیره مناسب است. قوانین دوگانگی، شمول و ایدمپوتنت بودن درک ما را از عمل‌ها دقیق می‌کنند؛ ولی انتخاب نهایی پارامترها به <strong>اندازهٔ ویژگی واقعی، هدف پردازش و دادهٔ معتبر</strong> وابسته است. نمونهٔ کاربردی جاده نشان داد که حتی یک زنجیرهٔ بسیار ساده می‌تواند برای خرابی‌های پهن مفید باشد، و در عین حال همان زنجیره ممکن است ترک‌های ظریف را حذف کند.</p>
+</section>
+</section>
+<section id="id51">
+<h2>دریافت فایل‌های همراه و کد قابل اجرا<a class="headerlink" href="#id51" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-09/chapter09_examples.ipynb" download>Notebook آموزشی با مراحل و نمودارهای نمونه</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-09/chapter09_examples.py" download>کد مستقل Python برای چهار عمل و مثال جاده</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-09/Chapter09_Code_Examples.zip" download>بستهٔ ZIP شامل کد، Notebook و ورودی/خروجی‌های مصنوعی</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-09/Chapter09_Original_Figures.zip" download>بستهٔ ZIP تمام شکل‌های اصیل آموزشی فصل</a></p></li>
+</ul>
+</section>
+<section id="id52">
+<h2>منابع و مرزبندی علمی<a class="headerlink" href="#id52" title="Link to this heading">#</a></h2>
+<p>۱. <strong>Gonzalez, R. C. &amp; Woods, R. E.</strong> <em>Digital Image Processing</em>, 4th edition، Chapter 9، به‌ویژه 9.1 تا 9.3 و نمونهٔ فیلترگذاری مورفولوژیک. مبنای مفهومی تعریف مجموعه‌ها، عنصر ساختاری، چهار عمل و خواص ریاضی این فصل است. تصاویر کتاب کپی نشده و همهٔ شکل‌های بسته اصیل‌اند.</p>
+<p>۲. <strong>scikit-image developers.</strong> <a class="reference external" href="https://scikit-image.org/docs/0.25.x/auto_examples/applications/plot_morphology.html">Morphological Filtering — official worked example</a> و <a class="reference external" href="https://scikit-image.org/docs/stable/api/skimage.morphology">morphology API — stable documentation</a>. مرجع قابل دسترس و معتبر برای توصیف رفتار الگوریتم‌ها و راهنمای پیاده‌سازی در Python.</p>
+<p>۳. <strong>López, P., Zubasti, P., García, J., &amp; Molina, J. M. (2026).</strong> <a class="reference external" href="https://doi.org/10.3390/drones10020119"><em>A UAV-Based Framework for Visual Detection and Geospatial Mapping of Real Road Surface Defects</em></a>. <em>Drones</em>, 10(2), 119. مرجع <strong>کاربرد معاصر</strong> و هشدار تجربی دربارهٔ کاهش دقتِ ماسک ترک‌های باریک بر اثر برخی پردازش‌های مورفولوژیک؛ نتایج عددیِ ماسک مصنوعیِ ما به این مقاله نسبت داده نمی‌شوند.</p>
+<p><strong>محدودیت آگاهانهٔ این نسخه:</strong> اگرچه فصل نهم کتاب مباحث دیگری هم دارد، در این جزوه تنها چهار عمل دودوییِ خواسته‌شده آموزش و کدنویسی شده‌اند. به همین دلیل هیچ عملیات مورفولوژیک پنجمی به‌عنوان درس یا الگوریتم مستقل وارد نشده است.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./gonzalez"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-05.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل ۵: ترمیم و بازسازی تصویر</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter-10.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">9.1 — مبانی و زبان مجموعه‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">9.1.1 چرا مورفولوژی با فیلتر مکانی عادی فرق دارد؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">9.1.2 عنصر ساختاری چیست؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">9.1.3 مبدأ، انتقال و بازتاب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">9.1.4 قاعدهٔ نگاه‌کردن به عنصر ساختاری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">9.1.5 فاصله، مقیاس و پیوستگی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#erosion">9.2 — فرسایش (Erosion)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">9.2.1 تعریف و تفسیر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">9.2.2 محاسبهٔ دستی با ماتریس کوچک</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">9.2.3 چه کاربردی دارد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dilation">9.3 — اتساع (Dilation)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">9.3.1 تعریف مجموعه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">9.3.2 محاسبهٔ منطقی در یک همسایگی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">9.3.3 اتساع چه چیزهایی را خراب می‌کند؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">9.3.4 مقایسهٔ فوری دو عمل اولیه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#opening">9.4 — گشودن (Opening)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">9.4.1 چرا یک فرسایش به‌تنهایی کافی نیست؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">9.4.2 تفسیر هندسی: یک دیسک درون جسم حرکت می‌کند</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">9.4.3 گشودن و حفظ اجسام کوچک</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#closing">9.5 — بستن (Closing)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">9.5.1 مسئلهٔ حفره و شکاف سیاه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">9.5.2 تشبیه هندسی با فضای بیرون جسم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">9.5.3 کدام ترتیب؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">9.6 — خواص ریاضی چهار عمل: چرا روابط واقعاً مفیدند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monotonicity">9.6.1 خاصیت شمول (Monotonicity)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">9.6.2 گشودن ضدگسترنده و بستن گسترنده است</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">9.6.3 یک بار گشودن/بستن برای عنصر ثابت کافی است: ایدمپوتنت بودن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">9.6.4 دوگانگی میان فرسایش و اتساع</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">9.6.5 اثر اندازه و جهت عنصر ساختاری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">9.6.6 مقایسهٔ پارامترها از راه اندازهٔ ماسک</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">9.7 — جزئیات اجرا که اگر ندانیم، روابط درست هم خروجی غلط می‌دهند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#padding">9.7.1 مرز تصویر و Padding</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">9.7.2 سه خطای بسیار رایج</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">9.7.3 آیا چهار عمل خطی‌اند؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">9.7.4 تصمیم‌گیری دربارهٔ شعاع، شکل و ترتیب</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">9.8 — آزمایشگاه Python: چهار تابع مستقل و کاملاً روشن</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">9.8.1 آزمایش مقایسهٔ نوع عنصر ساختاری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">9.8.2 آزمایش ایدمپوتنت بودن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">9.8.3 پیچیدگی محاسباتی و مقیاس</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">9.9 — مطالعهٔ موردی امروزی: پاک‌سازی ماسکِ خرابی‌های پهن سطح جاده در بازرسی تصویری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">9.9.1 این مثال از کجا آمده است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">9.9.2 ورودی، خروجی و هدف عملی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">9.9.3 اجرای الگوریتم گام‌به‌گام</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">9.9.4 معادلهٔ خلاصهٔ زنجیره</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">9.9.5 سنجش نتیجه: یک مثال عددی بازتولیدپذیر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">9.9.6 شکست مهم: وقتی آنچه «نویز» می‌بینیم، ترک واقعی است</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">9.9.7 کد کامل کاربردی و اجرای آن</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">9.10 — کارگاه تصمیم‌گیری: کدام عمل، برای کدام مسئله؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">9.10.1 سه سؤال راهبردی برای انتخاب پارامتر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">9.10.2 مثال مقایسهٔ اولویت دو عمل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">9.10.3 آموزش پژوهش‌محور: ادعای «بهبود» باید قابل سنجش باشد</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">9.11 — مرور مفهومی و مسئله‌های پیشنهادی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">پرسش‌های مفهومی با پاسخ کوتاه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">تمرین‌های تحلیلی و اجرایی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">جمع‌بندی فصل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">دریافت فایل‌های همراه و کد قابل اجرا</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">منابع و مرزبندی علمی</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
