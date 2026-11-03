@@ -15,6 +15,8 @@ chapters:
         title: "فصل چهارم: پالایش تصویر در حوزه فرکانس"
       - file: gonzalez/chapter-05
         title: "فصل ۵: ترمیم و بازسازی تصویر"
+      - file: gonzalez/chapter-07
+        title: "فصل هفتم: موجک و تحلیل چندمقیاسی تصویر"
       - file: gonzalez/chapter-08
         title: "فصل هشتم: اطلاعات تصویر، آنتروپی و فشرده‌سازی کاربردی"
       - file: gonzalez/chapter-09
@@ -28,13 +30,41 @@ chapters:
       - file: student-work/catalog/gonzalez/index
         title: Digital Image Processing — Gonzalez & Woods
         sections:
-          - file: student-work/catalog/gonzalez/other-sections/index
-            title: Sections not assigned to a chapter
+          - file: student-work/catalog/gonzalez/chapter-01/index
+            title: Chapter 1 — Introduction
+          - file: student-work/catalog/gonzalez/chapter-02/index
+            title: Chapter 2 — Digital Image Fundamentals
             sections:
-              - file: student-work/catalog/gonzalez/other-sections/section-03
+              - file: student-work/catalog/gonzalez/chapter-02/section-03
+                title: Section 3
+                sections:
+                  - file: student-work/section-03/rgb-based-segmentation-project
+                    title: RGB Color Segmentation Using Dominant Channels and Histogram Peaks
+          - file: student-work/catalog/gonzalez/chapter-03/index
+            title: Chapter 3 — Intensity Transformations and Spatial Filtering
+            sections:
+              - file: student-work/catalog/gonzalez/chapter-03/section-03
                 title: Section 3
                 sections:
                   - file: student-work/section-03/svd-low-rank-separable-convolution
                     title: Low-Rank Approximation of 2-D Convolution Filters Using SVD
-                  - file: student-work/section-03/rgb-based-segmentation-project
-                    title: RGB Color Segmentation Using Dominant Channels and Histogram Peaks
+          - file: student-work/catalog/gonzalez/chapter-04/index
+            title: Chapter 4 — Filtering in the Frequency Domain
+          - file: student-work/catalog/gonzalez/chapter-05/index
+            title: Chapter 5 — Image Restoration and Reconstruction
+          - file: student-work/catalog/gonzalez/chapter-06/index
+            title: Chapter 6 — Color Image Processing
+          - file: student-work/catalog/gonzalez/chapter-07/index
+            title: Chapter 7 — Wavelet and Other Image Transforms
+          - file: student-work/catalog/gonzalez/chapter-08/index
+            title: Chapter 8 — Image Compression and Watermarking
+          - file: student-work/catalog/gonzalez/chapter-09/index
+            title: Chapter 9 — Morphological Image Processing
+          - file: student-work/catalog/gonzalez/chapter-10/index
+            title: Chapter 10 — Image Segmentation
+          - file: student-work/catalog/gonzalez/chapter-11/index
+            title: Chapter 11 — Feature Extraction
+          - file: student-work/catalog/gonzalez/chapter-12/index
+            title: Chapter 12 — Image Pattern Classification
+      - file: student-work/catalog/other/index
+        title: Image Processing — Other References
