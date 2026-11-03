@@ -62,3 +62,13 @@
     - id: exercises
       title: Exercises
   published: true
+- id: data-engineering
+  title: Data Engineering
+  description: Introduction to data engineering, data lifecycles, pipelines, storage, and practical exercises.
+  image: /assets/img/courses/default-course.svg
+  url: /teaching/data-engineering/book/
+  materials_url: /teaching/data-engineering/materials/
+  order: 7
+  link_type: internal
+  chapters: []
+  published: true

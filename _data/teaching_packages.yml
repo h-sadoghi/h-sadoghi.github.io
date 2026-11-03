@@ -94,3 +94,12 @@
   course_id: pattern-recognition
   title: Pattern Recognition — Course Materials
   chapters: []
+- id: course-notes
+  course_id: data-engineering
+  title: Data Engineering — Course Notes and Downloads
+  chapters:
+    - id: chapter-01
+      number: 1
+      title: "آشنایی با مهندسی داده: مفاهیم، چرخه حیات و گردش کار پروژه"
+      summary: "**درس:** مهندسی داده (`Data Engineering`)"
+      book_url: /teaching/data-engineering/book/course-notes/chapter-01.html

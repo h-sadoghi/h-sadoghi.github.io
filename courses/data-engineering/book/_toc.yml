@@ -1,0 +1,8 @@
+# Managed by Data Engineering One-Click; do not add empty sections lists.
+format: jb-book
+root: index
+chapters:
+  - file: course-notes/index
+    sections:
+      - file: course-notes/chapter-01
+        title: "آشنایی با مهندسی داده: مفاهیم، چرخه حیات و گردش کار پروژه"
