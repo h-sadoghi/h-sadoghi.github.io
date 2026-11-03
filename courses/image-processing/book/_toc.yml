@@ -35,19 +35,13 @@ chapters:
           - file: student-work/catalog/gonzalez/chapter-02/index
             title: Chapter 2 — Digital Image Fundamentals
             sections:
-              - file: student-work/catalog/gonzalez/chapter-02/section-03
-                title: Section 3
-                sections:
-                  - file: student-work/section-03/rgb-based-segmentation-project
-                    title: RGB Color Segmentation Using Dominant Channels and Histogram Peaks
+              - file: student-work/section-03/rgb-based-segmentation-project
+                title: RGB Color Segmentation Using Dominant Channels and Histogram Peaks
           - file: student-work/catalog/gonzalez/chapter-03/index
             title: Chapter 3 — Intensity Transformations and Spatial Filtering
             sections:
-              - file: student-work/catalog/gonzalez/chapter-03/section-03
-                title: Section 3
-                sections:
-                  - file: student-work/section-03/svd-low-rank-separable-convolution
-                    title: Low-Rank Approximation of 2-D Convolution Filters Using SVD
+              - file: student-work/section-03/svd-low-rank-separable-convolution
+                title: Low-Rank Approximation of 2-D Convolution Filters Using SVD
           - file: student-work/catalog/gonzalez/chapter-04/index
             title: Chapter 4 — Filtering in the Frequency Domain
           - file: student-work/catalog/gonzalez/chapter-05/index
