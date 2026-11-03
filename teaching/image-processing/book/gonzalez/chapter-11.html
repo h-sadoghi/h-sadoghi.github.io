@@ -182,6 +182,7 @@
 <li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-04.html">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-07.html">فصل هفتم: موجک و تحلیل چندمقیاسی تصویر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-08.html">فصل هشتم: اطلاعات تصویر، آنتروپی و فشرده‌سازی کاربردی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-09.html">فصل نهم: مورفولوژی ریاضی دودویی — چهار عمل بنیادی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
@@ -190,12 +191,27 @@
 </details></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../student-work/index.html">Student Work</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/index.html">Digital Image Processing — Gonzalez &amp; Woods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/other-sections/index.html">Sections not assigned to a chapter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="../student-work/catalog/gonzalez/other-sections/section-03.html">Section 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-01/index.html">Chapter 1 — Introduction</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-02/index.html">Chapter 2 — Digital Image Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-02/section-03.html">Section 3</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-03/index.html">Chapter 3 — Intensity Transformations and Spatial Filtering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-03/section-03.html">Section 3</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-04/index.html">Chapter 4 — Filtering in the Frequency Domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-05/index.html">Chapter 5 — Image Restoration and Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-06/index.html">Chapter 6 — Color Image Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-07/index.html">Chapter 7 — Wavelet and Other Image Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-08/index.html">Chapter 8 — Image Compression and Watermarking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-09/index.html">Chapter 9 — Morphological Image Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-10/index.html">Chapter 10 — Image Segmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-11/index.html">Chapter 11 — Feature Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-12/index.html">Chapter 12 — Image Pattern Classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../student-work/catalog/other/index.html">Image Processing — Other References</a></li>
 </ul>
 </details></li>
 </ul>
@@ -394,7 +410,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/fig11_00_concept_map.png"><img alt="../_images/fig11_00_concept_map.png" src="../_images/fig11_00_concept_map.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 310 </span><span class="caption-text">نقشۀ مفهومی فصل: بخش نخست بافت را از آمار تک‌پیکسلی به روابط فضایی GLCM و سپس طیف فوریه می‌برد؛ بخش دوم SIFT را از فضای مقیاس و DoG تا مکان‌یابی، جهت‌دهی، توصیفگر ۱۲۸بعدی و تطبیق ویژگی دنبال می‌کند. این شکل برای همین فصل از نو طراحی شده است.</span><a class="headerlink" href="#fig-ch11-concept-map" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 336 </span><span class="caption-text">نقشۀ مفهومی فصل: بخش نخست بافت را از آمار تک‌پیکسلی به روابط فضایی GLCM و سپس طیف فوریه می‌برد؛ بخش دوم SIFT را از فضای مقیاس و DoG تا مکان‌یابی، جهت‌دهی، توصیفگر ۱۲۸بعدی و تطبیق ویژگی دنبال می‌کند. این شکل برای همین فصل از نو طراحی شده است.</span><a class="headerlink" href="#fig-ch11-concept-map" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="id1">
@@ -442,7 +458,7 @@ Co-occurrence Matrix) و تحلیل فوریه بافت را با مثال عد�
 <a class="reference internal image-reference" href="../_images/06_texture_types.png"><img alt="../_images/06_texture_types.png" src="../_images/06_texture_types.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 311 </span><span class="caption-text">چهار الگوی ساختگی برای تفکیک بافت نرم، درشت، متناوب و تصادفی. این شکل بازسازیِ مستقلِ مفهومی از بحث شکل 11.29 کتاب است.</span><a class="headerlink" href="#fig-ch11-01" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 337 </span><span class="caption-text">چهار الگوی ساختگی برای تفکیک بافت نرم، درشت، متناوب و تصادفی. این شکل بازسازیِ مستقلِ مفهومی از بحث شکل 11.29 کتاب است.</span><a class="headerlink" href="#fig-ch11-01" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="id4">
@@ -536,7 +552,7 @@ U=(0.5)^2+(0.5)^2=0.5,\qquad
 <a class="reference internal image-reference" href="../_images/07_same_hist_different_spatial.png"><img alt="../_images/07_same_hist_different_spatial.png" src="../_images/07_same_hist_different_spatial.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 312 </span><span class="caption-text">دو تصویر با هیستوگرام یکسان ولی ساختار فضایی متفاوت. نمودار سوم توزیع شدت یکسان آن‌ها را نشان می‌دهد.</span><a class="headerlink" href="#fig-ch11-02" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 338 </span><span class="caption-text">دو تصویر با هیستوگرام یکسان ولی ساختار فضایی متفاوت. نمودار سوم توزیع شدت یکسان آن‌ها را نشان می‌دهد.</span><a class="headerlink" href="#fig-ch11-02" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>آیا از <span class="math notranslate nohighlight">\(m\)</span>، <span class="math notranslate nohighlight">\(\sigma\)</span>، <span class="math notranslate nohighlight">\(U\)</span> یا <span class="math notranslate nohighlight">\(H\)</span> می‌توان فهمید نوارها در کدام جهت‌اند؟
@@ -562,7 +578,7 @@ U=(0.5)^2+(0.5)^2=0.5,\qquad
 <a class="reference internal image-reference" href="../_images/glcm_4x4_12_right_pairs.png"><img alt="../_images/glcm_4x4_12_right_pairs.png" src="../_images/glcm_4x4_12_right_pairs.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 313 </span><span class="caption-text">شمارش زوج‌های افقی برای جابه‌جایی <span class="math notranslate nohighlight">\(\boldsymbol\delta=(1,0)\)</span> در یک تصویر <span class="math notranslate nohighlight">\(4\times 4\)</span>. هر پیکان یک زوج مرتب را نشان می‌دهد. در مجموع ۱۲ زوج وجود دارد.</span><a class="headerlink" href="#fig-ch11-03" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 339 </span><span class="caption-text">شمارش زوج‌های افقی برای جابه‌جایی <span class="math notranslate nohighlight">\(\boldsymbol\delta=(1,0)\)</span> در یک تصویر <span class="math notranslate nohighlight">\(4\times 4\)</span>. هر پیکان یک زوج مرتب را نشان می‌دهد. در مجموع ۱۲ زوج وجود دارد.</span><a class="headerlink" href="#fig-ch11-03" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>در تصویر <span class="math notranslate nohighlight">\(A\)</span>، هر سطر <span class="math notranslate nohighlight">\(0,1,0,1\)</span> است. از هر سطر زوج‌های <span class="math notranslate nohighlight">\((0,1),(1,0),(0,1)\)</span>
@@ -578,7 +594,7 @@ G_B=\begin{bmatrix}6&amp;0\\0&amp;6\end{bmatrix},\qquad
 <a class="reference internal image-reference" href="../_images/08_glcm_example.png"><img alt="../_images/08_glcm_example.png" src="../_images/08_glcm_example.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 314 </span><span class="caption-text">ماتریس هم‌وقوعی نرمال‌شده‌ی دو تصویر با جهت همسایگیِ یک پیکسل به راست، و مقایسه با جهت عمودی در تصویر دوم. محورها مقدار پیکسل و همسایه‌ی آن‌اند.</span><a class="headerlink" href="#fig-ch11-04" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 340 </span><span class="caption-text">ماتریس هم‌وقوعی نرمال‌شده‌ی دو تصویر با جهت همسایگیِ یک پیکسل به راست، و مقایسه با جهت عمودی در تصویر دوم. محورها مقدار پیکسل و همسایه‌ی آن‌اند.</span><a class="headerlink" href="#fig-ch11-04" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>در <span class="math notranslate nohighlight">\(A\)</span> مقادیر روی خانه‌ی <em>خارجِ قطر اصلی</em> قرار دارند، یعنی دو همسایه اغلب
@@ -704,7 +720,7 @@ $$G^{(1,0)}=\begin{bmatrix}0&amp;8\\4&amp;0\end{bmatrix},\qquad
 <a class="reference internal image-reference" href="../_images/glcm_direction_distance_explained.png"><img alt="../_images/glcm_direction_distance_explained.png" src="../_images/glcm_direction_distance_explained.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 315 </span><span class="caption-text">یک تصویر ثابت با نوارهای عمودی و سه تعریفِ متفاوتِ همسایه. پیکان‌ها نشان‌دهنده‌ی زوج‌های مرتب‌اند و ماتریس‌های پایین تعداد آن زوج‌ها را نمایش می‌دهند. در جهت افقی با فاصله‌ی یک، بیشترِ درایه‌ها خارج از قطرند؛ در جهت عمودی یا فاصله‌ی افقیِ دو، همه‌ی شمارش‌ها روی قطر قرار می‌گیرند.</span><a class="headerlink" href="#fig-ch11-05" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 341 </span><span class="caption-text">یک تصویر ثابت با نوارهای عمودی و سه تعریفِ متفاوتِ همسایه. پیکان‌ها نشان‌دهنده‌ی زوج‌های مرتب‌اند و ماتریس‌های پایین تعداد آن زوج‌ها را نمایش می‌دهند. در جهت افقی با فاصله‌ی یک، بیشترِ درایه‌ها خارج از قطرند؛ در جهت عمودی یا فاصله‌ی افقیِ دو، همه‌ی شمارش‌ها روی قطر قرار می‌گیرند.</span><a class="headerlink" href="#fig-ch11-05" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -997,7 +1013,7 @@ $<span class="math notranslate nohighlight">\(\theta_{\rm relative}(x,y)=\theta(
 <a class="reference internal image-reference" href="../_images/17_sift_descriptor.png"><img alt="../_images/17_sift_descriptor.png" src="../_images/17_sift_descriptor.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 316 </span><span class="caption-text">سمت چپ: میدان گرادیانِ وزن‌دار و تقسیم‌بندی فضایی به ۱۶ سلول. سمت راست: نمایش ترتیبیِ ۱۲۸ مؤلفه‌ی حاصل از ۸ خانه‌ی جهت در هر سلول. این نمودار برای آموزش تولید شده است.</span><a class="headerlink" href="#fig-ch11-09" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 342 </span><span class="caption-text">سمت چپ: میدان گرادیانِ وزن‌دار و تقسیم‌بندی فضایی به ۱۶ سلول. سمت راست: نمایش ترتیبیِ ۱۲۸ مؤلفه‌ی حاصل از ۸ خانه‌ی جهت در هر سلول. این نمودار برای آموزش تولید شده است.</span><a class="headerlink" href="#fig-ch11-09" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>برای هر نمونه‌ی گرادیان با بزرگی <span class="math notranslate nohighlight">\(m\)</span> و زاویه‌ی نسبی <span class="math notranslate nohighlight">\(\varphi\)</span>، ابتدا وزن

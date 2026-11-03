@@ -180,6 +180,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../gonzalez/chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gonzalez/chapter-04.html">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gonzalez/chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gonzalez/chapter-07.html">فصل هفتم: موجک و تحلیل چندمقیاسی تصویر</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gonzalez/chapter-08.html">فصل هشتم: اطلاعات تصویر، آنتروپی و فشرده‌سازی کاربردی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gonzalez/chapter-09.html">فصل نهم: مورفولوژی ریاضی دودویی — چهار عمل بنیادی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gonzalez/chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
@@ -188,12 +189,27 @@
 </details></li>
 <li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Student Work</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="catalog/gonzalez/index.html">Digital Image Processing — Gonzalez &amp; Woods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="catalog/gonzalez/other-sections/index.html">Sections not assigned to a chapter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l4"><a class="reference internal" href="catalog/gonzalez/other-sections/section-03.html">Section 3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-01/index.html">Chapter 1 — Introduction</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="catalog/gonzalez/chapter-02/index.html">Chapter 2 — Digital Image Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="catalog/gonzalez/chapter-02/section-03.html">Section 3</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="catalog/gonzalez/chapter-03/index.html">Chapter 3 — Intensity Transformations and Spatial Filtering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="catalog/gonzalez/chapter-03/section-03.html">Section 3</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-04/index.html">Chapter 4 — Filtering in the Frequency Domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-05/index.html">Chapter 5 — Image Restoration and Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-06/index.html">Chapter 6 — Color Image Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-07/index.html">Chapter 7 — Wavelet and Other Image Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-08/index.html">Chapter 8 — Image Compression and Watermarking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-09/index.html">Chapter 9 — Morphological Image Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-10/index.html">Chapter 10 — Image Segmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-11/index.html">Chapter 11 — Feature Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="catalog/gonzalez/chapter-12/index.html">Chapter 12 — Image Pattern Classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="catalog/other/index.html">Image Processing — Other References</a></li>
 </ul>
 </details></li>
 </ul>
@@ -346,6 +362,7 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#browse-projects">Browse projects</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-image-processing-gonzalez-woods"><span class="xref myst">Digital Image Processing — Gonzalez &amp; Woods</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-processing-other-references"><span class="xref myst">Image Processing — Other References</span></a></li>
 </ul>
 </li>
 </ul>
@@ -362,20 +379,40 @@ document.write(`
   <!-- GENERATED BY student_work_book_sync.py; DO NOT EDIT DIRECTLY -->
 <section class="tex2jax_ignore mathjax_ignore" id="student-work">
 <h1>Student Work<a class="headerlink" href="#student-work" title="Link to this heading">#</a></h1>
-<p>This section presents the coursework, experiments, and projects submitted by students in the Image Processing course. Projects are organized by the reference book, chapter, and class section. Select a project to read its overview, inspect available figures, and access the source materials.</p>
+<p>Student work from the Image Processing course is organized by reference book, scientific chapter, and class section. Select a project title to view its description, submitted figures, and downloadable files. Only projects approved for publication appear here.</p>
 <section id="browse-projects">
 <h2>Browse projects<a class="headerlink" href="#browse-projects" title="Link to this heading">#</a></h2>
 <section id="digital-image-processing-gonzalez-woods">
 <h3><a class="reference internal" href="catalog/gonzalez/index.html"><span class="std std-doc">Digital Image Processing — Gonzalez &amp; Woods</span></a><a class="headerlink" href="#digital-image-processing-gonzalez-woods" title="Link to this heading">#</a></h3>
-<p><strong>Sections not assigned to a chapter</strong></p>
+<p><strong>Chapter 1 — Introduction</strong></p>
+<p><strong>Chapter 2 — Digital Image Fundamentals</strong></p>
 <ul class="simple">
-<li><p><strong><a class="reference internal" href="catalog/gonzalez/other-sections/section-03.html"><span class="std std-doc">Section 3</span></a></strong></p>
+<li><p><strong><a class="reference internal" href="catalog/gonzalez/chapter-02/section-03.html"><span class="std std-doc">Section 3</span></a></strong></p>
 <ul>
-<li><p><a class="reference internal" href="section-03/svd-low-rank-separable-convolution.html"><span class="std std-doc">Low-Rank Approximation of 2-D Convolution Filters Using SVD</span></a> — This student project studies how singular value decomposition (SVD) can approximate a non-separable 2-D convolution kernel with lower-rank separable filters. The package includes a Persian report, Python implementation, numerical resul…</p></li>
 <li><p><a class="reference internal" href="section-03/rgb-based-segmentation-project.html"><span class="std std-doc">RGB Color Segmentation Using Dominant Channels and Histogram Peaks</span></a> — A student image-processing project documenting RGB color segmentation with channel-dominance masks, Gaussian-smoothed histograms, adaptive peak intervals, and morphological post-processing. The report also compares the RGB approach con…</p></li>
 </ul>
 </li>
 </ul>
+<p><strong>Chapter 3 — Intensity Transformations and Spatial Filtering</strong></p>
+<ul class="simple">
+<li><p><strong><a class="reference internal" href="catalog/gonzalez/chapter-03/section-03.html"><span class="std std-doc">Section 3</span></a></strong></p>
+<ul>
+<li><p><a class="reference internal" href="section-03/svd-low-rank-separable-convolution.html"><span class="std std-doc">Low-Rank Approximation of 2-D Convolution Filters Using SVD</span></a> — This student project studies how singular value decomposition (SVD) can approximate a non-separable 2-D convolution kernel with lower-rank separable filters. The package includes a Persian report, Python implementation, numerical resul…</p></li>
+</ul>
+</li>
+</ul>
+<p><strong>Chapter 4 — Filtering in the Frequency Domain</strong></p>
+<p><strong>Chapter 5 — Image Restoration and Reconstruction</strong></p>
+<p><strong>Chapter 6 — Color Image Processing</strong></p>
+<p><strong>Chapter 7 — Wavelet and Other Image Transforms</strong></p>
+<p><strong>Chapter 8 — Image Compression and Watermarking</strong></p>
+<p><strong>Chapter 9 — Morphological Image Processing</strong></p>
+<p><strong>Chapter 10 — Image Segmentation</strong></p>
+<p><strong>Chapter 11 — Feature Extraction</strong></p>
+<p><strong>Chapter 12 — Image Pattern Classification</strong></p>
+</section>
+<section id="image-processing-other-references">
+<h3><a class="reference internal" href="catalog/other/index.html"><span class="std std-doc">Image Processing — Other References</span></a><a class="headerlink" href="#image-processing-other-references" title="Link to this heading">#</a></h3>
 </section>
 </section>
 <div class="toctree-wrapper compound">
@@ -448,6 +485,7 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#browse-projects">Browse projects</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#digital-image-processing-gonzalez-woods"><span class="xref myst">Digital Image Processing — Gonzalez &amp; Woods</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#image-processing-other-references"><span class="xref myst">Image Processing — Other References</span></a></li>
 </ul>
 </li>
 </ul>

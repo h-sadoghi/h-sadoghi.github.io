@@ -1,0 +1,1335 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل هفتم — موجک؛ دیدن «چه چیزی، کجا و در چه اندازه‌ای» در تصویر &#8212; Image Processing Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gonzalez/chapter-07';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="فصل هشتم — از «اطلاعات تصویر» تا فشرده‌سازی واقعی در وب" href="chapter-08.html" />
+    <link rel="prev" title="فصل ۵: ترمیم و بازسازی تصویر" href="chapter-05.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Image Processing Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Image Processing Course Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gonzalez Notes and Learning Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">فصل دوم: مبانی تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل هفتم: موجک و تحلیل چندمقیاسی تصویر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-08.html">فصل هشتم: اطلاعات تصویر، آنتروپی و فشرده‌سازی کاربردی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-09.html">فصل نهم: مورفولوژی ریاضی دودویی — چهار عمل بنیادی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-11.html">فصل ۱۱: بافت تصویر و توصیفگر SIFT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../student-work/index.html">Student Work</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/index.html">Digital Image Processing — Gonzalez &amp; Woods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-01/index.html">Chapter 1 — Introduction</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-02/index.html">Chapter 2 — Digital Image Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-02/section-03.html">Section 3</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-03/index.html">Chapter 3 — Intensity Transformations and Spatial Filtering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-03/section-03.html">Section 3</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-04/index.html">Chapter 4 — Filtering in the Frequency Domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-05/index.html">Chapter 5 — Image Restoration and Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-06/index.html">Chapter 6 — Color Image Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-07/index.html">Chapter 7 — Wavelet and Other Image Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-08/index.html">Chapter 8 — Image Compression and Watermarking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-09/index.html">Chapter 9 — Morphological Image Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-10/index.html">Chapter 10 — Image Segmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-11/index.html">Chapter 11 — Feature Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-12/index.html">Chapter 12 — Image Pattern Classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../student-work/catalog/other/index.html">Image Processing — Other References</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/gonzalez/chapter-07.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل هفتم — موجک؛ دیدن «چه چیزی، کجا و در چه اندازه‌ای» در تصویر</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۷.۱ از فوریه شروع کنیم: کدام سؤال بی‌پاسخ می‌ماند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">چه مقدار دقت در مکان و فرکانس ممکن است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۷.۲ موجک مادر چیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">انتقال و تغییر مقیاس</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">ضریب موجک یعنی چه؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cwt">۷.۳ تبدیل موجک پیوسته (CWT): تعریف، معنی و خواندن خروجی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dwt-cwt-dwt">۷.۴ چرا به موجک گسسته (DWT) می‌رویم؟ پل CWT تا DWT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">یک تصویر ذهنی درست از بانک فیلتر</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dwt">۷.۵ هار؛ فقط یک مثال برای فهم عمیق DWT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">مثال دستی کامل با چهار نمونه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">چرا انرژی حفظ شد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۷.۶ بانک فیلتر: چگونه از هار به پیاده‌سازی واقعی می‌رسیم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">چرا بعد از فیلتر، پایین‌نمونه‌برداری می‌کنیم؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">بازسازی دقیق با بانک سنتز</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mra">۷.۷ تحلیل چندتفکیکی (MRA): ریاضیات پشتِ تجزیهٔ چندسطحی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۷.۸ چرا موجک برای تصویر دوبعدی مناسب است؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">مثال دوبعدیِ کاملاً دستی: یک بلوک ۲ در ۲</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">دیدن زیرباندها در تصویر کامل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۷.۹ بازسازی و حفظ انرژی: «وارون‌پذیری» دقیقاً به چه معناست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۷.۱۰ اثر لبه‌ها، تعداد سطح و انتخاب موجک</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۷.۱۱ کاربرد عملی: حذف نویز با موجک — و محدودیت‌هایش</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-threshold">آستانه‌گذاری نرم (Soft Threshold)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">چرا این مثال به علوم روز مربوط است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jpeg-2000">۷.۱۲ ارتباط با فشرده‌سازیِ امروزی: JPEG 2000، نه فهرست ده‌ها تبدیل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">۷.۱۳ آزمایشگاه Python: از چهار عدد تا تصویر واقعیِ تولیدشده با کد</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a">آزمایش A — هار و بازسازی چهار عدد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">آزمایش B — تجزیهٔ یک تصویر به چهار زیرباند</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c">آزمایش C — یک حذف نویز ساده و قابل کنترل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d">آزمایش D — اسکالوگرام؛ فقط برای تحلیل و دیدن محل رویداد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">اجرای کامل، تصویرهای خروجی و دادهٔ آزمایشی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۷.۱۴ خطاهای مفهومی که دانشجو باید تشخیص دهد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۷.۱۵ پرسش‌ها و تمرین‌های پیشنهادی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">۷.۱۶ جمع‌بندی یک‌صفحه‌ای</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">۷.۱۷ منابع کتابی و وب</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل هفتم — موجک؛ دیدن «چه چیزی، کجا و در چه اندازه‌ای» در تصویر<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p><strong>روش این فصل:</strong> فرض می‌کنیم دانشجو تبدیل فوریه و معنای فرکانس را از درس سیگنال و سیستم و فصل چهارم می‌داند. بنابراین از تکرار DFT، سری فوریه یا مرور طولانی تبدیل‌های هارتلی، کسینوسی، سینوسی، والش، اسلنت و مانند آن‌ها پرهیز می‌کنیم. در عوض، خود <strong>موجک</strong> را با زبان ساده و ریاضیات جدی یاد می‌گیریم. تنها تبدیل ساده‌ای که برای حساب دستی انتخاب شده، <strong>هار</strong> است؛ نه به‌عنوان فهرستی از تبدیل‌ها، بلکه به‌عنوان مدلی شفاف برای فهم بانک فیلتر و بازسازی. مبنای ساختاری، فصل ۷ کتاب <em>Digital Image Processing</em>، ویرایش چهارم، گنزالز و وودز، با تمرکز بر بخش‌های مرتبط با توابع پایه، هار، موجک و تحلیل چندمقیاسی است [S1].</p>
+<figure class="align-default" id="fig07-learning-map">
+<a class="reference internal image-reference" href="../_images/fig07_00_learning_path.png"><img alt="../_images/fig07_00_learning_path.png" src="../_images/fig07_00_learning_path.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 258 </span><span class="caption-text">نقشهٔ فصل: فوریهٔ آشنا را نقطهٔ شروع می‌گیریم، نیاز به مکان‌یابی را می‌بینیم، به CWT می‌رسیم و سپس DWT، بانک فیلتر و تحلیل تصویر را یاد می‌گیریم. همهٔ شکل‌های این فصل برای همین جزوه تولید شده‌اند.</span><a class="headerlink" href="#fig07-learning-map" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id2">
+<h2>اهداف یادگیری<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>بعد از پایان فصل باید بتوانید:</p>
+<ul class="simple">
+<li><p>توضیح دهید چرا <strong>طیف اندازهٔ فوریه</strong> به‌تنهایی محل زمانی/مکانی رخداد را نمی‌گوید و چرا این به معنی نقص خود تبدیل فوریه نیست؛</p></li>
+<li><p>موجک مادر، انتقال، مقیاس و ضریب همبستگی محلی را تفسیر کنید؛</p></li>
+<li><p>معنی CWT و اسکالوگرام، تفاوت «مقیاس» با «فرکانس» و محدودیت تفکیک هم‌زمان را بدانید؛</p></li>
+<li><p>با چهار عدد، تبدیل هار را <strong>دستی</strong> حساب کنید و اطلاعات را بدون خطا برگردانید؛</p></li>
+<li><p>بفهمید بانک فیلتر دقیقاً چه چیزی را اندازه می‌گیرد، چرا پایین‌نمونه‌برداری می‌کنیم و چرا فقط یک مسیر برای بازسازی کافی نیست؛</p></li>
+<li><p>تجزیهٔ چندسطحی و زیرباندهای دوبعدی <code class="docutils literal notranslate"><span class="pre">LL</span></code>، <code class="docutils literal notranslate"><span class="pre">H</span></code>، <code class="docutils literal notranslate"><span class="pre">V</span></code> و <code class="docutils literal notranslate"><span class="pre">D</span></code> را بخوانید؛</p></li>
+<li><p>حفظ انرژی، اثر مرز تصویر و تفاوت نمایش بدون اتلاف با حذف نویز/فشرده‌سازی بااتلاف را تحلیل کنید؛</p></li>
+<li><p>یک آزمایش حذف نویز موجکی را با Python اجرا و محدودیت نتیجه را ارزیابی کنید.</p></li>
+</ul>
+<p><strong>قرارداد نمادها:</strong> <span class="math notranslate nohighlight">\(t\)</span> زمان یا مکان یک‌بعدی، <span class="math notranslate nohighlight">\(x[n]\)</span> سیگنال نمونه‌برداری‌شده، <span class="math notranslate nohighlight">\(f(r,c)\)</span> تصویر در سطر <span class="math notranslate nohighlight">\(r\)</span> و ستون <span class="math notranslate nohighlight">\(c\)</span>، <span class="math notranslate nohighlight">\(\psi\)</span> موجک مادر، <span class="math notranslate nohighlight">\(\phi\)</span> تابع مقیاس، <span class="math notranslate nohighlight">\(a\)</span> ضریب تقریب و <span class="math notranslate nohighlight">\(d\)</span> ضریب جزئیات است. حرف <span class="math notranslate nohighlight">\(a\)</span> در CWT همچنین پارامتر <em>مقیاس</em> است؛ این دو معنا را با ذکر زمینه از هم جدا می‌کنیم. در شکل‌ها برچسب‌های انگلیسی کوتاه‌اند تا با چیدمان راست‌به‌چپ فارسی تداخل نداشته باشند.</p>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>۷.۱ از فوریه شروع کنیم: کدام سؤال بی‌پاسخ می‌ماند؟<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>در فصل چهارم، می‌گفتیم تصویر را می‌توان به مؤلفه‌های فرکانسی تجزیه کرد. اگر الگوی راه‌راه ظریفی در تصویر باشد، مؤلفه‌های فرکانس بالا دیده می‌شوند؛ اگر روشنایی آرام تغییر کند، فرکانس‌های پایین قوی‌اند. این نگاه همچنان درست است.</p>
+<p>اما تصور کنید در یک سیگنال، <strong>ابتدا</strong> چند نوسان سریع و <strong>در انتها</strong> چند نوسان آهسته اتفاق بیفتد. طیف کلی فوریه می‌گوید هر دو نوع فرکانس وجود دارند، ولی <strong>نمودار اندازهٔ طیف</strong> به‌تنهایی نمی‌گوید کدام در ابتدای سیگنال بوده است.</p>
+<figure class="align-default" id="fig07-fourier-global">
+<a class="reference internal image-reference" href="../_images/fig07_01_fourier_global.png"><img alt="../_images/fig07_01_fourier_global.png" src="../_images/fig07_01_fourier_global.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 259 </span><span class="caption-text">بالا: سیگنالی که در بخش‌های مختلف، بسامدهای متفاوت دارد. پایین: طیف فوریهٔ کل آن. قله‌های طیف مکان رخداد را مستقلاً نشان نمی‌دهند.</span><a class="headerlink" href="#fig07-fourier-global" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>رابطهٔ آشنای تبدیل فوریه پیوسته عبارت است از:</p>
+<div class="math notranslate nohighlight">
+\[
+X(\omega)=\int_{-\infty}^{\infty}x(t)e^{-j\omega t}\,dt.\tag{7-1}
+\]</div>
+<p>برای یک فرکانس <span class="math notranslate nohighlight">\(\omega\)</span>، همهٔ زمان‌ها در یک ضریب <span class="math notranslate nohighlight">\(X(\omega)\)</span> سهم دارند؛ یعنی سینوسی تحلیل‌کننده در تمام محور گسترده است. پس <strong>اندازهٔ ضریب، خلاصه‌ای سراسری</strong> است. البته اگر فاز را هم نگه داریم، تبدیل فوریه در شرایط معمول <em>وارون‌پذیر</em> است و اطلاعات مکان گم نشده است؛ نکته فقط این است که نمایش سراسری، برای دیدن محل رویدادها مستقیم و شهودی نیست.</p>
+<p>یک آزمون مهم: اگر سیگنال را فقط جابه‌جا کنیم، طبق خاصیت انتقال:</p>
+<div class="math notranslate nohighlight">
+\[
+x(t-t_0)\ \longleftrightarrow\ e^{-j\omega t_0}X(\omega),
+\qquad |X_{\mathrm{shifted}}(\omega)|=|X(\omega)|.\tag{7-2}
+\]</div>
+<p>پس دو رخداد یکسان در دو مکان متفاوت می‌توانند <strong>طیف اندازهٔ یکسان</strong> داشته باشند، هرچند فازهایشان تفاوت می‌کند.</p>
+<figure class="align-default" id="fig07-fourier-shift">
+<a class="reference internal image-reference" href="../_images/fig07_02_same_magnitude.png"><img alt="../_images/fig07_02_same_magnitude.png" src="../_images/fig07_02_same_magnitude.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 260 </span><span class="caption-text">دو رخداد که فقط مکانشان عوض شده است. منحنی اندازهٔ DFT آن‌ها روی هم می‌افتد، زیرا تغییر مکان روی فاز اثر می‌گذارد.</span><a class="headerlink" href="#fig07-fourier-shift" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>ایدهٔ موجک:</strong> به‌جای اینکه یک موج سینوسی بی‌انتها را با کل سیگنال مقایسه کنیم، یک موج <em>محدود و موضعی</em> را در مکان‌های مختلف جابه‌جا کنیم و اندازه‌اش را تغییر دهیم. آن‌وقت دو سؤال را هم‌زمان می‌پرسیم: «چه نوع تغییر؟» و «کجا؟».</p>
+<section id="id4">
+<h3>چه مقدار دقت در مکان و فرکانس ممکن است؟<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>هیچ پنجرهٔ موجکی نمی‌تواند هم در مکان و هم در فرکانس به‌صورت نامحدود باریک باشد. برای تعریف رایج واریانس زمانی و بسامد زاویه‌ای (با قرارداد فوریهٔ رابطهٔ ۷-۱)، اصل عدم‌قطعیت می‌گوید:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma_t\sigma_\omega\geq \frac{1}{2}.\tag{7-3}
+\]</div>
+<p>در تبدیل‌های پنجره‌ایِ با پنجرهٔ ثابت، اندازهٔ پنجره ثابت می‌ماند. در موجک، پنجره برای تغییرات تند <em>باریک</em> و برای تغییرات آهسته <em>پهن</em> است. این یک راهبرد اندازه‌گیری است، نه نقض اصل عدم‌قطعیت.</p>
+<figure class="align-default" id="fig07-tiles">
+<a class="reference internal image-reference" href="../_images/fig07_06_time_frequency_tiles.png"><img alt="../_images/fig07_06_time_frequency_tiles.png" src="../_images/fig07_06_time_frequency_tiles.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 261 </span><span class="caption-text">تقسیم‌بندی مفهومی صفحهٔ مکان–فرکانس: موجک در فرکانس‌های بالا مکان‌یابی دقیق‌تر و در فرکانس‌های پایین تفکیک فرکانسی مناسب‌تری فراهم می‌کند. مستطیل‌ها نمایش شماتیک‌اند.</span><a class="headerlink" href="#fig07-tiles" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id5">
+<h2>۷.۲ موجک مادر چیست؟<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>موجک را می‌توان یک <strong>الگوی نوسانی کوتاه</strong> دانست که معمولاً بخش مثبت و منفی دارد و میانگینش صفر است. قسمت مثبت به یک نوع تغییر پاسخ می‌دهد و قسمت منفی به تغییر مخالف؛ مجموع صفر باعث می‌شود سطح روشنایی کاملاً ثابت، به‌تنهایی پاسخ جزئیات ایجاد نکند.</p>
+<p>یک شرط بنیادی برای موجک تحلیل‌کنندهٔ متعارف (با فرض همگرایی انتگرال) این است:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\infty}^{\infty}\psi(t)\,dt=0.\tag{7-4}
+\]</div>
+<p>به‌زبان فوریه، این شرط یعنی <span class="math notranslate nohighlight">\(\Psi(0)=0\)</span>؛ موجک مؤلفهٔ ثابت را در خروجی جزئیات اندازه نمی‌گیرد. شرط دقیق‌ترِ <strong>پذیرفتنی‌بودن</strong> برای بازسازی CWT، متناسب با قرارداد نرمال‌سازی، به شکل زیر بیان می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+C_\psi=\int_{-\infty}^{\infty}\frac{|\Psi(\omega)|^2}{|\omega|}\,d\omega&lt;\infty.\tag{7-5}
+\]</div>
+<p>صفر بودن میانگین در موجک‌های خوش‌رفتار بسیار مهم است، ولی به‌تنهایی جای تمام مفروضاتِ همگرایی و بازسازی را نمی‌گیرد. لازم نیست در این درس همهٔ قضایای تحلیل تابعی را اثبات کنیم؛ لازم است <strong>فرق الگوی دلخواه با موجک مناسب برای تحلیل و بازسازی</strong> را بشناسیم.</p>
+<section id="id6">
+<h3>انتقال و تغییر مقیاس<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>از یک موجک مادر <span class="math notranslate nohighlight">\(\psi(t)\)</span> خانوادهٔ زیر را می‌سازیم:</p>
+<div class="math notranslate nohighlight">
+\[
+\psi_{a,b}(t)=\frac{1}{\sqrt{|a|}}\psi\!\left(\frac{t-b}{a}\right),\qquad a\ne0.\tag{7-6}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(b\)</span> <strong>مکان/انتقال</strong> است: موجک به چپ یا راست می‌رود.</p></li>
+<li><p><span class="math notranslate nohighlight">\(|a|\)</span> <strong>مقیاس</strong> است: مقیاس کوچک، موجک باریک و حساس به تغییرات ریز؛ مقیاس بزرگ، موجک پهن و حساس به ساختارهای درشت.</p></li>
+<li><p>عامل <span class="math notranslate nohighlight">\(1/\sqrt{|a|}\)</span> برای ثابت ماندن انرژی موجک در مقیاس‌های مختلف است؛ این عامل تزئینی نیست.</p></li>
+</ul>
+<p>زیرا با تغییر متغیر <span class="math notranslate nohighlight">\(u=(t-b)/a\)</span> داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+\int|\psi_{a,b}(t)|^2dt=\int|\psi(u)|^2du.\tag{7-7}
+\]</div>
+<figure class="align-default" id="fig07-scale-shift">
+<a class="reference internal image-reference" href="../_images/fig07_03_scale_and_shift.png"><img alt="../_images/fig07_03_scale_and_shift.png" src="../_images/fig07_03_scale_and_shift.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 262 </span><span class="caption-text">یک موجک نمونه در چند مکان و مقیاس: باریک شدن برای جزئیات ریز و پهن شدن برای ساختارهای درشت. منحنی صرفاً مثال بصری از یک موجک مادر است؛ تنها شکل مجاز موجک همین نیست.</span><a class="headerlink" href="#fig07-scale-shift" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id7">
+<h3>ضریب موجک یعنی چه؟<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p>قبلاً در همبستگی یاد گرفتیم که ضرب داخلی دو سیگنال، میزان شباهتشان را اندازه می‌گیرد. در موجک هم همین اتفاق می‌افتد: در هر مکان و مقیاس، یک <strong>عدد</strong> اندازه می‌گیریم. عدد بزرگ از نظر قدرمطلق یعنی در آن ناحیه، سیگنال به الگوی موجک شباهت قابل‌توجه دارد؛ علامت ضریب هم جهت تغییر را نشان می‌دهد.</p>
+<p>این توضیح، مهم‌ترین پل از فوریه به موجک است: تبدیل یک «جعبهٔ رمزآلود» نیست؛ مجموعه‌ای از <strong>اندازه‌گیری‌های شباهت</strong> با الگوهایی در اندازه‌ها و مکان‌های مختلف است.</p>
+<figure class="align-default" id="fig07-local-match">
+<a class="reference internal image-reference" href="../_images/fig07_04_wavelet_matching.png"><img alt="../_images/fig07_04_wavelet_matching.png" src="../_images/fig07_04_wavelet_matching.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 263 </span><span class="caption-text">مقایسهٔ موضعی سیگنال با یک موجک منتقل‌شده: ضریب، حاصل ضرب داخلی این دو است. برای آشکارسازی یک تغییر ناگهانی، شکل موجک و علامت ضریب اهمیت دارند.</span><a class="headerlink" href="#fig07-local-match" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="cwt">
+<h2>۷.۳ تبدیل موجک پیوسته (CWT): تعریف، معنی و خواندن خروجی<a class="headerlink" href="#cwt" title="Link to this heading">#</a></h2>
+<p>اکنون تعریف ریاضی <strong>تبدیل موجک پیوسته</strong> را می‌نویسیم:</p>
+<div class="math notranslate nohighlight">
+\[
+W_x(a,b)=\langle x,\psi_{a,b}\rangle
+=\frac{1}{\sqrt{|a|}}\int_{-\infty}^{\infty}x(t)\,\psi^*\!\left(\frac{t-b}{a}\right)dt.\tag{7-8}
+\]</div>
+<p>ستاره نشانهٔ مزدوج مختلط است؛ اگر موجک واقعی باشد، همان تابع بدون ستاره به‌کار می‌رود. مفهوم فرمول ساده است: <strong>موجک را با اندازهٔ <span class="math notranslate nohighlight">\(a\)</span> در محل <span class="math notranslate nohighlight">\(b\)</span> روی سیگنال می‌گذاریم، ضرب می‌کنیم، و جمع می‌زنیم.</strong> نتیجه یک عدد به‌نام <span class="math notranslate nohighlight">\(W_x(a,b)\)</span> است.</p>
+<p>چون <span class="math notranslate nohighlight">\(a\)</span> و <span class="math notranslate nohighlight">\(b\)</span> هر دو تغییر می‌کنند، نتیجهٔ CWT یک <strong>نقشهٔ دوبعدی از ضرایب</strong> است؛ برخلاف DFT یک‌بعدی که یک ضریب به ازای هر فرکانس دارد. این نقشه را معمولاً با رنگ نمایش می‌دهند و به آن <em>اسکالوگرام</em> می‌گویند.</p>
+<figure class="align-default" id="fig07-scalogram">
+<a class="reference internal image-reference" href="../_images/fig07_05_scalogram.png"><img alt="../_images/fig07_05_scalogram.png" src="../_images/fig07_05_scalogram.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 264 </span><span class="caption-text">اسکالوگرام نمونه: محور افقی موقعیت، محور عمودی مقیاس و رنگ نمایندهٔ بزرگی ضریب است. رنگ پررنگ‌تر در یک ناحیه یعنی موجکِ آن مقیاس در آن مکان پاسخ بیشتری گرفته است.</span><a class="headerlink" href="#fig07-scalogram" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>دقت مهم:</strong> مقیاس با فرکانس <em>برابر</em> نیست. برای یک موجک مادر با فرکانس مرکزی <span class="math notranslate nohighlight">\(f_c\)</span> و دورهٔ نمونه‌برداری <span class="math notranslate nohighlight">\(\Delta t\)</span>، ارتباط <strong>تقریبی و وابسته به موجک</strong> چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+f_{\mathrm{pseudo}}\approx\frac{f_c}{a\,\Delta t}.\tag{7-9}
+\]</div>
+<p>بنابراین اگر مقیاس دو برابر شود، فرکانس شاخص تقریباً نصف می‌شود؛ اما تبدیل مقیاس به هرتز نیازمند تعیین موجک مادر و نرخ نمونه‌برداری است. در پیاده‌سازی دیجیتال CWT، مقیاس‌های خیلی کوچک ممکن است درست نمونه‌برداری نشوند و <strong>aliasing</strong> بدهند [S3].</p>
+<figure class="align-default" id="fig07-cwt-events">
+<a class="reference internal image-reference" href="../_images/fig07_24_localized_events.png"><img alt="../_images/fig07_24_localized_events.png" src="../_images/fig07_24_localized_events.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 265 </span><span class="caption-text">دو رویداد کوتاه در دو مکان متفاوت: اسکالوگرام، مکان هر دو را نشان می‌دهد. این همان اطلاعات محلی است که دیدن آن از روی اندازهٔ طیف سراسری فوریه به‌تنهایی آسان نبود.</span><a class="headerlink" href="#fig07-cwt-events" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>پرسش برای کلاس:</strong> اگر یک پالس را بدون تغییر شکل، ۷۰ نمونه جابه‌جا کنیم، پاسخ CWT چگونه عوض می‌شود؟ بخش مهمی از نقشهٔ پاسخ نیز ۷۰ نمونه جابه‌جا می‌شود؛ مقیاس‌های شاخص تقریباً همان‌اند. این خاصیت شهودی، تفاوت «محل» و «اندازهٔ ساختار» را آشکار می‌کند.</p>
+</section>
+<section id="dwt-cwt-dwt">
+<h2>۷.۴ چرا به موجک گسسته (DWT) می‌رویم؟ پل CWT تا DWT<a class="headerlink" href="#dwt-cwt-dwt" title="Link to this heading">#</a></h2>
+<p>CWT برای تحلیل بسیار آموزنده است، ولی اگر برای یک سیگنال <span class="math notranslate nohighlight">\(N\)</span> نمونه‌ای تعداد زیادی مقیاس و تمام انتقال‌ها را محاسبه کنیم، ضرایب فراوان و حتی <strong>افزونگی</strong> خواهیم داشت. برای نمایش فشرده، الگوریتم سریع و بازسازی عملی می‌خواهیم تنها تعداد مناسبی اندازه‌گیری مستقل داشته باشیم.</p>
+<p>یک راه شناخته‌شده، انتخاب شبکهٔ <strong>دودویی/دایادیک</strong> از تغییر مقیاس و انتقال است:</p>
+<div class="math notranslate nohighlight">
+\[
+a=2^j,\qquad b=k2^j,\qquad
+\psi_{j,k}(t)=2^{-j/2}\psi(2^{-j}t-k),\quad j,k\in\mathbb Z.\tag{7-10}
+\]</div>
+<p>این نوشتار از همان قرارداد <span class="math notranslate nohighlight">\(a=2^j\)</span> برای <em>پهن‌تر شدن</em> موجک استفاده می‌کند. در کتاب‌های دیگر ممکن است <span class="math notranslate nohighlight">\(2^{j/2}\psi(2^jt-k)\)</span> دیده شود: آن‌جا جهت شماره‌گذاری سطوح برعکس انتخاب شده است؛ <strong>فیزیک مسئله تفاوتی ندارد</strong>.</p>
+<figure class="align-default" id="fig07-dyadic">
+<a class="reference internal image-reference" href="../_images/fig07_07_cwt_dwt_sampling.png"><img alt="../_images/fig07_07_cwt_dwt_sampling.png" src="../_images/fig07_07_cwt_dwt_sampling.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 266 </span><span class="caption-text">سمت چپ: برداشت مفهومی از تعداد فراوان انتقال و مقیاس در CWT. سمت راست: نمونه‌برداری مرحله‌ای در DWT؛ مقیاس دو برابر که شود فاصلهٔ مکان‌های نمونه‌برداری هم تغییر می‌کند.</span><a class="headerlink" href="#fig07-dyadic" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>اما دقت کنیم: <strong>فقط انتخاب <span class="math notranslate nohighlight">\(a=2^j\)</span>، به‌تنهایی یک تبدیل گسستهٔ وارون‌پذیر نمی‌سازد.</strong> باید موجک و تابع مقیاس طوری انتخاب شوند که چارچوب مناسبی برای نمایش/بازسازی ایجاد کنند. برای خانواده‌های موجک متعامد، این کار با بانک فیلتر پایین‌گذر و بالاگذر عملی می‌شود؛ روشی که در پژوهش بنیادی ماله دربارهٔ تجزیهٔ چندتفکیکی توضیح داده شده است [S2].</p>
+<section id="id8">
+<h3>یک تصویر ذهنی درست از بانک فیلتر<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>وقتی یک سیگنال وارد بانک فیلتر می‌شود، هر فیلتر <strong>به بخش مشخصی از تغییرات</strong> حساس‌تر است. خروجی یک عدد واحد نیست: <strong>در هر سطح، چند دنباله یا تصویر از ضرایب داریم</strong>. در یک سیگنال یک‌بعدی، محور مکان/زمان باقی می‌ماند و محور مقیاس نیز اضافه می‌شود. در تصویر دوبعدی، ضرایب در هر سطح هم مکان افقی و عمودی دارند و هم نوع جهت/مقیاس؛ یعنی می‌توان به‌طور مفهومی از مجموعه‌ای سه‌بعدی یا چندبخشی از اطلاعات صحبت کرد، هرچند اندازهٔ ماتریس‌ها در سطوح مختلف یکسان نیست.</p>
+<figure class="align-default" id="fig07-band-splitting">
+<a class="reference internal image-reference" href="../_images/fig07_11_frequency_band_splitting.png"><img alt="../_images/fig07_11_frequency_band_splitting.png" src="../_images/fig07_11_frequency_band_splitting.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 267 </span><span class="caption-text">بانک فیلتر سیگنال را به باندهای ریزتر تقسیم می‌کند. نمای مستطیل‌ها شماتیک است و حد دقیق باندها یا پاسخ ایده‌آل فیلترها را ادعا نمی‌کند.</span><a class="headerlink" href="#fig07-band-splitting" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="dwt">
+<h2>۷.۵ هار؛ فقط یک مثال برای فهم عمیق DWT<a class="headerlink" href="#dwt" title="Link to this heading">#</a></h2>
+<p>برای شروع، ساده‌ترین موجک متعامد را انتخاب می‌کنیم. تابع <strong>مقیاس</strong> و موجک مادر هار در یک قرارداد رایج:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\phi(t)=\begin{cases}1&amp;0\le t&lt;1\\0&amp;\text{otherwise},\end{cases}\qquad
+\psi(t)=\begin{cases}1&amp;0\le t&lt;\tfrac12\\-1&amp;\tfrac12\le t&lt;1\\0&amp;\text{otherwise}.\end{cases}\tag{7-11}
+\end{split}\]</div>
+<p>تابع مقیاس برای نگهداری <strong>میانگین/تقریب</strong> و موجک برای نگهداری <strong>اختلاف/جزئیات</strong> است. در نمونه‌های گسسته، در هر جفت پیکسل یا دو نمونهٔ همسایه، دو عدد به دست می‌آوریم:</p>
+<div class="math notranslate nohighlight">
+\[
+a[k]=\frac{x[2k]+x[2k+1]}{\sqrt2},\qquad
+d[k]=\frac{x[2k]-x[2k+1]}{\sqrt2}.\tag{7-12}
+\]</div>
+<p>سؤال رایج این است: <strong>چرا دقیقاً <span class="math notranslate nohighlight">\(\sqrt2\)</span>، نه ۲؟</strong> اگر بر ۲ تقسیم کنیم میانگین عددی معمول به دست می‌آید، اما برای <em>تبدیل متعامدِ نرمال‌شده</em> از <span class="math notranslate nohighlight">\(\sqrt2\)</span> استفاده می‌کنیم تا انرژی حفظ شود و پایه‌ها طول واحد داشته باشند. <span class="math notranslate nohighlight">\(a\)</span> از نظر معنا «خلاصهٔ سطح» است، نه الزاماً همان میانگین حسابیِ خام.</p>
+<p>ماتریس متناظر با تبدیل یک جفت نمونه:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}a\\d\end{bmatrix}=
+\underbrace{\frac1{\sqrt2}\begin{bmatrix}1&amp;1\\1&amp;-1\end{bmatrix}}_{Q}
+\begin{bmatrix}x_0\\x_1\end{bmatrix},\qquad Q^TQ=I.\tag{7-13}
+\end{split}\]</div>
+<p>چون <span class="math notranslate nohighlight">\(Q^{-1}=Q^T=Q\)</span>، بازسازی <strong>دقیق</strong> است:</p>
+<div class="math notranslate nohighlight">
+\[
+x[2k]=\frac{a[k]+d[k]}{\sqrt2},\qquad
+x[2k+1]=\frac{a[k]-d[k]}{\sqrt2}.\tag{7-14}
+\]</div>
+<p>نقش هر مؤلفه واضح است: با داشتن <strong>فقط</strong> <span class="math notranslate nohighlight">\(a\)</span>، تغییر بین دو عضو جفت را نمی‌توان بازسازی کرد؛ <strong><span class="math notranslate nohighlight">\(d\)</span></strong> دقیقاً همان اطلاعات کم‌مانده برای بازگشت به دو مقدار اولیه است.</p>
+<section id="id9">
+<h3>مثال دستی کامل با چهار نمونه<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>فرض کنید:</p>
+<div class="math notranslate nohighlight">
+\[
+x=[4,\ 6,\ 8,\ 10].\tag{7-15}
+\]</div>
+<p>در سطح اول، جفت‌ها را جداگانه بررسی می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+a_1=[5\sqrt2,\ 9\sqrt2],\qquad
+d_1=[-\sqrt2,\ -\sqrt2].\tag{7-16}
+\]</div>
+<p>در سطح دوم، <strong>فقط تقریب</strong> سطح قبل را دوباره تجزیه می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+a_2=\frac{5\sqrt2+9\sqrt2}{\sqrt2}=14,\qquad
+d_2=\frac{5\sqrt2-9\sqrt2}{\sqrt2}=-4.\tag{7-17}
+\]</div>
+<p>پس نمایش دو سطحی همین چهار عدد، مجموعهٔ <strong>چهار ضریب</strong> <span class="math notranslate nohighlight">\(\{a_2=14,d_2=-4,d_1[0]=-\sqrt2,d_1[1]=-\sqrt2\}\)</span> است؛ تعداد اعداد عوض نشده است.</p>
+<figure class="align-default" id="fig07-haar-example">
+<a class="reference internal image-reference" href="../_images/fig07_08_haar_hand_calculation.png"><img alt="../_images/fig07_08_haar_hand_calculation.png" src="../_images/fig07_08_haar_hand_calculation.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 268 </span><span class="caption-text">محاسبهٔ واقعی با ورودی <span class="math notranslate nohighlight">\([4,6,8,10]\)</span>. در سطح دوم فقط دو عضو <span class="math notranslate nohighlight">\(a_1\)</span> تبدیل می‌شوند؛ <span class="math notranslate nohighlight">\(d_1\)</span> باید برای بازسازی نهایی نگه داشته شود.</span><a class="headerlink" href="#fig07-haar-example" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>بازسازی را هم دستی انجام می‌دهیم.</strong> ابتدا از <span class="math notranslate nohighlight">\(a_2,d_2\)</span> داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+a_1[0]=\frac{14-4}{\sqrt2}=5\sqrt2,\qquad
+a_1[1]=\frac{14+4}{\sqrt2}=9\sqrt2.\tag{7-18}
+\]</div>
+<p>سپس <span class="math notranslate nohighlight">\(a_1\)</span> را با ضرایب ذخیره‌شدهٔ <span class="math notranslate nohighlight">\(d_1\)</span> در رابطهٔ ۷-۱۴ قرار می‌دهیم: دو نمونهٔ اول <span class="math notranslate nohighlight">\(4,6\)</span> و دو نمونهٔ دوم <span class="math notranslate nohighlight">\(8,10\)</span> به دست می‌آیند. <strong>چیزی را حدس نزدیم؛ اطلاعات دقیقاً بازگشت.</strong></p>
+</section>
+<section id="id10">
+<h3>چرا انرژی حفظ شد؟<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>برای هر جفت داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+a^2+d^2=\frac{(x_0+x_1)^2+(x_0-x_1)^2}{2}=x_0^2+x_1^2.\tag{7-19}
+\]</div>
+<p>در مثال بالا:</p>
+<div class="math notranslate nohighlight">
+\[
+\underbrace{4^2+6^2+8^2+10^2}_{216}
+=\underbrace{a_2^2+d_2^2+d_1[0]^2+d_1[1]^2}_{196+16+2+2=216}.\tag{7-20}
+\]</div>
+<p>حفظ انرژی یا <em>پارسه‌وال</em> به این دلیل است که تبدیل هار با این نرمال‌سازی <strong>متعامد</strong> است. ولی <strong>حفظ انرژی به معنی فشرده شدن فایل نیست</strong>: ما هنوز چهار ضریب داریم و برای ذخیرهٔ آن‌ها به کدگذاری دیگری نیاز داریم؛ این تفاوت را در فصل ۸ نیز دیدیم.</p>
+</section>
+</section>
+<section id="id11">
+<h2>۷.۶ بانک فیلتر: چگونه از هار به پیاده‌سازی واقعی می‌رسیم؟<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>هر فرمول رابطهٔ ۷-۱۲ را می‌توان به‌صورت یک فیلتر دید: یکی دو نمونهٔ مجاور را جمع می‌کند و دیگری از هم کم می‌کند. سپس از هر جفت فقط یک مقدار می‌گیریم. فیلترهای تحلیل هار در <strong>قرارداد جفت‌سازی این جزوه</strong> عبارت‌اند از:</p>
+<div class="math notranslate nohighlight">
+\[
+h_0=[1,1]/\sqrt2,\qquad h_1=[1,-1]/\sqrt2.\tag{7-21}
+\]</div>
+<p><span class="math notranslate nohighlight">\(h_0\)</span> «پایین‌گذر» است چون سیگنال آهسته/ثابت را عبور می‌دهد و <span class="math notranslate nohighlight">\(h_1\)</span> «بالاگذر» است چون به اختلاف همسایه‌ها پاسخ می‌دهد. در یک پیاده‌سازی عمومی مبتنی بر کانولوشن، ترتیب ضرایب و فاز به قرارداد وارون‌سازی فیلتر وابسته است؛ کد این فصل <strong>مستقیماً جفت نمونه‌ها</strong> را محاسبه می‌کند تا ابهام قراردادی پیش نیاید.</p>
+<figure class="align-default" id="fig07-haar-frequency">
+<a class="reference internal image-reference" href="../_images/fig07_09_filter_frequency_responses.png"><img alt="../_images/fig07_09_filter_frequency_responses.png" src="../_images/fig07_09_filter_frequency_responses.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 269 </span><span class="caption-text">اندازهٔ پاسخ فرکانسی دو فیلتر هار. فیلتر جمع‌کننده در فرکانس صفر قوی است، و فیلتر تفاضل‌گیر در صفر پاسخ صفر دارد.</span><a class="headerlink" href="#fig07-haar-frequency" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id12">
+<h3>چرا بعد از فیلتر، پایین‌نمونه‌برداری می‌کنیم؟<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>اگر ورودی <span class="math notranslate nohighlight">\(N\)</span> نمونه داشته باشد، خروجی پایین‌گذر ابتدا می‌تواند <span class="math notranslate nohighlight">\(N\)</span> نمونه و خروجی بالاگذر هم <span class="math notranslate nohighlight">\(N\)</span> نمونه داشته باشد؛ در نتیجه دو برابر داده خواهیم داشت. بعد از جداسازی باندها، هر خروجی را با عامل ۲ پایین‌نمونه‌برداری می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+a[k]=(x*h_0)[2k],\qquad d[k]=(x*h_1)[2k],\tag{7-22}
+\]</div>
+<p>که رابطه‌ای <em>نمادین با قرارداد مناسب فاز و مرز</em> است؛ در مثال هار با جفت‌سازی مستقیم، دقیقاً رابطهٔ ۷-۱۲ را اجرا می‌کنیم. اکنون <span class="math notranslate nohighlight">\(N/2\)</span> ضریب تقریب و <span class="math notranslate nohighlight">\(N/2\)</span> ضریب جزئیات داریم: جمعاً همان <span class="math notranslate nohighlight">\(N\)</span> عدد.</p>
+<figure class="align-default" id="fig07-bank-analysis">
+<a class="reference internal image-reference" href="../_images/fig07_10_analysis_filterbank.png"><img alt="../_images/fig07_10_analysis_filterbank.png" src="../_images/fig07_10_analysis_filterbank.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 270 </span><span class="caption-text">بانک تحلیل دوکاناله: دو فیلتر مختلف روی ورودی کار می‌کنند؛ پس از پایین‌نمونه‌برداری، مسیر بالا تقریب و مسیر پایین جزئیات را تولید می‌کند.</span><a class="headerlink" href="#fig07-bank-analysis" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>اشتباه رایج:</strong> پایین‌نمونه‌برداریِ یک خروجیِ فیلتر به‌تنهایی ممکن است aliasing ایجاد کند. در <strong>بانک فیلتر کاملِ طراحی‌شده برای بازسازی دقیق</strong>، دو مسیر با هم و با فیلترهای سنتز مناسب، جمله‌های aliasing را در بازسازی خنثی می‌کنند. این نتیجه حاصل طراحی فیلترهاست، نه تضمین هر جفت فیلتر تصادفی.</p>
+</section>
+<section id="id13">
+<h3>بازسازی دقیق با بانک سنتز<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>در تبدیل معکوس، هر دنباله را دوبرابر می‌کنیم (با قرار دادن صفر بین نمونه‌ها)، از فیلترهای سنتز عبور می‌دهیم و خروجی‌ها را جمع می‌کنیم. در هار می‌توان این عملیات را ساده‌تر با رابطهٔ ۷-۱۴ پیاده کرد.</p>
+<figure class="align-default" id="fig07-bank-synthesis">
+<a class="reference internal image-reference" href="../_images/fig07_23_synthesis_filterbank.png"><img alt="../_images/fig07_23_synthesis_filterbank.png" src="../_images/fig07_23_synthesis_filterbank.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 271 </span><span class="caption-text">مسیر برگشت: بالا‌نمونه‌برداری و فیلتر سنتز، دو خروجی را جمع می‌کنند. در طراحی صحیح، نتیجه همان سیگنال ورودی است.</span><a class="headerlink" href="#fig07-bank-synthesis" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در یک بانک <strong>متعامد</strong> با طول فیلتر زوج و یک قرارداد رایج برای ضرایب، بالاگذر می‌تواند از پایین‌گذر چنین ساخته شود:</p>
+<div class="math notranslate nohighlight">
+\[
+h_1[n]=(-1)^n h_0[L-1-n].\tag{7-23}
+\]</div>
+<p>این رابطه با انتخاب فاز/علامت و قرارداد شاخص‌گذاری مرتبط است؛ برای همهٔ بانک‌های <strong>دودویی، متعامد‌نبودن، یا زیستی‌متعامد</strong> به‌تنهایی نسخهٔ عمومی و کافی طراحی نیست. در این فصل وارد طراحی خانواده‌های طولانیِ فیلتر نمی‌شویم؛ آشنایی دقیق با هار، ایدهٔ بانک فیلتر و بازسازی برای ادامهٔ کار کافی است.</p>
+</section>
+</section>
+<section id="mra">
+<h2>۷.۷ تحلیل چندتفکیکی (MRA): ریاضیات پشتِ تجزیهٔ چندسطحی<a class="headerlink" href="#mra" title="Link to this heading">#</a></h2>
+<p>تا این‌جا یک سطح را دیده‌ایم. برای چندسطحی شدن، کافی است <strong>همان بانک فیلتر را بارها روی خروجی تقریب</strong> اعمال کنیم؛ یعنی اول <span class="math notranslate nohighlight">\(a_1,d_1\)</span>، سپس از <span class="math notranslate nohighlight">\(a_1\)</span>، خروجی <span class="math notranslate nohighlight">\(a_2,d_2\)</span> و … را بسازیم. جزئیاتِ قبلی دیگر دوباره تجزیه نمی‌شوند، مگر در روش دیگری به نام Wavelet Packet که خارج از محدودهٔ این درس است.</p>
+<figure class="align-default" id="fig07-pyramid">
+<a class="reference internal image-reference" href="../_images/fig07_12_pyramid_decomposition.png"><img alt="../_images/fig07_12_pyramid_decomposition.png" src="../_images/fig07_12_pyramid_decomposition.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 272 </span><span class="caption-text">درخت چندسطحی DWT معمولی: فقط شاخهٔ تقریبِ هر سطح به سطح بعدی می‌رود. خروجی نهایی شامل تقریبِ آخر و تمام جزئیاتِ سطح‌های پیشین است.</span><a class="headerlink" href="#fig07-pyramid" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای خواننده‌ای که می‌خواهد بعداً موجک را تخصصی دنبال کند، چارچوب ریاضی مهم زیر را نیز می‌آوریم. در تحلیل چندتفکیکی، فضاهای تقریبیِ تو‌در‌تو <span class="math notranslate nohighlight">\(V_j\)</span> را در نظر می‌گیریم؛ با یک <strong>قرارداد رایج که <span class="math notranslate nohighlight">\(j\)</span> بزرگ‌تر، تفکیک مکانی ظریف‌تر است</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+\cdots\subset V_{-1}\subset V_0\subset V_1\subset\cdots,\qquad
+V_{j+1}=V_j\oplus W_j.\tag{7-24}
+\]</div>
+<p><span class="math notranslate nohighlight">\(V_j\)</span> اطلاعاتی را نگه می‌دارد که در سطح تفکیک <span class="math notranslate nohighlight">\(j\)</span> قابل نمایش است و <span class="math notranslate nohighlight">\(W_j\)</span> <strong>اطلاعات اضافه‌شده بین دو سطح متوالی</strong> را نشان می‌دهد. علامت <span class="math notranslate nohighlight">\(\oplus\)</span> در حالت متعامد یعنی جمع مستقیم متعامد. این شماره‌گذاریِ نظری را با «سطح ۱، ۲ و ۳ تجزیهٔ رایانه‌ای» اشتباه نگیرید؛ در الگوریتم پایین‌نمونه‌برداری، با افزایش شمارهٔ سطح، تقریبِ باقی‌مانده <strong>درشت‌تر</strong> می‌شود.</p>
+<p>توابعِ پایهٔ تقریب و جزئیات در همین قرارداد:</p>
+<div class="math notranslate nohighlight">
+\[
+\phi_{j,k}(t)=2^{j/2}\phi(2^jt-k),\qquad
+\psi_{j,k}(t)=2^{j/2}\psi(2^jt-k).\tag{7-25}
+\]</div>
+<p>در نمایش متعامد، ضرایب را با ضرب داخلی می‌گیریم:</p>
+<div class="math notranslate nohighlight">
+\[
+a_{j,k}=\langle x,\phi_{j,k}\rangle,\qquad
+d_{j,k}=\langle x,\psi_{j,k}\rangle.\tag{7-26}
+\]</div>
+<p>این همان ایدهٔ سادهٔ بخش ۷.۲ است، فقط این بار ریاضیِ فضای تقریب و فضای اختلاف نیز مشخص شده است. به لحاظ مفهومی:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{اطلاعاتِ تفکیک ظریف‌تر}
+=\text{تقریبِ درشت‌تر}+\text{جزئیاتِ افزوده‌شده}.\tag{7-27}
+\]</div>
+<p>در حالت متعامد می‌توان انرژی را بین این دو مؤلفه جمع زد. در خانواده‌های <strong>زیستی‌متعامد</strong> نیز بازسازی دقیق ممکن است، ولی پایه‌های تحلیل و سنتز معمولاً یکسان نیستند و برابری سادهٔ انرژی لزوماً برقرار نیست. این تفاوت را به‌عنوان <strong>مرز اعتبار فرمول‌ها</strong> می‌شناسیم، بدون اینکه وارد خانواده‌سازی‌های پیچیده شویم [S2].</p>
+</section>
+<section id="id14">
+<h2>۷.۸ چرا موجک برای تصویر دوبعدی مناسب است؟<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>در تصویر، تغییرات فقط روی یک محور نیستند: ممکن است یک خطِ تقریباً افقی، یک مرزِ عمودی یا بافتی با تغییرات در هر دو جهت داشته باشیم. تبدیل دوبعدی را به‌صورت <strong>جداسازپذیر</strong> انجام می‌دهیم: ابتدا فیلتر روی یک راستا (مثلاً ستون‌های هر سطر)، سپس روی راستای دیگر (سطرهای هر ستون). نتیجهٔ یک سطح شامل چهار زیرباند است.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>زیرباند در این جزوه</p></th>
+<th class="head"><p>چه کاری کرده‌ایم؟</p></th>
+<th class="head"><p>چه چیزی برجسته می‌شود؟</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">LL</span></code></p></td>
+<td><p>پایین‌گذر در هر دو راستا</p></td>
+<td><p>تصویر تقریباً هموار و درشت‌مقیاس</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">H</span></code></p></td>
+<td><p>بالاگذر در راستای <strong>سطرها</strong>، پایین‌گذر در راستای ستون‌ها</p></td>
+<td><p>مرزها/ساختارهای <strong>افقی</strong>؛ تغییر بالا به پایین</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">V</span></code></p></td>
+<td><p>پایین‌گذر در راستای سطرها، بالاگذر در راستای <strong>ستون‌ها</strong></p></td>
+<td><p>مرزها/ساختارهای <strong>عمودی</strong>؛ تغییر چپ به راست</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">D</span></code></p></td>
+<td><p>بالاگذر در هر دو راستا</p></td>
+<td><p>جزئیات مایل، گوشه‌ها و تغییرات مرکب</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>دقت نام‌گذاری:</strong> در برخی کتابخانه‌ها، ترتیب محور و نام‌های <code class="docutils literal notranslate"><span class="pre">LH/HL</span></code> یا <code class="docutils literal notranslate"><span class="pre">cH/cV</span></code> فرق می‌کند. همیشه باید به‌جای حفظ جای بلوک، ببینید فیلتر بالاگذر روی <strong>کدام محور</strong> اعمال شده است. تعریف بالا با کد همراه فصل یکسان است [S4].</p>
+<figure class="align-default" id="fig07-2d-bands">
+<a class="reference internal image-reference" href="../_images/fig07_13_four_subbands.png"><img alt="../_images/fig07_13_four_subbands.png" src="../_images/fig07_13_four_subbands.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 273 </span><span class="caption-text">نقشهٔ چهار زیرباند در قرارداد این جزوه: بالا-چپ <code class="docutils literal notranslate"><span class="pre">LL</span></code>، بالا-راست <code class="docutils literal notranslate"><span class="pre">V</span></code>، پایین-چپ <code class="docutils literal notranslate"><span class="pre">H</span></code> و پایین-راست <code class="docutils literal notranslate"><span class="pre">D</span></code>.</span><a class="headerlink" href="#fig07-2d-bands" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id15">
+<h3>مثال دوبعدیِ کاملاً دستی: یک بلوک ۲ در ۲<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>فرض کنید:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F=\begin{bmatrix}4&amp;6\\8&amp;10\end{bmatrix}.\tag{7-28}
+\end{split}\]</div>
+<p>فرمول‌های مستقیم هار دوبعدی، با قرارداد جدول بالا:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+LL&amp;=(f_{00}+f_{01}+f_{10}+f_{11})/2,\\
+H&amp;=(f_{00}+f_{01}-f_{10}-f_{11})/2,\\
+V&amp;=(f_{00}-f_{01}+f_{10}-f_{11})/2,\\
+D&amp;=(f_{00}-f_{01}-f_{10}+f_{11})/2.
+\end{aligned}\tag{7-29}
+\end{split}\]</div>
+<p>با قرار دادن اعداد:</p>
+<div class="math notranslate nohighlight">
+\[
+LL=14,\qquad H=-4,\qquad V=-2,\qquad D=0.\tag{7-30}
+\]</div>
+<p><strong>تعبیر:</strong> عدد ۱۴ خلاصهٔ شدت چهار پیکسل است؛ منفی بودن <span class="math notranslate nohighlight">\(H\)</span> می‌گوید نیمهٔ پایین نسبت به نیمهٔ بالا روشن‌تر است؛ منفی بودن <span class="math notranslate nohighlight">\(V\)</span> می‌گوید سمت راست نسبت به سمت چپ روشن‌تر است؛ <span class="math notranslate nohighlight">\(D=0\)</span> یعنی مؤلفهٔ تعاملی قطریِ این بلوک صفر است، نه اینکه تصویر هیچ لبه‌ای ندارد.</p>
+<p>برای بازسازی، از جمع و تفریق چهار ضریب استفاده می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+f_{00}&amp;=(LL+H+V+D)/2=4,\\
+f_{01}&amp;=(LL+H-V-D)/2=6,\\
+f_{10}&amp;=(LL-H+V-D)/2=8,\\
+f_{11}&amp;=(LL-H-V+D)/2=10.
+\end{aligned}\tag{7-31}
+\end{split}\]</div>
+<p>پس ۴ پیکسل به ۴ ضریب تبدیل شدند و دقیقاً برگشتند؛ <strong>نه تصویر کوچک‌تر شده و نه فشرده‌سازی به‌خودیِ‌خود انجام شده است.</strong></p>
+</section>
+<section id="id16">
+<h3>دیدن زیرباندها در تصویر کامل<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<figure class="align-default" id="fig07-synthetic">
+<a class="reference internal image-reference" href="../_images/fig07_14_synthetic_image.png"><img alt="../_images/fig07_14_synthetic_image.png" src="../_images/fig07_14_synthetic_image.png" style="width: 70%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 274 </span><span class="caption-text">تصویر خاکستری مصنوعیِ تولیدشده با کد: گرادیان، مستطیل، دایره و بافت ریز دارد. هدف آن است که پاسخ هر زیرباند را بدون استفاده از تصویر حق‌نشر‌دار ببینیم.</span><a class="headerlink" href="#fig07-synthetic" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig07-subband-demo">
+<a class="reference internal image-reference" href="../_images/fig07_15_four_band_image.png"><img alt="../_images/fig07_15_four_band_image.png" src="../_images/fig07_15_four_band_image.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 275 </span><span class="caption-text">چهار خروجیِ یک سطح DWT دوبعدی. برای خوانایی، ضرایبِ دارای علامت در زیرباندهای جزئیات با نقشهٔ رنگی جداگانه نمایش داده شده‌اند؛ این نمودارها شدت خاکستری استاندارد تصویر نیستند.</span><a class="headerlink" href="#fig07-subband-demo" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>اگر <strong>فقط زیرباند <code class="docutils literal notranslate"><span class="pre">LL</span></code></strong> را دوباره تجزیه کنیم، تصویر در یک مسیر سلسله‌مراتبی چندمقیاسی نمایش داده می‌شود؛ تقریب سطح بعدی نصفِ طول و عرض تقریب قبلی است.</p>
+<figure class="align-default" id="fig07-mosaic">
+<a class="reference internal image-reference" href="../_images/fig07_16_coefficient_pyramid.png"><img alt="../_images/fig07_16_coefficient_pyramid.png" src="../_images/fig07_16_coefficient_pyramid.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 276 </span><span class="caption-text">آرایش نمایشی ضرایب در یک و دو سطح. برای دیدن باندهای مثبت و منفی، هر ناحیه جداگانه مقیاس رنگ شده است؛ بنابراین نباید از روشنایی بلوک‌های متفاوت مستقیماً نسبت انرژی استخراج کرد.</span><a class="headerlink" href="#fig07-mosaic" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در هر سطح برای تصویر <span class="math notranslate nohighlight">\(M\times N\)</span> با اندازه‌های زوج، چهار آرایهٔ <span class="math notranslate nohighlight">\(M/2\times N/2\)</span> داریم و تعداد کل ضرایب همچنان <span class="math notranslate nohighlight">\(MN\)</span> است:</p>
+<div class="math notranslate nohighlight">
+\[
+4\left(\frac{M}{2}\right)\left(\frac{N}{2}\right)=MN.\tag{7-32}
+\]</div>
+<p>با تجزیهٔ سطح‌های بیشتر نیز تعداد کل ضرایبِ نگهداری‌شده (تقریب آخر + تمام جزئیات) برابر تعداد پیکسل‌های ورودی می‌ماند. پس <strong>کاهش رزولوشن تقریب</strong> را با <strong>حذف خودکار اطلاعات کل تصویر</strong> یکی نگیرید.</p>
+</section>
+</section>
+<section id="id17">
+<h2>۷.۹ بازسازی و حفظ انرژی: «وارون‌پذیری» دقیقاً به چه معناست؟<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>در هار متعامد، اگر هیچ ضریبی را حذف یا دست‌کاری نکنیم و تبدیل مستقیم و معکوس با همان قرارداد و ابعاد انجام شود، داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat f=\mathrm{IDWT}(\mathrm{DWT}(f))=f,\tag{7-33}
+\]</div>
+<p>و با صرف‌نظر از خطای گردکردن محاسباتی:</p>
+<div class="math notranslate nohighlight">
+\[
+\sum_{r,c}|f(r,c)|^2
+=\sum_{\text{all wavelet coefficients}}|w|^2.\tag{7-34}
+\]</div>
+<figure class="align-default" id="fig07-reconstruction">
+<a class="reference internal image-reference" href="../_images/fig07_17_perfect_reconstruction.png"><img alt="../_images/fig07_17_perfect_reconstruction.png" src="../_images/fig07_17_perfect_reconstruction.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 277 </span><span class="caption-text">ورودی، بازسازی معکوس و قدرمطلق اختلاف. در این آزمایش اختلاف عددی در حد دقت محاسبات شناور است؛ این به معنای خروجیِ JPEG 2000 یا الگوریتم فشرده‌سازی نیست.</span><a class="headerlink" href="#fig07-reconstruction" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="fig07-parseval">
+<a class="reference internal image-reference" href="../_images/fig07_25_energy_conservation.png"><img alt="../_images/fig07_25_energy_conservation.png" src="../_images/fig07_25_energy_conservation.png" style="width: 85%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 278 </span><span class="caption-text">مقایسهٔ مجموع مربع‌های پیکسل‌ها و مجموع مربع‌های همهٔ ضرایب هار در تصویر نمونه؛ دو عدد در دقت شناور برابرند.</span><a class="headerlink" href="#fig07-parseval" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>دقت علمی:</strong> تبدیل متعامد از دید ریاضی بدون اتلاف اطلاعات است، اما ذخیره‌کردن ضرایب به‌صورت اعداد با دقت محدود یا تبدیل آن‌ها به اعداد صحیح می‌تواند گردکردن ایجاد کند. پس باید میان <strong>وارون‌پذیری نظری</strong>، <strong>خطای شناور</strong> و <strong>فشرده‌سازی بدون اتلاف با قالب فایل</strong> تمایز بگذاریم.</p>
+</section>
+<section id="id18">
+<h2>۷.۱۰ اثر لبه‌ها، تعداد سطح و انتخاب موجک<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>در صفحهٔ کاغذ فرمول‌های موجک معمولاً روی سیگنال‌های نامتناهی نوشته می‌شوند؛ اما تصویر واقعی مرز دارد. فیلتر نزدیک مرز به نمونه‌هایی بیرون از تصویر نیاز پیدا می‌کند. چند راه متداول، افزودن صفر، تکرار مقدار مرزی، بازتاب متقارن یا امتداد دوره‌ای است [S5]. این انتخاب می‌تواند ضرایب نزدیک مرز را عوض کند.</p>
+<figure class="align-default" id="fig07-boundary">
+<a class="reference internal image-reference" href="../_images/fig07_21_boundary_effect.png"><img alt="../_images/fig07_21_boundary_effect.png" src="../_images/fig07_21_boundary_effect.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 279 </span><span class="caption-text">برای سیگنال پنج‌نمونه‌ای، افزودن یک نمونهٔ ششم با تکرار مقدار آخر یا با صفر، اختلاف نهایی متفاوتی می‌سازد. این تنها یک نمایش ساده از اهمیت سیاست مرزی است؛ همهٔ روش‌های تمدید، دقیقاً همین پیاده‌سازی را ندارند.</span><a class="headerlink" href="#fig07-boundary" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>قرارداد کد این فصل:</strong> برای روشن‌ماندن رابطه‌های حساب دستی، طول سیگنال ۱بعدی را زوج و ارتفاع و عرض تصویر را در <strong>هر سطح</strong> زوج فرض کرده‌ایم. هیچ padding پنهانی انجام نمی‌شود. اگر اندازهٔ تصویر مثلاً <span class="math notranslate nohighlight">\(250\times250\)</span> باشد، برای چند سطح پیاپی باید پیش از شروع، اندازه و روش گسترش مرزی را مشخص کرد؛ نمی‌توان بدون بررسی سه سطح را تضمین کرد.</p>
+<p>در حالت رایج، ابعاد باید بر <span class="math notranslate nohighlight">\(2^J\)</span> بخش‌پذیر باشند تا <span class="math notranslate nohighlight">\(J\)</span> سطح از الگوریتم آموزشی ما بدون padding انجام شود:</p>
+<div class="math notranslate nohighlight">
+\[
+2^J\mid M\quad\text{and}\quad 2^J\mid N.\tag{7-35}
+\]</div>
+<p>چرا سطح‌های بسیار زیاد همیشه بهتر نیستند؟ چون تقریبِ خیلی درشت، مکان‌یابی را کم‌دقت می‌کند و ممکن است ساختار معنادار تصویر در یک یا چند ضریب خلاصه شود. تعداد سطح باید متناسب با <strong>اندازهٔ ساختار هدف، اندازهٔ تصویر و هدف پردازش</strong> باشد. در این درس هار را برای محاسبه انتخاب کرده‌ایم؛ در کار تخصصی خانواده‌های موجک هموارتر و فیلترهای بلندتر نیز کاربرد دارند، ولی نیازی به حفظ نام و ماتریس همهٔ آن‌ها نیست.</p>
+</section>
+<section id="id19">
+<h2>۷.۱۱ کاربرد عملی: حذف نویز با موجک — و محدودیت‌هایش<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>یکی از کاربردهای طبیعی تحلیل چندمقیاسی، جدا کردن بخشی از نویز ریز از ساختار تصویر است. فرض کنید تصویر مشاهداتی:</p>
+<div class="math notranslate nohighlight">
+\[
+y(r,c)=f(r,c)+n(r,c).\tag{7-36}
+\]</div>
+<p>اگر <span class="math notranslate nohighlight">\(n\)</span> نویز تصادفی باشد، ضرایب جزئیات در بسیاری از نقاط کوچک خواهند بود؛ در مقابل، بعضی لبه‌های واقعی ضرایب بزرگ تولید می‌کنند. پس به‌جای محوکردن کل تصویر، می‌توان <strong>بخشی از ضرایب جزئیات کوچک</strong> را کاهش داد و سپس تصویر را بازسازی کرد.</p>
+<section id="soft-threshold">
+<h3>آستانه‌گذاری نرم (Soft Threshold)<a class="headerlink" href="#soft-threshold" title="Link to this heading">#</a></h3>
+<p>برای یک ضریب <span class="math notranslate nohighlight">\(w\)</span> و آستانهٔ <span class="math notranslate nohighlight">\(\lambda\ge0\)</span> تعریف می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+T_\lambda(w)=\operatorname{sign}(w)\max(|w|-\lambda,0).\tag{7-37}
+\]</div>
+<p>اگر <span class="math notranslate nohighlight">\(|w|\le\lambda\)</span> باشد، ضریب صفر می‌شود؛ اگر بزرگ‌تر باشد، قدرمطلق ضریب به‌اندازهٔ <span class="math notranslate nohighlight">\(\lambda\)</span> کاهش می‌یابد. <strong>این یک تصمیم تخمینی است، نه بازیابی اطلاعات گم‌شده.</strong> ممکن است نویز کم شود، اما بافت ریز یا لبهٔ کم‌کنتراستِ واقعی هم کاهش پیدا کند.</p>
+<figure class="align-default" id="fig07-denoise">
+<a class="reference internal image-reference" href="../_images/fig07_18_denoising_gallery.png"><img alt="../_images/fig07_18_denoising_gallery.png" src="../_images/fig07_18_denoising_gallery.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 280 </span><span class="caption-text">مطالعهٔ موردیِ کاملاً قابل تکرار: تصویر مصنوعی، نویز گوسیِ تولیدشده با دانهٔ تصادفی ثابت و خروجی حذف نویز با آستانه‌گذاری نرم ضرایب جزئیات سه سطح هار.</span><a class="headerlink" href="#fig07-denoise" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای این مثال که تصویر مرجعِ تمیز را خودمان ساخته‌ایم، می‌توان میانگین مربعات خطا را اندازه گرفت:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{MSE}=\frac1{MN}\sum_{r,c}(f(r,c)-\widehat f(r,c))^2.\tag{7-38}
+\]</div>
+<p><strong>مقدار مناسب آستانه را از پیش نمی‌دانیم.</strong> در شکل بعد برای همین تصویر و نویز مصنوعی، آستانه‌ها را تغییر داده‌ایم. ممکن است آستانهٔ کم نویز را خوب حذف نکند و آستانهٔ بزرگ جزئیات واقعی را هم خراب کند.</p>
+<figure class="align-default" id="fig07-threshold-tradeoff">
+<a class="reference internal image-reference" href="../_images/fig07_19_denoise_threshold_tradeoff.png"><img alt="../_images/fig07_19_denoise_threshold_tradeoff.png" src="../_images/fig07_19_denoise_threshold_tradeoff.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 281 </span><span class="caption-text">تغییر MSE با آستانهٔ نرم در <em>همین آزمایش مصنوعی</em>. خط نقطه‌چین خطای تصویر نویزی است. این منحنی مبنای ادعای برتری عمومی موجک بر همهٔ روش‌های حذف نویز نیست.</span><a class="headerlink" href="#fig07-threshold-tradeoff" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id20">
+<h3>چرا این مثال به علوم روز مربوط است؟<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>تصاویر پزشکی، سنجش‌ازدور، میکروسکوپی و تصویربرداری کم‌نور همواره با مسئلهٔ نویز و حفظ ساختارهای ظریف مواجه‌اند. نمایش چندمقیاسی برای تفکیک نوع ساختار مفید است. اما در کاربرد حساس مانند تصویر پزشکی، <strong>آستانه‌گذاریِ بی‌محابا می‌تواند نشانه‌های بسیار ظریف را حذف کند</strong>؛ بنابراین این مثال صرفاً یک خط مبنا و تمرین ریاضی است، نه توصیهٔ استفادهٔ تشخیصی بدون اعتبارسنجی.</p>
+</section>
+</section>
+<section id="jpeg-2000">
+<h2>۷.۱۲ ارتباط با فشرده‌سازیِ امروزی: JPEG 2000، نه فهرست ده‌ها تبدیل<a class="headerlink" href="#jpeg-2000" title="Link to this heading">#</a></h2>
+<p>در فصل هشتم آنتروپی و کدگذاری را شناختیم. اکنون می‌توانیم بفهمیم چرا نمایش موجکی به فشرده‌سازی کمک می‌کند: در بعضی تصاویر بسیاری از ضرایب جزئیات نزدیک صفرند و بخش مهم ساختار در تعداد نسبتاً کمی ضریب دیده می‌شود. اما <strong>خود DWT یک کدگذاریِ فایل نیست</strong> و عدد بیت‌های فایل به مرحلهٔ ذخیره‌سازی/کدگذاری هم بستگی دارد.</p>
+<figure class="align-default" id="fig07-sparse-coeff">
+<a class="reference internal image-reference" href="../_images/fig07_20_coefficient_sparsity.png"><img alt="../_images/fig07_20_coefficient_sparsity.png" src="../_images/fig07_20_coefficient_sparsity.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 282 </span><span class="caption-text">در همین تصویر نمونه، نگه داشتن تعداد کمتر از ضرایبِ با قدرمطلق بزرگ و صفر کردن بقیه، MSE را افزایش می‌دهد. محور افقی <strong>درصد ضرایب نگه‌داشته‌شده</strong> است، نه نسبت فشرده‌سازی واقعی فایل.</span><a class="headerlink" href="#fig07-sparse-coeff" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>یک نمونهٔ فنیِ معتبر از بهره‌گیری عملی موجک، استاندارد <strong>JPEG 2000</strong> است. پیاده‌سازی متن‌باز OpenJPEG نشان می‌دهد که در آن از فیلتر <strong>۵/۳ برگشت‌پذیر</strong> برای حالت مناسبِ بدون اتلاف و <strong>۹/۷ برگشت‌ناپذیر</strong> برای حالت بااتلاف استفاده می‌شود [S6]. هار مثال آموزشی ماست و قرار نیست وانمود کنیم فایل ساخته‌شده با کد هار، همان JPEG 2000 است.</p>
+<figure class="align-default" id="fig07-jpeg2000">
+<a class="reference internal image-reference" href="../_images/fig07_22_jpeg2000_concept.png"><img alt="../_images/fig07_22_jpeg2000_concept.png" src="../_images/fig07_22_jpeg2000_concept.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 283 </span><span class="caption-text">جریان ساده‌شدهٔ حالت بااتلاف: تصویر، تبدیل موجک، کوانتیزه‌کردن ضرایب، کدگذاری و خروجی بیتی. در حالت بدون اتلاف، مسیر مناسبِ برگشت‌پذیر و پرهیز از کوانتیزه‌سازیِ مخرب لازم است.</span><a class="headerlink" href="#fig07-jpeg2000" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>ترتیب فکری:</p>
+<ol class="arabic simple">
+<li><p><strong>تبدیل موجک:</strong> تصویر را به ضرایب چندمقیاسی می‌بریم؛ تا اینجا ممکن است تمام اطلاعات حفظ شده باشد.</p></li>
+<li><p><strong>کوانتیزه‌کردن در حالت بااتلاف:</strong> برخی دقت‌ها کاهش می‌یابند؛ از اینجا خطای بازسازی ایجاد می‌شود.</p></li>
+<li><p><strong>کدگذاری آماری/بیتی:</strong> الگوهای ضرایب را با بیت‌های کمتری ذخیره می‌کنیم؛ تازه اینجا اندازهٔ فایل مطرح است.</p></li>
+</ol>
+<p>این مثال، پیوندی میان «موجک فصل ۷» و «آنتروپی/فشرده‌سازی فصل ۸» ایجاد می‌کند. هدف دانشجوی پردازش تصویر در این سطح، <strong>فهم این پیوند</strong> است؛ نه بازسازی همهٔ جزئیات یک استاندارد بزرگ.</p>
+</section>
+<section id="python">
+<h2>۷.۱۳ آزمایشگاه Python: از چهار عدد تا تصویر واقعیِ تولیدشده با کد<a class="headerlink" href="#python" title="Link to this heading">#</a></h2>
+<p>همهٔ داده‌ها به‌صورت مصنوعی ساخته می‌شوند و برای اجرای کد نیازی به دانلود تصویر از اینترنت نیست. مثال‌ها برای سادگی <strong>فقط به NumPy</strong> (و برای ترسیم شکل به Matplotlib) نیاز دارند. کد <code class="docutils literal notranslate"><span class="pre">chapter07_wavelet_core.py</span></code> هار یک‌بعدی و دوبعدی، تبدیل معکوس، چندسطحی و حذف نویز را صریحاً پیاده می‌کند. فایل Notebook نیز در بسته وجود دارد.</p>
+<section id="a">
+<h3>آزمایش A — هار و بازسازی چهار عدد<a class="headerlink" href="#a" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">chapter07_wavelet_core</span><span class="w"> </span><span class="kn">import</span> <span class="n">dwt_haar_1d</span><span class="p">,</span> <span class="n">idwt_haar_1d</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">dwt_haar_1d</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'a ='</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'d ='</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'reconstructed ='</span><span class="p">,</span> <span class="n">idwt_haar_1d</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>خروجی تقریبی سطح اول:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>a = [ 7.071 12.728]
+d = [-1.414 -1.414]
+reconstructed = [ 4.  6.  8. 10.]
+</pre></div>
+</div>
+</section>
+<section id="b">
+<h3>آزمایش B — تجزیهٔ یک تصویر به چهار زیرباند<a class="headerlink" href="#b" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">chapter07_wavelet_core</span><span class="w"> </span><span class="kn">import</span> <span class="n">synthetic_image</span><span class="p">,</span> <span class="n">dwt_haar_2d</span><span class="p">,</span> <span class="n">idwt_haar_2d</span>
+
+<span class="n">image</span> <span class="o">=</span> <span class="n">synthetic_image</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">LL</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">dwt_haar_2d</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="n">reconstructed</span> <span class="o">=</span> <span class="n">idwt_haar_2d</span><span class="p">(</span><span class="n">LL</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">LL</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'maximum error:'</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">reconstructed</span> <span class="o">-</span> <span class="n">image</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>انتظار داریم اندازهٔ تصویر ورودی <code class="docutils literal notranslate"><span class="pre">(256,</span> <span class="pre">256)</span></code>، اندازهٔ هر زیرباند <code class="docutils literal notranslate"><span class="pre">(128,</span> <span class="pre">128)</span></code> و خطای بازسازی در حد دقت عددی (تقریباً <span class="math notranslate nohighlight">\(10^{-13}\)</span> یا کمتر) باشد.</p>
+</section>
+<section id="c">
+<h3>آزمایش C — یک حذف نویز ساده و قابل کنترل<a class="headerlink" href="#c" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">chapter07_wavelet_core</span><span class="w"> </span><span class="kn">import</span> <span class="n">synthetic_image</span><span class="p">,</span> <span class="n">wavelet_denoise</span>
+
+<span class="n">clean</span> <span class="o">=</span> <span class="n">synthetic_image</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">noisy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">clean</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">clean</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+<span class="n">restored</span> <span class="o">=</span> <span class="n">wavelet_denoise</span><span class="p">(</span><span class="n">noisy</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'noisy MSE:'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">noisy</span> <span class="o">-</span> <span class="n">clean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'restored MSE:'</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">restored</span> <span class="o">-</span> <span class="n">clean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>اگر مقدار <code class="docutils literal notranslate"><span class="pre">restored</span> <span class="pre">MSE</span></code> کوچک‌تر شد، یعنی <strong>در این آزمایش مشخص</strong> حذف نویز نتیجهٔ بهتری نسبت به ورودی نویزی داده است. این موفقیت برای هر نوع تصویر، نویز، آستانه یا کاربردی تضمین نمی‌شود.</p>
+</section>
+<section id="d">
+<h3>آزمایش D — اسکالوگرام؛ فقط برای تحلیل و دیدن محل رویداد<a class="headerlink" href="#d" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">chapter07_wavelet_core</span><span class="w"> </span><span class="kn">import</span> <span class="n">cwt_mexican_hat</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">46</span><span class="p">:</span><span class="mi">53</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">186</span><span class="p">:</span><span class="mi">193</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">scales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">36</span><span class="p">)</span>
+<span class="n">coeff</span> <span class="o">=</span> <span class="n">cwt_mexican_hat</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scales</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">coeff</span><span class="p">),</span> <span class="n">origin</span><span class="o">=</span><span class="s1">'lower'</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">,</span>
+           <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">scales</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">scales</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Location'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Scale'</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>کد CWT همراه جزوه برای <strong>فهم مفهوم همبستگی محلی</strong> نوشته شده، نه به‌عنوان یک پیاده‌سازی صنعتی با پشتیبانی کامل از سیاست مرزی و معکوس CWT. در کار پژوهشی به بررسی نمونه‌برداری مقیاس‌ها، نرمال‌سازی، شرایط مرزی و تطبیق با کتابخانهٔ معتبر نیاز داریم [S3].</p>
+</section>
+<section id="id21">
+<h3>اجرای کامل، تصویرهای خروجی و دادهٔ آزمایشی<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-07/chapter07_examples.ipynb" download>Notebook قابل اجرا — chapter07_examples.ipynb</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-07/chapter07_wavelet_core.py" download>کد هستهٔ هار و CWT ساده — chapter07_wavelet_core.py</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-07/chapter07_generate_figures.py" download>کد تولید همهٔ شکل‌های فصل — chapter07_generate_figures.py</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-07/README_EXAMPLES_FA.md" download>راهنمای اجرا و آزمون‌ها</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-07/Chapter07_Code_Examples.zip" download>بستهٔ کامل کد و داده‌های مصنوعی</a></p></li>
+<li><p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-07/Chapter07_Original_Figures.zip" download>بستهٔ جداگانهٔ تصاویر اصیل فصل</a></p></li>
+</ul>
+</section>
+</section>
+<section id="id22">
+<h2>۷.۱۴ خطاهای مفهومی که دانشجو باید تشخیص دهد<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>برداشت نادرست</p></th>
+<th class="head"><p>توضیح صحیح</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>«فوریه مکان رویداد را نابود می‌کند.»</p></td>
+<td><p><strong>فقط قدرمطلقِ طیف</strong> مکان را آشکار نمی‌کند؛ تبدیل کامل شامل فاز، اطلاعات را حفظ می‌کند.</p></td>
+</tr>
+<tr class="row-odd"><td><p>«مقیاس ۴ یعنی فرکانس ۴ هرتز.»</p></td>
+<td><p>مقیاس به موجک مادر و زمان نمونه‌برداری وابسته است.</p></td>
+</tr>
+<tr class="row-even"><td><p>«در DWT خروجی پایین‌گذر تصویر نهایی است.»</p></td>
+<td><p>بدون ضرایب جزئیات، معمولاً بازسازی دقیق ممکن نیست.</p></td>
+</tr>
+<tr class="row-odd"><td><p>«هر دو فیلتر با downsampling بازسازی دقیق می‌دهند.»</p></td>
+<td><p>شرط‌های طراحی بانک فیلتر و خنثی‌سازی aliasing لازم‌اند.</p></td>
+</tr>
+<tr class="row-even"><td><p>«تقریب <span class="math notranslate nohighlight">\(a\)</span> همان میانگین حسابی خام است.»</p></td>
+<td><p>در هار متعامد از تقسیم بر <span class="math notranslate nohighlight">\(\sqrt2\)</span> استفاده می‌شود، نه ۲.</p></td>
+</tr>
+<tr class="row-odd"><td><p>«در DWT دوبعدی هر باند یک تصویر با شدت ۰ تا ۲۵۵ است.»</p></td>
+<td><p>ضرایب می‌توانند منفی یا بزرگ‌تر از ۲۵۵ باشند؛ نمایش رنگی باید جداگانه مقیاس شود.</p></td>
+</tr>
+<tr class="row-even"><td><p>«<span class="math notranslate nohighlight">\(LL\)</span> کوچک‌تر شده، پس تصویر فشرده شده است.»</p></td>
+<td><p>تمام زیرباندهای جزئیات نیز بخشی از نمایش کامل هستند.</p></td>
+</tr>
+<tr class="row-odd"><td><p>«اگر MSE کم شد، همهٔ جزئیات مهم حفظ شده‌اند.»</p></td>
+<td><p>MSE همهٔ اهمیت‌های معنایی/تشخیصی را نمی‌سنجد؛ باید محتوای مهم را نیز بررسی کرد.</p></td>
+</tr>
+<tr class="row-even"><td><p>«خروجی کد هار، فایل JPEG 2000 است.»</p></td>
+<td><p>هار فقط تبدیل آموزشی است و JPEG 2000 کدگذاری و فیلترهای خاص خود را دارد.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id23">
+<h2>۷.۱۵ پرسش‌ها و تمرین‌های پیشنهادی<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p><strong>تمرین ۱ — بدون رایانه.</strong> چهار نمونهٔ <span class="math notranslate nohighlight">\([2,6,6,10]\)</span> را به <span class="math notranslate nohighlight">\(a_1,d_1\)</span> و سپس <span class="math notranslate nohighlight">\(a_2,d_2\)</span> تبدیل کنید. معکوس را بنویسید و حفظ انرژی را عددی تأیید کنید.</p>
+<p><strong>تمرین ۲ — درک فوریه.</strong> اگر یک پالس با <code class="docutils literal notranslate"><span class="pre">np.roll</span></code> روی دادهٔ دوره‌ای جابه‌جا شود، کدام بخش DFT تغییر می‌کند؟ با یک جمله بیان کنید چرا این واقعیت به انگیزهٔ CWT کمک می‌کند.</p>
+<p><strong>تمرین ۳ — تفسیر بانک فیلتر.</strong> اگر چهار عدد همگی ۵ باشند، جزئیات سطح اول هار چه می‌شوند؟ اگر دو عدد اول ۵ و دو عدد دوم ۱۱ باشند، کدام سطح آن تغییر را نشان می‌دهد؟</p>
+<p><strong>تمرین ۴ — ماتریس ۲ در ۲.</strong> برای <span class="math notranslate nohighlight">\(\begin{bmatrix}10&amp;10\\10&amp;30\end{bmatrix}\)</span> چهار ضریب را پیدا کنید؛ سپس از روی همین چهار ضریب، چهار پیکسل را دوباره بسازید.</p>
+<p><strong>تمرین ۵ — مشاهدهٔ تصویر.</strong> با کد همراه جزوه یک تصویر مصنوعی بسازید، باندهای <code class="docutils literal notranslate"><span class="pre">H</span></code> و <code class="docutils literal notranslate"><span class="pre">V</span></code> را جابه‌جا کنید و ببینید آیا تفسیر جهت‌ها درست باقی می‌ماند یا نه. این تجربه نشان می‌دهد که نام و قرارداد زیرباند اهمیت دارند.</p>
+<p><strong>تمرین ۶ — تحلیل پارامتر.</strong> برای آستانه‌های <code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">10,</span> <span class="pre">20,</span> <span class="pre">40,</span> <span class="pre">60</span></code>، نویز باقی‌مانده و MSE را بسنجید. آیا کمترین MSE الزاماً با بیشترین مقدار آستانه به دست می‌آید؟</p>
+<p><strong>تمرین ۷ — مرز تصویر.</strong> برای یک سیگنال پنج‌نمونه‌ای توضیح دهید چرا در همین کد هار، بدون گسترش مرزی خطا می‌گیریم. تکرار مقدار آخر و افزودن صفر چه تفاوتی ایجاد می‌کند؟</p>
+<p><strong>تمرین ۸ — پیوند با فصل ۸.</strong> بدون ادعای اندازهٔ فایل، نشان دهید با حذف درصد بیشتری از ضرایب کوچک هار چه تغییری در کیفیت بازسازی رخ می‌دهد. سپس توضیح دهید چرا تعداد ضرایب غیرصفر، به‌تنهایی حجم نهایی یک فایل فشرده را تعیین نمی‌کند.</p>
+</section>
+<section id="id24">
+<h2>۷.۱۶ جمع‌بندی یک‌صفحه‌ای<a class="headerlink" href="#id24" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>فوریه می‌گوید <strong>چه فرکانس‌هایی</strong> در داده حضور دارند؛ موجک با <strong>مکان و مقیاس</strong> نیز کار می‌کند. این برتری در <em>نمایش محلی</em> است، نه نقص وارون‌پذیری فوریه.</p></li>
+<li><p>CWT موجک را در محل‌های مختلف و مقیاس‌های مختلف روی داده می‌لغزاند و مقدار شباهت را اندازه می‌گیرد؛ اسکالوگرام از همین ضرایب ساخته می‌شود.</p></li>
+<li><p>DWT نمایش گسسته و کارآمدی از همین تفکر است؛ در پیاده‌سازی معمول، بانک فیلتر <strong>تقریب و جزئیات</strong> را می‌سازد و پایین‌نمونه‌برداری می‌کند.</p></li>
+<li><p>هار فقط یک مثال ریاضی انتخاب شد تا همهٔ مراحل را با جمع، تفریق و <span class="math notranslate nohighlight">\(\sqrt2\)</span> بتوانیم حساب کنیم؛ <strong>لازم نیست ده‌ها تبدیل دیگر را حفظ کنیم</strong>.</p></li>
+<li><p>در دوبعد، سه نوع جزئیات جهت‌دار و یک تقریب داریم؛ سطح‌های بیشتر فقط روی تقریبِ قبلی اعمال می‌شوند.</p></li>
+<li><p>اگر همهٔ ضرایب و شرایط را نگه داریم، بازسازی متعامد دقیق است. وقتی ضرایب را آستانه‌گذاری یا کوانتیزه کنیم، امکان تغییر کیفیت داریم.</p></li>
+<li><p>کاربردهایی چون حذف نویز و JPEG 2000 نشان می‌دهند این ریاضیات چرا مفید است؛ ولی برای کاربرد واقعی، ارزیابی کیفیت و حفظ اطلاعات مهم ضروری است.</p></li>
+</ul>
+</section>
+<section id="id25">
+<h2>۷.۱۷ منابع کتابی و وب<a class="headerlink" href="#id25" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>[S1] منبع آموزشی اصلی:</strong> Rafael C. Gonzalez and Richard E. Woods, <em>Digital Image Processing</em>, 4th ed., Chapter 7, “Wavelet and Other Image Transforms”, Pearson (2018). این فصل به‌جای بازتولید همهٔ تبدیل‌های فصل اصلی، مسیر آموزشی محدود و عمیقِ موجک را انتخاب کرده است.</p></li>
+<li><p><strong>[S2] پشتوانهٔ نظری:</strong> Stéphane Mallat, “A Theory for Multiresolution Signal Decomposition: The Wavelet Representation,” <em>IEEE TPAMI</em>, 11(7), 674–693 (1989), DOI: <a class="reference external" href="https://doi.org/10.1109/34.192463">10.1109/34.192463</a>؛ <a class="reference external" href="https://www.di.ens.fr/~mallat/papiers/MallatTheory89.pdf">نسخهٔ مقاله</a>. مبنای تحلیل چندتفکیکی و بانک فیلتر موجکی.</p></li>
+<li><p><strong>[S3] مستندات CWT:</strong> <a class="reference external" href="https://pywavelets.readthedocs.io/en/latest/ref/cwt.html">PyWavelets — Continuous Wavelet Transform</a>؛ تعریف مقیاس، ارتباط با فرکانس و هشدارهای نمونه‌برداری/aliasing.</p></li>
+<li><p><strong>[S4] مستندات DWT و 2D:</strong> <a class="reference external" href="https://pywavelets.readthedocs.io/en/stable/ref/dwt-discrete-wavelet-transform.html">PyWavelets — Discrete Wavelet Transform</a> و <a class="reference external" href="https://pywavelets.readthedocs.io/en/latest/ref/2d-dwt-and-idwt.html">2D DWT/IDWT</a>؛ معنا و آرایش ضرایب تقریب و جزئیات.</p></li>
+<li><p><strong>[S5] رفتار مرزها:</strong> <a class="reference external" href="https://pywavelets.readthedocs.io/en/stable/ref/signal-extension-modes.html">PyWavelets — Signal Extension Modes</a>؛ راهکارهای امتداد سیگنال محدود و آثار آن‌ها.</p></li>
+<li><p><strong>[S6] کاربرد صنعتی:</strong> <a class="reference external" href="https://www.openjpeg.org/doxygen/dwt_8h.html">OpenJPEG — DWT implementation</a>؛ کاربرد فیلتر برگشت‌پذیر ۵/۳ و برگشت‌ناپذیر ۹/۷ در JPEG 2000.</p></li>
+</ul>
+<p><em>همهٔ نمودارها با Python و داده‌های تولیدشده در همین بسته رسم شده‌اند؛ هیچ شکل کتاب یا تصویر خارجی بدون اجازه تکثیر نشده است. شرح‌ها و صورت‌بندی آموزشی تألیف مستقل است و موارد فراتر از کتاب با منابع وبِ بالا تفکیک شده‌اند.</em></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./gonzalez"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-05.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل ۵: ترمیم و بازسازی تصویر</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter-08.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">فصل هشتم — از «اطلاعات تصویر» تا فشرده‌سازی واقعی در وب</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۷.۱ از فوریه شروع کنیم: کدام سؤال بی‌پاسخ می‌ماند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">چه مقدار دقت در مکان و فرکانس ممکن است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۷.۲ موجک مادر چیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">انتقال و تغییر مقیاس</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">ضریب موجک یعنی چه؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cwt">۷.۳ تبدیل موجک پیوسته (CWT): تعریف، معنی و خواندن خروجی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dwt-cwt-dwt">۷.۴ چرا به موجک گسسته (DWT) می‌رویم؟ پل CWT تا DWT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">یک تصویر ذهنی درست از بانک فیلتر</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dwt">۷.۵ هار؛ فقط یک مثال برای فهم عمیق DWT</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">مثال دستی کامل با چهار نمونه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">چرا انرژی حفظ شد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۷.۶ بانک فیلتر: چگونه از هار به پیاده‌سازی واقعی می‌رسیم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">چرا بعد از فیلتر، پایین‌نمونه‌برداری می‌کنیم؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">بازسازی دقیق با بانک سنتز</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mra">۷.۷ تحلیل چندتفکیکی (MRA): ریاضیات پشتِ تجزیهٔ چندسطحی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۷.۸ چرا موجک برای تصویر دوبعدی مناسب است؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">مثال دوبعدیِ کاملاً دستی: یک بلوک ۲ در ۲</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">دیدن زیرباندها در تصویر کامل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۷.۹ بازسازی و حفظ انرژی: «وارون‌پذیری» دقیقاً به چه معناست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۷.۱۰ اثر لبه‌ها، تعداد سطح و انتخاب موجک</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۷.۱۱ کاربرد عملی: حذف نویز با موجک — و محدودیت‌هایش</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#soft-threshold">آستانه‌گذاری نرم (Soft Threshold)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">چرا این مثال به علوم روز مربوط است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jpeg-2000">۷.۱۲ ارتباط با فشرده‌سازیِ امروزی: JPEG 2000، نه فهرست ده‌ها تبدیل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">۷.۱۳ آزمایشگاه Python: از چهار عدد تا تصویر واقعیِ تولیدشده با کد</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a">آزمایش A — هار و بازسازی چهار عدد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#b">آزمایش B — تجزیهٔ یک تصویر به چهار زیرباند</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#c">آزمایش C — یک حذف نویز ساده و قابل کنترل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#d">آزمایش D — اسکالوگرام؛ فقط برای تحلیل و دیدن محل رویداد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">اجرای کامل، تصویرهای خروجی و دادهٔ آزمایشی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۷.۱۴ خطاهای مفهومی که دانشجو باید تشخیص دهد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۷.۱۵ پرسش‌ها و تمرین‌های پیشنهادی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">۷.۱۶ جمع‌بندی یک‌صفحه‌ای</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">۷.۱۷ منابع کتابی و وب</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
