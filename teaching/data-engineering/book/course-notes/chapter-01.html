@@ -1,0 +1,1459 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل اول: آشنایی با مهندسی داده؛ مفاهیم، چرخهٔ حیات و گردش کار پروژه &#8212; Data Engineering Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-01';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="فصل‌های مهندسی داده" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Engineering Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    مهندسی داده | Data Engineering
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های مهندسی داده</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">آشنایی با مهندسی داده: مفاهیم، چرخه حیات و گردش کار پروژه</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-01.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل اول: آشنایی با مهندسی داده؛ مفاهیم، چرخهٔ حیات و گردش کار پروژه</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">۱. مسئله‌ای که مهندسی داده باید حل کند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">پیوند با دانسته‌های قبلی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">خروجی‌های یادگیری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۲. مهندسی داده چیست و چه چیزی نیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۲.۱. تفاوت با چهار نقش نزدیک</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۲.۲. سه مسئلهٔ اساسی: پراکندگی، کیفیت و رشد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۲.۳. شش بعد کاربردی کیفیت داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۳. تاریخچه را از زاویهٔ مسئله بخوانیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۳.۱. از فایل مستقل به مدل رابطه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etl">۳.۲. انبار داده و ETL: چرا دادهٔ عملیاتی برای تحلیل کافی نبود؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۳.۳. دادهٔ عظیم و پردازش توزیع‌شده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۳.۴. جریان رویداد، رایانش ابری و جداسازی ذخیره از پردازش</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۳.۵. نتیجهٔ تاریخی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۴. چرخهٔ حیات داده: پنج مرحله، نه پنج برنامهٔ جداگانه</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation">۴.۱. مرحلهٔ تولید (<code class="docutils literal notranslate"><span class="pre">Generation</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#storage">۴.۲. مرحلهٔ ذخیره‌سازی (<code class="docutils literal notranslate"><span class="pre">Storage</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ingestion">۴.۳. مرحلهٔ دریافت (<code class="docutils literal notranslate"><span class="pre">Ingestion</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation">۴.۴. مرحلهٔ تبدیل (<code class="docutils literal notranslate"><span class="pre">Transformation</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serving">۴.۵. مرحلهٔ سرویس‌دهی (<code class="docutils literal notranslate"><span class="pre">Serving</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etl-elt">۴.۶. ETL و ELT را با چرخهٔ حیات اشتباه نگیریم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۵. ذخیره‌سازی برای تحلیل: انبار داده، دریاچه و لیک‌هاوس</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۵.۱. تفاوت «فایل»، «مدل داده» و «قالب جدول»</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۵.۲. سه قالب جدول مشهور چه نسبتی دارند؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۶. الگوهای معماری: چه زمانی کدام پرسش مطرح می‌شود؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#medallion">۶.۱. مثال کوتاه دربارهٔ Medallion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۷. شش جریان زیربنایی؛ چیزهایی که محدود به یک مرحله نیستند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#security">۷.۱. امنیت (<code class="docutils literal notranslate"><span class="pre">Security</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-management-governance">۷.۲. مدیریت و حاکمیت داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Management</span> <span class="pre">&amp;</span> <span class="pre">Governance</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataops">۷.۳. عملیات داده (<code class="docutils literal notranslate"><span class="pre">DataOps</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">۷.۴. معماری (<code class="docutils literal notranslate"><span class="pre">Architecture</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#orchestration">۷.۵. هماهنگ‌سازی (<code class="docutils literal notranslate"><span class="pre">Orchestration</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software-engineering">۷.۶. مهندسی نرم‌افزار (<code class="docutils literal notranslate"><span class="pre">Software</span> <span class="pre">Engineering</span></code>)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۸. گردش کار پروژه: هفت گام از نیاز تا پایش</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">گام ۱: تعریف مسئله و قرارداد خدمت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">گام ۲: شناخت منبع و کشف داده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">گام ۳: طراحی معماری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">گام ۴: پیاده‌سازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">گام ۵: آزمون</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">گام ۶: استقرار</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">گام ۷: پایش و بازخورد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۸.۱. یک جدول برای جلوگیری از اشتباه گرفتن دو چارچوب</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۹. دو مطالعهٔ موردی برای فهم انتخاب معماری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۹.۱. فروشگاه زنجیره‌ای با هزار شعبه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۹.۲. پیشنهاد ویدیوی نزدیک به زمان واقعی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#csv-sqlite">۱۰. کارگاه عملی: از فایل CSV تا SQLite و گزارش فروش</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۱۰.۱. گام اول: مشاهده و شناخت فایل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#csv-python">۱۰.۲. گام دوم: خواندن CSV با Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">۱۰.۳. گام سوم: اعتبارسنجی و تفکیک دادهٔ مردود</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sqlite">۱۰.۴. گام چهارم: ساخت جدول SQLite</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">۱۰.۵. گام پنجم: بازیابی و محاسبهٔ دستی فروش</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">۱۰.۶. گام ششم: اجرای برنامه و بازبینی خروجی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter">۱۰.۷. گام هفتم: آزمون خودکار و دفترچهٔ Jupyter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">۱۰.۸. محدودیت‌های علمی و عملی مثال</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">۱۱. تمرین‌ها و راهنمای حل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">تمرین ۱ ـ مفهوم: مرز مهندس داده و تحلیلگر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">تمرین ۲ ـ مفهوم: چرخه و گردش کار</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">تمرین ۳ ـ محاسباتی: کیفیت رکوردها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">تمرین ۴ ـ محاسباتی: تأثیر تعریف شاخص</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">تمرین ۵ ـ تصمیم معماری: دسته‌ای یا جریانی؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">تمرین ۶ ـ کاربردی: پرس‌وجوی سفارش‌ها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">تمرین ۷ ـ کاربردی: تغییر قواعد گزارش</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">تمرین ۸ ـ کاربردی: تغییر دادهٔ نامعتبر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">تمرین ۹ ـ کاربردی: دو اجرای هم‌پوشان</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">تمرین ۱۰ ـ طراحی: کیفیت در مقابل دسترسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">تمرین ۱۱ ـ تشریحی: انتخاب ساختار ذخیره</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">تمرین ۱۲ ـ طراحی پایش</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">۱۲. جمع‌بندی و نقشهٔ ادامهٔ درس</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">منابع و مبنای تدوین</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">الف) اسناد اصلی ارسالی (۵ سند، مجموعاً ۵۷ صفحه)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">ب) منابع مستقل تکمیلی و اسناد رسمی</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل اول: آشنایی با مهندسی داده؛ مفاهیم، چرخهٔ حیات و گردش کار پروژه<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p><strong>درس:</strong> مهندسی داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Engineering</span></code>)<br />
+<strong>سطح:</strong> مقدماتی دانشگاهی، با پیوند به پایگاه داده، برنامه‌نویسی و سامانه‌های نرم‌افزاری<br />
+<strong>منبع اصلی:</strong> پنج سند فصل اول «راهنمای جامع مهندسی داده» (۱۴۰۵) [م۱] تا [م۵]. موارد توسعه‌ای و مستندات فنی تکمیلی در پایان فصل جدا شده‌اند.</p>
+<blockquote>
+<div><p><strong>هدف این فصل:</strong> دانشجو بداند چرا دادهٔ خام به‌تنهایی برای تصمیم‌گیری کافی نیست، مهندس داده دقیقاً چه چیزی می‌سازد، داده چه مراحلی را طی می‌کند و یک پروژهٔ کوچک را چگونه از مسئله تا نتیجهٔ قابل آزمایش پیش می‌برد. نمونه‌های عددی و سفارش‌های این فصل <strong>ساختگی و آموزشی</strong> هستند؛ نتایج آن‌ها آمار یک کسب‌وکار واقعی نیست.</p>
+</div></blockquote>
+<section id="id2">
+<h2>۱. مسئله‌ای که مهندسی داده باید حل کند<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>فرض کنید مدیر یک فروشگاه اینترنتی می‌پرسد: «<strong>امروز در هر شهر چه مقدار فروش پرداخت‌شده داشته‌ایم؟</strong>» سؤال ساده به نظر می‌رسد. فروشگاه فهرستی از سفارش‌ها دارد، درگاه پرداخت وضع تراکنش را ثبت می‌کند، سامانهٔ ارتباط با مشتری نام و شهر خریدار را نگه می‌دارد و بخش پشتیبانی نیز لغو یا برگشت سفارش را می‌بیند. اگر همین لحظه چهار کارمند با چهار فایل مختلف گزارش تهیه کنند، ممکن است چهار جواب متفاوت ارائه شود.</p>
+<p>اختلاف الزاماً از خطا در جمع زدن نیست. شاید یک گزارش، سفارش‌های «در انتظار پرداخت» را هم شمرده باشد؛ دیگری سفارش‌های لغوشده را حذف نکرده باشد؛ فایل سوم، یک سفارش را دو مرتبه دریافت کرده باشد؛ یا تاریخ در دو منبع به دو صورت ثبت شده باشد. <strong>تا وقتی معنای «فروش»، زمان مرجع، کلید سفارش و قواعد کیفیت مشخص نباشد، جمع سادهٔ اعداد نیز قابل اتکا نیست.</strong></p>
+<p>در مثال کوچک این فصل، دادهٔ ورودی یک فایل <code class="docutils literal notranslate"><span class="pre">CSV</span></code> از سفارش‌های ساختگی است. چهار مسئله عمداً در آن وجود دارد: یک سفارش تکراری، یک مبلغ خالی، یک مبلغ منفی و یک قالب تاریخ متفاوت. پرسش کسب‌وکار را به این قرارداد قابل اجرا تبدیل می‌کنیم:</p>
+<ul class="simple">
+<li><p>هر <strong>سفارش</strong> با <code class="docutils literal notranslate"><span class="pre">order_id</span></code> مشخص می‌شود و هر شناسه فقط یک رکورد معتبر دارد.</p></li>
+<li><p>وضعیت‌ها عبارت‌اند از <code class="docutils literal notranslate"><span class="pre">paid</span></code> (پرداخت‌شده)، <code class="docutils literal notranslate"><span class="pre">pending</span></code> (در انتظار) و <code class="docutils literal notranslate"><span class="pre">canceled</span></code> (لغوشده). فقط <code class="docutils literal notranslate"><span class="pre">paid</span></code> در شاخص این مثال محاسبه می‌شود.</p></li>
+<li><p>مبلغ در ستون <code class="docutils literal notranslate"><span class="pre">amount_toman</span></code> یک عدد صحیح غیرمنفی و بیانگر <strong>مبلغ کل همان سفارش</strong> است؛ نه قیمت یک قلم کالا.</p></li>
+<li><p>گزارش، مجموع مبلغ سفارش‌های پرداخت‌شده را بر اساس <strong>شهر</strong> نشان می‌دهد؛ بنابراین هنوز معادل درآمد خالص حسابداری نیست.</p></li>
+<li><p>تاریخ ورودی به قالب یکسان <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code> تبدیل می‌شود. برای این تمرین دو قالب از پیش تعریف شده‌اند و تاریخ مبهم به‌صورت حدسی تفسیر نمی‌شود.</p></li>
+</ul>
+<figure class="align-default" id="fig-ch01-01">
+<a class="reference internal image-reference" href="../_images/fig01_01_problem.png"><img alt="چهار مرحله از داده خام سفارش تا کنترل کیفیت و گزارش قابل اتکا" src="../_images/fig01_01_problem.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text"><strong>شکل ۱-۱ —</strong> مسئلهٔ فروشگاه ابتدا با تعریف شاخص حل می‌شود، سپس با کنترل و پردازش داده. جابه‌جایی فایل بدون این قواعد پاسخ معتبر تولید نمی‌کند.</span><a class="headerlink" href="#fig-ch01-01" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>این مسیر نمونه‌ای از یک <strong>خط لولهٔ داده</strong> (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Pipeline</span></code>) است: مجموعه‌ای از کارهای مشخص که داده را از مبدأ به شکل مصرف‌پذیر تبدیل می‌کند. خط لوله فقط یک برنامهٔ کپی فایل نیست؛ قواعد تبدیل، ثبت خطا، امکان اجرای دوباره و آزمون نتیجه نیز بخشی از آن است. هر بار که از «خط لوله» صحبت می‌کنیم، باید بتوانیم بگوییم ورودی، خروجی، قرارداد کیفیت و مصرف‌کنندهٔ آن چیست.</p>
+<section id="id3">
+<h3>پیوند با دانسته‌های قبلی<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>اگر در برنامه‌نویسی با فایل و تابع آشنا باشید، بخش دریافت و تبدیل را می‌شناسید. اگر SQL خوانده‌اید، می‌دانید جدول، کلید اصلی و پرس‌وجو چه هستند. در مهندسی داده این دو دانش را به هم وصل می‌کنیم: <strong>برنامه</strong> داده را از منبع می‌گیرد، <strong>قواعد</strong> آن را اعتبارسنجی می‌کنند، <strong>پایگاه داده</strong> آن را نگه می‌دارد و <strong>پرس‌وجو</strong> پاسخ مسئله را می‌سازد. مفاهیم مقدماتی Python، پایگاه دادهٔ رابطه‌ای، خط فرمان و ارتباط بین سرویس‌ها برای ادامهٔ درس مفیدند؛ تسلط بر همهٔ آن‌ها شرط خواندن این فصل نیست [م۱].</p>
+</section>
+<section id="id4">
+<h3>خروجی‌های یادگیری<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>پس از پایان فصل باید بتوانید (۱) مهندسی داده را با یک مثال تعریف و از تحلیل، علم داده و مهندسی پلتفرم تمیز دهید؛ (۲) پنج مرحلهٔ چرخهٔ حیات و شش جریان پشتیبان آن را توضیح دهید؛ (۳) میان <code class="docutils literal notranslate"><span class="pre">Batch</span></code>، <code class="docutils literal notranslate"><span class="pre">Stream</span></code> و <code class="docutils literal notranslate"><span class="pre">CDC</span></code> تفاوت بگذارید؛ (۴) نقش مدل رابطه‌ای، پردازش توزیع‌شده و معماری‌های نوین را در تحولات تاریخی بیان کنید؛ (۵) هفت گام طراحی تا نگهداری پروژه را به یک مسئله پیوند بزنید؛ و (۶) یک نمونهٔ Python/SQLite را اجرا و صحت آن را بررسی کنید.</p>
+</section>
+</section>
+<section id="id5">
+<h2>۲. مهندسی داده چیست و چه چیزی نیست؟<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p><strong>مهندسی داده</strong> (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Engineering</span></code>) طراحی، ساخت، آزمون و نگهداری سامانه‌هایی است که داده را از منبع‌های گوناگون دریافت می‌کنند، به آن ساختار و کیفیت مناسب می‌دهند، به‌صورت امن و پایدار نگه می‌دارند و در زمان موردنیاز در اختیار مصرف‌کننده می‌گذارند [م۱، م۲]. «مصرف‌کننده» می‌تواند انسانِ تحلیلگر، یک داشبورد، یک برنامه یا مدل یادگیری ماشین باشد.</p>
+<p>در این تعریف، چهار قید مهم وجود دارد: <strong>دادهٔ درست، زمان مناسب، شکل قابل استفاده و دسترسی برای فرد یا سامانهٔ مجاز.</strong> اگر یکی از این‌ها نباشد، داده شاید موجود باشد اما ارزش عملی چندانی ایجاد نکند. به همین دلیل، حجم داده به‌تنهایی شاخص بلوغ نیست. یک فروشگاه با چند هزار سفارش ناقص ممکن است بیشتر از سامانه‌ای با میلیون‌ها سفارش دقیق دچار مشکل شود.</p>
+<p>یک تشبیه آموزشی در منابع، رستوران است [م۱]: مواد اولیه از چند تأمین‌کننده می‌آیند، پیش از مصرف بررسی می‌شوند، در محل مناسب نگه داشته می‌شوند، طبق دستور آماده می‌شوند و در زمان سفارش به مشتری می‌رسند. داده نیز منبع، کنترل کیفیت، ذخیره‌سازی، تبدیل و تحویل دارد. البته در سامانهٔ واقعی، ذخیره‌سازی ممکن است <em>قبل و بعد</em> از تبدیل تکرار شود و ترتیب اجرا همیشه مانند یک آشپزخانهٔ خطی نیست. تشبیه برای فهم مسئولیت‌ها مفید است، نه برای جایگزین کردن طراحی دقیق.</p>
+<section id="id6">
+<h3>۲.۱. تفاوت با چهار نقش نزدیک<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<figure class="align-default" id="fig-ch01-02">
+<a class="reference internal image-reference" href="../_images/fig01_02_roles.png"><img alt="تفاوت نقش مهندس پلتفرم، مهندس داده، تحلیلگر و دانشمند داده" src="../_images/fig01_02_roles.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text"><strong>شکل ۱-۲ —</strong> چهار نقش مکمل در تولید ارزش از داده. مرز شغلی در همهٔ سازمان‌ها یکسان نیست؛ ملاک، مسئولیت و خروجی اصلی است.</span><a class="headerlink" href="#fig-ch01-02" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>نقش</p></th>
+<th class="head"><p>سؤال محوری</p></th>
+<th class="head"><p>خروجی رایج در مثال فروشگاه</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>مهندس داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Engineer</span></code>)</p></td>
+<td><p>دادهٔ قابل اتکا از کجا و چگونه برسد؟</p></td>
+<td><p>جدول سفارش‌های معتبر و خط لولهٔ قابل تکرار</p></td>
+</tr>
+<tr class="row-odd"><td><p>تحلیلگر داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Analyst</span></code>)</p></td>
+<td><p>چه اتفاقی افتاده و چرا؟</p></td>
+<td><p>گزارش فروش روزانه و مقایسهٔ شهرها</p></td>
+</tr>
+<tr class="row-even"><td><p>دانشمند داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Scientist</span></code>)</p></td>
+<td><p>احتمالاً چه اتفاقی خواهد افتاد؟</p></td>
+<td><p>مدل پیش‌بینی تقاضا یا ریزش مشتری</p></td>
+</tr>
+<tr class="row-odd"><td><p>مهندس پلتفرم داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Platform</span> <span class="pre">Engineer</span></code>)</p></td>
+<td><p>زیرساخت اجرای ایمن و مقیاس‌پذیر چگونه فراهم شود؟</p></td>
+<td><p>محیط اجرا، دسترسی، پایش منابع و سرویس‌های مشترک</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>برای مثال، تحلیلگر می‌تواند بپرسد چرا فروش تهران کم شده است؛ اما اگر شناسه‌های تکراری در جدول وجود داشته باشند، نتیجهٔ او گمراه‌کننده می‌شود. مهندس داده پیش از تحلیل، معنا و صحت جدول را کنترل می‌کند. دانشمند داده ممکن است با همان جدول مدل پیش‌بینی بسازد؛ او نیز به دادهٔ سالم نیاز دارد. مهندس پلتفرم کمک می‌کند این کارها در محیطی پایدار انجام شوند. در تیم کوچک ممکن است یک نفر چند مسئولیت داشته باشد؛ این جدول مرزبندی مطلق افراد نیست.</p>
+</section>
+<section id="id7">
+<h3>۲.۲. سه مسئلهٔ اساسی: پراکندگی، کیفیت و رشد<a class="headerlink" href="#id7" title="Link to this heading">#</a></h3>
+<p><strong>پراکندگی و ناسازگاری معنا:</strong> شناسهٔ مشتری در وب‌سایت ممکن است با شناسهٔ حسابداری متفاوت باشد. حتی واژهٔ «فروش» می‌تواند در بخش سفارش، پرداخت و حسابداری سه معنی داشته باشد. اتصال جدول‌ها بدون توافق دربارهٔ معنا، خطای پنهان ایجاد می‌کند. لازم است کلیدهای رابطه، زمان رویداد و واحد مبلغ ثبت شوند.</p>
+<p><strong>کیفیت:</strong> مقدار خالی، تاریخ نامعتبر یا رکورد تکراری هرکدام سیاست جداگانه می‌خواهند. حذف خودکار تمام رکوردهای ناقص همیشه درست نیست. برای نمونه، اگر شهر خالی باشد ولی مبلغ صحیح باشد، می‌توان رکورد را برای گزارش کلی حفظ و فقط از گزارش شهری کنار گذاشت؛ یا بنا بر قرارداد از کل تحلیل کنار گذاشت. مهم آن است که تصمیم ثبت و قابل بازبینی شود. <strong>دو مشتری هم‌نام الزاماً یک مشتری نیستند</strong>؛ حذف آن‌ها بر مبنای نام، نمونهٔ روشن یک «اصلاح» خطرناک است [م۲].</p>
+<p><strong>رشد و پایداری:</strong> با افزایش حجم و تعداد منابع، اجرای دستی فایل‌ها، خطاهای مقطعی شبکه و تغییر ساختار داده مشکل‌ساز می‌شود. اما «دادهٔ بزرگ» فقط به تعداد بایت‌ها مربوط نیست: نیاز به پاسخ چندمیلی‌ثانیه‌ای یا پیچیدگی تغییرات schema حتی در حجم کمتر نیز معماری را دشوار می‌کند. انتخاب سامانهٔ توزیع‌شده باید با نیاز اثبات شود، نه با نام ابزار.</p>
+</section>
+<section id="id8">
+<h3>۲.۳. شش بعد کاربردی کیفیت داده<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>بعد</p></th>
+<th class="head"><p>پرسش</p></th>
+<th class="head"><p>نمونهٔ کنترل</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>درستی (<code class="docutils literal notranslate"><span class="pre">Accuracy</span></code>)</p></td>
+<td><p>مقدار با واقعیت مطابقت دارد؟</p></td>
+<td><p>تطبیق مبلغ با سند پرداخت؛ فقط از روی نوع عدد نمی‌توان آن را اثبات کرد</p></td>
+</tr>
+<tr class="row-odd"><td><p>کامل‌بودن (<code class="docutils literal notranslate"><span class="pre">Completeness</span></code>)</p></td>
+<td><p>مقدار لازم ثبت شده است؟</p></td>
+<td><p>خالی نبودن شناسه، شهر یا مبلغ در قرارداد این مثال</p></td>
+</tr>
+<tr class="row-even"><td><p>به‌هنگام‌بودن (<code class="docutils literal notranslate"><span class="pre">Timeliness</span></code>)</p></td>
+<td><p>داده با تأخیر قابل قبول رسیده است؟</p></td>
+<td><p>آخرین زمان دریافت، در قیاس با نیاز گزارش</p></td>
+</tr>
+<tr class="row-odd"><td><p>سازگاری (<code class="docutils literal notranslate"><span class="pre">Consistency</span></code>)</p></td>
+<td><p>منابع و نمایش‌های مختلف با هم ناسازگار نیستند؟</p></td>
+<td><p>همهٔ تاریخ‌ها در یک قالب، وضعیت‌ها در یک واژگان</p></td>
+</tr>
+<tr class="row-even"><td><p>اعتبار (<code class="docutils literal notranslate"><span class="pre">Validity</span></code>)</p></td>
+<td><p>مقدار قاعدهٔ دامنه و قالب را رعایت می‌کند؟</p></td>
+<td><p>مبلغ صحیح و غیرمنفی؛ وضعیت از مجموعهٔ تعریف‌شده</p></td>
+</tr>
+<tr class="row-odd"><td><p>دسترس‌پذیری (<code class="docutils literal notranslate"><span class="pre">Availability</span></code>)</p></td>
+<td><p>مصرف‌کنندهٔ مجاز می‌تواند داده را دریافت کند؟</p></td>
+<td><p>موفقیت پرس‌وجو و سطح دسترسی مناسب</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>این ابعاد با هم یکی نیستند. برای مثال، مبلغ <code class="docutils literal notranslate"><span class="pre">120000</span></code> از نظر <strong>اعتبار قالب</strong> قابل قبول است، ولی بدون مقایسه با درگاه پرداخت، <strong>درستی واقعی</strong> آن معلوم نیست. همچنین یک فایل کامل اما با تأخیر دو روزه ممکن است برای گزارش لحظه‌ای نامناسب باشد. در نمونهٔ عملی، قالب، تکرار و قواعد دامنه را می‌سنجیم؛ ادعای تطبیق با واقعیت بیرونی نداریم.</p>
+<p>یک نسبت آموزشی برای بررسی کیفیت، «درصد رکوردهای پذیرفته‌شده» است:</p>
+<p>[
+R*{\mathrm{accept}}=\frac{N*{\mathrm{valid\ unique}}}{N_{\mathrm{input}}}\times100%.
+]</p>
+<p>در دادهٔ ساختگی ما، ۱۰ ردیف ورودی داریم: ۷ ردیف معتبر یکتا، ۱ ردیف تکراری دقیق و ۲ ردیف مردود. بنابراین (R_{\mathrm{accept}}=7/10=70%). این <strong>شاخص داخلی خط لوله</strong> است و به‌تنهایی معادل «کیفیت کل داده» نیست. رکورد تکراری الزاماً غلط تجاری نیست؛ فقط قرار نیست برای یک شناسه دو بار ذخیره شود.</p>
+</section>
+</section>
+<section id="id9">
+<h2>۳. تاریخچه را از زاویهٔ مسئله بخوانیم<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>سیر تاریخی مهندسی داده را بهتر است به صورت «چه محدودیتی داشتیم و چه راه‌حلی مطرح شد؟» ببینیم؛ نه فهرست نام محصولات [م۳].</p>
+<figure class="align-default" id="fig-ch01-03">
+<a class="reference internal image-reference" href="../_images/fig01_03_history.png"><img alt="خط زمانی آموزشی تحول پایگاه‌های رابطه‌ای، پردازش توزیع‌شده، ابر و Lakehouse" src="../_images/fig01_03_history.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text"><strong>شکل ۱-۳ —</strong> خط زمان تقریبی تحول راهکارهای داده. دوره‌ها روی یکدیگر هم‌پوشانی دارند و ابزارهای جدید معمولاً جای تمام راهکارهای پیشین را نمی‌گیرند.</span><a class="headerlink" href="#fig-ch01-03" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id10">
+<h3>۳.۱. از فایل مستقل به مدل رابطه‌ای<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>در سامانه‌های اولیه، داده اغلب در فایل‌ها یا ساختارهای سلسله‌مراتبی و شبکه‌ای نگهداری می‌شد. وابستگی برنامه به نحوهٔ ذخیره‌سازی، توسعه و تغییر را دشوار می‌کرد. معرفی مدل رابطه‌ای توسط <strong>ادگار کاد</strong> (<code class="docutils literal notranslate"><span class="pre">E.</span> <span class="pre">F.</span> <span class="pre">Codd</span></code>) در ۱۹۷۰، نگاه تازه‌ای پیشنهاد داد: داده به شکل رابطه‌ها (در عمل جدول‌هایی با سطر و ستون) دیده شود و پرس‌وجو بر «چه می‌خواهیم» تمرکز کند، نه مسیر پیمایش فایل‌ها. مدل موجودیت–رابطه (<code class="docutils literal notranslate"><span class="pre">ER</span></code>) که <strong>پیتر چن</strong> در ۱۹۷۶ مطرح کرد، به طراحی مفهومی این داده‌ها کمک کرد [م۳].</p>
+<p>وقتی سفارش، مشتری و پرداخت سه جدول باشند، می‌توان آن‌ها را با کلیدهای مشخص مرتبط کرد. این ساختار و قواعد تمامیت داده، پیش‌نیاز مهم گزارش معتبر است. سامانه‌های رابطه‌ای در دهه‌های ۱۹۸۰ و ۱۹۹۰ فراگیر شدند؛ <code class="docutils literal notranslate"><span class="pre">SQL</span></code> نیز در ۱۹۸۶ استاندارد ANSI و در ۱۹۸۷ استاندارد ISO گرفت [م۳]. این تاریخچه توضیح می‌دهد چرا تا امروز کلید، رابطه، تراکنش و پرس‌وجو از واژگان اصلی مهندسی داده هستند.</p>
+</section>
+<section id="etl">
+<h3>۳.۲. انبار داده و ETL: چرا دادهٔ عملیاتی برای تحلیل کافی نبود؟<a class="headerlink" href="#etl" title="Link to this heading">#</a></h3>
+<p>پایگاه سفارش آنلاین برای ثبت سریع سفارش و تغییر وضعیت آن طراحی شده است. گزارش مدیریتی ممکن است نیاز داشته باشد میلیون‌ها سفارش چند سال گذشته را با اطلاعات شعب، کمپین و مشتری ترکیب کند. اگر تمام گزارش‌ها به پایگاه عملیاتی فشار بیاورند، سرعت ثبت سفارش نیز آسیب می‌بیند. پاسخ رایج، <strong>انبار داده</strong> (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Warehouse</span></code>) برای تحلیل سازمانی و اجرای فرایندهای <strong>استخراج، تبدیل و بارگذاری</strong> (<code class="docutils literal notranslate"><span class="pre">ETL</span></code>) بود. این تمایز بین کار عملیاتی و تحلیلی هنوز مهم است؛ لازم نیست هر مسئله را با فناوری تازه حل کنیم.</p>
+</section>
+<section id="id11">
+<h3>۳.۳. دادهٔ عظیم و پردازش توزیع‌شده<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>با رشد وب و فایل‌های بسیار بزرگ، یک رایانه دیگر برای تمام کارها کافی نبود. ایدهٔ <code class="docutils literal notranslate"><span class="pre">MapReduce</span></code> که گوگل در ۲۰۰۴ توصیف کرد، تقسیم کار روی چند ماشین را روشن ساخت؛ زیست‌بوم <code class="docutils literal notranslate"><span class="pre">Hadoop</span></code> نیز ذخیره و پردازش توزیع‌شده با تحمل خرابی را فراگیرتر کرد. مهم‌ترین شهود این است که به‌جای انتقال همهٔ داده به یک پردازنده، <strong>کار را به بخش‌ها تقسیم می‌کنیم و نتایج جزئی را جمع می‌کنیم</strong> [م۳].</p>
+<p><strong>مثال دستی MapReduce:</strong> تعداد سفارش‌های سه شهر را می‌خواهیم. دادهٔ ورودی <code class="docutils literal notranslate"><span class="pre">Tehran,</span> <span class="pre">Isfahan,</span> <span class="pre">Tehran,</span> <span class="pre">Shiraz,</span> <span class="pre">Tehran</span></code> است.</p>
+<ol class="arabic simple">
+<li><p><strong>Map:</strong> هر شهر به یک جفت <code class="docutils literal notranslate"><span class="pre">(شهر،</span> <span class="pre">1)</span></code> تبدیل می‌شود.</p></li>
+<li><p><strong>Shuffle/Group:</strong> جفت‌های دارای شهر یکسان کنار هم قرار می‌گیرند: تهران <code class="docutils literal notranslate"><span class="pre">[1,1,1]</span></code>، اصفهان <code class="docutils literal notranslate"><span class="pre">[1]</span></code>، شیراز <code class="docutils literal notranslate"><span class="pre">[1]</span></code>.</p></li>
+<li><p><strong>Reduce:</strong> مقادیر هر گروه جمع می‌شوند: تهران ۳، اصفهان ۱، شیراز ۱.</p></li>
+</ol>
+<p>این الگوریتم شمارش را روی پنج مورد می‌توان دستی انجام داد؛ مزیت پردازش توزیع‌شده زمانی آشکار می‌شود که تقسیم داده، هماهنگی ماشین‌ها و بازیابی خرابی در مقیاس بزرگ لازم باشد. تقسیم کار مجانی نیست: انتقال داده، ترتیب‌بندی و هماهنگی هزینه دارند.</p>
+</section>
+<section id="id12">
+<h3>۳.۴. جریان رویداد، رایانش ابری و جداسازی ذخیره از پردازش<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>گزارش روزانه با تأخیر یک روز ممکن است کافی باشد؛ اما تشخیص تقلب پرداخت یا شمارش رویدادهای زنده نیاز دیگری دارد. در دههٔ ۲۰۱۰، چارچوب‌هایی مانند <code class="docutils literal notranslate"><span class="pre">Spark</span></code> برای پردازش داده و <code class="docutils literal notranslate"><span class="pre">Kafka</span></code> برای انتقال/نگهداری جریان رویدادها شناخته شدند؛ ابزارهایی مانند <code class="docutils literal notranslate"><span class="pre">Airflow</span></code> برای زمان‌بندی و هماهنگی گردش کار و <code class="docutils literal notranslate"><span class="pre">dbt</span></code> برای سامان‌دهی تبدیل‌های تحلیلی رواج یافتند [م۳].</p>
+<p>هم‌زمان، خدمات ابری و معماری‌هایی با <strong>جداسازی منطقی منابع پردازش از فضای ذخیره‌سازی</strong> انتخاب‌های جدیدی فراهم کردند. در سامانه‌هایی مانند <code class="docutils literal notranslate"><span class="pre">BigQuery</span></code> و <code class="docutils literal notranslate"><span class="pre">Snowflake</span></code>، کاربر معمولاً لازم نیست مدیریت سخت‌افزار را مانند یک خوشهٔ سنتی انجام دهد؛ اما هزینه، طراحی داده و کنترل دسترسی همچنان بر عهدهٔ تیم است. «ابری» مترادف «بدون طراحی» نیست.</p>
+</section>
+<section id="id13">
+<h3>۳.۵. نتیجهٔ تاریخی<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>هیچ‌یک از این نسل‌ها کاملاً منسوخ نشده‌اند. برای ده ردیف سفارش، <code class="docutils literal notranslate"><span class="pre">SQLite</span></code> و یک برنامهٔ کوچک بهترین ابزار آموزشی‌اند. برای صدها منبع و میلیاردها رویداد، قابلیت‌های توزیع، بازیابی و هماهنگی اهمیت بیشتری پیدا می‌کنند. بنابراین سؤال مهندس داده نباید «جدیدترین ابزار چیست؟» باشد، بلکه باید بپرسد «<strong>چه محدودیتی داریم که راه‌حل ساده‌تر از عهدهٔ آن برنمی‌آید؟</strong>»</p>
+</section>
+</section>
+<section id="id14">
+<h2>۴. چرخهٔ حیات داده: پنج مرحله، نه پنج برنامهٔ جداگانه<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>مدل چرخهٔ حیات (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Engineering</span> <span class="pre">Lifecycle</span></code>) در منابع اصلی این فصل، پنج مرحله دارد: <strong>تولید → ذخیره‌سازی → دریافت → تبدیل → سرویس‌دهی</strong> [م۴]. این ترتیب در نگاه نخست غیرمنتظره است: چرا «ذخیره‌سازی» پیش از «دریافت» آمده است؟ زیرا منظور از ذخیره‌سازی در این مدل، نخست <strong>ذخیره‌شدن داده در سامانهٔ تولیدکننده</strong> نیز هست. سفارش ابتدا در پایگاه عملیاتی ذخیره می‌شود، سپس خط لوله آن را دریافت می‌کند. در مقصد نیز ممکن است پس از تبدیل، چند بار دیگر ذخیره‌سازی رخ دهد. این مدل یک نقشهٔ مفهومی است، نه دستورالعمل اجباری اجرای خطی.</p>
+<figure class="align-default" id="fig-ch01-04">
+<a class="reference internal image-reference" href="../_images/fig01_04_lifecycle.png"><img alt="پنج مرحله تولید، ذخیره‌سازی، دریافت، تبدیل، سرویس‌دهی و شش جریان سراسری" src="../_images/fig01_04_lifecycle.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text"><strong>شکل ۱-۴ —</strong> مدل پنج‌مرحله‌ای چرخهٔ حیات و شش جریان مشترک. شماره‌ها ترتیب آموزشی‌اند؛ مسیر واقعی ممکن است چرخه‌ها و ذخیره‌های میانی داشته باشد.</span><a class="headerlink" href="#fig-ch01-04" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="generation">
+<h3>۴.۱. مرحلهٔ تولید (<code class="docutils literal notranslate"><span class="pre">Generation</span></code>)<a class="headerlink" href="#generation" title="Link to this heading">#</a></h3>
+<p>داده در جایی ایجاد می‌شود: ثبت سفارش در پایگاه عملیاتی، کلیک کاربر در برنامه، پیام حسگر، لاگ سرور، رویداد دستگاه یا پاسخ یک سرویس. منبع می‌تواند <strong>ساخت‌یافته</strong> (جدول سفارش)، <strong>نیمه‌ساخت‌یافته</strong> (رویداد <code class="docutils literal notranslate"><span class="pre">JSON</span></code>) یا <strong>غیرساخت‌یافته</strong> (متن آزاد و تصویر) باشد. این تقسیم، نوع محتوا را شرح می‌دهد؛ برای مثال JSON همیشه از نظر معنا معتبر نیست، اگرچه قالبی ساختاریافته دارد.</p>
+<p>در همین مرحله باید پرسید «رویداد دقیقاً چه معنایی دارد؟» آیا <code class="docutils literal notranslate"><span class="pre">paid</span></code> هنگام شروع پرداخت ثبت می‌شود یا پس از تأیید بانک؟ آیا زمان ثبت سفارش با زمان تأیید پرداخت یکی است؟ اگر این تفاوت را در مبدأ ندانیم، هیچ مقدار پاک‌سازی در ادامه معنای صحیح ایجاد نمی‌کند.</p>
+</section>
+<section id="storage">
+<h3>۴.۲. مرحلهٔ ذخیره‌سازی (<code class="docutils literal notranslate"><span class="pre">Storage</span></code>)<a class="headerlink" href="#storage" title="Link to this heading">#</a></h3>
+<p>سامانهٔ تولیدکننده سفارش را معمولاً در پایگاه عملیاتی می‌نویسد. بعداً داده ممکن است به انبار داده، دریاچه یا مخزن دیگر انتقال یابد. برای هر محل ذخیره باید به <strong>ماندگاری، بازیابی، پشتیبان‌گیری، زمان نگهداری، دسترسی، هزینه و تغییر schema</strong> توجه کرد. ذخیره‌سازی فقط انتخاب بین «فایل» و «جدول» نیست. اگر فردا یک ستون اختیاری اضافه شود، باید معلوم باشد مصرف‌کنندهٔ قدیمی چگونه رفتار می‌کند.</p>
+<p>برای رویدادها، سامانه‌ای مانند Kafka می‌تواند داده را برای مدت تنظیم‌شده نگه دارد تا مصرف‌کنندهٔ عقب‌مانده دوباره آن را بخواند. بنابراین نگاه به چنین سامانه‌ای صرفاً به‌صورت «صفی که پس از خواندن حذف می‌شود» ناقص است [م۴]. انتخاب زمان نگهداری، فضای لازم و امکان بازپخش داده را تعیین می‌کند.</p>
+</section>
+<section id="ingestion">
+<h3>۴.۳. مرحلهٔ دریافت (<code class="docutils literal notranslate"><span class="pre">Ingestion</span></code>)<a class="headerlink" href="#ingestion" title="Link to this heading">#</a></h3>
+<p>دریافت، ورود داده از منبع به مسیر پردازش و تحلیل است. سه الگوی مهم را باید جدا کرد:</p>
+<figure class="align-default" id="fig-ch01-05">
+<a class="reference internal image-reference" href="../_images/fig01_05_ingestion.png"><img alt="تفاوت دریافت دسته‌ای، جریانی و ثبت تغییرات داده" src="../_images/fig01_05_ingestion.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text"><strong>شکل ۱-۵ —</strong> سه شیوهٔ دریافت داده؛ <code class="docutils literal notranslate"><span class="pre">CDC</span></code> شیوهٔ مشاهدهٔ تغییرات منبع است و می‌تواند به سامانهٔ جریانی یا فرایندهای دوره‌ای خوراک بدهد.</span><a class="headerlink" href="#fig-ch01-05" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>روش</p></th>
+<th class="head"><p>چه چیزی دریافت می‌شود؟</p></th>
+<th class="head"><p>مناسب چه مسئله‌ای است؟</p></th>
+<th class="head"><p>ملاحظه</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>دسته‌ای (<code class="docutils literal notranslate"><span class="pre">Batch</span></code>)</p></td>
+<td><p>مجموعه‌ای از رکوردها در زمان‌های معین</p></td>
+<td><p>گزارش روزانه و انتقال فایل</p></td>
+<td><p>ممکن است فقط <strong>تغییرات دوره</strong> منتقل شود، نه لزوماً کل جدول</p></td>
+</tr>
+<tr class="row-odd"><td><p>جریانی (<code class="docutils literal notranslate"><span class="pre">Streaming</span></code>)</p></td>
+<td><p>رویدادها به‌صورت پیوسته یا با تأخیر کم</p></td>
+<td><p>هشدار و تحلیل نزدیک به زمان واقعی</p></td>
+<td><p>ترتیب، دادهٔ دیررس و بازیابی باید طراحی شوند</p></td>
+</tr>
+<tr class="row-even"><td><p>ثبت تغییرات (<code class="docutils literal notranslate"><span class="pre">CDC</span></code>)</p></td>
+<td><p>درج، تغییر یا حذف دادهٔ مبدأ</p></td>
+<td><p>همگام‌سازی پایگاه عملیاتی و تحلیلی</p></td>
+<td><p>از لاگ تراکنش، مقایسه/پرس‌وجو یا روش‌های دیگر قابل پیاده‌سازی است</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>مثلاً برای گزارش فروش فردا صبح، دریافت فایل شبانه کافی است. برای مسدودسازی لحظه‌ای پرداخت مشکوک ممکن است چند ثانیه تأخیر هم زیاد باشد. پس <strong>تازگی موردنیاز</strong> (<code class="docutils literal notranslate"><span class="pre">Freshness</span></code>) را باید با هزینه و پیچیدگی سنجید. جریان رویداد لزوماً به معنی پاسخ بی‌درنگ با تأخیر صفر نیست؛ هر سامانه محدودیت فیزیکی و عملیاتی دارد.</p>
+</section>
+<section id="transformation">
+<h3>۴.۴. مرحلهٔ تبدیل (<code class="docutils literal notranslate"><span class="pre">Transformation</span></code>)<a class="headerlink" href="#transformation" title="Link to this heading">#</a></h3>
+<p>تبدیل، تغییر شکل و معنای داده برای هدف مشخص است: اصلاح قالب تاریخ، بررسی مقادیر، تبدیل نوع، حذف تکرار <em>طبق کلید معتبر</em>، ترکیب چند منبع، ساخت شاخص و تجمیع. در مثال ما رشتهٔ تاریخ <code class="docutils literal notranslate"><span class="pre">15/10/2026</span></code> طبق قرارداد روز/ماه/سال به <code class="docutils literal notranslate"><span class="pre">2026-10-15</span></code> تبدیل می‌شود. مبلغ خالی به صفر تغییر نمی‌کند، چون «معلوم نبودن مبلغ» با «مبلغ صفر» یکسان نیست.</p>
+<p>از دید ریاضی، اگر ردیف‌های ورودی را (D) و قواعد تبدیل را (T) بنامیم، خروجی (D’=T(D)) است. <strong>درستی صرفاً به اجرای بدون خطا محدود نمی‌شود:</strong> باید بتوان دربارهٔ (T) یک یا چند ویژگی قابل آزمون نوشت؛ مثلاً «هیچ سطر ذخیره‌شده‌ای مبلغ منفی ندارد» یا «یک شناسهٔ سفارش بیش از یک بار وجود ندارد». این ویژگی‌ها را بعداً با SQL و آزمون برنامه بررسی می‌کنیم.</p>
+</section>
+<section id="serving">
+<h3>۴.۵. مرحلهٔ سرویس‌دهی (<code class="docutils literal notranslate"><span class="pre">Serving</span></code>)<a class="headerlink" href="#serving" title="Link to this heading">#</a></h3>
+<p>در مرحلهٔ آخر، داده در شکل مناسب به مصرف‌کننده می‌رسد: جدول تحلیلی، داشبورد، گزارش، سرویس <code class="docutils literal notranslate"><span class="pre">API</span></code> یا ویژگی‌های ورودی مدل. گاهی دادهٔ تحلیلی به یک سامانهٔ عملیاتی بازگردانده می‌شود؛ به این الگو در کاربرد مناسب <code class="docutils literal notranslate"><span class="pre">Reverse</span> <span class="pre">ETL</span></code> می‌گویند. معیار موفقیت «ساخته شدن جدول» نیست، بلکه <strong>پاسخ‌گویی دقیق، به‌موقع و قابل تکرار به یک نیاز مشخص</strong> است [م۴].</p>
+<p>در مثال فروشگاه، خروجی نهایی دو سطر گزارش شهری است. اگر پرس‌وجو درست باشد ولی کاربر مربوط به گزارش دسترسی نداشته باشد، چرخه از نظر سرویس‌دهی کامل نشده است. برعکس، اگر همه به اطلاعات فردی مشتری دسترسی داشته باشند، سرویس‌دهی از نظر امنیتی اشتباه طراحی شده است.</p>
+</section>
+<section id="etl-elt">
+<h3>۴.۶. ETL و ELT را با چرخهٔ حیات اشتباه نگیریم<a class="headerlink" href="#etl-elt" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ETL</span></code> مخفف <strong>استخراج → تبدیل → بارگذاری</strong> است؛ ابتدا داده از مبدأ خوانده می‌شود، پیش از بارگذاری نهایی تبدیل می‌شود، سپس در مقصد قرار می‌گیرد. <code class="docutils literal notranslate"><span class="pre">ELT</span></code> یعنی <strong>استخراج → بارگذاری → تبدیل</strong>؛ داده ابتدا در محیط مقصد نگه‌داری می‌شود و سپس تبدیل در همان محیط انجام می‌گیرد. تفاوت اصلی <strong>محل و ترتیب اجرای تبدیل نسبت به بارگذاری مقصد</strong> است، نه اینکه یکی کیفیت داده دارد و دیگری ندارد. هر دو به کنترل دسترسی، کیفیت و ثبت منشأ نیاز دارند.</p>
+<p>در مثال فصل، پیش از ورود به جدول نهایی SQLite اعتبارسنجی انجام می‌دهیم؛ این به الگوی سادهٔ ETL نزدیک‌تر است. اگر ابتدا ردیف‌های خام را در جدول <code class="docutils literal notranslate"><span class="pre">raw_orders</span></code> بارگذاری می‌کردیم و سپس با SQL جدول نهایی را می‌ساختیم، نمونه‌ای از ELT داشتیم. در هر دو حالت، ذخیرهٔ منبع و دادهٔ خام می‌تواند باقی بماند؛ این دو اصطلاح جایگزین «چرخهٔ حیات پنج‌مرحله‌ای» نیستند.</p>
+</section>
+</section>
+<section id="id15">
+<h2>۵. ذخیره‌سازی برای تحلیل: انبار داده، دریاچه و لیک‌هاوس<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>پس از شناخت چرخه، باید میان سه شیوهٔ سازمان‌دهی داده تمایز بگذاریم. در هر سه حالت ممکن است داده روی دیسک یا فضای ابری ذخیره شود؛ تفاوت اصلی در <strong>نوع سازمان‌دهی، قواعد مدیریت و شیوهٔ مصرف</strong> است. جدول زیر تعریفی مقدماتی ارائه می‌کند، نه یک تقسیم‌بندی مطلق [م۳، م۴].</p>
+<figure class="align-default" id="fig-ch01-06">
+<a class="reference internal image-reference" href="../_images/fig01_06_storage.png"><img alt="مقایسه معماری انبار داده، دریاچه داده و لیک‌هاوس با مثال کاربردی" src="../_images/fig01_06_storage.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text"><strong>شکل ۱-۶ —</strong> سه الگوی نگهداری داده با هدف‌های متفاوت. ابزار پیاده‌سازی ممکن است قابلیت‌های بیش از یک الگو را داشته باشد.</span><a class="headerlink" href="#fig-ch01-06" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>الگو</p></th>
+<th class="head"><p>مفهوم ساده</p></th>
+<th class="head"><p>نقطهٔ قوت</p></th>
+<th class="head"><p>ملاحظه</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>انبار داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Warehouse</span></code>)</p></td>
+<td><p>دادهٔ سازمان‌دهی‌شده برای پرس‌وجو و گزارش</p></td>
+<td><p>مدل‌سازی، SQL و گزارش‌های پایدار</p></td>
+<td><p>برای فایل‌های بسیار متنوع ممکن است به آماده‌سازی بیشتر نیاز داشته باشد</p></td>
+</tr>
+<tr class="row-odd"><td><p>دریاچهٔ داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Lake</span></code>)</p></td>
+<td><p>نگهداری فایل‌های متنوع، خام یا آماده</p></td>
+<td><p>پذیرش نوع‌های مختلف و جداسازی ذخیره از پردازش</p></td>
+<td><p>بدون کاتالوگ، قواعد و مدیریت کیفیت می‌تواند به انبار فایل‌های غیرقابل اعتماد تبدیل شود</p></td>
+</tr>
+<tr class="row-even"><td><p>لیک‌هاوس (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Lakehouse</span></code>)</p></td>
+<td><p>تحلیل جدولی بر بستر فایل‌ها همراه با فراداده و قواعد مدیریت جدول</p></td>
+<td><p>ترکیب قابلیت‌های فایل و جدول، نسخه‌بندی و کنترل تغییر</p></td>
+<td><p>نیازمند طراحی کاتالوگ، قالب جدول و سازگاری موتورهای پردازش</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="id16">
+<h3>۵.۱. تفاوت «فایل»، «مدل داده» و «قالب جدول»<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>یک فایل <code class="docutils literal notranslate"><span class="pre">CSV</span></code> صرفاً ترتیب ستون‌ها و متن رکوردها را نگه می‌دارد؛ خودش قاعدهٔ کلید اصلی و تراکنش چندفایلی ارائه نمی‌کند. فایل ستونی <code class="docutils literal notranslate"><span class="pre">Parquet</span></code> برای ذخیره و خواندن تحلیلی کارآمدتر است، اما <strong>وجود چند فایل Parquet به‌تنهایی یک جدول تراکنشی نسخه‌دار ایجاد نمی‌کند</strong>. قالب‌های جدول مانند <code class="docutils literal notranslate"><span class="pre">Apache</span> <span class="pre">Iceberg</span></code>، <code class="docutils literal notranslate"><span class="pre">Delta</span> <span class="pre">Lake</span></code> و <code class="docutils literal notranslate"><span class="pre">Apache</span> <span class="pre">Hudi</span></code>، در کنار فایل‌های داده، فراداده‌ای برای مدیریت وضعیت جدول، تغییرات و در مواردی نماهای زمانی و عملیات به‌روزرسانی فراهم می‌کنند. جزئیات دقیق امکانات، نسخه و موتور اجرا متفاوت است [م۳؛ و۱، و۴].</p>
+<p><strong>مثال:</strong> فرض کنید سفارش شمارهٔ ۱۰۰۲ امروز به‌روز شده است. اگر فقط یک پوشه شامل صدها فایل Parquet داشته باشیم، باید بدانیم کدام فایل شامل نسخهٔ صحیح آن است، کدام فایل حذف یا جایگزین شده و یک پرس‌وجوی هم‌زمان باید چه تصویری از داده ببیند. قالب جدول برای مدیریت چنین وضعیت‌هایی قرارداد فراداده فراهم می‌کند. در مستندات رسمی Iceberg، هر وضعیت ثبت‌شدهٔ جدول با <strong>Snapshot</strong> و مجموعه‌ای از ارجاعات به فایل‌ها مشخص می‌شود؛ تغییر وضعیت جدول با انتشار فرادادهٔ جدید انجام می‌شود [و۴].</p>
+<p>همچنین این سه مفهوم متفاوت‌اند:</p>
+<ul class="simple">
+<li><p><strong>قالب فایل</strong> (<code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">Format</span></code>): بایت‌های یک فایل چگونه ثبت شده‌اند؟ مانند CSV و Parquet.</p></li>
+<li><p><strong>طرح‌واره</strong> (<code class="docutils literal notranslate"><span class="pre">Schema</span></code>): چه ستون‌هایی با چه نام، نوع و محدودیت‌هایی داریم؟ برای مثال <code class="docutils literal notranslate"><span class="pre">order_id</span> <span class="pre">INTEGER</span></code>.</p></li>
+<li><p><strong>مدل داده</strong> (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Model</span></code>): موجودیت‌ها و رابطهٔ معنایی آن‌ها چیست؟ مثلاً هر سفارش به یک مشتری تعلق دارد و هر سفارش می‌تواند چند قلم داشته باشد.</p></li>
+</ul>
+<p>ممکن است دو جدول طرح‌وارهٔ یکسان داشته باشند اما معنای تجاری متفاوت؛ پس بررسی نام ستون به‌تنهایی جایگزین مدل‌سازی داده نمی‌شود.</p>
+</section>
+<section id="id17">
+<h3>۵.۲. سه قالب جدول مشهور چه نسبتی دارند؟<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Delta</span> <span class="pre">Lake</span></code>، <code class="docutils literal notranslate"><span class="pre">Apache</span> <span class="pre">Iceberg</span></code> و <code class="docutils literal notranslate"><span class="pre">Apache</span> <span class="pre">Hudi</span></code> همگی در خانوادهٔ فناوری‌های مدیریت جدول‌های مبتنی بر فایل مطرح هستند؛ ولی از نظر قالب فراداده، مسیر تغییرات و پشتیبانی موتورهای خواندن و نوشتن یکسان نیستند. Iceberg بر مشخصات باز قالب جدول، snapshot و مدیریت مستقل داده/فراداده تکیه دارد [و۴]. Delta Lake و Hudi نیز شیوه‌های خود را برای تراکنش‌ها، نگهداری نسخه‌ها یا تغییرات دارند. <strong>نام بردن از این ابزارها در این فصل به معنی انتخاب یکی برای پروژه نیست.</strong> وقتی نیاز ما فقط نگهداری ده سفارش است، جدول SQLite انتخاب منطقی‌تر و قابل آموزش‌تری است.</p>
+</section>
+</section>
+<section id="id18">
+<h2>۶. الگوهای معماری: چه زمانی کدام پرسش مطرح می‌شود؟<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>معماری داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Architecture</span></code>) فقط رسم چند مستطیل و پیکان نیست. معماری پاسخ به این پرسش‌هاست: داده کجا ایجاد می‌شود؟ چه کسی مالک آن است؟ تا چه زمانی ذخیره می‌شود؟ چند دقیقه یا چند ساعت تأخیر پذیرفتنی است؟ چگونه خطا بازیابی می‌شود؟ چه کسانی مجاز به دیدن کدام ستون هستند؟ [م۱، م۳، م۴]</p>
+<p>برای جلوگیری از حفظ کردن بی‌هدف نام‌ها، الگوهای مطرح‌شده در منابع را بر اساس <strong>مسئلهٔ هدف</strong> مقایسه می‌کنیم:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>الگو</p></th>
+<th class="head"><p>مسئله‌ای که برای آن مطرح شده است</p></th>
+<th class="head"><p>توضیح آموزشی و احتیاط</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Lambda</span> <span class="pre">Architecture</span></code></p></td>
+<td><p>تلفیق دادهٔ تاریخی دسته‌ای و پاسخ کم‌تأخیر</p></td>
+<td><p>معمولاً مسیر پردازش دسته‌ای و جریانی جدا و لایهٔ ارائه دارد؛ هماهنگ ماندن منطق دو مسیر می‌تواند دشوار باشد.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Kappa</span> <span class="pre">Architecture</span></code></p></td>
+<td><p>کاهش دوگانگی مسیرهای پردازش</p></td>
+<td><p>تکیه بر جریان رخدادها و امکان بازپخش تاریخچه؛ مناسب بودن آن به نگهداری رویداد و توان پردازش بستگی دارد.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Medallion</span> <span class="pre">Architecture</span></code></p></td>
+<td><p>روشن کردن میزان پالایش و اعتماد داده</p></td>
+<td><p>لایه‌های رایج <code class="docutils literal notranslate"><span class="pre">Bronze</span></code> (خام/دریافت‌شده)، <code class="docutils literal notranslate"><span class="pre">Silver</span></code> (پاک‌سازی/یکپارچه) و <code class="docutils literal notranslate"><span class="pre">Gold</span></code> (آمادهٔ مصرف)؛ این‌ها <strong>سطوح منطقی</strong> هستند، نه سه محصول اجباری.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Mesh</span></code></p></td>
+<td><p>دشواری مالکیت و هماهنگی داده در سازمان بزرگ</p></td>
+<td><p>نگاه سازمانیِ دامنه‌محور، داده به‌عنوان محصول، زیرساخت خودخدمت و حاکمیت مشترک؛ صرفاً انتقال فایل بین تیم‌ها نیست.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Lakehouse</span></code></p></td>
+<td><p>تحلیل مطمئن روی بستر فایل‌های مقیاس‌پذیر</p></td>
+<td><p>الگوی ذخیره/تحلیل با مدیریت جدولی؛ با Medallion تضاد ندارد و می‌توان هر دو را با هم داشت.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>مثال برای تفاوت:</strong> اگر قرار است فهرست رویدادهای سفارش برای تولید آمار هر ۱۰ ثانیه پردازش شود، مسئلهٔ جریان رویداد مطرح می‌شود. اگر هم‌زمان باید گزارش دقیق ماهانه و پاسخ خیلی سریع داشت، طراحی Lambda یا روش‌های معادل مطرح می‌شوند. اگر اصل مشکل این است که «هیچ‌کس نمی‌داند دادهٔ مشتری را کدام تیم تأیید می‌کند»، Data Mesh و مالکیت داده پرسش سازمانی را برجسته می‌کنند؛ افزودن Kafka به‌تنهایی آن را حل نمی‌کند.</p>
+<section id="medallion">
+<h3>۶.۱. مثال کوتاه دربارهٔ Medallion<a class="headerlink" href="#medallion" title="Link to this heading">#</a></h3>
+<p>برای فروشگاه می‌توان سه سطح <strong>مفهومی</strong> تعریف کرد:</p>
+<ol class="arabic simple">
+<li><p><strong>خام (Bronze):</strong> ردیف‌های دریافتی CSV با منبع، تاریخ ورود و شناسهٔ فایل حفظ شوند؛ حتی ردیف‌های مسئله‌دار برای بررسی قابل دسترسی باشند.</p></li>
+<li><p><strong>اعتبارسنجی‌شده (Silver):</strong> شناسهٔ سفارش یکتا، تاریخ استاندارد و مقدار معتبر شده باشد؛ رکوردهای ردشده همراه با دلیل در محل جداگانه ثبت شوند.</p></li>
+<li><p><strong>آمادهٔ مصرف (Gold):</strong> خلاصهٔ فروش روزانه و شهری، مطابق تعریف واحد «پرداخت‌شده»، محاسبه شود.</p></li>
+</ol>
+<p>در برنامهٔ مقدماتی این فصل لایهٔ خام، <strong>همان فایل CSV اولیه</strong> است؛ لایهٔ معتبر، جدول <code class="docutils literal notranslate"><span class="pre">orders</span></code> در SQLite و لایهٔ مصرف، پرس‌وجوی گزارش است. ساخت سه پایگاه مستقل ضرورتی ندارد. در سامانهٔ بزرگ، نسخهٔ دادهٔ خام و فرادادهٔ منشأ اهمیت بیشتری پیدا می‌کند.</p>
+</section>
+</section>
+<section id="id19">
+<h2>۷. شش جریان زیربنایی؛ چیزهایی که محدود به یک مرحله نیستند<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>اگر چرخهٔ حیات را به پنج خانه تقسیم کنیم و این شش موضوع را نادیده بگیریم، احتمالاً سامانه‌ای می‌سازیم که فقط «یک بار روی رایانهٔ توسعه‌دهنده» کار می‌کند. در مدل منابع، این حوزه‌ها <strong>جریان‌های سراسری</strong> (<code class="docutils literal notranslate"><span class="pre">Undercurrents</span></code>) هستند؛ از لحظهٔ تولید تا سرویس‌دهی در همهٔ مراحل اثر دارند [م۴؛ و۱].</p>
+<section id="security">
+<h3>۷.۱. امنیت (<code class="docutils literal notranslate"><span class="pre">Security</span></code>)<a class="headerlink" href="#security" title="Link to this heading">#</a></h3>
+<p>باید مشخص باشد چه کسی حق خواندن، تغییر دادن یا حذف داده را دارد. در سامانهٔ فروش واقعی، شمارهٔ تماس یا اطلاعات پرداخت نیازمند محافظت بیشتر است. حداقل دسترسی (<code class="docutils literal notranslate"><span class="pre">Least</span> <span class="pre">Privilege</span></code>)، مدیریت امن کلید و رمز، ثبت دسترسی و رمزنگاری مناسب از اصول اصلی‌اند. برای پروژهٔ این فصل از <strong>دادهٔ مصنوعی</strong> استفاده می‌کنیم و هیچ رمز یا کلید دسترسی در بسته قرار نمی‌دهیم؛ این ساده‌سازی آموزشی به معنی حذف نیاز امنیتی از پروژهٔ واقعی نیست.</p>
+</section>
+<section id="data-management-governance">
+<h3>۷.۲. مدیریت و حاکمیت داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Management</span> <span class="pre">&amp;</span> <span class="pre">Governance</span></code>)<a class="headerlink" href="#data-management-governance" title="Link to this heading">#</a></h3>
+<p>باید بدانیم «مالک داده کیست؟»، «این ستون چه معنایی دارد؟»، «منشأ عدد گزارش کدام فایل است؟» و «چه مدت باید نگه داشته شود؟». کاتالوگ داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Catalog</span></code>) برای توصیف و یافتن منابع، شجرهٔ داده (<code class="docutils literal notranslate"><span class="pre">Lineage</span></code>) برای دنبال کردن مسیر محاسبه، و مدیریت دادهٔ مرجع (<code class="docutils literal notranslate"><span class="pre">Master</span> <span class="pre">Data</span> <span class="pre">Management</span></code>) برای تعریف موجودیت‌های مشترک سازمانی کاربرد دارند. مثال: اگر گزارش فروش مقدار <code class="docutils literal notranslate"><span class="pre">340000</span></code> را نشان دهد، باید بتوان گفت از کدام سطرهای <code class="docutils literal notranslate"><span class="pre">paid</span></code> به دست آمده و چرا سطر <code class="docutils literal notranslate"><span class="pre">pending</span></code> حذف شده است.</p>
+</section>
+<section id="dataops">
+<h3>۷.۳. عملیات داده (<code class="docutils literal notranslate"><span class="pre">DataOps</span></code>)<a class="headerlink" href="#dataops" title="Link to this heading">#</a></h3>
+<p>DataOps مجموعه‌ای از شیوه‌های خودکارسازی، آزمون، پایش و بهبود چرخهٔ تولید و انتشار تغییرات خطوط داده است. همان‌طور که در مهندسی نرم‌افزار، تغییر کد بدون آزمون خطرناک است، در مهندسی داده تغییر معنی یک ستون یا قالب تاریخ ممکن است یک گزارش را بی‌سر‌و‌صدا خراب کند. برای نمونه، اجرای شش آزمون برنامهٔ این فصل نمونه‌ای کوچک از همین نگاه است؛ البته به‌تنهایی یک سامانهٔ کامل DataOps نیست.</p>
+</section>
+<section id="architecture">
+<h3>۷.۴. معماری (<code class="docutils literal notranslate"><span class="pre">Architecture</span></code>)<a class="headerlink" href="#architecture" title="Link to this heading">#</a></h3>
+<p>معماری دربارهٔ مرز مسئولیت‌ها، هزینه، دوام، مقیاس، زمان پاسخ، محل پردازش و امکان توسعه است. برای گزارش روزانهٔ ده سفارش، <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">+</span> <span class="pre">SQLite</span></code> کافی است؛ برای شبکهٔ ملی صدها شعبه، علاوه بر نیازهای مشابه، احتمالاً باید هماهنگی میان سیستم‌ها، تأخیر شبکه، خرابی گره و قرارداد تغییرات در نظر گرفته شود. مهم این است که <strong>نیاز واقعی</strong> دلیل انتخاب فناوری باشد.</p>
+</section>
+<section id="orchestration">
+<h3>۷.۵. هماهنگ‌سازی (<code class="docutils literal notranslate"><span class="pre">Orchestration</span></code>)<a class="headerlink" href="#orchestration" title="Link to this heading">#</a></h3>
+<p>هماهنگ‌سازی یعنی مشخص کنیم کدام کار پس از موفقیت کدام کار انجام شود، اگر کاری شکست خورد چه شود و اجرای مجدد از کجا ادامه یابد. نمودار وابستگی بدون دور (<code class="docutils literal notranslate"><span class="pre">DAG</span></code>) یک نمایش رایج برای چنین کارهایی است. مثلاً «دریافت فایل» باید پیش از «اعتبارسنجی» و «تولید گزارش» انجام شود. اما خواندن همهٔ مراحل در یک تابع Python لزوماً به ابزار بزرگ زمان‌بندی نیاز ندارد. برای شروع، ترتیب توابع کافی است؛ با زیاد شدن تعداد کارها و زمان‌بندی‌ها ابزار هماهنگ‌ساز ارزش پیدا می‌کند.</p>
+</section>
+<section id="software-engineering">
+<h3>۷.۶. مهندسی نرم‌افزار (<code class="docutils literal notranslate"><span class="pre">Software</span> <span class="pre">Engineering</span></code>)<a class="headerlink" href="#software-engineering" title="Link to this heading">#</a></h3>
+<p>کد خوانا، نسخه‌بندی، مدیریت خطا، آزمون خودکار، مستندسازی قرارداد ورودی/خروجی و قابلیت اجرای مجدد، ویژگی‌های یک سامانهٔ دادهٔ پایدارند. برای مثال، برنامه نباید هنگام مواجهه با مبلغ خالی بی‌سر‌و‌صدا آن را صفر کند یا پس از اجرای دوم تمام سفارش‌ها را دوباره وارد کند. اجرای تکرارپذیر (<code class="docutils literal notranslate"><span class="pre">Reproducibility</span></code>) یعنی با ورودی، نسخهٔ کد و تنظیمات معلوم بتوان خروجی را بازسازی کرد.</p>
+</section>
+</section>
+<section id="id20">
+<h2>۸. گردش کار پروژه: هفت گام از نیاز تا پایش<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>پنج مرحلهٔ چرخهٔ حیات توضیح می‌دادند <strong>داده چه مسیری را طی می‌کند</strong>. هفت گام گردش کار (<code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Workflow</span></code>) توضیح می‌دهند <strong>تیم پروژه چگونه آن سامانه را طراحی، تحویل و نگهداری می‌کند</strong>. یکی جای دیگری را نمی‌گیرد. حتی اگر مسیر داده از پنج مرحله عبور کرده باشد، بدون آزمون، استقرار و پایش، پروژه پایان نیافته است [م۵].</p>
+<figure class="align-default" id="fig-ch01-07">
+<a class="reference internal image-reference" href="../_images/fig01_07_workflow.png"><img alt="هفت مرحله گردش کار پروژه شامل نیازسنجی تا پایش و بازخورد" src="../_images/fig01_07_workflow.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text"><strong>شکل ۱-۷ —</strong> چرخهٔ ساخت پروژه. خروجی پایش می‌تواند باعث بازنگری نیازمندی و معماری شود؛ این گام‌ها محدود به اجرای یک‌باره نیستند.</span><a class="headerlink" href="#fig-ch01-07" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id21">
+<h3>گام ۱: تعریف مسئله و قرارداد خدمت<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>ابتدا باید به زبان کاربر پاسخ دهیم: چه تصمیمی با این داده گرفته می‌شود؟ شاخص دقیقاً چیست؟ چه میزان تأخیر مجاز است؟ چه کسی مصرف‌کننده است؟ از چه حجمی صحبت می‌کنیم؟ در نمونهٔ این فصل، خواسته «مجموع مبلغ سفارش‌های پرداخت‌شده بر اساس شهر برای دادهٔ فایل ورودی» است. فرض می‌کنیم گزارش پس از پایان بارگذاری فایل تهیه می‌شود؛ <strong>نیازِ چندثانیه‌ای یا برخط</strong> نداریم. بنابراین انتخاب فناوری جریانی در این مرحله توجیه ندارد.</p>
+<p>یک قرارداد خدمت (<code class="docutils literal notranslate"><span class="pre">SLA</span></code>) در پروژهٔ واقعی می‌تواند مشخص کند مثلاً گزارش تا ساعت ۸ هر روز آماده باشد. این عدد باید با ذی‌نفع توافق شود؛ در پروژهٔ آموزشی ما هیچ SLA واقعی تعریف یا اندازه‌گیری نشده است. همچنین باید بین شاخص کسب‌وکار (مانند فروش پرداخت‌شده) و شاخص فنی (مانند موفقیت دریافت فایل) تفاوت بگذاریم.</p>
+</section>
+<section id="id22">
+<h3>گام ۲: شناخت منبع و کشف داده<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>داده از کجا می‌آید، مسئول آن کیست، چه ستون‌هایی دارد، چقدر رشد می‌کند و کدام ردیف‌ها می‌توانند تغییر کنند؟ باید نمونهٔ داده را بخوانیم و مشخص کنیم آیا <code class="docutils literal notranslate"><span class="pre">order_id</span></code> واقعاً کلید یکتای منبع است. در برنامهٔ این فصل، از آن به‌عنوان کلید یکتا <strong>به‌موجب قرارداد نمونهٔ آموزشی</strong> استفاده کرده‌ایم. در دادهٔ واقعی ممکن است یک سفارش چند پرداخت یا چند اصلاح داشته باشد و به مدل دیگری نیاز پیدا کنیم.</p>
+<p><strong>کشف داده</strong> نباید تنها به پنج ردیف اول محدود شود. می‌توان فراوانی مقادیر خالی، وضعیت‌های نامعتبر، بازهٔ تاریخ، سهم دادهٔ تکراری و تغییر نوع ستون‌ها را بررسی کرد. همچنین لازم است دادهٔ شخصی و محدودیت حقوقی انتشار آن شناخته شود.</p>
+</section>
+<section id="id23">
+<h3>گام ۳: طراحی معماری<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>اکنون می‌توان دربارهٔ اجزا تصمیم گرفت: فایل CSV ورودی، برنامهٔ Python برای دریافت و اعتبارسنجی، پایگاه SQLite برای ثبت سفارش معتبر و SQL برای گزارش. این طراحی ساده، آزمون‌پذیر و متناسب با حجم است. در صورت نیاز به چند میلیون رویداد در ثانیه یا دسترس‌پذیری بسیار بالا، طراحی و ابزارها تغییر خواهند کرد؛ اما پیچیدگی اضافه، <strong>پیش‌فرض صحیح آموزشی</strong> نیست.</p>
+<p>در طراحی باید رفتار خطا معلوم باشد. تصمیم این فصل: رکورد دارای مبلغ نامعتبر یا تاریخ ناشناخته به <strong>قرنطینه</strong> (<code class="docutils literal notranslate"><span class="pre">Quarantine</span></code>) می‌رود؛ نه اینکه به‌صورت حدسی اصلاح شود. رکورد تکراریِ دقیق، برای بار دوم وارد جدول نمی‌شود. اگر یک <code class="docutils literal notranslate"><span class="pre">order_id</span></code> با محتوای متناقض تکرار شود، بدون قاعدهٔ کسب‌وکار یکی از آن دو را بر دیگری ترجیح نمی‌دهیم.</p>
+</section>
+<section id="id24">
+<h3>گام ۴: پیاده‌سازی<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>کار را به واحدهای روشن تقسیم می‌کنیم: خواندن CSV، تبدیل/اعتبارسنجی سطر، ثبت در پایگاه داده، ذخیرهٔ خطاها و ساخت گزارش. ترتیب اجرا مهم است: نباید پیش از ثبت قواعد، مبلغ نامعتبر را در گزارش استفاده کنیم. پرس‌وجو را نیز از پردازش ورودی جدا نگه می‌داریم تا گزارش را مستقل از شیوهٔ ورود داده بتوان بررسی کرد.</p>
+</section>
+<section id="id25">
+<h3>گام ۵: آزمون<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>سه سطح آزمون را از هم جدا کنید. <strong>آزمون واحد</strong> (<code class="docutils literal notranslate"><span class="pre">Unit</span> <span class="pre">Test</span></code>) روی یک قاعده مثل تبدیل تاریخ تمرکز دارد؛ <strong>آزمون یکپارچه</strong> (<code class="docutils literal notranslate"><span class="pre">Integration</span> <span class="pre">Test</span></code>) تعامل Python با SQLite را بررسی می‌کند؛ و <strong>آزمون سرتاسری</strong> (<code class="docutils literal notranslate"><span class="pre">End-to-End</span> <span class="pre">Test</span></code>) فایل ورودی تا مجموع گزارش را کنترل می‌کند. آزمون کیفیت داده نیز قوانین رکوردها را می‌سنجد و می‌تواند در هر سه سطح حضور داشته باشد. برای مثال باید نشان دهیم اجرای دوم دادهٔ فروش را دوبرابر نمی‌کند.</p>
+</section>
+<section id="id26">
+<h3>گام ۶: استقرار<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>انتقال برنامه از محیط توسعه به محیط مورد استفادهٔ دیگران <strong>استقرار</strong> (<code class="docutils literal notranslate"><span class="pre">Deployment</span></code>) است. در استقرار واقعی باید نسخهٔ کد، تنظیمات، مسیر داده، مجوز فایل‌ها، برنامهٔ زمان‌بندی و روش بازگشت به نسخهٔ قبلی مشخص باشد. معمولاً محیط آزمایشی پیش از محیط عملیاتی استفاده می‌شود. نمونهٔ این فصل فقط روی رایانهٔ محلی اجرا می‌شود و ادعای استقرار عملیاتی ندارد.</p>
+</section>
+<section id="id27">
+<h3>گام ۷: پایش و بازخورد<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>پس از اجرا باید بپرسیم: آیا دریافت فایل امروز موفق بوده؟ تعداد رکوردهای مردود ناگهان زیاد شده؟ گزارش تازه است؟ آیا مجموع درآمد نسبت به روزهای قبل به‌طرز مشکوک تغییر کرده؟ آیا زمان پردازش افزایش یافته؟ <strong>پایش زیرساخت</strong> (خطا، زمان، مصرف حافظه) و <strong>پایش داده</strong> (تازگی، تعداد، کیفیت، انحراف توزیع) مکمل یکدیگرند. اگر گزارش تغییر غیرمنتظره دارد، ممکن است اشکال از یک تغییر کسب‌وکار باشد، نه خرابی کد. این بازخورد می‌تواند قرارداد گام اول یا طرح مرحلهٔ سوم را اصلاح کند.</p>
+</section>
+<section id="id28">
+<h3>۸.۱. یک جدول برای جلوگیری از اشتباه گرفتن دو چارچوب<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>پرسش</p></th>
+<th class="head"><p>چرخهٔ حیات پنج‌مرحله‌ای</p></th>
+<th class="head"><p>گردش کار هفت‌مرحله‌ای</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>موضوع اصلی</p></td>
+<td><p>حرکت و استفادهٔ داده</p></td>
+<td><p>روش اجرای پروژه توسط تیم</p></td>
+</tr>
+<tr class="row-odd"><td><p>آغاز</p></td>
+<td><p>تولید داده در مبدأ</p></td>
+<td><p>تعریف نیاز و معیار موفقیت</p></td>
+</tr>
+<tr class="row-even"><td><p>پایان مفهومی</p></td>
+<td><p>سرویس‌دهی برای مصرف‌کننده</p></td>
+<td><p>پایش، بازخورد و نگهداری</p></td>
+</tr>
+<tr class="row-odd"><td><p>کیفیت و امنیت</p></td>
+<td><p>در سراسر چرخه، به‌صورت جریان مشترک</p></td>
+<td><p>در طراحی، آزمون، استقرار و پایش</p></td>
+</tr>
+<tr class="row-even"><td><p>مثال</p></td>
+<td><p>سفارش ثبت می‌شود، دریافت و گزارش می‌شود</p></td>
+<td><p>تیم نیاز را می‌پرسد، طراحی می‌کند، می‌سازد، تست می‌کند و نگه می‌دارد</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>نتیجه:</strong> پنج مرحله دربارهٔ <em>داده</em> هستند؛ هفت گام دربارهٔ <em>پروژه</em>. در پروژهٔ واقعی این دو هم‌زمان رخ می‌دهند.</p>
+</section>
+</section>
+<section id="id29">
+<h2>۹. دو مطالعهٔ موردی برای فهم انتخاب معماری<a class="headerlink" href="#id29" title="Link to this heading">#</a></h2>
+<p>منابع فصل به نمونه‌های چندشعبه‌ای و خدمات برخط اشاره می‌کنند [م۵]. در این بخش آن‌ها را به‌عنوان <strong>سناریوهای مفهومی</strong> بررسی می‌کنیم، نه نتایج حاصل از اجرای واقعی یا اندازه‌گیری.</p>
+<section id="id30">
+<h3>۹.۱. فروشگاه زنجیره‌ای با هزار شعبه<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<p>فرض کنید هزار شعبه دارای پایگاه سفارش مستقل هستند و مدیران می‌خواهند فروش شعب را با تأخیر چنددقیقه‌ای ببینند. اگر هر شب یک فایل تجمیعی ارسال شود، ممکن است برای تصمیم‌های همان روز دیر باشد. معماری محتمل می‌تواند تغییرات پایگاه (<code class="docutils literal notranslate"><span class="pre">CDC</span></code>) را دریافت کند، آن‌ها را از سامانهٔ انتقال رویداد عبور دهد، پاک‌سازی و تجمیع کند و در یک مخزن تحلیلی یا مخزن کم‌تأخیر برای داشبورد قرار دهد.</p>
+<p>در منابع، ترکیب‌هایی مانند <code class="docutils literal notranslate"><span class="pre">PostgreSQL</span></code>، <code class="docutils literal notranslate"><span class="pre">Debezium</span></code>، <code class="docutils literal notranslate"><span class="pre">Kafka</span></code>، <code class="docutils literal notranslate"><span class="pre">Flink</span></code>، <code class="docutils literal notranslate"><span class="pre">Redis</span></code>، <code class="docutils literal notranslate"><span class="pre">Spark</span></code> و <code class="docutils literal notranslate"><span class="pre">Snowflake</span></code> به‌عنوان فناوری‌های ممکن معرفی شده‌اند [م۵]. این نام‌ها <strong>قطعاتی با نقش‌های متفاوت</strong> هستند: پایگاه عملیاتی، آشکارسازی تغییر، انتقال رویداد، پردازش جریانی، ارائهٔ سریع و تحلیل. استفادهٔ هم‌زمان از تمام آن‌ها یک الزام عمومی نیست. اگر پردازش دسته‌ای هر پنج دقیقه نیاز را برآورده کند، معماری بسیار ساده‌تری هم ممکن است کافی باشد.</p>
+<p>در چنین مسئله‌ای سه خطر مفهومی مهم‌اند: (۱) دریافت تکراری تغییرات و دوباره‌شماری؛ (۲) رسیدن دیرهنگام یا خارج از ترتیب رویدادها؛ (۳) متفاوت بودن تعریف «پرداخت‌شده» میان شعب. اندازه‌گیری دقیق تأخیر و نرخ خطا باید در محیط واقعی صورت گیرد؛ این سناریو بنچمارک نیست.</p>
+</section>
+<section id="id31">
+<h3>۹.۲. پیشنهاد ویدیوی نزدیک به زمان واقعی<a class="headerlink" href="#id31" title="Link to this heading">#</a></h3>
+<p>در سامانهٔ پخش ویدیو، کلیک، توقف و ادامهٔ تماشا، رویدادهای پی‌درپی تولید می‌کنند. برای پیشنهادهای سریع، سامانه ممکن است سیگنال‌های تازه را زودتر از گزارش پایان روز بخواهد. یک طرح مفهومی شامل ثبت رویداد، پردازش جریانی، به‌روزرسانی ویژگی‌های رفتاری و پاسخ یک سرویس پیشنهاد است. منابع از نمونه‌های فرضی با حجم رویداد بسیار زیاد و اهداف تأخیر کوچک یاد می‌کنند [م۵]؛ این اعداد <strong>اهداف طراحی مفروض</strong> هستند، نه اندازه‌گیری تأییدشده در یک شرکت مشخص.</p>
+<p>نکتهٔ آموزشی این سناریو: تازگی داده، تحمل تأخیر و اندازه‌گیری عملیاتی مهم‌اند، ولی <strong>کم بودن تأخیر همیشه به معنی درست‌تر بودن پاسخ نیست</strong>. رویداد ناقص یا دیررس ممکن است باعث شود خروجی زود اما اشتباه برسد. مهندسی داده باید میان سرعت، صحت، هزینه و پیچیدگی توازن برقرار کند.</p>
+</section>
+</section>
+<section id="csv-sqlite">
+<h2>۱۰. کارگاه عملی: از فایل CSV تا SQLite و گزارش فروش<a class="headerlink" href="#csv-sqlite" title="Link to this heading">#</a></h2>
+<p>در این کارگاه، <strong>همهٔ اعداد از فایل مصنوعی همین بسته</strong> به دست می‌آیند. هیچ اتصال شبکه، نصب سرویس یا حساب کاربری لازم نیست. فایل‌های موردنیاز در پوشهٔ <code class="docutils literal notranslate"><span class="pre">downloads/</span></code> قرار گرفته‌اند:</p>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/data-engineering/course-notes/chapter-01/orders_sample.csv" download><code class="docutils literal notranslate"><span class="pre">orders_sample.csv</span></code></a>: ده سطر سفارش ساختگی و سرستون‌های مشخص.</p></li>
+<li><p><a href="/assets/downloads/courses/data-engineering/course-notes/chapter-01/chapter01_examples.py" download><code class="docutils literal notranslate"><span class="pre">chapter01_examples.py</span></code></a>: برنامهٔ کامل خواندن، اعتبارسنجی، ذخیره‌سازی و بازیابی.</p></li>
+<li><p><a href="/assets/downloads/courses/data-engineering/course-notes/chapter-01/chapter01_examples.ipynb" download><code class="docutils literal notranslate"><span class="pre">chapter01_examples.ipynb</span></code></a>: همان مسیر به شکل سلول‌های آموزشی و قابل اجرا.</p></li>
+<li><p><a href="/assets/downloads/courses/data-engineering/course-notes/chapter-01/test_chapter01_examples.py" download><code class="docutils literal notranslate"><span class="pre">test_chapter01_examples.py</span></code></a>: شش آزمون خودکار برای رفتارهای اصلی.</p></li>
+<li><p><a href="/assets/downloads/courses/data-engineering/course-notes/chapter-01/requirements.txt" download><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></a>: شرح وابستگی‌ها؛ فقط کتابخانهٔ استاندارد Python 3.9 یا جدیدتر.</p></li>
+</ul>
+<p><strong>نکته:</strong> دادهٔ CSV با حروف لاتین برای شهرها آماده شده تا تمرکز تمرین بر مهندسی داده باشد، نه تنظیمات نمایش فارسی. در خروجی، <code class="docutils literal notranslate"><span class="pre">Tehran</span></code> و <code class="docutils literal notranslate"><span class="pre">Isfahan</span></code> به ترتیب تهران و اصفهان‌اند. مبلغ‌ها تومان فرض شده‌اند؛ این انتخاب واحد، یک فرض آموزشی است.</p>
+<figure class="align-default" id="fig-ch01-08">
+<a class="reference internal image-reference" href="../_images/fig01_08_pipeline.png"><img alt="جریان ده رکورد CSV و کنترل اعتبار، ثبت هفت رکورد در SQLite و گزارش ۳۴۰ هزار تومانی" src="../_images/fig01_08_pipeline.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text"><strong>شکل ۱-۸ —</strong> جریان واقعی کد همراه با شمارش ردیف‌ها. قرنطینه، خطاهای داده را حفظ می‌کند و کلید یکتا مانع دوباره‌شماری می‌شود.</span><a class="headerlink" href="#fig-ch01-08" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id32">
+<h3>۱۰.۱. گام اول: مشاهده و شناخت فایل<a class="headerlink" href="#id32" title="Link to this heading">#</a></h3>
+<p>فایل با سرفصل زیر آغاز می‌شود:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>order_id,order_date,city,status,amount_toman
+1001,2026-10-15,Tehran,paid,120000
+1002,2026-10-15,Isfahan,paid,80000
+1003,2026-10-15,Tehran,canceled,50000
+...
+</pre></div>
+</div>
+<p>ده ردیف آن را می‌توان در جدول زیر خلاصه کرد. سه‌نقطه در نمونهٔ بالا فقط برای کوتاه کردن نمایش است؛ <strong>فایل دانلودی همهٔ ده ردیف را دارد</strong>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-right"><p>شناسه</p></th>
+<th class="head"><p>شهر</p></th>
+<th class="head"><p>وضعیت</p></th>
+<th class="head text-right"><p>مبلغ (تومان)</p></th>
+<th class="head"><p>تصمیم مهندسی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-right"><p>۱۰۰۱</p></td>
+<td><p>تهران</p></td>
+<td><p>پرداخت‌شده</p></td>
+<td class="text-right"><p>۱۲۰٬۰۰۰</p></td>
+<td><p>ثبت و ورود به گزارش</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>۱۰۰۲</p></td>
+<td><p>اصفهان</p></td>
+<td><p>پرداخت‌شده</p></td>
+<td class="text-right"><p>۸۰٬۰۰۰</p></td>
+<td><p>ثبت و ورود به گزارش</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>۱۰۰۳</p></td>
+<td><p>تهران</p></td>
+<td><p>لغوشده</p></td>
+<td class="text-right"><p>۵۰٬۰۰۰</p></td>
+<td><p>ثبت برای سوابق؛ <strong>خارج از فروش پرداخت‌شده</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>۱۰۰۴</p></td>
+<td><p>شیراز</p></td>
+<td><p>پرداخت‌شده</p></td>
+<td class="text-right"><p>خالی</p></td>
+<td><p>قرنطینه: مبلغ نامعلوم</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>۱۰۰۵</p></td>
+<td><p>تهران</p></td>
+<td><p>پرداخت‌شده</p></td>
+<td class="text-right"><p>۶۰٬۰۰۰−</p></td>
+<td><p>قرنطینه: مبلغ منفی و خارج از قرارداد</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>۱۰۰۶</p></td>
+<td><p>تهران</p></td>
+<td><p>پرداخت‌شده</p></td>
+<td class="text-right"><p>۳۰٬۰۰۰</p></td>
+<td><p>ثبت و ورود به گزارش</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>۱۰۰۶ (تکرار)</p></td>
+<td><p>تهران</p></td>
+<td><p>پرداخت‌شده</p></td>
+<td class="text-right"><p>۳۰٬۰۰۰</p></td>
+<td><p>تکرار دقیق؛ ذخیره نمی‌شود</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>۱۰۰۷</p></td>
+<td><p>اصفهان</p></td>
+<td><p>در انتظار</p></td>
+<td class="text-right"><p>۱۰۰٬۰۰۰</p></td>
+<td><p>ثبت برای سوابق؛ خارج از گزارش</p></td>
+</tr>
+<tr class="row-even"><td class="text-right"><p>۱۰۰۸</p></td>
+<td><p>اصفهان</p></td>
+<td><p>پرداخت‌شده</p></td>
+<td class="text-right"><p>۷۰٬۰۰۰</p></td>
+<td><p>ثبت و ورود به گزارش</p></td>
+</tr>
+<tr class="row-odd"><td class="text-right"><p>۱۰۰۹</p></td>
+<td><p>تهران</p></td>
+<td><p>پرداخت‌شده</p></td>
+<td class="text-right"><p>۴۰٬۰۰۰</p></td>
+<td><p>تبدیل تاریخ، ثبت و ورود به گزارش</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>سطر ۱۰۰۹ در فایل تاریخ <code class="docutils literal notranslate"><span class="pre">15/10/2026</span></code> دارد. چون صراحتاً قرارداد کرده‌ایم که این الگو <strong>روز/ماه/سال</strong> است، آن را به <code class="docutils literal notranslate"><span class="pre">2026-10-15</span></code> تبدیل می‌کنیم. اگر منبعی قالب <code class="docutils literal notranslate"><span class="pre">10/11/2026</span></code> بدهد و معلوم نباشد کدام بخش روز است، نباید بی‌دلیل تصمیم بگیریم. در سامانهٔ واقعی، قرارداد قالب تاریخ باید با مالک داده نوشته شود.</p>
+</section>
+<section id="csv-python">
+<h3>۱۰.۲. گام دوم: خواندن CSV با Python<a class="headerlink" href="#csv-python" title="Link to this heading">#</a></h3>
+<p>کتابخانهٔ استاندارد <code class="docutils literal notranslate"><span class="pre">csv</span></code>، سطرها را با نام ستون‌ها در قالب دیکشنری در اختیار ما می‌گذارد [و۲]. بخش اصلی دریافت چنین است:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">'orders_sample.csv'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8-sig'</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">'order_id'</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">'status'</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s1">'amount_toman'</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>در عمل، این کد را جداگانه لازم نیست اجرا کنید؛ فایل اصلی فصل آن را همراه سایر مراحل پیاده‌سازی کرده است. گزینهٔ <code class="docutils literal notranslate"><span class="pre">utf-8-sig</span></code> اجازه می‌دهد فایل UTF-8 همراه نشانگر BOM نیز خوانده شود. <strong>رشته‌های خوانده‌شده از CSV هنوز عدد محسوب نمی‌شوند</strong>؛ ستون <code class="docutils literal notranslate"><span class="pre">amount_toman</span></code> باید پیش از محاسبه به‌طور صریح بررسی و تبدیل شود.</p>
+</section>
+<section id="id33">
+<h3>۱۰.۳. گام سوم: اعتبارسنجی و تفکیک دادهٔ مردود<a class="headerlink" href="#id33" title="Link to this heading">#</a></h3>
+<p>برای هر ردیف چند قانون اجرا می‌شود: <code class="docutils literal notranslate"><span class="pre">order_id</span></code> یک عدد صحیح مثبت باشد؛ تاریخ یکی از دو قالب قرارداد را داشته باشد؛ شهر تهی نباشد؛ وضعیت در مجموعهٔ مجاز باشد؛ مبلغ عدد صحیح غیرمنفی باشد. در کد:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="ow">not</span> <span class="n">amount_text</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">amount_text</span><span class="o">.</span><span class="n">isascii</span><span class="p">()</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">amount_text</span><span class="o">.</span><span class="n">isdecimal</span><span class="p">():</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'amount_toman must be a nonnegative integer'</span><span class="p">)</span>
+<span class="n">amount_toman</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">amount_text</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>چرا مبلغ خالی را صفر نمی‌کنیم؟ چون صفر یک <strong>مقدار واقعی ممکن</strong> است ولی خالی بودن به معنی <strong>نامعلوم بودن</strong> است. جایگزینی خودکار، خطای داده را پنهان می‌کند. دو سطر ردشده در <code class="docutils literal notranslate"><span class="pre">quarantine.csv</span></code> با شمارهٔ خط و علت ثبت می‌شوند. اگر در آینده منبع اصلاح شود، می‌توان آن‌ها را دوباره با نسخهٔ تازهٔ ورودی پردازش کرد.</p>
+<p>تکرار نیز قاعدهٔ جداگانه دارد. اگر دو ردیف با یک شناسه <strong>کاملاً برابر</strong> باشند، یک نسخه پذیرفته می‌شود. اگر با یک شناسه مبلغ یا وضعیت متفاوت داشته باشند، برنامه آن را تعارض تلقی می‌کند و به قرنطینه می‌فرستد؛ چون بدون دانستن قواعد به‌روزرسانی کسب‌وکار نمی‌توان یکی را معتبرتر دانست. در سامانهٔ واقعی، نسخهٔ رخداد، زمان تغییر و قواعد <code class="docutils literal notranslate"><span class="pre">CDC</span></code> می‌توانند چنین ابهامی را برطرف کنند.</p>
+</section>
+<section id="sqlite">
+<h3>۱۰.۴. گام چهارم: ساخت جدول SQLite<a class="headerlink" href="#sqlite" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">SQLite</span></code> یک پایگاه دادهٔ رابطه‌ای سبک است که از طریق ماژول استاندارد <code class="docutils literal notranslate"><span class="pre">sqlite3</span></code> در Python قابل استفاده است [و۳]. ساخت جدول در برنامه چنین است:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="k">IF</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">EXISTS</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">order_id</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
+<span class="w">    </span><span class="n">order_date</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">city</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="nb">TEXT</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CHECK</span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">'paid'</span><span class="p">,</span><span class="s1">'pending'</span><span class="p">,</span><span class="s1">'canceled'</span><span class="p">)),</span>
+<span class="w">    </span><span class="n">amount_toman</span><span class="w"> </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CHECK</span><span class="p">(</span><span class="n">amount_toman</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+<p>در این جدول، <code class="docutils literal notranslate"><span class="pre">PRIMARY</span> <span class="pre">KEY</span></code> اجازهٔ ذخیرهٔ دو سفارش با یک شناسه را نمی‌دهد. <code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code> خالی نبودن مقدار SQL و <code class="docutils literal notranslate"><span class="pre">CHECK</span></code> معتبر بودن بعضی دامنه‌ها را کنترل می‌کنند. <strong>کنترل برنامه و کنترل پایگاه داده مکمل‌اند:</strong> برنامه پیام خطای قابل فهم و قرنطینه ایجاد می‌کند؛ پایگاه داده آخرین حفاظ یکپارچگی است.</p>
+<p>درج سطر با پارامترهای جایگزین انجام می‌شود:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+<span class="w">    </span><span class="sd">'''INSERT INTO orders</span>
+<span class="sd">       (order_id, order_date, city, status, amount_toman)</span>
+<span class="sd">       VALUES (?, ?, ?, ?, ?)'''</span><span class="p">,</span>
+    <span class="n">record</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>علامت‌های <code class="docutils literal notranslate"><span class="pre">?</span></code>، جایگذاری امن مقدارها را از متن دستور SQL جدا می‌کنند؛ ساختن دستور با چسباندن رشتهٔ ورودی کاربر، می‌تواند خطر تزریق SQL داشته باشد [و۳].</p>
+</section>
+<section id="id34">
+<h3>۱۰.۵. گام پنجم: بازیابی و محاسبهٔ دستی فروش<a class="headerlink" href="#id34" title="Link to this heading">#</a></h3>
+<p>شاخص این تمرین چنین تعریف شده است. اگر (S) مجموعهٔ سفارش‌های <strong>معتبر، یکتا و پرداخت‌شده</strong> باشد، فروش پرداخت‌شدهٔ شهر (c) عبارت است از:</p>
+<p>[
+\operatorname{Sales}(c) = \sum_{i\in S}\mathbf{1}(\operatorname{city}_i=c),\operatorname{amount}_i.
+]</p>
+<p>در اینجا (\mathbf{1}(P)) برابر یک است اگر شرط (P) برقرار باشد و در غیر این صورت صفر. بنابراین جمع فقط شامل سفارش‌های شهر موردنظر می‌شود. محاسبهٔ دستی:</p>
+<ul class="simple">
+<li><p><strong>تهران:</strong> <code class="docutils literal notranslate"><span class="pre">120000</span> <span class="pre">+</span> <span class="pre">30000</span> <span class="pre">+</span> <span class="pre">40000</span> <span class="pre">=</span> <span class="pre">190000</span></code> تومان.</p></li>
+<li><p><strong>اصفهان:</strong> <code class="docutils literal notranslate"><span class="pre">80000</span> <span class="pre">+</span> <span class="pre">70000</span> <span class="pre">=</span> <span class="pre">150000</span></code> تومان.</p></li>
+<li><p><strong>کل:</strong> <code class="docutils literal notranslate"><span class="pre">190000</span> <span class="pre">+</span> <span class="pre">150000</span> <span class="pre">=</span> <span class="pre">340000</span></code> تومان.</p></li>
+</ul>
+<p>این محاسبه ساده است، اما تنها پس از تعیین قواعد پرداخت، رد و تکرار به نتیجهٔ معنی‌دار می‌رسد. SQL متناظر:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">city</span><span class="p">,</span>
+<span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">paid_orders</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">amount_toman</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">revenue_toman</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'paid'</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">city</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">city</span><span class="p">;</span>
+</pre></div>
+</div>
+<p><strong>خروجی تأییدشدهٔ برنامه:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>شهر</p></th>
+<th class="head text-right"><p>تعداد سفارش پرداخت‌شده</p></th>
+<th class="head text-right"><p>مجموع مبلغ (تومان)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Isfahan</p></td>
+<td class="text-right"><p>۲</p></td>
+<td class="text-right"><p>۱۵۰٬۰۰۰</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tehran</p></td>
+<td class="text-right"><p>۳</p></td>
+<td class="text-right"><p>۱۹۰٬۰۰۰</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>جمع</strong></p></td>
+<td class="text-right"><p><strong>۵</strong></p></td>
+<td class="text-right"><p><strong>۳۴۰٬۰۰۰</strong></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>تعداد سطرهای ذخیره‌شده <strong>۷</strong> است، ولی در گزارش فقط <strong>۵ سفارش پرداخت‌شده</strong> دیده می‌شود؛ دو سفارش معتبر دیگر لغوشده یا در انتظار پرداخت هستند. این تفاوت نشانهٔ خطا نیست: <strong>نگهداری سوابق با انتخاب رکوردهای واجد شرایط گزارش یکسان نیست.</strong></p>
+</section>
+<section id="id35">
+<h3>۱۰.۶. گام ششم: اجرای برنامه و بازبینی خروجی<a class="headerlink" href="#id35" title="Link to this heading">#</a></h3>
+<p>فایل‌های نمونه و برنامه را در یک پوشه نگه دارید. از داخل <code class="docutils literal notranslate"><span class="pre">downloads</span></code>، دستور زیر را اجرا کنید:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>chapter01_examples.py
+</pre></div>
+</div>
+<p>برنامه در پوشهٔ <code class="docutils literal notranslate"><span class="pre">example_output</span></code> سه فایل تولید می‌کند: <code class="docutils literal notranslate"><span class="pre">orders.db</span></code> (پایگاه داده)، <code class="docutils literal notranslate"><span class="pre">quarantine.csv</span></code> (ردیف‌های ردشده و دلیل)، <code class="docutils literal notranslate"><span class="pre">report.json</span></code> (آمار پذیرش و گزارش شهری). مسیر ورودی و خروجی را می‌توان با <code class="docutils literal notranslate"><span class="pre">--input</span></code> و <code class="docutils literal notranslate"><span class="pre">--output-dir</span></code> تغییر داد. نمونه‌ای از خروجی ساختاریافته:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"source_records"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accepted_records"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"exact_duplicates"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"rejected_records"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"stored_records"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"report"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Isfahan"</span><span class="p">,</span><span class="w"> </span><span class="nt">"paid_orders"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="nt">"revenue_toman"</span><span class="p">:</span><span class="w"> </span><span class="mi">150000</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tehran"</span><span class="p">,</span><span class="w"> </span><span class="nt">"paid_orders"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">"revenue_toman"</span><span class="p">:</span><span class="w"> </span><span class="mi">190000</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"total_paid_revenue_toman"</span><span class="p">:</span><span class="w"> </span><span class="mi">340000</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>آزمون مهم تکرارپذیری:</strong> همان برنامه را دوباره با همان ورودی و خروجی اجرا کنید. شمار رکوردهای ذخیره‌شده همچنان ۷ و مجموع فروش ۳۴۰٬۰۰۰ می‌ماند. به این ویژگی، <strong>بی‌تأثیری تکرار اجرا بر وضعیت نهایی</strong> (<code class="docutils literal notranslate"><span class="pre">Idempotency</span></code>) می‌گوییم. دقیق‌تر اگر (P) عمل اجرای خط لوله روی یک وضعیت مشخص باشد، مطلوب است:</p>
+<p>[
+P(P(D))=P(D),
+]</p>
+<p>البته این رابطه فقط در دامنه‌ای معتبر است که <strong>ورودی و قرارداد ثابت باشند</strong> و سیاست به‌روزرسانی شناسه‌ها تغییر نکند. در کد این فصل، ردیف دارای شناسهٔ موجود و محتوای <strong>یکسان</strong> دوباره درج نمی‌شود؛ اما اگر محتوا تغییر کرده باشد، برنامه آن را با تعارض ثبت می‌کند. بنابراین برای <code class="docutils literal notranslate"><span class="pre">CDC</span></code> واقعی با تغییرات مجاز به منطق نسخه‌بندی و <code class="docutils literal notranslate"><span class="pre">upsert</span></code> مطابق قرارداد منبع نیاز خواهیم داشت [و۵].</p>
+</section>
+<section id="jupyter">
+<h3>۱۰.۷. گام هفتم: آزمون خودکار و دفترچهٔ Jupyter<a class="headerlink" href="#jupyter" title="Link to this heading">#</a></h3>
+<p>از داخل <code class="docutils literal notranslate"><span class="pre">downloads</span></code> می‌توان آزمون‌ها را با دستور زیر اجرا کرد:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>-v<span class="w"> </span>test_chapter01_examples.py
+</pre></div>
+</div>
+<p>آزمون‌ها هشت ویژگی را کنترل می‌کنند: خروجی عددی و کیفیت، ثابت ماندن نتیجه در اجرای مجدد، تبدیل تاریخ، رد مبلغ غیرمجاز، قرنطینهٔ شناسهٔ تکراری متعارض، تشخیص سرستون نادرست و کنترل ردیف‌های دارای فیلد کم یا اضافی. فایل <code class="docutils literal notranslate"><span class="pre">chapter01_examples.ipynb</span></code> نیز همین مثال را در سلول‌های کوچک‌تر نشان می‌دهد. از دفترچه می‌توان جدول خام، نتیجهٔ خط لوله، کوئری SQL و تأییدهای <code class="docutils literal notranslate"><span class="pre">assert</span></code> را مشاهده کرد. اجرای Notebook به محیط Jupyter دارای کرنل Python نیاز دارد، اما خود کد نمونه وابستگی ثالث ندارد.</p>
+</section>
+<section id="id36">
+<h3>۱۰.۸. محدودیت‌های علمی و عملی مثال<a class="headerlink" href="#id36" title="Link to this heading">#</a></h3>
+<p>این برنامه یک نمونهٔ آموزشی است، نه سامانهٔ فروش صنعتی. از جمله: مبلغ منفی را در این <strong>قرارداد ساده</strong> نامعتبر می‌شماریم؛ در حسابداری واقعی شاید یک رویداد برگشت وجهِ مستقل، مبلغ منفی مشروع داشته باشد و باید با مدل رویداد مناسب ثبت شود. وضعیت سفارش به‌صورت یک سطر فعلی نگهداری شده؛ تاریخچهٔ همهٔ تغییرات ذخیره نمی‌شود. شهر به شناسهٔ استاندارد شهر وصل نشده؛ بنابراین <code class="docutils literal notranslate"><span class="pre">Tehran</span></code> و <code class="docutils literal notranslate"><span class="pre">tehran</span></code> در دادهٔ واقعی باید با سیاست مشخص یکسان‌سازی شوند. زمان‌سنجی، تراکنش هم‌زمان چند فرستنده، بازپرداخت، مالیات و گزارش پایان روز نیز در این تمرین پیاده نشده‌اند.</p>
+<p><strong>حاصل آموزشی:</strong> حتی همین مثال کوچک نشان می‌دهد مهندس داده باید علاوه بر خواندن و نوشتن فایل، قرارداد کسب‌وکار، اعتبار، تکرار، ذخیره‌سازی، پرس‌وجو و امکان کنترل نتیجه را طراحی کند.</p>
+</section>
+</section>
+<section id="id37">
+<h2>۱۱. تمرین‌ها و راهنمای حل<a class="headerlink" href="#id37" title="Link to this heading">#</a></h2>
+<p>تمرین‌ها از ساده به دشوار مرتب شده‌اند. برای تمرین‌های عملی می‌توانید از فایل‌های همین فصل استفاده کنید؛ خروجی جدید را با نسخهٔ مرجع مقایسه کنید. پاسخ‌ها بلافاصله پس از سؤال آمده‌اند تا فصل برای مطالعهٔ مستقل نیز قابل استفاده باشد.</p>
+<section id="id38">
+<h3>تمرین ۱ ـ مفهوم: مرز مهندس داده و تحلیلگر<a class="headerlink" href="#id38" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> مدیر فروشگاه می‌خواهد بداند چرا فروش شهر الف کاهش یافته است. کدام بخش مسئله به مهندس داده مربوط است و کدام بخش به تحلیلگر داده؟</p>
+<p><strong>راهنمای حل:</strong> مهندس داده باید مطمئن شود دادهٔ سفارش و پرداخت، به‌روز، بدون دوباره‌شماری و با معنای مشترک در اختیار تحلیلگر است. تحلیلگر پس از اطمینان از این زیرساخت، روند فروش، ترکیب محصولات، تغییرات تقاضا و مقایسهٔ شهرها را بررسی می‌کند. ممکن است هر دو دربارهٔ تعریف شاخص با مدیر گفت‌وگو کنند. بنابراین پاسخ «مهندس داده فقط کپی می‌کند» نادرست است.</p>
+</section>
+<section id="id39">
+<h3>تمرین ۲ ـ مفهوم: چرخه و گردش کار<a class="headerlink" href="#id39" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> در یک پروژه گفته می‌شود «مرحلهٔ آزمون در چرخهٔ حیات پنج‌مرحله‌ای وجود ندارد؛ پس آزمون لازم نیست». اشکال این استدلال چیست؟</p>
+<p><strong>راهنمای حل:</strong> مدل پنج‌مرحله‌ای مسیر داده را توصیف می‌کند، نه همهٔ فعالیت‌های تیم پروژه. آزمون در گردش کار هفت‌مرحله‌ای و نیز در جریان‌های سراسری DataOps و مهندسی نرم‌افزار حضور دارد. در ضمن، کنترل کیفیت در مراحل دریافت و تبدیل خود جزئی از چرخهٔ داده است. نبودن واژهٔ «آزمون» در نام پنج مرحله، مجوز حذف آزمون نیست.</p>
+</section>
+<section id="id40">
+<h3>تمرین ۳ ـ محاسباتی: کیفیت رکوردها<a class="headerlink" href="#id40" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> از ۲۰۰ ردیف ورودی، ۱۲ ردیف نامعتبر و ۸ ردیف تکراری دقیق است و این دو گروه هم‌پوشانی ندارند. چند ردیف یکتا و پذیرفته‌شده باقی می‌ماند؟ درصد پذیرش را حساب کنید.</p>
+<p><strong>حل:</strong> (200-12-8=180) ردیف. درصد پذیرش (180/200\times100=90%) است. این نسبت، کیفیت معنایی همهٔ فیلدها یا تطبیق با منبع بیرونی را تضمین نمی‌کند.</p>
+</section>
+<section id="id41">
+<h3>تمرین ۴ ـ محاسباتی: تأثیر تعریف شاخص<a class="headerlink" href="#id41" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> اگر خط لولهٔ مثال فصل به‌اشتباه همهٔ رکوردهای معتبر با وضعیت <code class="docutils literal notranslate"><span class="pre">paid</span></code> و <code class="docutils literal notranslate"><span class="pre">pending</span></code> را جمع بزند، خروجی کل چقدر خواهد شد؟ اختلاف با خروجی صحیح چیست؟</p>
+<p><strong>حل:</strong> مبلغ سفارش در انتظار، ۱۰۰٬۰۰۰ تومان است. خروجی غلط (340000+100000=440000) تومان می‌شود. اختلاف (100000) تومان است. این خطا را نمی‌توان با تعویض SQLite با پایگاه سریع‌تر حل کرد؛ مشکل <strong>تعریف گزارش</strong> است.</p>
+</section>
+<section id="id42">
+<h3>تمرین ۵ ـ تصمیم معماری: دسته‌ای یا جریانی؟<a class="headerlink" href="#id42" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> واحد مالی فقط یک گزارش نهایی در ساعت ۸ صبح می‌خواهد. تیم دیگری برای تشخیص پرداخت مشکوک تأخیر زیر چند ثانیه نیاز دارد. چرا معماری یکسان برای هر دو الزاماً بهینه نیست؟</p>
+<p><strong>راهنمای حل:</strong> برای گزارش روزانه، دریافت دسته‌ای و محاسبهٔ شبانه غالباً ساده‌تر و کم‌هزینه‌تر است، مشروط به اینکه گزارش تا ساعت خواسته‌شده برسد. برای تشخیص تقلب، ورود و پردازش رویداد کم‌تأخیر مناسب‌تر است؛ البته کنترل تأخیر و دوباره‌شماری نیز لازم می‌شود. انتخاب باید با معیارهای اندازه‌گیری‌شده صورت گیرد.</p>
+</section>
+<section id="id43">
+<h3>تمرین ۶ ـ کاربردی: پرس‌وجوی سفارش‌ها<a class="headerlink" href="#id43" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> SQL بنویسید که تعداد سفارش‌های <code class="docutils literal notranslate"><span class="pre">pending</span></code> را به‌ازای هر شهر بازگرداند. خروجی فایل ساختگی چیست؟</p>
+<p><strong>حل:</strong></p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="n">city</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">pending_count</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'pending'</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">city</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">city</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>در دادهٔ فصل، تنها یک سفارش با وضعیت <code class="docutils literal notranslate"><span class="pre">pending</span></code> داریم؛ نتیجه <code class="docutils literal notranslate"><span class="pre">Isfahan</span> <span class="pre">|</span> <span class="pre">1</span></code> است.</p>
+</section>
+<section id="id44">
+<h3>تمرین ۷ ـ کاربردی: تغییر قواعد گزارش<a class="headerlink" href="#id44" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> می‌خواهیم فقط مجموع فروش پرداخت‌شده در تاریخ <code class="docutils literal notranslate"><span class="pre">2026-10-15</span></code> را حساب کنیم. چه تغییری در SQL لازم است و عدد صحیح چقدر است؟</p>
+<p><strong>حل:</strong> یک شرط برای تاریخ به پرس‌وجو اضافه کنید:</p>
+<div class="highlight-sql notranslate"><div class="highlight"><pre><span></span><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">amount_toman</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'paid'</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="n">order_date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'2026-10-15'</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>تمام سفارش‌های معتبر نمونه در همین تاریخ‌اند (تاریخ سفارش ۱۰۰۹ نیز تبدیل شده است)، پس پاسخ ۳۴۰٬۰۰۰ تومان باقی می‌ماند. برای گزارش چندروزه لازم است روشن شود منظور از تاریخ، ثبت سفارش است یا تأیید پرداخت.</p>
+</section>
+<section id="id45">
+<h3>تمرین ۸ ـ کاربردی: تغییر دادهٔ نامعتبر<a class="headerlink" href="#id45" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> اگر مبلغ خالی سفارش ۱۰۰۴ در نسخهٔ تازهٔ فایل به <code class="docutils literal notranslate"><span class="pre">60000</span></code> اصلاح شود و پردازش را در یک <strong>پوشهٔ خروجی تازه</strong> اجرا کنیم، چه عددهایی انتظار داریم؟</p>
+<p><strong>راهنمای حل و پاسخ:</strong> از آنجا که سفارش ۱۰۰۴ در شیراز و وضعیت <code class="docutils literal notranslate"><span class="pre">paid</span></code> دارد، با اصلاح مبلغ، رکورد پذیرفته می‌شود؛ بنابراین ۸ رکورد معتبر یکتا، ۱ رکورد تکراری و ۱ رکورد مردود می‌ماند. فروش شیراز ۶۰٬۰۰۰ و جمع فروش ۴۰۰٬۰۰۰ تومان می‌شود. استفاده از پوشهٔ تازه، تفاوت نسخهٔ ورودی را از دادهٔ قبلاً ذخیره‌شده جدا می‌کند. اگر قرار باشد یک سفارش موجود اصلاح شود، باید سیاست به‌روزرسانی را جداگانه طراحی کرد.</p>
+</section>
+<section id="id46">
+<h3>تمرین ۹ ـ کاربردی: دو اجرای هم‌پوشان<a class="headerlink" href="#id46" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> اگر دو پردازش هم‌زمان بخواهند سفارش ۱۰۰۶ را وارد پایگاه کنند، بررسی تکرار در یک دیکشنری داخل حافظهٔ هر پردازش کافی است؟</p>
+<p><strong>راهنمای حل:</strong> خیر. هر پردازش دیکشنری مستقل دارد. قید <code class="docutils literal notranslate"><span class="pre">PRIMARY</span> <span class="pre">KEY</span></code> در پایگاه داده مانع ذخیرهٔ دو سطر با شناسهٔ یکسان می‌شود، ولی برنامهٔ تولیدی باید هم‌زمانی، خطای قید یکتا و سیاست تلاش مجدد را نیز مدیریت کند. نمونهٔ آموزشی ما فقط اجرای ترتیبی را آزموده است؛ آزمون تنش هم‌زمانی انجام نشده است.</p>
+</section>
+<section id="id47">
+<h3>تمرین ۱۰ ـ طراحی: کیفیت در مقابل دسترسی<a class="headerlink" href="#id47" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> یک فایل از نظر تاریخ و مبلغ معتبر است، اما گزارش به دلیل خطای مجوز برای مدیر باز نمی‌شود. کدام ابعاد کیفیت و کدام جریان‌های زیربنایی مرتبط‌اند؟</p>
+<p><strong>راهنمای حل:</strong> اعتبار مقادیر لزوماً مشکلی ندارد؛ اما <strong>دسترس‌پذیری برای مصرف‌کنندهٔ مجاز</strong> مختل شده است. امنیت باید میان محرمانگی و اجازهٔ دسترسی درست توازن برقرار کند. پایش، عملیات داده و مدیریت دسترسی باید مشکل را پیدا و اصلاح کنند؛ باز کردن دسترسی همگانی راه‌حل مطلوب نیست.</p>
+</section>
+<section id="id48">
+<h3>تمرین ۱۱ ـ تشریحی: انتخاب ساختار ذخیره<a class="headerlink" href="#id48" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> گروه کوچکی با ده هزار سفارش ماهانه گزارش SQL تولید می‌کند و دادهٔ چندرسانه‌ای ندارد. گروه دیگری صدها میلیون رویداد و فایل تصویری دارد. چرا نباید از ابتدا هر دو را به معماری Lakehouse یکسان ملزم کرد؟</p>
+<p><strong>راهنمای حل:</strong> برای گروه اول، پایگاه رابطه‌ای و پردازش دسته‌ای ساده ممکن است نیاز را برآورده کند و نگهداری ارزان‌تر و قابل فهم‌تری داشته باشد. گروه دوم احتمالاً به ذخیرهٔ فایل‌های متنوع، کاتالوگ، پردازش توزیع‌شده و مدیریت نسخه نیاز دارد. انتخاب نهایی تابع حجم، فرکانس، مدل داده، تأخیر، هزینه، تخصص تیم و الزامات دسترسی است؛ صرف عدد «بزرگ» دلیل کافی نیست.</p>
+</section>
+<section id="id49">
+<h3>تمرین ۱۲ ـ طراحی پایش<a class="headerlink" href="#id49" title="Link to this heading">#</a></h3>
+<p><strong>سؤال:</strong> سه هشدار مناسب برای خط لولهٔ گزارش فروش پیشنهاد دهید و برای هر یک بگویید چه داده‌ای باید ثبت شود.</p>
+<p><strong>راهنمای حل:</strong> (۱) «فایل امروز نرسیده»: زمان آخرین ورود و زمان مورد انتظار؛ (۲) «درصد ردیف‌های مردود زیاد شده»: <code class="docutils literal notranslate"><span class="pre">rejected_records</span> <span class="pre">/</span> <span class="pre">source_records</span></code> همراه با مبنا یا آستانهٔ توافق‌شده؛ (۳) «گزارش تولید نشده»: وضعیت اجرای خط لوله و زمان آخرین گزارش موفق. آستانه‌ها باید با مشاهدهٔ دادهٔ واقعی و توافق مصرف‌کننده تعیین شوند، نه از روی اعداد ساختگی این تمرین.</p>
+</section>
+</section>
+<section id="id50">
+<h2>۱۲. جمع‌بندی و نقشهٔ ادامهٔ درس<a class="headerlink" href="#id50" title="Link to this heading">#</a></h2>
+<p>مهندسی داده از «ثبت و انتقال رکورد» شروع می‌شود، اما به همان محدود نمی‌ماند. در یک پروژهٔ قابل اتکا، معنای کسب‌وکار، کلیدهای داده، قواعد کیفیت، ذخیره‌سازی، زمان تحویل، امنیت، آزمون و پایش باید به هم مرتبط باشند. در این فصل مسئلهٔ فروشگاه نشان داد که اگر <code class="docutils literal notranslate"><span class="pre">pending</span></code> را با <code class="docutils literal notranslate"><span class="pre">paid</span></code> یکی بگیریم یا یک سفارش را دوبار بشماریم، حتی دقیق‌ترین دستور SQL نیز گزارشی نادرست تولید می‌کند.</p>
+<p>به‌خاطر بسپارید: <strong>چرخهٔ حیات پنج‌مرحله‌ای</strong> نقشهٔ حرکت داده است و <strong>گردش کار هفت‌مرحله‌ای</strong> نقشهٔ اجرای پروژه. شش جریان زیربنایی نیز در همهٔ این مراحل اثر دارند. از نظر فناوری، پایگاه رابطه‌ای، پردازش توزیع‌شده و معماری‌های نوین پاسخ‌هایی به نیازهای متفاوت‌اند؛ نه فهرستی از ابزارهایی که باید همیشه هم‌زمان نصب شوند.</p>
+<p>در فصل‌های بعد، همین مفاهیم را می‌توان با طراحی مدل داده، روش‌های دریافت، تبدیل و کنترل کیفیت، ساخت خطوط دسته‌ای و جریانی و راهکارهای نگهداری و پایش به‌تدریج گسترش داد. فعلاً معیار تسلط این است که بتوانید <strong>از یک سؤال سادهٔ کسب‌وکار، یک قرارداد داده و خط لولهٔ کوچکِ قابل آزمون بسازید</strong>.</p>
+</section>
+<section id="id51">
+<h2>منابع و مبنای تدوین<a class="headerlink" href="#id51" title="Link to this heading">#</a></h2>
+<section id="id52">
+<h3>الف) اسناد اصلی ارسالی (۵ سند، مجموعاً ۵۷ صفحه)<a class="headerlink" href="#id52" title="Link to this heading">#</a></h3>
+<p>این پنج فایل <strong>مبنای اصلی</strong> متن و ترتیب پوشش مفاهیم بوده‌اند. نام‌ها مطابق فایل‌های استخراج‌شده از آرشیو اولیه‌اند؛ استنادهای [م۱] تا [م۵] به آن‌ها اشاره می‌کنند:</p>
+<ul class="simple">
+<li><p><strong>[م۱]</strong> <em>Data Engineering Handbook</em>، «مقدمه و اهداف یادگیری»، <code class="docutils literal notranslate"><span class="pre">ch01_introduction.pdf</span></code>، ۶ صفحه، ۱۴۰۵. مبنای هدف‌های آموزشی، پیش‌نیازها، تشبیه رستوران و تصویر کلی نقش‌ها.</p></li>
+<li><p><strong>[م۲]</strong> <em>Data Engineering Handbook</em>، «تعریف مهندسی داده»، <code class="docutils literal notranslate"><span class="pre">ch01_definition.pdf</span></code>، ۱۳ صفحه، ۱۴۰۵. مبنای تعریف، تفاوت نقش‌ها، کیفیت و مسئلهٔ پراکندگی داده.</p></li>
+<li><p><strong>[م۳]</strong> <em>Data Engineering Handbook</em>، «تاریخچه و تحول مهندسی داده»، <code class="docutils literal notranslate"><span class="pre">ch01_history.pdf</span></code>، ۱۱ صفحه، ۱۴۰۵. مبنای سیر تاریخی، MapReduce، SQL، ابزارهای نوین و الگوهای ذخیره‌سازی.</p></li>
+<li><p><strong>[م۴]</strong> <em>Data Engineering Handbook</em>، «چرخهٔ حیات مهندسی داده»، <code class="docutils literal notranslate"><span class="pre">ch01_lifecycle.pdf</span></code>، ۱۴ صفحه، ۱۴۰۵. مبنای پنج مرحله و شش جریان زیربنایی، دریافت، تبدیل و سرویس‌دهی.</p></li>
+<li><p><strong>[م۵]</strong> <em>Data Engineering Handbook</em>، «گردش کار پروژهٔ مهندسی داده»، <code class="docutils literal notranslate"><span class="pre">ch01_workflow.pdf</span></code>، ۱۳ صفحه، ۱۴۰۵. مبنای هفت گام اجرای پروژه، آزمون، پایش و سناریوهای چندشعبه‌ای و رویدادمحور.</p></li>
+</ul>
+</section>
+<section id="id53">
+<h3>ب) منابع مستقل تکمیلی و اسناد رسمی<a class="headerlink" href="#id53" title="Link to this heading">#</a></h3>
+<p>منابع زیر برای <strong>توضیح فنی تکمیلی، نمونهٔ اجرایی یا روشن کردن محدودیت‌های ابزارها</strong> استفاده شده‌اند. وجود آن‌ها به معنی انتساب توضیح جدید به پنج سند اصلی نیست. پیوندها در زمان تدوین، ۳ نوامبر ۲۰۲۶، بررسی شده‌اند.</p>
+<ul class="simple">
+<li><p><strong>[و۱]</strong> Joe Reis &amp; Matt Housley، <em>Fundamentals of Data Engineering: Plan and Build Robust Data Systems</em>، O’Reilly Media، ۲۰۲۲؛ چارچوب چرخهٔ حیات و جریان‌های سراسری. <a class="reference external" href="https://www.oreilly.com/library/view/fundamentals-of-data/9781098108298/">صفحهٔ ناشر</a>.</p></li>
+<li><p><strong>[و۲]</strong> Python Software Foundation، <em>csv — CSV File Reading and Writing</em>، مستندات Python 3، <a class="reference external" href="https://docs.python.org/3/library/csv.html">راهنمای رسمی</a>.</p></li>
+<li><p><strong>[و۳]</strong> Python Software Foundation، <em>sqlite3 — DB-API 2.0 interface for SQLite databases</em>، مستندات Python 3؛ اتصال، تراکنش و پارامترهای SQL. <a class="reference external" href="https://docs.python.org/3/library/sqlite3.html">راهنمای رسمی</a>.</p></li>
+<li><p><strong>[و۴]</strong> Apache Software Foundation، <em>Apache Iceberg Table Specification</em>، <a class="reference external" href="https://iceberg.apache.org/spec/">مشخصات رسمی</a>؛ snapshot، فراداده و فایل‌های جدول. همچنین <a class="reference external" href="https://docs.delta.io/">Delta Lake Documentation</a> و <a class="reference external" href="https://hudi.apache.org/docs/overview.html/">Apache Hudi Overview</a> برای بررسی خانوادهٔ قالب‌های جدول.</p></li>
+<li><p><strong>[و۵]</strong> SQLite Consortium، <em>UPSERT — SQLite Language Reference</em>، <a class="reference external" href="https://www.sqlite.org/lang_upsert.html">مرجع رسمی</a>؛ رفتار تعارض کلید و ضرورت تعریف سیاست به‌روزرسانی.</p></li>
+</ul>
+<p><strong>یادداشت تهیهٔ شکل و مثال:</strong> تمام هشت تصویر این فصل برای همین جزوه از نو طراحی شده‌اند و از تصویرهای کتاب یا اسناد ارسالی کپی نشده‌اند. دادهٔ سفارش‌ها نیز ساختگی است. اعداد جدول گزارش بر اساس اجرای واقعی کد همین بسته هستند؛ هیچ بنچمارک کارایی یا تأخیر عملیاتی ادعا نشده است.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل‌های مهندسی داده</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">۱. مسئله‌ای که مهندسی داده باید حل کند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">پیوند با دانسته‌های قبلی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">خروجی‌های یادگیری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۲. مهندسی داده چیست و چه چیزی نیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۲.۱. تفاوت با چهار نقش نزدیک</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۲.۲. سه مسئلهٔ اساسی: پراکندگی، کیفیت و رشد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۲.۳. شش بعد کاربردی کیفیت داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۳. تاریخچه را از زاویهٔ مسئله بخوانیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۳.۱. از فایل مستقل به مدل رابطه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etl">۳.۲. انبار داده و ETL: چرا دادهٔ عملیاتی برای تحلیل کافی نبود؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۳.۳. دادهٔ عظیم و پردازش توزیع‌شده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۳.۴. جریان رویداد، رایانش ابری و جداسازی ذخیره از پردازش</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۳.۵. نتیجهٔ تاریخی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۴. چرخهٔ حیات داده: پنج مرحله، نه پنج برنامهٔ جداگانه</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation">۴.۱. مرحلهٔ تولید (<code class="docutils literal notranslate"><span class="pre">Generation</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#storage">۴.۲. مرحلهٔ ذخیره‌سازی (<code class="docutils literal notranslate"><span class="pre">Storage</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ingestion">۴.۳. مرحلهٔ دریافت (<code class="docutils literal notranslate"><span class="pre">Ingestion</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transformation">۴.۴. مرحلهٔ تبدیل (<code class="docutils literal notranslate"><span class="pre">Transformation</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#serving">۴.۵. مرحلهٔ سرویس‌دهی (<code class="docutils literal notranslate"><span class="pre">Serving</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#etl-elt">۴.۶. ETL و ELT را با چرخهٔ حیات اشتباه نگیریم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۵. ذخیره‌سازی برای تحلیل: انبار داده، دریاچه و لیک‌هاوس</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۵.۱. تفاوت «فایل»، «مدل داده» و «قالب جدول»</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۵.۲. سه قالب جدول مشهور چه نسبتی دارند؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۶. الگوهای معماری: چه زمانی کدام پرسش مطرح می‌شود؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#medallion">۶.۱. مثال کوتاه دربارهٔ Medallion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۷. شش جریان زیربنایی؛ چیزهایی که محدود به یک مرحله نیستند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#security">۷.۱. امنیت (<code class="docutils literal notranslate"><span class="pre">Security</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#data-management-governance">۷.۲. مدیریت و حاکمیت داده (<code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">Management</span> <span class="pre">&amp;</span> <span class="pre">Governance</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataops">۷.۳. عملیات داده (<code class="docutils literal notranslate"><span class="pre">DataOps</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#architecture">۷.۴. معماری (<code class="docutils literal notranslate"><span class="pre">Architecture</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#orchestration">۷.۵. هماهنگ‌سازی (<code class="docutils literal notranslate"><span class="pre">Orchestration</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software-engineering">۷.۶. مهندسی نرم‌افزار (<code class="docutils literal notranslate"><span class="pre">Software</span> <span class="pre">Engineering</span></code>)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۸. گردش کار پروژه: هفت گام از نیاز تا پایش</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">گام ۱: تعریف مسئله و قرارداد خدمت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">گام ۲: شناخت منبع و کشف داده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">گام ۳: طراحی معماری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">گام ۴: پیاده‌سازی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">گام ۵: آزمون</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">گام ۶: استقرار</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">گام ۷: پایش و بازخورد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۸.۱. یک جدول برای جلوگیری از اشتباه گرفتن دو چارچوب</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۹. دو مطالعهٔ موردی برای فهم انتخاب معماری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۹.۱. فروشگاه زنجیره‌ای با هزار شعبه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۹.۲. پیشنهاد ویدیوی نزدیک به زمان واقعی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#csv-sqlite">۱۰. کارگاه عملی: از فایل CSV تا SQLite و گزارش فروش</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۱۰.۱. گام اول: مشاهده و شناخت فایل</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#csv-python">۱۰.۲. گام دوم: خواندن CSV با Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">۱۰.۳. گام سوم: اعتبارسنجی و تفکیک دادهٔ مردود</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sqlite">۱۰.۴. گام چهارم: ساخت جدول SQLite</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">۱۰.۵. گام پنجم: بازیابی و محاسبهٔ دستی فروش</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">۱۰.۶. گام ششم: اجرای برنامه و بازبینی خروجی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter">۱۰.۷. گام هفتم: آزمون خودکار و دفترچهٔ Jupyter</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">۱۰.۸. محدودیت‌های علمی و عملی مثال</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">۱۱. تمرین‌ها و راهنمای حل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">تمرین ۱ ـ مفهوم: مرز مهندس داده و تحلیلگر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">تمرین ۲ ـ مفهوم: چرخه و گردش کار</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">تمرین ۳ ـ محاسباتی: کیفیت رکوردها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">تمرین ۴ ـ محاسباتی: تأثیر تعریف شاخص</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">تمرین ۵ ـ تصمیم معماری: دسته‌ای یا جریانی؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">تمرین ۶ ـ کاربردی: پرس‌وجوی سفارش‌ها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">تمرین ۷ ـ کاربردی: تغییر قواعد گزارش</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">تمرین ۸ ـ کاربردی: تغییر دادهٔ نامعتبر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">تمرین ۹ ـ کاربردی: دو اجرای هم‌پوشان</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">تمرین ۱۰ ـ طراحی: کیفیت در مقابل دسترسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">تمرین ۱۱ ـ تشریحی: انتخاب ساختار ذخیره</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">تمرین ۱۲ ـ طراحی پایش</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">۱۲. جمع‌بندی و نقشهٔ ادامهٔ درس</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">منابع و مبنای تدوین</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">الف) اسناد اصلی ارسالی (۵ سند، مجموعاً ۵۷ صفحه)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">ب) منابع مستقل تکمیلی و اسناد رسمی</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

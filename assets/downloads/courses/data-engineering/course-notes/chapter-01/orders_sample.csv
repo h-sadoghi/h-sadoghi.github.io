@@ -1,0 +1,11 @@
+order_id,order_date,city,status,amount_toman
+1001,2026-10-15,Tehran,paid,120000
+1002,2026-10-15,Isfahan,paid,80000
+1003,2026-10-15,Tehran,canceled,50000
+1004,2026-10-15,Shiraz,paid,
+1005,2026-10-15,Tehran,paid,-60000
+1006,2026-10-15,Tehran,paid,30000
+1006,2026-10-15,Tehran,paid,30000
+1007,2026-10-15,Isfahan,pending,100000
+1008,2026-10-15,Isfahan,paid,70000
+1009,15/10/2026,Tehran,paid,40000

@@ -1,0 +1,2 @@
+# Python 3.9+ standard library only (csv, sqlite3, datetime, pathlib, unittest).
+# No third-party runtime dependencies.
