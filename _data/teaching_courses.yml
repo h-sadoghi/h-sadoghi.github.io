@@ -48,7 +48,7 @@
 - id: image-processing
   title: Image Processing
   description: Original notes, diagrams, and code for selected topics in digital image processing.
-  image: /assets/img/courses/default-course.svg
+  image: /assets/img/courses/DigitalImageProcessing.png
   url: /teaching/image-processing/book/
   materials_url: /teaching/image-processing/gonzalez/
   student_work_url: /teaching/image-processing/student-work/
@@ -65,7 +65,7 @@
 - id: data-engineering
   title: Data Engineering
   description: Introduction to data engineering, data lifecycles, pipelines, storage, and practical exercises.
-  image: /assets/img/courses/default-course.svg
+  image: /assets/img/courses/DataEngineering.png
   url: /teaching/data-engineering/book/
   materials_url: /teaching/data-engineering/materials/
   order: 7
