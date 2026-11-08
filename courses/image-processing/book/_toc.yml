@@ -15,6 +15,8 @@ chapters:
         title: "فصل چهارم: پالایش تصویر در حوزه فرکانس"
       - file: gonzalez/chapter-05
         title: "فصل ۵: ترمیم و بازسازی تصویر"
+      - file: gonzalez/chapter-06
+        title: 'فصل ششم: آشنایی ساده با RGB، HSI و HSV'
       - file: gonzalez/chapter-07
         title: "فصل هفتم: موجک و تحلیل چندمقیاسی تصویر"
       - file: gonzalez/chapter-08
