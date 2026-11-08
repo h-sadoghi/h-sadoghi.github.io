@@ -1,0 +1,654 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل ششم — آشنایی با سه فضای رنگ RGB، HSI و HSV &#8212; Image Processing Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'gonzalez/chapter-06';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="فصل هفتم — موجک؛ دیدن «چه چیزی، کجا و در چه اندازه‌ای» در تصویر" href="chapter-07.html" />
+    <link rel="prev" title="فصل ۵: ترمیم و بازسازی تصویر" href="chapter-05.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Image Processing Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    Image Processing Course Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Gonzalez Notes and Learning Files</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">فصل ۱ — مقدمه‌ای بر پردازش تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">فصل دوم: مبانی تصویر دیجیتال</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل ششم: آشنایی ساده با RGB، HSI و HSV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-07.html">فصل هفتم: موجک و تحلیل چندمقیاسی تصویر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-08.html">فصل هشتم: اطلاعات تصویر، آنتروپی و فشرده‌سازی کاربردی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-09.html">فصل نهم: مورفولوژی ریاضی دودویی — چهار عمل بنیادی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-10.html">فصل ۱۰: قطعه‌بندی تصویر — از پیکسل تا شیء</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-11.html">فصل ۱۱: بافت تصویر و توصیفگر SIFT</a></li>
+</ul>
+</details></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../student-work/index.html">Student Work</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/index.html">Digital Image Processing — Gonzalez &amp; Woods</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-01/index.html">Chapter 1 — Introduction</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-02/index.html">Chapter 2 — Digital Image Fundamentals</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../student-work/section-03/rgb-based-segmentation-project.html">RGB Color Segmentation Using Dominant Channels and Histogram Peaks</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-03/index.html">Chapter 3 — Intensity Transformations and Spatial Filtering</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../student-work/section-03/svd-low-rank-separable-convolution.html">Low-Rank Approximation of 2-D Convolution Filters Using SVD</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-04/index.html">Chapter 4 — Filtering in the Frequency Domain</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-05/index.html">Chapter 5 — Image Restoration and Reconstruction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-06/index.html">Chapter 6 — Color Image Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-07/index.html">Chapter 7 — Wavelet and Other Image Transforms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-08/index.html">Chapter 8 — Image Compression and Watermarking</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-09/index.html">Chapter 9 — Morphological Image Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-10/index.html">Chapter 10 — Image Segmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-11/index.html">Chapter 11 — Feature Extraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../student-work/catalog/gonzalez/chapter-12/index.html">Chapter 12 — Image Pattern Classification</a></li>
+</ul>
+</details></li>
+<li class="toctree-l2"><a class="reference internal" href="../student-work/catalog/other/index.html">Image Processing — Other References</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/gonzalez/chapter-06.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل ششم — آشنایی با سه فضای رنگ RGB، HSI و HSV</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rgb">۶.۱ <code class="docutils literal notranslate"><span class="pre">RGB</span></code>: رنگ از ترکیب سه نور</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hsi-hsv">۶.۲ چرا به <code class="docutils literal notranslate"><span class="pre">HSI</span></code> و <code class="docutils literal notranslate"><span class="pre">HSV</span></code> نیاز داریم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h-hue"><code class="docutils literal notranslate"><span class="pre">H</span></code> یا فام (<code class="docutils literal notranslate"><span class="pre">Hue</span></code>): چه رنگی می‌بینیم؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#s-saturation"><code class="docutils literal notranslate"><span class="pre">S</span></code> یا اشباع (<code class="docutils literal notranslate"><span class="pre">Saturation</span></code>): رنگ چقدر خالص یا خاکستری است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">۶.۳ تفاوت اصلی <code class="docutils literal notranslate"><span class="pre">HSI</span></code> و <code class="docutils literal notranslate"><span class="pre">HSV</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">۶.۴ یک کاربرد بسیار ساده: جداکردن شیء قرمز</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۶.۵ مرور در یک دقیقه</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="rgb-hsi-hsv">
+<h1>فصل ششم — آشنایی با سه فضای رنگ <code class="docutils literal notranslate"><span class="pre">RGB</span></code>، <code class="docutils literal notranslate"><span class="pre">HSI</span></code> و <code class="docutils literal notranslate"><span class="pre">HSV</span></code><a class="headerlink" href="#rgb-hsi-hsv" title="Link to this heading">#</a></h1>
+<p><strong>هدف این فصل کوتاه:</strong> یاد بگیریم یک رنگ را چگونه با سه روش متفاوت توصیف کنیم. در اینجا از فرمول‌های طولانی تبدیل رنگ و معرفی سایر فضاهای رنگ صرف‌نظر می‌کنیم.</p>
+<section id="rgb">
+<h2>۶.۱ <code class="docutils literal notranslate"><span class="pre">RGB</span></code>: رنگ از ترکیب سه نور<a class="headerlink" href="#rgb" title="Link to this heading">#</a></h2>
+<p>در صفحه‌نمایش، هر نقطه (پیکسل) با سه مؤلفه مشخص می‌شود:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">R</span></code> (Red):</strong> مقدار نور قرمز</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">G</span></code> (Green):</strong> مقدار نور سبز</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">B</span></code> (Blue):</strong> مقدار نور آبی</p></li>
+</ul>
+<p>در یک تصویر معمول <strong>۸ بیتی در هر کانال</strong>، مقدار هر مؤلفه از <code class="docutils literal notranslate"><span class="pre">0</span></code> تا <code class="docutils literal notranslate"><span class="pre">255</span></code> است. برای مثال، <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">0,</span> <span class="pre">0)</span></code> قرمز، <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">255,</span> <span class="pre">0)</span></code> سبز و <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">255)</span></code> آبی است. اگر قرمز و سبز هر دو زیاد باشند و آبی صفر باشد، رنگ زرد خواهیم داشت: <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">0)</span></code>.</p>
+<figure class="align-default" id="fig06-rgb-examples">
+<a class="reference internal image-reference" href="../_images/fig06_01_rgb_examples.png"><img alt="../_images/fig06_01_rgb_examples.png" src="../_images/fig06_01_rgb_examples.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 258 </span><span class="caption-text">چند نمونه از ترکیب سه مؤلفهٔ <code class="docutils literal notranslate"><span class="pre">RGB</span></code>. سه عدد زیر هر رنگ به‌ترتیب مقادیر قرمز، سبز و آبی‌اند.</span><a class="headerlink" href="#fig06-rgb-examples" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>نکته:</strong> وقتی سه مقدار برابر باشند، رنگی از طیف خاکستری داریم؛ مانند <code class="docutils literal notranslate"><span class="pre">(120,</span> <span class="pre">120,</span> <span class="pre">120)</span></code>. هر سه مقدار صفر یعنی سیاه و هر سه مقدار <code class="docutils literal notranslate"><span class="pre">255</span></code> یعنی سفید.</p>
+</section>
+<section id="hsi-hsv">
+<h2>۶.۲ چرا به <code class="docutils literal notranslate"><span class="pre">HSI</span></code> و <code class="docutils literal notranslate"><span class="pre">HSV</span></code> نیاز داریم؟<a class="headerlink" href="#hsi-hsv" title="Link to this heading">#</a></h2>
+<p>فرض کنید می‌خواهیم از یک تصویر، تمام اشیای <strong>قرمز</strong> را جدا کنیم. کار با سه عدد <code class="docutils literal notranslate"><span class="pre">R</span></code>، <code class="docutils literal notranslate"><span class="pre">G</span></code> و <code class="docutils literal notranslate"><span class="pre">B</span></code> ممکن است، اما برای بیان «این پیکسل چه رنگی است؟» روش شهودی‌تری نیز داریم: رنگ را با <strong>نام رنگ، میزان رنگی‌بودن و میزان روشنایی</strong> توصیف کنیم. دو مدل <code class="docutils literal notranslate"><span class="pre">HSI</span></code> و <code class="docutils literal notranslate"><span class="pre">HSV</span></code> بر همین ایده بنا شده‌اند.</p>
+<section id="h-hue">
+<h3><code class="docutils literal notranslate"><span class="pre">H</span></code> یا فام (<code class="docutils literal notranslate"><span class="pre">Hue</span></code>): چه رنگی می‌بینیم؟<a class="headerlink" href="#h-hue" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">H</span></code> زاویه‌ای روی دایرهٔ رنگ، معمولاً از <code class="docutils literal notranslate"><span class="pre">0</span></code> تا <code class="docutils literal notranslate"><span class="pre">360</span></code> درجه است. برای رنگ‌های خالصِ زیر:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>فام</p></th>
+<th class="head text-right"><p>زاویهٔ تقریبی <code class="docutils literal notranslate"><span class="pre">H</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>قرمز</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">0°</span></code> یا <code class="docutils literal notranslate"><span class="pre">360°</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>زرد</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">60°</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>سبز</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">120°</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>آبی</p></td>
+<td class="text-right"><p><code class="docutils literal notranslate"><span class="pre">240°</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="align-default" id="fig06-hue-circle">
+<a class="reference internal image-reference" href="../_images/fig06_02_hue_circle.png"><img alt="../_images/fig06_02_hue_circle.png" src="../_images/fig06_02_hue_circle.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 259 </span><span class="caption-text">دایرهٔ فام: زاویه، خانوادهٔ رنگ را تعیین می‌کند؛ نه میزان روشنی آن را.</span><a class="headerlink" href="#fig06-hue-circle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در یک پیکسل کاملاً خاکستری، <strong>فام معنی ندارد</strong>؛ زیرا هیچ رنگی بر دیگری غالب نیست. در بعضی نرم‌افزارها برای سهولت مقدار <code class="docutils literal notranslate"><span class="pre">H=0</span></code> ذخیره می‌شود، اما این به معنی قرمز بودن خاکستری نیست.</p>
+</section>
+<section id="s-saturation">
+<h3><code class="docutils literal notranslate"><span class="pre">S</span></code> یا اشباع (<code class="docutils literal notranslate"><span class="pre">Saturation</span></code>): رنگ چقدر خالص یا خاکستری است؟<a class="headerlink" href="#s-saturation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span></code> نزدیک صفر: رنگ به خاکستری نزدیک است.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S</span></code> بزرگ‌تر: رنگ پررنگ‌تر و کمتر متمایل به خاکستری است.</p></li>
+</ul>
+<p>مثلاً صورتی کم‌رنگ و قرمز زنده می‌توانند <strong>فام قرمز</strong> داشته باشند، ولی اشباع آن‌ها متفاوت است. <code class="docutils literal notranslate"><span class="pre">S</span></code> به معنی «تعداد رنگ‌های موجود در تصویر» نیست. <strong>تعریف و عدد اشباع در <code class="docutils literal notranslate"><span class="pre">HSI</span></code> و <code class="docutils literal notranslate"><span class="pre">HSV</span></code> دقیقاً یکسان نیست</strong>؛ هرچند تفسیر ابتدایی آن‌ها مشابه است.</p>
+</section>
+</section>
+<section id="id1">
+<h2>۶.۳ تفاوت اصلی <code class="docutils literal notranslate"><span class="pre">HSI</span></code> و <code class="docutils literal notranslate"><span class="pre">HSV</span></code><a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>هر دو مدل از <code class="docutils literal notranslate"><span class="pre">H</span></code> و <code class="docutils literal notranslate"><span class="pre">S</span></code> استفاده می‌کنند، اما مؤلفهٔ سوم آن‌ها متفاوت است:</p>
+<ul class="simple">
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">HSI</span></code> = Hue, Saturation, Intensity</strong>. مؤلفهٔ <code class="docutils literal notranslate"><span class="pre">I</span></code> میانگین سه کانال <code class="docutils literal notranslate"><span class="pre">RGB</span></code> است: (I=(R+G+B)/3).</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">HSV</span></code> = Hue, Saturation, Value</strong>. مؤلفهٔ <code class="docutils literal notranslate"><span class="pre">V</span></code> بزرگ‌ترین مقدار میان سه کانال <code class="docutils literal notranslate"><span class="pre">RGB</span></code> است: (V=\max(R,G,B)).</p></li>
+</ul>
+<p>در این دو رابطه فرض کرده‌ایم <code class="docutils literal notranslate"><span class="pre">R</span></code> و <code class="docutils literal notranslate"><span class="pre">G</span></code> و <code class="docutils literal notranslate"><span class="pre">B</span></code> در بازهٔ <code class="docutils literal notranslate"><span class="pre">0</span></code> تا <code class="docutils literal notranslate"><span class="pre">255</span></code> هستند؛ بنابراین <code class="docutils literal notranslate"><span class="pre">I</span></code> و <code class="docutils literal notranslate"><span class="pre">V</span></code> نیز در همین بازه‌اند.</p>
+<p>برای یک پیکسل <strong>قرمز خالص</strong> با <code class="docutils literal notranslate"><span class="pre">RGB</span> <span class="pre">=</span> <span class="pre">(255,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>:</p>
+<ul class="simple">
+<li><p>در <code class="docutils literal notranslate"><span class="pre">HSI</span></code>، مقدار <code class="docutils literal notranslate"><span class="pre">I</span> <span class="pre">=</span> <span class="pre">85</span></code> است؛ چون میانگین سه عدد را گرفته‌ایم.</p></li>
+<li><p>در <code class="docutils literal notranslate"><span class="pre">HSV</span></code>، مقدار <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">=</span> <span class="pre">255</span></code> است؛ چون بزرگ‌ترین کانال را انتخاب کرده‌ایم.</p></li>
+</ul>
+<figure class="align-default" id="fig06-intensity-value">
+<a class="reference internal image-reference" href="../_images/fig06_03_intensity_vs_value.png"><img alt="../_images/fig06_03_intensity_vs_value.png" src="../_images/fig06_03_intensity_vs_value.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 260 </span><span class="caption-text">مقایسهٔ <code class="docutils literal notranslate"><span class="pre">I</span></code> و <code class="docutils literal notranslate"><span class="pre">V</span></code> برای چهار رنگ. طول هر نوار با مقدار عددی متناظر از <code class="docutils literal notranslate"><span class="pre">0</span></code> تا <code class="docutils literal notranslate"><span class="pre">255</span></code> متناسب است.</span><a class="headerlink" href="#fig06-intensity-value" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>پس <strong><code class="docutils literal notranslate"><span class="pre">I</span></code> و <code class="docutils literal notranslate"><span class="pre">V</span></code> را نباید یک کمیت یکسان تصور کنیم</strong>. همچنین هیچ‌کدام، به‌تنهایی، اندازه‌گیری دقیق روشنایی ادراک‌شده توسط چشم انسان نیستند.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>مدل</p></th>
+<th class="head"><p>پرسش ساده‌ای که پاسخ می‌دهد</p></th>
+<th class="head"><p>استفادهٔ نمونه</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">RGB</span></code></p></td>
+<td><p>هر کانال نور چقدر است؟</p></td>
+<td><p>نمایش و ذخیرهٔ تصاویر رنگی</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HSI</span></code></p></td>
+<td><p>رنگ، اشباع و <em>میانگین شدت کانال‌ها</em> چیست؟</p></td>
+<td><p>تحلیل آموزشی مؤلفه‌های رنگ</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HSV</span></code></p></td>
+<td><p>رنگ، اشباع و <em>بیشترین مقدار کانال</em> چیست؟</p></td>
+<td><p>انتخاب و جداسازی سادهٔ رنگ‌ها</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id2">
+<h2>۶.۴ یک کاربرد بسیار ساده: جداکردن شیء قرمز<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>در مثال زیر، یک شکل قرمز، یک شکل سبز و یک شکل آبی روی پس‌زمینهٔ خاکستری داریم. با تبدیل هر پیکسل از <code class="docutils literal notranslate"><span class="pre">RGB</span></code> به <code class="docutils literal notranslate"><span class="pre">HSV</span></code> و انتخاب فام نزدیک به قرمز <strong>همراه با اشباع کافی</strong>، می‌توانیم فقط ناحیهٔ قرمز را سفید و بقیه را سیاه کنیم.</p>
+<figure class="align-default" id="fig06-red-mask">
+<a class="reference internal image-reference" href="../_images/fig06_04_hsv_red_mask.png"><img alt="../_images/fig06_04_hsv_red_mask.png" src="../_images/fig06_04_hsv_red_mask.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 261 </span><span class="caption-text">سمت چپ: تصویر مصنوعی آموزشی. سمت راست: ماسک به‌دست‌آمده از شرط فام قرمز و اشباع کافی در فضای <code class="docutils literal notranslate"><span class="pre">HSV</span></code>.</span><a class="headerlink" href="#fig06-red-mask" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای اجرای کد، فقط بستهٔ <code class="docutils literal notranslate"><span class="pre">Pillow</span></code> لازم است. برنامه با ماژول استاندارد <code class="docutils literal notranslate"><span class="pre">colorsys</span></code> پایتون نیز کار می‌کند:</p>
+<p><a href="/assets/downloads/courses/image-processing/gonzalez/chapter-06/chapter06_color_demo.py" download>دانلود کد کوتاه Python</a> · <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-06/chapter06_color_demo.ipynb" download>دانلود Notebook</a> · <a href="/assets/downloads/courses/image-processing/gonzalez/chapter-06/sample_color_shapes.png" download>تصویر ورودی نمونه</a></p>
+<p><strong>تذکر:</strong> در تصاویر واقعی، تغییر نور، سایه و انعکاس می‌تواند مقدار رنگ را عوض کند؛ بنابراین انتخاب رنگ در <code class="docutils literal notranslate"><span class="pre">HSV</span></code> همیشه بی‌خطا نیست.</p>
+</section>
+<section id="id3">
+<h2>۶.۵ مرور در یک دقیقه<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>اگر بخواهیم با سه کلمه این فصل را به خاطر بسپاریم: <strong><code class="docutils literal notranslate"><span class="pre">RGB</span></code> یعنی مقدار سه نور؛ <code class="docutils literal notranslate"><span class="pre">H</span></code> یعنی خانوادهٔ رنگ؛ <code class="docutils literal notranslate"><span class="pre">S</span></code> یعنی میزان فاصله از خاکستری.</strong> مؤلفهٔ سوم در <code class="docutils literal notranslate"><span class="pre">HSI</span></code> میانگین و در <code class="docutils literal notranslate"><span class="pre">HSV</span></code> بیشینهٔ سه کانال است.</p>
+<p><strong>سه پرسش کوتاه:</strong></p>
+<ol class="arabic simple">
+<li><p>چرا <code class="docutils literal notranslate"><span class="pre">(100,</span> <span class="pre">100,</span> <span class="pre">100)</span></code> خاکستری است؟</p></li>
+<li><p>فام سبز و آبی خالص تقریباً چند درجه است؟</p></li>
+<li><p>برای <code class="docutils literal notranslate"><span class="pre">(255,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>، چرا <code class="docutils literal notranslate"><span class="pre">I</span> <span class="pre">=</span> <span class="pre">85</span></code> ولی <code class="docutils literal notranslate"><span class="pre">V</span> <span class="pre">=</span> <span class="pre">255</span></code> می‌شود؟</p></li>
+</ol>
+<p><strong>منبع پایه:</strong> Gonzalez &amp; Woods, <em>Digital Image Processing</em>, 4th ed., بخش مربوط به پردازش تصویر رنگی. مثال‌ها، شکل‌ها و کد این جزوه برای آموزش مستقل تهیه شده‌اند.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./gonzalez"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-05.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل ۵: ترمیم و بازسازی تصویر</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter-07.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">فصل هفتم — موجک؛ دیدن «چه چیزی، کجا و در چه اندازه‌ای» در تصویر</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rgb">۶.۱ <code class="docutils literal notranslate"><span class="pre">RGB</span></code>: رنگ از ترکیب سه نور</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hsi-hsv">۶.۲ چرا به <code class="docutils literal notranslate"><span class="pre">HSI</span></code> و <code class="docutils literal notranslate"><span class="pre">HSV</span></code> نیاز داریم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#h-hue"><code class="docutils literal notranslate"><span class="pre">H</span></code> یا فام (<code class="docutils literal notranslate"><span class="pre">Hue</span></code>): چه رنگی می‌بینیم؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#s-saturation"><code class="docutils literal notranslate"><span class="pre">S</span></code> یا اشباع (<code class="docutils literal notranslate"><span class="pre">Saturation</span></code>): رنگ چقدر خالص یا خاکستری است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">۶.۳ تفاوت اصلی <code class="docutils literal notranslate"><span class="pre">HSI</span></code> و <code class="docutils literal notranslate"><span class="pre">HSV</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">۶.۴ یک کاربرد بسیار ساده: جداکردن شیء قرمز</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۶.۵ مرور در یک دقیقه</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -182,6 +182,7 @@
 <li class="toctree-l2"><a class="reference internal" href="chapter-03.html">فصل سوم: تبدیلات شدت و پالایش مکانی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-04.html">فصل چهارم: پالایش تصویر در حوزه فرکانس</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-05.html">فصل ۵: ترمیم و بازسازی تصویر</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-06.html">فصل ششم: آشنایی ساده با RGB، HSI و HSV</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-07.html">فصل هفتم: موجک و تحلیل چندمقیاسی تصویر</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">فصل هشتم: اطلاعات تصویر، آنتروپی و فشرده‌سازی کاربردی</a></li>
 <li class="toctree-l2"><a class="reference internal" href="chapter-09.html">فصل نهم: مورفولوژی ریاضی دودویی — چهار عمل بنیادی</a></li>
@@ -427,7 +428,7 @@ document.write(`
 <a class="reference internal image-reference" href="../_images/fig08_00_concept_map.png"><img alt="../_images/fig08_00_concept_map.png" src="../_images/fig08_00_concept_map.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 284 </span><span class="caption-text">مسیر یادگیری: از فراوانی شدت‌های تصویر، مقدار اطلاعات متوسط را به دست می‌آوریم؛ سپس آن را برای طراحی کدهای کوتاه و درک فشرده‌سازی فایل‌های واقعی به کار می‌بریم. این شکل برای جزوه از نو تولید شده است.</span><a class="headerlink" href="#fig-ch08-concept" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 288 </span><span class="caption-text">مسیر یادگیری: از فراوانی شدت‌های تصویر، مقدار اطلاعات متوسط را به دست می‌آوریم؛ سپس آن را برای طراحی کدهای کوتاه و درک فشرده‌سازی فایل‌های واقعی به کار می‌بریم. این شکل برای جزوه از نو تولید شده است.</span><a class="headerlink" href="#fig-ch08-concept" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="id2">
@@ -533,7 +534,7 @@ p(r_k)=\frac{n_k}{MN}.
 <a class="reference internal image-reference" href="../_images/fig08_01_probability_entropy.png"><img alt="../_images/fig08_01_probability_entropy.png" src="../_images/fig08_01_probability_entropy.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 285 </span><span class="caption-text">سه حالت با چهار نماد ممکن: در تصویر چپ، احتمال نمادها برابر نیست و آنتروپی کمتر از دو بیت است؛ در حالت میانی، چهار نماد هم‌احتمال‌اند و آنتروپی دو بیت است؛ در حالت راست، تنها یک نماد دیده می‌شود و آنتروپی صفر است.</span><a class="headerlink" href="#fig-ch08-entropy-distributions" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 289 </span><span class="caption-text">سه حالت با چهار نماد ممکن: در تصویر چپ، احتمال نمادها برابر نیست و آنتروپی کمتر از دو بیت است؛ در حالت میانی، چهار نماد هم‌احتمال‌اند و آنتروپی دو بیت است؛ در حالت راست، تنها یک نماد دیده می‌شود و آنتروپی صفر است.</span><a class="headerlink" href="#fig-ch08-entropy-distributions" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -544,7 +545,7 @@ p(r_k)=\frac{n_k}{MN}.
 <a class="reference internal image-reference" href="../_images/toy_four_symbols.png"><img alt="../_images/toy_four_symbols.png" src="../_images/toy_four_symbols.png" style="width: 48%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 286 </span><span class="caption-text">تصویر چهارسطحی واقعیِ این مثال: مقدارهای ۰، ۸۵، ۱۷۰ و ۲۵۵ به‌ترتیب فراوانی ۳۲، ۱۶، ۸ و ۸ پیکسل دارند. این تصویر فقط برای آموزش ساخته شده است.</span><a class="headerlink" href="#fig-ch08-four-tones" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 290 </span><span class="caption-text">تصویر چهارسطحی واقعیِ این مثال: مقدارهای ۰، ۸۵، ۱۷۰ و ۲۵۵ به‌ترتیب فراوانی ۳۲، ۱۶، ۸ و ۸ پیکسل دارند. این تصویر فقط برای آموزش ساخته شده است.</span><a class="headerlink" href="#fig-ch08-four-tones" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -595,7 +596,7 @@ H&amp;=-\left(\frac12\log_2\frac12+\frac14\log_2\frac14
 <a class="reference internal image-reference" href="../_images/fig08_03_toy_histogram.png"><img alt="../_images/fig08_03_toy_histogram.png" src="../_images/fig08_03_toy_histogram.png" style="width: 88%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 287 </span><span class="caption-text">هیستوگرام چهارنمادی نمونه (نوارهای یک سمت) در مقایسه با حالت هم‌احتمال. هر دو چهار نماد دارند، ولی توزیع احتمال و در نتیجه آنتروپی‌شان یکسان نیست.</span><a class="headerlink" href="#fig-ch08-four-hist" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 291 </span><span class="caption-text">هیستوگرام چهارنمادی نمونه (نوارهای یک سمت) در مقایسه با حالت هم‌احتمال. هر دو چهار نماد دارند، ولی توزیع احتمال و در نتیجه آنتروپی‌شان یکسان نیست.</span><a class="headerlink" href="#fig-ch08-four-hist" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -615,14 +616,14 @@ H(p)=-p\log_2p-(1-p)\log_2(1-p).
 <a class="reference internal image-reference" href="../_images/fig08_02_binary_entropy_curve.png"><img alt="../_images/fig08_02_binary_entropy_curve.png" src="../_images/fig08_02_binary_entropy_curve.png" style="width: 82%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 288 </span><span class="caption-text">آنتروپیِ یک پیکسل دودویی. در <span class="math notranslate nohighlight">\(p=0.5\)</span> بیشترین عدم قطعیت داریم؛ در <span class="math notranslate nohighlight">\(p\)</span> نزدیک صفر یا یک، مقدار بعدی آسان‌تر پیش‌بینی می‌شود.</span><a class="headerlink" href="#fig-ch08-binary-entropy" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 292 </span><span class="caption-text">آنتروپیِ یک پیکسل دودویی. در <span class="math notranslate nohighlight">\(p=0.5\)</span> بیشترین عدم قطعیت داریم؛ در <span class="math notranslate nohighlight">\(p\)</span> نزدیک صفر یا یک، مقدار بعدی آسان‌تر پیش‌بینی می‌شود.</span><a class="headerlink" href="#fig-ch08-binary-entropy" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="fig-ch08-alphabet-size">
 <a class="reference internal image-reference" href="../_images/fig08_08_alphabet_size_entropy.png"><img alt="../_images/fig08_08_alphabet_size_entropy.png" src="../_images/fig08_08_alphabet_size_entropy.png" style="width: 82%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 289 </span><span class="caption-text">اگر نمادها هم‌احتمال باشند، با زیاد شدن تعداد نمادهای ممکن از ۲ به ۴، ۸ و ۲۵۶، آنتروپی به‌ترتیب ۱، ۲، ۳ و ۸ بیت در هر نماد می‌شود. این نتیجه فقط برای حالت هم‌احتمال است.</span><a class="headerlink" href="#fig-ch08-alphabet-size" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 293 </span><span class="caption-text">اگر نمادها هم‌احتمال باشند، با زیاد شدن تعداد نمادهای ممکن از ۲ به ۴، ۸ و ۲۵۶، آنتروپی به‌ترتیب ۱، ۲، ۳ و ۸ بیت در هر نماد می‌شود. این نتیجه فقط برای حالت هم‌احتمال است.</span><a class="headerlink" href="#fig-ch08-alphabet-size" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -634,7 +635,7 @@ H(p)=-p\log_2p-(1-p)\log_2(1-p).
 <a class="reference internal image-reference" href="../_images/fig08_06_same_entropy_different_structure.png"><img alt="../_images/fig08_06_same_entropy_different_structure.png" src="../_images/fig08_06_same_entropy_different_structure.png" style="width: 94%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 290 </span><span class="caption-text">دو تصویر با تعداد پیکسل سیاه و سفید یکسان و آنتروپی پیکسلی برابر یک بیت/پیکسل؛ اما ساختار مکانی بسیار متفاوت. این تفاوت را یک فشرده‌ساز مجهز به پیش‌بینی یا تشخیص تکرارهای مکانی می‌تواند به کار گیرد.</span><a class="headerlink" href="#fig-ch08-same-entropy" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 294 </span><span class="caption-text">دو تصویر با تعداد پیکسل سیاه و سفید یکسان و آنتروپی پیکسلی برابر یک بیت/پیکسل؛ اما ساختار مکانی بسیار متفاوت. این تفاوت را یک فشرده‌ساز مجهز به پیش‌بینی یا تشخیص تکرارهای مکانی می‌تواند به کار گیرد.</span><a class="headerlink" href="#fig-ch08-same-entropy" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>پس <strong>آنتروپی هیستوگرام، یک معیار درباره توزیع شدت‌هاست، نه بیان کامل همه قابلیت فشرده‌سازی تصویر</strong>. روش‌های پیشرفته‌تر از وابستگی مکانی و زمینه هم استفاده می‌کنند. در زبان نظری، می‌توان آنتروپی شرطی یا مدل‌های پیش‌بینی را مطالعه کرد؛ فعلاً درک همین تفاوت کافی است.</p>
@@ -662,7 +663,7 @@ H(p)=-p\log_2p-(1-p)\log_2(1-p).
 <a class="reference internal image-reference" href="../_images/fig08_05_huffman_flowchart.png"><img alt="../_images/fig08_05_huffman_flowchart.png" src="../_images/fig08_05_huffman_flowchart.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 291 </span><span class="caption-text">فلوچارت مراحل اصلی هافمن. بخش «سرآیند» برای آن اضافه شده که تفاوت بین طول نظری کد و حجم فایل واقعی فراموش نشود.</span><a class="headerlink" href="#fig-ch08-huffman-flow" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 295 </span><span class="caption-text">فلوچارت مراحل اصلی هافمن. بخش «سرآیند» برای آن اضافه شده که تفاوت بین طول نظری کد و حجم فایل واقعی فراموش نشود.</span><a class="headerlink" href="#fig-ch08-huffman-flow" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -673,7 +674,7 @@ H(p)=-p\log_2p-(1-p)\log_2(1-p).
 <a class="reference internal image-reference" href="../_images/fig08_04_huffman_tree.png"><img alt="../_images/fig08_04_huffman_tree.png" src="../_images/fig08_04_huffman_tree.png" style="width: 90%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 292 </span><span class="caption-text">درخت آموزشی هافمن. از ریشه به سمت نماد بروید و صفر/یکِ روی شاخه‌ها را کنار هم قرار دهید. این شکل دقیقاً با فراوانی مثال ما ساخته شده است.</span><a class="headerlink" href="#fig-ch08-huffman-tree" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 296 </span><span class="caption-text">درخت آموزشی هافمن. از ریشه به سمت نماد بروید و صفر/یکِ روی شاخه‌ها را کنار هم قرار دهید. این شکل دقیقاً با فراوانی مثال ما ساخته شده است.</span><a class="headerlink" href="#fig-ch08-huffman-tree" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>یکی از پاسخ‌های معتبر برای کدها چنین است (در جابه‌جایی شاخه‌های هم‌احتمال، کدها ممکن است متفاوت شوند ولی میانگین طول ثابت بماند):</p>
@@ -745,7 +746,7 @@ C_R=\frac{S_{\rm original}}{S_{\rm compressed}},
 <a class="reference internal image-reference" href="../_images/fig08_07_lossless_pipeline.png"><img alt="../_images/fig08_07_lossless_pipeline.png" src="../_images/fig08_07_lossless_pipeline.png" style="width: 96%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 293 </span><span class="caption-text">در فشرده‌سازی بدون اتلاف، پس از رمزگشایی پیکسل‌های بازسازی‌شده دقیقاً با پیکسل‌های ورودی برابرند. خود فایل فشرده لزوماً کوچک‌تر از داده اولیه نیست.</span><a class="headerlink" href="#fig-ch08-lossless-flow" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 297 </span><span class="caption-text">در فشرده‌سازی بدون اتلاف، پس از رمزگشایی پیکسل‌های بازسازی‌شده دقیقاً با پیکسل‌های ورودی برابرند. خود فایل فشرده لزوماً کوچک‌تر از داده اولیه نیست.</span><a class="headerlink" href="#fig-ch08-lossless-flow" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -779,7 +780,7 @@ C_R=\frac{S_{\rm original}}{S_{\rm compressed}},
 <a class="reference internal image-reference" href="../_images/fig08_09_lossless_vs_lossy.png"><img alt="../_images/fig08_09_lossless_vs_lossy.png" src="../_images/fig08_09_lossless_vs_lossy.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 294 </span><span class="caption-text">تفاوت دو انتخاب در WebP: در حالت بدون اتلاف اعداد پیکسل‌ها دقیقاً برمی‌گردند؛ در حالت با اتلاف مقداری از جزئیات کنار گذاشته می‌شود تا فایل کوچک‌تر شود.</span><a class="headerlink" href="#fig-ch08-two-modes" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 298 </span><span class="caption-text">تفاوت دو انتخاب در WebP: در حالت بدون اتلاف اعداد پیکسل‌ها دقیقاً برمی‌گردند؛ در حالت با اتلاف مقداری از جزئیات کنار گذاشته می‌شود تا فایل کوچک‌تر شود.</span><a class="headerlink" href="#fig-ch08-two-modes" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="id16">
@@ -800,7 +801,7 @@ C_R=\frac{S_{\rm original}}{S_{\rm compressed}},
 <a class="reference internal image-reference" href="../_images/fig08_10_webp_prediction_idea.png"><img alt="../_images/fig08_10_webp_prediction_idea.png" src="../_images/fig08_10_webp_prediction_idea.png" style="width: 94%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 295 </span><span class="caption-text">ایده ساده‌شده پیش‌بینی در فشرده‌سازی با اتلاف WebP: اگر بتوان یک بخش را از بخش‌های اطراف حدس زد، ذخیرهٔ اطلاعات باقی‌مانده می‌تواند کم‌هزینه‌تر باشد. این شکل، نمودار کامل استاندارد VP8 نیست.</span><a class="headerlink" href="#fig-ch08-webp-prediction" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 299 </span><span class="caption-text">ایده ساده‌شده پیش‌بینی در فشرده‌سازی با اتلاف WebP: اگر بتوان یک بخش را از بخش‌های اطراف حدس زد، ذخیرهٔ اطلاعات باقی‌مانده می‌تواند کم‌هزینه‌تر باشد. این شکل، نمودار کامل استاندارد VP8 نیست.</span><a class="headerlink" href="#fig-ch08-webp-prediction" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>در یک تصویر طبیعی، در ناحیه آسمان معمولاً رنگ پیکسل‌های مجاور نزدیک است. کدگذار می‌تواند از همین شباهت بهره ببرد. اما در لبه یک نوشته یا خط نازک، کوچک‌ترین تغییر ممکن است از نظر بصری مهم باشد. از این رو <strong>بهترین تنظیمات برای عکس و نمودار یکسان نیستند</strong>.</p>
@@ -821,7 +822,7 @@ C_R=\frac{S_{\rm original}}{S_{\rm compressed}},
 <a class="reference internal image-reference" href="../_images/fig08_11_webp_quality_gallery.png"><img alt="../_images/fig08_11_webp_quality_gallery.png" src="../_images/fig08_11_webp_quality_gallery.png" style="width: 98%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 296 </span><span class="caption-text">یک ورودی یکسان در PNG، سه کیفیت مختلف WebP و WebP بدون اتلاف. روی صفحه، کاهش حجم ممکن است بسیار بیشتر از کاهش کیفیت ظاهری به نظر برسد؛ اما قضاوت کیفیت به بزرگ‌نمایی و نوع محتوای تصویر وابسته است.</span><a class="headerlink" href="#fig-ch08-webp-gallery" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 300 </span><span class="caption-text">یک ورودی یکسان در PNG، سه کیفیت مختلف WebP و WebP بدون اتلاف. روی صفحه، کاهش حجم ممکن است بسیار بیشتر از کاهش کیفیت ظاهری به نظر برسد؛ اما قضاوت کیفیت به بزرگ‌نمایی و نوع محتوای تصویر وابسته است.</span><a class="headerlink" href="#fig-ch08-webp-gallery" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p>مقادیر زیر نتیجه <strong>اجرای واقعی کد تولید همین بسته</strong> هستند، نه نتیجه‌ای نقل‌شده از وب:</p>
@@ -861,7 +862,7 @@ C_R=\frac{S_{\rm original}}{S_{\rm compressed}},
 <a class="reference internal image-reference" href="../_images/fig08_12_actual_file_sizes.png"><img alt="../_images/fig08_12_actual_file_sizes.png" src="../_images/fig08_12_actual_file_sizes.png" style="width: 95%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 297 </span><span class="caption-text">حجم واقعی فایل‌های ساخته‌شده از یک تصویر: نمودار برای همان ورودی و شرایط یکسان تولید شده است. ستون JPEG صرفاً معیار مقایسه تجربی است و وارد جزئیات الگوریتم JPEG نمی‌شویم.</span><a class="headerlink" href="#fig-ch08-file-sizes" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 301 </span><span class="caption-text">حجم واقعی فایل‌های ساخته‌شده از یک تصویر: نمودار برای همان ورودی و شرایط یکسان تولید شده است. ستون JPEG صرفاً معیار مقایسه تجربی است و وارد جزئیات الگوریتم JPEG نمی‌شویم.</span><a class="headerlink" href="#fig-ch08-file-sizes" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -882,14 +883,14 @@ C_R=\frac{S_{\rm original}}{S_{\rm compressed}},
 <a class="reference internal image-reference" href="../_images/fig08_13_quality_psnr.png"><img alt="../_images/fig08_13_quality_psnr.png" src="../_images/fig08_13_quality_psnr.png" style="width: 84%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 298 </span><span class="caption-text">مقدار PSNR در آزمایش همین تصویر مصنوعی با افزایش پارامتر کیفیت WebP. روندِ مشاهده‌شده مختص همین داده و تنظیمات است.</span><a class="headerlink" href="#fig-ch08-psnr" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 302 </span><span class="caption-text">مقدار PSNR در آزمایش همین تصویر مصنوعی با افزایش پارامتر کیفیت WebP. روندِ مشاهده‌شده مختص همین داده و تنظیمات است.</span><a class="headerlink" href="#fig-ch08-psnr" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-default" id="fig-ch08-webp-difference">
 <a class="reference internal image-reference" href="../_images/fig08_14_lossy_difference_map.png"><img alt="../_images/fig08_14_lossy_difference_map.png" src="../_images/fig08_14_lossy_difference_map.png" style="width: 94%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 299 </span><span class="caption-text">در نقشه سمت راست، تفاوت قدرمطلق پیکسل‌های ورودی و خروجی نمایش داده شده است. روشن بودن تصویر اختلاف به این معنا نیست که خروجی الزاماً از نظر انسانی همان‌قدر بد دیده می‌شود؛ فقط نشان می‌دهد تغییر عددی در کجا رخ داده است.</span><a class="headerlink" href="#fig-ch08-webp-difference" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 303 </span><span class="caption-text">در نقشه سمت راست، تفاوت قدرمطلق پیکسل‌های ورودی و خروجی نمایش داده شده است. روشن بودن تصویر اختلاف به این معنا نیست که خروجی الزاماً از نظر انسانی همان‌قدر بد دیده می‌شود؛ فقط نشان می‌دهد تغییر عددی در کجا رخ داده است.</span><a class="headerlink" href="#fig-ch08-webp-difference" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -954,7 +955,7 @@ C_R=\frac{S_{\rm original}}{S_{\rm compressed}},
 <a class="reference internal image-reference" href="../_images/fig08_15_choose_web_image_format.png"><img alt="../_images/fig08_15_choose_web_image_format.png" src="../_images/fig08_15_choose_web_image_format.png" style="width: 98%;" />
 </a>
 <figcaption>
-<p><span class="caption-number">Fig. 300 </span><span class="caption-text">راهنمای ساده تصمیم‌گیری درباره تصاویر سایت؛ معیار نهایی همیشه مشاهده نتیجه، اندازه‌گیری حجم و توجه به نوع استفاده است.</span><a class="headerlink" href="#fig-ch08-format-decision" title="Link to this image">#</a></p>
+<p><span class="caption-number">Fig. 304 </span><span class="caption-text">راهنمای ساده تصمیم‌گیری درباره تصاویر سایت؛ معیار نهایی همیشه مشاهده نتیجه، اندازه‌گیری حجم و توجه به نوع استفاده است.</span><a class="headerlink" href="#fig-ch08-format-decision" title="Link to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong>سؤال کاربردی:</strong> آیا بهتر است برای سایت تمام تصاویر را بدون بررسی به WebP با کیفیت ۳۰ تبدیل کنیم؟ خیر. برای تصویر دارای نوشته، عدد و خط باریک ممکن است اعوجاج کوچک باعث تغییر مفهوم علمی شود. در مقابل برای یک عکس تزیینی، تنظیم دیگری مناسب‌تر است.</p>
