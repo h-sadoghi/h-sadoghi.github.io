@@ -12,3 +12,9 @@ books:
     public_path: /teaching/data-engineering/book/
     jekyll_destination: _site/teaching/data-engineering/book
     course_id: data-engineering
+  - id: data-mining
+    title: Data Mining Course Book
+    source: courses/data-mining/book
+    public_path: /teaching/data-mining/book/
+    jekyll_destination: _site/teaching/data-mining/book
+    course_id: data-mining

@@ -1,0 +1,8 @@
+# Data Mining: do not create empty sections entries.
+format: jb-book
+root: index
+chapters:
+  - file: course-notes/index
+    sections:
+      - file: course-notes/chapter-01
+        title: مبانی داده‌کاوی و فرایند کشف دانش

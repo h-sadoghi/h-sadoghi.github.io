@@ -72,3 +72,13 @@
   link_type: internal
   chapters: []
   published: true
+- id: data-mining
+  title: Data Mining
+  description: Topic-centered data mining, essential mathematical foundations, hands-on examples and reproducible code.
+  image: /assets/img/courses/default-course.svg
+  url: /teaching/data-mining/book/
+  materials_url: /teaching/data-mining/materials/
+  order: 8
+  link_type: internal
+  chapters: []
+  published: true
