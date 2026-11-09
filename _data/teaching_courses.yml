@@ -75,7 +75,7 @@
 - id: data-mining
   title: Data Mining
   description: Topic-centered data mining, essential mathematical foundations, hands-on examples and reproducible code.
-  image: /assets/img/courses/default-course.svg
+  image: /assets/img/courses/DataMining.svg
   url: /teaching/data-mining/book/
   materials_url: /teaching/data-mining/materials/
   order: 8

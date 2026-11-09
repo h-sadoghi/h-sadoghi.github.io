@@ -1,78 +1,440 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>داده‌کاوی — آزمایشگاه تعاملی فصل ۱</title>
-<style>
-:root{--ink:#172b4d;--blue:#205587;--cyan:#0b8291;--pale:#f2f7fb;--line:#d7e2eb;--accent:#c15e28;--bg:#edf3f8;--positive:#067c69}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Tahoma,"Segoe UI",sans-serif;color:var(--ink);line-height:1.8}header{background:linear-gradient(115deg,#142c50,#1b6281);color:white;padding:32px max(22px,calc((100vw - 1180px)/2));}header h1{font-size:clamp(23px,3vw,38px);margin:0 0 6px}header p{margin:0;color:#c9e5ee}main{max-width:1180px;margin:20px auto;padding:0 18px 40px}.panel{background:white;border:1px solid var(--line);border-radius:15px;box-shadow:0 2px 12px #122c4410;padding:20px;margin-bottom:16px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}h2{font-size:19px;margin:0 0 12px;color:#174a70}h3{font-size:16px;margin:12px 0 8px}.small{color:#546c7d;font-size:13px}.control-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}.ctrl label{display:block;font-weight:700;font-size:14px}select,button{font:inherit;padding:10px 12px;border:1px solid #b3c7d7;border-radius:9px;background:white;width:100%;color:var(--ink)}button{cursor:pointer;background:#165d8b;color:white;border:0;margin-top:9px;font-weight:bold}button:hover{background:#107c95}.stat{padding:13px;background:var(--pale);border-radius:10px;border:1px solid #e0e9f1}.stat span{display:block;color:#546a7b;font-size:13px}.stat strong{font-size:23px;color:#115b87;direction:ltr;display:block;text-align:right;font-variant-numeric:tabular-nums}.notice{border-right:4px solid var(--accent);padding:12px 14px;background:#fff7ec;border-radius:8px;margin-top:12px}.eq{direction:ltr;text-align:center;font:15px 'Segoe UI',sans-serif;background:#f7fafc;padding:12px;border-radius:9px;overflow:auto}.bars{display:grid;gap:12px}.bar{display:grid;grid-template-columns:100px 1fr 62px;align-items:center;gap:8px;font-size:13px}.track{height:20px;background:#e1e9ef;border-radius:5px;overflow:hidden}.fill{background:#1699b2;height:100%;transition:width .25s}.fill.orange{background:#ed9343}.fill.green{background:#3d9978}.fill.purple{background:#8278c7}.basket-list{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}.basket{border:1px solid #e0e8ee;padding:7px 10px;border-radius:8px;font-size:13px;background:#fafcfd}.basket.selected{border-color:#75baa9;background:#e9f9f4}.basket .id{font-weight:700;color:#236289;margin-left:8px}table{width:100%;border-collapse:collapse;font-size:14px}th,td{border:1px solid #d5e2eb;padding:9px;text-align:center}th{background:#eff6fa}a{color:#125d86;text-decoration:none;font-weight:700}a:hover{text-decoration:underline}.links{display:flex;gap:12px;flex-wrap:wrap}.pill{padding:7px 13px;border:1px solid #b9c9d7;border-radius:30px;background:white}.meta{max-width:1180px;margin:0 auto;padding:0 18px 20px;color:#6b8495;font-size:12px}.badge{display:inline-block;background:#d9f3ed;color:#176958;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700}
-@media(max-width:800px){.grid,.grid-4{grid-template-columns:1fr}.basket-list{grid-template-columns:1fr}.bar{grid-template-columns:90px 1fr 50px}}
-</style></head>
-<body><header><h1>آزمایشگاه تعاملی فصل اول داده‌کاوی</h1><p>اجرای یک‌کلیکی و آفلاین: پشتیبان، اطمینان، بالابرندگی و اهرم روی ۱۰ تراکنش آموزشی</p></header>
-<main>
-<div class="panel"><div class="links"><a id="home" class="pill" href="DataMining_Chapter01.pdf">بازگشت به جزوهٔ PDF</a><a class="pill" href="DataMining_Chapter01.pdf" id="pdf">مشاهدهٔ PDF (در بستهٔ محلی)</a></div><p class="small">کافی است دو کالا را انتخاب کنید. نتایج، جدول توافق و تراکنش‌های شاهد بدون نصب هیچ کتابخانه یا اتصال اینترنت به‌روز می‌شوند. مجموعه‌داده ساختگی و فقط برای آموزش است.</p></div>
-<div class="grid">
-<section class="panel"><h2>۱. قاعدهٔ انجمنی خود را بسازید</h2><div class="control-row"><div class="ctrl"><label for="antecedent">مقدم (اگر مشتری بخرد)</label><select id="antecedent"></select></div><div class="ctrl"><label for="consequent">تالی (آنگاه خرید)</label><select id="consequent"></select></div></div><h3 id="rule-title" style="font-size:21px;margin-top:20px"></h3><p id="interpret"></p><div id="warning" class="notice"></div><p class="small">توجه: اطمینان یک احتمال شرطیِ تجربی است و به‌تنهایی اثر علّی یا سود عملی را ثابت نمی‌کند.</p></section>
-<section class="panel"><h2>۲. محاسبهٔ شاخص‌ها</h2><div class="grid-4"><div class="stat"><span>Support</span><strong id="support">—</strong></div><div class="stat"><span>Confidence</span><strong id="confidence">—</strong></div><div class="stat"><span>Lift</span><strong id="lift">—</strong></div><div class="stat"><span>Leverage</span><strong id="leverage">—</strong></div></div><h3>تعدادهای پایه</h3><p id="counts"></p><div class="eq" id="formula"></div></section>
-</div>
-<div class="grid">
-<section class="panel"><h2>۳. تفسیر بصری</h2><div id="bars" class="bars"></div><p class="small">نوارهای Support و Confidence در بازهٔ ۰ تا ۱ رسم می‌شوند. در نمودار Lift، مقدار ۱ به‌معنای استقلال تجربی است.</p><h3>جدول دو در دو</h3><table><thead><tr><th></th><th>تالی موجود</th><th>تالی غایب</th></tr></thead><tbody><tr><th>مقدم موجود</th><td id="c11"></td><td id="c10"></td></tr><tr><th>مقدم غایب</th><td id="c01"></td><td id="c00"></td></tr></tbody></table></section>
-<section class="panel"><h2>۴. داده‌هایی که نتیجه از آن‌ها به دست آمده</h2><div class="basket-list" id="baskets"></div><p class="small">ردیف‌های سبز هر دو کالای انتخاب‌شده را دارند. این قسمت برای بازبینی محاسبهٔ دستی طراحی شده است.</p></section>
-</div>
-<div class="panel"><h2>۵. نکتهٔ مهم علمی</h2><p>اگر ۱۰۰۰ قاعده را روی یک نمونهٔ کوچک امتحان کنیم، ممکن است برخی صرفاً بر اثر تصادف Support و Confidence بالایی داشته باشند. در تحلیل واقعی، علاوه بر معیارهای فوق، باید حداقل فراوانی، اعتبارسنجی روی دادهٔ مستقل، تغییرات زمانی، آزمون‌های چندگانه و میزان سود تصمیم بررسی شود.</p><span class="badge">کد کاملاً محلی؛ داده‌ای ارسال نمی‌شود</span></div>
-</main><div class="meta">درس داده‌کاوی کارشناسی ارشد — فصل ۰۱ — نسخهٔ مستقل آموزشی، بدون فراخوانی API</div>
-<script>
-'use strict';
-const BASKETS = [
- ['نان','شیر','پوشک'], ['نان','شیر'], ['شیر','پوشک','تخم‌مرغ'],
- ['نان','شیر','پوشک','کره'], ['نان','چای'], ['پوشک','آبمیوه'],
- ['نان','شیر','پوشک'], ['نان','کره'], ['شیر','پوشک','چای'],
- ['نان','شیر','پوشک','تخم‌مرغ']
-];
-function calculate(baskets,a,b){
- if(a===b) throw new Error('مقدم و تالی باید متفاوت باشند.');
- const n=baskets.length;
- const ca=baskets.filter(x=>x.includes(a)).length;
- const cb=baskets.filter(x=>x.includes(b)).length;
- const cab=baskets.filter(x=>x.includes(a)&&x.includes(b)).length;
- if(ca===0||cb===0) throw new Error('برای محاسبه، هر دو کالا باید موجود باشند.');
- const support=cab/n, confidence=cab/ca, lift=confidence/(cb/n),leverage=support-ca*cb/(n*n);
- return {n,ca,cb,cab,support,confidence,lift,leverage,
-   c11:cab,c10:ca-cab,c01:cb-cab,c00:n-ca-cb+cab};
-}
-function fmt(n,d=3){return n.toFixed(d)}
-function bar(name,v,color,caption){
-  const span = Math.min(100,Math.max(0,caption==='lift'? v/2*100:v*100));
-  return `<div class="bar"><div>${name}</div><div class="track"><div class="fill ${color}" style="width:${span}%"></div></div><span dir="ltr">${fmt(v)}</span></div>`;
-}
-function render(){
- const a=document.getElementById('antecedent').value,b=document.getElementById('consequent').value;
- const warn=document.getElementById('warning');
- if(a===b){warn.textContent='دو کالای متفاوت انتخاب کنید.';return;}
- const r=calculate(BASKETS,a,b);
- document.getElementById('rule-title').textContent=`${a}  ⟹  ${b}`;
- for(const k of ['support','confidence','lift','leverage'])document.getElementById(k).textContent=fmt(r[k]);
- document.getElementById('counts').innerHTML=`<b>N=${r.n}</b> ، تعداد مقدم: <b>${r.ca}</b> ، تعداد تالی: <b>${r.cb}</b> ، تعداد هر دو: <b>${r.cab}</b>`;
- document.getElementById('formula').textContent=`support=${r.cab}/${r.n}=${fmt(r.support)}  |  confidence=${r.cab}/${r.ca}=${fmt(r.confidence)}  |  lift=(${r.cab}/${r.ca}) / (${r.cb}/${r.n})=${fmt(r.lift)}`;
- document.getElementById('interpret').textContent=`از میان ${r.ca} تراکنشی که «${a}» دارند، ${r.cab} تراکنش «${b}» هم دارند. با این حال، باید نرخ کلی خرید «${b}» (${fmt(r.cb/r.n)}) را نیز در نظر گرفت.`;
- let m=''; if(r.cab<3)m+='فراوانی مشترک بسیار کم است؛ این قاعده ناپایدار می‌تواند باشد. ';
- if(r.lift>1+1e-10)m+='Lift بزرگ‌تر از ۱ است: هم‌وقوعی مشاهده‌شده بیش از مقداری است که بر اساس استقلال انتظار داریم.';
- else if(r.lift<1-1e-10)m+='Lift کمتر از ۱ است: هم‌وقوعی از مقدار مورد انتظار تحت استقلال کمتر است.';
- else m+='Lift برابر ۱ است: در این نمونه، همراهی فراتر از استقلال مشاهده نمی‌شود.';
- warn.textContent=m;
- document.getElementById('bars').innerHTML=bar('Support',r.support,'', '')+bar('Confidence',r.confidence,'orange','')+bar('P(تالی)',r.cb/r.n,'green','')+bar('Lift',r.lift,'purple','lift');
- for(const k of ['c11','c10','c01','c00']) document.getElementById(k).textContent=r[k];
- document.getElementById('baskets').innerHTML=BASKETS.map((row,i)=>`<div class="basket ${row.includes(a)&&row.includes(b)?'selected':''}"><span class="id">${i+1}</span>${row.join('، ')}</div>`).join('');
-}
-function init(){
- const items=[...new Set(BASKETS.flat())].sort((x,y)=>x.localeCompare(y,'fa'));
- for(const key of ['antecedent','consequent'])document.getElementById(key).innerHTML=items.map(x=>`<option value="${x}">${x}</option>`).join('');
- document.getElementById('antecedent').value='پوشک';
- document.getElementById('consequent').value='شیر';
- document.querySelectorAll('select').forEach(s=>s.addEventListener('change',render));
- if(location.protocol==='file:'){
-   document.getElementById('home').setAttribute('href','DataMining_Chapter01.pdf');
- } else {
-   document.getElementById('pdf').setAttribute('href','../../assets/downloads/data-mining/DataMining_Chapter01.pdf');
- }
- render();
-}
-if(typeof document!=='undefined')document.addEventListener('DOMContentLoaded',init);
-</script></body></html>
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>داده‌کاوی — آزمایشگاه تعاملی فصل ۱</title>
+    <style>
+      :root {
+        --ink: #172b4d;
+        --blue: #205587;
+        --cyan: #0b8291;
+        --pale: #f2f7fb;
+        --line: #d7e2eb;
+        --accent: #c15e28;
+        --bg: #edf3f8;
+        --positive: #067c69;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        font-family: Tahoma, "Segoe UI", sans-serif;
+        color: var(--ink);
+        line-height: 1.8;
+      }
+      header {
+        background: linear-gradient(115deg, #142c50, #1b6281);
+        color: white;
+        padding: 32px max(22px, calc((100vw - 1180px) / 2));
+      }
+      header h1 {
+        font-size: clamp(23px, 3vw, 38px);
+        margin: 0 0 6px;
+      }
+      header p {
+        margin: 0;
+        color: #c9e5ee;
+      }
+      main {
+        max-width: 1180px;
+        margin: 20px auto;
+        padding: 0 18px 40px;
+      }
+      .panel {
+        background: white;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        box-shadow: 0 2px 12px #122c4410;
+        padding: 20px;
+        margin-bottom: 16px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 12px;
+      }
+      h2 {
+        font-size: 19px;
+        margin: 0 0 12px;
+        color: #174a70;
+      }
+      h3 {
+        font-size: 16px;
+        margin: 12px 0 8px;
+      }
+      .small {
+        color: #546c7d;
+        font-size: 13px;
+      }
+      .control-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .ctrl label {
+        display: block;
+        font-weight: 700;
+        font-size: 14px;
+      }
+      select,
+      button {
+        font: inherit;
+        padding: 10px 12px;
+        border: 1px solid #b3c7d7;
+        border-radius: 9px;
+        background: white;
+        width: 100%;
+        color: var(--ink);
+      }
+      button {
+        cursor: pointer;
+        background: #165d8b;
+        color: white;
+        border: 0;
+        margin-top: 9px;
+        font-weight: bold;
+      }
+      button:hover {
+        background: #107c95;
+      }
+      .stat {
+        padding: 13px;
+        background: var(--pale);
+        border-radius: 10px;
+        border: 1px solid #e0e9f1;
+      }
+      .stat span {
+        display: block;
+        color: #546a7b;
+        font-size: 13px;
+      }
+      .stat strong {
+        font-size: 23px;
+        color: #115b87;
+        direction: ltr;
+        display: block;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+      .notice {
+        border-right: 4px solid var(--accent);
+        padding: 12px 14px;
+        background: #fff7ec;
+        border-radius: 8px;
+        margin-top: 12px;
+      }
+      .eq {
+        direction: ltr;
+        text-align: center;
+        font:
+          15px "Segoe UI",
+          sans-serif;
+        background: #f7fafc;
+        padding: 12px;
+        border-radius: 9px;
+        overflow: auto;
+      }
+      .bars {
+        display: grid;
+        gap: 12px;
+      }
+      .bar {
+        display: grid;
+        grid-template-columns: 100px 1fr 62px;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+      }
+      .track {
+        height: 20px;
+        background: #e1e9ef;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .fill {
+        background: #1699b2;
+        height: 100%;
+        transition: width 0.25s;
+      }
+      .fill.orange {
+        background: #ed9343;
+      }
+      .fill.green {
+        background: #3d9978;
+      }
+      .fill.purple {
+        background: #8278c7;
+      }
+      .basket-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+      }
+      .basket {
+        border: 1px solid #e0e8ee;
+        padding: 7px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        background: #fafcfd;
+      }
+      .basket.selected {
+        border-color: #75baa9;
+        background: #e9f9f4;
+      }
+      .basket .id {
+        font-weight: 700;
+        color: #236289;
+        margin-left: 8px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      th,
+      td {
+        border: 1px solid #d5e2eb;
+        padding: 9px;
+        text-align: center;
+      }
+      th {
+        background: #eff6fa;
+      }
+      a {
+        color: #125d86;
+        text-decoration: none;
+        font-weight: 700;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        padding: 7px 13px;
+        border: 1px solid #b9c9d7;
+        border-radius: 30px;
+        background: white;
+      }
+      .meta {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 18px 20px;
+        color: #6b8495;
+        font-size: 12px;
+      }
+      .badge {
+        display: inline-block;
+        background: #d9f3ed;
+        color: #176958;
+        padding: 2px 9px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      @media (max-width: 800px) {
+        .grid,
+        .grid-4 {
+          grid-template-columns: 1fr;
+        }
+        .basket-list {
+          grid-template-columns: 1fr;
+        }
+        .bar {
+          grid-template-columns: 90px 1fr 50px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>آزمایشگاه تعاملی فصل اول داده‌کاوی</h1>
+      <p>اجرای یک‌کلیکی و آفلاین: پشتیبان، اطمینان، بالابرندگی و اهرم روی ۱۰ تراکنش آموزشی</p>
+    </header>
+    <main>
+      <div class="panel">
+        <div class="links">
+          <a id="home" class="pill" href="DataMining_Chapter01.pdf">بازگشت به جزوهٔ PDF</a
+          ><a class="pill" href="DataMining_Chapter01.pdf" id="pdf">مشاهدهٔ PDF (در بستهٔ محلی)</a>
+        </div>
+        <p class="small">
+          کافی است دو کالا را انتخاب کنید. نتایج، جدول توافق و تراکنش‌های شاهد بدون نصب هیچ کتابخانه یا اتصال اینترنت به‌روز می‌شوند. مجموعه‌داده
+          ساختگی و فقط برای آموزش است.
+        </p>
+      </div>
+      <div class="grid">
+        <section class="panel">
+          <h2>۱. قاعدهٔ انجمنی خود را بسازید</h2>
+          <div class="control-row">
+            <div class="ctrl">
+              <label for="antecedent">مقدم (اگر مشتری بخرد)</label
+              ><select id="antecedent"></select>
+            </div>
+            <div class="ctrl">
+              <label for="consequent">تالی (آنگاه خرید)</label
+              ><select id="consequent"></select>
+            </div>
+          </div>
+          <h3 id="rule-title" style="font-size: 21px; margin-top: 20px"></h3>
+          <p id="interpret"></p>
+          <div id="warning" class="notice"></div>
+          <p class="small">توجه: اطمینان یک احتمال شرطیِ تجربی است و به‌تنهایی اثر علّی یا سود عملی را ثابت نمی‌کند.</p>
+        </section>
+        <section class="panel">
+          <h2>۲. محاسبهٔ شاخص‌ها</h2>
+          <div class="grid-4">
+            <div class="stat"><span>Support</span><strong id="support">—</strong></div>
+            <div class="stat"><span>Confidence</span><strong id="confidence">—</strong></div>
+            <div class="stat"><span>Lift</span><strong id="lift">—</strong></div>
+            <div class="stat"><span>Leverage</span><strong id="leverage">—</strong></div>
+          </div>
+          <h3>تعدادهای پایه</h3>
+          <p id="counts"></p>
+          <div class="eq" id="formula"></div>
+        </section>
+      </div>
+      <div class="grid">
+        <section class="panel">
+          <h2>۳. تفسیر بصری</h2>
+          <div id="bars" class="bars"></div>
+          <p class="small">نوارهای Support و Confidence در بازهٔ ۰ تا ۱ رسم می‌شوند. در نمودار Lift، مقدار ۱ به‌معنای استقلال تجربی است.</p>
+          <h3>جدول دو در دو</h3>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>تالی موجود</th>
+                <th>تالی غایب</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>مقدم موجود</th>
+                <td id="c11"></td>
+                <td id="c10"></td>
+              </tr>
+              <tr>
+                <th>مقدم غایب</th>
+                <td id="c01"></td>
+                <td id="c00"></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <section class="panel">
+          <h2>۴. داده‌هایی که نتیجه از آن‌ها به دست آمده</h2>
+          <div class="basket-list" id="baskets"></div>
+          <p class="small">ردیف‌های سبز هر دو کالای انتخاب‌شده را دارند. این قسمت برای بازبینی محاسبهٔ دستی طراحی شده است.</p>
+        </section>
+      </div>
+      <div class="panel">
+        <h2>۵. نکتهٔ مهم علمی</h2>
+        <p>
+          اگر ۱۰۰۰ قاعده را روی یک نمونهٔ کوچک امتحان کنیم، ممکن است برخی صرفاً بر اثر تصادف Support و Confidence بالایی داشته باشند. در تحلیل واقعی،
+          علاوه بر معیارهای فوق، باید حداقل فراوانی، اعتبارسنجی روی دادهٔ مستقل، تغییرات زمانی، آزمون‌های چندگانه و میزان سود تصمیم بررسی شود.
+        </p>
+        <span class="badge">کد کاملاً محلی؛ داده‌ای ارسال نمی‌شود</span>
+      </div>
+    </main>
+    <div class="meta">درس داده‌کاوی کارشناسی ارشد — فصل ۰۱ — نسخهٔ مستقل آموزشی، بدون فراخوانی API</div>
+    <script>
+      "use strict";
+      const BASKETS = [
+        ["نان", "شیر", "پوشک"],
+        ["نان", "شیر"],
+        ["شیر", "پوشک", "تخم‌مرغ"],
+        ["نان", "شیر", "پوشک", "کره"],
+        ["نان", "چای"],
+        ["پوشک", "آبمیوه"],
+        ["نان", "شیر", "پوشک"],
+        ["نان", "کره"],
+        ["شیر", "پوشک", "چای"],
+        ["نان", "شیر", "پوشک", "تخم‌مرغ"],
+      ];
+      function calculate(baskets, a, b) {
+        if (a === b) throw new Error("مقدم و تالی باید متفاوت باشند.");
+        const n = baskets.length;
+        const ca = baskets.filter((x) => x.includes(a)).length;
+        const cb = baskets.filter((x) => x.includes(b)).length;
+        const cab = baskets.filter((x) => x.includes(a) && x.includes(b)).length;
+        if (ca === 0 || cb === 0) throw new Error("برای محاسبه، هر دو کالا باید موجود باشند.");
+        const support = cab / n,
+          confidence = cab / ca,
+          lift = confidence / (cb / n),
+          leverage = support - (ca * cb) / (n * n);
+        return { n, ca, cb, cab, support, confidence, lift, leverage, c11: cab, c10: ca - cab, c01: cb - cab, c00: n - ca - cb + cab };
+      }
+      function fmt(n, d = 3) {
+        return n.toFixed(d);
+      }
+      function bar(name, v, color, caption) {
+        const span = Math.min(100, Math.max(0, caption === "lift" ? (v / 2) * 100 : v * 100));
+        return `<div class="bar"><div>${name}</div><div class="track"><div class="fill ${color}" style="width:${span}%"></div></div><span dir="ltr">${fmt(
+          v
+        )}</span></div>`;
+      }
+      function render() {
+        const a = document.getElementById("antecedent").value,
+          b = document.getElementById("consequent").value;
+        const warn = document.getElementById("warning");
+        if (a === b) {
+          warn.textContent = "دو کالای متفاوت انتخاب کنید.";
+          return;
+        }
+        const r = calculate(BASKETS, a, b);
+        document.getElementById("rule-title").textContent = `${a}  ⟹  ${b}`;
+        for (const k of ["support", "confidence", "lift", "leverage"]) document.getElementById(k).textContent = fmt(r[k]);
+        document.getElementById("counts").innerHTML =
+          `<b>N=${r.n}</b> ، تعداد مقدم: <b>${r.ca}</b> ، تعداد تالی: <b>${r.cb}</b> ، تعداد هر دو: <b>${r.cab}</b>`;
+        document.getElementById("formula").textContent = `support=${r.cab}/${r.n}=${fmt(r.support)}  |  confidence=${r.cab}/${r.ca}=${fmt(
+          r.confidence
+        )}  |  lift=(${r.cab}/${r.ca}) / (${r.cb}/${r.n})=${fmt(r.lift)}`;
+        document.getElementById("interpret").textContent = `از میان ${r.ca} تراکنشی که «${a}» دارند، ${
+          r.cab
+        } تراکنش «${b}» هم دارند. با این حال، باید نرخ کلی خرید «${b}» (${fmt(r.cb / r.n)}) را نیز در نظر گرفت.`;
+        let m = "";
+        if (r.cab < 3) m += "فراوانی مشترک بسیار کم است؛ این قاعده ناپایدار می‌تواند باشد. ";
+        if (r.lift > 1 + 1e-10) m += "Lift بزرگ‌تر از ۱ است: هم‌وقوعی مشاهده‌شده بیش از مقداری است که بر اساس استقلال انتظار داریم.";
+        else if (r.lift < 1 - 1e-10) m += "Lift کمتر از ۱ است: هم‌وقوعی از مقدار مورد انتظار تحت استقلال کمتر است.";
+        else m += "Lift برابر ۱ است: در این نمونه، همراهی فراتر از استقلال مشاهده نمی‌شود.";
+        warn.textContent = m;
+        document.getElementById("bars").innerHTML =
+          bar("Support", r.support, "", "") +
+          bar("Confidence", r.confidence, "orange", "") +
+          bar("P(تالی)", r.cb / r.n, "green", "") +
+          bar("Lift", r.lift, "purple", "lift");
+        for (const k of ["c11", "c10", "c01", "c00"]) document.getElementById(k).textContent = r[k];
+        document.getElementById("baskets").innerHTML = BASKETS.map(
+          (row, i) =>
+            `<div class="basket ${row.includes(a) && row.includes(b) ? "selected" : ""}"><span class="id">${i + 1}</span>${row.join("، ")}</div>`
+        ).join("");
+      }
+      function init() {
+        const items = [...new Set(BASKETS.flat())].sort((x, y) => x.localeCompare(y, "fa"));
+        for (const key of ["antecedent", "consequent"])
+          document.getElementById(key).innerHTML = items.map((x) => `<option value="${x}">${x}</option>`).join("");
+        document.getElementById("antecedent").value = "پوشک";
+        document.getElementById("consequent").value = "شیر";
+        document.querySelectorAll("select").forEach((s) => s.addEventListener("change", render));
+        if (location.protocol === "file:") {
+          document.getElementById("home").setAttribute("href", "DataMining_Chapter01.pdf");
+        } else {
+          document.getElementById("pdf").setAttribute("href", "../../assets/downloads/data-mining/DataMining_Chapter01.pdf");
+        }
+        render();
+      }
+      if (typeof document !== "undefined") document.addEventListener("DOMContentLoaded", init);
+    </script>
+  </body>
+</html>
