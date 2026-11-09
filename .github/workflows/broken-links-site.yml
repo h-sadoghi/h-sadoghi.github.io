@@ -62,6 +62,25 @@ jobs:
         run: |
           python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" build --book image-processing --clean
           python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" stage --book image-processing --site-dir _site
+      - name: Build and stage Pattern Recognition Jupyter Book
+        run: python tools/pattern_book_ci.py
+
+      - name: Build and stage Data Engineering Jupyter Book
+        run: |
+          python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" validate --book data-engineering
+          python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" build --book data-engineering --clean
+          python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" stage --book data-engineering --site-dir _site
+          test -s _site/teaching/data-engineering/book/index.html
+          test -d _site/teaching/data-engineering/book/_static
+
+      - name: Build and stage Data Mining Jupyter Book
+        run: |
+          python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" validate --book data-mining
+          python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" build --book data-mining --clean
+          python -m tools.jupyterbook_manager --repo "$GITHUB_WORKSPACE" stage --book data-mining --site-dir _site
+          test -s _site/teaching/data-mining/book/index.html
+          test -d _site/teaching/data-mining/book/_static
+
       - name: Link Checker 🔗
         uses: lycheeverse/lychee-action@v2.9.0
         with:
@@ -69,4 +88,4 @@ jobs:
           # only check local links
           # The two webpack macro files are Sphinx/Jinja build templates copied
           # verbatim by the standard theme. They are assets, not public pages.
-          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --exclude-path '_site/teaching/image-processing/book/_static/sbt-webpack-macros.html' --exclude-path '_site/teaching/image-processing/book/_static/webpack-macros.html' --verbose --no-progress '_site/**/*.html'
+          args: --offline --root-dir "$GITHUB_WORKSPACE/_site" --index-files index.html --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --exclude-path '_site/teaching/image-processing/book/_static/sbt-webpack-macros.html' --exclude-path '_site/teaching/image-processing/book/_static/webpack-macros.html' --verbose --no-progress '_site/**/*.html'
