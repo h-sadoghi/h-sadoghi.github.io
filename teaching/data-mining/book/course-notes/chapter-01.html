@@ -1,0 +1,1398 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل اول — مبانی داده‌کاوی و فرایند کشف دانش &#8212; Data Mining Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-01';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="فصل‌های درس داده‌کاوی" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Mining Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    داده‌کاوی | Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های درس داده‌کاوی</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">مبانی داده‌کاوی و فرایند کشف دانش</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-01.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل اول — مبانی داده‌کاوی و فرایند کشف دانش</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">مقدمه و چارچوب تدوین درس</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">مبنای علمی و منابع اصلی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">اصول تدوین و شیوهٔ تدریس</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ساختار پیشنهادی درس داده‌کاوی کارشناسی ارشد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">جایگاه فصل اول</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۱ـ۱. مسئلهٔ آغازین: از فاکتور فروش تا شناخت رفتار مشتری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۱ـ۲. داده‌کاوی چیست و چه چیزی نیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">جایگاه یادگیری ماشین و شناسایی الگو</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kdd">۱ـ۳. از داده تا دانش: فرایند KDD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">چرا پاک‌سازی و ارزیابی جزئی از مسئله‌اند؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۱ـ۴. داده چه شکل ریاضی دارد؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۱ـ۴ـ۱. نمایش رکوردی و ماتریسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۱ـ۴ـ۲. نمایش تراکنشی و مجموعه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۱ـ۴ـ۳. توالی و گراف</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۱ـ۵. مسائل اصلی داده‌کاوی در یک چارچوب واحد</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">صورت‌بندی فشردهٔ مسائل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۱ـ۶. نخستین محاسبهٔ ریاضی: آیا «پوشک و شیر» واقعاً همراه‌اند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۱ـ۶ـ۱. مجموعهٔ اقلام و تابع نشانگر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support">۱ـ۶ـ۲. پشتیبان (Support)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence">۱ـ۶ـ۳. اطمینان (Confidence)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۱ـ۶ـ۴. چرا Confidence به‌تنهایی کافی نیست؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lift">۱ـ۶ـ۵. بالابرندگی (Lift)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#leverage">۱ـ۶ـ۶. اهرم (Leverage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۱ـ۶ـ۷. محاسبه از جدول توافقی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۱ـ۶ـ۸. قاعدهٔ ظاهراً عالی با شواهد ضعیف</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۱ـ۷. از «الگوی مشاهده‌شده» تا «کشف معتبر»</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۱ـ۷ـ۱. جست‌وجوی فراوان و کشفیات کاذب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">۱ـ۷ـ۲. سه پرسش برای داوری یک الگو</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">۱ـ۷ـ۳. سوگیری انتخاب و نشت اطلاعات</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۱ـ۸. چرا به الگوریتم‌های ویژه و مقیاس‌پذیر نیاز داریم؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۱ـ۹. بازتولید محاسبات با پایتون</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۱ـ۱۰. نکاتی که در دو کتاب تأکید متفاوت دارند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۱ـ۱۱. تمرین‌های پایانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۱ـ۱۲. جمع‌بندی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">نقشهٔ ادامهٔ درس و اتصال به منابع</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">منابع</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل اول — مبانی داده‌کاوی و فرایند کشف دانش<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<section id="id2">
+<h2>مقدمه و چارچوب تدوین درس<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>این جزوه برای درس <strong>داده‌کاوی در مقطع کارشناسی ارشد مهندسی کامپیوتر</strong> تدوین شده است. مخاطب آن دانشجویی است که با مبانی احتمال، جبر خطی، شناسایی الگو و یادگیری ماشین آشناست. از این‌رو، هدف درس تکرار آموزش مقدماتی طبقه‌بندی، رگرسیون یا شبکه‌های عصبی نیست؛ تمرکز بر پرسش دیگری است: <strong>چگونه از داده‌های واقعی، ساختارها و الگوهای مفید استخراج کنیم، ارزش آن‌ها را بسنجیم و از اعتبار کشفیات اطمینان پیدا کنیم؟</strong></p>
+<section id="id3">
+<h3>مبنای علمی و منابع اصلی<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>این درس با تلفیق و بازچینش <strong>دو مرجع زیر</strong> شکل گرفته است:</p>
+<ol class="arabic simple">
+<li><p><strong>Jiawei Han, Jian Pei, Hanghang Tong</strong>، <em>Data Mining: Concepts and Techniques</em>، ویرایش چهارم، Morgan Kaufmann/Elsevier، حق نشر ۲۰۲۳. در این جزوه این کتاب را به اختصار «Han» می‌نامیم. این منبع برای پوشش روش‌های کشف الگو، داده‌کاوی پیشرفته، انواع داده و کاربردهای جدید محور اصلی است.</p></li>
+<li><p><strong>Pang-Ning Tan, Michael Steinbach, Anuj Karpatne, Vipin Kumar</strong>، <em>Introduction to Data Mining</em>، ویرایش دوم، Pearson، حق نشر ۲۰۱۹. در این جزوه آن را «Tan» می‌نامیم. این کتاب برای تبیین گام‌به‌گام الگوریتم‌ها، معیارهای ارزیابی، چالش‌های داده‌کاوی و به‌ویژه تشخیص نتایج کاذب مرجع مکمل است.</p></li>
+</ol>
+<p>شماره‌فصل‌ها و ارجاع‌های زیر بر اساس <strong>نسخه‌های PDF ارائه‌شده از همین دو کتاب</strong> و شماره‌های چاپیِ درون کتاب تنظیم شده‌اند. چیدمان فصل‌های جزوه کپی فهرست هیچ‌کدام از کتاب‌ها نیست؛ مباحث مرتبط ادغام شده‌اند و موارد تکراری از منظر درس یادگیری ماشین خلاصه‌تر ارائه می‌شوند.</p>
+</section>
+<section id="id4">
+<h3>اصول تدوین و شیوهٔ تدریس<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>هر فصل از یک مسئلهٔ قابل لمس آغاز می‌شود؛ سپس شهود، تعریف دقیق، روابط ریاضی لازم، مثال عددی با محاسبهٔ دستی، تصویر یا نمودار، پیاده‌سازی پایتون و تحلیل محدودیت‌ها به‌هم پیوند می‌خورند. در صورت نیاز به استفاده از فرض‌های آماری یا از دست رفتن اعتبار نتیجه، آن فرض‌ها تصریح می‌شوند. شکل‌ها و مثال‌های داده‌ای این جزوه مستقل از تصاویر دو کتاب تهیه شده‌اند؛ تبیین‌ها نیز بازنویسی آموزشی و نه ترجمهٔ خط‌به‌خط منابع‌اند.</p>
+</section>
+<section id="id5">
+<h3>ساختار پیشنهادی درس داده‌کاوی کارشناسی ارشد<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>فصل</p></th>
+<th class="head text-left"><p>عنوان پیشنهادی</p></th>
+<th class="head text-left"><p>منابع مبنا</p></th>
+<th class="head text-left"><p>محور یادگیری</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>۱</p></td>
+<td class="text-left"><p>مبانی داده‌کاوی و فرایند کشف دانش</p></td>
+<td class="text-left"><p>Han: فصل ۱؛ Tan: فصل ۱</p></td>
+<td class="text-left"><p>تفاوت کشف دانش، بازیابی، مدل‌سازی و اعتبار الگو</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۲</p></td>
+<td class="text-left"><p>بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</p></td>
+<td class="text-left"><p>Han: فصل ۲؛ Tan: فصل ۲</p></td>
+<td class="text-left"><p>واحد مشاهده، نوع ویژگی، کیفیت ثبت و نمایش داده</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۳</p></td>
+<td class="text-left"><p>معیارهای شباهت، فاصله و هندسهٔ داده‌ها</p></td>
+<td class="text-left"><p>Han: §۲٫۳؛ Tan: §۲٫۴</p></td>
+<td class="text-left"><p>فاصله‌ها، شباهت‌های مجموعه‌ای، اطلاعات متقابل و معیار مناسب</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۴</p></td>
+<td class="text-left"><p>پیش‌پردازش، نمونه‌گیری و کاهش بُعد</p></td>
+<td class="text-left"><p>Han: §۲٫۴–۲٫۶؛ Tan: §۲٫۳</p></td>
+<td class="text-left"><p>پاک‌سازی، تبدیل، انتخاب ویژگی و کاهش بُعد</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۵</p></td>
+<td class="text-left"><p>کشف الگوهای پرتکرار و قواعد انجمنی</p></td>
+<td class="text-left"><p>Han: فصل ۴؛ Tan: فصل ۵</p></td>
+<td class="text-left"><p>Support، Confidence، Lift، Apriori و FP-Growth</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۶</p></td>
+<td class="text-left"><p>الگوهای پیشرفته، ترتیبی و گرافی</p></td>
+<td class="text-left"><p>Han: فصل ۵؛ Tan: فصل ۶</p></td>
+<td class="text-left"><p>قیود، توالی، زیرگراف و الگوهای نادر</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۷</p></td>
+<td class="text-left"><p>طبقه‌بندی در داده‌کاوی و ارزیابی معتبر</p></td>
+<td class="text-left"><p>Han: فصل‌های ۶ و ۷؛ Tan: فصل‌های ۳ و ۴</p></td>
+<td class="text-left"><p>قوانین طبقه‌بندی، دادهٔ نامتوازن، سنجه‌ها و اعتبارسنجی</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۸</p></td>
+<td class="text-left"><p>مبانی خوشه‌بندی و ارزیابی خوشه‌ها</p></td>
+<td class="text-left"><p>Han: فصل ۸؛ Tan: فصل ۷</p></td>
+<td class="text-left"><p>K-means، سلسله‌مراتبی، DBSCAN و سنجش خوشه</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۹</p></td>
+<td class="text-left"><p>خوشه‌بندی پیشرفته، طیفی و گرافی</p></td>
+<td class="text-left"><p>Han: فصل ۹؛ Tan: فصل ۸</p></td>
+<td class="text-left"><p>مدل‌های احتمالاتی، EM، طیفی و زیر‌فضا</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۱۰</p></td>
+<td class="text-left"><p>کشف ناهنجاری و الگوهای نادر</p></td>
+<td class="text-left"><p>Han: فصل ۱۱؛ Tan: فصل ۹</p></td>
+<td class="text-left"><p>روش‌های آماری، فاصله‌ای، چگالی و بازسازی</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۱۱</p></td>
+<td class="text-left"><p>اعتبار آماری کشفیات و پیشگیری از نتایج کاذب</p></td>
+<td class="text-left"><p>Han: ارزیابی الگو و پیوست A؛ Tan: فصل ۱۰</p></td>
+<td class="text-left"><p>آزمون فرض، آزمون‌های چندگانه و FDR</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۱۲</p></td>
+<td class="text-left"><p>مقیاس‌پذیری، داده‌های پیچیده و مسیر پژوهش</p></td>
+<td class="text-left"><p>Han: فصل‌های ۳ و ۱۲؛ Tan: بخش‌های مقیاس‌پذیری</p></td>
+<td class="text-left"><p>داده‌های بزرگ، جریان داده، گراف و مرز پژوهش</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>این ترتیب هدفمند است: ابتدا ماهیت داده و معیارهای سنجش آن شناخته می‌شود؛ سپس الگوریتم‌های جست‌وجوی الگو معرفی می‌شوند؛ در ادامه خوشه‌بندی و ناهنجاری با عمق مناسب بررسی می‌شوند؛ و نهایتاً اعتبار علمی نتایج و چالش‌های مقیاس بزرگ جمع‌بندی می‌گردند. موضوع طبقه‌بندی عمداً از زاویهٔ <strong>مقتضیات داده‌کاوی</strong> تدریس می‌شود تا با درس شناسایی الگو هم‌پوشانی غیرضروری نداشته باشد.</p>
+</section>
+<section id="id6">
+<h3>جایگاه فصل اول<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>فصل نخست تصویری واحد از چرخهٔ کشف دانش، ساختارهای داده، انواع خروجی و معیارهای اولیهٔ الگو ارائه می‌دهد. به‌جای شروع زودهنگام از الگوریتم‌ها، با مثال پیوستهٔ <strong>سبد خرید فروشگاه</strong> نشان داده می‌شود که یک قاعده چگونه از داده استخراج می‌شود و چرا Confidence بالا بدون Support مناسب، Lift و اعتبارسنجی، الزاماً کشف مفید نیست. این زمینهٔ مشترک برای ورود به فصل‌های بعد است.</p>
+<blockquote>
+<div><p><strong>یادداشت انتشار:</strong> محتوای این مقدمه در نسخهٔ PDF نیز درج شده است.</p>
+</div></blockquote>
+<p><strong>فایل‌های دریافت فصل:</strong> <a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/DataMining_Chapter01.pdf" download>جزوهٔ PDF</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/DataMining_Chapter01_TEX_PDF_ONECLICK.zip" download>بستهٔ کامل TEX، PDF، شکل‌ها و کدها</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/RUN_WITH_ONE_CLICK.html" download>آزمایشگاه تعاملی آفلاین</a></p>
+<hr class="docutils" />
+<p><strong>درس:</strong> داده‌کاوی، کارشناسی ارشد مهندسی کامپیوتر<br />
+<strong>منابع اصلی:</strong> Han, Pei, Tong، ویرایش چهارم؛ Tan, Steinbach, Karpatne, Kumar، ویرایش دوم.<br />
+<strong>رویکرد:</strong> مسئلهٔ واقعی، تبیین دقیق مفاهیم، صورت‌بندی ریاضی، محاسبهٔ دستی و بازتولید با پایتون.</p>
+<div class="tip admonition">
+<p class="admonition-title">اهداف یادگیری</p>
+<p>پس از مطالعهٔ این فصل، دانشجو باید بتواند:</p>
+<ol class="arabic simple">
+<li><p>داده‌کاوی را از واکشی داده، یادگیری ماشین و فرایند جامع کشف دانش متمایز کند؛</p></li>
+<li><p>یک مسئلهٔ داده‌کاوی را با داده، سؤال، خروجی و معیار اعتبار صورت‌بندی کند؛</p></li>
+<li><p>جدول رکوردها، پایگاه تراکنش‌ها، توالی زمانی و گراف را از نظر ساختار داده تشخیص دهد؛</p></li>
+<li><p>تفاوت مسائل توصیفی و پیش‌بینی را با نمادگذاری ریاضی توضیح دهد؛</p></li>
+<li><p><strong>پشتیبان، اطمینان، بالابرندگی و اهرم</strong> یک قاعدهٔ انجمنی را با دست محاسبه و تفسیر کند؛</p></li>
+<li><p>خطر کشفیات تصادفی، داده‌های اندک، سوگیری نمونه و نشت اطلاعات را شناسایی کند؛</p></li>
+<li><p>چرایی رشد نمایی فضای جست‌وجوی الگوها و نیاز به الگوریتم‌های مقیاس‌پذیر را بیان کند.</p></li>
+</ol>
+</div>
+</section>
+</section>
+<section id="id7">
+<h2>۱ـ۱. مسئلهٔ آغازین: از فاکتور فروش تا شناخت رفتار مشتری<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>فرض کنید فروشگاهی آنلاین، تراکنش‌های مشتریان را ثبت می‌کند. هر تراکنش یک <strong>سبد خرید</strong> است: فهرستی از کالاهایی که در یک سفارش خریداری شده‌اند. مدیر فروشگاه فقط نمی‌خواهد بداند «در تراکنش شمارهٔ ۷ چه کالاهایی وجود داشت؟»؛ می‌خواهد پاسخ سؤال‌های زیر را پیدا کند:</p>
+<ul class="simple">
+<li><p>کدام کالاها معمولاً با هم خریداری می‌شوند و این همراهی چقدر قابل اتکاست؟</p></li>
+<li><p>آیا بعضی مشتریان الگوهای خرید مشابه دارند؟</p></li>
+<li><p>کدام سفارش‌ها با رفتار عادی متفاوت‌اند؟</p></li>
+<li><p>آیا الگویی که در داده‌های گذشته دیده‌ایم، در داده‌های آینده هم برقرار می‌ماند؟</p></li>
+</ul>
+<figure class="align-center" id="fig01-retail">
+<a class="reference internal image-reference" href="../_images/01_retail_scene.jpg"><img alt="../_images/01_retail_scene.jpg" src="../_images/01_retail_scene.jpg" style="width: 82%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 1 </span><span class="caption-text"><strong>شکل ۱ـ۱.</strong> یک فروشگاه آنلاین به‌عنوان مسئلهٔ محوری فصل. تصویر آموزشی تولیدشده برای این جزوه است؛ داده‌ها و محاسبات فصل واقعیِ این تصویر نیستند.</span><a class="headerlink" href="#fig01-retail" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای پرهیز از پیچیدگی غیرضروری، در تمام فصل از مجموعهٔ ساختگی و مشخصِ ۱۰ تراکنش زیر استفاده می‌کنیم. این داده‌ها <strong>صرفاً آموزشی</strong> هستند و از فروشگاه واقعی یا از جدول کتاب‌ها استخراج نشده‌اند.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>شناسهٔ تراکنش</p></th>
+<th class="head text-left"><p>اقلام خریداری‌شده</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>۱</p></td>
+<td class="text-left"><p>نان، شیر، پوشک</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۲</p></td>
+<td class="text-left"><p>نان، شیر</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۳</p></td>
+<td class="text-left"><p>شیر، پوشک، تخم‌مرغ</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۴</p></td>
+<td class="text-left"><p>نان، شیر، پوشک، کره</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۵</p></td>
+<td class="text-left"><p>نان، چای</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۶</p></td>
+<td class="text-left"><p>پوشک، آبمیوه</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۷</p></td>
+<td class="text-left"><p>نان، شیر، پوشک</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۸</p></td>
+<td class="text-left"><p>نان، کره</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۹</p></td>
+<td class="text-left"><p>شیر، پوشک، چای</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۱۰</p></td>
+<td class="text-left"><p>نان، شیر، پوشک، تخم‌مرغ</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>این ۱۰ ردیف در فایل <a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/transactions.csv" download><code class="docutils literal notranslate"><span class="pre">transactions.csv</span></code></a> نیز موجودند.</p>
+<p><strong>نکتهٔ آموزشی:</strong> اگر فقط تعداد تراکنش‌های حاوی شیر را بخواهیم، یک شمارش ساده کافی است. ولی اگر بخواهیم <strong>تمام الگوهای معنادارِ هم‌خریدی</strong> را بدون تعیین قبلی نام کالاها پیدا کنیم، با مسئلهٔ <em>کشف الگو</em> روبه‌رو هستیم. داده‌کاوی دقیقاً در چنین مسئله‌ای معنا پیدا می‌کند.</p>
+<p><strong>مبنای مفهومی:</strong> Han، §۱٫۱ و §۱٫۴٫۲؛ Tan، §۱٫۱ و §۱٫۴ (مثال‌های تجاری و تحلیل انجمنی).</p>
+</section>
+<section id="id8">
+<h2>۱ـ۲. داده‌کاوی چیست و چه چیزی نیست؟<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p><strong>داده‌کاوی</strong> (Data Mining) مجموعه‌ای از روش‌های محاسباتی برای کشف الگوها، رابطه‌ها، ساختارها، ناهنجاری‌ها یا مدل‌های مفید از داده است؛ به‌ویژه زمانی که حجم یا پیچیدگی داده بررسی دستی را دشوار می‌کند. خروجی ممکن است یک قاعده، گروه‌بندی، مدل پیش‌بینی، مجموعه‌ای از نقاط غیرعادی یا یک خلاصهٔ چندبُعدی باشد.</p>
+<p>باید میان <strong>وجود یک رابطه در دادهٔ مشاهده‌شده</strong> و <strong>ارزش علمی یا عملی آن</strong> تفاوت گذاشت. الگویی که فقط تصادفی ظاهر شده، روی نمونه‌های تازه تکرار نمی‌شود، یا به تصمیمی کمک نمی‌کند، لزوماً دانش مفید نیست.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>فعالیت</p></th>
+<th class="head text-left"><p>پرسش نمونه</p></th>
+<th class="head text-left"><p>آیا ذاتاً داده‌کاوی است؟</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>بازیابی از پایگاه داده</p></td>
+<td class="text-left"><p>«تراکنش شمارهٔ ۶ چیست؟»</p></td>
+<td class="text-left"><p>خیر؛ یک پرس‌وجوی مشخص است.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>گزارش آماری توصیفی</p></td>
+<td class="text-left"><p>«چند سفارش شامل شیر هستند؟»</p></td>
+<td class="text-left"><p>به‌تنهایی نه؛ گزارش‌گیری است.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>کشف الگوی انجمنی</p></td>
+<td class="text-left"><p>«چه مجموعه‌کالاهایی به‌طور غیرمنتظره هم‌خرید می‌شوند؟»</p></td>
+<td class="text-left"><p>بله؛ به‌ویژه در جست‌وجوی خودکار میان نامزدهای فراوان.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>خوشه‌بندی</p></td>
+<td class="text-left"><p>«چه گروه‌هایی از مشتریان بدون برچسب قبلی وجود دارند؟»</p></td>
+<td class="text-left"><p>بله.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>پیش‌بینی</p></td>
+<td class="text-left"><p>«آیا مشتری این محصول را خواهد خرید؟»</p></td>
+<td class="text-left"><p>می‌تواند بخشی از داده‌کاوی و همچنین یادگیری ماشین باشد.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>آزمون رابطهٔ علّی</p></td>
+<td class="text-left"><p>«آیا نمایش پیشنهاد باعث افزایش فروش شد؟»</p></td>
+<td class="text-left"><p>از مشاهدهٔ همراهی به‌تنهایی نتیجه نمی‌شود؛ به طراحی علّی مناسب نیاز دارد.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="id9">
+<h3>جایگاه یادگیری ماشین و شناسایی الگو<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>در یادگیری ماشین، اغلب با یک تابع یا مدل سروکار داریم که پارامترهای آن از داده تعیین می‌شوند. برای مثال، در یادگیری نظارت‌شده:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal{D}_{\mathrm{sup}}=\{(\mathbf{x}_i,y_i)\}_{i=1}^{n},
+\qquad
+\widehat{f}=\arg\min_{f\in\mathcal{F}}
+\frac{1}{n}\sum_{i=1}^{n}\ell\bigl(f(\mathbf{x}_i),y_i\bigr).
+\]</div>
+<p>در این رابطه، <span class="math notranslate nohighlight">\(\mathbf{x}_i\)</span> بردار ویژگی نمونهٔ <span class="math notranslate nohighlight">\(i\)</span>ام، <span class="math notranslate nohighlight">\(y_i\)</span> برچسب یا مقدار هدف، <span class="math notranslate nohighlight">\(\mathcal F\)</span> خانوادهٔ مدل‌ها و <span class="math notranslate nohighlight">\(\ell\)</span> تابع زیان است. این صورت‌بندی در درس‌های یادگیری ماشین و شناسایی الگو آشناست. <strong>اما همهٔ مسئله‌های داده‌کاوی تابع هدفِ پیش‌بینی ندارند.</strong> در تحلیل قواعد انجمنی، هدف می‌تواند جست‌وجوی مجموعه‌ای از الگوهای قابل‌تفسیر و سپس ارزیابی آن‌ها باشد:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal P^{\ast}=
+\bigl\{p\in\mathcal P:\operatorname{score}(p;\mathcal D)\geq \tau\bigr\},
+\]</div>
+<p>که <span class="math notranslate nohighlight">\(\mathcal P\)</span> فضای الگوهای نامزد، <span class="math notranslate nohighlight">\(\operatorname{score}\)</span> معیار انتخابِ تعریف‌شده برای همان مسئله و <span class="math notranslate nohighlight">\(\tau\)</span> آستانه است. این فرمول <strong>صورت‌بندی آموزشی عام</strong> است، نه تابع هدف یک الگوریتم معین؛ در عمل ممکن است چند آستانه، قید یا معیار داشته باشیم و امتیازها همیشه تک‌عددی نباشند.</p>
+<p>تفاوت محوری برای این درس: <strong>یادگیری مدل</strong> یکی از ابزارهای داده‌کاوی است، نه تعریف همهٔ آن. مباحث پرتکرار طبقه‌بندی، SVM یا شبکهٔ عصبی در این جزوه فقط هنگامی باز می‌شوند که به مسئلهٔ ویژهٔ داده‌کاوی، اعتبار نتایج یا انتخاب روش مربوط باشند.</p>
+<p><strong>مبنای مفهومی:</strong> Han، §۱٫۵٫۲؛ Tan، §۱٫۳–۱٫۴. این دو کتاب در گسترهٔ اصطلاح «داده‌کاوی» تفاوت تأکید دارند، نه تناقض بنیادی.</p>
+</section>
+</section>
+<section id="kdd">
+<h2>۱ـ۳. از داده تا دانش: فرایند KDD<a class="headerlink" href="#kdd" title="Link to this heading">#</a></h2>
+<p><strong>کشف دانش از پایگاه‌های داده</strong> (Knowledge Discovery in Databases; KDD) چارچوب بزرگ‌تری است که در آن دادهٔ خام به شناختی قابل ارزیابی و استفاده تبدیل می‌شود. در تعریف کلاسیک، داده‌کاوی مرحلهٔ اصلی <strong>استخراج الگو</strong> در این فرایند است. در کاربردهای جدید، واژهٔ «داده‌کاوی» گاهی برای کل فرایند نیز استفاده می‌شود؛ بنابراین هنگام مطالعهٔ مقالات باید تعریف نویسنده را بررسی کرد.</p>
+<figure class="align-center" id="fig01-kdd">
+<a class="reference internal image-reference" href="../_images/02_kdd_process.png"><img alt="../_images/02_kdd_process.png" src="../_images/02_kdd_process.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text"><strong>شکل ۱ـ۲.</strong> نمای بازطراحی‌شدهٔ مراحل KDD از راست به چپ. بازخورد انتهای فرایند ممکن است سبب اصلاح داده، ویژگی، سؤال یا معیار ارزیابی شود.</span><a class="headerlink" href="#fig01-kdd" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای مثال فروشگاه، نقش هر مرحله را دقیق مشخص می‌کنیم:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>مرحله</p></th>
+<th class="head text-left"><p>ورودی، عملیات و خروجی در مثال فروشگاه</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>تعریف مسئله</p></td>
+<td class="text-left"><p>پرسش: «چه رابطهٔ هم‌خریدی ارزش بررسی دارد؟»؛ تصمیمِ احتمالی: پیشنهاد کالا یا طراحی چیدمان.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>گردآوری</p></td>
+<td class="text-left"><p>دریافت تراکنش‌ها، شناسهٔ سفارش و اقلام خریداری‌شده، با تعیین بازهٔ زمانی و جامعهٔ مشتریان.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>پاک‌سازی و یکپارچه‌سازی</p></td>
+<td class="text-left"><p>یکسان‌سازی نام کالا، حذف ثبت تکراری واقعی، رسیدگی به فاکتور ناقص و اصلاح ناسازگاری شناسه‌ها.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>انتخاب و تبدیل</p></td>
+<td class="text-left"><p>نمایش هر سفارش به‌صورت مجموعهٔ کالاها یا بردار حضور/عدم حضور؛ تعیین گروه کالاها و بازهٔ تحلیل.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>کاوش داده</p></td>
+<td class="text-left"><p>شمارش مجموعه‌های پرتکرار، تشکیل قواعد انجمنی، یا یافتن گروه‌های مشتری.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>ارزیابی و تفسیر</p></td>
+<td class="text-left"><p>بررسی حجم شواهد، Lift، ثبات زمانی، نرخ خطا و سود واقعی تصمیمِ پیشنهادی.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>به‌کارگیری و بازخورد</p></td>
+<td class="text-left"><p>استفادهٔ آزمایشی از الگوی پذیرفته‌شده؛ مشاهدهٔ نتیجه و اصلاح فرایند در دور بعد.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="id10">
+<h3>چرا پاک‌سازی و ارزیابی جزئی از مسئله‌اند؟<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>فرض کنید داده‌ها گاهی «شیر کم‌چرب» و گاهی «شیر» را با کدهای متفاوت ثبت کنند. اگر هدف تحلیل در سطح «نوع کالا» باشد، محاسبهٔ فراوانی پیش از تعریف یکسان کالا گمراه‌کننده خواهد بود. در مقابل، اگر تفاوت نوع شیر برای تصمیم فروش مهم باشد، ادغام این دو کد <strong>اطلاعات مفید را از بین می‌برد</strong>. پس پاک‌سازی فقط حذف خطا نیست؛ بخشی از تعریف مسئله و دقت اندازه‌گیری است.</p>
+<p>همچنین اگر با مشاهدهٔ نتیجه روی دادهٔ آزمون، آستانهٔ قاعده را تغییر دهیم و همان آزمون را دوباره شاهدِ بی‌طرف معرفی کنیم، ارزیابی مخدوش شده است. این موضوع در فصل‌های ارزیابی و کشفیات کاذب با تفصیل بیشتر خواهد آمد.</p>
+<p><strong>مبنای مفهومی:</strong> Han، §۱٫۲، شکل ۱٫۱؛ Tan، §۱٫۱، شکل ۱٫۱. شکل این جزوه کپی تصویری از کتاب نیست.</p>
+</section>
+</section>
+<section id="id11">
+<h2>۱ـ۴. داده چه شکل ریاضی دارد؟<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>«داده» همیشه یک ماتریس عددی معمولی نیست. روش جست‌وجو باید با <strong>ساختار داده</strong> و <strong>پرسش</strong> هماهنگ شود.</p>
+<section id="id12">
+<h3>۱ـ۴ـ۱. نمایش رکوردی و ماتریسی<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>برای <span class="math notranslate nohighlight">\(n\)</span> نمونه و <span class="math notranslate nohighlight">\(d\)</span> ویژگی عددی، نمایش متعارف عبارت است از:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf X=
+\begin{bmatrix}
+ x_{11}&amp;x_{12}&amp;\cdots&amp;x_{1d}\\
+ x_{21}&amp;x_{22}&amp;\cdots&amp;x_{2d}\\
+ \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\
+ x_{n1}&amp;x_{n2}&amp;\cdots&amp;x_{nd}
+\end{bmatrix}\in\mathbb R^{n\times d}.
+\end{split}\]</div>
+<p>در این نمادگذاری، <strong>سطر</strong> یک مشاهده و <strong>ستون</strong> یک ویژگی است. شرط <span class="math notranslate nohighlight">\(\mathbf X\in\mathbb R^{n\times d}\)</span> فقط وقتی درست است که همهٔ ویژگی‌ها عددی نمایش داده شوند؛ در داده‌های واقعی ممکن است ستون‌های دسته‌ای، متنی یا مقادیر گمشده داشته باشیم و به نمایش مناسب‌تری نیاز باشد.</p>
+<p>اگر <span class="math notranslate nohighlight">\(d\)</span> ویژگی مانند «خرید نان»، «خرید شیر» و «خرید پوشک» صرفاً حضور کالا را نشان دهند، یک ماتریس دودویی تعریف می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+M_{ij}=\begin{cases}
+1&amp;\text{if item }j\text{ occurs in transaction }i,\\
+0&amp;\text{otherwise}.
+\end{cases}
+\end{split}\]</div>
+<p>برای سه کالای نخست و چهار تراکنش ابتدای جدول داریم:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf M_{1:4}=\begin{bmatrix}
+1&amp;1&amp;1\\
+1&amp;1&amp;0\\
+0&amp;1&amp;1\\
+1&amp;1&amp;1
+\end{bmatrix}.
+\end{split}\]</div>
+<p>ترتیب ستون‌ها به‌ترتیب «نان، شیر، پوشک» است. این ماتریس با ماتریس ویژگی‌های عددیِ پیوسته یکسان نیست؛ مثلاً فاصلهٔ اقلیدسی در آن لزوماً بهترین تعبیر شباهت دو مشتری نیست. فصل سوم دربارهٔ انتخاب معیار شباهت بحث می‌کند.</p>
+</section>
+<section id="id13">
+<h3>۱ـ۴ـ۲. نمایش تراکنشی و مجموعه‌ای<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>مجموعهٔ اقلام ممکن را با <span class="math notranslate nohighlight">\(\mathcal I\)</span> و سبد خرید شمارهٔ <span class="math notranslate nohighlight">\(i\)</span> را با <span class="math notranslate nohighlight">\(T_i\)</span> نشان می‌دهیم:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathcal I=\{\text{نان، شیر، پوشک، تخم‌مرغ، کره، چای، آبمیوه}\},
+\qquad T_i\subseteq\mathcal I,
+\qquad \mathcal D=\{T_1,\ldots,T_n\}.
+\]</div>
+<p>در این‌جا <span class="math notranslate nohighlight">\(T_1=\{\text{نان، شیر، پوشک}\}\)</span>. نمایش مجموعه‌ای فقط حضور کالا را نگه می‌دارد: اگر در یک سفارش دو بسته شیر خریداری شود، باید برای حفظ <strong>تعداد</strong> یا <strong>مقدار خرید</strong> نمایشی غنی‌تر انتخاب کنیم.</p>
+</section>
+<section id="id14">
+<h3>۱ـ۴ـ۳. توالی و گراف<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>یک توالی زمانی را می‌توان به‌صورت <span class="math notranslate nohighlight">\(\mathbf s=(\mathbf x_1,\ldots,\mathbf x_T)\)</span> نمایش داد، که <strong>ترتیب زمانی</strong> در آن مهم است. برای مثال «خرید پوشک پس از خرید شیر» با «خرید هم‌زمان پوشک و شیر» متفاوت است. در گراف، داده به‌صورت <span class="math notranslate nohighlight">\(G=(V,E)\)</span> شامل مجموعهٔ رأس‌ها و یال‌هاست؛ برای تحلیل شبکهٔ ارتباط مشتریان یا ارتباط کالاها.</p>
+<figure class="align-center" id="fig01-structures">
+<a class="reference internal image-reference" href="../_images/03_data_structures.png"><img alt="../_images/03_data_structures.png" src="../_images/03_data_structures.png" style="width: 100%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text"><strong>شکل ۱ـ۳.</strong> سه نمایش متفاوت از اطلاعات: ماتریس دودویی، توالی زمانی و گراف. این شکل‌ها شماتیک‌اند؛ هدف نشان‌دادن اثر ساختار داده بر تعریف الگو است.</span><a class="headerlink" href="#fig01-structures" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>بسیاری از خطاهای داده‌کاوی زمانی رخ می‌دهند که <strong>ساختار اصلی را نادیده بگیریم</strong>؛ مثلاً نمونه‌های زمانی وابسته را تصادفی و مستقل فرض کنیم، یا یال‌های گراف را به‌اشتباه رکوردهای مستقل در نظر بگیریم.</p>
+<p><strong>مبنای مفهومی:</strong> Han، §۱٫۳ و §۱٫۴؛ Tan، §۱٫۲ و فصل ۲. فرمول‌های نمادگذاری فوق برای تدریس یکپارچه شده‌اند.</p>
+</section>
+</section>
+<section id="id15">
+<h2>۱ـ۵. مسائل اصلی داده‌کاوی در یک چارچوب واحد<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>دو طبقه‌بندی مکمل مفیدند: در کتاب Tan، تمایز بنیادی بین <strong>مسائل پیش‌بینی</strong> و <strong>مسائل توصیفی</strong> پررنگ است؛ در کتاب Han، طیف وسیع‌تری از انواع دانشی که می‌توان استخراج کرد ارائه می‌شود. جدول زیر ترکیب آموزشی این دو نگاه است.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>مسئله</p></th>
+<th class="head text-left"><p>دادهٔ موردنیاز</p></th>
+<th class="head text-left"><p>خروجی</p></th>
+<th class="head text-left"><p>معیار نمونه برای ارزیابی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>قواعد انجمنی</p></td>
+<td class="text-left"><p>تراکنش‌ها یا رخدادها</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(A\Rightarrow B\)</span></p></td>
+<td class="text-left"><p>Support، Confidence، Lift</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>طبقه‌بندی</p></td>
+<td class="text-left"><p>نمونه و برچسب دسته‌ای</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\widehat y=f(\mathbf x)\)</span></p></td>
+<td class="text-left"><p>خطای آزمون، Precision، Recall</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>رگرسیون</p></td>
+<td class="text-left"><p>نمونه و هدف عددی</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(\widehat y=f(\mathbf x)\in\mathbb R\)</span></p></td>
+<td class="text-left"><p>MAE، MSE</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>خوشه‌بندی</p></td>
+<td class="text-left"><p>نمونه‌های معمولاً بی‌برچسب</p></td>
+<td class="text-left"><p>گروه‌ها یا عضویت‌های نرم</p></td>
+<td class="text-left"><p>انسجام و جدایی؛ اعتبارسنجی مستقل</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>تشخیص ناهنجاری</p></td>
+<td class="text-left"><p>نمونه‌ها و تعریف رفتار مرجع</p></td>
+<td class="text-left"><p>امتیاز یا نشانگر غیرعادی‌بودن</p></td>
+<td class="text-left"><p>نرخ کشف و هشدار کاذب، در صورت وجود حقیقت مبنا</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>خلاصه‌سازی چندبعدی</p></td>
+<td class="text-left"><p>ابعاد و سنجه‌ها</p></td>
+<td class="text-left"><p>جدول تجمیعی، مکعب داده، گزارش</p></td>
+<td class="text-left"><p>فایدهٔ تصمیم و درستی تجمیع</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>الگوهای ترتیبی/گرافی</p></td>
+<td class="text-left"><p>توالی‌ها یا شبکه‌ها</p></td>
+<td class="text-left"><p>زیرتوالی یا زیرگراف پرتکرار</p></td>
+<td class="text-left"><p>فراوانی معتبر، قیود و تفسیر کاربردی</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="align-center" id="fig01-tasks">
+<a class="reference internal image-reference" href="../_images/04_core_tasks.png"><img alt="../_images/04_core_tasks.png" src="../_images/04_core_tasks.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text"><strong>شکل ۱ـ۴.</strong> چهار مسئلهٔ اصلی: بالا چپ، جداسازی کلاس‌های برچسب‌دار؛ بالا راست، شمارش هم‌رخدادی کالاها <strong>بر اساس دادهٔ مثال این فصل</strong>؛ پایین چپ، گروه‌بندی بدون برچسب؛ پایین راست، نشانه‌گذاری یک مشاهدهٔ نامعمول. مجموعه‌نقاط دیگر در این شکل صرفاً ساختگی و شماتیک‌اند.</span><a class="headerlink" href="#fig01-tasks" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id16">
+<h3>صورت‌بندی فشردهٔ مسائل<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p><strong>پیش‌بینی:</strong> با داشتن دادهٔ نظارت‌شده، تابعی برای پیش‌بینی متغیر هدف می‌سازیم. اگر <span class="math notranslate nohighlight">\(y\)</span> دسته‌ای باشد مسئله طبقه‌بندی و اگر پیوسته باشد رگرسیون است. یک پیش‌بینی خوب باید روی نمونه‌های ندیده ارزیابی شود، نه صرفاً روی دادهٔ آموزش.</p>
+<p><strong>خوشه‌بندی:</strong> به‌صورت ساده می‌خواهیم داده‌ها را به گروه‌های <span class="math notranslate nohighlight">\(C_1,\ldots,C_K\)</span> تقسیم کنیم. در خوشه‌بندی سخت:</p>
+<div class="math notranslate nohighlight">
+\[
+\bigcup_{k=1}^{K}C_k=\mathcal D,
+\qquad C_j\cap C_k=\varnothing\quad(j\neq k).
+\]</div>
+<p>در یک نمونهٔ شناخته‌شده، K-means، مراکز <span class="math notranslate nohighlight">\(\boldsymbol\mu_k\)</span> را طوری می‌یابد که مجموع مربعات فاصلهٔ نقاط از مرکز خوشه کمینه شود:</p>
+<div class="math notranslate nohighlight">
+\[
+J=\sum_{k=1}^{K}\sum_{\mathbf x_i\in C_k}
+\|\mathbf x_i-\boldsymbol\mu_k\|_2^2.
+\]</div>
+<p>این تابع هدف فقط برای <strong>خانوادهٔ خاص K-means</strong> مناسب است، نه تعریف عمومی خوشه‌بندی؛ خوشه‌های کشیده، غیرمحدب یا شبکه‌ای ممکن است با روش‌های دیگر بهتر کشف شوند.</p>
+<p><strong>ناهنجاری:</strong> یک تابع امتیاز <span class="math notranslate nohighlight">\(a(\mathbf x;\mathcal D)\)</span> میزان نامعمول‌بودن مشاهده را نسبت به دادهٔ مرجع می‌سنجد. سپس در صورت نیاز، قاعده‌ای مانند <span class="math notranslate nohighlight">\(a(\mathbf x;\mathcal D)&gt;\tau\)</span> تعریف می‌کنیم. آستانه بدون توجه به هزینهٔ هشدار اشتباه، کمیابی رخداد و تغییر رفتار در زمان نباید انتخاب شود.</p>
+<p><strong>انجمنی:</strong> به‌جای پیش‌بینی یک برچسب مشخص، رابطه‌های محتمل میان مجموعه‌ها را جست‌وجو می‌کنیم. این مورد را در بخش بعد، با محاسبهٔ دقیق بررسی می‌کنیم.</p>
+<p><strong>مبنای مفهومی:</strong> Han، §۱٫۴٫۱–۱٫۴٫۷؛ Tan، §۱٫۴. صورت‌بندی K-means برای ایجاد شهود است و تحلیل کامل آن به فصل هشتم موکول می‌شود.</p>
+</section>
+</section>
+<section id="id17">
+<h2>۱ـ۶. نخستین محاسبهٔ ریاضی: آیا «پوشک و شیر» واقعاً همراه‌اند؟<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>در این بخش، یک قاعدهٔ انجمنی را <strong>بدون استفاده از کتابخانهٔ آماده</strong> از دادهٔ ۱۰ تراکنش به دست می‌آوریم. هدف یادگیری دقیق مفاهیمی است که در فصل پنجم به الگوریتم Apriori و FP-Growth منجر می‌شوند.</p>
+<section id="id18">
+<h3>۱ـ۶ـ۱. مجموعهٔ اقلام و تابع نشانگر<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p>برای هر مجموعه‌کالای <span class="math notranslate nohighlight">\(A\subseteq\mathcal I\)</span>، تابع نشانگر زیر تعریف می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mathbf1[A\subseteq T_i]=
+\begin{cases}
+1,&amp;A\subseteq T_i,\\
+0,&amp;A\nsubseteq T_i.
+\end{cases}
+\end{split}\]</div>
+<p>تعداد تراکنش‌های شامل <span class="math notranslate nohighlight">\(A\)</span> برابر است با:</p>
+<div class="math notranslate nohighlight">
+\[
+N(A)=\sum_{i=1}^{n}\mathbf1[A\subseteq T_i].
+\]</div>
+<p>در مثال، <span class="math notranslate nohighlight">\(n=10\)</span> و با شمارش دستی به نتایج زیر می‌رسیم:</p>
+<div class="math notranslate nohighlight">
+\[
+N(\text{شیر})=7,\qquad
+N(\text{پوشک})=7,\qquad
+N(\{\text{شیر، پوشک}\})=6.
+\]</div>
+<p>شش تراکنش دارای هر دو کالا شماره‌های <strong>۱، ۳، ۴، ۷، ۹ و ۱۰</strong> هستند.</p>
+</section>
+<section id="support">
+<h3>۱ـ۶ـ۲. پشتیبان (Support)<a class="headerlink" href="#support" title="Link to this heading">#</a></h3>
+<p><strong>پشتیبان</strong> یا فراوانی نسبی یک مجموعه‌کالا، سهم تراکنش‌هایی است که آن مجموعه را شامل می‌شوند:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{supp}(A)=\frac{N(A)}{n}
+=\frac{1}{n}\sum_{i=1}^{n}\mathbf1[A\subseteq T_i].
+\]</div>
+<p>بنابراین:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{supp}(\{\text{پوشک، شیر}\})=\frac{6}{10}=0.60.
+\]</div>
+<p>معنای عدد <span class="math notranslate nohighlight">\(0.60\)</span> این است که <strong>۶۰ درصد همین ۱۰ تراکنش</strong> شامل هر دو کالا هستند؛ هنوز دربارهٔ تمام مشتریان یا آینده ادعایی نکرده‌ایم. اگر ده‌هزار تراکنش مستقل و مشابه داشتیم، چنین نسبتی از نظر حجم شواهد متفاوت تفسیر می‌شد.</p>
+</section>
+<section id="confidence">
+<h3>۱ـ۶ـ۳. اطمینان (Confidence)<a class="headerlink" href="#confidence" title="Link to this heading">#</a></h3>
+<p>برای قاعدهٔ <span class="math notranslate nohighlight">\(A\Rightarrow B\)</span> با <span class="math notranslate nohighlight">\(A\cap B=\varnothing\)</span>، اطمینان برابر است با:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{conf}(A\Rightarrow B)
+=\frac{\operatorname{supp}(A\cup B)}{\operatorname{supp}(A)}
+=\frac{N(A\cup B)}{N(A)},
+\qquad N(A)&gt;0.
+\]</div>
+<p>این کمیت، فراوانی شرطیِ مشاهده‌شده است. در تعبیر احتمالاتی، اگر انتخاب تراکنش به‌طور تصادفی از جامعهٔ موردنظر انجام شود، تخمینی برای <span class="math notranslate nohighlight">\(P(B\mid A)\)</span> به دست می‌دهد.</p>
+<p>در مثال:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{conf}(\text{پوشک}\Rightarrow\text{شیر})
+=\frac{6}{7}\approx0.8571.
+\]</div>
+<p><strong>تفسیر:</strong> از هفت تراکنش دارای پوشک، شش تراکنش شیر هم داشته‌اند؛ یعنی حدود ۸۵٫۷۱ درصد از تراکنش‌های حاوی پوشک در این داده شیر نیز دارند. این عدد <strong>احتمالِ علّیِ خرید شیر بر اثر خرید پوشک نیست</strong>.</p>
+</section>
+<section id="id19">
+<h3>۱ـ۶ـ۴. چرا Confidence به‌تنهایی کافی نیست؟<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>در همین داده‌ها، شیر در ۷ تراکنش از ۱۰ تراکنش دیده می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat P(\text{شیر})=\frac{7}{10}=0.70.
+\]</div>
+<p>بنابراین صرفِ مشاهدهٔ اطمینان ۸۵٫۷۱ درصد کافی نیست؛ باید آن را با فراوانی معمول شیر، یعنی ۷۰ درصد، مقایسه کرد. اگر شیری تقریباً در همهٔ سبدها وجود داشته باشد، قواعد زیادی با نتیجهٔ «شیر» اطمینان بالایی خواهند داشت، بی‌آنکه همراهی خاصی را نشان دهند.</p>
+</section>
+<section id="lift">
+<h3>۱ـ۶ـ۵. بالابرندگی (Lift)<a class="headerlink" href="#lift" title="Link to this heading">#</a></h3>
+<p><strong>بالابرندگی</strong> نسبت فراوانی شرطی مشاهده‌شده به فراوانی بدون شرطِ بخش نتیجه است:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{lift}(A\Rightarrow B)
+=\frac{\operatorname{conf}(A\Rightarrow B)}{\operatorname{supp}(B)}
+=\frac{\operatorname{supp}(A\cup B)}
+{\operatorname{supp}(A)\operatorname{supp}(B)},
+\]</div>
+<p>به شرط اینکه پشتیبان <span class="math notranslate nohighlight">\(A\)</span> و <span class="math notranslate nohighlight">\(B\)</span> مثبت باشند. در این نمونه:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{lift}(\text{پوشک}\Rightarrow\text{شیر})
+=\frac{6/7}{7/10}=\frac{60}{49}\approx1.2245.
+\]</div>
+<p>به زبان ساده، حضور شیر در تراکنش‌های دارای پوشک در این نمونه حدود <strong>۱٫۲۲ برابر نرخ معمول حضور شیر</strong> است. سه حالت مهم:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\operatorname{lift}&gt;1\)</span>: همراهی مثبت نسبت به انتظار حاصل از استقلال؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(\operatorname{lift}=1\)</span>: هم‌رخدادی برابر انتظار در حالت استقلال تجربی؛</p></li>
+<li><p><span class="math notranslate nohighlight">\(\operatorname{lift}&lt;1\)</span>: همراهی منفی نسبت به آن انتظار.</p></li>
+</ul>
+<p>عدد Lift <strong>به‌خودی‌خود آزمون معنی‌داری نیست</strong>؛ نسبت‌های بزرگ با دادهٔ کم می‌توانند تصادفی باشند.</p>
+</section>
+<section id="leverage">
+<h3>۱ـ۶ـ۶. اهرم (Leverage)<a class="headerlink" href="#leverage" title="Link to this heading">#</a></h3>
+<p>یک سنجهٔ مکمل، تفاوت احتمال مشترک مشاهده‌شده با احتمال مشترکِ پیش‌بینی‌شده زیر فرض استقلال است:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{lev}(A,B)
+=\operatorname{supp}(A\cup B)
+-\operatorname{supp}(A)\operatorname{supp}(B).
+\]</div>
+<p>در مثال:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{lev}(\text{پوشک، شیر})
+=0.60-(0.70)(0.70)=0.11.
+\]</div>
+<p>بنابراین نسبت به مدل استقلالی ساخته‌شده از فراوانی‌های همین داده، سهم هم‌خریدیِ مشاهده‌شده <strong>۱۱ واحد درصد</strong> بیشتر است. Leverage و Lift هر دو دربارهٔ همراهی هستند، اما مقیاس متفاوتی دارند: یکی <strong>اختلاف مطلق</strong> و دیگری <strong>نسبت</strong> را می‌سنجد.</p>
+</section>
+<section id="id20">
+<h3>۱ـ۶ـ۷. محاسبه از جدول توافقی<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>همان اطلاعات را می‌توان در جدول <span class="math notranslate nohighlight">\(2\times2\)</span> نگه داشت. عددهای جدول زیر به‌صورت دستی از ۱۰ تراکنش شمارش شده‌اند.</p>
+<figure class="align-center" id="fig01-contingency">
+<a class="reference internal image-reference" href="../_images/05_contingency_table.png"><img alt="../_images/05_contingency_table.png" src="../_images/05_contingency_table.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text"><strong>شکل ۱ـ۵.</strong> جدول توافقی شیر و پوشک: ۶ تراکنش دارای هر دو کالا، ۱ تراکنش فقط دارای پوشک، ۱ تراکنش فقط دارای شیر، و ۲ تراکنش فاقد هر دو کالا.</span><a class="headerlink" href="#fig01-contingency" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>با نمایش متعارف تعدادها به شکل <span class="math notranslate nohighlight">\(n_{11},n_{10},n_{01},n_{00}\)</span> داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+(n_{11},n_{10},n_{01},n_{00})=(6,1,1,2),
+\qquad n=\sum_{a,b\in\{0,1\}}n_{ab}=10.
+\]</div>
+<p>در این نمادگذاری، شاخص اول «پوشک» و شاخص دوم «شیر» است. می‌توان مستقیماً نوشت:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{supp}(A\cup B)=\frac{n_{11}}{n},
+\qquad
+\operatorname{conf}(A\Rightarrow B)=\frac{n_{11}}{n_{11}+n_{10}},
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{lift}(A\Rightarrow B)=
+\frac{n\,n_{11}}{(n_{11}+n_{10})(n_{11}+n_{01})}.
+\]</div>
+<p>جای‌گذاری <span class="math notranslate nohighlight">\((6,1,1,2)\)</span> دوباره <span class="math notranslate nohighlight">\(6/10\)</span>، <span class="math notranslate nohighlight">\(6/7\)</span> و <span class="math notranslate nohighlight">\(60/49\)</span> را می‌دهد. این محاسبه مهم است، زیرا بسیاری از معیارهای ارزیابی قواعد، صرفاً تابع چهار خانهٔ چنین جدولی‌اند.</p>
+</section>
+<section id="id21">
+<h3>۱ـ۶ـ۸. قاعدهٔ ظاهراً عالی با شواهد ضعیف<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>در دادهٔ ما آبمیوه فقط یک‌بار خریداری شده و همان سفارش پوشک هم داشته است. بنابراین:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{conf}(\text{آبمیوه}\Rightarrow\text{پوشک})=\frac11=1,
+\quad
+\operatorname{supp}(\{\text{آبمیوه، پوشک}\})=\frac1{10}=0.10,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{lift}(\text{آبمیوه}\Rightarrow\text{پوشک})
+=\frac{1}{7/10}=\frac{10}{7}\approx1.4286.
+\]</div>
+<p>اگر فقط Confidence و Lift را ببینیم، ممکن است این قاعده از قاعدهٔ «پوشک و شیر» جذاب‌تر به نظر برسد. ولی <strong>قاعدهٔ نخست فقط بر یک تراکنش استوار است</strong>. یک خرید آینده می‌تواند تخمین آن را به‌شدت تغییر دهد. از این مثال نتیجه می‌گیریم که <em>قدرت ظاهری الگو</em> و <em>میزان شواهدِ پشتیبان</em> دو پرسش متفاوت‌اند.</p>
+<figure class="align-center" id="fig01-support-confidence">
+<a class="reference internal image-reference" href="../_images/06_support_vs_confidence.png"><img alt="../_images/06_support_vs_confidence.png" src="../_images/06_support_vs_confidence.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text"><strong>شکل ۱ـ۶.</strong> مقایسهٔ دو قاعدهٔ مثال: قاعدهٔ آبمیوه اطمینان ۱۰۰٪ دارد، اما فقط در یک تراکنش دیده شده است. اعداد نمودار فقط از دادهٔ ساختگی این فصل حاصل شده‌اند.</span><a class="headerlink" href="#fig01-support-confidence" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>مبنای مفهومی:</strong> Han، §۱٫۴٫۲ و §۴٫۱–۴٫۳؛ Tan، §۱٫۴ و §۵٫۱، §۵٫۷. صورت‌بندی جدول ده‌تراکنشی و محاسبات، تألیف آموزشی مستقل‌اند.</p>
+</section>
+</section>
+<section id="id22">
+<h2>۱ـ۷. از «الگوی مشاهده‌شده» تا «کشف معتبر»<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>داده‌کاوی اغلب <strong>فرضیه‌ها را از خود داده تولید می‌کند</strong>. همین ویژگی مزیت مهم آن است، اما یک خطر نیز ایجاد می‌کند: اگر تعداد زیادی الگو را بررسی کنیم، بعضی از آن‌ها بدون وجود رابطهٔ پایدار، خوب به نظر خواهند رسید.</p>
+<section id="id23">
+<h3>۱ـ۷ـ۱. جست‌وجوی فراوان و کشفیات کاذب<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>فرض کنید <span class="math notranslate nohighlight">\(m\)</span> فرضیهٔ کاملاً بی‌اثر را جداگانه با سطح خطای نوع اول <span class="math notranslate nohighlight">\(\alpha\)</span> آزمایش می‌کنیم. تعداد مورد انتظار ردهای اشتباه برابر است با:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb E[V]=m\alpha,
+\]</div>
+<p>به شرط اینکه هر آزمون تحت فرض صفر، احتمال خطای نوع اول <span class="math notranslate nohighlight">\(\alpha\)</span> داشته باشد. <strong>این برابری به استقلال آزمون‌ها نیاز ندارد</strong>، زیرا امید ریاضی جمع شاخص‌ها جمع‌پذیر است.</p>
+<p>اما اگر علاوه بر آن، رویدادهای خطای آزمون‌ها <strong>مستقل</strong> فرض شوند، احتمال دست‌کم یک نتیجهٔ مثبتِ کاذب برابر است با:</p>
+<div class="math notranslate nohighlight">
+\[
+P(V\geq1)=1-(1-\alpha)^m.
+\]</div>
+<p>برای <span class="math notranslate nohighlight">\(m=100\)</span> آزمون مستقل و <span class="math notranslate nohighlight">\(\alpha=0.05\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathbb E[V]=100(0.05)=5,
+\qquad
+P(V\geq1)=1-(0.95)^{100}\approx0.9941.
+\]</div>
+<p>یعنی اگر تمام فرضیه‌ها در واقع بی‌اثر باشند، انتظار داریم به‌طور متوسط پنج هشدار اشتباه ببینیم و احتمال دست‌کم یک هشدار اشتباه بسیار بالاست. در قواعد انجمنی، آزمون‌ها معمولاً وابسته‌اند؛ پس فرمول استقلال، <strong>فقط مثال روشن‌کننده</strong> است، نه محاسبهٔ دقیق برای هر پایگاه تراکنش.</p>
+<figure class="align-center" id="fig01-multiple-testing">
+<a class="reference internal image-reference" href="../_images/07_multiple_testing.png"><img alt="../_images/07_multiple_testing.png" src="../_images/07_multiple_testing.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text"><strong>شکل ۱ـ۷.</strong> شبیه‌سازی آموزشی ۵۰۰۰ بار تکرارِ ۱۰۰ آزمونِ صفر مستقل با <span class="math notranslate nohighlight">\(p\)</span>-value یکنواخت و آستانهٔ ۰٫۰۵. میانگین تعداد کشفیات کاذب نزدیک ۵ است. این شبیه‌سازی جایگزین آزمون واقعی قواعد انجمنی نیست.</span><a class="headerlink" href="#fig01-multiple-testing" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در فصل یازدهم با روش‌های کنترل خطای خانواده‌ای (FWER)، نرخ کشف کاذب (FDR)، بازنمونه‌گیری و آزمون جایگشت آشنا می‌شویم. فعلاً کافی است بپذیریم که <strong>یافتن قاعده بر اثر جست‌وجوی بسیار، اثبات مستقل اعتبار آن نیست</strong>.</p>
+</section>
+<section id="id24">
+<h3>۱ـ۷ـ۲. سه پرسش برای داوری یک الگو<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>شواهد:</strong> چند مشاهده واقعاً پشت الگو هستند؟ آیا داده، نمایندهٔ جامعهٔ هدف است؟</p></li>
+<li><p><strong>اعتبار بیرونی:</strong> آیا الگو در دوره، فروشگاه یا نمونهٔ مستقلی که برای انتخاب آن استفاده نشده نیز مشاهده می‌شود؟</p></li>
+<li><p><strong>کاربرد:</strong> اگر بر مبنای الگو تصمیم بگیریم، سود، هزینه، ریسک و پیامد آن چیست؟</p></li>
+</ol>
+<p>برای الگوی پوشک و شیر، ممکن است نمایش هم‌زمان دو کالا در یک کمپین مفید باشد؛ اما از هم‌خریدی به‌تنهایی نمی‌توان نتیجه گرفت که <strong>نمایش پوشک موجب افزایش خرید شیر می‌شود</strong>. شاید عامل دیگری، مانند مرحلهٔ زندگی خانوار، باعث خرید هر دو کالا شده باشد. اثبات اثر علّی به طراحی مناسب آزمایش، کنترل مخدوشگرها یا فرض‌های شناسایی معتبر نیاز دارد.</p>
+</section>
+<section id="id25">
+<h3>۱ـ۷ـ۳. سوگیری انتخاب و نشت اطلاعات<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>اگر فقط مشتریان عضو یک باشگاه وفاداری داده داده باشند، الگوی کشف‌شده شاید رفتار تمام مشتریان را نشان ندهد. همچنین اگر آستانه‌های الگوریتم را پس از دیدن عملکرد روی دادهٔ آزمون تغییر دهیم، دادهٔ آزمون دیگر ارزیابی بی‌طرف نخواهد بود. تفکیک دادهٔ اکتشافی، تنظیم و ارزیابی نهایی در پروژهٔ داده‌کاوی نیز ضروری است؛ در داده‌های زمانی، تقسیم <strong>زمان‌محور</strong> گاهی مناسب‌تر از تقسیم تصادفی است.</p>
+<p><strong>مبنای مفهومی:</strong> Han، §۱٫۴٫۷ و §۱٫۷؛ Tan، §۱٫۲، §۳٫۸ و مخصوصاً فصل ۱۰ (Avoiding False Discoveries). فرمول احتمال خطا، بسط آموزشی از اصول آزمون‌های چندگانه است.</p>
+</section>
+</section>
+<section id="id26">
+<h2>۱ـ۸. چرا به الگوریتم‌های ویژه و مقیاس‌پذیر نیاز داریم؟<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p>در مثال آموزشی فقط هفت نوع کالا داشتیم. اگر مجموعهٔ اقلام <span class="math notranslate nohighlight">\(m\)</span> عضو داشته باشد، تعداد <strong>همهٔ زیرمجموعه‌های غیرتهیِ ممکن</strong> برابر است با:</p>
+<div class="math notranslate nohighlight">
+\[
+|\mathcal P(\mathcal I)\setminus\{\varnothing\}|=
+\sum_{k=1}^{m}\binom mk=2^m-1.
+\]</div>
+<p>این برابری از بسط دوجمله‌ای <span class="math notranslate nohighlight">\((1+1)^m\)</span> به دست می‌آید: هر کالا یا وارد زیرمجموعه می‌شود یا نمی‌شود؛ تنها حالت «هیچ کالایی انتخاب نشود» کنار گذاشته می‌شود.</p>
+<p>برای <span class="math notranslate nohighlight">\(m=7\)</span>، تعداد زیرمجموعه‌ها <span class="math notranslate nohighlight">\(127\)</span> است؛ اما برای <span class="math notranslate nohighlight">\(m=25\)</span> داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+2^{25}-1=33{,}554{,}431.
+\]</div>
+<p>این فقط تعداد نامزدهای بالقوه است، <strong>نه تعداد الگوهای واقعاً پرتکرار</strong>. اگر بخواهیم برای هر نامزد تک‌تک <span class="math notranslate nohighlight">\(n\)</span> تراکنش را بررسی کنیم، هزینهٔ کارِ روش کاملاً ساده در حد <span class="math notranslate nohighlight">\(O(n\,m\,2^m)\)</span> با فرض نمایش و آزمون عضویتِ ساده می‌شود. این مقدار یک کران مرتبه‌ای آموزشی برای روش خام است؛ زمان واقعی به پیاده‌سازی، ساختار داده و تعریف هزینهٔ آزمون بستگی دارد.</p>
+<figure class="align-center" id="fig01-exponential">
+<a class="reference internal image-reference" href="../_images/08_pattern_space.png"><img alt="../_images/08_pattern_space.png" src="../_images/08_pattern_space.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text"><strong>شکل ۱ـ۸.</strong> رشد نمایی تعداد زیرمجموعه‌های نامزد با افزایش شمار کالاها. محور عمودی لگاریتمی است؛ بنابراین خط تقریباً مستقیم روی نمودار، رشد نمایی را نشان می‌دهد.</span><a class="headerlink" href="#fig01-exponential" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>از همین‌جا ایدهٔ اصلی الگوریتم‌های کارآمدِ فصل پنجم شکل می‌گیرد: <strong>بخش بزرگی از فضای جست‌وجو را بدون شمارش همهٔ نامزدها حذف کنیم</strong>. یکی از ابزارها، خاصیت یکنواییِ پشتیبان است: اگر <span class="math notranslate nohighlight">\(A\subseteq B\)</span>، آنگاه</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{supp}(B)\leq\operatorname{supp}(A).
+\]</div>
+<p><strong>دلیل:</strong> هر تراکنشی که مجموعهٔ بزرگ‌تر <span class="math notranslate nohighlight">\(B\)</span> را شامل می‌شود، حتماً مجموعهٔ کوچک‌تر <span class="math notranslate nohighlight">\(A\)</span> را هم شامل می‌شود؛ پس شمارش <span class="math notranslate nohighlight">\(B\)</span> نمی‌تواند از شمارش <span class="math notranslate nohighlight">\(A\)</span> بیشتر باشد. نتیجهٔ عملی: اگر یک مجموعه‌کالا از آستانهٔ حداقل پشتیبان کمتر باشد، <strong>هیچ ابرمجموعه‌ای از آن</strong> نمی‌تواند از همان آستانه عبور کند. این مبنای هرس نامزدها در Apriori است.</p>
+<p>سایر چالش‌های داده‌کاوی نیز مهم‌اند: شمار زیاد رکوردها، ابعاد بالا، دادهٔ پراکنده و ناهمگون، داده‌های جاری، منابع توزیع‌شده، و محدودیت حریم خصوصی. در همهٔ این موارد، انتخاب یک مدل با دقت بالا کافی نیست؛ الگوریتم باید از نظر زمان، حافظه و اعتبار خروجی نیز قابل استفاده باشد.</p>
+<p><strong>مبنای مفهومی:</strong> Tan، §۱٫۲؛ Han، §۱٫۴٫۲ و فصل ۴. برهان خاصیت پشتیبان در این‌جا به‌عنوان پیش‌زمینهٔ Apriori آورده شده است.</p>
+</section>
+<section id="id27">
+<h2>۱ـ۹. بازتولید محاسبات با پایتون<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+<p>برای اینکه فاصله‌ای میان محاسبهٔ دستی و اجرای رایانه‌ای باقی نماند، فایل <a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/chapter01_example.py" download><code class="docutils literal notranslate"><span class="pre">chapter01_example.py</span></code></a> همان ۱۰ تراکنش را می‌خواند و Support، Confidence، Lift و Leverage سه قاعده را محاسبه می‌کند. همچنین دفترچهٔ <a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/chapter01_example.ipynb" download><code class="docutils literal notranslate"><span class="pre">chapter01_example.ipynb</span></code></a> شامل جدول تراکنش‌ها، محاسبهٔ قواعد، نمودار و شبیه‌سازی کشفیات تصادفی است.</p>
+<p>برای محاسبهٔ دستی/ماشینی، تابع شمارش زیر بخش اصلی منطق است:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="k">def</span><span class="w"> </span><span class="nf">count</span><span class="p">(</span><span class="n">baskets</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">):</span>
+    <span class="n">wanted</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">wanted</span> <span class="o">&lt;=</span> <span class="n">basket</span> <span class="k">for</span> <span class="n">basket</span> <span class="ow">in</span> <span class="n">baskets</span><span class="p">)</span>
+
+<span class="c1"># baskets: فهرست مجموعه‌کالاهای موجود در ۱۰ تراکنش</span>
+<span class="c1"># count(baskets, "پوشک", "شیر")  # مقدار: 6</span>
+</pre></div>
+</div>
+<p>نمونهٔ خروجی برنامهٔ اجراشده:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>پوشک =&gt; شیر: A=7 B=7 AB=6 support=0.6000 confidence=0.8571 lift=1.2245 leverage=0.1100
+آبمیوه =&gt; پوشک: A=1 B=7 AB=1 support=0.1000 confidence=1.0000 lift=1.4286 leverage=0.0300
+نان =&gt; شیر: A=7 B=7 AB=5 support=0.5000 confidence=0.7143 lift=1.0204 leverage=0.0100
+</pre></div>
+</div>
+<p>خواندن این خروجی باید با <strong>تفسیر علمی</strong> همراه باشد: اطمینان بالای یک قاعده برای توصیهٔ قطعی کافی نیست، Lift نزدیک به یک می‌تواند رابطهٔ ناچیزی نشان دهد، و مقادیر همهٔ معیارها بر مبنای همین نمونهٔ کوچک‌اند.</p>
+<div class="note admonition">
+<p class="admonition-title">فایل‌های همراه</p>
+<ul class="simple">
+<li><p><a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/transactions.csv" download>دادهٔ نمونه (CSV)</a></p></li>
+<li><p><a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/chapter01_example.py" download>برنامهٔ محاسباتی پایتون</a></p></li>
+<li><p><a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/chapter01_example.ipynb" download>دفترچهٔ اجرایی Jupyter</a></p></li>
+<li><p><a href="/assets/downloads/courses/data-mining/course-notes/chapter-01/README.md" download>راهنمای کوتاه اجرا</a></p></li>
+</ul>
+</div>
+</section>
+<section id="id28">
+<h2>۱ـ۱۰. نکاتی که در دو کتاب تأکید متفاوت دارند<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>موضوع</p></th>
+<th class="head text-left"><p>تأکید Han–Pei–Tong</p></th>
+<th class="head text-left"><p>تأکید Tan–Steinbach–Karpatne–Kumar</p></th>
+<th class="head text-left"><p>انتخاب آموزشی این جزوه</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>جایگاه KDD</p></td>
+<td class="text-left"><p>مراحل گستردهٔ تبدیل داده به دانش</p></td>
+<td class="text-left"><p>KDD شامل پیش‌پردازش، داده‌کاوی و پس‌پردازش</p></td>
+<td class="text-left"><p>فرایند کامل با توجه به چرخهٔ بازخورد توضیح داده شد.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>طبقه‌بندی مسائل</p></td>
+<td class="text-left"><p>دامنهٔ متنوعِ دانش قابل کشف</p></td>
+<td class="text-left"><p>تمایز روشن وظایف پیش‌بینی و توصیفی</p></td>
+<td class="text-left"><p>هر دو طبقه‌بندی با مثال و نمادگذاری یکجا ارائه شد.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>چالش‌های مهندسی</p></td>
+<td class="text-left"><p>مقیاس‌پذیری و انواع داده و کاربرد</p></td>
+<td class="text-left"><p>مقیاس، بُعد، ناهمگنی، توزیع و تحلیل غیرسنتی</p></td>
+<td class="text-left"><p>تفاوت «فضای الگو» و «هزینهٔ پردازش داده» برجسته شد.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>معتبر بودن کشف</p></td>
+<td class="text-left"><p>جالب‌بودن، سودمندی، تازگی و اعتبار</p></td>
+<td class="text-left"><p>فصل مستقل دربارهٔ پرهیز از کشفیات کاذب</p></td>
+<td class="text-left"><p>از فصل اول میان کشف اولیه و تأیید آماری تفکیک گذاشته شد.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>این مقایسه <strong>بازنویسی موضوعی</strong> دو منبع است؛ ادعا نمی‌کند که هر دو کتاب روابط این فصل را با همین مثال‌ها یا ترتیب ارائه کرده‌اند.</p>
+</section>
+<section id="id29">
+<h2>۱ـ۱۱. تمرین‌های پایانی<a class="headerlink" href="#id29" title="Link to this heading">#</a></h2>
+<p><strong>تمرین ۱ — محاسبهٔ دقیق (دستی).</strong> برای قاعدهٔ «نان <span class="math notranslate nohighlight">\(\Rightarrow\)</span> شیر» جدول توافقی بسازید. Support، Confidence، Lift و Leverage را محاسبه و با خروجی برنامه مقایسه کنید. توضیح دهید چرا Confidence حدود ۰٫۷۱۴ است، ولی Lift تنها کمی بیشتر از یک است.</p>
+<p><strong>تمرین ۲ — حساسیت به یک داده.</strong> اگر به تراکنش ششم، «شیر» اضافه شود، هر چهار معیار قاعدهٔ «پوشک <span class="math notranslate nohighlight">\(\Rightarrow\)</span> شیر» چه تغییری می‌کنند؟ شمارش‌ها را ابتدا دستی بنویسید. آیا با این تغییر یک‌تراکنشی می‌توان دربارهٔ پایداری قاعده نتیجه گرفت؟</p>
+<p><strong>تمرین ۳ — اختلاف جهت قواعد.</strong> یک نمونهٔ تازه با ۲۰ تراکنش طراحی کنید که در آن <span class="math notranslate nohighlight">\(\operatorname{conf}(A\Rightarrow B)\)</span> با <span class="math notranslate nohighlight">\(\operatorname{conf}(B\Rightarrow A)\)</span> تفاوت زیاد داشته باشد؛ نشان دهید Support مشترک و Lift نسبت به جابه‌جایی <span class="math notranslate nohighlight">\(A\)</span> و <span class="math notranslate nohighlight">\(B\)</span> تغییر نمی‌کنند.</p>
+<p><strong>تمرین ۴ — برهان و هرس.</strong> ثابت کنید اگر <span class="math notranslate nohighlight">\(A\subseteq B\)</span>، پشتیبان <span class="math notranslate nohighlight">\(B\)</span> نمی‌تواند از پشتیبان <span class="math notranslate nohighlight">\(A\)</span> بزرگ‌تر باشد. بر اساس این رابطه توضیح دهید چگونه می‌توان تمام ابرمجموعه‌های یک مجموعهٔ کم‌تکرار را از جست‌وجو کنار گذاشت.</p>
+<p><strong>تمرین ۵ — اعتبار علمی.</strong> برای <span class="math notranslate nohighlight">\(m=20\)</span> و <span class="math notranslate nohighlight">\(\alpha=0.05\)</span>، زیر فرض مستقل‌بودن خطاها، احتمال دست‌کم یک نتیجهٔ مثبتِ کاذب را محاسبه کنید. سپس توضیح دهید چرا این محاسبه ممکن است برای قواعد انجمنیِ هم‌پوشان دقیق نباشد.</p>
+<p><strong>تمرین ۶ — طراحی مسئله.</strong> یک پایگاه دادهٔ آموزشی دانشگاه با اطلاعات ثبت‌نام دانشجویان در درس‌ها فرض کنید. یک پرس‌وجوی ساده، یک مسئلهٔ کشف الگوی انجمنی، یک مسئلهٔ خوشه‌بندی و یک مسئلهٔ پیش‌بینی پیشنهاد کنید. برای هر مسئله، <strong>واحد مشاهده، ورودی، خروجی و روش ارزیابی</strong> را مشخص کنید.</p>
+<p><strong>تمرین ۷ — استقلال و علیت.</strong> فرض کنید Lift بین دو کالا برابر ۱٫۵ است. دو توضیح غیرعلّی برای این همراهی پیشنهاد دهید. برای بررسی ادعای «پیشنهاد کالای A، خرید B را بیشتر می‌کند» چه نوع مطالعه‌ای مناسب‌تر است؟</p>
+</section>
+<section id="id30">
+<h2>۱ـ۱۲. جمع‌بندی فصل<a class="headerlink" href="#id30" title="Link to this heading">#</a></h2>
+<p>داده‌کاوی فقط «اجرای یک الگوریتم روی یک جدول» نیست. ابتدا باید سؤال را درست صورت‌بندی کنیم، نمایش مناسب داده را انتخاب کنیم و بدانیم الگویی که استخراج می‌شود چه کمیتی را اندازه می‌گیرد. سپس باید میان <strong>فراوانی مشاهده‌شده، قدرت رابطه، حجم شواهد، تعمیم‌پذیری و اثر عملی</strong> تفاوت بگذاریم. مثال این فصل نشان داد که Confidence بالا می‌تواند از یک نمونهٔ منفرد به دست آید و جست‌وجوی گسترده ممکن است تعداد زیادی کشف کاذب ایجاد کند.</p>
+<p>در فصل دوم، همین مسیر را از سمت داده ادامه می‌دهیم: ویژگی چیست، مقیاس اندازه‌گیری چگونه بر عملیات مجاز اثر می‌گذارد، کیفیت داده چگونه سنجیده می‌شود، و خطاهای ثبت یا نمونه‌گیری چه اثری بر استخراج الگو دارند.</p>
+</section>
+<section id="id31">
+<h2>نقشهٔ ادامهٔ درس و اتصال به منابع<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<p>شماره صفحه‌ها در جدول زیر، <strong>شماره‌های چاپی داخل خود کتاب‌ها</strong> هستند و لزوماً با شمارهٔ صفحه در فایل PDF برابر نیستند. بعضی فصل‌های درس از چند بخش پراکنده تشکیل می‌شوند.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-center"><p>فصل درس</p></th>
+<th class="head text-left"><p>موضوع</p></th>
+<th class="head text-left"><p>Han، ویرایش ۴</p></th>
+<th class="head text-left"><p>Tan، ویرایش ۲</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-center"><p>۱</p></td>
+<td class="text-left"><p>مبانی و KDD</p></td>
+<td class="text-left"><p>فصل ۱، ص ۱–۱۹</p></td>
+<td class="text-left"><p>فصل ۱، ص ۱–۱۳؛ فصل ۱۰، ص ۷۵۵–۷۷۶ (مکمل اعتبار)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۲</p></td>
+<td class="text-left"><p>نمایش و کیفیت داده</p></td>
+<td class="text-left"><p>§۲٫۱–۲٫۲ و §۲٫۴، ص ۲۴–۴۳ و ۵۵–۶۳</p></td>
+<td class="text-left"><p>§۲٫۱–۲٫۲، ص ۲۶–۵۰</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۳</p></td>
+<td class="text-left"><p>شباهت، فاصله و اطلاعات</p></td>
+<td class="text-left"><p>§۲٫۳، ص ۴۳–۵۵</p></td>
+<td class="text-left"><p>§۲٫۴، ص ۷۱–۹۹</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۴</p></td>
+<td class="text-left"><p>پیش‌پردازش و کاهش بُعد</p></td>
+<td class="text-left"><p>§۲٫۴–۲٫۶، ص ۵۵–۷۹</p></td>
+<td class="text-left"><p>§۲٫۳، ص ۵۰–۷۱</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۵</p></td>
+<td class="text-left"><p>الگوها و قواعد انجمنی</p></td>
+<td class="text-left"><p>فصل ۴، ص ۱۴۵–۱۶۹</p></td>
+<td class="text-left"><p>فصل ۵، ص ۳۵۷–۴۱۸</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۶</p></td>
+<td class="text-left"><p>الگوهای ترتیبی و گرافی</p></td>
+<td class="text-left"><p>فصل ۵، ص ۱۷۵–۲۳۲</p></td>
+<td class="text-left"><p>فصل ۶، ص ۴۵۱–۵۰۱</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۷</p></td>
+<td class="text-left"><p>طبقه‌بندی و ارزیابی</p></td>
+<td class="text-left"><p>فصل‌های ۶ و ۷، ص ۲۳۹–۳۶۹ (گزینشی)</p></td>
+<td class="text-left"><p>فصل‌های ۳ و ۴، ص ۱۱۳–۳۳۳ (گزینشی)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۸</p></td>
+<td class="text-left"><p>خوشه‌بندی پایه</p></td>
+<td class="text-left"><p>فصل ۸، ص ۳۷۹–۴۲۵</p></td>
+<td class="text-left"><p>فصل ۷، ص ۵۲۵–۵۹۶</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۹</p></td>
+<td class="text-left"><p>خوشه‌بندی پیشرفته</p></td>
+<td class="text-left"><p>فصل ۹، ص ۴۳۱–۴۷۹</p></td>
+<td class="text-left"><p>فصل ۸، ص ۶۱۳–۶۹۰</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۱۰</p></td>
+<td class="text-left"><p>تشخیص ناهنجاری</p></td>
+<td class="text-left"><p>فصل ۱۱، ص ۵۵۷–۶۰۰</p></td>
+<td class="text-left"><p>فصل ۹، ص ۷۰۳–۷۴۰</p></td>
+</tr>
+<tr class="row-even"><td class="text-center"><p>۱۱</p></td>
+<td class="text-left"><p>اعتبارسنجی کشفیات</p></td>
+<td class="text-left"><p>§۴٫۳ و پیوست A.1</p></td>
+<td class="text-left"><p>فصل ۱۰، ص ۷۵۵–۸۰۰</p></td>
+</tr>
+<tr class="row-odd"><td class="text-center"><p>۱۲</p></td>
+<td class="text-left"><p>مقیاس‌پذیری و پژوهش</p></td>
+<td class="text-left"><p>فصل‌های ۳ و ۱۲، ص ۸۵–۱۳۳ و ۶۰۵–۶۵۲</p></td>
+<td class="text-left"><p>§۱٫۲، §۸٫۵ و مباحث داده‌های پیچیده در فصل ۶</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>برای جلوگیری از هم‌پوشانی زیاد با درس یادگیری ماشین، فصل هفتم بر مسائل <strong>ویژهٔ داده‌کاوی</strong> مانند قواعد طبقه‌بندی، عدم‌توازن، هزینهٔ خطا و اعتبار ارزیابی تمرکز خواهد کرد؛ آموزش از صفرِ تمام مدل‌های کلاسیک در دستور اصلی قرار نمی‌گیرد. همچنین فصل مستقل یادگیری عمیق از کتاب Han در هستهٔ این برنامه تکرار نشده و فقط کاربردهای مرتبط آن بررسی می‌شوند.</p>
+</section>
+<section id="id32">
+<h2>منابع<a class="headerlink" href="#id32" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Han, J., Pei, J., &amp; Tong, H.</strong> <em>Data Mining: Concepts and Techniques</em>, 4th ed., Morgan Kaufmann/Elsevier, ©2023. مباحث استفاده‌شده در این فصل: §۱٫۱–۱٫۷؛ برای پیش‌نمایش ریاضی قواعد: §۴٫۱–۴٫۳؛ برای نقشهٔ درس، فهرست کامل فصل‌ها.</p></li>
+<li><p><strong>Tan, P.-N., Steinbach, M., Karpatne, A., &amp; Kumar, V.</strong> <em>Introduction to Data Mining</em>, 2nd ed., Pearson, ©2019. مباحث استفاده‌شده در این فصل: §۱٫۱–۱٫۴؛ برای معیارهای قواعد: §۵٫۱ و §۵٫۷؛ برای مسئلهٔ کشفیات کاذب: §۱۰٫۱؛ برای نقشهٔ درس، فهرست کامل فصل‌ها.</p></li>
+</ol>
+<p><em>شکل‌های فرایندی و نمودارها برای این جزوه تولید شده‌اند و بازتولید تصاویر کتاب‌ها نیستند. داده‌ها و نتایج عددی مثال اصلی نیز ساختگی، صریح و قابل بازتولیدند.</em></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل‌های درس داده‌کاوی</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">مقدمه و چارچوب تدوین درس</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">مبنای علمی و منابع اصلی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">اصول تدوین و شیوهٔ تدریس</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">ساختار پیشنهادی درس داده‌کاوی کارشناسی ارشد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">جایگاه فصل اول</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۱ـ۱. مسئلهٔ آغازین: از فاکتور فروش تا شناخت رفتار مشتری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۱ـ۲. داده‌کاوی چیست و چه چیزی نیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">جایگاه یادگیری ماشین و شناسایی الگو</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kdd">۱ـ۳. از داده تا دانش: فرایند KDD</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">چرا پاک‌سازی و ارزیابی جزئی از مسئله‌اند؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۱ـ۴. داده چه شکل ریاضی دارد؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۱ـ۴ـ۱. نمایش رکوردی و ماتریسی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۱ـ۴ـ۲. نمایش تراکنشی و مجموعه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۱ـ۴ـ۳. توالی و گراف</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۱ـ۵. مسائل اصلی داده‌کاوی در یک چارچوب واحد</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">صورت‌بندی فشردهٔ مسائل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۱ـ۶. نخستین محاسبهٔ ریاضی: آیا «پوشک و شیر» واقعاً همراه‌اند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۱ـ۶ـ۱. مجموعهٔ اقلام و تابع نشانگر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#support">۱ـ۶ـ۲. پشتیبان (Support)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#confidence">۱ـ۶ـ۳. اطمینان (Confidence)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۱ـ۶ـ۴. چرا Confidence به‌تنهایی کافی نیست؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lift">۱ـ۶ـ۵. بالابرندگی (Lift)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#leverage">۱ـ۶ـ۶. اهرم (Leverage)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۱ـ۶ـ۷. محاسبه از جدول توافقی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۱ـ۶ـ۸. قاعدهٔ ظاهراً عالی با شواهد ضعیف</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۱ـ۷. از «الگوی مشاهده‌شده» تا «کشف معتبر»</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۱ـ۷ـ۱. جست‌وجوی فراوان و کشفیات کاذب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">۱ـ۷ـ۲. سه پرسش برای داوری یک الگو</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">۱ـ۷ـ۳. سوگیری انتخاب و نشت اطلاعات</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۱ـ۸. چرا به الگوریتم‌های ویژه و مقیاس‌پذیر نیاز داریم؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۱ـ۹. بازتولید محاسبات با پایتون</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۱ـ۱۰. نکاتی که در دو کتاب تأکید متفاوت دارند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۱ـ۱۱. تمرین‌های پایانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۱ـ۱۲. جمع‌بندی فصل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">نقشهٔ ادامهٔ درس و اتصال به منابع</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">منابع</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
