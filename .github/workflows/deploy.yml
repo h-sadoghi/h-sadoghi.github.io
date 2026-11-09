@@ -74,7 +74,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "3.2.2"
+          ruby-version: "3.2"
           bundler-cache: true
       - name: Setup Python for Jupyter Book
         uses: actions/setup-python@v5
@@ -149,7 +149,7 @@ jobs:
       - name: Check PR built site links
         id: pr_link_check
         if: github.event_name == 'pull_request'
-        uses: lycheeverse/lychee-action@v1.9.0
+        uses: lycheeverse/lychee-action@v2.9.0
         with:
           fail: true
           # Match the independent site's offline checker exactly.
