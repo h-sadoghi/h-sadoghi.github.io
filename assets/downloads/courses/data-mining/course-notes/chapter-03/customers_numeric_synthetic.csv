@@ -1,0 +1,4 @@
+customer_id,feature_1,feature_2,annotation
+A,0,0,reference
+B,3,4,euclidean-nearest-to-A
+C,0,6,manhattan-nearest-to-A

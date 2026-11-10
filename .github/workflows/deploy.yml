@@ -140,6 +140,9 @@ jobs:
           test -d _site/teaching/data-mining/book/_static
           test -f _site/.nojekyll
 
+      - name: Stage Data Mining downloadable files
+        run: python tools/stage_data_mining_downloads.py --repo "$GITHUB_WORKSPACE" --site-dir _site
+
       - name: Verify generated WebP images
         shell: bash
         run: |

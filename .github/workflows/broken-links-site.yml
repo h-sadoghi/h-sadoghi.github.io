@@ -81,6 +81,9 @@ jobs:
           test -s _site/teaching/data-mining/book/index.html
           test -d _site/teaching/data-mining/book/_static
 
+      - name: Stage Data Mining downloadable files
+        run: python tools/stage_data_mining_downloads.py --repo "$GITHUB_WORKSPACE" --site-dir _site
+
       - name: Link Checker 🔗
         uses: lycheeverse/lychee-action@v2.9.0
         with:
