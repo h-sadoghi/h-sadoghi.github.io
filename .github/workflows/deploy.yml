@@ -143,6 +143,9 @@ jobs:
       - name: Stage Data Mining downloadable files
         run: python tools/stage_data_mining_downloads.py --repo "$GITHUB_WORKSPACE" --site-dir _site
 
+      - name: Stage linked course notebooks
+        run: python tools/stage_course_notebook_downloads.py --repo "$GITHUB_WORKSPACE" --site-dir _site
+
       - name: Verify generated WebP images
         shell: bash
         run: |
@@ -158,7 +161,20 @@ jobs:
           # Match the independent site's offline checker exactly.
           # The two webpack macro files are Sphinx/Jinja build templates copied
           # verbatim by the standard theme. They are assets, not public pages.
-          args: --offline --root-dir "$GITHUB_WORKSPACE/_site" --index-files index.html --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --exclude-path '_site/teaching/image-processing/book/_static/sbt-webpack-macros.html' --exclude-path '_site/teaching/image-processing/book/_static/webpack-macros.html' --verbose --no-progress '_site/**/*.html'
+          args: >-
+            --offline --root-dir "$GITHUB_WORKSPACE/_site"
+            --index-files index.html
+            --remap '_site(/?.*)/assets/(.*) _site/assets/$2'
+            --exclude-path '_site/teaching/image-processing/book/_static/sbt-webpack-macros.html'
+            --exclude-path '_site/teaching/image-processing/book/_static/webpack-macros.html'
+            --exclude-path '_site/teaching/data-engineering/book/_static/sbt-webpack-macros.html'
+            --exclude-path '_site/teaching/data-engineering/book/_static/webpack-macros.html'
+            --exclude-path '_site/teaching/data-mining/book/_static/sbt-webpack-macros.html'
+            --exclude-path '_site/teaching/data-mining/book/_static/webpack-macros.html'
+            --exclude-path '_site/teaching/pattern-recognition/book/_static/sbt-webpack-macros.html'
+            --exclude-path '_site/teaching/pattern-recognition/book/_static/webpack-macros.html'
+            --verbose --no-progress
+            '_site/**/*.html'
       - name: Record PR validation evidence
         if: ${{ always() && github.event_name == 'pull_request' }}
         shell: bash
