@@ -1,0 +1,1327 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل دوم — بازنمایی داده، انواع ویژگی‌ها و کیفیت داده &#8212; Data Mining Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/data-mining-rtl.css?v=9df69a29" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-02';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="فصل اول — مبانی داده‌کاوی و فرایند کشف دانش" href="chapter-01.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Mining Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    داده‌کاوی | Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های درس داده‌کاوی</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">مبانی داده‌کاوی و فرایند کشف دانش</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-02.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل دوم — بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و جایگاه فصل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">مبنای علمی، مقایسهٔ دو مرجع و مرزبندی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۲ـ۱. مسئلهٔ آغازین: یک جدول فروش و سه پاسخ متفاوت</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۲ـ۱ـ۱. دانه‌بندی داده و کلید</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۲ـ۱ـ۲. شیء داده، ویژگی و نقش آن</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۲ـ۲. معنا و مقیاس سنجش ویژگی‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nominal">۲ـ۲ـ۱. اسمی (Nominal): فقط تشخیص برابری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinal">۲ـ۲ـ۲. ترتیبی (Ordinal): ترتیب داریم، فاصلهٔ ثابت نه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interval">۲ـ۲ـ۳. فاصله‌ای (Interval): اختلاف معتبر است؛ نسبتِ مقدارها نه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ratio">۲ـ۲ـ۴. نسبتی (Ratio): صفر حقیقی و نسبت معنا‌دار</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۲ـ۲ـ۵. گسسته، پیوسته و دودویی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۲ـ۲ـ۶. ویژگی مشتق‌شده و نقش زمان</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۲ـ۳. از دادهٔ چندشکلی تا نمایش مناسب برای مسئله</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۲ـ۳ـ۱. ماتریس ویژگی و جدول رابطه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۲ـ۳ـ۲. سبد خرید: مجموعه یا چندمجموعه؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۲ـ۳ـ۳. دنبالهٔ رویداد و زمان‌بندی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۲ـ۳ـ۴. گراف و رابطهٔ بین موجودیت‌ها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۲ـ۳ـ۵. تنک‌بودن و مسئلهٔ صفر</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-dictionary">۲ـ۴. فرهنگ داده (Data Dictionary) و قرارداد سنجش</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۲ـ۴ـ۱. دامنهٔ مجاز با قرارداد تجاری فرق دارد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۲ـ۴ـ۲. دقت ثبت، صحت و واحد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۲ـ۴ـ۳. زمان رویداد در برابر زمان ورود</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۲ـ۵. کیفیت داده: «مناسب برای چه استفاده‌ای؟»</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۲ـ۵ـ۱. بُعدهای کیفیت و مخرج صحیح</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۲ـ۵ـ۲. مواردِ بی‌قاعده و مواردِ نامطمئن</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۲ـ۶. فقدان مقدار و مکانیزم گم‌شدن</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۲ـ۶ـ۱. چهار حالت که نباید با هم یکی شوند</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">۲ـ۶ـ۲. الگوی قابل مشاهده با علت فقدان یکی نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">۲ـ۶ـ۳. مثال عددی: حذفِ ظاهراً ساده چه خطایی می‌سازد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۲ـ۷. توصیف توزیع قبل از کشف الگو</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۲ـ۷ـ۱. میانگین، میانه و نما: سه سؤال متفاوت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۲ـ۷ـ۲. واریانس و تفاوت جامعه و نمونه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۲ـ۷ـ۳. چارک، فاصلهٔ میان‌چارکی و «پرچم» دادهٔ پرت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۲ـ۷ـ۴. خلاصهٔ مقاوم جایگزینِ توضیح داده نمی‌شود</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۲ـ۷ـ۵. چرا نمودار لازم است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۲ـ۸. خطای ثبت، دادهٔ پرت، و موجودیت تکراری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">۲ـ۸ـ۱. تفاوت دادهٔ پرت با دادهٔ نامعتبر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">۲ـ۸ـ۲. رکورد تکراری، موجودیت تکراری و تراکنشِ چندردیفی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">۲ـ۸ـ۳. ناسازگاری معنایی و چند منبع داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson">۲ـ۹. ترکیب گروه‌ها و وارونگی نتیجه: مثال Simpson</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">۲ـ۱۰. از کیفیت داده تا کیفیت ادعا: هشدار نشت اطلاعات</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">۲ـ۱۱. یک فرایند ممیزی قابل دفاع و تکرارپذیر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">۲ـ۱۱ـ۱. مراحل الگوریتمی ممیزی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">۲ـ۱۱ـ۲. آیا نرمال‌کردن هر مقدار مجاز است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">۲ـ۱۱ـ۳. آستانه‌های کنترل کیفیت را به مسئله متصل کنید</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">۲ـ۱۲. رابطهٔ میان ویژگی‌ها: رابطهٔ آماری، نه الزاماً رابطهٔ علّی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">۲ـ۱۲ـ۱. کوواریانس و واحد اندازه‌گیری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">۲ـ۱۲ـ۲. ضریب هم‌بستگی و محدودیت تفسیر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">۲ـ۱۲ـ۳. جدول توافقی برای متغیرهای اسمی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">۲ـ۱۳. تمرین عملی: بازتولید همهٔ محاسبات با پایتون</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">۲ـ۱۳ـ۱. تفسیر خروجی ممیزی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">۲ـ۱۳ـ۲. آزمایش‌های پیشنهادی با تغییر داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uci">۲ـ۱۴. پیوند با دادهٔ واقعی: چه چیزی را از UCI می‌توان آموخت؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">۲ـ۱۵. تمرین‌های پایانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">پاسخ راهنما برای چند محاسبهٔ قابل کنترل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">۲ـ۱۶. جمع‌بندی و پل به فصل سوم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">منابع دقیق و مواد تکمیلی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">دو کتاب اصلی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">منابع تکمیلی وب برای بسط آموزشی (نه جایگزین دو کتاب)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل دوم — بازنمایی داده، انواع ویژگی‌ها و کیفیت داده<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>درس داده‌کاوی، کارشناسی ارشد مهندسی کامپیوتر</strong><br />
+مسیر آموزشی: از «چه چیزی را اندازه گرفته‌ایم؟» به «آیا کشف الگو از این داده معتبر است؟»</p>
+</div></blockquote>
+<section id="id2">
+<h2>اهداف یادگیری و جایگاه فصل<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>پس از مطالعهٔ این فصل دانشجو باید بتواند: (۱) واحد مشاهده و موجودیت را در یک مجموعه‌داده تشخیص دهد؛ (۲) برای هر ویژگی، نقش، مقیاس سنجش، دامنهٔ معتبر و معنای فقدان مقدار را ثبت کند؛ (۳) توضیح دهد چرا یک کد عددی لزوماً ویژگی کمی نیست؛ (۴) نمایش‌های رکوردی، تراکنشی، ترتیبی و گرافی را متناسب با پرسش داده‌کاوی انتخاب کند؛ (۵) کیفیت ثبت، جامعیت، یکتایی، سازگاری و به‌موقع‌بودن داده را با مخرج‌های صحیح بسنجد؛ (۶) بین خطای ثبت، نادر‌بودن و رفتار غیرعادی تمایز بگذارد؛ (۷) اثر دادهٔ گمشده و ترکیب ناهمسان زیرگروه‌ها بر نتیجه را با محاسبهٔ دستی نشان دهد؛ و (۸) یک گزارش کیفیت قابل بازتولید و بدون پاک‌سازیِ مخرب تولید کند.</p>
+<p><strong>دریافت فایل‌های فصل پس از انتشار در سایت:</strong> <a href="/assets/downloads/courses/data-mining/course-notes/chapter-02/DataMining_Chapter02.pdf" download>جزوهٔ PDF</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-02/DataMining_Chapter02_TEX_PDF_SOURCE.zip" download>بستهٔ سورس، LaTeX، PDF، تصاویر و کدها</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-02/chapter02_examples.ipynb" download>Notebook اجرایی</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-02/chapter02_examples.py" download>برنامهٔ پایتون</a>.</p>
+<p><strong>پیوند با فصل اول.</strong> در فصل نخست، از ده سبد خرید به قاعدهٔ «پوشک <span class="math notranslate nohighlight">\(\Rightarrow\)</span> شیر» رسیدیم و دیدیم که مقدار Support یا Lift بدون بررسی اعتبار داده و فرایند گردآوری کافی نیست. اکنون پرسش بنیادی‌تر است: <strong>سبد خرید را دقیقاً چه چیزی تشکیل می‌دهد، یک ردیف به چه موجودیتی اشاره می‌کند، و آیا هر صفر، مقدار خالی یا تکرار واقعاً همان معنایی را دارد که الگوریتم فرض می‌کند؟</strong> با پاسخ به این پرسش‌ها، مبنای فصل سوم (شباهت و فاصله) و فصل چهارم (پیش‌پردازش و کاهش بُعد) را می‌سازیم.</p>
+<section id="id3">
+<h3>مبنای علمی، مقایسهٔ دو مرجع و مرزبندی<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>در کتاب <strong>Han, Pei &amp; Tong</strong>، ویرایش چهارم، مطالب اصلی این فصل از §۲٫۱، «Data Types» (صفحات چاپی ۲۴–۲۷)، §۲٫۲، «Statistics of Data» (صفحات ۲۷–۴۲)، و بخش‌های مقدماتی §۲٫۴، «Data Quality, Data Cleaning, and Data Integration» (از صفحهٔ ۵۵) انتخاب شده است. در کتاب <strong>Tan, Steinbach, Karpatne &amp; Kumar</strong>، ویرایش دوم، محورهای متناظر عبارت‌اند از §۲٫۱، «Types of Data» (صفحات چاپی ۲۶–۴۱) شامل ویژگی، سنجش و مجموعه‌داده، و §۲٫۲، «Data Quality» (صفحات ۴۲–۴۹). شماره‌ها <strong>شمارهٔ چاپی کتاب</strong> هستند، نه شمارهٔ صفحه در فایل PDF.</p>
+<p>Han در این محدوده تفکیک انواع ویژگی و آمار خلاصه‌کننده را منظم‌تر بسط می‌دهد؛ Tan در کنار مقیاس‌های سنجش، از ابتدا <strong>نوع مجموعه‌داده</strong> و سپس خطاهای اندازه‌گیری، دقت، سوگیری و تناسب کیفیت با کاربرد را برجسته می‌کند. ساختار حاضر این دو رویکرد را حول یک مسئلهٔ مشترک ترکیب می‌کند: ابتدا ماهیت مشاهده، سپس معنای ویژگی، سپس شکل نمایش و در نهایت قابلیت اعتماد کشف. دسته‌بندی MCAR/MAR/MNAR، مثال Simpson، قواعد کنترل عملی و بحث نشت داده، <strong>بسط آموزشی مستقل با اتکا به منابع تکمیلی</strong> هستند و نباید به‌اشتباه نقل مستقیم از دو کتاب تلقی شوند.</p>
+<p><strong>مرز فصل:</strong> رابطهٔ شباهت بین دو رکورد و انتخاب متریک مناسب به فصل سوم واگذار می‌شود؛ روش‌های عملی جایگذاری مقادیر گمشده، مقیاس‌بندی، نمونه‌گیری و کاهش بُعد در فصل چهارم با عمق الگوریتمی می‌آیند. در این فصل، هدف تشخیص مسئله و ارزیابی پیامدهای آن است، نه فهرست‌کردن بی‌ضابطهٔ الگوریتم‌ها.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>۲ـ۱. مسئلهٔ آغازین: یک جدول فروش و سه پاسخ متفاوت<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>فرض کنید سامانهٔ یک فروشگاه اینترنتی در یک روز، اطلاعات ۱۴ <strong>ردیف کالا</strong> را ثبت کرده است. هر ردیف شامل شمارهٔ فاکتور، شمارهٔ ردیف، شناسهٔ مشتری، زمان رویداد، زمان ورود به پایگاه داده، کد کالا، تعداد، قیمت واحد، کشور، کانال سفارش و سطح خدمت است. این مجموعه‌داده <strong>ساختگی و آموزشی</strong> است؛ فایل <code class="docutils literal notranslate"><span class="pre">retail_lines_synthetic.csv</span></code> در بستهٔ فصل قرار دارد و به دادهٔ واقعی هیچ فروشگاهی نسبت داده نمی‌شود.</p>
+<p>سه سؤال به ظاهر مشابه مطرح می‌کنیم:</p>
+<ol class="arabic simple">
+<li><p>چند قلم کالا ثبت شده است؟ <strong>۱۴ ردیف</strong>.</p></li>
+<li><p>چند فاکتور متمایز ثبت شده است؟ <strong>۱۲ شناسهٔ فاکتور</strong>.</p></li>
+<li><p>چند سبد خرید معتبر برای تحلیل هم‌خریدی خواهیم داشت؟ پس از حذف تکرار ثبت، کنارگذاشتن فاکتور برگشت و کنارگذاشتن دو ردیف دارای خطای آشکار تعداد/قیمت، در این مثال <strong>۹ سبد معتبر</strong> باقی می‌ماند.</p></li>
+</ol>
+<p>این سه پاسخ با یکدیگر تناقض ندارند؛ <strong>واحد شمارش</strong> متفاوت است. در فاکتور <code class="docutils literal notranslate"><span class="pre">I001</span></code>، ردیف شمارهٔ ۱ مربوط به کالای <code class="docutils literal notranslate"><span class="pre">P01</span></code> و ردیف شمارهٔ ۲ مربوط به <code class="docutils literal notranslate"><span class="pre">P02</span></code> است. این دو ردیف تکراری نیستند؛ آن‌ها دو قلم متعلق به <em>یک</em> سبد هستند. در مقابل، ردیف <code class="docutils literal notranslate"><span class="pre">I008,</span> <span class="pre">line</span> <span class="pre">1</span></code> عیناً دو بار وارد شده است؛ احتمال تکرار در مرحلهٔ ورود داده وجود دارد و برای تحلیل باید با کلید تجاری کنترل شود. فاکتور <code class="docutils literal notranslate"><span class="pre">C009</span></code> بازگشت کالا را با تعداد منفی ثبت کرده است؛ این مقدار، با قرارداد اعلام‌شده، <strong>خطا نیست</strong>.</p>
+<figure class="align-default" id="dm2-grain">
+<a class="reference internal image-reference" href="../_images/fig02_01_granularity.png"><img alt="../_images/fig02_01_granularity.png" src="../_images/fig02_01_granularity.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">شکل ۲ـ۱. یک جهان واقعی با سه واحد مشاهده: ردیف کالا، تراکنش و مشتری. انتخاب نادرست واحد مشاهده، مخرج محاسبهٔ پشتیبان قواعد انجمنی را تغییر می‌دهد. شکل تألیفی.</span><a class="headerlink" href="#dm2-grain" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>پیش از اجرای هر الگوریتم، این جمله را کامل کنید: «هر ردیف از جدول تحلیلی من نمایندهٔ <strong>یک …</strong> است.» اگر نمی‌توان آن را بدون ابهام کامل کرد، احتمالاً هنوز مسئله به‌درستی تعریف نشده است.</p>
+<section id="id5">
+<h3>۲ـ۱ـ۱. دانه‌بندی داده و کلید<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>در دادهٔ رکوردی، <strong>دانه‌بندی (Data Grain)</strong> تعیین می‌کند یک مشاهده دقیقاً به چه واقعیتی اشاره دارد. اگر داده در سطح ردیف کالا باشد، زوج <code class="docutils literal notranslate"><span class="pre">(order_id,</span> <span class="pre">line_no)</span></code> نامزد کلید یکتاست. اگر داده به سطح سبد تبدیل شود، <code class="docutils literal notranslate"><span class="pre">order_id</span></code> کلید است. اگر هدف مطالعهٔ وفاداری مشتری در هر ماه باشد، زوج <code class="docutils literal notranslate"><span class="pre">(customer_id,</span> <span class="pre">month)</span></code> کلید تحلیلی خواهد بود؛ نه شناسهٔ ردیف کالا و نه شناسهٔ فاکتور.</p>
+<p>فرض کنید در روزی <span class="math notranslate nohighlight">\(N_L=14\)</span> ردیف ثبت شده، <span class="math notranslate nohighlight">\(N_T=12\)</span> فاکتور متمایز داریم و برای هر مشتری تعداد متفاوتی فاکتور وجود دارد. اگر فراوانی یک کالای خاص را با تقسیم تعداد <strong>ردیف‌های کالا</strong> بر تعداد <strong>فاکتورها</strong> محاسبه کنیم، چیزی متفاوت از نسبت سبدهای دارای آن کالا به دست می‌آید. مخرج دقیق باید از مسئله استخراج شود. مثلاً برای قواعد انجمنی در سطح فاکتور:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{support}(\{p\})=
+\frac{\#\{t\in\mathcal T : p\in t\}}{|\mathcal T|},
+\]</div>
+<p>که <span class="math notranslate nohighlight">\(\mathcal T\)</span> مجموعهٔ <strong>تراکنش‌های واجد شرایط تحلیل</strong> است، نه همهٔ ردیف‌های خام و نه همهٔ مشتریان.</p>
+</section>
+<section id="id6">
+<h3>۲ـ۱ـ۲. شیء داده، ویژگی و نقش آن<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>یک <strong>شیء داده (Data Object)</strong> می‌تواند فرد، فاکتور، کالا، رویداد حسگر یا یک قطعهٔ زمانی باشد. <strong>ویژگی (Attribute)</strong> مشاهده یا توصیفی دربارهٔ آن شیء است. برای تحلیل، علاوه بر نوع ویژگی، باید <em>نقش</em> آن را ثبت کرد: کلید شناسه‌ای، زمان، متغیر پاسخ، متغیر توصیفی، وزن نمونه، متغیر کنترل، یا ویژگی بالقوهٔ نشت اطلاعات.</p>
+<p>برای مثال <code class="docutils literal notranslate"><span class="pre">customer_id=101</span></code> از نظر ذخیره‌سازی می‌تواند عدد صحیح باشد، ولی عدد ۱۰۲ «بزرگ‌تر» از مشتری ۱۰۱ نیست. اگر از شناسهٔ مشتری میانگین بگیریم، عدد به‌دست‌آمده هیچ رفتار مصرف‌کننده‌ای را توصیف نمی‌کند. این نکته نخستین گام تشخیص <strong>نوع معنایی</strong> از نوع حافظه‌ای/برنامه‌نویسی داده است.</p>
+</section>
+</section>
+<section id="id7">
+<h2>۲ـ۲. معنا و مقیاس سنجش ویژگی‌ها<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>در برنامه‌نویسی، یک ستون ممکن است <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">str</span></code> یا <code class="docutils literal notranslate"><span class="pre">datetime</span></code> باشد. در داده‌کاوی پرسش عمیق‌تری داریم: <strong>چه تبدیل‌ها و مقایسه‌هایی معنای پدیده را حفظ می‌کنند؟</strong> پاسخ، مقیاس سنجش یا <em>Measurement Scale</em> را روشن می‌کند.</p>
+<figure class="align-default" id="dm2-types">
+<a class="reference internal image-reference" href="../_images/fig02_02_attribute_taxonomy.png"><img alt="../_images/fig02_02_attribute_taxonomy.png" src="../_images/fig02_02_attribute_taxonomy.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">شکل ۲ـ۲. طبقه‌بندی مفهومی ویژگی‌ها: اسمی و ترتیبی در یک سوی، فاصله‌ای و نسبتی در سوی دیگر. دودویی‌بودن و گسسته/پیوسته‌بودن دو صفت مکمل‌اند، نه چهار ردهٔ ناسازگار. شکل تألیفی.</span><a class="headerlink" href="#dm2-types" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="nominal">
+<h3>۲ـ۲ـ۱. اسمی (Nominal): فقط تشخیص برابری<a class="headerlink" href="#nominal" title="Link to this heading">#</a></h3>
+<p>مقادیر <code class="docutils literal notranslate"><span class="pre">web</span></code> و <code class="docutils literal notranslate"><span class="pre">app</span></code> برای کانال فروش، یا <code class="docutils literal notranslate"><span class="pre">P01</span></code> و <code class="docutils literal notranslate"><span class="pre">P02</span></code> برای کد کالا، اسمی‌اند. می‌توان گفت دو مقدار یکسان هستند یا خیر؛ اما بزرگی و فاصلهٔ عددی میان آن‌ها معنا ندارد. شمارش فراوانی و نما (Mode) معتبر است؛ میانگین کدها معتبر نیست.</p>
+<p><strong>مثال عددی.</strong> چهار رنگ را به‌طور قراردادی با <code class="docutils literal notranslate"><span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">3,</span> <span class="pre">4</span></code> کدگذاری کرده‌ایم و مقادیر مشاهده‌شده <code class="docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">1,</span> <span class="pre">4,</span> <span class="pre">4]</span></code> هستند. میانگین عددی برابر <span class="math notranslate nohighlight">\(2.5\)</span> است؛ اما اگر تنها برچسب‌ها را تغییر دهیم، مثلاً کد ۱ را ۷ و کد ۴ را ۲ کنیم، میانگین تازه <span class="math notranslate nohighlight">\(4.5\)</span> می‌شود درحالی‌که دادهٔ واقعی دقیقاً همان است. بنابراین <strong>میانگینِ کدِ اسمی به نام‌گذاری وابسته است</strong> و یک کمیت علمی پایدار محسوب نمی‌شود. در عوض، فراوانی هر دسته برابر دو، و نسبت هر دسته <span class="math notranslate nohighlight">\(1/2\)</span> است؛ این نتیجه با تغییر نام کدها ثابت می‌ماند.</p>
+</section>
+<section id="ordinal">
+<h3>۲ـ۲ـ۲. ترتیبی (Ordinal): ترتیب داریم، فاصلهٔ ثابت نه<a class="headerlink" href="#ordinal" title="Link to this heading">#</a></h3>
+<p>فرض کنید سطح خدمت به ترتیب <code class="docutils literal notranslate"><span class="pre">basic</span></code>, <code class="docutils literal notranslate"><span class="pre">standard</span></code>, <code class="docutils literal notranslate"><span class="pre">premium</span></code> باشد. رابطهٔ <code class="docutils literal notranslate"><span class="pre">basic</span> <span class="pre">&lt;</span> <span class="pre">standard</span> <span class="pre">&lt;</span> <span class="pre">premium</span></code> معنا دارد؛ اما لزوماً تفاوت <code class="docutils literal notranslate"><span class="pre">premium-standard</span></code> با <code class="docutils literal notranslate"><span class="pre">standard-basic</span></code> برابر نیست. در پرسش‌نامهٔ رضایت ۱ تا ۵ نیز صرف عددگذاری ثابت نمی‌کند فاصلهٔ روان‌شناختی میان ۱ و ۲ با فاصلهٔ ۴ و ۵ یکسان است.</p>
+<p><strong>مثال.</strong> پنج ارزیابی <code class="docutils literal notranslate"><span class="pre">[ضعیف،</span> <span class="pre">متوسط،</span> <span class="pre">متوسط،</span> <span class="pre">خوب،</span> <span class="pre">عالی]</span></code> داریم. رتبهٔ میانی «متوسط» است؛ پس گزارش <strong>میانهٔ ترتیبی</strong> معتبر است. گزارش «میانگین سطح خدمت = ۲٫۸» تنها با فرض اضافیِ مساوی‌بودن فاصلهٔ رده‌ها معنا پیدا می‌کند؛ این فرض باید آشکارا ذکر و توجیه شود. در بسیاری از گزارش‌های تصمیم‌گیری، توزیع درصد رده‌ها از یک میانگین مبهم آموزنده‌تر است.</p>
+</section>
+<section id="interval">
+<h3>۲ـ۲ـ۳. فاصله‌ای (Interval): اختلاف معتبر است؛ نسبتِ مقدارها نه<a class="headerlink" href="#interval" title="Link to this heading">#</a></h3>
+<p>دما برحسب سلسیوس نمونهٔ کلاسیک است. فاصلهٔ ۱۰ تا ۲۰ درجه با فاصلهٔ ۲۰ تا ۳۰ درجه یکسان است؛ اما ۲۰ درجهٔ سلسیوس «دو برابر گرم‌تر» از ۱۰ درجهٔ سلسیوس به معنای نسبت کمّی دمای مطلق نیست. دلیل ساده است: صفر سلسیوس قراردادی است، نه نبود دما.</p>
+<p>رابطهٔ تغییر مقیاس سلسیوس به فارنهایت:</p>
+<div class="math notranslate nohighlight">
+\[
+F=\frac{9}{5}C+32.
+\]</div>
+<p>دو اندازه‌گیری ۱۰ و ۲۰ درجه، در فارنهایت ۵۰ و ۶۸ می‌شوند. نسبت‌ها عوض می‌شوند: در سلسیوس <span class="math notranslate nohighlight">\(20/10=2\)</span> ولی در فارنهایت <span class="math notranslate nohighlight">\(68/50=1.36\)</span>؛ <strong>نسبت، تحت تبدیل مجاز مقیاس پایدار نیست</strong>. در مقابل، اختلاف ۱۰ درجهٔ سلسیوس به اختلاف ۱۸ درجهٔ فارنهایت تبدیل می‌شود؛ یک رابطهٔ ثابت و معنادار.</p>
+</section>
+<section id="ratio">
+<h3>۲ـ۲ـ۴. نسبتی (Ratio): صفر حقیقی و نسبت معنا‌دار<a class="headerlink" href="#ratio" title="Link to this heading">#</a></h3>
+<p>تعداد قلم کالا، طول و جرمِ اندازه‌گیری‌شده در یک واحد ثابت، نمونهٔ ویژگی نسبتی هستند. اگر فاکتوری ۴ قلم و فاکتوری دیگر ۲ قلم کالا داشته باشد، اولی <strong>دو برابر</strong> دومی قلم دارد. تبدیل ۲ متر به ۲۰۰ سانتی‌متر نسبت دو طول را تغییر نمی‌دهد؛ تبدیل مجاز در این مقیاس از شکل <span class="math notranslate nohighlight">\(x'=a x\)</span> با <span class="math notranslate nohighlight">\(a&gt;0\)</span> است.</p>
+<p>دربارهٔ قیمت و مقدار پول، نسبت‌ها در یک ارز و زمان مشخص از نظر حسابی معنا دارند، اما مقایسهٔ قدرت خرید بین زمان‌ها بدون توجه به تورم لزوماً معنا ندارد. «صفر حقیقی» به‌تنهایی تضمین نمی‌کند هر تحلیل اقتصادی معتبر است.</p>
+<figure class="align-default" id="dm2-operations">
+<a class="reference internal image-reference" href="../_images/fig02_03_allowed_operations.png"><img alt="../_images/fig02_03_allowed_operations.png" src="../_images/fig02_03_allowed_operations.png" style="width: 86%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">شکل ۲ـ۳. حداقل عملیاتِ مجاز بر اساس مقیاس: برابری، ترتیب، تفاضل، نسبت. «بله» به معنی امکان مقایسهٔ معنادار است، نه الزام کاربرد آن در همهٔ مسائل. شکل تألیفی.</span><a class="headerlink" href="#dm2-operations" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>مقیاس</p></th>
+<th class="head"><p>نمونه</p></th>
+<th class="head"><p>عملیات توصیفی متداول</p></th>
+<th class="head"><p>خطای رایج</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>اسمی</p></td>
+<td><p>کد محصول، شهر</p></td>
+<td><p>فراوانی، نما</p></td>
+<td><p>میانگین‌گرفتن از کد شناسه</p></td>
+</tr>
+<tr class="row-odd"><td><p>ترتیبی</p></td>
+<td><p>سطح خدمت، رضایت</p></td>
+<td><p>فراوانی، رتبه، میانه</p></td>
+<td><p>فرض خودکار فاصلهٔ برابر</p></td>
+</tr>
+<tr class="row-even"><td><p>فاصله‌ای</p></td>
+<td><p>دمای سلسیوس</p></td>
+<td><p>اختلاف، میانگین، انحراف معیار</p></td>
+<td><p>تفسیر نسبت دماها</p></td>
+</tr>
+<tr class="row-odd"><td><p>نسبتی</p></td>
+<td><p>تعداد، جرم، مدت مثبت</p></td>
+<td><p>اختلاف، نسبت، میانگین</p></td>
+<td><p>بی‌توجهی به واحد و دامنهٔ کاربرد</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id8">
+<h3>۲ـ۲ـ۵. گسسته، پیوسته و دودویی<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p><strong>گسسته (Discrete)</strong> یعنی دامنهٔ مقادیر شمارا باشد؛ شمار اقلام نمونهٔ واضح است. <strong>پیوسته (Continuous)</strong> یعنی مدل نظری بتواند مقدار را از بازه‌ای پیوسته بگیرد، هرچند حسگر با دقت محدود اندازه‌گیری کند. تردید رایج این است که «اگر وزن را با یک رقم اعشار ثبت کنیم، گسسته می‌شود؟» پاسخ: <strong>دادهٔ ثبت‌شده گسسته‌شده است، اما کمیت زیرین می‌تواند پیوسته باشد</strong>. این تمایز بر تفسیر خطا و طراحی نمودار اثر می‌گذارد.</p>
+<p>دودویی (Binary) نوعی ویژگی دوحالتی است. در یک ویژگی <strong>دودویی متقارن</strong>، هر دو حالت از نظر مسئله مهم‌اند (مانند پاسخ بله/خیر به دو گزینهٔ هم‌ارزش). در ویژگی <strong>دودویی نامتقارن</strong>، حضور ۱ با فقدان ۰ هم‌ارزش نیست: در مجموعه‌ای با میلیون‌ها کالا، «این کالا خریداری نشده» برای تقریباً همهٔ اقلام درست است؛ هم‌صفر بودن دو سبد لزوماً شاهد قوی شباهت نیست. در فصل سوم هنگام انتخاب شباهت ژاکارد از همین شهود استفاده می‌کنیم؛ فعلاً مهم است که <strong>تفسیر صفر را در فرهنگ داده ثبت کنیم</strong>.</p>
+<figure class="align-default" id="dm2-binary">
+<a class="reference internal image-reference" href="../_images/fig02_05_binary_asymmetry.png"><img alt="../_images/fig02_05_binary_asymmetry.png" src="../_images/fig02_05_binary_asymmetry.png" style="width: 82%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">شکل ۲ـ۴. عدم تقارن معناییِ حضور و عدم حضور یک رخداد کم‌یاب. در تحلیل اقلام خریداری‌شده، توافق روی «نخریدن» هزاران کالای نامرتبط نباید نتیجه را تحت تأثیر قرار دهد. شکل تألیفی.</span><a class="headerlink" href="#dm2-binary" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id9">
+<h3>۲ـ۲ـ۶. ویژگی مشتق‌شده و نقش زمان<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">amount</span> <span class="pre">=</span> <span class="pre">quantity</span> <span class="pre">×</span> <span class="pre">unit_price</span></code> یک ویژگی مشتق‌شده است. در تحلیل توصیفی همان ردیف قابل استفاده است؛ اما اگر وظیفهٔ پیش‌بینی <code class="docutils literal notranslate"><span class="pre">amount</span></code> باشد، استفاده از همین دو جزء می‌تواند مسئله را بدیهی کند و به معنای کشف الگوی جدید نیست. در تصمیم‌گیری پیش از خرید، حتی ممکن است یکی از این دو مقدار هنوز در دسترس نباشد. <strong>قانون دسترسی در زمان تصمیم</strong>، به‌اندازهٔ نوع ویژگی مهم است.</p>
+<p>زمان نیز صرفاً «یک رشتهٔ متن» نیست. باید منطقهٔ زمانی، دقت اندازه‌گیری، قرارداد ثبت و نقش زمان مشخص شوند. فرق <code class="docutils literal notranslate"><span class="pre">event_time</span></code> با <code class="docutils literal notranslate"><span class="pre">ingest_time</span></code> در ادامه نشان داده می‌شود.</p>
+</section>
+</section>
+<section id="id10">
+<h2>۲ـ۳. از دادهٔ چندشکلی تا نمایش مناسب برای مسئله<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>در فصل اول چهار خانوادهٔ داده را مختصر شناختیم. اکنون بررسی می‌کنیم چرا <strong>همان واقعیت</strong> با انتخاب نمایش متفاوت، الگوهای متفاوتی را در دسترس الگوریتم قرار می‌دهد.</p>
+<figure class="align-default" id="dm2-representations">
+<a class="reference internal image-reference" href="../_images/fig02_04_data_representations.png"><img alt="../_images/fig02_04_data_representations.png" src="../_images/fig02_04_data_representations.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">شکل ۲ـ۵. ماتریس رکوردی، تراکنش مجموعه‌ای، توالی رویداد و گراف ارتباطی. این‌ها صرفاً قالب‌های ذخیره‌سازی نیستند؛ هرکدام بخشی از ساختار را حفظ و بخشی را پنهان می‌کنند. شکل تألیفی.</span><a class="headerlink" href="#dm2-representations" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id11">
+<h3>۲ـ۳ـ۱. ماتریس ویژگی و جدول رابطه‌ای<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>در شکل رایج، <span class="math notranslate nohighlight">\(n\)</span> مشاهده و <span class="math notranslate nohighlight">\(d\)</span> ویژگی را با ماتریس <span class="math notranslate nohighlight">\(X\in\mathbb{R}^{n\times d}\)</span> نمایش می‌دهیم؛ البته <strong>این نمایش فقط زمانی دقیق است که همهٔ ویژگی‌ها عددی و دارای معنای محاسباتی مناسب باشند</strong>. یک جدول دارای شناسهٔ مشتری، شهر، زمان و مبلغ، از نظر برنامه‌نویسی در یک DataFrame جا می‌گیرد، ولی بدون کدگذاری آگاهانه، یک ماتریس فاصله‌پذیر عددی نیست.</p>
+<p>در ریاضیِ مدل‌های برداری، یک سطر معمولاً یک شیء و ستون‌ها اجزای توصیف آن هستند. اگر دو سطر از دو فاکتور متعلق به یک مشتری باشند، فرض استقلال سطرها در بسیاری از آزمون‌ها بی‌دلیل است. بنابراین <strong>استقلال آماری را نباید از ظاهر جدولی نتیجه گرفت</strong>.</p>
+</section>
+<section id="id12">
+<h3>۲ـ۳ـ۲. سبد خرید: مجموعه یا چندمجموعه؟<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>برای هم‌خریدی می‌توان هر فاکتور را به مجموعهٔ کالاهای آن تبدیل کرد:</p>
+<div class="math notranslate nohighlight">
+\[
+T_{\mathrm{I001}}=\{\mathrm{P01},\mathrm{P02}\}.
+\]</div>
+<p>اگر همان کالا در یک فاکتور با تعداد ۵ خریداری شود، نمایش مجموعه‌ای هنوز فقط حضور آن را نگه می‌دارد؛ مقدار ۵ حذف شده است. نمایش <strong>چندمجموعه (Multiset)</strong> یا نگاشت <code class="docutils literal notranslate"><span class="pre">product</span> <span class="pre">-&gt;</span> <span class="pre">quantity</span></code> اطلاعات تعداد را حفظ می‌کند. در نتیجه، باید پیش از کاوش تصمیم بگیریم آیا پرسش «کدام کالاها با هم آمده‌اند؟» است یا «چه تعداد از هر کالا همراهِ کالای دیگر خریداری شده است؟». هیچ‌یک ذاتاً درست‌تر نیست؛ هرکدام پاسخ پرسش متفاوتی می‌دهد.</p>
+</section>
+<section id="id13">
+<h3>۲ـ۳ـ۳. دنبالهٔ رویداد و زمان‌بندی<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>برای هر مشتری ممکن است دنباله‌ای از رویدادها داشته باشیم:</p>
+<div class="math notranslate nohighlight">
+\[
+S_c=((e_1,t_1),(e_2,t_2),\ldots,(e_m,t_m)),\qquad t_1\leq t_2\leq\cdots\leq t_m.
+\]</div>
+<p>اگر رویدادهای «مشاهدهٔ کالا، افزودن به سبد، پرداخت» را بدون زمان در یک مجموعه بریزیم، اطلاعات <strong>ترتیب</strong> از بین می‌رود. الگوی «مشاهده، سپس خرید» با «خرید، سپس مشاهدهٔ محصول دیگر» یکی نیست. ناهمگونی فاصله‌های زمانی هم اهمیت دارد: سه رویداد در ۳۰ ثانیه ممکن است معنای رفتاری متفاوتی از سه رویداد طی یک ماه داشته باشند.</p>
+</section>
+<section id="id14">
+<h3>۲ـ۳ـ۴. گراف و رابطهٔ بین موجودیت‌ها<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>در مدل گراف <span class="math notranslate nohighlight">\(G=(V,E)\)</span>، گره‌ها می‌توانند مشتری، کالا یا فروشنده باشند و یال‌ها رابطهٔ «خرید»، «بازدید»، یا «معرفی» را نمایش دهند. فروکاستن گراف به یک جدول مستقل از هر گره، همسایگی و مسیرها را حذف می‌کند. از سوی دیگر، تبدیل هر دادهٔ جدولی به گراف هم لزوماً مفید نیست: اگر رابطهٔ قابل تفسیر نداریم، نمایش گرافی فقط پیچیدگی می‌افزاید.</p>
+</section>
+<section id="id15">
+<h3>۲ـ۳ـ۵. تنک‌بودن و مسئلهٔ صفر<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>اگر هزاران کالای ممکن داشته باشیم و هر سبد فقط چند قلم را شامل شود، ماتریس سبد–کالا عمدتاً صفر است. برای <span class="math notranslate nohighlight">\(n\)</span> سبد و <span class="math notranslate nohighlight">\(p\)</span> کالا، ماتریس دودویی را چنین تعریف می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+B_{ij}=\begin{cases}1,&amp;\text{اگر سبد }i\text{ شامل کالای }j\text{ باشد},\\0,&amp;\text{در غیر این صورت}.
+\end{cases}
+\end{split}\]</div>
+<p><strong>مثال دستی.</strong> در سه سبد با چهار کالای <span class="math notranslate nohighlight">\(A,B,C,D\)</span>، اگر سبدها <span class="math notranslate nohighlight">\(\{A,C\}\)</span>، <span class="math notranslate nohighlight">\(\{B\}\)</span> و <span class="math notranslate nohighlight">\(\{A,D\}\)</span> باشند:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+B=\begin{pmatrix}1&amp;0&amp;1&amp;0\\0&amp;1&amp;0&amp;0\\1&amp;0&amp;0&amp;1\end{pmatrix}.
+\end{split}\]</div>
+<p>از ۱۲ درایه، ۵ مقدار یک داریم؛ چگالی حضور برابر <span class="math notranslate nohighlight">\(5/12\approx0.4167\)</span> و نسبت صفرها <span class="math notranslate nohighlight">\(7/12\approx0.5833\)</span> است. در داده‌های بسیار بزرگ، ذخیرهٔ فقط مختصات و مقادیر غیرصفر به‌صرفه‌تر می‌شود. اما توجه کنید: <strong>صفرِ ثبت‌شده، کالای نخریده، و مقدارِ مشاهده‌نشده یکی نیستند</strong>. اگر اطلاعات خرید مشتری ناقص باشد، صفر قراردادن جای مقدار نامعلوم می‌تواند الگوی کاذب بسازد.</p>
+</section>
+</section>
+<section id="data-dictionary">
+<h2>۲ـ۴. فرهنگ داده (Data Dictionary) و قرارداد سنجش<a class="headerlink" href="#data-dictionary" title="Link to this heading">#</a></h2>
+<p>دادهٔ خام حتی اگر از نظر فنی باز شود، بدون <strong>فراداده (Metadata)</strong> قابل تفسیر مطمئن نیست. برای هر ستون، دست‌کم نام، شرح، موجودیت مربوط، نقش، نوع معنایی، دامنه، واحد، قواعد مقدار خالی و منشأ ثبت را ثبت می‌کنیم. برخی فیلدها علاوه بر این به نسخهٔ قرارداد، منبع زمان، یا سیاست ناشناس‌سازی احتیاج دارند.</p>
+<figure class="align-default" id="dm2-dictionary">
+<a class="reference internal image-reference" href="../_images/fig02_06_data_dictionary.png"><img alt="../_images/fig02_06_data_dictionary.png" src="../_images/fig02_06_data_dictionary.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">شکل ۲ـ۶. نمونهٔ سادهٔ فرهنگ داده. قیدِ تعداد منفی، مشروط به وجود «فاکتور برگشت» است؛ بنابراین یک قاعدهٔ عمومیِ بی‌قید، دادهٔ معتبر را تخریب می‌کند. شکل تألیفی.</span><a class="headerlink" href="#dm2-dictionary" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id16">
+<h3>۲ـ۴ـ۱. دامنهٔ مجاز با قرارداد تجاری فرق دارد<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>برای <code class="docutils literal notranslate"><span class="pre">unit_price</span></code> در مثال آموزشی، قیمت واحد منفی را خطا فرض می‌کنیم؛ اما در سامانه‌ای دیگر، سطر تخفیف ممکن است با مبلغ منفی ثبت شود و از نظر تجاری معتبر باشد. برای <code class="docutils literal notranslate"><span class="pre">quantity</span></code> قرارداد واضح‌تری داریم: در فاکتور فروش عادی، مقدار باید <strong>مثبت</strong> باشد؛ در فاکتور برگشت که شناسه با <code class="docutils literal notranslate"><span class="pre">C</span></code> آغاز می‌شود، تعداد منفی قابل انتظار است. بنابراین قاعدهٔ کیفیت به شکل زیر است:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{validQty}(r)=
+\bigl(\operatorname{isSale}(r)\land q_r&gt;0\bigr)
+\lor
+\bigl(\operatorname{isReturn}(r)\land q_r&lt;0\bigr).
+\]</div>
+<p>این رابطه فقط دربارهٔ <strong>قرارداد مثال حاضر</strong> صادق است. برای دادهٔ واقعی باید از منبع عملیاتی آن تأیید بگیریم. برای فاکتور برگشتی، نمی‌توان صرفاً تعداد منفی را به مثبت تبدیل کرد؛ چنین عملی درآمد و فراوانی اقلام را مخدوش می‌کند.</p>
+</section>
+<section id="id17">
+<h3>۲ـ۴ـ۲. دقت ثبت، صحت و واحد<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>فرض کنیم حسگری طول را با وضوح ۱ میلی‌متر ثبت می‌کند؛ محاسبهٔ میانگین آن با ۱۲ رقم اعشار، صحت اندازه‌گیری را بیشتر نمی‌کند. مفاهیم زیر متفاوت‌اند:</p>
+<ul class="simple">
+<li><p><strong>تفکیک‌پذیری/دقت نمایش (Resolution):</strong> کوچک‌ترین تغییر قابل ثبت؛</p></li>
+<li><p><strong>تکرارپذیری یا Precision:</strong> نزدیکی نتایج تکراری به یکدیگر؛</p></li>
+<li><p><strong>درستی (Accuracy):</strong> نزدیکی اندازه‌گیری به مقدار حقیقی یا مرجع معتبر؛</p></li>
+<li><p><strong>سوگیری اندازه‌گیری (Bias):</strong> انحراف سیستماتیک اندازه‌گیری از مقدار مرجع.</p></li>
+</ul>
+<p>در مدل سادهٔ اندازه‌گیری، می‌نویسیم:</p>
+<div class="math notranslate nohighlight">
+\[
+Y_i=\theta+b+\varepsilon_i,
+\]</div>
+<p>که <span class="math notranslate nohighlight">\(\theta\)</span> مقدار واقعی، <span class="math notranslate nohighlight">\(b\)</span> خطای سیستماتیک و <span class="math notranslate nohighlight">\(\varepsilon_i\)</span> مؤلفهٔ تصادفیِ با میانگین صفر <strong>در فرض این مدل</strong> است. اگر <span class="math notranslate nohighlight">\(\theta=100\)</span>، <span class="math notranslate nohighlight">\(b=+3\)</span> و خطاهای تصادفی در پنج اندازه‌گیری به ترتیب <span class="math notranslate nohighlight">\([-1,0,1,0,0]\)</span> باشند، مشاهدات <span class="math notranslate nohighlight">\([102,103,104,103,103]\)</span> می‌شوند. پراکندگی کم است و میانگین دقیقاً ۱۰۳، ولی اندازه‌گیری <strong>سه واحد سوگیری</strong> دارد. این مثال نشان می‌دهد تکرارپذیری بالا مساوی درستی بالا نیست. Tan §۲٫۲٫۱ بر چنین تمایزهایی تأکید دارد.</p>
+</section>
+<section id="id18">
+<h3>۲ـ۴ـ۳. زمان رویداد در برابر زمان ورود<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">event_time</span></code> زمانی است که رویداد در جهان عملیاتی اتفاق افتاده؛ <code class="docutils literal notranslate"><span class="pre">ingest_time</span></code> زمانی است که رکورد به سامانهٔ تحلیلی رسیده است. <strong>تأخیر ورود</strong> را می‌توان به صورت</p>
+<div class="math notranslate nohighlight">
+\[
+\Delta t_i=t^{\mathrm{ingest}}_i-t^{\mathrm{event}}_i
+\]</div>
+<p>تعریف کرد، مشروط بر آنکه هر دو زمان با منطقهٔ زمانی سازگار ثبت شده باشند. برای <code class="docutils literal notranslate"><span class="pre">I010</span></code>، رویداد در ساعت ۱۶:۰۰ و ورود در ساعت ۱۶:۴۰ اتفاق افتاده؛ پس تأخیر <strong>۴۰ دقیقه</strong> است. اگر داشبورد رأس ساعت ۱۶:۱۰ ساخته شود، این رویداد هنوز در دادهٔ قابل مشاهده نیست. این «نبودِ مشاهده» را نباید با «فروش‌نرفتن» یکی گرفت. در داده‌کاوی زمانی، برش زمانی واقعی یکی از شروط اعتبار کشف است.</p>
+<figure class="align-default" id="dm2-times">
+<a class="reference internal image-reference" href="../_images/fig02_12_event_ingest_time.png"><img alt="../_images/fig02_12_event_ingest_time.png" src="../_images/fig02_12_event_ingest_time.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">شکل ۲ـ۷. زمان رویداد و زمان ورود، دو ساعت متفاوت در سامانه‌های داده‌محورند. بازهٔ بین آن‌ها می‌تواند به نبودِ موقت رکورد در تحلیل منجر شود. تصویر شماتیک و تألیفی است.</span><a class="headerlink" href="#dm2-times" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id19">
+<h2>۲ـ۵. کیفیت داده: «مناسب برای چه استفاده‌ای؟»<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>به‌جای این جملهٔ کلی که «دادهٔ خوب، دادهٔ بدون خطاست»، پرسش عملی‌تری مطرح کنیم: <strong>این داده برای تصمیم یا کشف مورد نظر تا چه حد قابل اتکاست؟</strong> یک جدول ممکن است برای صدور صورتحساب به‌اندازهٔ کافی خوب باشد، ولی برای تحلیل الگوی خرید مشتری فاقد شناسهٔ مشتری باشد؛ یا برای شمارش فروش روزانه مناسب باشد، اما برای پیش‌بینی لحظه‌ای به دلیل ورود دیرهنگام رویدادها مناسب نباشد. Tan §۲٫۲٫۲ کیفیت را از همین زاویهٔ تناسب با کاربرد مطرح می‌کند.</p>
+<section id="id20">
+<h3>۲ـ۵ـ۱. بُعدهای کیفیت و مخرج صحیح<a class="headerlink" href="#id20" title="Link to this heading">#</a></h3>
+<p>پنج بُعد کاربردی زیر را جداگانه می‌سنجیم:</p>
+<p><strong>جامعیت (Completeness):</strong> چه نسبتی از مقادیر <em>مورد انتظار</em> موجود است؟ برای ستون <span class="math notranslate nohighlight">\(j\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+C_j=\frac{\#\{i:\text{مقدار معتبر و موجود برای ستون }j\}}{\#\{i:\text{مقدار در ستون }j\text{ انتظار می‌رود}\}}.
+\]</div>
+<p>در مثال، از ۱۴ ردیف، یک <code class="docutils literal notranslate"><span class="pre">customer_id</span></code> به‌صورت <code class="docutils literal notranslate"><span class="pre">?</span></code> درج شده است. پس جامعیت آن ستون برابر است با</p>
+<div class="math notranslate nohighlight">
+\[
+C_{\mathrm{customer}}=\frac{13}{14}=0.928571\approx92.86\%.
+\]</div>
+<p>اما اگر سیاست فروشگاه «خرید مهمان بدون شناسهٔ مشتری» را مجاز بداند، نبود این شناسه همیشه نقص کیفیت برای <em>صدور فاکتور</em> نیست؛ برای تحلیلِ تکرار خرید مشتری ممکن است همچنان یک محدودیت اساسی باشد. در نتیجه حتی <strong>مخرجِ جامعیت</strong> نیز باید با قواعد کاربرد تنظیم شود.</p>
+<p><strong>اعتبار دامنه (Validity):</strong> چه نسبتی از مشاهداتِ قابل ارزیابی با قرارداد مجاز هماهنگ‌اند؟ برای قیمت واحد در مثال آموزشی، یک قیمت منفی داریم؛ پس اگر قرارداد <code class="docutils literal notranslate"><span class="pre">unit_price</span> <span class="pre">&gt;=</span> <span class="pre">0</span></code> باشد:</p>
+<div class="math notranslate nohighlight">
+\[
+V_{\mathrm{price}}=\frac{13}{14}\approx92.86\%.
+\]</div>
+<p><strong>یکتایی (Uniqueness):</strong> آیا کلید تعریف‌شده برای واحد مشاهده تکرار شده است؟ در این مجموعه، زوج <code class="docutils literal notranslate"><span class="pre">(I008,</span> <span class="pre">1)</span></code> دوبار وجود دارد. اگر در هر گروه کلیدی فقط یک ردیف را نگه داریم، <strong>یک ردیف مازاد</strong> از ۱۴ ردیف خام داریم: <span class="math notranslate nohighlight">\(1/14\approx7.14\%\)</span>. این نرخ با «نسبت گروه‌های کلیدی تکراری» یکی نیست: از ۱۳ کلید متمایز، یک گروه تکراری است؛ پس <span class="math notranslate nohighlight">\(1/13\approx7.69\%\)</span>. گزارش حرفه‌ای باید نام سنجه و مخرج آن را ذکر کند.</p>
+<p><strong>سازگاری (Consistency):</strong> آیا دو مقدار که باید از یک قاعده پیروی کنند با هم سازگارند؟ <code class="docutils literal notranslate"><span class="pre">country=IR</span></code> و <code class="docutils literal notranslate"><span class="pre">country=Iran</span></code> از نظر رشتهٔ متنی متفاوت‌اند اما از نظر معنایی در این قرارداد یک کشور را نشان می‌دهند. سازگاری همچنین میان دو ستون سنجیده می‌شود؛ مثلاً فاکتور فروش عادی نباید تعداد منفی داشته باشد، یا زمان ورودِ درست و هم‌منطقه‌ای نباید پیش از زمان رخداد باشد.</p>
+<p><strong>به‌موقع‌بودن (Timeliness):</strong> آیا داده هنگام تصمیم‌گیری در دسترس است؟ صرف داشتن ستون تاریخ، به‌موقع‌بودن را اثبات نمی‌کند. برای سیاست «حداکثر ۱۵ دقیقه تأخیر»، هر رکورد با <span class="math notranslate nohighlight">\(\Delta t&gt;15\)</span> دقیقه علامت‌گذاری می‌شود. در فایل نمونه، <code class="docutils literal notranslate"><span class="pre">I010</span></code> و <code class="docutils literal notranslate"><span class="pre">I011</span></code> به ترتیب ۴۰ و ۲۰ دقیقه تأخیر دارند؛ بنابراین از منظر این قرارداد فرضی، دو رکوردِ قابل محاسبه از ۱۴ ردیف «دیررس» هستند. این یک <strong>آستانهٔ آموزشی</strong> است، نه SLA تأییدشدهٔ فروشگاه.</p>
+<p><strong>درستی (Accuracy):</strong> نزدیکی مقدار ثبت‌شده به واقعیت است و غالباً بدون منبع مستقل، فاکتور اصلی یا تأیید انسانی <em>قابل اندازه‌گیری مستقیم نیست</em>. اگر <code class="docutils literal notranslate"><span class="pre">unit_price=30</span></code> در دامنهٔ معتبر باشد، نمی‌توان صرفاً از روی جدول ثابت کرد که قیمت صحیح کالای مربوط همین بوده است. معتبر بودن، معادل درست بودن نیست.</p>
+<figure class="align-default" id="dm2-quality">
+<a class="reference internal image-reference" href="../_images/fig02_11_quality_scorecard.png"><img alt="../_images/fig02_11_quality_scorecard.png" src="../_images/fig02_11_quality_scorecard.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">شکل ۲ـ۸. کارت کیفیت یک مجموعهٔ ساختگی: هر شاخص قرارداد و مخرج خود را دارد. نمودارِ واحد، نه «امتیاز نهایی کیفیت داده» است و نه جانشین قضاوت دربارهٔ کاربرد. شکل تألیفی.</span><a class="headerlink" href="#dm2-quality" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>چرا امتیاز کلی گمراه‌کننده است؟</strong> میانگین‌گرفتن ساده از پنج نرخ کیفیت می‌تواند نقص بحرانی را پنهان کند. مثلاً اگر برای یک تحلیل هم‌خریدی، ۱۰۰٪ ردیف‌ها زمان داشته باشند اما <strong>شناسهٔ تراکنش برای نیمی از آن‌ها نباشد</strong>، میانگین ۷۵٪ چند معیار هیچ‌چیز دربارهٔ امکان بازسازی سبدها نمی‌گوید. به‌جای یک عدد مستقل از هدف، «حداقل الزامات ورود داده به مسئله» را ثبت می‌کنیم: وجود کلید فاکتور، قرارداد برگشت، امکان تفکیک خطوط تکراری و تعریفی روشن از تراکنش واجد شرایط.</p>
+</section>
+<section id="id21">
+<h3>۲ـ۵ـ۲. مواردِ بی‌قاعده و مواردِ نامطمئن<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>گاهی یک رکورد <strong>قطعاً مغایر قرارداد اعلام‌شده</strong> است (مانند <code class="docutils literal notranslate"><span class="pre">quantity=0</span></code> در فاکتور عادی در همین مثال). گاهی رکورد صرفاً <strong>مشکوک</strong> است (مانند قیمت بسیار بزرگ، تعداد خرید غیرمعمول یا تأخیر طولانی). میان این دو تفاوت روش‌شناختی وجود دارد:</p>
+<ul class="simple">
+<li><p>تخلف قطعی از قاعدهٔ محلی، یک <strong>پرچم اعتبار</strong> تولید می‌کند و مستلزم پیگیری/اصلاح بر اساس سند است.</p></li>
+<li><p>رخداد بسیار نادر، <strong>نامزد بررسی</strong> است و حذف خودکار آن ممکن است دقیقاً دادهٔ ارزشمند برای کشف تقلب یا اختلال را نابود کند.</p></li>
+</ul>
+<p>برای مثال در صنعت، یک جریان ۹۰ آمپر می‌تواند خطای حسگر باشد؛ ولی شاید نشان‌دهندهٔ اضافه‌بار واقعی دستگاه باشد. بدون اطلاع از محدودهٔ فیزیکی، کالیبراسیون و هم‌زمانی حسگرهای دیگر، برچسب‌زدن «خطا» یا «ناهنجاری واقعی» شتاب‌زده است.</p>
+</section>
+</section>
+<section id="id22">
+<h2>۲ـ۶. فقدان مقدار و مکانیزم گم‌شدن<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>فرض کنید <code class="docutils literal notranslate"><span class="pre">customer_id</span></code> در یک ردیف <code class="docutils literal notranslate"><span class="pre">?</span></code> است. اگر با خواندن CSV همان علامت <code class="docutils literal notranslate"><span class="pre">?</span></code> را به‌عنوان شناسهٔ معتبر بشماریم، همهٔ مشتریان ناشناس زیر یک «مشتری مصنوعی» تجمیع می‌شوند؛ این می‌تواند رفتار خرید یک مشتری موهوم بسازد. نخستین اقدام، تعیین <strong>کدهای قراردادیِ فقدان مقدار</strong> است: <code class="docutils literal notranslate"><span class="pre">?</span></code>، رشتهٔ خالی، <code class="docutils literal notranslate"><span class="pre">NA</span></code> و <code class="docutils literal notranslate"><span class="pre">NULL</span></code> ممکن است در یک منبع به یک معنا باشند؛ ولی در منبعی دیگر، متن <code class="docutils literal notranslate"><span class="pre">NA</span></code> شاید نام یک محصول یا کد جغرافیایی باشد. بنابراین تبدیل نشانه‌ها نیز نیازمند فرهنگ داده است.</p>
+<section id="id23">
+<h3>۲ـ۶ـ۱. چهار حالت که نباید با هم یکی شوند<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>میان این موارد فرق بگذارید:</p>
+<ol class="arabic simple">
+<li><p>مقدار <strong>واقعاً صفر</strong>: مشتری در بازهٔ مورد نظر هیچ خریدی نکرده است.</p></li>
+<li><p>مقدار <strong>نامعلوم/ثبت‌نشده (Missing)</strong>: نمی‌دانیم چند بار خرید کرده است.</p></li>
+<li><p>مقدار <strong>نامربوط (Not Applicable)</strong>: مثلاً «تعداد فرزند» در رکوردی که آن پرسش برایش تعریف نشده؛ بنا به تعریف مسئله ممکن است نامربوط باشد و نباید با صفر جایگزین شود.</p></li>
+<li><p>مقدار <strong>پنهان یا سانسورشده (Censored)</strong>: می‌دانیم درآمد بالاتر از یک حد است، ولی رقم دقیق ثبت نشده است؛ این داده فاقد اطلاعات نیست، بلکه <em>اطلاعات بازه‌ای</em> دارد.</p></li>
+</ol>
+<p>پیش از تمیزکردن داده، یک ستون نشانگر برای فقدان مقدار می‌تواند مفید باشد:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+R_{ij}=\begin{cases}1,&amp;X_{ij}\text{ مشاهده شده است},\\0,&amp;X_{ij}\text{ گمشده است}.
+\end{cases}
+\end{split}\]</div>
+<p>با این تعریف، نرخ فقدان در ستون <span class="math notranslate nohighlight">\(j\)</span> برابر <span class="math notranslate nohighlight">\(1-\frac1n\sum_i R_{ij}\)</span> خواهد بود؛ البته اگر برای همهٔ <span class="math notranslate nohighlight">\(n\)</span> ردیف، مقدار آن ستون <em>مورد انتظار</em> باشد. اگر بعضی سطرها ذاتاً به این ویژگی مربوط نیستند، تعریف مخرج باید اصلاح شود.</p>
+</section>
+<section id="id24">
+<h3>۲ـ۶ـ۲. الگوی قابل مشاهده با علت فقدان یکی نیست<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<figure class="align-default" id="dm2-missing">
+<a class="reference internal image-reference" href="../_images/fig02_07_missing_patterns.png"><img alt="../_images/fig02_07_missing_patterns.png" src="../_images/fig02_07_missing_patterns.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">شکل ۲ـ۹. سه <em>الگوی ظاهریِ</em> فقدان مقدار: پراکنده، ستون/بازهٔ کامل و ساختاریافته. مربع‌های نارنجی دادهٔ گمشده‌اند. <strong>از روی این تصویر به‌تنهایی نمی‌توان MCAR، MAR یا MNAR بودن را نتیجه گرفت.</strong> شکل تألیفی.</span><a class="headerlink" href="#dm2-missing" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در ادبیات دادهٔ گمشده، سه مفهوم رایج وجود دارد؛ این بخش با استفاده از منبع تکمیلی <strong>Statistical Consulting Centre, University of Melbourne</strong> و مقالهٔ «Missing data: A statistical framework for practice» توضیح داده شده است. این مبحث، فراتر از تعریف توصیفی فقدان در دو کتاب اصلی، برای ارزیابی اعتبار تحلیل آورده شده است.</p>
+<ul class="simple">
+<li><p><strong>MCAR (Missing Completely At Random):</strong> احتمال گم‌شدن به مقادیر مشاهده‌شده یا مشاهده‌نشدهٔ داده وابسته نیست. مثال مفهومی: تعدادی فرم به علت خرابی تصادفیِ مستقل از پاسخ‌ها از بین رفته‌اند. در عمل، مستقل‌بودن واقعی باید سنجیده/توجیه شود؛ ظاهر تصادفی کافی نیست.</p></li>
+<li><p><strong>MAR (Missing At Random):</strong> پس از شرطی‌کردن بر متغیرهای مشاهده‌شده، احتمال گم‌شدن به مقدارِ غایب وابسته نیست. مثلاً نرخ پاسخ‌ندادن به یک سؤال ممکن است به گروه سنیِ ثبت‌شده وابسته باشد، ولی پس از کنترل گروه سنی دیگر به پاسخ ثبت‌نشده وابسته نباشد. <strong>نام «تصادفی» در MAR به معنی بی‌ارتباط بودن فقدان با همهٔ داده‌ها نیست.</strong></p></li>
+<li><p><strong>MNAR (Missing Not At Random):</strong> حتی پس از شرطی‌کردن بر اطلاعات مشاهده‌شده، مکانیزم فقدان می‌تواند به خود مقدارِ غایب وابسته باشد. مثال: سنسور بالاتر از آستانهٔ فنی قادر به ثبت عدد نیست، یا افراد دارای مقدار بسیار بالای یک ویژگی کمتر آن را اعلام می‌کنند.</p></li>
+</ul>
+<p>به‌صورت نمادین، اگر <span class="math notranslate nohighlight">\(R\)</span> نشانگر مشاهده‌شدن، <span class="math notranslate nohighlight">\(X_{\rm obs}\)</span> دادهٔ مشاهده‌شده و <span class="math notranslate nohighlight">\(X_{\rm mis}\)</span> دادهٔ غایب باشد، در مدل مفهومی:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\mathrm{MCAR}:\quad &amp;P(R\mid X_{\rm obs},X_{\rm mis})=P(R),\\
+\mathrm{MAR}:\quad &amp;P(R\mid X_{\rm obs},X_{\rm mis})=P(R\mid X_{\rm obs}),\\
+\mathrm{MNAR}:\quad &amp;P(R\mid X_{\rm obs},X_{\rm mis})\text{ ممکن است به }X_{\rm mis}\text{ وابسته بماند}.
+\end{aligned}
+\end{split}\]</div>
+<p>این روابط در سطح مدل مکانیزم فقدان و با تعریف دقیق مجموعهٔ متغیرها تفسیر می‌شوند. <strong>مکانیزم واقعی را عموماً نمی‌توان فقط از دادهٔ مشاهده‌شده با قطعیت تعیین کرد</strong>. بنابراین در تحلیل جدی، فرض فقدان باید ذکر شود و حساسیت نتیجه نسبت به فرض‌های جایگزین بررسی شود.</p>
+</section>
+<section id="id25">
+<h3>۲ـ۶ـ۳. مثال عددی: حذفِ ظاهراً ساده چه خطایی می‌سازد؟<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>فرض کنید مقدار واقعی خریدِ هشت مشتری در یک بازه به شکل زیر باشد:</p>
+<div class="math notranslate nohighlight">
+\[
+[100,100,100,100,10,10,10,10].
+\]</div>
+<p>میانگینِ تمام جامعهٔ کوچک ما:</p>
+<div class="math notranslate nohighlight">
+\[
+\overline{x}_{\rm all}=\frac{4(100)+4(10)}8=\frac{440}{8}=55.
+\]</div>
+<p>اکنون فرض کنیم به دلیلی که در طراحی مثال می‌دانیم، فقط چهار مقدار بزرگ و یکی از چهار مقدار کوچک ثبت شده باشد. مقدارهای قابل مشاهده <code class="docutils literal notranslate"><span class="pre">[100,100,100,100,10]</span></code> و میانگین آن‌ها:</p>
+<div class="math notranslate nohighlight">
+\[
+\overline{x}_{\rm observed}=\frac{410}{5}=82.
+\]</div>
+<p>فقط با کنارگذاشتن سه مقدار گمشده، میانگین از ۵۵ به <strong>۸۲</strong> رسیده است؛ افزایشی برابر <span class="math notranslate nohighlight">\(27/55\approx49.1\%\)</span> نسبت به مقدار کامل. این مثال یک سناریوی <strong>انتخاب غیریکسانِ مشاهدات</strong> را نشان می‌دهد، نه ادعای تشخیص مکانیزم در دادهٔ واقعی.</p>
+<figure class="align-default" id="dm2-missingbias">
+<a class="reference internal image-reference" href="../_images/fig02_13_missing_bias.png"><img alt="../_images/fig02_13_missing_bias.png" src="../_images/fig02_13_missing_bias.png" style="width: 87%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text">شکل ۲ـ۱۰. میانگین کامل و میانگینِ موارد مشاهده‌شده در مثال ساختگی. مقدار بیشترِ میانگینِ مشاهده‌شده الزاماً رشد واقعی خرید را نشان نمی‌دهد. شکل تألیفی.</span><a class="headerlink" href="#dm2-missingbias" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در این مرحله نباید دستور کلی «تمام مقادیر خالی را با میانگین جایگزین کن» داد. چنین تصمیمی به نوع متغیر، مکانیزم محتمل فقدان، هدف تحلیل، ساختار گروه‌ها و طرح ارزیابی وابسته است. در فصل چهارم، روش‌های اصلاح و ارزیابی این مسئله را جداگانه مطالعه می‌کنیم.</p>
+</section>
+</section>
+<section id="id26">
+<h2>۲ـ۷. توصیف توزیع قبل از کشف الگو<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p>شناسایی داده با آمار توصیفی آغاز می‌شود، اما نباید آن را با مدل‌سازی پیش‌بینی یکی گرفت. هدف ما این است که <strong>محدوده، تمرکز، پراکندگی و موارد غیرمعمول</strong> را با حداقل فرض بشناسیم. Han §۲٫۲ مرکز و پراکندگی، چندک‌ها، نمایش‌های گرافیکی و هم‌بستگی را به این منظور معرفی می‌کند. اینجا بر ابزارهایی تمرکز می‌کنیم که برای تشخیص کیفیت و تفسیر داده مهم‌اند.</p>
+<section id="id27">
+<h3>۲ـ۷ـ۱. میانگین، میانه و نما: سه سؤال متفاوت<a class="headerlink" href="#id27" title="Link to this heading">#</a></h3>
+<p>برای مقادیر عددی <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar x=\frac1n\sum_{i=1}^{n}x_i.
+\]</div>
+<p><strong>میانگین</strong> مرکز حسابی و برای داده‌های حساس به جمع مناسب است؛ <strong>میانه (Median)</strong> نقطه‌ای است که نیمی از داده‌ها در هر سو قرار می‌گیرند و در برابر یک مقدار بسیار بزرگ مقاوم‌تر است؛ <strong>نما (Mode)</strong> پرتکرارترین مقدار است و حتی برای دادهٔ اسمی معنا دارد.</p>
+<p>یک حسگر شش اندازه‌گیری ثبت کرده است:</p>
+<div class="math notranslate nohighlight">
+\[
+10,\ 11,\ 12,\ 13,\ 14,\ 90.
+\]</div>
+<p>محاسبهٔ دستی میانگین:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar x=\frac{10+11+12+13+14+90}{6}=\frac{150}{6}=25.
+\]</div>
+<p>دو مقدار میانی ۱۲ و ۱۳ هستند؛ پس</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{median}(x)=\frac{12+13}{2}=12.5.
+\]</div>
+<p>اختلاف ۲۵ و ۱۲٫۵ نشانه‌ای از <strong>عدم تقارن شدید</strong> و اثر اندازه‌گیری ۹۰ است، اما به‌تنهایی اثبات خطای حسگر نیست. در این داده هیچ نمای یکتایی وجود ندارد، زیرا همهٔ مقادیر یک‌بار ظاهر شده‌اند.</p>
+</section>
+<section id="id28">
+<h3>۲ـ۷ـ۲. واریانس و تفاوت جامعه و نمونه<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<p>اگر شش مشاهده تمام جامعهٔ مورد مطالعه باشند، واریانس توصیفی جامعه:</p>
+<div class="math notranslate nohighlight">
+\[
+\sigma^2=\frac1n\sum_{i=1}^{n}(x_i-\bar x)^2.
+\]</div>
+<p>در مثال، انحراف از ۲۵ برابر <code class="docutils literal notranslate"><span class="pre">[-15,-14,-13,-12,-11,+65]</span></code> است؛ مجموع مربعات:</p>
+<div class="math notranslate nohighlight">
+\[
+225+196+169+144+121+4225=5080.
+\]</div>
+<p>بنابراین <span class="math notranslate nohighlight">\(\sigma^2=5080/6\approx846.67\)</span> و <span class="math notranslate nohighlight">\(\sigma\approx29.10\)</span> می‌شود. اگر این شش مقدار <em>نمونه‌ای تصادفی و مناسب از جامعهٔ بزرگ‌تر</em> باشند و قصد برآورد واریانس جامعه را داشته باشیم، از واریانس نمونه‌ای با مخرج <span class="math notranslate nohighlight">\(n-1\)</span> استفاده می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+s^2=\frac{1}{n-1}\sum_{i=1}^{n}(x_i-\bar x)^2
+=\frac{5080}{5}=1016.
+\]</div>
+<p>فرق مخرج‌ها یک قرارداد کاملاً بی‌دلیل نیست؛ به هدف توصیف مجموعهٔ حاضر یا برآورد پارامتر جامعه مربوط است. با وجود این، اگر نمونه به‌طور گزینشی جمع‌آوری شده باشد، استفاده از <span class="math notranslate nohighlight">\(n-1\)</span> <strong>سوگیری ناشی از شیوهٔ انتخاب نمونه را رفع نمی‌کند</strong>.</p>
+</section>
+<section id="id29">
+<h3>۲ـ۷ـ۳. چارک، فاصلهٔ میان‌چارکی و «پرچم» دادهٔ پرت<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p>برای نمونه‌های کوچک، چند تعریف معتبر از چارک وجود دارد که ممکن است اعداد کمی متفاوت بدهند. برای شفافیت این جزوه، در مثال شش‌تایی از روش <strong>میانهٔ دو نیمهٔ مرتب (Tukey’s hinges / median of halves)</strong> استفاده می‌کنیم. نیمهٔ پایین <code class="docutils literal notranslate"><span class="pre">[10,11,12]</span></code> و نیمهٔ بالا <code class="docutils literal notranslate"><span class="pre">[13,14,90]</span></code> است. بنابراین:</p>
+<div class="math notranslate nohighlight">
+\[
+Q_1=11,\qquad Q_2=12.5,\qquad Q_3=14.
+\]</div>
+<p>فاصلهٔ میان‌چارکی <span class="math notranslate nohighlight">\(\mathrm{IQR}=Q_3-Q_1=3\)</span> است. در قاعدهٔ تصویری رایج جعبه‌نمودار، حد بالای هشدار <span class="math notranslate nohighlight">\(Q_3+1.5\,\mathrm{IQR}=14+4.5=18.5\)</span> خواهد بود؛ عدد ۹۰ از این حد فراتر است. این قاعده <strong>آزمون اثباتی خطا نیست</strong> و برای توزیع‌های بسیار چوله یا داده‌های دُم‌سنگین می‌تواند نقاط معتبر زیادی را علامت بزند. آستانهٔ مناسب باید با هدف و نوع توزیع تنظیم شود.</p>
+<figure class="align-default" id="dm2-robust">
+<a class="reference internal image-reference" href="../_images/fig02_08_robust_statistics.png"><img alt="../_images/fig02_08_robust_statistics.png" src="../_images/fig02_08_robust_statistics.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 19 </span><span class="caption-text">شکل ۲ـ۱۱. مقایسهٔ میانگین، میانه و پرچم جعبه‌نمودار در شش اندازه‌گیری ساختگی. مقدار ۹۰ باید بررسی شود؛ از روی شکل نمی‌توان آن را حذف کرد. شکل تألیفی.</span><a class="headerlink" href="#dm2-robust" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id30">
+<h3>۲ـ۷ـ۴. خلاصهٔ مقاوم جایگزینِ توضیح داده نمی‌شود<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<p>اگر فقط میانه را گزارش کنیم و عدد ۹۰ را نادیده بگیریم، ممکن است ناهنجاری مهمی را از دست بدهیم. گزارش خوب دست‌کم شامل <strong>تعداد مشاهده، نسبت فقدان، دامنه، میانه، چارک‌ها، میانگین و توضیح پرچم‌ها</strong> است. برای متغیر اسمی، به جای این مجموعه از شمارش دسته‌ها، درصد و تغییر فراوانی در زمان استفاده می‌کنیم. برای زمان، علاوه بر فاصلهٔ زمانی، گپِ ثبت و دیررسی رکوردها مهم است.</p>
+</section>
+<section id="id31">
+<h3>۲ـ۷ـ۵. چرا نمودار لازم است؟<a class="headerlink" href="#id31" title="Link to this heading">#</a></h3>
+<p>مجموعه‌هایی با میانگین و واریانس مشابه ممکن است توزیع و روابط بسیار متفاوت داشته باشند. نمودار فراوانی، جعبه‌نمودار و نمودار پراکنش ابزار <strong>کنترل فرض</strong> هستند، نه تزئین جزوه. انتخاب نمودار باید با نوع داده سازگار باشد: برای ردهٔ اسمی نمودار میله‌ای و جدول فراوانی روشن‌تر از منحنی پیوسته است؛ برای مقدار زمانی، خط زمان و نمودار سری زمانی اطلاعاتی دربارهٔ ترتیب و فاصله‌های ثبت آشکار می‌کنند؛ برای سبد کالا، نمودار رخداد و ماتریس دودویی آموزنده است.</p>
+</section>
+</section>
+<section id="id32">
+<h2>۲ـ۸. خطای ثبت، دادهٔ پرت، و موجودیت تکراری<a class="headerlink" href="#id32" title="Link to this heading">#</a></h2>
+<section id="id33">
+<h3>۲ـ۸ـ۱. تفاوت دادهٔ پرت با دادهٔ نامعتبر<a class="headerlink" href="#id33" title="Link to this heading">#</a></h3>
+<p>یک مشاهده ممکن است نادر باشد اما معتبر؛ مثلاً خرید عمدهٔ هزار قلم کالا توسط یک شرکت. یک مشاهدهٔ معمولی هم ممکن است نامعتبر باشد؛ مثلاً قیمت ۱۲ به جای ۱۲٫۵ با خطای تایپ. پس «پرت» مفهوم آماری/زمینه‌ای است و «نامعتبر» مفهوم قراردادی/عملیاتی. از دید داده‌کاوی، حذف همهٔ نقاط دورافتاده می‌تواند <strong>هدف کشف ناهنجاری</strong> را از بین ببرد.</p>
+<p>یک مسیر تصمیم‌گیری بهتر چنین است: ابتدا دامنهٔ مجاز و قرارداد را کنترل کنیم؛ سپس با آمار و قواعد زمینه‌ای، نقاط مشکوک را علامت بزنیم؛ سپس در صورت امکان از منبع معتبر، سوابق دستگاه یا کارشناس حوزه تأیید بگیریم؛ در نهایت نسخهٔ خام و نسخهٔ اصلاح‌شده را هر دو نگه داریم.</p>
+</section>
+<section id="id34">
+<h3>۲ـ۸ـ۲. رکورد تکراری، موجودیت تکراری و تراکنشِ چندردیفی<a class="headerlink" href="#id34" title="Link to this heading">#</a></h3>
+<p>در فایل نمونهٔ فصل، <code class="docutils literal notranslate"><span class="pre">I001</span></code> دو ردیف مختلف دارد؛ <strong>تکرار شناسهٔ فاکتور تکرار رکورد نیست</strong>. برای تشخیص تکرار خط، کلید <code class="docutils literal notranslate"><span class="pre">(order_id,line_no)</span></code> را به‌کار می‌گیریم. دو ردیف با این کلید و مقادیر دقیقاً یکسان می‌توانند ناشی از ثبت دوبارهٔ پیام باشند؛ ولی اگر مقادیر متفاوت باشند، تعارض نسخه‌ای یا اصلاح عملیاتی نیز محتمل است و نباید یکی را دلخواه حذف کرد.</p>
+<figure class="align-default" id="dm2-duplicates">
+<a class="reference internal image-reference" href="../_images/fig02_09_duplicate_grain.png"><img alt="../_images/fig02_09_duplicate_grain.png" src="../_images/fig02_09_duplicate_grain.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 20 </span><span class="caption-text">شکل ۲ـ۱۲. دو ردیف معتبر در فاکتور I001 در برابر تکرار مشکوک همان ردیف I008. تعریف کلید یکتایی تابع واحد مشاهده است. شکل تألیفی.</span><a class="headerlink" href="#dm2-duplicates" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>مثال اثر بر استخراج قواعد:</strong> فرض کنید برای هر سبد یک مجموعهٔ کالا می‌سازیم. اگر ردیف دو بار دریافت‌شدهٔ <code class="docutils literal notranslate"><span class="pre">I008</span></code> را دو فاکتور جدا در نظر بگیریم، تعداد کل تراکنش‌ها بی‌دلیل زیاد می‌شود و فراوانی کالای <code class="docutils literal notranslate"><span class="pre">P03</span></code> بیش‌برآورد می‌شود. اگر فقط در همان سبد حضور/عدم حضور را حساب کنیم، درج دوبارهٔ <code class="docutils literal notranslate"><span class="pre">P03</span></code> ممکن است در نمایش مجموعه‌ای پنهان شود؛ اما در محاسبهٔ مبلغ فروش یا تعداد، خطا همچنان باقی می‌ماند. <strong>انتخاب نمایش می‌تواند برخی خطاها را پنهان کند؛ نه اینکه آن‌ها را رفع کرده باشد.</strong></p>
+</section>
+<section id="id35">
+<h3>۲ـ۸ـ۳. ناسازگاری معنایی و چند منبع داده<a class="headerlink" href="#id35" title="Link to this heading">#</a></h3>
+<p>وقتی دو سامانه یکی «ایران» و دیگری <code class="docutils literal notranslate"><span class="pre">IR</span></code> می‌نویسد، استانداردسازی بر اساس یک جدول نگاشت ممکن است مفید باشد. اما یکسان‌سازی نام شهر، کشور، محصول یا واحد باید با نسخهٔ مرجع و قلمرو زمانی مشخص انجام شود. نام کالا با گذشت زمان تغییر می‌کند؛ دو کالا می‌توانند عنوان یکسان ولی شناسهٔ متفاوت داشته باشند. بنابراین <strong>نام شبیه، به معنای موجودیت یکسان نیست</strong>. در داده‌های چندمنبعی، منشأ (Provenance) و شناسهٔ پایدار از ابزارهای مهم کنترل کیفیت‌اند.</p>
+</section>
+</section>
+<section id="simpson">
+<h2>۲ـ۹. ترکیب گروه‌ها و وارونگی نتیجه: مثال Simpson<a class="headerlink" href="#simpson" title="Link to this heading">#</a></h2>
+<p>یکی از خطرهای بنیادی در تحلیل داده، جمع‌کردن زیرگروه‌هایی است که نرخ وقوع و ترکیب آن‌ها متفاوت است. برای روشن‌شدن مسئله، دو سامانهٔ آموزشی A و B را در دو گروه «آسان» و «دشوار» مقایسه می‌کنیم. همهٔ شمارش‌ها <strong>ساختگی‌اند</strong> و فقط برای استدلال ریاضی استفاده می‌شوند.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>گروه</p></th>
+<th class="head text-right"><p>A: موفق/کل</p></th>
+<th class="head text-right"><p>نرخ A</p></th>
+<th class="head text-right"><p>B: موفق/کل</p></th>
+<th class="head text-right"><p>نرخ B</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>آسان</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(9/10\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(90\%\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(72/90\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(80\%\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>دشوار</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(18/90\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(20\%\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(1/10\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(10\%\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>تجمیعی</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(27/100\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(27\%\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(73/100\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(73\%\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>محاسبهٔ دستی مرحله‌به‌مرحله.</strong> در گروه آسان A بهتر است، زیرا <span class="math notranslate nohighlight">\(0.9&gt;0.8\)</span>؛ در گروه دشوار نیز A بهتر است، زیرا <span class="math notranslate nohighlight">\(0.2&gt;0.1\)</span>. اما اگر همهٔ نمونه‌ها را بدون توجه به گروه درهم بریزیم، نرخ A برابر <span class="math notranslate nohighlight">\((9+18)/(10+90)=27/100\)</span> و نرخ B برابر <span class="math notranslate nohighlight">\((72+1)/(90+10)=73/100\)</span> می‌شود. ظاهراً برتری کاملاً معکوس شده است!</p>
+<figure class="align-default" id="dm2-simpson">
+<a class="reference internal image-reference" href="../_images/fig02_10_simpson_reversal.png"><img alt="../_images/fig02_10_simpson_reversal.png" src="../_images/fig02_10_simpson_reversal.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">شکل ۲ـ۱۳. وارونگی Simpson: A در هر زیرگروه بهتر است؛ ولی ترکیب نامتوازن گروه‌های آسان و دشوار باعث می‌شود B در کل بهتر دیده شود. شکل تألیفی.</span><a class="headerlink" href="#dm2-simpson" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>دلیل، تفاوت <strong>وزن گروه‌ها</strong> است. اگر <span class="math notranslate nohighlight">\(r_{g,s}\)</span> نرخ موفقیت سامانهٔ <span class="math notranslate nohighlight">\(g\)</span> در زیرگروه <span class="math notranslate nohighlight">\(s\)</span> و <span class="math notranslate nohighlight">\(w_{g,s}=n_{g,s}/n_g\)</span> وزن همان زیرگروه در سامانهٔ <span class="math notranslate nohighlight">\(g\)</span> باشد، آنگاه:</p>
+<div class="math notranslate nohighlight">
+\[
+R_g=\sum_s w_{g,s}\,r_{g,s},\qquad \sum_s w_{g,s}=1.
+\]</div>
+<p>برای A سهم گروه دشوار <span class="math notranslate nohighlight">\(90\%\)</span> و برای B سهم گروه دشوار فقط <span class="math notranslate nohighlight">\(10\%\)</span> است. پس <strong>با وزن‌های متفاوت، مقایسهٔ نرخ‌های خام بیانگر یک مقایسهٔ هم‌شرایط نیست</strong>. این پدیده نشان می‌دهد «توزیع نمونه در گروه‌ها» جزء اطلاعات ضروری کیفیت تحلیل است. از این مثال نباید نتیجهٔ علّی گرفت: حتی تحلیل طبقه‌بندی‌شده نیز بدون طرح مطالعه و کنترل عوامل مخدوش‌کننده اثبات نمی‌کند که A علت موفقیت بیشتر بوده است.</p>
+<p><strong>پیوند به داده‌کاوی:</strong> وقتی قواعد انجمنی را در همهٔ شعب یک فروشگاه با هم استخراج می‌کنیم، یک قاعدهٔ ظاهراً قوی ممکن است از تفاوت ترکیب شعبه‌ها، فصل‌ها یا گروه‌های مشتری ناشی شده باشد. پیش از تفسیر قاعده، باید دید آیا الگو در زیرگروه‌های مرتبط نیز پایدار است.</p>
+</section>
+<section id="id36">
+<h2>۲ـ۱۰. از کیفیت داده تا کیفیت ادعا: هشدار نشت اطلاعات<a class="headerlink" href="#id36" title="Link to this heading">#</a></h2>
+<p>در فصل اول دیدیم که وقتی الگوهای زیادی را امتحان می‌کنیم، کشفیات کاذب ممکن‌اند. کیفیت داده می‌تواند از مسیر دیگری نیز نتیجه را فریب دهد: <strong>نشت اطلاعات (Data Leakage)</strong>. فرض کنید می‌خواهیم ساعت ۱۰ صبح احتمال بازگشت کالا را پیش‌بینی کنیم، اما ویژگی <code class="docutils literal notranslate"><span class="pre">refund_processed_at</span></code> فقط پس از بازگشت کالا ایجاد می‌شود. اگر این ستون در مدل باشد، دقت ارزیابی روی داده‌های تاریخی ظاهراً عالی می‌شود؛ ولی در زمان تصمیم‌گیری آن اطلاعات وجود ندارد.</p>
+<p>نشت فقط از متغیر پاسخ مستقیم نیست. اگر میانگین، فراوانی دسته‌ها یا آمار جایگذاری مقدار گمشده را قبل از تقسیم آموزش/آزمون از <strong>تمام مجموعه</strong> برآورد کنیم، بخش آزمون بر فرایند یادگیری اثر گذاشته است. راهبرد درست در مسئلهٔ پیش‌بینی، محاسبهٔ پارامترهای پیش‌پردازش فقط بر دادهٔ آموزش و سپس اعمال همان تبدیل روی دادهٔ آزمون است؛ مستندات رسمی <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> این خطا را با مثال توضیح می‌دهد. این بحث <strong>یک هشدار روش‌شناختی</strong> است؛ جزئیات پیاده‌سازی Pipeline در فصل‌های بعد می‌آید.</p>
+<p>برای کاوش الگوهای توصیفی نیز باید معلوم کنیم داده به چه دورهٔ زمانی و چه جامعه‌ای تعلق دارد، تغییر تعریف رویداد در نیمهٔ دوره رخ داده یا نه، و آیا کیفیت ثبت در زیرگروه‌ها یکسان است. بدون این‌ها، الگوی استخراج‌شده ممکن است فقط «اثر سامانهٔ ثبت» باشد، نه رفتار واقعی پدیده.</p>
+</section>
+<section id="id37">
+<h2>۲ـ۱۱. یک فرایند ممیزی قابل دفاع و تکرارپذیر<a class="headerlink" href="#id37" title="Link to this heading">#</a></h2>
+<p><strong>هدف ممیزی (Audit)</strong> پاک‌کردن بی‌سروصدای داده نیست. ممیزی ابتدا <strong>اطلاعات دربارهٔ داده</strong> تولید می‌کند. خروجی آن باید شامل نسخهٔ دادهٔ خام، قواعد، شمار موارد بررسی‌شده، ردیف‌های مشکوک، تصمیم‌های مستند و محدودیت‌های باقی‌مانده باشد.</p>
+<figure class="align-default" id="dm2-audit">
+<a class="reference internal image-reference" href="../_images/fig02_14_auditable_pipeline.png"><img alt="../_images/fig02_14_auditable_pipeline.png" src="../_images/fig02_14_auditable_pipeline.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">شکل ۲ـ۱۴. جریان پیشنهادی ممیزی کیفیت: نگهداری دادهٔ خام، شناسایی قاعده‌محور، بازبینی معنایی و تولید نسخهٔ خروجیِ دارای سابقهٔ تغییر. شکل تألیفی.</span><a class="headerlink" href="#dm2-audit" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id38">
+<h3>۲ـ۱۱ـ۱. مراحل الگوریتمی ممیزی<a class="headerlink" href="#id38" title="Link to this heading">#</a></h3>
+<p>برای مجموعه‌دادهٔ <span class="math notranslate nohighlight">\(D\)</span> و فرهنگ دادهٔ <span class="math notranslate nohighlight">\(S\)</span>، یک شبه‌کد ساده چنین است:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>INPUT: Raw records D, schema and business rules S
+OUTPUT: Audit report A, normalized view N, quarantined flags F
+
+1. Preserve D unchanged; record source, version, and checksum.
+2. Parse each column with explicit data types and null tokens.
+3. For each row:
+     a. Normalize harmless, documented representations in N.
+     b. Check domain and cross-field constraints from S.
+     c. Flag violations without deleting original evidence.
+4. Group by the business key defined for the observation grain.
+5. Distinguish identical duplicate messages from legitimate multi-line orders.
+6. Compute missingness, validity, uniqueness, and latency separately.
+7. Report denominators, unresolved cases, and the chosen analysis population.
+8. Export A, N, F with versioned names; require review for destructive fixes.
+</pre></div>
+</div>
+<p>پیچیدگی زمانی اسکن هر سطر با تعداد ثابت قواعد تقریباً <span class="math notranslate nohighlight">\(O(n)\)</span> است؛ اگر یکتایی با جدول درهم‌سازی (Hash Table) کنترل شود، زمان مورد انتظار آن نیز <span class="math notranslate nohighlight">\(O(n)\)</span> است، ولی در حالت بد یا پیاده‌سازی‌های دیگر ممکن است تفاوت کند. حافظهٔ لازم برای نگهداری کلیدهای متمایز متناسب با تعداد کلیدهاست. برای داده‌های بسیار بزرگ، همین نکته زمینهٔ ورود به الگوریتم‌های جریان‌داده و مقیاس‌پذیری است.</p>
+</section>
+<section id="id39">
+<h3>۲ـ۱۱ـ۲. آیا نرمال‌کردن هر مقدار مجاز است؟<a class="headerlink" href="#id39" title="Link to this heading">#</a></h3>
+<p>تبدیل <code class="docutils literal notranslate"><span class="pre">Web</span></code> به <code class="docutils literal notranslate"><span class="pre">web</span></code> و <code class="docutils literal notranslate"><span class="pre">Iran</span></code> به <code class="docutils literal notranslate"><span class="pre">IR</span></code> در <em>این</em> مثال، بر اساس قرارداد از پیش تعیین‌شده، معنای شناخته‌شده را حفظ می‌کند و یک نمای استاندارد می‌سازد؛ بااین‌حال فایل خام را دست‌نخورده نگه می‌داریم. در مقابل، <strong>تغییر خودکار قیمت منفی به قدرمطلق آن مجاز نیست</strong>؛ ممکن است تعریف قیمت را تغییر دهد یا خطای ورود را پنهان کند. همچنین <code class="docutils literal notranslate"><span class="pre">quantity=0</span></code> را نمی‌توان خودکار به ۱ تبدیل کرد. تفاوت «یکسان‌سازی نمایش» با «حدس زدن مقدار واقعی» باید در کد و گزارش آشکار باشد.</p>
+</section>
+<section id="id40">
+<h3>۲ـ۱۱ـ۳. آستانه‌های کنترل کیفیت را به مسئله متصل کنید<a class="headerlink" href="#id40" title="Link to this heading">#</a></h3>
+<p>یک نمونهٔ معیار ورود به تحلیل قواعد انجمنی می‌تواند چنین باشد: هر ردیف باید شناسهٔ فاکتور و محصول داشته باشد؛ هر فاکتور باید از نظر تعلق خطوط به یک تراکنش قابل بازسازی باشد؛ برگشت‌ها از فروش‌های عادی تفکیک شوند؛ و منشأ داده و دورهٔ زمانی روشن باشد. در مسئلهٔ تحلیل تأخیر تحویل، همین قواعد کافی نیستند؛ زمان سفارش، زمان ارسال، زمان تحویل، زمان لغو و منطقهٔ زمانی حیاتی می‌شوند. بنابراین قرارداد کیفیت برای مسئله تعریف می‌شود، نه یک نسخهٔ عمومی برای همهٔ تحلیل‌ها.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id41">
+<h2>۲ـ۱۲. رابطهٔ میان ویژگی‌ها: رابطهٔ آماری، نه الزاماً رابطهٔ علّی<a class="headerlink" href="#id41" title="Link to this heading">#</a></h2>
+<p>در آمار توصیفی تک‌متغیره، یک ستون را به‌تنهایی بررسی کردیم. بسیاری از خطاهای کیفیت و الگوهای پنهان، <strong>میان دو یا چند ویژگی</strong> آشکار می‌شوند: مثلاً قیمت هر قلم با نوع محصول مرتبط است، زمان تحویل با روش ارسال رابطه دارد، یا نرخ فقدان یک فیلد در یکی از شعب بیشتر است. از مباحث Han §۲٫۲٫۳ تنها پایه‌های ضروری را اینجا می‌آوریم؛ سنجه‌های شباهت و فاصله بین اشیای داده را در فصل سوم جداگانه آموزش خواهیم داد.</p>
+<section id="id42">
+<h3>۲ـ۱۲ـ۱. کوواریانس و واحد اندازه‌گیری<a class="headerlink" href="#id42" title="Link to this heading">#</a></h3>
+<p>برای دو ویژگی عددی <span class="math notranslate nohighlight">\(X\)</span> و <span class="math notranslate nohighlight">\(Y\)</span>، کوواریانس توصیفی جامعه برابر است با</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{Cov}(X,Y)=\frac1n\sum_{i=1}^n(x_i-\bar x)(y_i-\bar y).
+\]</div>
+<p>علامت مثبت یعنی انحراف‌ها از میانگین معمولاً هم‌جهت‌اند؛ علامت منفی یعنی معمولاً خلاف‌جهت‌اند. بزرگی آن به <strong>واحد</strong> دو متغیر وابسته است.</p>
+<p><strong>مثال دستی.</strong> سه زوج <span class="math notranslate nohighlight">\((1,2)\)</span>، <span class="math notranslate nohighlight">\((2,4)\)</span> و <span class="math notranslate nohighlight">\((3,6)\)</span> را در نظر بگیرید. میانگین‌ها <span class="math notranslate nohighlight">\(\bar x=2\)</span> و <span class="math notranslate nohighlight">\(\bar y=4\)</span> هستند. حاصل‌ضرب انحراف‌ها به ترتیب <span class="math notranslate nohighlight">\((-1)(-2)=2\)</span>، <span class="math notranslate nohighlight">\(0(0)=0\)</span> و <span class="math notranslate nohighlight">\((1)(2)=2\)</span> است؛ پس</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{Cov}(X,Y)=\frac{2+0+2}{3}=\frac43.
+\]</div>
+<p>اگر واحدِ <span class="math notranslate nohighlight">\(Y\)</span> را عوض کنیم و همهٔ مقدارهای آن در ۱۰۰ ضرب شوند، کوواریانس ۱۰۰ برابر می‌شود؛ این تغییر الزاماً افزایش وابستگی واقعی نیست.</p>
+</section>
+<section id="id43">
+<h3>۲ـ۱۲ـ۲. ضریب هم‌بستگی و محدودیت تفسیر<a class="headerlink" href="#id43" title="Link to this heading">#</a></h3>
+<p>برای انحراف معیارهای مثبت <span class="math notranslate nohighlight">\(\sigma_X,\sigma_Y\)</span>، ضریب هم‌بستگی پیرسون</p>
+<div class="math notranslate nohighlight">
+\[
+\rho_{X,Y}=\frac{\operatorname{Cov}(X,Y)}{\sigma_X\sigma_Y}
+\]</div>
+<p>بی‌واحد است. در مثال بالا <span class="math notranslate nohighlight">\(\sigma_X=\sqrt{2/3}\)</span> و <span class="math notranslate nohighlight">\(\sigma_Y=\sqrt{8/3}\)</span>؛ حاصل‌ضرب آن‌ها <span class="math notranslate nohighlight">\(4/3\)</span> است، در نتیجه <span class="math notranslate nohighlight">\(\rho=1\)</span>. این مقدار فقط <strong>رابطهٔ خطی کامل در همان سه زوج</strong> را نشان می‌دهد. معنی آن این نیست که X علت Y است یا هر رابطهٔ غیرخطی نیز کشف شده است. برای متغیر اسمی اصلاً محاسبهٔ مستقیم پیرسون روی کدهای دلخواه رویکرد مناسبی نیست؛ باید به جدول توافقی، نسبت‌های شرطی یا سنجه‌های متناسب با نوع داده مراجعه کرد.</p>
+</section>
+<section id="id44">
+<h3>۲ـ۱۲ـ۳. جدول توافقی برای متغیرهای اسمی<a class="headerlink" href="#id44" title="Link to this heading">#</a></h3>
+<p>برای دو متغیر اسمی، مثلاً <code class="docutils literal notranslate"><span class="pre">channel</span> <span class="pre">∈</span> <span class="pre">{web,</span> <span class="pre">app}</span></code> و <code class="docutils literal notranslate"><span class="pre">service_tier</span> <span class="pre">∈</span> <span class="pre">{basic,</span> <span class="pre">premium}</span></code>، ابتدا شمارش <span class="math notranslate nohighlight">\(n_{ab}\)</span> در هر ترکیب را محاسبه می‌کنیم. نسبت شرطی</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat P(\text{premium}\mid\text{web})
+=\frac{n_{\text{web},\text{premium}}}{n_{\text{web},\cdot}}
+\]</div>
+<p>با شرط <strong>مثبت‌بودن مخرج</strong> معنا دارد. این نسبت توصیفی، زمینهٔ تحلیل وابستگی و الگوی انجمنی است؛ ولی برای نمونهٔ کوچک فاصلهٔ عدم‌قطعیت و برای جست‌وجوی صدها رابطه، مسئلهٔ آزمون‌های چندگانه باید در نظر گرفته شود. از این منظر، یک جدول توافقی خوب نخستین گام ممیزی یک ادعای کشف‌شده است، نه پایان پژوهش.</p>
+</section>
+</section>
+<section id="id45">
+<h2>۲ـ۱۳. تمرین عملی: بازتولید همهٔ محاسبات با پایتون<a class="headerlink" href="#id45" title="Link to this heading">#</a></h2>
+<p>در <code class="docutils literal notranslate"><span class="pre">downloads/</span></code> سه فایل اصلی آماده است: <code class="docutils literal notranslate"><span class="pre">retail_lines_synthetic.csv</span></code>، <code class="docutils literal notranslate"><span class="pre">measurements_synthetic.csv</span></code> و <code class="docutils literal notranslate"><span class="pre">chapter02_examples.py</span></code>. همهٔ داده‌ها <strong>آموزشی و ساختگی</strong> هستند. برنامهٔ پایه تنها از <strong>کتابخانهٔ استاندارد پایتون</strong> استفاده می‌کند، تا در رایانهٔ منزل، دانشگاه یا محیط آموزشی بدون نصب بستهٔ خاصی اجرا شود:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python chapter02_examples.py</span>
+</pre></div>
+</div>
+<p>در ویندوز، از داخل پوشهٔ <code class="docutils literal notranslate"><span class="pre">downloads</span></code> می‌توانید روی <code class="docutils literal notranslate"><span class="pre">RUN_CHAPTER02_EXAMPLES.cmd</span></code> نیز دوبار کلیک کنید. دفترچهٔ <code class="docutils literal notranslate"><span class="pre">chapter02_examples.ipynb</span></code> همان محاسبات را مرحله‌به‌مرحله ارائه می‌دهد. چون محاسبات از خود CSV خوانده می‌شوند، می‌توان با تغییر کنترل‌شدهٔ یک رکورد دید گزارش چگونه عوض می‌شود.</p>
+<section id="id46">
+<h3>۲ـ۱۳ـ۱. تفسیر خروجی ممیزی<a class="headerlink" href="#id46" title="Link to this heading">#</a></h3>
+<p>خروجی مورد انتظار در فایل اصلی تقریباً به صورت زیر است (ترتیب نمایش مجموعهٔ کالاها ممکن است بین اجراها فرق کند):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>line count: 14
+distinct order IDs: 12
+customer ID missing: 1
+customer ID completeness: 92.86%
+duplicate line keys: [('I008', '1')]
+rule violations: [('I005', 'zero_quantity'),
+                  ('I006', 'negative_unit_price')]
+
+measurement mean: 25.0
+measurement median: 12.5
+Q1 = 11.0, Q3 = 14.0, IQR = 3.0
+upper fence = 18.5, suspect = [90.0]
+
+Simpson / easy: A = 0.90, B = 0.80
+Simpson / hard: A = 0.20, B = 0.10
+Simpson / pooled: A = 0.27, B = 0.73
+
+full mean = 55; observed mean = 82
+</pre></div>
+</div>
+<p><strong>چگونه یک ردیف نامعتبر را مدیریت کردیم؟</strong> برنامه فقط ردیف دارای قیمت منفی را علامت می‌زند؛ تصمیمِ «قیمت صحیح چند بوده» نمی‌گیرد. همچنین <code class="docutils literal notranslate"><span class="pre">I008</span></code> را هنگام تشکیل نمای مجموعه‌ای سبدها با کلید <code class="docutils literal notranslate"><span class="pre">(order_id,line_no)</span></code> یک‌بار می‌شمارد. این عمل به معنای اصلاح دائمی فایل خام نیست. برای فاکتور برگشت <code class="docutils literal notranslate"><span class="pre">C009</span></code>، مقدار منفیِ تعداد را مطابق قرارداد معتبر تلقی می‌کند، ولی آن را وارد مجموعهٔ تراکنش‌های فروش عادی برای قاعدهٔ هم‌خریدی نمی‌کند. مقدار گمشدهٔ مشتری نیز در خروجی ممیزی <strong>صفر یا یک شناسهٔ مصنوعی</strong> نمی‌شود.</p>
+</section>
+<section id="id47">
+<h3>۲ـ۱۳ـ۲. آزمایش‌های پیشنهادی با تغییر داده<a class="headerlink" href="#id47" title="Link to this heading">#</a></h3>
+<p>ابتدا یک نسخه از CSV بردارید. سپس: <code class="docutils literal notranslate"><span class="pre">I008</span></code> تکراری را حذف کنید و مشاهده کنید تعداد ردیف از ۱۴ به ۱۳ تغییر می‌کند ولی تعداد شناسه‌های سفارش ۱۲ باقی می‌ماند؛ <code class="docutils literal notranslate"><span class="pre">unit_price=-15</span></code> را به یک مقدار تأییدشدهٔ مثبت تغییر دهید و ببینید هشدار مربوط حذف می‌شود؛ <code class="docutils literal notranslate"><span class="pre">C009</span></code> را به اشتباه <code class="docutils literal notranslate"><span class="pre">I009</span></code> نام‌گذاری کنید تا اثر از دست رفتن معنای «برگشت» را دریابید؛ و سرانجام زمان ورود <code class="docutils literal notranslate"><span class="pre">I010</span></code> را به ۱۶:۰۵ اصلاح کنید تا تأخیر ثبت از ۴۰ دقیقه به ۵ دقیقه برسد. هر تغییر باید در <strong>نسخهٔ آزمایشی</strong> باشد، نه در فایل مرجعِ خام.</p>
+</section>
+</section>
+<section id="uci">
+<h2>۲ـ۱۴. پیوند با دادهٔ واقعی: چه چیزی را از UCI می‌توان آموخت؟<a class="headerlink" href="#uci" title="Link to this heading">#</a></h2>
+<p>برای گذر از مثال کوچک به دادهٔ واقعی، مجموعهٔ <strong>Online Retail II</strong> در UCI یک مطالعهٔ موردی مناسب است: طبق صفحهٔ رسمی، بیش از یک میلیون رکورد تراکنشی در دورهٔ ۲۰۰۹ تا ۲۰۱۱ دارد، چند نوع ویژگی زمانی، شناسه‌ای و عددی را دربرمی‌گیرد و وجود مقادیر گمشده در فرادادهٔ آن گزارش شده است. قرارداد <code class="docutils literal notranslate"><span class="pre">InvoiceNo</span></code> و نشانهٔ آغازین <code class="docutils literal notranslate"><span class="pre">C</span></code> برای ابطال/برگشت فاکتور نیز در شرح مجموعه آمده است. این‌ها <strong>واقعیات مستندِ معرفی مجموعه‌داده</strong> هستند، نه ادعای اینکه فایل کوچک آموزشی ما نمونهٔ استخراج‌شده از UCI است.</p>
+<p>پیوند مجموعه‌داده: <a class="reference external" href="https://archive.ics.uci.edu/dataset/502/online+retail+ii">UCI Online Retail II</a>؛ شناسهٔ ارجاع: DOI <a class="reference external" href="https://doi.org/10.24432/C5CG6D"><code class="docutils literal notranslate"><span class="pre">10.24432/C5CG6D</span></code></a>. صفحهٔ رسمی برای مجموعه‌داده مجوز <code class="docutils literal notranslate"><span class="pre">CC</span> <span class="pre">BY</span> <span class="pre">4.0</span></code> درج کرده است. <strong>فایل کامل واقعی داخل ZIP این فصل قرار نگرفته</strong> تا بسته حجیم و وابسته به شبکه نشود؛ در عوض <code class="docutils literal notranslate"><span class="pre">downloads/profile_uci_retail_ii.py</span></code> برای تحلیل اختیاری فایل محلی Excel پس از دریافت از منبع رسمی ارائه شده است. این فایل با وضعیت‌های رایج نام‌گذاری ستون‌ها و چند برگه سازگار است، ولی نتایج آن را باید بر نسخهٔ دریافت‌شده کنترل کرد.</p>
+<p><strong>سؤالات پژوهشی برای دادهٔ واقعی:</strong> آیا یک شناسهٔ فاکتور در چند ردیف کالا آمده و چرا؟ آیا ردیف‌های برگشت را باید از سبدهای فروش حذف کرد یا به‌عنوان رویداد جداگانه تحلیل کرد؟ آیا نرخ فقدان شناسهٔ مشتری در همهٔ ماه‌ها یکسان است؟ آیا نرخ تأخیر ثبت در داده موجود قابل برآورد است یا <code class="docutils literal notranslate"><span class="pre">ingest_time</span></code> اساساً ثبت نشده؟ برای سؤال آخر، نبود ستون ثبت زمانی به معنای <strong>ناتوانی در محاسبه</strong> است؛ نمی‌توان تأخیر را با صفر جانشین کرد. هر جدول اعتبارسنجی باید علاوه بر عدد، <strong>مخرج، قرارداد و محدودیت</strong> را گزارش کند.</p>
+<p>برای یک منبع بصری تکمیلی دربارهٔ الگوهای ظاهری فقدان داده، <a class="reference external" href="https://hkurzweil.github.io/DataScienceFoundations/external/missing-values-patterns.png">شکل آموزشی Missing Values Patterns</a> در سایت Data Science Foundations قابل مشاهده است. برای پرهیز از وابستگی به لینک بیرونی و ابهام در حق بازنشر، <strong>تصویر خارجی در بسته کپی نشده</strong> و شکل ۲ـ۹ به‌طور مستقل طراحی شده است.</p>
+</section>
+<section id="id48">
+<h2>۲ـ۱۵. تمرین‌های پایانی<a class="headerlink" href="#id48" title="Link to this heading">#</a></h2>
+<p><strong>تمرین ۱ — تعیین واحد مشاهده.</strong> یک سامانهٔ حمل‌ونقل چهار جدول <code class="docutils literal notranslate"><span class="pre">Trips</span></code>, <code class="docutils literal notranslate"><span class="pre">Stops</span></code>, <code class="docutils literal notranslate"><span class="pre">Vehicles</span></code>, <code class="docutils literal notranslate"><span class="pre">Payments</span></code> دارد. برای کشف «توالی ایستگاه‌های پرتردد»، برای «بررسی وسایل با تأخیر زیاد» و برای «تحلیل شیوه‌های پرداخت همراه»، سه واحد مشاهده و سه کلید مناسب پیشنهاد کنید. توضیح دهید تغییر واحد چگونه مخرج نرخ‌ها را تغییر می‌دهد.</p>
+<p><strong>تمرین ۲ — تشخیص نوع ویژگی.</strong> برای متغیرهای شناسهٔ ملیِ کدگذاری‌شده، سال تقویمی، زمان سپری‌شده، سطح رضایت پنج‌رده‌ای، تعداد تراکنش، دمای سلسیوس و وجود کالای خاص در سبد، نوع معنایی، نقش و عملیات مجاز را مشخص کنید. برای هر متغیر یک <strong>عمل نامجاز</strong> هم مثال بزنید.</p>
+<p><strong>تمرین ۳ — معنای صفر.</strong> در یک ماتریس مشتری–کالا سه مقدار <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code>, <code class="docutils literal notranslate"><span class="pre">NULL</span></code> وجود دارد. توضیح دهید چرا با حذف NULL و قراردادن صفر به جای آن، برخی شباهت‌ها و پشتیبان قواعد تغییر می‌کنند. با یک نمونهٔ سه‌سبدی مثال عددی بسازید.</p>
+<p><strong>تمرین ۴ — محاسبهٔ دستی آمار مقاوم.</strong> داده‌های <code class="docutils literal notranslate"><span class="pre">[10,11,12,13,14,90]</span></code> را در نظر بگیرید. میانگین، میانه، دو چارک به روش نیمه‌های مرتب، IQR، حد بالای قاعدهٔ ۱٫۵×IQR، واریانس جامعه و واریانس نمونه را محاسبه کنید و هر کدام را تفسیر کنید. آیا عدد ۹۰ الزاماً خطاست؟</p>
+<p><strong>تمرین ۵ — تعریف نرخ کیفیت.</strong> برای ۱۰۰ ردیف سفارش، ۶ شناسهٔ مشتری گمشده، ۳ قیمت نامعتبر و ۲ گروه دارای کلید ردیف تکراری گزارش شده است. پیش از محاسبهٔ هر نرخ چه اطلاعاتی دربارهٔ تعداد رکوردهای مازاد و هم‌پوشانی خطاها لازم است؟ چرا جمع سادهٔ درصد خطاها می‌تواند گمراه‌کننده باشد؟</p>
+<p><strong>تمرین ۶ — دادهٔ برگشت.</strong> در فایل CSV این فصل ردیف <code class="docutils literal notranslate"><span class="pre">C009</span></code> تعداد منفی دارد. سه سناریوی تحلیل تعریف کنید که در یکی نگهداری برگشت، در دیگری تفکیک آن، و در سومی حذف آن از جامعهٔ تحلیل توجیه‌پذیر باشد. پیامد هر تصمیم بر «تعداد»، «درآمد خالص» و «قاعدهٔ هم‌خریدی» را جدا کنید.</p>
+<p><strong>تمرین ۷ — کمی‌کردن سوگیری فقدان.</strong> از مثال هشت‌تایی فصل شروع کنید. اگر به‌جای یک مقدار کوچک، دو مقدار کوچک دیده می‌شد، میانگین مشاهده‌شده چه مقدار می‌شد؟ برای چه ترکیبی از مشاهدات، میانگین مشاهده‌شده به ۵۵ نزدیک‌تر می‌شود؟ چرا این محاسبه هنوز مکانیسم MAR/MNAR را اثبات نمی‌کند؟</p>
+<p><strong>تمرین ۸ — کیفیت زمانی.</strong> در دادهٔ رویدادها پنج زوج زمان وقوع/ورود را به دلخواه تعریف کنید؛ میانگین و میانهٔ تأخیر را بیابید و نسبت رویدادهایی را که در پنجرهٔ ۱۵ دقیقه‌ای قابل مشاهده‌اند گزارش کنید. اگر منطقهٔ زمانیِ یکی از ستون‌ها نامشخص باشد، چه تغییری در نتیجهٔ علمی باید بدهید؟</p>
+<p><strong>تمرین ۹ — Simpson.</strong> نرخ‌های جدول ۲ـ۹ را بازتولید کنید و فرمول مجموع وزن‌دار <span class="math notranslate nohighlight">\(R_g\)</span> را برای هر دو گروه بنویسید. اگر هر دو سامانه دقیقاً ۵۰٪ از گروه آسان و ۵۰٪ از گروه دشوار آزموده می‌شدند، نرخ تجمیعیِ استانداردشدهٔ هر کدام چه می‌شد؟ نتیجهٔ علّی گرفتن از آن چه پیش‌فرض‌هایی می‌خواهد؟</p>
+<p><strong>تمرین ۱۰ — مدل دادهٔ صحیح.</strong> یک مسئلهٔ متن‌کاوی شامل سند، جمله، واژه و رابطهٔ ارجاع بین اسناد را در چهار نمایش توضیح دهید: ماتریس سند–واژه، سبد واژگان، توالی واژگان و گراف ارجاع. برای هرکدام مشخص کنید چه اطلاعاتی حذف می‌شود و چه نوع الگویی قابل جست‌وجو است.</p>
+<p><strong>تمرین ۱۱ — برنامه‌نویسی ممیزی.</strong> تابع <code class="docutils literal notranslate"><span class="pre">quality_report</span></code> را توسعه دهید تا تعداد تأخیرهای بیش از ۱۵ دقیقه و نسبت کلیدهای تکراری را با <strong>دو مخرج متفاوت</strong> گزارش کند. یک تست بنویسید که حذف یک نسخهٔ تکراری <code class="docutils literal notranslate"><span class="pre">I008</span></code>، تعداد فاکتورهای متمایز را تغییر ندهد. نسخهٔ اولیهٔ داده را بدون تغییر نگه دارید.</p>
+<p><strong>تمرین ۱۲ — بررسی دادهٔ واقعی و مرز ادعا.</strong> پس از دریافت مجموعهٔ UCI Online Retail II، تنها ۵۰ هزار ردیف اول آن را برای یک بررسی <em>آزمایشی</em> بخوانید و فراوانی فاکتورهای برگشت و فقدان شناسهٔ مشتری را گزارش کنید. توضیح دهید چرا نتیجهٔ این ۵۰ هزار ردیف، بدون بررسی ترتیب رکوردها و طرح نمونه‌گیری، الزاماً برآورد قابل تعمیم برای کل مجموعه نیست.</p>
+<section id="id49">
+<h3>پاسخ راهنما برای چند محاسبهٔ قابل کنترل<a class="headerlink" href="#id49" title="Link to this heading">#</a></h3>
+<p>برای تمرین ۴، مقادیر اصلی به ترتیب <span class="math notranslate nohighlight">\(25\)</span>، <span class="math notranslate nohighlight">\(12.5\)</span>، <span class="math notranslate nohighlight">\(11\)</span>، <span class="math notranslate nohighlight">\(14\)</span>، <span class="math notranslate nohighlight">\(3\)</span>، <span class="math notranslate nohighlight">\(18.5\)</span>، <span class="math notranslate nohighlight">\(846.67\)</span> و <span class="math notranslate nohighlight">\(1016\)</span> است. در تمرین ۷، با مشاهدهٔ چهار مقدار ۱۰۰ و دو مقدار ۱۰ داریم <span class="math notranslate nohighlight">\((400+20)/6=70\)</span>. در بخش استانداردسازی تمرین ۹، اگر وزن دو زیرگروه را برای هر دو سامانه <span class="math notranslate nohighlight">\(0.5\)</span> بگیریم، نرخ A برابر <span class="math notranslate nohighlight">\(0.5(0.9)+0.5(0.2)=0.55\)</span> و نرخ B برابر <span class="math notranslate nohighlight">\(0.5(0.8)+0.5(0.1)=0.45\)</span> خواهد بود؛ تفسیر علّی همچنان به طراحی مطالعه وابسته است.</p>
+</section>
+</section>
+<section id="id50">
+<h2>۲ـ۱۶. جمع‌بندی و پل به فصل سوم<a class="headerlink" href="#id50" title="Link to this heading">#</a></h2>
+<p>در این فصل آموختیم که <strong>داده پیش از آنکه یک ماتریس عددی باشد، بازنمایی قراردادی یک پدیده است</strong>. واحد مشاهده، نقش و مقیاس ویژگی، معنای صفر و مقدار گمشده، زمان رخداد، قرارداد برگشت و تعریف کلید، همگی بر الگوهای قابل کشف اثر می‌گذارند. تفاوت اساسی میان خطای قطعیِ قرارداد و مشاهدهٔ نادر نیز روشن شد: <strong>سیستم باکیفیت باید به‌جای حذف بی‌دلیل شواهد، آن‌ها را قابل مشاهده، بررسی و ردیابی کند.</strong> مثال Simpson نشان داد که حتی محاسبات کاملاً صحیح روی داده‌های واقعی هم ممکن است به سبب نادیده‌گرفتن ساختار گروه‌ها، تفسیر غلطی بسازند.</p>
+<p>اکنون می‌دانیم که <code class="docutils literal notranslate"><span class="pre">customer_id</span></code> یک کد اسمی است، <code class="docutils literal notranslate"><span class="pre">service_tier</span></code> ترتیبی، <code class="docutils literal notranslate"><span class="pre">quantity</span></code> نسبتی و <code class="docutils literal notranslate"><span class="pre">event_time</span></code> ویژگی زمانیِ دارای قرارداد ثبت. پرسش بعدی طبیعی است: <strong>اگر دو مشتری یا دو تراکنش ویژگی‌های مختلفی دارند، «نزدیک‌بودن» آن‌ها دقیقاً چه معنایی دارد؟</strong> چرا فاصلهٔ اقلیدسی روی کد شهر یا شناسهٔ کالا گمراه‌کننده است و چرا برای سبد خریدِ تنک، حضور مشترک کالاها مهم‌تر از صفرهای مشترک است؟ فصل سوم، «معیارهای شباهت، فاصله و هندسهٔ داده‌ها»، پاسخ ریاضی و الگوریتمی این پرسش‌هاست.</p>
+</section>
+<section id="id51">
+<h2>منابع دقیق و مواد تکمیلی<a class="headerlink" href="#id51" title="Link to this heading">#</a></h2>
+<section id="id52">
+<h3>دو کتاب اصلی<a class="headerlink" href="#id52" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><strong>Han, J., Pei, J., &amp; Tong, H.</strong> <em>Data Mining: Concepts and Techniques</em>, 4th ed., Morgan Kaufmann/Elsevier, 2023. Chapter 2: §2.1 «Data Types» (pp. 24–27), §2.2 «Statistics of Data» (pp. 27–42), and introductory material of §2.4 «Data Quality, Data Cleaning, and Data Integration» (starting p. 55). <a class="reference external" href="https://hanj.cs.illinois.edu/bk4/bk4_slidesindex.htm">فهرست رسمی مطالب و اسلایدها</a>.</p></li>
+<li><p><strong>Tan, P.-N., Steinbach, M., Karpatne, A., &amp; Kumar, V.</strong> <em>Introduction to Data Mining</em>, 2nd ed., Pearson, 2019. Chapter 2: §2.1 «Types of Data» (pp. 26–41), especially §2.1.1 and §2.1.2; §2.2 «Data Quality» (pp. 42–49), especially §2.2.1–§2.2.2. <a class="reference external" href="https://www-users.cse.umn.edu/~kumar001/dmbook/index.php">وب‌سایت رسمی مؤلفان</a>.</p></li>
+</ol>
+</section>
+<section id="id53">
+<h3>منابع تکمیلی وب برای بسط آموزشی (نه جایگزین دو کتاب)<a class="headerlink" href="#id53" title="Link to this heading">#</a></h3>
+<ol class="arabic simple" start="3">
+<li><p><strong>UCI Machine Learning Repository.</strong> <em>Online Retail II</em>, DOI: <a class="reference external" href="https://doi.org/10.24432/C5CG6D">10.24432/C5CG6D</a>. فراداده، نمونهٔ واقعی دامنهٔ فروش، قرارداد شمارهٔ فاکتور و مجوز مجموعه‌داده.</p></li>
+<li><p><strong>University of Melbourne, Statistical Consulting Centre.</strong> <a class="reference external" href="https://scc.ms.unimelb.edu.au/resources/preparing-your-data/missing-data">Missing data</a>. تعریف و تفسیر دقیق MCAR، MAR و MNAR.</p></li>
+<li><p><strong>Missing data: A statistical framework for practice.</strong> <a class="reference external" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7615108/">مقالهٔ قابل دسترس در PubMed Central</a>. محدودیت تشخیص مکانیزم فقدان از اطلاعات مشاهده‌شده و ضرورت تحلیل حساسیت.</p></li>
+<li><p><strong>scikit-learn, User Guide.</strong> <a class="reference external" href="https://scikit-learn.org/stable/common_pitfalls.html">Common pitfalls and data leakage</a>. توضیح عدم استفاده از دادهٔ آزمون در برازش پیش‌پردازش.</p></li>
+<li><p><strong>Data Science Foundations.</strong> <a class="reference external" href="https://hkurzweil.github.io/DataScienceFoundations/external/missing-values-patterns.png">Missing Values Patterns — external visual reference</a>. مرجع دیداری برای بحث الگوی ظاهری فقدان؛ تصویر در بسته بازنشر نشده است.</p></li>
+</ol>
+<p><strong>یادداشت حق‌نشر و شفافیت:</strong> هیچ صفحه یا شکلِ دو کتاب اصلی در این جزوه بازتولید نشده است؛ متن، اعداد مثال‌های اصلی، نمودارها و تصویرها تألیفی‌اند. فایل‌های <code class="docutils literal notranslate"><span class="pre">retail_lines_synthetic.csv</span></code> و <code class="docutils literal notranslate"><span class="pre">measurements_synthetic.csv</span></code> عمداً ساختگی‌اند. نمونهٔ UCI تنها با لینک و اسکریپت اختیاری معرفی شده و دادهٔ واقعی به بسته افزوده نشده است. برای فهم و بازتولید محاسبات فصل، اتصال اینترنت لازم نیست.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-01.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل اول — مبانی داده‌کاوی و فرایند کشف دانش</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و جایگاه فصل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">مبنای علمی، مقایسهٔ دو مرجع و مرزبندی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۲ـ۱. مسئلهٔ آغازین: یک جدول فروش و سه پاسخ متفاوت</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۲ـ۱ـ۱. دانه‌بندی داده و کلید</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۲ـ۱ـ۲. شیء داده، ویژگی و نقش آن</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۲ـ۲. معنا و مقیاس سنجش ویژگی‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#nominal">۲ـ۲ـ۱. اسمی (Nominal): فقط تشخیص برابری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinal">۲ـ۲ـ۲. ترتیبی (Ordinal): ترتیب داریم، فاصلهٔ ثابت نه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interval">۲ـ۲ـ۳. فاصله‌ای (Interval): اختلاف معتبر است؛ نسبتِ مقدارها نه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ratio">۲ـ۲ـ۴. نسبتی (Ratio): صفر حقیقی و نسبت معنا‌دار</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۲ـ۲ـ۵. گسسته، پیوسته و دودویی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۲ـ۲ـ۶. ویژگی مشتق‌شده و نقش زمان</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۲ـ۳. از دادهٔ چندشکلی تا نمایش مناسب برای مسئله</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۲ـ۳ـ۱. ماتریس ویژگی و جدول رابطه‌ای</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۲ـ۳ـ۲. سبد خرید: مجموعه یا چندمجموعه؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۲ـ۳ـ۳. دنبالهٔ رویداد و زمان‌بندی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۲ـ۳ـ۴. گراف و رابطهٔ بین موجودیت‌ها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۲ـ۳ـ۵. تنک‌بودن و مسئلهٔ صفر</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-dictionary">۲ـ۴. فرهنگ داده (Data Dictionary) و قرارداد سنجش</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۲ـ۴ـ۱. دامنهٔ مجاز با قرارداد تجاری فرق دارد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۲ـ۴ـ۲. دقت ثبت، صحت و واحد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۲ـ۴ـ۳. زمان رویداد در برابر زمان ورود</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۲ـ۵. کیفیت داده: «مناسب برای چه استفاده‌ای؟»</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۲ـ۵ـ۱. بُعدهای کیفیت و مخرج صحیح</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۲ـ۵ـ۲. مواردِ بی‌قاعده و مواردِ نامطمئن</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۲ـ۶. فقدان مقدار و مکانیزم گم‌شدن</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۲ـ۶ـ۱. چهار حالت که نباید با هم یکی شوند</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">۲ـ۶ـ۲. الگوی قابل مشاهده با علت فقدان یکی نیست</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">۲ـ۶ـ۳. مثال عددی: حذفِ ظاهراً ساده چه خطایی می‌سازد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۲ـ۷. توصیف توزیع قبل از کشف الگو</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۲ـ۷ـ۱. میانگین، میانه و نما: سه سؤال متفاوت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۲ـ۷ـ۲. واریانس و تفاوت جامعه و نمونه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۲ـ۷ـ۳. چارک، فاصلهٔ میان‌چارکی و «پرچم» دادهٔ پرت</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۲ـ۷ـ۴. خلاصهٔ مقاوم جایگزینِ توضیح داده نمی‌شود</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۲ـ۷ـ۵. چرا نمودار لازم است؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۲ـ۸. خطای ثبت، دادهٔ پرت، و موجودیت تکراری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">۲ـ۸ـ۱. تفاوت دادهٔ پرت با دادهٔ نامعتبر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">۲ـ۸ـ۲. رکورد تکراری، موجودیت تکراری و تراکنشِ چندردیفی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">۲ـ۸ـ۳. ناسازگاری معنایی و چند منبع داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simpson">۲ـ۹. ترکیب گروه‌ها و وارونگی نتیجه: مثال Simpson</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">۲ـ۱۰. از کیفیت داده تا کیفیت ادعا: هشدار نشت اطلاعات</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">۲ـ۱۱. یک فرایند ممیزی قابل دفاع و تکرارپذیر</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">۲ـ۱۱ـ۱. مراحل الگوریتمی ممیزی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">۲ـ۱۱ـ۲. آیا نرمال‌کردن هر مقدار مجاز است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">۲ـ۱۱ـ۳. آستانه‌های کنترل کیفیت را به مسئله متصل کنید</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">۲ـ۱۲. رابطهٔ میان ویژگی‌ها: رابطهٔ آماری، نه الزاماً رابطهٔ علّی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">۲ـ۱۲ـ۱. کوواریانس و واحد اندازه‌گیری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">۲ـ۱۲ـ۲. ضریب هم‌بستگی و محدودیت تفسیر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id44">۲ـ۱۲ـ۳. جدول توافقی برای متغیرهای اسمی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id45">۲ـ۱۳. تمرین عملی: بازتولید همهٔ محاسبات با پایتون</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id46">۲ـ۱۳ـ۱. تفسیر خروجی ممیزی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id47">۲ـ۱۳ـ۲. آزمایش‌های پیشنهادی با تغییر داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#uci">۲ـ۱۴. پیوند با دادهٔ واقعی: چه چیزی را از UCI می‌توان آموخت؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id48">۲ـ۱۵. تمرین‌های پایانی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id49">پاسخ راهنما برای چند محاسبهٔ قابل کنترل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id50">۲ـ۱۶. جمع‌بندی و پل به فصل سوم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id51">منابع دقیق و مواد تکمیلی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id52">دو کتاب اصلی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id53">منابع تکمیلی وب برای بسط آموزشی (نه جایگزین دو کتاب)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
