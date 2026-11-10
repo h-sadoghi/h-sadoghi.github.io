@@ -1,0 +1,1364 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل سوم — معیارهای شباهت، فاصله و هندسهٔ داده‌ها &#8212; Data Mining Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/data-mining-rtl.css?v=9df69a29" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-03';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="فصل دوم — بازنمایی داده، انواع ویژگی‌ها و کیفیت داده" href="chapter-02.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Mining Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    داده‌کاوی | Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های درس داده‌کاوی</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">مبانی داده‌کاوی و فرایند کشف دانش</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">معیارهای شباهت، فاصله و هندسهٔ داده‌ها</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-03.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل سوم — معیارهای شباهت، فاصله و هندسهٔ داده‌ها</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و نقشهٔ فصل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه فصل در دو کتاب اصلی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۳ـ۱. مسئلهٔ آغازین: نزدیک‌ترین مشتری کدام است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۳ـ۲. شباهت، ناشباهتی و فاصلهٔ واقعی یک چیز نیستند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">آیا می‌توان شباهت را به فاصله تبدیل کرد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۳ـ۳. ماتریس داده و ماتریس نزدیکی؛ دو شیوهٔ دیدن یک مجموعه</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">هزینهٔ علمی استفاده از ماتریس فاصله</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minkowski">۳ـ۴. خانوادهٔ Minkowski و هندسهٔ فاصله در فضای عددی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">چرخش دستگاه مختصات نیز می‌تواند مهم باشد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">محاسبهٔ دستی مرحله‌به‌مرحله</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">اثبات شهودی نامساوی مثلثی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۳ـ۵. واحد، مقیاس و وزن ویژگی‌ها: یک دام هندسی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">سه راه متداول و حدود اعتبار آن‌ها</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۳ـ۶. متغیرهای اسمی و ترتیبی: عدد همیشه «اندازه» نیست</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">ویژگی اسمی: فقط برابر یا نابرابر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">ویژگی ترتیبی: اطلاعات بیشتر از اسمی، کمتر از کمی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۳ـ۷. دودویی متقارن و نامتقارن: چرا صفرهای مشترک می‌توانند گمراه کنند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hamming-jaccard">فاصلهٔ Hamming و تفاوت آن با Jaccard</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۳ـ۸. شباهت کسینوسی: مقایسهٔ جهت به‌جای مقدار</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">محاسبهٔ دستی روی دو سند کوچک</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jaccard">Jaccard تعمیم‌یافته و شباهت معناییِ آموخته‌شده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-pearson">Cosine با هم‌بستگی Pearson چه تفاوتی دارد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۳ـ۹. ماهالانوبیس: وقتی پراکندگی و هم‌بستگی، هندسه را عوض می‌کنند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">مثال دستی با کوواریانس قطری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">مثال هم‌بستگی و جهت تغییر</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gower">۳ـ۱۰. ترکیب انواع ویژگی‌ها: فاصلهٔ Gower و قراردادهای حذف</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">یک مثال عددی کامل با پنج ویژگی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">مسئلهٔ جدی دادهٔ گمشده و مقایسهٔ زوج‌به‌زوج</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">وزن‌ها و آستانه‌ها را چطور انتخاب کنیم؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kl-jensenshannon">۳ـ۱۱. توزیع‌ها را با رکوردها اشتباه نگیریم: KL و Jensen–Shannon</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">مثال دستی دو نوع کالا</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۳ـ۱۲. اطلاعات متقابل: شباهت بین <em>متغیرها</em>، نه لزوماً بین <em>رکوردها</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">مثال دستی که باید بتوان در کلاس حل کرد</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bregman">۳ـ۱۳. کرنل‌ها و واگرایی Bregman: وقتی هندسهٔ پنهان را خودمان می‌سازیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">کرنل چیست و چه نسبتی با «شباهت» دارد؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">واگرایی Bregman، کوتاه اما با یک مثال دقیق</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۳ـ۱۴. هندسهٔ گراف و دادهٔ پیچیده: کوتاه‌ترین مسیر، نه خط مستقیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۳ـ۱۵. بُعد بالا و شبه‌برابری فاصله‌ها: حدّ اعتبار «نزدیکی»</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">۳ـ۱۶. انتخاب معیار مناسب: یک پروتکل برای داده‌کاوی قابل دفاع</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">یک شبه‌کد کوتاه برای انتخاب و ارزیابی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-notebook">۳ـ۱۷. آزمایشگاه عملی: از قلم و کاغذ تا Python و Notebook</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">گام اول: تغییر همسایه با Minkowski</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">گام دوم: اثر انبوه صفرها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">گام سوم: Gower و حذف ویژگی نامرتبط</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">گام چهارم: مقایسهٔ توزیع‌ها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">گام پنجم: آزمایشگاه تعاملی بدون نصب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">نگاه به کد کتابخانه‌های علمی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">۳ـ۱۸. تمرین‌های پایانی و فعالیت کلاسی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">۳ـ۱۹. جمع‌بندی، مرزبندی و پیوند با فصل چهارم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">راهنمای مراجعه به منابع علمی</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل سوم — معیارهای شباهت، فاصله و هندسهٔ داده‌ها<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>درس داده‌کاوی ـ کارشناسی ارشد مهندسی کامپیوتر</strong><br />
+پرسش محوری: «دو مشاهده چه زمانی به هم نزدیک‌اند؛ نزدیک از چه نظر و برای کدام تصمیم؟»</p>
+</div></blockquote>
+<section id="id2">
+<h2>اهداف یادگیری و نقشهٔ فصل<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>پس از مطالعهٔ این فصل دانشجو باید بتواند: (۱) تفاوت <em>شباهت</em>، <em>ناشباهتی</em> و <em>فاصلهٔ متریک</em> را توضیح دهد؛ (۲) برای سه مشاهده، نزدیک‌ترین همسایه را با معیارهای مختلف دستی پیدا کند و چرایی تغییر جواب را تحلیل کند؛ (۳) برای متغیرهای اسمی، دودویی متقارن، دودویی نامتقارن و ترتیبی معیار مناسب بسازد؛ (۴) Manhattan، Euclidean، Chebyshev و Minkowski را محاسبه و تفسیر کند؛ (۵) به اثر واحد اندازه‌گیری، وزن‌دهی و هم‌بستگی ویژگی‌ها حساس باشد؛ (۶) Jaccard، Cosine و Pearson را برای داده‌های تنک یا برداری از هم تمیز دهد؛ (۷) دادهٔ مختلط و گمشده را با قرارداد آشکار مقایسه کند؛ (۸) KL، Jensen–Shannon و اطلاعات متقابل را در جایگاه درست آن‌ها به کار برد؛ (۹) مفهوم هندسهٔ کرنل و فاصلهٔ گرافی را در حد نیاز داده‌کاوی بفهمد؛ و (۱۰) با یک آزمون پایداری همسایگی، معیار انتخابی را ارزیابی کند.</p>
+<p><strong>فایل‌های آموزشی:</strong> <a href="/assets/downloads/courses/data-mining/course-notes/chapter-03/DataMining_Chapter03.pdf" download>جزوهٔ PDF فصل سوم</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-03/DataMining_Chapter03_TEX_PDF_SOURCE.zip" download>LaTeX و شکل‌ها و کدها در یک ZIP</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-03/chapter03_examples.py" download>برنامهٔ محاسباتی</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-03/chapter03_examples.ipynb" download>Notebook</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-03/RUN_INTERACTIVE_ONE_CLICK.html" download>آزمایشگاه تعاملی آفلاین</a>.</p>
+<section id="id3">
+<h3>جایگاه فصل در دو کتاب اصلی<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>در <strong>Han, Pei &amp; Tong، ویرایش چهارم</strong>، مبنای اصلی بخش <strong>۲٫۳، «Similarity and distance measures»</strong>، صفحات چاپی <strong>۴۳ تا ۵۵</strong> است؛ زیر‌بخش‌ها از ماتریس داده/ناشباهتی و انواع ویژگی تا Cosine، KL و معناشناسی پنهان گسترده‌اند. در <strong>Tan, Steinbach, Karpatne &amp; Kumar، ویرایش دوم</strong>، مبنا بخش <strong>۲٫۴، «Measures of Similarity and Dissimilarity»</strong>، صفحات چاپی <strong>۷۱ تا ۱۰۰</strong> است؛ این منبع پس از مبانی، انتخاب و تبدیل معیار، اطلاعات متقابل، کرنل، واگرایی Bregman، هم‌بستگی/مقیاس و انتخاب معیار را نیز در بر می‌گیرد. شمارهٔ صفحات <strong>چاپ‌شده داخل کتاب</strong> ملاک است، نه شمارهٔ صفحهٔ PDF.</p>
+<p>رویکرد Han برای دانشجو یک <strong>راهنمای گام‌به‌گام مبتنی بر نوع ویژگی</strong> می‌سازد؛ رویکرد Tan یادآور می‌شود که پیش از محاسبه باید <strong>هدف شباهت، ناوردایی مطلوب و پیامد انتخاب معیار برای تحلیل</strong> روشن شود. بنابراین متن حاضر نخست اختلاف در تصمیم را با یک مثال کوچک نشان می‌دهد، سپس از ویژگی‌های ساده به فضای هندسی، بردارهای تنک، دادهٔ مختلط، توزیع و گراف می‌رسد. <strong>فاصلهٔ گرافی، تمرکز فاصله در بُعد بالا، Jensen–Shannon و آزمون پایداری همسایگی</strong> بسط‌های مستقل آموزشی‌اند؛ آن‌ها را به‌عنوان فصل مستقل در دو مرجع معرفی نمی‌کنیم.</p>
+<p><strong>پیوند با فصل دوم.</strong> اکنون می‌دانیم یک ویژگی «کد منطقه» اسمی، «سطح رضایت» ترتیبی، «مبلغ خرید» نسبتی و «وجود کالای خاص» دودویی نامتقارن است. اگر همه را فقط به اعداد تبدیل و Euclidean را اجرا کنیم، احتمالاً نزدیکی به معنایی محاسبه می‌شود که با سؤال پژوهشی ما سازگار نیست.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>۳ـ۱. مسئلهٔ آغازین: نزدیک‌ترین مشتری کدام است؟<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>فرض کنید یک مشتری جدید را با نقطهٔ <span class="math notranslate nohighlight">\(A=(0,0)\)</span> نشان می‌دهیم. دو مشتری تاریخی دارای ویژگی‌های عددیِ از قبل هم‌واحد و هم‌مقیاس‌شده‌اند: <span class="math notranslate nohighlight">\(B=(3,4)\)</span> و <span class="math notranslate nohighlight">\(C=(0,6)\)</span>. برای سادگی، مختصات و همهٔ داده‌ها در این مثال <strong>ساختگی آموزشی</strong> هستند.</p>
+<p>از روی شکل ممکن است <span class="math notranslate nohighlight">\(B\)</span> نزدیک‌تر به نظر برسد؛ اما اگر «هزینهٔ تفاوت» را به شکل مجموع اختلاف هر مؤلفه بسنجیم، <span class="math notranslate nohighlight">\(C\)</span> نزدیک‌تر خواهد شد. سه محاسبهٔ دستی:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+d_1(A,B)&amp;=|3|+|4|=7,&amp; d_1(A,C)&amp;=|0|+|6|=6,\\
+d_2(A,B)&amp;=\sqrt{3^2+4^2}=5,&amp;d_2(A,C)&amp;=\sqrt{0^2+6^2}=6,\\
+d_\infty(A,B)&amp;=\max(3,4)=4,&amp;d_\infty(A,C)&amp;=\max(0,6)=6.
+\end{aligned}
+\end{split}\]</div>
+<p>پس <strong>Manhattan نزدیک‌ترین را <span class="math notranslate nohighlight">\(C\)</span></strong> و <strong>Euclidean و Chebyshev نزدیک‌ترین را <span class="math notranslate nohighlight">\(B\)</span></strong> تشخیص می‌دهند؛ هیچ‌یک صرفاً از روی این سه نقطه «اشتباه ریاضی» نکرده‌اند. اختلاف بر سر این است که «نزدیک‌بودن» را چگونه عملیاتی تعریف کرده‌ایم. این موضوع در کشف خوشه، بازیابی مشتری مشابه، کشف ناهنجاری و جست‌وجوی همسایه تکرار می‌شود.</p>
+<figure class="align-default" id="dm3-01">
+<a class="reference internal image-reference" href="../_images/fig03_01.png"><img alt="../_images/fig03_01.png" src="../_images/fig03_01.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">شکل ۳ـ۱. سه مشاهدهٔ ساختگی: انتخاب نزدیک‌ترین همسایه با تغییر معیار فاصله عوض می‌شود. شکل محاسباتی تألیفی.</span><a class="headerlink" href="#dm3-01" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>سؤال پژوهشی اصلی:</strong> اگر مشتریان به‌جای دو مؤلفهٔ هم‌مقیاس، شامل درآمد، جنس کالا، میزان رضایت و صدها نشانگر «خرید/نخریدن» باشند، کدام یک از این معیارها هنوز قابل دفاع است؟ پاسخ فصل بر پایهٔ <em>معنا، نوع، واحد، توزیع، وزن و هدف کشف</em> شکل می‌گیرد.</p>
+</section>
+<section id="id5">
+<h2>۳ـ۲. شباهت، ناشباهتی و فاصلهٔ واقعی یک چیز نیستند<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>فرض کنید <span class="math notranslate nohighlight">\(x\)</span> و <span class="math notranslate nohighlight">\(y\)</span> دو مشاهده باشند. <strong>شباهت</strong> یا <span class="math notranslate nohighlight">\(s(x,y)\)</span> هرچه بزرگ‌تر باشد نشان‌دهندهٔ شباهت بیشتر است؛ <strong>ناشباهتی</strong> یا <span class="math notranslate nohighlight">\(\delta(x,y)\)</span> برعکس عمل می‌کند. در برخی کاربردها مقدار شباهت بین صفر و یک است، اما <strong>همهٔ شباهت‌ها چنین نیستند</strong>؛ برای مثال Cosine می‌تواند منفی باشد، و یک کرنل می‌تواند بیش از یک شود. اغلب فاصله‌ها صفر را برای مشاهدهٔ یکسان در نظر می‌گیرند، ولی الزاماً سقف یک ندارند.</p>
+<p>برای اینکه یک تابع <span class="math notranslate nohighlight">\(d\)</span> روی فضای مشاهده‌ها <strong>متریک (Metric)</strong> باشد، معمولاً چهار شرط را لازم داریم:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+&amp;d(x,y)\ge 0,\\
+&amp;d(x,y)=0\iff x=y,\\
+&amp;d(x,y)=d(y,x),\\
+&amp;d(x,z)\le d(x,y)+d(y,z).
+\end{aligned}
+\end{split}\]</div>
+<p>آخرین رابطه <strong>نامساوی مثلثی</strong> است. معنایش آن است که سفر غیرمستقیم از <span class="math notranslate nohighlight">\(x\)</span> به <span class="math notranslate nohighlight">\(z\)</span> از طریق <span class="math notranslate nohighlight">\(y\)</span> نباید از فاصلهٔ مستقیمِ تعریف‌شده کوتاه‌تر باشد. این شرط نه فقط زیبایی ریاضی، که مبنای برخی ساختارهای جست‌وجوی سریع مانند درخت‌های متریک است.</p>
+<p><strong>مثال نقض مهم:</strong> برای بردارهای <span class="math notranslate nohighlight">\(x=(1,0)\)</span>، <span class="math notranslate nohighlight">\(y=(1,1)\)</span>، <span class="math notranslate nohighlight">\(z=(0,1)\)</span>، اگر <span class="math notranslate nohighlight">\(d=1-\cos\)</span> تعریف کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+d(x,z)=1,\qquad d(x,y)+d(y,z)=2\left(1-\frac{1}{\sqrt2}\right)\approx0.586.
+\]</div>
+<p>بنابراین <span class="math notranslate nohighlight">\(1&gt;0.586\)</span> و نامساوی مثلثی نقض می‌شود: <strong><span class="math notranslate nohighlight">\(1-\cos\)</span> لزوماً متریک نیست</strong>. همچنین دو بردار مثبتِ هم‌جهت می‌توانند Cosine برابر یک داشته باشند در حالی که یکسان نیستند؛ پس <span class="math notranslate nohighlight">\(1-\cos\)</span> در فضای تمام بردارهای غیرصفر، شرط هویت را هم نقض می‌کند.</p>
+<section id="id6">
+<h3>آیا می‌توان شباهت را به فاصله تبدیل کرد؟<a class="headerlink" href="#id6" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(0\le s\le1\)</span>، گاهی <span class="math notranslate nohighlight">\(\delta=1-s\)</span> به کار می‌رود. اما <strong>این تبدیل به‌تنهایی متریک‌بودن را تضمین نمی‌کند</strong>. برای یک فاصلهٔ نامنفی می‌توان <span class="math notranslate nohighlight">\(s=1/(1+d)\)</span> یا <span class="math notranslate nohighlight">\(s=e^{-d}\)</span> ساخت. این تبدیل‌ها ترتیب فاصله‌ها را حفظ می‌کنند، ولی نسبت آن‌ها را حفظ نمی‌کنند: فاصلهٔ ۱۰ ده برابر فاصلهٔ ۱ است، در حالی که شباهت‌های حاصل از <span class="math notranslate nohighlight">\(1/(1+d)\)</span> برابر <span class="math notranslate nohighlight">\(1/11\)</span> و <span class="math notranslate nohighlight">\(1/2\)</span> هستند. برای مقایسهٔ نتایج دو آزمایش باید خود تبدیل، قرارداد و واحد گزارش شود.</p>
+<p><strong>تمرین کوتاه:</strong> چرا <span class="math notranslate nohighlight">\(d(x,y)^2\)</span> با وجود نامنفی‌بودن و تقارن، لزوماً متریک نیست؟ برای نقاط <span class="math notranslate nohighlight">\(0,1,2\)</span> روی خط، <span class="math notranslate nohighlight">\(d^2(0,2)=4\)</span> و <span class="math notranslate nohighlight">\(d^2(0,1)+d^2(1,2)=2\)</span>؛ شرط مثلثی از بین می‌رود.</p>
+</section>
+</section>
+<section id="id7">
+<h2>۳ـ۳. ماتریس داده و ماتریس نزدیکی؛ دو شیوهٔ دیدن یک مجموعه<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>در فصل دوم، داده‌ها را به‌صورت <span class="math notranslate nohighlight">\(X\in\mathbb{R}^{n\times p}\)</span> دیدیم: <span class="math notranslate nohighlight">\(n\)</span> مشاهده و <span class="math notranslate nohighlight">\(p\)</span> ویژگی. اگر برای همهٔ زوج‌ها فاصله حساب کنیم، ماتریس <span class="math notranslate nohighlight">\(D\in\mathbb{R}^{n\times n}\)</span> حاصل می‌شود که در حالت متریک، متقارن و دارای قطر اصلی صفر است.</p>
+<p>برای سه نقطهٔ بخش آغازین، ماتریس Euclidean چنین است:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X=\begin{bmatrix}0&amp;0\\3&amp;4\\0&amp;6\end{bmatrix},\qquad
+D_2=\begin{bmatrix}0&amp;5&amp;6\\5&amp;0&amp;\sqrt{13}\\6&amp;\sqrt{13}&amp;0\end{bmatrix}.
+\end{split}\]</div>
+<p>از آنجا که <span class="math notranslate nohighlight">\(d_2(B,C)=\sqrt{(3-0)^2+(4-6)^2}=\sqrt{13}\approx3.606\)</span>، نزدیک‌ترین زوج کل مجموعه <span class="math notranslate nohighlight">\(B,C\)</span> هستند؛ این پرسش با «نزدیک‌ترین همسایهٔ A کدام است؟» تفاوت دارد.</p>
+<figure class="align-default" id="dm3-02">
+<a class="reference internal image-reference" href="../_images/fig03_02.png"><img alt="../_images/fig03_02.png" src="../_images/fig03_02.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 24 </span><span class="caption-text">شکل ۳ـ۲. ماتریس داده (سه ردیف، دو ویژگی) در برابر ماتریس فاصله (سه ردیف، سه ستون). مقدارهای شکل با محاسبهٔ دستی متن سازگارند.</span><a class="headerlink" href="#dm3-02" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>مزیت ماتریس فاصله آن است که برای دادهٔ غیرجدولی نیز مناسب است: دو دنباله، دو مسیر شهری یا دو گراف را می‌توان مقایسه کرد حتی اگر خود آن‌ها بردار ویژگی هم‌طول نداشته باشند. هزینهٔ این آزادی، حافظه و محاسبه است: ذخیرهٔ ماتریس کامل حدود <span class="math notranslate nohighlight">\(n^2\)</span> عدد می‌خواهد؛ برای <span class="math notranslate nohighlight">\(n=100{,}000\)</span>، <strong>۱۰ میلیارد مقدار</strong> و با عدد ۸بایتی حدود <strong>۸۰ گیگابایت</strong> (بدون سربار) لازم می‌شود. در عمل، استفاده از ماتریس متقارن فشرده، همسایه‌های محدود یا محاسبهٔ برحسب تقاضا می‌تواند مناسب‌تر باشد.</p>
+<section id="id8">
+<h3>هزینهٔ علمی استفاده از ماتریس فاصله<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>وقتی فقط <span class="math notranslate nohighlight">\(D\)</span> را در اختیار داریم، معنای ویژگی‌ها به‌طور مستقیم در ماتریس دیده نمی‌شود. بنابراین باید در گزارش همراه <span class="math notranslate nohighlight">\(D\)</span> این اطلاعات بمانند: نوع ویژگی‌ها، روش نرمال‌سازی، برخورد با دادهٔ گمشده، وزن‌ها، نسخهٔ معیار و ترتیب سطرها. یک ماتریس بدون این فراداده، برای بازتولید علمی ناکافی است.</p>
+</section>
+</section>
+<section id="minkowski">
+<h2>۳ـ۴. خانوادهٔ Minkowski و هندسهٔ فاصله در فضای عددی<a class="headerlink" href="#minkowski" title="Link to this heading">#</a></h2>
+<p>اگر <span class="math notranslate nohighlight">\(x=(x_1,\dots,x_p)\)</span> و <span class="math notranslate nohighlight">\(y=(y_1,\dots,y_p)\)</span> دو بردار عددی باشند، خانوادهٔ Minkowski برای <span class="math notranslate nohighlight">\(r\ge1\)</span> چنین تعریف می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+d_r(x,y)=\left(\sum_{j=1}^{p}|x_j-y_j|^r\right)^{1/r}.
+\]</div>
+<p>این تعریف از <em>اختلاف هر ویژگی</em> شروع می‌کند، اختلاف‌های بزرگ را با توان <span class="math notranslate nohighlight">\(r\)</span> برجسته می‌کند، سپس با ریشهٔ <span class="math notranslate nohighlight">\(r\)</span> به مقیاس واحد اولیه برمی‌گرداند. بنابراین <span class="math notranslate nohighlight">\(r\)</span> کنترل می‌کند که <strong>چند اختلاف متوسط</strong> در مقایسه با <strong>یک اختلاف خیلی بزرگ</strong> چه وزنی داشته باشند.</p>
+<p>سه حالت رایج عبارت‌اند از:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+d_1(x,y)&amp;=\sum_j|x_j-y_j| &amp;&amp;\text{(Manhattan)},\\
+d_2(x,y)&amp;=\sqrt{\sum_j(x_j-y_j)^2} &amp;&amp;\text{(Euclidean)},\\
+d_\infty(x,y)&amp;=\max_j|x_j-y_j| &amp;&amp;\text{(Chebyshev)}.
+\end{aligned}
+\end{split}\]</div>
+<p><strong>پرسش: چرا «دایره» همیشه دایره نیست؟</strong> مجموعهٔ نقاطی که فاصله‌شان از مبدأ برابر یک باشد، برای <span class="math notranslate nohighlight">\(L_2\)</span> دایره، برای <span class="math notranslate nohighlight">\(L_1\)</span> لوزی و برای <span class="math notranslate nohighlight">\(L_\infty\)</span> مربع است. محورهای داده یکسان‌اند؛ اما «توپ واحد» و مفهوم همسایگی تغییر کرده‌اند. در <span class="math notranslate nohighlight">\(L_\infty\)</span> بدترین اختلاف یک ویژگی تعیین‌کننده است؛ برای کنترل خطای بیشینه کاربرد دارد. در <span class="math notranslate nohighlight">\(L_1\)</span> همهٔ اختلاف‌ها به‌صورت جمع هزینه حساب می‌شوند؛ در <span class="math notranslate nohighlight">\(L_2\)</span> اختلاف‌های بزرگ‌تر سهم نسبی بیشتری دارند.</p>
+<figure class="align-default" id="dm3-03">
+<a class="reference internal image-reference" href="../_images/fig03_03.png"><img alt="../_images/fig03_03.png" src="../_images/fig03_03.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 25 </span><span class="caption-text">شکل ۳ـ۳. توپ واحد برای سه نرم متداول. تصویر از تعریف‌های ریاضی رسم شده و بازنشر شکل کتاب نیست.</span><a class="headerlink" href="#dm3-03" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id9">
+<h3>چرخش دستگاه مختصات نیز می‌تواند مهم باشد<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>Euclidean علاوه بر جابه‌جایی هم‌زمان دو نقطه، نسبت به <strong>چرخش متعامد</strong> دستگاه مختصات ناورداست: اگر <span class="math notranslate nohighlight">\(R^TR=I\)</span>، آن‌گاه <span class="math notranslate nohighlight">\(\|R(x-y)\|_2=\|x-y\|_2\)</span>. برای <span class="math notranslate nohighlight">\(L_1\)</span> چنین تضمین عمومی نداریم. اختلاف <span class="math notranslate nohighlight">\((1,0)\)</span> را ۴۵ درجه بچرخانید؛ اختلاف تازه <span class="math notranslate nohighlight">\(\left(1/\sqrt2,1/\sqrt2\right)\)</span> است. فاصلهٔ <span class="math notranslate nohighlight">\(L_2\)</span> همچنان ۱ است، اما <span class="math notranslate nohighlight">\(L_1\)</span> از ۱ به <span class="math notranslate nohighlight">\(\sqrt2\)</span> تغییر می‌کند. بنابراین وابستگی محورهای ویژگی و معنای چرخش نیز در انتخاب هندسه مهم‌اند.</p>
+</section>
+<section id="id10">
+<h3>محاسبهٔ دستی مرحله‌به‌مرحله<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>برای <span class="math notranslate nohighlight">\(x=(1,2,4)\)</span> و <span class="math notranslate nohighlight">\(y=(4,4,8)\)</span>، قدرمطلق اختلاف‌ها <span class="math notranslate nohighlight">\((3,2,4)\)</span> است. بنابراین</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+d_1(x,y)&amp;=3+2+4=9,\\
+d_2(x,y)&amp;=\sqrt{9+4+16}=\sqrt{29}\approx5.385,\\
+d_3(x,y)&amp;=\sqrt[3]{27+8+64}=\sqrt[3]{99}\approx4.626,\\
+d_\infty(x,y)&amp;=4.
+\end{aligned}
+\end{split}\]</div>
+<p>این مقدارها را نباید بدون توجه به تعریف معیار با هم از نظر «خوب یا بد بودن نزدیکی» مقایسه کرد؛ همسایه‌بندی و آستانه‌ها باید برای همان معیار تنظیم شوند.</p>
+</section>
+<section id="id11">
+<h3>اثبات شهودی نامساوی مثلثی<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>برای <span class="math notranslate nohighlight">\(L_1\)</span>، در هر ویژگی <span class="math notranslate nohighlight">\(|x_j-z_j|\le|x_j-y_j|+|y_j-z_j|\)</span> است؛ جمع آن‌ها شرط مثلثی را می‌دهد. برای <span class="math notranslate nohighlight">\(L_2\)</span> قضیه از نامساوی Cauchy–Schwarz و برای <span class="math notranslate nohighlight">\(r\ge1\)</span> از نامساوی Minkowski نتیجه می‌شود. برای <span class="math notranslate nohighlight">\(0&lt;r&lt;1\)</span>، همان فرمول یک <em>شبه‌نرم</em> است و شرط مثلثی ممکن است نقض شود؛ نباید آن را بدون توضیح «فاصلهٔ متریک Minkowski» نامید.</p>
+</section>
+</section>
+<section id="id12">
+<h2>۳ـ۵. واحد، مقیاس و وزن ویژگی‌ها: یک دام هندسی<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>فرض کنید در ارزیابی مشابهت مشتری، یک ویژگی «تعداد خرید ماهانه» و دیگری «مبلغ خرید به ریال» باشد. اگر بدون تبدیل واحد، Euclidean روی هر دو اعمال شود، مؤلفهٔ ریالی می‌تواند کل نتیجه را تعیین کند. این تصمیم از سؤال پژوهشی نیامده است؛ محصول یک <strong>واحد اندازه‌گیری دلخواه</strong> است. تغییر ریال به هزار ریال نباید بدون تصمیم آگاهانه، مشتری مشابه را عوض کند.</p>
+<p><strong>مثال عددیِ تغییر رتبه:</strong> <span class="math notranslate nohighlight">\(A=(0,0)\)</span>، <span class="math notranslate nohighlight">\(B=(3,0)\)</span> و <span class="math notranslate nohighlight">\(C=(0,5)\)</span>. در Euclidean اولیه <span class="math notranslate nohighlight">\(d(A,B)=3\)</span> و <span class="math notranslate nohighlight">\(d(A,C)=5\)</span>، پس <span class="math notranslate nohighlight">\(B\)</span> نزدیک‌تر است. اکنون فقط ویژگی نخست را در ۲ ضرب کنیم: <span class="math notranslate nohighlight">\(B'=(6,0)\)</span> و <span class="math notranslate nohighlight">\(C'=(0,5)\)</span>. بدون تغییر در پدیدهٔ واقعی، فاصله‌ها <span class="math notranslate nohighlight">\(6\)</span> و <span class="math notranslate nohighlight">\(5\)</span> می‌شوند و <strong><span class="math notranslate nohighlight">\(C\)</span> نزدیک‌تر</strong> خواهد بود.</p>
+<figure class="align-default" id="dm3-04">
+<a class="reference internal image-reference" href="../_images/fig03_04.png"><img alt="../_images/fig03_04.png" src="../_images/fig03_04.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 26 </span><span class="caption-text">شکل ۳ـ۴. وارونگی نزدیک‌ترین همسایه صرفاً با تغییر مقیاس یک محور؛ تمرین بازتولیدپذیر.</span><a class="headerlink" href="#dm3-04" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id13">
+<h3>سه راه متداول و حدود اعتبار آن‌ها<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>۱. <strong>تبدیل به مقیاس قابل قیاس</strong>: برای ویژگی <span class="math notranslate nohighlight">\(j\)</span>، <span class="math notranslate nohighlight">\(z_{ij}=(x_{ij}-\mu_j)/\sigma_j\)</span> یا <span class="math notranslate nohighlight">\(u_{ij}=(x_{ij}-\min_j)/(\max_j-\min_j)\)</span>. این فرمول‌ها معنای فاصله را تغییر می‌دهند و در صورت <span class="math notranslate nohighlight">\(\sigma_j=0\)</span> یا بازهٔ صفر، تعریف مستقلی می‌خواهند. آماره‌های مقیاس‌بندی باید فقط از بخش آموزش یا دادهٔ مجاز استخراج شوند؛ استفاده از کل داده در ارزیابی پیش‌بینی، نشت اطلاعات می‌آورد. جزئیات این تبدیل‌ها در فصل چهارم می‌آیند.</p>
+<p>۲. <strong>وزن‌دهی شفاف</strong>: می‌توان تعریف کرد <span class="math notranslate nohighlight">\(d_{r,w}(x,y)=(\sum_jw_j|x_j-y_j|^r)^{1/r}\)</span>، با <span class="math notranslate nohighlight">\(w_j&gt;0\)</span>. وزن صفر یک بعد را حذف می‌کند؛ اگر ویژگی حذف‌شده تنها عامل تفاوت دو مشاهده باشد، شرط هویت روی فضای خام دیگر برقرار نیست. پس وزن باید از اهمیت مسئله و اعتبارسنجی برآید، نه صرفاً از سلیقه.</p>
+<p>۳. <strong>فاصلهٔ مبتنی بر دامنهٔ معتبر</strong>: در برخی ویژگی‌ها مانند درصد پیشرفت، تقسیم اختلاف بر بازهٔ قابل‌قبول دامنه (<span class="math notranslate nohighlight">\(R_j\)</span>) منطقی است. اگر دامنهٔ واقعی نامعلوم است، استفاده از بیشینه و کمینهٔ نمونه ممکن است به داده‌های پرت حساس باشد.</p>
+<p><strong>نکتهٔ روش‌شناختی:</strong> قبل از انتخاب معیار، پاسخ دهید آیا دو واحد اختلاف درآمد همان هزینهٔ دو واحد اختلاف سن دارند؟ اگر نه، Euclidean روی دادهٔ خام تعریف مسئله را بازتاب نمی‌دهد.</p>
+</section>
+</section>
+<section id="id14">
+<h2>۳ـ۶. متغیرهای اسمی و ترتیبی: عدد همیشه «اندازه» نیست<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<section id="id15">
+<h3>ویژگی اسمی: فقط برابر یا نابرابر<a class="headerlink" href="#id15" title="Link to this heading">#</a></h3>
+<p>در «نوع قرارداد» با مقادیر <code class="docutils literal notranslate"><span class="pre">A</span></code>,<code class="docutils literal notranslate"><span class="pre">B</span></code>,<code class="docutils literal notranslate"><span class="pre">C</span></code>، هیچ ترتیبی وجود ندارد. اگر به این سه برچسب کدهای ۱،۲،۳ بدهیم، فاصلهٔ <span class="math notranslate nohighlight">\(|1-3|=2\)</span> معنایی ندارد؛ تغییر شیوهٔ کدگذاری فاصله را تغییر می‌دهد. برای یک ویژگی اسمی، یک تعریف محتاطانه چنین است:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+d_{\mathrm{nom}}(x,y)=\begin{cases}0&amp;x=y,\\1&amp;x\ne y.\end{cases}
+\end{split}\]</div>
+<p>برای <span class="math notranslate nohighlight">\(p\)</span> ویژگی اسمیِ دارای وزن برابر، اگر <span class="math notranslate nohighlight">\(m\)</span> ویژگی برابر باشند، <span class="math notranslate nohighlight">\(s=m/p\)</span> و <span class="math notranslate nohighlight">\(d=1-m/p\)</span>. مثال: دو پرونده در ۳ ویژگی «استان، نوع محصول، کانال خرید» به‌ترتیب در ۲ ویژگی برابرند. پس <span class="math notranslate nohighlight">\(s=2/3\)</span> و <span class="math notranslate nohighlight">\(d=1/3\)</span>؛ حتی اگر برچسب «کانال خرید» به عدد دیگری تبدیل شود، نتیجه تغییر نمی‌کند. این ساختار در Han §۲٫۳٫۲ و Tan §۲٫۴٫۲ بررسی شده است.</p>
+</section>
+<section id="id16">
+<h3>ویژگی ترتیبی: اطلاعات بیشتر از اسمی، کمتر از کمی<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>فرض کنید سطح خدمت پنج حالت مرتب «بسیار کم، کم، متوسط، زیاد، بسیار زیاد» دارد. اگر رتبه‌ها <span class="math notranslate nohighlight">\(1,2,3,4,5\)</span> باشند، می‌توان <strong>برای مقایسهٔ عملیاتی</strong> رتبه را به <span class="math notranslate nohighlight">\(z=(r-1)/(5-1)\)</span> تبدیل کرد. برای سطح «کم» (<span class="math notranslate nohighlight">\(r=2\)</span>) و «زیاد» (<span class="math notranslate nohighlight">\(r=4\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[
+d_{\mathrm{ord}}=\left|\frac{2-1}{4}-\frac{4-1}{4}\right|=\frac{2}{4}=0.5.
+\]</div>
+<figure class="align-default" id="dm3-07">
+<a class="reference internal image-reference" href="../_images/fig03_07.png"><img alt="../_images/fig03_07.png" src="../_images/fig03_07.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 27 </span><span class="caption-text">شکل ۳ـ۵. مدل فاصلهٔ مبتنی بر رتبه؛ <em>فاصلهٔ یکسان بین رتبه‌ها یک فرض مدل‌سازی است</em>، نه ویژگی ذاتی مقیاس ترتیبی.</span><a class="headerlink" href="#dm3-07" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>این نگاشت <strong>به‌طور ضمنی فاصلهٔ پله‌های مجاور را برابر می‌گیرد</strong>. در پیمایش رضایت مشتری ممکن است اختلاف روان‌شناختی «خیلی بد» تا «بد» با اختلاف «خوب» تا «عالی» یکسان نباشد. اگر چنین فرضی قابل دفاع نیست، می‌توان از فاصلهٔ بر اساس جدول هزینهٔ کارشناسی، یا آزمون حساسیت نسبت به چند نگاشت ترتیبی استفاده کرد.</p>
+</section>
+</section>
+<section id="id17">
+<h2>۳ـ۷. دودویی متقارن و نامتقارن: چرا صفرهای مشترک می‌توانند گمراه کنند؟<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>در یک فروشگاه با کاتالوگ ۱۰۰۰ محصول، دو سبد خرید را در نظر بگیرید: سبد اول فقط کالاهای <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">b</span></code>، سبد دوم فقط کالاهای <code class="docutils literal notranslate"><span class="pre">a</span></code> و <code class="docutils literal notranslate"><span class="pre">c</span></code> را دارد. هر بردار دودویی ۱۰۰۰ مؤلفه دارد و ۱ یعنی «کالا در سبد وجود دارد».</p>
+<p>برای مقایسهٔ این دو سبد، جدول شمارش مشترک زیر را می‌سازیم:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p></p></th>
+<th class="head text-right"><p>سبد دوم: ۱</p></th>
+<th class="head text-right"><p>سبد دوم: ۰</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>سبد اول: ۱</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(q=1\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(r=1\)</span></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>سبد اول: ۰</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(s=1\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(t=997\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>به زبان ساده: هر دو <code class="docutils literal notranslate"><span class="pre">a</span></code> را دارند، فقط اولی <code class="docutils literal notranslate"><span class="pre">b</span></code> را دارد، فقط دومی <code class="docutils literal notranslate"><span class="pre">c</span></code> را دارد و در ۹۹۷ کالا هر دو مقدار صفر دارند. آیا این دو سبد «۹۹٫۸ درصد شبیه‌اند»؟ تنها اگر نبودن هر یک از ۹۹۷ کالا را یک دلیل مستقل و معنادار برای شباهت بدانیم.</p>
+<figure class="align-default" id="dm3-05">
+<a class="reference internal image-reference" href="../_images/fig03_05.png"><img alt="../_images/fig03_05.png" src="../_images/fig03_05.png" style="width: 83%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 28 </span><span class="caption-text">شکل ۳ـ۶. جدول توافق دودویی در دادهٔ بسیار تنک. خانهٔ <span class="math notranslate nohighlight">\(t\)</span> بزرگ است ولی لزوماً شاهد شباهت نیست.</span><a class="headerlink" href="#dm3-05" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>ضریب تطابق ساده (Simple Matching Coefficient؛ SMC)</strong> برای دودویی <strong>متقارن</strong> است:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{SMC}=\frac{q+t}{q+r+s+t}=\frac{1+997}{1000}=0.998.
+\]</div>
+<p>این تعریف برای موقعیتی مناسب است که توافق بر هر دو حالت «وجود» و «نبود» ارزش اطلاعاتی مشابه دارد؛ مثلاً در رشتهٔ کدهای دودویی با معنای مساوی دو حالت.</p>
+<p><strong>ضریب Jaccard</strong> برای دودویی <strong>نامتقارن</strong>، جایی که «وجود ویژگی» مهم‌تر از نبود آن است، چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+J(x,y)=\frac{q}{q+r+s}=\frac{|A\cap B|}{|A\cup B|}=\frac13\approx0.333.
+\]</div>
+<p>به عبارت دیگر، از میان سه کالایی که دست‌کم در یکی از دو سبد وجود دارد، فقط یکی مشترک است. حال نتیجه هم با معنای کسب‌وکاری سؤال سازگارتر است. فاصلهٔ Jaccard روی مجموعه‌ها <span class="math notranslate nohighlight">\(d_J=1-J=(r+s)/(q+r+s)=2/3\)</span> است.</p>
+<figure class="align-default" id="dm3-06">
+<a class="reference internal image-reference" href="../_images/fig03_06.png"><img alt="../_images/fig03_06.png" src="../_images/fig03_06.png" style="width: 84%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 29 </span><span class="caption-text">شکل ۳ـ۷. اشتراک و اجتماع دو مجموعهٔ خرید. این نمایش همان محاسبهٔ دستی Jaccard را نشان می‌دهد.</span><a class="headerlink" href="#dm3-06" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>قرارداد مرزی:</strong> اگر هر دو مجموعه خالی باشند، کسر <span class="math notranslate nohighlight">\(0/0\)</span> تعریف نمی‌شود. در کد فصل برای دو مجموعهٔ خالی، شباهت Jaccard را <strong>۱</strong> قرارداد می‌کنیم؛ این انتخاب در بعضی کاربردها مطلوب نیست و باید مستند شود. مستندات SciPy نیز فاصلهٔ Jaccard دو بردار همه‌صفر را صفر تعریف می‌کند. نبود مقدار (<code class="docutils literal notranslate"><span class="pre">missing</span></code>) به معنی صفر نیست و نباید پنهانی به همین قرارداد فروکاسته شود.</p>
+<section id="hamming-jaccard">
+<h3>فاصلهٔ Hamming و تفاوت آن با Jaccard<a class="headerlink" href="#hamming-jaccard" title="Link to this heading">#</a></h3>
+<p>در بردار دودویی با طول ثابت، <span class="math notranslate nohighlight">\(d_H=r+s\)</span> شمار مکان‌های متفاوت است؛ اگر بر طول <span class="math notranslate nohighlight">\(p\)</span> تقسیم شود، نسبت ناهماهنگی خواهیم داشت. برای سبدهای مثال، <span class="math notranslate nohighlight">\(d_H=2\)</span>، Hamming نسبی <span class="math notranslate nohighlight">\(2/1000=0.002\)</span> و فاصلهٔ Jaccard برابر <span class="math notranslate nohighlight">\(2/3\)</span> است. تناقضی وجود ندارد: Hamming هزینهٔ تفاوت را نسبت به همهٔ مکان‌ها می‌سنجد، Jaccard نسبت به مکان‌های حاضر در اجتماع. در دادهٔ تنک انتخاب مخرج تعیین‌کننده است.</p>
+<p><strong>آزمون تفکر:</strong> با اضافه‌شدن ۹۰۰۰ کالای جدید که هیچ‌کدام در دو سبد وجود ندارند، SMC به <span class="math notranslate nohighlight">\(0.9998\)</span> می‌رسد، اما Jaccard همچنان <span class="math notranslate nohighlight">\(1/3\)</span> می‌ماند. معیاری که با افزودن ویژگی‌های بی‌اهمیت این‌قدر تغییر می‌کند، برای مسئلهٔ یافتن سبدهای مشابه مناسب نیست.</p>
+</section>
+</section>
+<section id="id18">
+<h2>۳ـ۸. شباهت کسینوسی: مقایسهٔ جهت به‌جای مقدار<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>در تحلیل متن، هر سند می‌تواند بردار شمار واژه‌ها یا وزن‌های TF–IDF باشد. دو سند با موضوع یکسان ممکن است به سبب طول متفاوت، مقادیر بسیار متفاوت داشته باشند. اگر هدف یافتن شباهت <strong>الگوی استفاده از واژه‌ها</strong> باشد، «جهت بردار» اغلب از «طول بردار» مناسب‌تر است.</p>
+<p>برای بردارهای غیرصفر <span class="math notranslate nohighlight">\(x,y\)</span>، کسینوس زاویه چنین تعریف می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+\cos(x,y)=\frac{x^Ty}{\|x\|_2\,\|y\|_2}.
+\]</div>
+<p>این فرمول از تعریف ضرب داخلی <span class="math notranslate nohighlight">\(x^Ty=\|x\|\|y\|\cos\theta\)</span> نتیجه می‌شود. وقتی <span class="math notranslate nohighlight">\(x\)</span> و <span class="math notranslate nohighlight">\(y\)</span> در راستای یکدیگرند، زاویهٔ بین آن‌ها صفر و Cosine برابر ۱ است. برای <span class="math notranslate nohighlight">\(x=(1,2)\)</span> و <span class="math notranslate nohighlight">\(y=(2,4)=2x\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\cos(x,y)=\frac{1(2)+2(4)}{\sqrt{1^2+2^2}\sqrt{2^2+4^2}}
+=\frac{10}{\sqrt5\sqrt{20}}=1.
+\]</div>
+<p>بااین‌حال <span class="math notranslate nohighlight">\(d_2(x,y)=\sqrt5\ne0\)</span>. بنابراین <strong>Cosine، مقدار را نادیده می‌گیرد و جهت را مقایسه می‌کند</strong>؛ برای تشخیص اختلاف سطح فروش یا حجم خرید، گاهی چنین ناوردایی‌ای مطلوب نیست. برای داده‌های غیرمنفی Cosine بین صفر و یک است؛ برای بردارهای با مؤلفهٔ منفی، مقدار آن در <span class="math notranslate nohighlight">\([-1,1]\)</span> قرار دارد. برای بردار صفر فرمول تعریف نشده و باید سیاست مستقلی داشت.</p>
+<figure class="align-default" id="dm3-08">
+<a class="reference internal image-reference" href="../_images/fig03_08.png"><img alt="../_images/fig03_08.png" src="../_images/fig03_08.png" style="width: 83%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 30 </span><span class="caption-text">شکل ۳ـ۸. <span class="math notranslate nohighlight">\(x\)</span> و <span class="math notranslate nohighlight">\(2x\)</span> از نظر Cosine کاملاً هم‌جهت‌اند، ولی فاصلهٔ Euclidean آن‌ها صفر نیست. بردار <span class="math notranslate nohighlight">\(-x\)</span> کسینوس <span class="math notranslate nohighlight">\(-1\)</span> دارد.</span><a class="headerlink" href="#dm3-08" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id19">
+<h3>محاسبهٔ دستی روی دو سند کوچک<a class="headerlink" href="#id19" title="Link to this heading">#</a></h3>
+<p>فرض کنید واژگان فقط «فروش، داده، تصویر» باشند و بردار سندهای فرضی <span class="math notranslate nohighlight">\(u=(2,1,0)\)</span> و <span class="math notranslate nohighlight">\(v=(4,2,0)\)</span> باشند. بردار دوم دو برابر اول است، پس Cosine برابر ۱ است. سند سوم <span class="math notranslate nohighlight">\(w=(0,1,2)\)</span> را در نظر بگیرید:</p>
+<div class="math notranslate nohighlight">
+\[
+\cos(u,w)=\frac{2(0)+1(1)+0(2)}{\sqrt5\sqrt5}=\frac15=0.2.
+\]</div>
+<p>چنین بردارهایی را می‌توان با وزن‌های واژه‌ای ساخت. انتخاب وزن‌سازی واژگان (مثلاً TF–IDF)، حذف واژه‌های پرتکرار و زبان سند، پیش از Cosine به همان اندازه اهمیت دارد؛ معیار به‌تنهایی معنای متن را نمی‌فهمد. در ادامه دربارهٔ «شباهت معناییِ آموخته‌شده» بحث می‌کنیم.</p>
+</section>
+<section id="jaccard">
+<h3>Jaccard تعمیم‌یافته و شباهت معناییِ آموخته‌شده<a class="headerlink" href="#jaccard" title="Link to this heading">#</a></h3>
+<p>برای بردارهای عددیِ غیرمنفی، یک تعمیم معروف با نام <strong>Tanimoto یا extended Jaccard</strong> در برخی کاربردها به کار می‌رود:</p>
+<div class="math notranslate nohighlight">
+\[
+T(x,y)=\frac{x^Ty}{\|x\|_2^2+\|y\|_2^2-x^Ty},
+\]</div>
+<p>مشروط به اینکه مخرج مثبت باشد. این تعریف برای بردارهای دودویی به Jaccard مجموعه‌ای فروکاسته می‌شود، ولی برای شمارش‌های وزنی لزوماً با Jaccard دودویی یکسان نیست. مثال: <span class="math notranslate nohighlight">\(x=(3,0)\)</span> و <span class="math notranslate nohighlight">\(y=(1,1)\)</span>؛ <span class="math notranslate nohighlight">\(T=3/(9+2-3)=3/8=0.375\)</span> ولی اگر فقط <em>وجود</em> مؤلفه‌ها را بسنجیم، مجموعه‌های <span class="math notranslate nohighlight">\({1}\)</span> و <span class="math notranslate nohighlight">\({1,2}\)</span> داریم و <span class="math notranslate nohighlight">\(J=1/2\)</span>. قبل از استفاده از نام Jaccard باید روشن شود ورودی دودویی است یا وزن‌دار و دقیقاً کدام فرمول استفاده می‌شود.</p>
+<p>گاهی دو سند دربارهٔ یک موضوع‌اند، ولی به‌سبب استفاده از <strong>واژه‌های مترادف</strong> اشتراک واژگانی ندارند. در فضای شمارش خام، ضرب داخلی ممکن است صفر شود؛ در یک نمایش معناییِ آموخته‌شده، بردارهای دو سند ممکن است به یکدیگر نزدیک باشند. این همان انگیزهٔ بحث «شباهت با معنای پنهان» در Han §۲٫۳٫۹ است. بااین‌حال نزدیک‌بودن در یک مدل تعبیه‌ساز (embedding) <strong>ادعای درستیِ معنایی را تضمین نمی‌کند</strong>: دامنهٔ آموزش، زبان فارسی، دگرگونی داده و ارزیابی انسان/وظیفه مهم‌اند. هیچ مدل تعبیه‌ساز معینی در این فصل بر دادهٔ واقعی ارزیابی نشده است.</p>
+</section>
+<section id="cosine-pearson">
+<h3>Cosine با هم‌بستگی Pearson چه تفاوتی دارد؟<a class="headerlink" href="#cosine-pearson" title="Link to this heading">#</a></h3>
+<p><strong>هم‌بستگی Pearson</strong> را می‌توان Cosine دو بردار <strong>مرکز‌شده نسبت به میانگین</strong> دانست:</p>
+<div class="math notranslate nohighlight">
+\[
+r(x,y)=\frac{\sum_j(x_j-\bar x)(y_j-\bar y)}{\sqrt{\sum_j(x_j-\bar x)^2}\sqrt{\sum_j(y_j-\bar y)^2}}.
+\]</div>
+<p>برای <span class="math notranslate nohighlight">\(x=(1,2,3)\)</span> و <span class="math notranslate nohighlight">\(y=(11,12,13)\)</span>، بردارهای مرکز‌شده هر دو <span class="math notranslate nohighlight">\((-1,0,1)\)</span> هستند و بنابراین <span class="math notranslate nohighlight">\(r=1\)</span>. اما Cosine خام آن‌ها برابر ۱ نیست. Pearson به <strong>جابجایی ثابت</strong> و ضرب در ضریب مثبت ناوردا است؛ Cosine خام فقط نسبت به ضرب مثبت ناوردا است. اگر هدف شباهت <em>نوسان‌های یکسان با سطح پایهٔ متفاوت</em> باشد، هم‌بستگی می‌تواند معنادارتر شود؛ اگر سطح مطلق اهمیت دارد، ممکن است اطلاعات مفید را حذف کند.</p>
+<figure class="align-default" id="dm3-09">
+<a class="reference internal image-reference" href="../_images/fig03_09.png"><img alt="../_images/fig03_09.png" src="../_images/fig03_09.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 31 </span><span class="caption-text">شکل ۳ـ۹. دو سری با اختلاف ثابت در سطح پایه: بعد از مرکزکردن کاملاً منطبق می‌شوند. این مثال به‌معنای مناسب‌بودن Pearson برای هر سری زمانی نیست؛ روند، تأخیر و خودهم‌بستگی باید بررسی شوند.</span><a class="headerlink" href="#dm3-09" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id20">
+<h2>۳ـ۹. ماهالانوبیس: وقتی پراکندگی و هم‌بستگی، هندسه را عوض می‌کنند<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>تا اینجا فرض کرده‌ایم هر محور مستقل و با یک مقیاس مشخص است. اما اگر دو ویژگی با هم تغییر کنند چه؟ برای مثال «مبلغ سفارش» و «تعداد اقلام» ممکن است هم‌بسته باشند. در چنین حالتی حرکت روی جهت اصلی داده‌ها معمول‌تر از حرکت عمود بر آن است. فاصلهٔ Euclidean از این اطلاعاتِ توزیعی بی‌خبر است.</p>
+<p>اگر <span class="math notranslate nohighlight">\(\Sigma\)</span> ماتریس کوواریانسِ برآوردشده برای ویژگی‌ها باشد و وارون‌پذیر و مثبت‌معین باشد، <strong>فاصلهٔ Mahalanobis</strong> چنین تعریف می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+d_M(x,y)=\sqrt{(x-y)^T\Sigma^{-1}(x-y)}.
+\]</div>
+<p>تفاوت با Euclidean در ماتریس <span class="math notranslate nohighlight">\(\Sigma^{-1}\)</span> است: اختلاف در جهتی که داده‌ها معمولاً پراکندگی زیادی دارند، <strong>کمتر غیرمعمول</strong> شمرده می‌شود؛ اختلاف عمود بر جهت‌های معمول، وزن بیشتری می‌گیرد. اگر <span class="math notranslate nohighlight">\(\Sigma=I\)</span> باشد، فرمول به Euclidean تبدیل می‌شود.</p>
+<section id="id21">
+<h3>مثال دستی با کوواریانس قطری<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>فرض کنید <span class="math notranslate nohighlight">\(\Sigma=\begin{bmatrix}9&amp;0\\0&amp;1\end{bmatrix}\)</span> و اختلاف دو مشاهده <span class="math notranslate nohighlight">\(x-y=(3,1)\)</span> باشد. Euclidean فاصله را <span class="math notranslate nohighlight">\(\sqrt{3^2+1^2}=\sqrt{10}\approx3.162\)</span> می‌بیند. Mahalanobis می‌گوید:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\Sigma^{-1}&amp;=\begin{bmatrix}1/9&amp;0\\0&amp;1\end{bmatrix},\\
+d_M(x,y)&amp;=\sqrt{(3,1)\begin{bmatrix}1/9&amp;0\\0&amp;1\end{bmatrix}\begin{bmatrix}3\\1\end{bmatrix}}
+=\sqrt{1+1}=\sqrt2\approx1.414.
+\end{aligned}
+\end{split}\]</div>
+<p>این مقدار بدون واحد است: در محور اول، اختلاف ۳ برابر <strong>یک انحراف معیار</strong> و در محور دوم اختلاف ۱ نیز <strong>یک انحراف معیار</strong> است. هر دو سهم یکسانی دارند. اگر فقط ویژگی‌ها متفاوت‌مقیاس و تقریباً نامرتبط باشند، استانداردسازی ساده ممکن است کافی باشد؛ Mahalanobis مزیت افزودهٔ خود را هنگامی نشان می‌دهد که کوواریانس‌های غیرقطری نیز مهم باشند.</p>
+<figure class="align-default" id="dm3-10">
+<a class="reference internal image-reference" href="../_images/fig03_10.png"><img alt="../_images/fig03_10.png" src="../_images/fig03_10.png" style="width: 81%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 32 </span><span class="caption-text">شکل ۳ـ۱۰. نمونه‌ای از خطوط هم‌فاصله در هندسهٔ دارای پراکندگی ناهمسان؛ محور افقی پراکندگی مجاز بیشتری دارد. تصویر تألیفی است.</span><a class="headerlink" href="#dm3-10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id22">
+<h3>مثال هم‌بستگی و جهت تغییر<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>برای <span class="math notranslate nohighlight">\(\Sigma=\begin{bmatrix}2&amp;1\\1&amp;2\end{bmatrix}\)</span>، وارون آن <span class="math notranslate nohighlight">\(\frac13\begin{bmatrix}2&amp;-1\\-1&amp;2\end{bmatrix}\)</span> است. دو اختلاف <span class="math notranslate nohighlight">\(a=(1,1)\)</span> و <span class="math notranslate nohighlight">\(b=(1,-1)\)</span> را مقایسه کنید. هر دو Euclidean برابر <span class="math notranslate nohighlight">\(\sqrt2\)</span> دارند؛ اما</p>
+<div class="math notranslate nohighlight">
+\[
+d_M(a,0)=\sqrt{2/3}\approx0.816,\qquad d_M(b,0)=\sqrt2\approx1.414.
+\]</div>
+<p>جهت اول همراه با هم‌بستگی مثبت دو ویژگی است و بنابراین «طبیعی‌تر» تلقی می‌شود؛ دومی در جهت مخالف تغییر می‌کند و غیرمعمول‌تر است. <strong>این تحلیل به کیفیت برآورد کوواریانس وابسته است</strong>. اگر تعداد نمونه کم یا ویژگی‌ها شدیداً وابسته باشند، ماتریس ممکن است تکین و وارون آن ناپایدار باشد؛ در عمل باید از منظم‌سازی/برآورد مقاوم یا کاهش بُعدِ آگاهانه کمک گرفت. همچنین تفسیر احتمالاتی آستانهٔ Mahalanobis معمولاً به فرض‌های توزیعی (مثلاً تقریب نرمال) نیاز دارد؛ خود فرمول بدون فرض نرمال هم محاسبه‌پذیر است.</p>
+</section>
+</section>
+<section id="gower">
+<h2>۳ـ۱۰. ترکیب انواع ویژگی‌ها: فاصلهٔ Gower و قراردادهای حذف<a class="headerlink" href="#gower" title="Link to this heading">#</a></h2>
+<p>باز به مثال فروشگاه برگردیم. یک مشتری ویژگی‌های اسمی، ترتیبی، مبلغ خرید، استفاده از اپلیکیشن و وجود یک رخداد نادر دارد. Euclidean روی کدهای ۱ و ۲ِ «منطقه» و «کانال» بدون معناست؛ Jaccard هم به‌تنهایی اطلاعات مبلغ را حذف می‌کند. یک راه عملی، <strong>تبدیل هر ویژگی به ناشباهتی بین صفر و یک و ترکیبِ با وزن روشن</strong> است.</p>
+<p>برای <span class="math notranslate nohighlight">\(m\)</span> ویژگی، بنویسیم:</p>
+<div class="math notranslate nohighlight">
+\[
+D(i,j)=\frac{\sum_{f=1}^{m}w_f\,\delta_{ij}^{(f)}\,d_{ij}^{(f)}}{\sum_{f=1}^{m}w_f\,\delta_{ij}^{(f)}}.
+\]</div>
+<p>در اینجا <span class="math notranslate nohighlight">\(d_{ij}^{(f)}\in[0,1]\)</span> سهم ناهماهنگی ویژگی <span class="math notranslate nohighlight">\(f\)</span> است؛ <span class="math notranslate nohighlight">\(w_f\ge0\)</span> اهمیت آن را مشخص می‌کند؛ و <span class="math notranslate nohighlight">\(\delta_{ij}^{(f)}\)</span> نشان می‌دهد آیا این ویژگی برای این زوج <strong>قابل‌محاسبه و مرتبط</strong> است. برای مقدار گمشده در یکی از دو رکورد، <span class="math notranslate nohighlight">\(\delta=0\)</span>؛ برای ویژگی دودویی نامتقارن که در هر دو صفر است نیز می‌توان <span class="math notranslate nohighlight">\(\delta=0\)</span> قرار داد. سایر موارد عموماً <span class="math notranslate nohighlight">\(\delta=1\)</span> دارند.</p>
+<section id="id23">
+<h3>یک مثال عددی کامل با پنج ویژگی<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>دو مشتری فرضی:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>ویژگی</p></th>
+<th class="head text-left"><p>نوع و قرارداد</p></th>
+<th class="head text-left"><p>مشتری A</p></th>
+<th class="head text-left"><p>مشتری B</p></th>
+<th class="head text-right"><p>سهم <span class="math notranslate nohighlight">\(d_f\)</span></p></th>
+<th class="head text-center"><p>در مخرج؟</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>منطقه</p></td>
+<td class="text-left"><p>اسمی</p></td>
+<td class="text-left"><p>شمال</p></td>
+<td class="text-left"><p>شمال</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(0\)</span></p></td>
+<td class="text-center"><p>بله</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>سطح خدمت</p></td>
+<td class="text-left"><p>ترتیبی، ۴ سطح</p></td>
+<td class="text-left"><p>۲</p></td>
+<td class="text-left"><p>۴</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(2/3\)</span></p></td>
+<td class="text-center"><p>بله</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>خرید</p></td>
+<td class="text-left"><p>عددی، بازهٔ معتبر ۲۰۰</p></td>
+<td class="text-left"><p>۱۰۰</p></td>
+<td class="text-left"><p>۱۴۰</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(40/200=0.2\)</span></p></td>
+<td class="text-center"><p>بله</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>استفاده از اپ</p></td>
+<td class="text-left"><p>دودویی متقارن</p></td>
+<td class="text-left"><p>۱</p></td>
+<td class="text-left"><p>۰</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(1\)</span></p></td>
+<td class="text-center"><p>بله</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>رخداد نادر</p></td>
+<td class="text-left"><p>دودویی نامتقارن</p></td>
+<td class="text-left"><p>۰</p></td>
+<td class="text-left"><p>۰</p></td>
+<td class="text-right"><p>—</p></td>
+<td class="text-center"><p>خیر</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>با وزن برابر و با قرارداد حذفِ توافق صفر ـ صفر در رخداد نادر، محاسبهٔ نهایی:</p>
+<div class="math notranslate nohighlight">
+\[
+D(A,B)=\frac{0+2/3+0.2+1}{4}=\frac{7}{15}\approx0.4667.
+\]</div>
+<p>چرا مخرج <strong>۴</strong> است نه ۵؟ چون در این مسئله، «هیچ‌یک رخداد نادر را نداشته‌اند» شاهد مقایسهٔ مثبت/منفی نیست و قرار نبود در امتیاز نزدیکی دخالت کند. اگر در کاربرد دیگری نبود رخداد نیز اطلاعات ارزشمند داشته باشد، باید نوع ویژگی و مخرج متفاوت تعریف شوند.</p>
+<figure class="align-default" id="dm3-11">
+<a class="reference internal image-reference" href="../_images/fig03_11.png"><img alt="../_images/fig03_11.png" src="../_images/fig03_11.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 33 </span><span class="caption-text">شکل ۳ـ۱۱. سهم چهار ویژگی در فاصلهٔ مختلط؛ ویژگی نامتقارن با توافق صفر ـ صفر از صورت و مخرج حذف می‌شود.</span><a class="headerlink" href="#dm3-11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id24">
+<h3>مسئلهٔ جدی دادهٔ گمشده و مقایسهٔ زوج‌به‌زوج<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>روش حذفِ ویژگی ناموجود برای هر زوج می‌تواند نتیجه‌ای تولید کند که <strong>متریک نباشد</strong>. سه مشاهده را ببینید:</p>
+<div class="math notranslate nohighlight">
+\[
+X=(0,\mathrm{NA}),\qquad Y=(0,0),\qquad Z=(1,0).
+\]</div>
+<p>اگر ناشباهتی، <strong>میانگین قدرمطلق اختلاف روی ویژگی‌های مشترک</strong> باشد، <span class="math notranslate nohighlight">\(d(X,Y)=0\)</span>، <span class="math notranslate nohighlight">\(d(Y,Z)=(1+0)/2=0.5\)</span> و <span class="math notranslate nohighlight">\(d(X,Z)=1\)</span>. پس <span class="math notranslate nohighlight">\(d(X,Z)=1&gt;0+0.5\)</span>؛ شرط مثلثی از دست رفته است. حتی <span class="math notranslate nohighlight">\(d(X,Y)=0\)</span> در حالی که یکی دارای مقدار گمشده است، از نظر هویتِ رکورد کامل مشکل دارد. بنابراین برای الگوریتمی که متریک لازم دارد، این انتخاب بی‌خطر نیست.</p>
+<figure class="align-default" id="dm3-18">
+<a class="reference internal image-reference" href="../_images/fig03_18.png"><img alt="../_images/fig03_18.png" src="../_images/fig03_18.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 34 </span><span class="caption-text">شکل ۳ـ۱۲. مثال نقض مثلثی با حذف زوج‌به‌زوج مقدار گمشده. هیچ مقداری به‌طور پنهانی صفر نشده است.</span><a class="headerlink" href="#dm3-18" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>اگر هیچ ویژگی مشترک و قابل محاسبه‌ای نباشد، <strong>مخرج صفر و فاصله نامعین</strong> خواهد بود؛ نباید بدون قرارداد کارشناسی، آن را صفر یا یک کرد. این موضوع در داده‌کاوی پزشکی، نظرسنجی و دادهٔ صنعتی با حسگرهای غیرفعال اهمیت عملی دارد.</p>
+</section>
+<section id="id25">
+<h3>وزن‌ها و آستانه‌ها را چطور انتخاب کنیم؟<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>یک وزن بزرگ برای «رخداد نادر» ممکن است تفاوت یک ویژگی را بر کل الگوی رفتار غالب کند؛ وزن کوچک ممکن است رخداد مهم را ناپدید کند. وزن‌ها باید از سؤال کاربردی، هزینهٔ اشتباه، نظر متخصص و/یا اعتبارسنجی بیرون از نمونه ناشی شوند. برای نمایش قابل توضیح، بهتر است <strong>بردار سهم‌های ویژگی</strong> نیز در کنار فاصلهٔ کل نگهداری شود؛ کد همراه فصل این سهم‌ها را برمی‌گرداند.</p>
+</section>
+</section>
+<section id="kl-jensenshannon">
+<h2>۳ـ۱۱. توزیع‌ها را با رکوردها اشتباه نگیریم: KL و Jensen–Shannon<a class="headerlink" href="#kl-jensenshannon" title="Link to this heading">#</a></h2>
+<p>تا اینجا دو مشاهده یا دو مجموعه را مقایسه کردیم. اکنون فرض کنید می‌خواهیم دو <strong>توزیع احتمال</strong> برای نوع کالای خریداری‌شده را مقایسه کنیم، نه دو سبد منفرد را. برای فضای گسستهٔ مشترک <span class="math notranslate nohighlight">\(\{1,\ldots,k\}\)</span>، دو توزیع <span class="math notranslate nohighlight">\(P=(p_i)\)</span> و <span class="math notranslate nohighlight">\(Q=(q_i)\)</span> داریم که <span class="math notranslate nohighlight">\(p_i,q_i\ge0\)</span> و <span class="math notranslate nohighlight">\(\sum_i p_i=\sum_i q_i=1\)</span>.</p>
+<p><strong>واگرایی Kullback–Leibler (KL)</strong> با لگاریتم پایهٔ ۲ چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{KL}(P\Vert Q)=\sum_{i:p_i&gt;0}p_i\log_2\frac{p_i}{q_i}.
+\]</div>
+<p>این رابطه می‌سنجد اگر رخدادها مطابق <span class="math notranslate nohighlight">\(P\)</span> رخ دهند، استفاده از مدل احتمالاتی <span class="math notranslate nohighlight">\(Q\)</span> چه مقدار <strong>هزینهٔ لگاریتمی مورد انتظار اضافی</strong> ایجاد می‌کند. واحد با لگاریتم پایهٔ ۲، «بیت» است. برخلاف فاصلهٔ Euclidean، KL <strong>متقارن نیست</strong> و در صورت <span class="math notranslate nohighlight">\(p_i&gt;0,q_i=0\)</span> برابر بی‌نهایت می‌شود.</p>
+<section id="id26">
+<h3>مثال دستی دو نوع کالا<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>فرض کنید <span class="math notranslate nohighlight">\(P=(0.75,0.25)\)</span> و <span class="math notranslate nohighlight">\(Q=(0.50,0.50)\)</span>. آنگاه:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+D_{KL}(P\Vert Q)
+&amp;=0.75\log_2(0.75/0.5)+0.25\log_2(0.25/0.5)\\
+&amp;=0.75\log_2(1.5)+0.25(-1)\approx0.1887\ \text{bit},\\
+D_{KL}(Q\Vert P)
+&amp;=0.5\log_2(0.5/0.75)+0.5\log_2(0.5/0.25)\\
+&amp;\approx0.2075\ \text{bit}.
+\end{aligned}
+\end{split}\]</div>
+<p>نابرابری دو جواب نشان می‌دهد <strong>KL فاصلهٔ متریک نیست</strong>. همچنین مقدار صفر KL فقط هنگامی رخ می‌دهد که دو توزیع (در شرایط تعریف متعارف) برابر باشند؛ واگرایی KL نامنفی است، اما می‌تواند از یک بیشتر شود. برای نمونه‌های کم، تخمین فراوانی صفر ممکن است KL را نامتناهی کند؛ سیاست هموارسازی باید پیشاپیش مشخص باشد.</p>
+<p><strong>Jensen–Shannon (JS) divergence</strong> راهی متقارن برای مقایسه است. با <span class="math notranslate nohighlight">\(M=(P+Q)/2\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{JS}(P,Q)=\frac12D_{KL}(P\Vert M)+\frac12D_{KL}(Q\Vert M).
+\]</div>
+<p>برای همین مثال <span class="math notranslate nohighlight">\(M=(0.625,0.375)\)</span> و <span class="math notranslate nohighlight">\(\mathrm{JS}(P,Q)\approx0.04879\)</span> بیت است. مقدار <span class="math notranslate nohighlight">\(\sqrt{\mathrm{JS}(P,Q)}\approx0.22090\)</span>، با پایهٔ لگاریتم ثابت، یک <strong>فاصلهٔ متریک</strong> روی توزیع‌های احتمال است. در مقابل خودِ JS معمولاً «واگرایی» نامیده می‌شود؛ تبدیل ریشه‌ای برای استفاده به‌عنوان متریک اهمیت دارد. برای پایهٔ ۲، JS بین ۰ و ۱ بیت است.</p>
+<figure class="align-default" id="dm3-12">
+<a class="reference internal image-reference" href="../_images/fig03_12.png"><img alt="../_images/fig03_12.png" src="../_images/fig03_12.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 35 </span><span class="caption-text">شکل ۳ـ۱۳. واگرایی دو توزیع ساختگی: KL جهت‌دار است و JS متقارن؛ محور عمودی سمت راست در واحد بیت است.</span><a class="headerlink" href="#dm3-12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>فرق با Jaccard:</strong> Jaccard برای <strong>مجموعهٔ اقلام</strong> یا بردار حضور/عدم حضور طراحی شده است؛ KL/JS برای <strong>توزیع نرمال‌شده</strong>. اگر ۱۰۰ خرید برای یک کالا ثبت شود و تنها یک خرید برای کالایی دیگر، در توزیع احتمالاتی وزن‌های متفاوتی دارند؛ ولی در Jaccard مجموعه‌ای، هر دو صرفاً «حاضر» هستند. پیش از انتخاب معیار باید مشخص کنیم داده را به چه موجودیتی تبدیل کرده‌ایم.</p>
+</section>
+</section>
+<section id="id27">
+<h2>۳ـ۱۲. اطلاعات متقابل: شباهت بین <em>متغیرها</em>، نه لزوماً بین <em>رکوردها</em><a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+<p>در برخی پروژه‌ها هدف یافتن «مشتری مشابه» نیست؛ می‌خواهیم بدانیم آیا دو <strong>ویژگی</strong> به هم وابسته‌اند. برای مثال، آیا «نوع دستگاه» و «نوع خرید» با هم مرتبط‌اند؟ Pearson فقط وابستگی خطی را در شکل متداول خود می‌سنجد و ممکن است رابطهٔ غیرخطی را نشان ندهد.</p>
+<p><strong>اطلاعات متقابل (Mutual Information؛ MI)</strong> برای متغیرهای گسستهٔ <span class="math notranslate nohighlight">\(X,Y\)</span> تعریف می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=\sum_x\sum_y p(x,y)\log_2\frac{p(x,y)}{p(x)p(y)}.
+\]</div>
+<p>وقتی <span class="math notranslate nohighlight">\(X,Y\)</span> مستقل باشند، <span class="math notranslate nohighlight">\(p(x,y)=p(x)p(y)\)</span> و هر جملهٔ مثبت لگاریتم ۱ می‌شود، پس <span class="math notranslate nohighlight">\(I(X;Y)=0\)</span>. MI نامنفی و متقارن است، ولی <strong>واحد آن بیت و مقدارش به آنتروپی/تعداد حالت‌ها وابسته است</strong>؛ به‌طور خام نمی‌توان MI دو مسئله با دامنهٔ متفاوت را مثل «درصد شباهت» مقایسه کرد.</p>
+<section id="id28">
+<h3>مثال دستی که باید بتوان در کلاس حل کرد<a class="headerlink" href="#id28" title="Link to this heading">#</a></h3>
+<p>فرض کنید <span class="math notranslate nohighlight">\(X\)</span> و <span class="math notranslate nohighlight">\(Y\)</span> دودویی و دقیقاً برابرند: <span class="math notranslate nohighlight">\(p(0,0)=p(1,1)=1/2\)</span> و سایر احتمال‌ها صفرند. احتمال حاشیه‌ای هر حالت <span class="math notranslate nohighlight">\(1/2\)</span> است. دو جملهٔ غیرصفر داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+I(X;Y)=\tfrac12\log_2\frac{1/2}{(1/2)(1/2)}+
+\tfrac12\log_2\frac{1/2}{(1/2)(1/2)}=\tfrac12+\tfrac12=1\ \text{bit}.
+\]</div>
+<p>اگر هر چهار ترکیب <span class="math notranslate nohighlight">\((0,0),(0,1),(1,0),(1,1)\)</span> احتمال <span class="math notranslate nohighlight">\(1/4\)</span> داشته باشند، <span class="math notranslate nohighlight">\(I(X;Y)=0\)</span>. در اولی آگاهی از <span class="math notranslate nohighlight">\(X\)</span> مقدار <span class="math notranslate nohighlight">\(Y\)</span> را کاملاً مشخص می‌کند؛ در دومی آگاهی از <span class="math notranslate nohighlight">\(X\)</span> چیزی به پیش‌بینی <span class="math notranslate nohighlight">\(Y\)</span> اضافه نمی‌کند. از دید آنتروپی نیز <span class="math notranslate nohighlight">\(I(X;Y)=H(X)+H(Y)-H(X,Y)\)</span> است؛ این رابطه نشان می‌دهد اطلاعات متقابل همان کاهش عدم‌قطعیت مشترک در مقایسه با دو توصیف مستقل است. همچنین <span class="math notranslate nohighlight">\(I(X;Y)=D_{KL}(p(x,y)\Vert p(x)p(y))\)</span>؛ در این رابطه KL <strong>بین توزیع مشترک و حاصل‌ضرب توزیع‌های حاشیه‌ای</strong> است، نه بین دو مشاهدهٔ منفرد. با دادهٔ محدود، برآورد MI مثبتِ کاذب ممکن است ایجاد شود؛ تعداد حالت‌ها، هموارسازی و تصحیح سوگیری برآوردگر اهمیت دارند.</p>
+<figure class="align-default" id="dm3-13">
+<a class="reference internal image-reference" href="../_images/fig03_13.png"><img alt="../_images/fig03_13.png" src="../_images/fig03_13.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 36 </span><span class="caption-text">شکل ۳ـ۱۴. دو مجموعهٔ ساختگی: در سمت چپ وابستگی غیرخطی آشکار است ولی Pearson نزدیک صفر است؛ سمت راست نمونهٔ مستقل است. این تصویر محاسبهٔ MI نیست، انگیزهٔ استفاده از معیار وابستگی غیرخطی را نشان می‌دهد.</span><a class="headerlink" href="#dm3-13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>تفاوت مهم:</strong> MI بین <strong>دو متغیر تصادفی</strong> تعریف می‌شود. استفاده از آن به‌عنوان «فاصلهٔ مستقیم دو مشتری» بدون یک مدل احتمالاتی یا تبدیل تعریف‌شده، اشتباه مفهومی است. برای انتخاب ویژگی، سنجش افزونگی یا تحلیل وابستگی مناسب است؛ بحث معیارهای اطلاعاتی پیچیده‌تر از دامنهٔ این فصل خارج است.</p>
+</section>
+</section>
+<section id="bregman">
+<h2>۳ـ۱۳. کرنل‌ها و واگرایی Bregman: وقتی هندسهٔ پنهان را خودمان می‌سازیم<a class="headerlink" href="#bregman" title="Link to this heading">#</a></h2>
+<section id="id29">
+<h3>کرنل چیست و چه نسبتی با «شباهت» دارد؟<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p>گاهی داده‌ها در فضای اصلی با یک خط یا صفحه به‌خوبی جدا نمی‌شوند، ولی در یک نمایش دیگر چنین‌اند. یک <strong>تابع کرنل (Kernel Function)</strong> می‌تواند ضرب داخلی را در فضای ویژگی دیگری بازنمایی کند:</p>
+<div class="math notranslate nohighlight">
+\[
+k(x,y)=\langle\phi(x),\phi(y)\rangle.
+\]</div>
+<p>اگر کرنل با یک فضای ضرب داخلی حقیقی سازگار باشد، برای هر مجموعهٔ محدود <span class="math notranslate nohighlight">\(x_1,\ldots,x_n\)</span>، <strong>ماتریس Gram</strong> با درایه‌های <span class="math notranslate nohighlight">\(K_{ij}=k(x_i,x_j)\)</span> باید <strong>متقارن و نیمه‌معین مثبت</strong> باشد؛ یعنی برای هر بردار <span class="math notranslate nohighlight">\(a\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+a^TKa=\left\|\sum_i a_i\phi(x_i)\right\|^2\ge0.
+\]</div>
+<p>این خاصیت، دلیل ریاضی استفاده از ماتریس کرنل در بسیاری از الگوریتم‌هاست. هر تابعی که به دلخواه اسم «شباهت» داشته باشد، ضرورتاً کرنل معتبر نیمه‌معین مثبت نیست. برای مثال، <strong>کرنل Gaussian/RBF</strong> چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+k_{\mathrm{RBF}}(x,y)=\exp(-\gamma\|x-y\|_2^2),\qquad\gamma&gt;0.
+\]</div>
+<p>برای <span class="math notranslate nohighlight">\(x=y\)</span> مقدار یک است و با زیادشدن فاصله کاهش می‌یابد؛ اما انتخاب <span class="math notranslate nohighlight">\(\gamma\)</span> تعیین می‌کند چه مقیاسی از فاصله «نزدیک» محسوب شود. انتخاب نامناسب آن می‌تواند اکثر زوج‌ها را تقریباً نامشابه یا تقریباً یکسان کند.</p>
+<p>برای سه نقطهٔ تک‌بعدی <span class="math notranslate nohighlight">\(0,1,2\)</span> و <span class="math notranslate nohighlight">\(\gamma=1\)</span>، داریم:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+K=\begin{bmatrix}
+1&amp;e^{-1}&amp;e^{-4}\\
+e^{-1}&amp;1&amp;e^{-1}\\
+e^{-4}&amp;e^{-1}&amp;1
+\end{bmatrix}
+\approx\begin{bmatrix}
+1&amp;.368&amp;.018\\.368&amp;1&amp;.368\\.018&amp;.368&amp;1
+\end{bmatrix}.
+\end{split}\]</div>
+<figure class="align-default" id="dm3-14">
+<a class="reference internal image-reference" href="../_images/fig03_14.png"><img alt="../_images/fig03_14.png" src="../_images/fig03_14.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 37 </span><span class="caption-text">شکل ۳ـ۱۵. ماتریس RBF برای چهار نقطهٔ یک‌بعدی و مقدارهای ویژهٔ آن. این نمودار یک نمونه است؛ نیمه‌معین‌بودن برای RBF معتبر از استدلال عمومی نتیجه می‌شود، نه صرفاً مثبت‌شدن چهار مقدار ویژهٔ شکل.</span><a class="headerlink" href="#dm3-14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>احتیاط آموزشی:</strong> در بحث کرنل، هدف ما تکرار فصل ماشین بردار پشتیبان (SVM) درس یادگیری ماشین نیست؛ نکته این است که <strong>تعریف شباهت می‌تواند یک هندسهٔ جدید برای داده بسازد</strong>. کاربردهای خوشه‌بندی کرنلی و تحلیل گراف در فصل نهم دنبال می‌شوند.</p>
+</section>
+<section id="id30">
+<h3>واگرایی Bregman، کوتاه اما با یک مثال دقیق<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<p>برای یک تابع هموار و محدبِ اکید <span class="math notranslate nohighlight">\(\phi\)</span>، <strong>واگرایی Bregman</strong> چنین نوشته می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+D_\phi(x,y)=\phi(x)-\phi(y)-\nabla\phi(y)^T(x-y).
+\]</div>
+<p>این عبارت فاصلهٔ عمودی بین مقدار تابع در <span class="math notranslate nohighlight">\(x\)</span> و صفحهٔ مماس تابع در <span class="math notranslate nohighlight">\(y\)</span> را اندازه می‌گیرد؛ به‌دلیل تحدب نامنفی است. ولی معمولاً نه متقارن است و نه نامساوی مثلثی را رعایت می‌کند. در مثال یک‌بعدی <span class="math notranslate nohighlight">\(\phi(t)=t^2\)</span>، مشتق <span class="math notranslate nohighlight">\(2t\)</span> است؛ بنابراین:</p>
+<div class="math notranslate nohighlight">
+\[
+D_\phi(x,y)=x^2-y^2-2y(x-y)=(x-y)^2.
+\]</div>
+<p>برای <span class="math notranslate nohighlight">\(x=0,y=1,z=2\)</span>، مقدار <span class="math notranslate nohighlight">\(D_\phi(0,2)=4\)</span> و مجموع <span class="math notranslate nohighlight">\(D_\phi(0,1)+D_\phi(1,2)=2\)</span> است؛ پس این واگرایی <strong>متریک نیست</strong>. نکتهٔ ارزشمند بحث Bregman در Tan §۲٫۴٫۸ آن است که «هزینهٔ اختلاف» می‌تواند به شکل توابع محدب گوناگون مدل شود؛ مساوی‌گرفتن همهٔ چنین هزینه‌هایی با فاصلهٔ متریک خطاست.</p>
+</section>
+</section>
+<section id="id31">
+<h2>۳ـ۱۴. هندسهٔ گراف و دادهٔ پیچیده: کوتاه‌ترین مسیر، نه خط مستقیم<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<p>گاهی دو مشتری به‌سبب ارتباط در یک شبکه، یا دو مکان به‌سبب اتصال جاده‌ها، «نزدیک» هستند. فرض کنید گرافی با چهار رأس <span class="math notranslate nohighlight">\(A,B,C,D\)</span> داریم و فقط یال‌های <span class="math notranslate nohighlight">\(A-B\)</span>، <span class="math notranslate nohighlight">\(B-C\)</span> و <span class="math notranslate nohighlight">\(C-D\)</span> با وزن ۲ موجودند. مختصات هندسی را طوری بگذارید که <span class="math notranslate nohighlight">\(A=(0,0)\)</span> و <span class="math notranslate nohighlight">\(D=(0,2)\)</span> باشد. <strong>فاصلهٔ Euclidean برابر ۲</strong> است، اما چون یال مستقیمی وجود ندارد، کوتاه‌ترین <strong>مسیر مجاز</strong> از <span class="math notranslate nohighlight">\(A\)</span> به <span class="math notranslate nohighlight">\(D\)</span> از <span class="math notranslate nohighlight">\(B\)</span> و <span class="math notranslate nohighlight">\(C\)</span> می‌گذرد و طولش <span class="math notranslate nohighlight">\(2+2+2=6\)</span> است.</p>
+<figure class="align-default" id="dm3-17">
+<a class="reference internal image-reference" href="../_images/fig03_17.png"><img alt="../_images/fig03_17.png" src="../_images/fig03_17.png" style="width: 84%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 38 </span><span class="caption-text">شکل ۳ـ۱۶. فاصلهٔ گرافی با فاصلهٔ هندسی محیط برابر نیست؛ در دادهٔ شبکه‌ای، مجازبودن مسیر تعیین‌کننده است.</span><a class="headerlink" href="#dm3-17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>با وزن‌های نامنفی می‌توان کوتاه‌ترین مسیر را به‌عنوان فاصله بر روی رأس‌های متصل محاسبه کرد. اگر دو رأس در مؤلفه‌های مجزا باشند، فاصلهٔ کوتاه‌ترین مسیر می‌تواند <strong>بی‌نهایت</strong> تلقی شود و نیاز به سیاست کاربردی دارد. <strong>گراف جهت‌دار</strong> ممکن است فاصلهٔ نامتقارن ایجاد کند؛ هزینهٔ مسیر با عوض‌شدن جهت لزوماً یکسان نیست. در دادهٔ شبکه‌ای، خود توپولوژی و تعریف وزن یال همان‌قدر مهم‌اند که الگوریتم کوتاه‌ترین مسیر.</p>
+<p><strong>ارتباط با داده‌کاوی:</strong> در خوشه‌بندی، شناسایی جامعه، کشف رفتارهای مرتبط و جست‌وجوی الگوهای گرافی، معیار نزدیکی ممکن است به ساختار اتصال وابسته باشد. شرح الگوریتم‌های پیشرفتهٔ گراف در فصل‌های ششم و نهم می‌آید؛ اینجا هدف روشن‌کردن مفهوم هندسهٔ مناسب است.</p>
+</section>
+<section id="id32">
+<h2>۳ـ۱۵. بُعد بالا و شبه‌برابری فاصله‌ها: حدّ اعتبار «نزدیکی»<a class="headerlink" href="#id32" title="Link to this heading">#</a></h2>
+<p>در فضای دوبعدی، نزدیک‌بودن نقطه را اغلب می‌توان دید. اما اگر هر مشاهده هزاران ویژگی داشته باشد، دو مشکل ظاهر می‌شود: (۱) بسیاری از مؤلفه‌ها بی‌اهمیت یا تکراری‌اند؛ (۲) در بعضی مدل‌های داده، فاصلهٔ نزدیک‌ترین و دورترین مشاهده <strong>نسبت به مقیاس معمول فاصله‌ها</strong> به هم نزدیک می‌شوند. این اثر را «تمرکز فاصله» می‌نامند.</p>
+<p><strong>یک آزمایش قابل بازتولید:</strong> برای هر بُعد <span class="math notranslate nohighlight">\(p\in\{2,5,10,25,50,100,200\}\)</span>، دو مجموعهٔ ۴۰۰۰تایی از بردارهای مستقل نرمال استاندارد تولید می‌کنیم و فاصلهٔ Euclidean متناظر هر زوج را می‌سنجیم. سپس ضریب تغییرات <span class="math notranslate nohighlight">\(CV=\mathrm{std}(d)/\mathrm{mean}(d)\)</span> را محاسبه می‌کنیم. در این مدل مصنوعی، با افزایش بُعد، تغییر نسبی فاصله‌ها کاهش می‌یابد.</p>
+<figure class="align-default" id="dm3-15">
+<a class="reference internal image-reference" href="../_images/fig03_15.png"><img alt="../_images/fig03_15.png" src="../_images/fig03_15.png" style="width: 89%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 39 </span><span class="caption-text">شکل ۳ـ۱۷. شبیه‌سازی ساختگی با بذر ثابت: کاهش ضریب تغییرات فاصلهٔ دو نقطهٔ تصادفی در بُعد بالا. این نتیجه محدود به این مدل و روش نمونه‌گیری است؛ هیچ ادعایی دربارهٔ همهٔ مجموعه‌داده‌های واقعی نمی‌کند.</span><a class="headerlink" href="#dm3-15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>چرا از این نمودار نمی‌توان نتیجه گرفت «Euclidean در بُعد بالا همیشه بی‌فایده است»؟</strong> زیرا هندسهٔ دادهٔ واقعی ممکن است روی خمینهٔ کم‌بُعد، یک زیرمجموعهٔ تنک یا ساختار خوشه‌ای قرار گرفته باشد. برخی متریک‌ها در مسئلهٔ خاص همچنان خوب عمل می‌کنند. باید <strong>کنتراست فاصله، پایداری همسایه‌ها و نتیجهٔ وظیفهٔ اصلی</strong> را روی دادهٔ واقعی بررسی کرد. حذف ویژگی، وزن‌دهی یا کاهش بُعد تنها در صورت حفظ اطلاعات مرتبط با مسئله سودمند است؛ این مباحث در فصل چهارم با تفصیل ادامه می‌یابند.</p>
+</section>
+<section id="id33">
+<h2>۳ـ۱۶. انتخاب معیار مناسب: یک پروتکل برای داده‌کاوی قابل دفاع<a class="headerlink" href="#id33" title="Link to this heading">#</a></h2>
+<p>انتخاب معیار را به‌جای «کدام تابع در کتابخانه موجود است؟» با پنج سؤال آغاز کنید:</p>
+<p><strong>۱. واحد مشاهده چیست؟</strong> یک سبد، سند، مشتری، توالی، توزیع یا رأس گراف؟ شباهت دو توزیع را با فرمول حضور کالای مشترک اندازه نمی‌گیریم.</p>
+<p><strong>۲. چه تغییری نباید شباهت را عوض کند؟</strong> افزایش حجم سند به نسبت ثابت (Cosine)، تغییر سطح پایهٔ سری (Pearson)، یا جایگزینی کد عددی برچسب اسمی (nominal matching). نام این خواسته <strong>ناوردایی (Invariance)</strong> است.</p>
+<p><strong>۳. صفر چه معنایی دارد؟</strong> صفر واقعی، نبود کالا، دادهٔ گمشده و صفر ناشی از سانسور اندازه‌گیری یک چیز نیستند. اگر نبود هم‌زمان کالاها اطلاعات نیست، Jaccard معمولاً از SMC مناسب‌تر است.</p>
+<p><strong>۴. ویژگی‌ها چه توزیع و وابستگی‌ای دارند؟</strong> در دادهٔ عددی، مقیاس و هم‌بستگی می‌توانند نتیجهٔ Euclidean را عوض کنند؛ در دادهٔ مختلط، سهم هر نوع ویژگی و سیاست مخرج باید صریح باشد.</p>
+<p><strong>۵. نتیجه را با چه معیار مستقلی می‌سنجیم؟</strong> اگر هدف خوشه‌بندی مشتریان برای یافتن خریدهای مرتبط است، تنها زیبایی شکل یا جدایی ظاهری خوشه کافی نیست؛ به ثبات گروه‌ها در نمونه‌های دیگر، تعبیرپذیری، هزینهٔ اشتباه و پیامد کاربردی هم نگاه کنید. اگر برچسب یا هدف بیرونی در دسترس است، معیار را روی دادهٔ نگه‌داشته‌شده بسنجید؛ آن داده نباید در انتخاب وزن یا مقیاس مصرف شده باشد.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>نوع داده یا هدف</p></th>
+<th class="head text-left"><p>گزینهٔ آغازین قابل دفاع</p></th>
+<th class="head text-left"><p>هشدار مهم</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>عددی هم‌مقیاس و جهت مستقل</p></td>
+<td class="text-left"><p><span class="math notranslate nohighlight">\(L_1\)</span> یا <span class="math notranslate nohighlight">\(L_2\)</span></p></td>
+<td class="text-left"><p>واحد، دادهٔ پرت، وزن</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>عددی با پراکندگی و هم‌بستگی مشخص</p></td>
+<td class="text-left"><p>Mahalanobis</p></td>
+<td class="text-left"><p>کوواریانس تکین، تخمین ناپایدار</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>سبدهای کالا یا نشانگرهای حضور تنک</p></td>
+<td class="text-left"><p>Jaccard</p></td>
+<td class="text-left"><p>قرارداد هر دو مجموعهٔ خالی</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>سند یا بردار شمارش واژگان</p></td>
+<td class="text-left"><p>Cosine</p></td>
+<td class="text-left"><p>وزن‌سازی واژه، بردار صفر</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>الگوی سری با اختلاف سطح پایه</p></td>
+<td class="text-left"><p>Pearson</p></td>
+<td class="text-left"><p>شیفت زمانی، روند، ثابت‌بودن بردار</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>اسمی و ترتیبی و عددی با هم</p></td>
+<td class="text-left"><p>Gower مانند</p></td>
+<td class="text-left"><p>وزن، مخرج زوجی، متریک‌نبودن احتمالی</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>دو توزیع احتمال</p></td>
+<td class="text-left"><p>KL یا <span class="math notranslate nohighlight">\(\sqrt{JS}\)</span></p></td>
+<td class="text-left"><p>صفرهای احتمال و نامتقارن‌بودن KL</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>وابستگی دو ویژگی</p></td>
+<td class="text-left"><p>Mutual Information</p></td>
+<td class="text-left"><p>سوگیری برآورد، نه فاصلهٔ دو رکورد</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>رأس‌های گراف متصل</p></td>
+<td class="text-left"><p>کوتاه‌ترین مسیر</p></td>
+<td class="text-left"><p>جهت‌داری، وزن یال و قطع اتصال</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="align-default" id="dm3-16">
+<a class="reference internal image-reference" href="../_images/fig03_16.png"><img alt="../_images/fig03_16.png" src="../_images/fig03_16.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 40 </span><span class="caption-text">شکل ۳ـ۱۸. جریان تصمیم برای انتخاب معیار: <em>نوع داده → معنای شباهت → معیار → ارزیابی</em>. هیچ معیار «جهانیِ بهترین» وجود ندارد.</span><a class="headerlink" href="#dm3-16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id34">
+<h3>یک شبه‌کد کوتاه برای انتخاب و ارزیابی<a class="headerlink" href="#id34" title="Link to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>INPUT: training_data, validation_data, semantic_schema, task
+1. Determine observation granularity and feature measurement scales.
+2. Define desired invariances (scale? translation? presence?).
+3. Specify candidate metrics and missing/zero policies.
+4. Fit all learned preprocessing ONLY on the training data.
+5. For each metric:
+     compute neighbors/communities/patterns on training data;
+     evaluate stability and task outcome on held-out data;
+     record sensitivity to weights and plausible preprocessing.
+6. Choose with evidence; archive metric, parameters, units, and code.
+OUTPUT: documented metric and reproducible evaluation report
+</pre></div>
+</div>
+<p><strong>چرا شبه‌کد معیار را از روی یک برچسب آموزش نمی‌دهد؟</strong> به این دلیل که تصمیم در داده‌کاوی اغلب <em>اکتشافی</em> است؛ ممکن است برچسب مرجع نداشته باشیم. در این حالت شواهد پایداری، انسجام تفسیر و اطلاعات بیرونی جایگزین ادعای قطعی «دقت» می‌شوند. اگر مرجع خارجی داریم، باید تفکیک دادهٔ آموزش/اعتبارسنجی محترم بماند.</p>
+</section>
+</section>
+<section id="python-notebook">
+<h2>۳ـ۱۷. آزمایشگاه عملی: از قلم و کاغذ تا Python و Notebook<a class="headerlink" href="#python-notebook" title="Link to this heading">#</a></h2>
+<p>تمام مقدارهای عددی اصلی این فصل را می‌توان بدون اتصال اینترنت و با Python بازتولید کرد. فایل <code class="docutils literal notranslate"><span class="pre">chapter03_examples.py</span></code> شامل توابع خوانا برای Minkowski، شمارش توافق دودویی، Jaccard، SMC، Cosine، Pearson، فاصلهٔ مختلط Gower، KL، JS، اطلاعات متقابل و Mahalanobis قطری است. در همهٔ تابع‌ها فرض‌های حساس مانند بردار صفر، طول متفاوت و مخرج صفر مدیریت یا آشکار گزارش می‌شوند.</p>
+<p><strong>نمونهٔ اجرا:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>chapter03_examples.py
+python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>test_chapter03_examples.py<span class="w"> </span>-v
+</pre></div>
+</div>
+<p>در ویندوز با دوبار کلیک روی <code class="docutils literal notranslate"><span class="pre">RUN_CHAPTER03_EXAMPLES.cmd</span></code>، فایل گزارش <code class="docutils literal notranslate"><span class="pre">chapter03_results.json</span></code> و خروجی آزمون‌ها تولید می‌شود. فایل <code class="docutils literal notranslate"><span class="pre">chapter03_examples.ipynb</span></code> نیز همان محاسبات را به‌ترتیب آموزشی اجرا و نتیجه را به‌صورت جدول نمایش می‌دهد. برای شروع، به NumPy یا SciPy نیازی ندارید؛ ماژول محاسبات اصلی فقط به کتابخانهٔ استاندارد Python نیاز دارد.</p>
+<section id="id35">
+<h3>گام اول: تغییر همسایه با Minkowski<a class="headerlink" href="#id35" title="Link to this heading">#</a></h3>
+<p>دادهٔ <span class="math notranslate nohighlight">\((A,B,C)\)</span> را وارد تابع <code class="docutils literal notranslate"><span class="pre">minkowski</span></code> کنید و برای <span class="math notranslate nohighlight">\(r=1,2,\infty\)</span> مقدارها را با محاسبهٔ بخش ۳ـ۱ مقایسه کنید. تفسیر خروجی: تغییر معیار «خطای محاسباتی» نیست؛ فرض دربارهٔ هزینهٔ اختلاف‌ها را عوض کرده‌اید. سپس <span class="math notranslate nohighlight">\(B\)</span> را از <span class="math notranslate nohighlight">\((3,4)\)</span> به <span class="math notranslate nohighlight">\((6,8)\)</span> تغییر دهید و به تغییر فاصلهٔ Euclidean و ثابت‌ماندن Cosine با <span class="math notranslate nohighlight">\(A=(0,0)\)</span> توجه نکنید—<strong>Cosine برای بردار صفر تعریف نشده است</strong>؛ به‌جای آن بردار مرجع غیرصفر <span class="math notranslate nohighlight">\(A'=(1,2)\)</span> انتخاب کنید. این اصلاح ساده نشان می‌دهد که باید دامنهٔ تعریف معیار را در طراحی آزمایش لحاظ کرد.</p>
+</section>
+<section id="id36">
+<h3>گام دوم: اثر انبوه صفرها<a class="headerlink" href="#id36" title="Link to this heading">#</a></h3>
+<p>برای ۱۰۰۰ کالا و دو سبد <code class="docutils literal notranslate"><span class="pre">{a,b}</span></code> و <code class="docutils literal notranslate"><span class="pre">{a,c}</span></code>، برنامه به‌درستی <span class="math notranslate nohighlight">\(q=1,r=1,s=1,t=997\)</span>، سپس <span class="math notranslate nohighlight">\(SMC=0.998\)</span> و <span class="math notranslate nohighlight">\(Jaccard=1/3\)</span> می‌دهد. با زیادکردن تعداد کالاهایی که در هیچ سبدی نیستند، تنها SMC به یک نزدیک‌تر می‌شود. این آزمایش یک <em>مثال نقضِ انتخاب نادرست معیار</em> است.</p>
+</section>
+<section id="id37">
+<h3>گام سوم: Gower و حذف ویژگی نامرتبط<a class="headerlink" href="#id37" title="Link to this heading">#</a></h3>
+<p>در مثال پنج‌ویژگی، برنامه امتیاز <span class="math notranslate nohighlight">\(0.4666667\)</span> و فهرست سهم چهار ویژگی فعال را چاپ می‌کند. اگر رخداد نامتقارن برای یکی از مشتریان ۱ شود، آن ویژگی وارد صورت و مخرج شده و نتیجه عوض می‌شود. اگر هر دو مشتری در همهٔ ویژگی‌های قابل استفاده مقدار گمشده داشته باشند، برنامه مقدار <code class="docutils literal notranslate"><span class="pre">NaN</span></code> گزارش می‌دهد؛ این وضعیت را نباید به «شباهت کامل» تفسیر کرد.</p>
+</section>
+<section id="id38">
+<h3>گام چهارم: مقایسهٔ توزیع‌ها<a class="headerlink" href="#id38" title="Link to this heading">#</a></h3>
+<p>دو توزیع <span class="math notranslate nohighlight">\(P,Q\)</span> را به تابع‌های <code class="docutils literal notranslate"><span class="pre">kl</span></code> و <code class="docutils literal notranslate"><span class="pre">js</span></code> بدهید. خروجی‌ها: <span class="math notranslate nohighlight">\(KL(P\Vert Q)\approx0.18872\)</span>، <span class="math notranslate nohighlight">\(KL(Q\Vert P)\approx0.20752\)</span>، <span class="math notranslate nohighlight">\(JS(P,Q)\approx0.04879\)</span>، و <span class="math notranslate nohighlight">\(\sqrt{JS}\approx0.22090\)</span>. با قراردادن <span class="math notranslate nohighlight">\(P=(1,0)\)</span> و <span class="math notranslate nohighlight">\(Q=(0,1)\)</span>، KL بی‌نهایت ولی JS برابر یک بیت می‌شود. این تفاوت، اهمیت دامنه و هموارسازی را نشان می‌دهد.</p>
+</section>
+<section id="id39">
+<h3>گام پنجم: آزمایشگاه تعاملی بدون نصب<a class="headerlink" href="#id39" title="Link to this heading">#</a></h3>
+<p>در پوشهٔ <code class="docutils literal notranslate"><span class="pre">downloads</span></code> فایل <code class="docutils literal notranslate"><span class="pre">RUN_INTERACTIVE_ONE_CLICK.html</span></code> قرار دارد. با بازکردن آن در مرورگر، می‌توان مختصات <span class="math notranslate nohighlight">\(B\)</span> و <span class="math notranslate nohighlight">\(C\)</span> و معیار <span class="math notranslate nohighlight">\(L_1\)</span>، <span class="math notranslate nohighlight">\(L_2\)</span> یا <span class="math notranslate nohighlight">\(L_\infty\)</span> را تغییر داد و <strong>نزدیک‌ترین همسایه و فاصله‌ها</strong> را فوراً دید. HTML کاملاً آفلاین است، صرفاً یک تمرین مصورسازی را اجرا می‌کند و به کتابخانهٔ آنلاین یا ارسال داده نیاز ندارد. این ابزار به‌جای اجرای تحلیل علمی روی دادهٔ واقعی نیست؛ یک محیط تعاملی برای فهم هندسهٔ معیارهاست.</p>
+</section>
+<section id="id40">
+<h3>نگاه به کد کتابخانه‌های علمی<a class="headerlink" href="#id40" title="Link to this heading">#</a></h3>
+<p>تابع‌های کتابخانه‌ایِ SciPy و scikit-learn برای دادهٔ واقعی معمولاً کاراترند؛ اما باید قراردادهای آن‌ها را بشناسیم. برای مثال <code class="docutils literal notranslate"><span class="pre">scipy.spatial.distance.jaccard</span></code> <strong>ناشباهتی</strong> Jaccard را برمی‌گرداند، نه شباهت؛ تابع <code class="docutils literal notranslate"><span class="pre">sklearn.metrics.pairwise.cosine_similarity</span></code> شباهت کسینوسی را محاسبه می‌کند. قرارداد دو بردار همه‌صفر و نوع ورودی، در نسخه‌های کتابخانه اهمیت دارد. <strong>این فصل وابستگی اجباری به کتابخانه‌های ثالث ایجاد نمی‌کند</strong> تا مثال‌های پایه روی Python نصب‌شده اجرا شوند.</p>
+</section>
+</section>
+<section id="id41">
+<h2>۳ـ۱۸. تمرین‌های پایانی و فعالیت کلاسی<a class="headerlink" href="#id41" title="Link to this heading">#</a></h2>
+<p><strong>تمرین ۱، محاسباتی.</strong> برای <span class="math notranslate nohighlight">\(A=(1,2)\)</span>، <span class="math notranslate nohighlight">\(B=(4,6)\)</span> و <span class="math notranslate nohighlight">\(C=(1,8)\)</span>، مقدارهای <span class="math notranslate nohighlight">\(L_1\)</span>، <span class="math notranslate nohighlight">\(L_2\)</span> و <span class="math notranslate nohighlight">\(L_\infty\)</span> را حساب کنید؛ نزدیک‌ترین همسایهٔ <span class="math notranslate nohighlight">\(A\)</span> را در هر معیار بیابید. آیا تغییر واحد یکی از محورها نتیجه را عوض می‌کند؟</p>
+<p><strong>تمرین ۲، مفهومی.</strong> یک مثال از دادهٔ پزشکی یا صنعتی معرفی کنید که توافق صفر ـ صفر باید در محاسبهٔ شباهت <strong>محاسبه شود</strong>؛ سپس مثال دیگری بیاورید که نباید محاسبه شود. تفاوت معنایی را صریح بنویسید.</p>
+<p><strong>تمرین ۳، عددی.</strong> دو سبد با ۲۰۰۰ کالا به‌ترتیب ۳ و ۴ کالای حاضر دارند که ۲ کالا مشترک است. <span class="math notranslate nohighlight">\(q,r,s,t\)</span>، سپس SMC، Jaccard و Hamming نسبی را محاسبه کنید. اگر ۸۰۰۰ قلم بدون خرید اضافه کنیم چه می‌شود؟</p>
+<p><strong>تمرین ۴، اثباتی.</strong> برای <span class="math notranslate nohighlight">\(L_1\)</span>، نامساوی مثلثی را با جمع نامساوی‌های تک‌مؤلفه‌ای اثبات کنید. سپس با سه بردار <span class="math notranslate nohighlight">\((1,0)\)</span>، <span class="math notranslate nohighlight">\((1,1)\)</span>، <span class="math notranslate nohighlight">\((0,1)\)</span> نشان دهید <span class="math notranslate nohighlight">\(1-\cos\)</span> متریک نیست.</p>
+<p><strong>تمرین ۵، مقیاس ترتیبی.</strong> سه نگاشت مختلف برای سطوح «ضعیف، متوسط، خوب، عالی» پیشنهاد دهید. کدام نگاشت فرضِ فاصله‌های برابر دارد؟ با یک مثال نشان دهید ترتیب نزدیک‌ترین همسایه ممکن است تغییر کند.</p>
+<p><strong>تمرین ۶، عددی.</strong> با ویژگی‌های مختلط «استان اسمی، رضایت ترتیبی پنج‌سطحی، مبلغ خرید با بازهٔ ۱۰۰۰، رخداد نادر دودویی نامتقارن»، سه مشتری فرضی بسازید. فاصلهٔ Gower را برای هر دو مشتری دستی محاسبه و مخرج را مستند کنید.</p>
+<p><strong>تمرین ۷، تحلیلی.</strong> مثال <span class="math notranslate nohighlight">\(X=(0,NA)\)</span>، <span class="math notranslate nohighlight">\(Y=(0,0)\)</span> و <span class="math notranslate nohighlight">\(Z=(1,0)\)</span> را با حذف زوجی بازتولید کنید. دقیقاً کدام شرط متریک نقض می‌شود؟ اگر در هیچ ویژگی مشترکی مقدار مشاهده نشود چه خواهید کرد؟</p>
+<p><strong>تمرین ۸، توزیعی.</strong> برای <span class="math notranslate nohighlight">\(P=(0.9,0.1)\)</span> و <span class="math notranslate nohighlight">\(Q=(0.5,0.5)\)</span> مقدارهای <span class="math notranslate nohighlight">\(KL(P\Vert Q)\)</span>، <span class="math notranslate nohighlight">\(KL(Q\Vert P)\)</span> و JS را محاسبه کنید. برای حالت <span class="math notranslate nohighlight">\(Q=(1,0)\)</span> نیز رفتار KL را توضیح دهید.</p>
+<p><strong>تمرین ۹، اطلاعات متقابل.</strong> برای جدول فراوانی یک متغیر دودویی با چهار خانهٔ برابر، MI را حساب کنید. سپس دو خانهٔ قطری را ۱۰ و دو خانهٔ دیگر را صفر قرار دهید و دوباره MI را به‌دست آورید. چرا مقدار مثبت لزوماً رابطهٔ علّی نیست؟</p>
+<p><strong>تمرین ۱۰، هندسهٔ کوواریانس.</strong> برای <span class="math notranslate nohighlight">\(\Sigma=\mathrm{diag}(16,1)\)</span> و اختلاف <span class="math notranslate nohighlight">\((4,1)\)</span>، Euclidean و Mahalanobis را مقایسه کنید. اگر <span class="math notranslate nohighlight">\(\Sigma\)</span> تکین باشد، چرا وارون‌گیری مستقیم مشکل دارد؟</p>
+<p><strong>تمرین ۱۱، عملی.</strong> مجموعه‌ای از ۳۰ سند کوتاه یا ۳۰ سبد ساختگی بسازید. برای Cosine/Jaccard یا <span class="math notranslate nohighlight">\(L_1/L_2\)</span> فهرست پنج همسایهٔ اول را پیدا کنید. اشتراک دو فهرست را بشمارید و معنای تغییر رتبه را توضیح دهید. داده‌های واقعی بدون مجوز یا دادهٔ شخصی را در گزارش منتشر نکنید.</p>
+<p><strong>تمرین ۱۲، تحلیل خطا.</strong> عمداً یک ویژگی با مقیاس بسیار بزرگ به دادهٔ خود اضافه کنید. ابتدا Euclidean و سپس نسخهٔ نرمال‌شده را مقایسه کنید. آیا پاسخ «بهتر» را فقط از روی شکل می‌توان تعیین کرد؟ یک معیار بیرونی پیشنهاد کنید.</p>
+<p><strong>تمرین ۱۳، کرنل.</strong> برای <span class="math notranslate nohighlight">\(x\in\{0,1,2\}\)</span>، <span class="math notranslate nohighlight">\(K_{ij}=\exp(-\|x_i-x_j\|^2)\)</span> را به‌صورت عددی بسازید. تقارن و مثبت‌بودن مقادیر ویژه را بررسی کنید. توضیح دهید چرا این آزمونِ سه‌نقطه‌ای اثبات معتبر بودن کرنل برای همهٔ داده‌ها نیست.</p>
+<p><strong>تمرین ۱۴، گراف.</strong> برای یک شبکهٔ چهاررأسی جهت‌دار، طول کوتاه‌ترین مسیر <span class="math notranslate nohighlight">\(u\to v\)</span> و <span class="math notranslate nohighlight">\(v\to u\)</span> را محاسبه کنید. یک مثال بسازید که دو مقدار متفاوت شوند. چگونه این تفاوت بر خوشه‌بندی مبتنی بر فاصله تأثیر می‌گذارد؟</p>
+<p><strong>تمرین ۱۵، گزارش پژوهشی.</strong> یک صفحه بنویسید که در آن انتخاب معیار را از منظر «واحد مشاهده، نوع داده، ناوردایی، وزن‌ها، دادهٔ گمشده، پایداری همسایه و ارزیابی برون‌نمونه» توجیه کند؛ هیچ عبارتی مانند «Euclidean چون معروف‌تر است» را به‌تنهایی دلیل نپذیرید.</p>
+</section>
+<section id="id42">
+<h2>۳ـ۱۹. جمع‌بندی، مرزبندی و پیوند با فصل چهارم<a class="headerlink" href="#id42" title="Link to this heading">#</a></h2>
+<p>در این فصل دیدیم نزدیک‌بودن <strong>یک حقیقت مستقل از مدل نیست</strong>؛ یک تعریف عملیاتی است. برای ویژگی عددی هم‌مقیاس، خانوادهٔ Minkowski طبیعی است؛ با هم‌بستگی ویژگی‌ها، هندسهٔ Mahalanobis مطرح می‌شود؛ برای حضور/عدم حضور تنک، Jaccard نسبت به توافق صفر ـ صفر حساسیت بی‌دلیل ندارد؛ برای بردارهای سند، Cosine جهت را می‌سنجد؛ برای دادهٔ مختلط، Gower به قرارداد و وزن شفاف نیاز دارد؛ برای توزیع، KL و JS معنا دارند؛ و برای رابطهٔ بین ویژگی‌ها، MI را از فاصلهٔ بین رکوردها جدا کردیم.</p>
+<p>همچنین چند دام را با مثال نقض نشان دادیم: <strong>تغییر رتبه با تغییر واحد</strong>؛ <strong>شباهت ۹۹٫۸درصدیِ گمراه‌کننده در دادهٔ تنک</strong>؛ <strong>غیرمتریک‌بودن <span class="math notranslate nohighlight">\(1-\cos\)</span></strong>؛ <strong>نقض مثلثی در حذف زوجیِ دادهٔ گمشده</strong>؛ <strong>نامتقارن بودن KL</strong>؛ و <strong>ریشه‌دار بودن نقش مفروضات در Mahalanobis و کرنل</strong>.</p>
+<p>اکنون سؤال طبیعی فصل چهارم این است: «چگونه داده را بدون تحریف و نشت اطلاعات آماده کنیم تا معیار انتخابی معنای درستی داشته باشد؟» در <strong>فصل چهارم ـ پیش‌پردازش، نمونه‌گیری و کاهش بُعد</strong>، نرمال‌سازی، راهبردهای فقدان مقدار، انتخاب/استخراج ویژگی و کنترل کیفیت اثر این تصمیم‌ها را به‌صورت الگوریتمی ادامه خواهیم داد.</p>
+<section id="id43">
+<h3>راهنمای مراجعه به منابع علمی<a class="headerlink" href="#id43" title="Link to this heading">#</a></h3>
+<p><strong>دو مرجع اصلیِ مبنای نگارش:</strong></p>
+<ol class="arabic simple">
+<li><p>Jiawei Han, Jian Pei, Hanghang Tong. <em>Data Mining: Concepts and Techniques</em>, 4th ed., Elsevier/Morgan Kaufmann, 2023. فصل ۲، بخش ۲٫۳ «Similarity and distance measures»، صفحات چاپی ۴۳ تا ۵۵؛ زیر‌بخش‌های ۲٫۳٫۱ تا ۲٫۳٫۹. در این جزوه، انواع ویژگی، Minkowski، دادهٔ مختلط، Cosine، KL و بحث شباهت معنایی از این محدوده بازآرایی شده‌اند.</p></li>
+<li><p>Pang-Ning Tan, Michael Steinbach, Anuj Karpatne, Vipin Kumar. <em>Introduction to Data Mining</em>, 2nd ed., Pearson, 2019. فصل ۲، بخش ۲٫۴ «Measures of Similarity and Dissimilarity»، صفحات چاپی ۷۱ تا ۱۰۰؛ زیربخش‌های ۲٫۴٫۱ تا ۲٫۴٫۱۰. در این جزوه، مفهوم متریک، تبدیل شباهت، MI، Kernel، Bregman، مسائل محاسبهٔ نزدیکی و معیار انتخاب از این محدوده بهره برده‌اند.</p></li>
+</ol>
+<p><strong>مطالعهٔ تکمیلی و منابع وبِ بررسی‌شده:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.jaccard.html">SciPy — Jaccard dissimilarity</a>: برای قرارداد تعریف در دادهٔ دودویی، مخرج و حالت هر دو بردار همه‌صفر.</p></li>
+<li><p><a class="reference external" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.jensenshannon.html">SciPy — Jensen–Shannon distance</a>: برای تمایز واگرایی JS و ریشهٔ آن به‌عنوان فاصله.</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.cosine_similarity.html">scikit-learn — Cosine similarity</a>: برای تفاوت «شباهت» و «فاصلهٔ ناشی از شباهت» در پیاده‌سازی.</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/clustering.html#mutual-information-based-scores">scikit-learn — Mutual information scores</a>: برای جایگاه MI و نسخه‌های نرمال‌شده/تصحیح‌شده در ارزیابی خوشه‌ها.</p></li>
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Minkowski_distance">Minkowski geometries — original teaching demonstration</a>: فقط برای مقایسهٔ شکل توپ‌های واحد؛ تصویر کتاب یا وب در این بسته کپی نشده است.</p></li>
+</ul>
+<p><strong>یادداشت مالکیت و بازتولید:</strong> تمام نقطه‌ها، سبدها، توزیع‌ها، مثال‌های دستی و ۱۸ شکل موجود در این فصل برای آموزش ساخته شده‌اند؛ این‌ها «دادهٔ واقعی مشاهده‌شده» نیستند. کد تولید شکل‌های ریاضی و کد محاسبات در بسته موجود است. تصاویر بیرونی پس از بررسی صرفاً به‌عنوان مرجع مفهومی به کار رفته‌اند، نه به‌عنوان تصاویر کپی‌شده در جزوه.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-02.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل دوم — بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و نقشهٔ فصل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه فصل در دو کتاب اصلی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۳ـ۱. مسئلهٔ آغازین: نزدیک‌ترین مشتری کدام است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۳ـ۲. شباهت، ناشباهتی و فاصلهٔ واقعی یک چیز نیستند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">آیا می‌توان شباهت را به فاصله تبدیل کرد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۳ـ۳. ماتریس داده و ماتریس نزدیکی؛ دو شیوهٔ دیدن یک مجموعه</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">هزینهٔ علمی استفاده از ماتریس فاصله</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minkowski">۳ـ۴. خانوادهٔ Minkowski و هندسهٔ فاصله در فضای عددی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">چرخش دستگاه مختصات نیز می‌تواند مهم باشد</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">محاسبهٔ دستی مرحله‌به‌مرحله</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">اثبات شهودی نامساوی مثلثی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۳ـ۵. واحد، مقیاس و وزن ویژگی‌ها: یک دام هندسی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">سه راه متداول و حدود اعتبار آن‌ها</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۳ـ۶. متغیرهای اسمی و ترتیبی: عدد همیشه «اندازه» نیست</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">ویژگی اسمی: فقط برابر یا نابرابر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">ویژگی ترتیبی: اطلاعات بیشتر از اسمی، کمتر از کمی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۳ـ۷. دودویی متقارن و نامتقارن: چرا صفرهای مشترک می‌توانند گمراه کنند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hamming-jaccard">فاصلهٔ Hamming و تفاوت آن با Jaccard</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۳ـ۸. شباهت کسینوسی: مقایسهٔ جهت به‌جای مقدار</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">محاسبهٔ دستی روی دو سند کوچک</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jaccard">Jaccard تعمیم‌یافته و شباهت معناییِ آموخته‌شده</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-pearson">Cosine با هم‌بستگی Pearson چه تفاوتی دارد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۳ـ۹. ماهالانوبیس: وقتی پراکندگی و هم‌بستگی، هندسه را عوض می‌کنند</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">مثال دستی با کوواریانس قطری</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">مثال هم‌بستگی و جهت تغییر</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gower">۳ـ۱۰. ترکیب انواع ویژگی‌ها: فاصلهٔ Gower و قراردادهای حذف</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">یک مثال عددی کامل با پنج ویژگی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">مسئلهٔ جدی دادهٔ گمشده و مقایسهٔ زوج‌به‌زوج</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">وزن‌ها و آستانه‌ها را چطور انتخاب کنیم؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kl-jensenshannon">۳ـ۱۱. توزیع‌ها را با رکوردها اشتباه نگیریم: KL و Jensen–Shannon</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">مثال دستی دو نوع کالا</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۳ـ۱۲. اطلاعات متقابل: شباهت بین <em>متغیرها</em>، نه لزوماً بین <em>رکوردها</em></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">مثال دستی که باید بتوان در کلاس حل کرد</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bregman">۳ـ۱۳. کرنل‌ها و واگرایی Bregman: وقتی هندسهٔ پنهان را خودمان می‌سازیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">کرنل چیست و چه نسبتی با «شباهت» دارد؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">واگرایی Bregman، کوتاه اما با یک مثال دقیق</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۳ـ۱۴. هندسهٔ گراف و دادهٔ پیچیده: کوتاه‌ترین مسیر، نه خط مستقیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۳ـ۱۵. بُعد بالا و شبه‌برابری فاصله‌ها: حدّ اعتبار «نزدیکی»</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">۳ـ۱۶. انتخاب معیار مناسب: یک پروتکل برای داده‌کاوی قابل دفاع</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">یک شبه‌کد کوتاه برای انتخاب و ارزیابی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-notebook">۳ـ۱۷. آزمایشگاه عملی: از قلم و کاغذ تا Python و Notebook</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">گام اول: تغییر همسایه با Minkowski</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id36">گام دوم: اثر انبوه صفرها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id37">گام سوم: Gower و حذف ویژگی نامرتبط</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id38">گام چهارم: مقایسهٔ توزیع‌ها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id39">گام پنجم: آزمایشگاه تعاملی بدون نصب</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id40">نگاه به کد کتابخانه‌های علمی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id41">۳ـ۱۸. تمرین‌های پایانی و فعالیت کلاسی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id42">۳ـ۱۹. جمع‌بندی، مرزبندی و پیوند با فصل چهارم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id43">راهنمای مراجعه به منابع علمی</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

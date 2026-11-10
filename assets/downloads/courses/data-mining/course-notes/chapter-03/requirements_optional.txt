@@ -1,0 +1,7 @@
+# Optional only for regenerating the 18 original figures
+numpy>=1.24
+matplotlib>=3.7
+scipy>=1.10
+# Optional for Jupyter execution:
+nbformat>=5.9
+ipykernel>=6.24
