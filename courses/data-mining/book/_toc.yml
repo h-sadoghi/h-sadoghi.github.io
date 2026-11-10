@@ -6,3 +6,5 @@ chapters:
     sections:
       - file: course-notes/chapter-01
         title: مبانی داده‌کاوی و فرایند کشف دانش
+      - file: course-notes/chapter-02
+        title: بازنمایی داده، انواع ویژگی‌ها و کیفیت داده

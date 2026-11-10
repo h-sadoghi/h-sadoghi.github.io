@@ -1,0 +1,61 @@
+/* Data Mining book – Persian/RTL typography patch */
+
+.bd-article-container .bd-content h1,
+.bd-article-container .bd-content h2,
+.bd-article-container .bd-content h3,
+.bd-article-container .bd-content h4,
+.bd-article-container .bd-content h5,
+.bd-article-container .bd-content h6 {
+  text-align: right;
+}
+
+.bd-article-container .bd-content p,
+.bd-article-container .bd-content li,
+.bd-article-container .bd-content blockquote,
+.bd-article-container .bd-content figcaption,
+.bd-article-container .bd-content table,
+.bd-article-container .bd-content table th,
+.bd-article-container .bd-content table td,
+.bd-article-container .bd-content .admonition,
+.bd-article-container .bd-content .admonition-title,
+.bd-article-container .bd-content .caption,
+.bd-article-container .bd-content .rubric {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: plaintext;
+}
+
+.bd-article-container .bd-content ul,
+.bd-article-container .bd-content ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+.bd-article-container .bd-content .admonition ul,
+.bd-article-container .bd-content .admonition ol {
+  margin-right: 0.25rem;
+}
+
+/* Keep code, notebooks, math, and raw technical tokens left-to-right */
+.bd-article-container .bd-content pre,
+.bd-article-container .bd-content code,
+.bd-article-container .bd-content .highlight,
+.bd-article-container .bd-content .literal-block,
+.bd-article-container .bd-content .cell_input,
+.bd-article-container .bd-content .cell_output,
+.bd-article-container .bd-content .jp-Cell,
+.bd-article-container .bd-content .math,
+.bd-article-container .bd-content .MathJax,
+.bd-article-container .bd-content .sd-tab-content pre,
+.bd-article-container .bd-content .sd-tab-content code {
+  direction: ltr;
+  text-align: left;
+  unicode-bidi: isolate;
+}
+
+/* Make figure images and equations stay centered */
+.bd-article-container .bd-content .figure,
+.bd-article-container .bd-content .math-wrapper,
+.bd-article-container .bd-content .align-center {
+  text-align: center;
+}
