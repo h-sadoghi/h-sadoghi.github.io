@@ -130,3 +130,8 @@
       title: معیارهای شباهت، فاصله و هندسهٔ داده‌ها
       summary: "> **درس داده‌کاوی ـ کارشناسی ارشد مهندسی کامپیوتر**"
       book_url: /teaching/data-mining/book/course-notes/chapter-03.html
+    - id: chapter-04
+      number: 4
+      title: پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد
+      summary: "> **درس داده‌کاوی ـ کارشناسی ارشد مهندسی کامپیوتر**"
+      book_url: /teaching/data-mining/book/course-notes/chapter-04.html

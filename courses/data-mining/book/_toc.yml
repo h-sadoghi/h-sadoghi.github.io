@@ -10,3 +10,5 @@ chapters:
         title: بازنمایی داده، انواع ویژگی‌ها و کیفیت داده
       - file: course-notes/chapter-03
         title: معیارهای شباهت، فاصله و هندسهٔ داده‌ها
+      - file: course-notes/chapter-04
+        title: پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد
