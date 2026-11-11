@@ -1,0 +1,1223 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل چهارم — پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد &#8212; Data Mining Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/data-mining-rtl.css?v=0a14a926" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-04';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="فصل سوم — معیارهای شباهت، فاصله و هندسهٔ داده‌ها" href="chapter-03.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Mining Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    داده‌کاوی | Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های درس داده‌کاوی</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">مبانی داده‌کاوی و فرایند کشف دانش</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">معیارهای شباهت، فاصله و هندسهٔ داده‌ها</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-04.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل چهارم — پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و مسئلهٔ آموزشی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه فصل در دو مرجع اصلی و مرزبندی با فصل‌های قبل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۴ـ۱. مسئلهٔ آغازین: چرا گزارش خلاصه‌شده، یک اتفاق مهم را پنهان کرد؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۴ـ۲. سه عملیات متفاوت که اغلب به اشتباه یکی گرفته می‌شوند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۴ـ۳. تجمیع و دانه‌بندی: پیش از میانگین‌گرفتن واحد مشاهده را بپرسیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۴ـ۴. نمونه‌گیری: از یک میلیارد رکورد چه چیزی را باید حفظ کنیم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">از نظر محاسباتی، نمونه به چه اندازه باشد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۴ـ۵. نمونه‌گیری طبقه‌ای و خوشه‌ای: چرا وزن‌ها اهمیت دارند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">تفاوت حیاتی بین طبقه و خوشه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reservoir-sampling">۴ـ۶. دادهٔ جریانی و نمونه‌گیری مخزنی (Reservoir Sampling)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۴ـ۷. پاک‌سازی و یکپارچه‌سازی در حدی که بر استخراج الگو اثر می‌گذارند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۴ـ۸. تبدیل مقیاس: چرا ویژگی بزرگ‌تر لزوماً مهم‌تر نیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmax">Min–Max</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score">استانداردسازی Z-score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">مقیاس‌بندی مقاوم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">تبدیل لگاریتمی و نرمال‌سازی برداری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۴ـ۹. نشت اطلاعات: مرز آموزش، اعتبارسنجی و آزمون را قبل از تبدیل مشخص کنید</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۴ـ۱۰. گسسته‌سازی: چگونه مقدار پیوسته را به «اقلام» قابل کشف تبدیل کنیم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equal-width">هم‌عرض (Equal-width)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equal-frequency-quantile">هم‌فراوانی (Equal-frequency/Quantile)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۴ـ۱۱. تبدیل متغیر اسمی و دودویی‌سازی: به کد عددی معنای هندسی ندهیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۴ـ۱۲. انتخاب ویژگی: تفسیرپذیری را در برابر اطلاعات ازدست‌رفته بسنجیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۴ـ۱۳. استخراج ویژگی: وقتی سؤال را با متغیر تازه بهتر می‌توان دید</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۴ـ۱۴. کاهش بُعد: چرا فشرده‌سازی با انتخاب ویژگی یکسان نیست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pca">۴ـ۱۵. تحلیل مؤلفه‌های اصلی (PCA) از محاسبهٔ دستی تا هندسه</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">مثال دستی پنج نقطه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">چرا بردار ویژه ظاهر می‌شود؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">سهم واریانس و انتخاب تعداد مؤلفه‌ها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">خطای بازسازی و قرارداد برازش</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-pca">۴ـ۱۶. SVD و تقریب کم‌رتبه: فشرده‌سازی ماتریس را با PCA ربط بدهیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">جایگاه فشرده‌سازی موجک و تبدیل‌های ویژهٔ داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۴ـ۱۷. فرافکنی تصادفی و روش‌های غیرخطی: چه وعده‌ای واقعاً می‌دهند؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۴ـ۱۸. نفرین بُعد و انتخاب بازنمایی برای کشف الگو</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۴ـ۱۹. آزمایشگاه جامع: از تراکنش ساختگی تا دادهٔ آمادهٔ کشف</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">نحوهٔ اجرای کد و تفسیر خروجی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">پروتکل پیشنهادی برای دفاع علمی از پیش‌پردازش</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۴ـ۲۰. خطاهای رایج و آزمون‌های تشخیصی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۴ـ۲۱. تمرین‌های پایانی و فعالیت کلاسی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">فعالیت کلاسیِ پیشنهادی (۵۰ تا ۷۰ دقیقه)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">۴ـ۲۲. جمع‌بندی و پیوند با فصل پنجم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">منابع</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل چهارم — پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>درس داده‌کاوی ـ کارشناسی ارشد مهندسی کامپیوتر</strong><br />
+<strong>پرسش محوری:</strong> وقتی داده را برای کشف الگو آماده می‌کنیم، دقیقاً چه چیزی حفظ می‌شود، چه چیزی از دست می‌رود و چگونه می‌فهمیم الگوی کشف‌شده حاصل دست‌کاری بازنمایی نیست؟</p>
+</div></blockquote>
+<p><strong>فایل‌های آموزشی:</strong> <a href="/assets/downloads/courses/data-mining/course-notes/chapter-04/DataMining_Chapter04.pdf" download>جزوهٔ PDF فصل چهارم</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-04/DataMining_Chapter04_TEX_PDF_SOURCE.zip" download>سورس XeLaTeX و تصاویر در ZIP</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-04/chapter04_examples.py" download>کد بازتولیدپذیر Python</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-04/chapter04_examples.ipynb" download>Notebook</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-04/transactions_synthetic.csv" download>دادهٔ ساختگی</a>. همهٔ فایل‌های لازم برای آزمایش‌ها در بستهٔ فصل قرار دارند.</p>
+<section id="id2">
+<h2>اهداف یادگیری و مسئلهٔ آموزشی<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>انتظار می‌رود دانشجو پس از این فصل بتواند: (۱) تفاوت <strong>کاهش تعداد مشاهده‌ها</strong>، <strong>کاهش تعداد ویژگی‌ها</strong> و <strong>تغییر مقیاس یا بازنمایی</strong> را توضیح دهد؛ (۲) واحد مشاهده و سطح تجمیع را بدون از دست‌دادن پدیدهٔ مورد پرسش تعیین کند؛ (۳) نمونه‌گیری تصادفی، طبقه‌ای، خوشه‌ای و مخزنی را مقایسه کند؛ (۴) اثر نمونه‌گیری بر الگوهای نادر و برآوردهای جامعه را حساب کند؛ (۵) نرمال‌سازی، استانداردسازی و روش‌های مقاوم را با توجه به هندسهٔ فصل سوم انتخاب کند؛ (۶) گسسته‌سازی و تبدیل متغیر اسمی را بدون ایجاد ترتیب ساختگی پیاده‌سازی کند؛ (۷) <strong>انتخاب ویژگی</strong> را از <strong>استخراج ویژگی و فرافکنی</strong> متمایز کند؛ (۸) PCA را از ماتریس کوواریانس تا مقدار ویژه، سهم واریانس و بازسازی مرحله‌به‌مرحله بفهمد؛ (۹) نقش SVD و فرافکنی تصادفی را در کاهش بُعد بشناسد؛ و (۱۰) از طریق یک ارزیابی <strong>بدون نشت اطلاعات</strong>، مناسب‌بودن خروجی پیش‌پردازش را برای مسئلهٔ داده‌کاوی بررسی کند.</p>
+<figure class="align-default" id="dm4-roadmap">
+<a class="reference internal image-reference" href="../_images/fig04_01.png"><img alt="../_images/fig04_01.png" src="../_images/fig04_01.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 41 </span><span class="caption-text">شکل ۴ـ۱. مسیر استدلالی فصل: از سؤال و واحد مشاهده تا انتخاب نمونه، تبدیل، کشف الگو و ممیزی نتیجه. هر جعبه تصمیمی است که می‌تواند نتیجه را تغییر دهد.</span><a class="headerlink" href="#dm4-roadmap" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id3">
+<h3>جایگاه فصل در دو مرجع اصلی و مرزبندی با فصل‌های قبل<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>در کتاب <strong>Han, Pei &amp; Tong</strong>، ویرایش چهارم، فصل ۲، بخش‌های <strong>۲٫۴ تا ۲٫۶</strong> (صفحات چاپی <strong>۵۵ تا ۷۹</strong>) به کیفیت و یکپارچه‌سازی، تبدیل داده، نرمال‌سازی، گسسته‌سازی، فشرده‌سازی، نمونه‌گیری، PCA، انتخاب زیرمجموعهٔ ویژگی‌ها و کاهش بُعد غیرخطی می‌پردازد. در کتاب <strong>Tan, Steinbach, Karpatne &amp; Kumar</strong>، ویرایش دوم، بخش <strong>۲٫۳</strong> (صفحات چاپی <strong>۵۰ تا ۷۱</strong>) موضوع را با تجمیع، نمونه‌گیری، کاهش بُعد، انتخاب و ساخت ویژگی، دودویی‌سازی و تبدیل متغیر دنبال می‌کند. شماره‌های صفحه، صفحهٔ <strong>چاپ‌شدهٔ کتاب</strong> هستند، نه شمارهٔ صفحهٔ فایل PDF.</p>
+<p>در فصل دوم، <strong>کیفیت داده و انواع ویژگی</strong> بررسی شد؛ در فصل سوم، نشان دادیم که یک تغییر مقیاس می‌تواند همسایهٔ نزدیک را عوض کند. پس در این فصل مباحثِ کیفیت‌سنجی را دوباره از ابتدا تدریس نمی‌کنیم؛ آن‌ها را به تصمیم‌های <em>عملیاتیِ پیش‌پردازش</em> پیوند می‌دهیم. محور Tan، «متناسب‌سازی بازنمایی با هدف تحلیل» و محور Han، «خانوادهٔ تبدیل‌ها و فشرده‌سازی و کاهش داده» است. مثال‌ها و شکل‌های این جزوه تازه و آموزشی‌اند و بازنشر شکل کتاب‌ها نیستند. بحث‌های تکمیلیِ نشت اطلاعات، همسایگی پس از فرافکنی، دادهٔ آزمایش ساختگی و پروتکل ممیزی به‌عنوان <strong>بسط آموزشی مستقل</strong> ارائه می‌شوند.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>۴ـ۱. مسئلهٔ آغازین: چرا گزارش خلاصه‌شده، یک اتفاق مهم را پنهان کرد؟<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>یک سامانهٔ خرده‌فروشی را تصور کنید که روزانه هزاران رکورد خرید ثبت می‌کند. مدیر می‌خواهد «رفتار غیرعادی خرید» و «اقلامی که با هم خریده می‌شوند» را بررسی کند. تیم فنی برای سرعت، سفارش‌ها را ماهانه جمع می‌زند، یک‌دهم رکوردها را تصادفی نگه می‌دارد، همهٔ ستون‌ها را به عدد تبدیل می‌کند و در نهایت داده را به دو مؤلفه کاهش می‌دهد. حالا الگوریتم سریع است؛ اما آیا هنوز همان سؤال اولیه را پاسخ می‌دهد؟</p>
+<p>برای شروع، تنها چهار روز و شش تراکنش ساختگی را ببینید:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>شناسه</p></th>
+<th class="head text-left"><p>روز</p></th>
+<th class="head text-left"><p>شهر</p></th>
+<th class="head text-right"><p>مبلغ (واحد ساختگی)</p></th>
+<th class="head text-left"><p>قلم کالا</p></th>
+<th class="head text-right"><p>برچسب آموزشیِ رخداد نادر</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>A1</p></td>
+<td class="text-left"><p>۱</p></td>
+<td class="text-left"><p>A</p></td>
+<td class="text-right"><p>۲۰</p></td>
+<td class="text-left"><p>bread</p></td>
+<td class="text-right"><p>۰</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>A2</p></td>
+<td class="text-left"><p>۱</p></td>
+<td class="text-left"><p>A</p></td>
+<td class="text-right"><p>۳۰</p></td>
+<td class="text-left"><p>milk</p></td>
+<td class="text-right"><p>۰</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>B1</p></td>
+<td class="text-left"><p>۲</p></td>
+<td class="text-left"><p>A</p></td>
+<td class="text-right"><p>۲۵</p></td>
+<td class="text-left"><p>bread</p></td>
+<td class="text-right"><p>۰</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>B2</p></td>
+<td class="text-left"><p>۲</p></td>
+<td class="text-left"><p>A</p></td>
+<td class="text-right"><p>۲۸</p></td>
+<td class="text-left"><p>milk</p></td>
+<td class="text-right"><p>۰</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>C1</p></td>
+<td class="text-left"><p>۳</p></td>
+<td class="text-left"><p>B</p></td>
+<td class="text-right"><p>۲۶</p></td>
+<td class="text-left"><p>bread</p></td>
+<td class="text-right"><p>۰</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>D1</p></td>
+<td class="text-left"><p>۴</p></td>
+<td class="text-left"><p>B</p></td>
+<td class="text-right"><p>۳۰۰</p></td>
+<td class="text-left"><p>camera</p></td>
+<td class="text-right"><p>۱</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>اگر سؤال «جمع مبلغ در هر روز» باشد، خروجی چهار عدد <strong>۵۰، ۵۳، ۲۶، ۳۰۰</strong> است. اما اگر سؤال «چه قلمی در تراکنش D1 رخ داده؟» باشد، با تبدیل به <em>مجموع روزانه</em> اطلاعات قلم کالا و شناسهٔ خرید از بین رفته‌اند. میانگین مبلغ این شش تراکنش برابر <strong>۷۱٫۵</strong> است؛ این عدد نه تعداد رخداد نادر را مشخص می‌کند و نه ساختار هم‌خریدی را. بنابراین <strong>کاهش حجم داده به‌خودی‌خود پیشرفت نیست</strong>؛ باید معلوم کنیم برای کدام پرسش، کدام اطلاعات کافی است.</p>
+<p><strong>قرارداد مثال پیوسته.</strong> در پیوست، یک مجموعه‌دادهٔ <strong>کاملاً ساختگی</strong> با ۳۲۰ تراکنش، سه شهر، چهار گروه کالا، تعداد اقلام، تعداد مراجعه، درصد تخفیف، مبلغ و یک نشانگر <code class="docutils literal notranslate"><span class="pre">rare_event</span></code> داریم. این نشانگر تنها برای آزمایشِ توان حفظ رخداد نادر به کار می‌رود، نه به‌عنوان ویژگی ورودی الگوریتمِ بدون‌ناظر. هیچ ادعایی دربارهٔ فروشگاه واقعی یا کشف تقلب واقعی نداریم.</p>
+<figure class="align-default" id="dm4-aggregation">
+<a class="reference internal image-reference" href="../_images/fig04_02.png"><img alt="../_images/fig04_02.png" src="../_images/fig04_02.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 42 </span><span class="caption-text">شکل ۴ـ۲. یک جهش کوتاه در دادهٔ روزانه، پس از تجمیع هفتگی کم‌رنگ می‌شود؛ این مثال ساختگی نشان می‌دهد که «هموارترشدن» همیشه به معنی «بهترشدن» نیست.</span><a class="headerlink" href="#dm4-aggregation" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id5">
+<h2>۴ـ۲. سه عملیات متفاوت که اغلب به اشتباه یکی گرفته می‌شوند<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>داده را به‌صورت ماتریس <span class="math notranslate nohighlight">\(X\in\mathbb{R}^{n\times p}\)</span> با <span class="math notranslate nohighlight">\(n\)</span> مشاهده و <span class="math notranslate nohighlight">\(p\)</span> ویژگی عددی در نظر بگیرید. در <strong>انتخاب مشاهده</strong>، برخی سطرها را برمی‌داریم و تعداد مشاهده‌ها از <span class="math notranslate nohighlight">\(n\)</span> به <span class="math notranslate nohighlight">\(m\)</span> کاهش می‌یابد. در <strong>انتخاب ویژگی</strong>، برخی ستون‌های اصلی را نگه می‌داریم و تعداد ویژگی‌ها از <span class="math notranslate nohighlight">\(p\)</span> به <span class="math notranslate nohighlight">\(k\)</span> می‌رسد. در <strong>استخراج ویژگی</strong>، ستون‌های جدیدی مانند مؤلفه‌های PCA یا نسبت «مبلغ به تعداد اقلام» می‌سازیم؛ ستون‌های جدید لزوماً یکی از ستون‌های اصلی نیستند.</p>
+<p>از نگاه ریاضی، با ماتریس‌های انتخاب سطر <span class="math notranslate nohighlight">\(S\)</span> و انتخاب ستون <span class="math notranslate nohighlight">\(C\)</span> می‌توان نوشت:</p>
+<div class="math notranslate nohighlight">
+\[
+X_{\mathrm{rows}}=SX,\qquad X_{\mathrm{cols}}=XC,
+\qquad Z=(X-\mathbf{1}\mu^{\top})W.
+\]</div>
+<p>در این روابط، <span class="math notranslate nohighlight">\(S\)</span> از سطرها نمونه می‌گیرد؛ <span class="math notranslate nohighlight">\(C\)</span> زیرمجموعه‌ای از ستون‌های اصلی است؛ و <span class="math notranslate nohighlight">\(W\)</span> ماتریسی است که چند ویژگی را با هم ترکیب می‌کند. این تمایز در ارزیابی مهم است: بازسازی از <span class="math notranslate nohighlight">\(XC\)</span> در حالت کلی ممکن نیست، چون ستون‌های حذف‌شده موجود نیستند؛ در فرافکنی نیز بازسازی غالباً تقریبی است، مگر آنکه همهٔ مؤلفه‌های لازم را نگه داریم.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>عمل</p></th>
+<th class="head text-left"><p>چه چیزی تغییر می‌کند؟</p></th>
+<th class="head text-left"><p>سود اصلی</p></th>
+<th class="head text-left"><p>خطر اصلی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>تجمیع</p></td>
+<td class="text-left"><p>تعریف مشاهده و دقت زمانی/مکانی</p></td>
+<td class="text-left"><p>مقیاس و پایداری</p></td>
+<td class="text-left"><p>محوشدن الگوی محلی</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>نمونه‌گیری</p></td>
+<td class="text-left"><p>تعداد سطرها</p></td>
+<td class="text-left"><p>سرعت</p></td>
+<td class="text-left"><p>حذف گروه نادر و سوگیری</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>تغییر مقیاس</p></td>
+<td class="text-left"><p>واحد و هندسهٔ مختصات</p></td>
+<td class="text-left"><p>مقایسهٔ عادلانهٔ ویژگی‌ها</p></td>
+<td class="text-left"><p>تقویت نویز، نشت اطلاعات</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>گسسته‌سازی</p></td>
+<td class="text-left"><p>مقدار پیوسته به بازه/کد</p></td>
+<td class="text-left"><p>تفسیرپذیری و الگوی انجمنی</p></td>
+<td class="text-left"><p>حذف ترتیب دقیق</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>انتخاب ویژگی</p></td>
+<td class="text-left"><p>تعداد ستون‌های اصلی</p></td>
+<td class="text-left"><p>سادگی و قابلیت تفسیر</p></td>
+<td class="text-left"><p>از دست‌دادن اطلاعات مکمل</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>فرافکنی/PCA</p></td>
+<td class="text-left"><p>ساخت مختصات جدید</p></td>
+<td class="text-left"><p>کاهش افزونگی</p></td>
+<td class="text-left"><p>از دست‌دادن معنا یا رخداد نادر</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>پرسش تشخیصی:</strong> اگر می‌خواهیم الگوهای هم‌خریدی را استخراج کنیم، آیا ماهانه‌کردن مبلغ خرید همان انتخاب ۲۰٪ سفارش‌هاست؟ خیر. اولی <em>نوع شیء و معنای رکورد</em> را تغییر می‌دهد، دومی تعداد همان شیء را.</p>
+</section>
+<section id="id6">
+<h2>۴ـ۳. تجمیع و دانه‌بندی: پیش از میانگین‌گرفتن واحد مشاهده را بپرسیم<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p><strong>دانه‌بندی (Granularity)</strong> تعیین می‌کند «یک سطر» نمایندهٔ چیست: یک قلم در یک سفارش، کل سفارش، خریدهای یک مشتری در یک هفته یا کل فروشگاه در یک ماه. قاعدهٔ جمع‌زدن برای هر نوع متغیر یکسان نیست: «تعداد اقلام» و «مبلغ» معمولاً جمع‌پذیرند؛ «قیمت متوسط» باید با وزن مناسب بازسازی شود؛ «شهر» قابل جمع نیست؛ و «آیا این سفارش شامل کالای X بود؟» با متوسط‌گیری می‌تواند معنای دیگری پیدا کند.</p>
+<p><strong>محاسبهٔ دستی.</strong> فروشگاه در یک روز دو تراکنش ثبت کرده است: سه قلم با مبلغ ۶۰ و یک قلم با مبلغ ۲۰. میانگین «مبلغ هر تراکنش» برابر <span class="math notranslate nohighlight">\((60+20)/2=40\)</span> است. اما میانگین «مبلغ هر قلم» برابر <span class="math notranslate nohighlight">\((60+20)/(3+1)=20\)</span> است. اگر در پایگاه داده تنها دو میانگینِ سطح فروشگاه نگه داشته شود و تعدادها گم شوند، برگرداندن میانگین درست ممکن نیست.</p>
+<p>اگر هر گروه <span class="math notranslate nohighlight">\(g\)</span> دارای تعداد <span class="math notranslate nohighlight">\(n_g\)</span> و میانگین <span class="math notranslate nohighlight">\(\bar{x}_g\)</span> باشد، میانگین کل با وزن تعداد محاسبه می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+\bar{x}=\frac{\sum_g n_g\bar{x}_g}{\sum_g n_g}.
+\]</div>
+<p>در مثال ما، اگر گروه اول شامل سه قلم با میانگین ۲۰ و گروه دوم یک قلم با میانگین ۲۰ باشد، میانگین وزنی همچنان ۲۰ است؛ اما میانگین بی‌وزن «میانگین خرید هر سفارش» با تعریف دیگری محاسبه می‌شود. بنابراین حتی یک فرمول ساده باید با <strong>تعریف مخرج</strong> همراه باشد.</p>
+<p>برای کشف رخداد غیرعادی، در کنار جمع ماهانه معمولاً کمیت‌هایی مانند <code class="docutils literal notranslate"><span class="pre">max</span></code>, <code class="docutils literal notranslate"><span class="pre">count</span></code>, <code class="docutils literal notranslate"><span class="pre">std</span></code> و صدک‌های مهم را نگه می‌داریم؛ گاهی نیز باید رکورد خام را برای تحلیل تکمیلی حفظ کنیم. پس پیشنهاد عملی این است: <strong>ابتدا سطح تحلیل را مشخص کنید؛ سپس آمار کافی برای پرسش را انتخاب کنید؛ و سرانجام هزینهٔ از دست‌دادن جزئیات را بسنجید.</strong></p>
+</section>
+<section id="id7">
+<h2>۴ـ۴. نمونه‌گیری: از یک میلیارد رکورد چه چیزی را باید حفظ کنیم؟<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>در داده‌کاوی، یکی از دلایل نمونه‌گیری این است که الگوریتم روی کل داده از نظر حافظه یا زمان مقرون‌به‌صرفه نیست. اما معیار خوب‌بودن نمونه، صرفاً کوچک‌بودن نیست؛ باید از نظر <strong>ویژگی مورد مطالعه</strong> نمایندهٔ جامعه باشد. به بیان Tan، نمونه‌ای که برای برآورد میانگین مناسب است ممکن است برای کشف خوشهٔ بسیار کوچک مناسب نباشد. انتخاب طرح نمونه به هدف وابسته است.</p>
+<p>در <strong>نمونه‌گیری تصادفی سادهٔ بدون جایگذاری</strong> (<code class="docutils literal notranslate"><span class="pre">SRSWOR</span></code>)، هر زیرمجموعهٔ <span class="math notranslate nohighlight">\(m\)</span>تایی از جامعهٔ <span class="math notranslate nohighlight">\(N\)</span>تایی، احتمال یکسان دارد و هیچ رکوردی دوبار برداشته نمی‌شود. در حالت <strong>با جایگذاری</strong> (<code class="docutils literal notranslate"><span class="pre">SRSWR</span></code>)، یک رکورد می‌تواند چند بار انتخاب شود. برای <span class="math notranslate nohighlight">\(m\ll N\)</span> تفاوت این دو کوچک است، اما برای نمونهٔ بزرگ ممکن است اثر تکرار مهم شود.</p>
+<p>اگر جامعهٔ ۱۰۰ سفارش داشته باشد که فقط ۵ تای آن «نادر» باشند، احتمال اینکه نمونهٔ بدون جایگذاریِ ۱۰تایی <strong>هیچ رخداد نادری</strong> نبیند برابر است با:</p>
+<div class="math notranslate nohighlight">
+\[
+P(M=0)=\frac{\binom{95}{10}}{\binom{100}{10}}\approx0.584.
+\]</div>
+<p>یعنی حدود ۵۸٪ نمونه‌های تصادفیِ ده‌تایی، این گروه کوچک را اصلاً نشان نمی‌دهند. <strong>پس نبودن الگو در نمونه، دلیل نبودن آن در جامعه نیست.</strong> افزایش اندازهٔ نمونه احتمال حذف کامل را پایین می‌آورد ولی با سرعتی وابسته به فراوانی واقعی گروه و طرح نمونه.</p>
+<figure class="align-default" id="dm4-sample-srs">
+<a class="reference internal image-reference" href="../_images/fig04_03.png"><img alt="../_images/fig04_03.png" src="../_images/fig04_03.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 43 </span><span class="caption-text">شکل ۴ـ۳. جمعیت دوگروهی و یک نمونهٔ تصادفی سادهٔ کوچک. در سمت نمونه، ممکن است نمایندگی گروه کوچک به‌طور اتفاقی کم یا صفر باشد.</span><a class="headerlink" href="#dm4-sample-srs" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="dm4-sample-zero">
+<a class="reference internal image-reference" href="../_images/fig04_04.png"><img alt="../_images/fig04_04.png" src="../_images/fig04_04.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 44 </span><span class="caption-text">شکل ۴ـ۴. احتمالِ از دست‌دادن هر پنج رخداد نادر در جامعه‌ای صدتایی با افزایش اندازهٔ نمونه کاهش می‌یابد؛ منحنی از رابطهٔ فوق محاسبه شده است.</span><a class="headerlink" href="#dm4-sample-zero" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id8">
+<h3>از نظر محاسباتی، نمونه به چه اندازه باشد؟<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>پاسخ «همیشه ده درصد داده» قابل دفاع نیست. اندازهٔ مناسب به فراوانی الگو، میزان خطای قابل پذیرش، سطح اطمینان، ناهمگنی داده و هزینهٔ محاسبه وابسته است. برای برآورد میانگین یک متغیر با واریانس تقریبی <span class="math notranslate nohighlight">\(\sigma^2\)</span>، تحت نمونه‌گیری مستقل و فرض‌های متعارف، خطای معیار حدود <span class="math notranslate nohighlight">\(\sigma/\sqrt{m}\)</span> است. اما این رابطه، تضمین نمی‌کند که نمونه برای یک خوشهٔ نادر یا وابستگی شرطی نیز مناسب باشد.</p>
+<p>یک روش مناسب در پروژه: اندازه‌های <span class="math notranslate nohighlight">\(m,2m,4m\)</span> را مقایسه کنیم و ببینیم <strong>فراوانی الگوهای پرتکرار، ثبات همسایه‌ها یا گروه‌های کوچک</strong> چقدر تغییر می‌کند. اگر نتیجه ناپایدار است، هنوز کاهش داده را نمی‌توان با اطمینان توجیه کرد.</p>
+</section>
+</section>
+<section id="id9">
+<h2>۴ـ۵. نمونه‌گیری طبقه‌ای و خوشه‌ای: چرا وزن‌ها اهمیت دارند؟<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>در <strong>نمونه‌گیری طبقه‌ای (Stratified Sampling)</strong> جامعه را به گروه‌های تعریف‌شده و جدا از هم تقسیم می‌کنیم و از هر گروه نمونه برمی‌داریم. این کار برای اطمینان از حضور شهر کوچک، فصل کم‌فروش یا گروه کم‌تعداد مفید است. اما اگر برای حفظ گروه نادر آن را <em>بیش‌نمونه‌گیری</em> کنیم، سهم آن در نمونه دیگر سهم واقعی جامعه نیست.</p>
+<p><strong>مثال دستی مهم.</strong> ۸۰٪ مشتریان در گروه A میانگین خرید ۱۰ دارند و ۲۰٪ در گروه B میانگین خرید ۵۰. میانگین واقعی جامعه:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu=0.8(10)+0.2(50)=18.
+\]</div>
+<p>اگر از هر گروه ۲۰ نفر بگیریم و میانگین سادهٔ ۴۰ مشاهده را محاسبه کنیم، انتظار داریم <span class="math notranslate nohighlight">\((10+50)/2=30\)</span> شود؛ این <strong>برآورد میانگین جامعه نیست</strong>. با وزن متناسب با اندازهٔ واقعی گروه‌ها، برآورد طبقه‌ای چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat{\mu}_{\mathrm{str}}=\sum_{h=1}^{H}\frac{N_h}{N}\,\bar{x}_h.
+\]</div>
+<p>در <strong>نمونه‌گیری خوشه‌ای (Cluster Sampling)</strong> به‌جای انتخاب رکوردها از کل جامعه، واحدهایی مانند فروشگاه، مدرسه یا صفحهٔ ذخیره‌سازی انتخاب می‌شوند و داده‌های داخل آن‌ها جمع‌آوری می‌شوند. اجرا می‌تواند کم‌هزینه‌تر باشد، ولی نمونهٔ واقعی از نظر هم‌بستگی درون خوشه متفاوت است. ده سفارش از یک مشتری را نباید لزوماً ده مشاهدهٔ مستقل دربارهٔ جمعیت مشتریان بدانیم.</p>
+<section id="id10">
+<h3>تفاوت حیاتی بین طبقه و خوشه<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>هدف متداولِ نمونه‌گیری طبقه‌ای، حفظ یا بهبود پوششِ گروه‌های معنادار در سراسر جامعه است؛ هدف متداولِ نمونه‌گیری خوشه‌ای، صرفه‌جویی با انتخاب چند واحد گروهی است. اگر مشتریان داخل فروشگاه از نظر رفتار شبیه‌اند، نمونه‌گیری چند فروشگاه می‌تواند واریانس تخمین را بیشتر کند. در گزارش نهایی طرح نمونه، باید <strong>جامعه، واحد نمونه، روش، احتمال انتخاب، وزن و محدودیت تعمیم</strong> نوشته شود.</p>
+</section>
+</section>
+<section id="reservoir-sampling">
+<h2>۴ـ۶. دادهٔ جریانی و نمونه‌گیری مخزنی (Reservoir Sampling)<a class="headerlink" href="#reservoir-sampling" title="Link to this heading">#</a></h2>
+<p>گاهی تعداد تراکنش‌های نهایی از قبل معلوم نیست و داده به‌صورت جریان وارد می‌شود. اگر فقط ظرفیت نگهداری <span class="math notranslate nohighlight">\(k\)</span> رکورد داشته باشیم، <strong>نمونه‌گیری مخزنی</strong> نمونه‌ای یکنواخت از همهٔ رکوردهای دیده‌شده تولید می‌کند، بدون ذخیرهٔ کل جریان.</p>
+<p>شبه‌کد برای جریان با شماره‌گذاری یک‌مبنایی:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>reservoir &lt;- first k observations
+for i = k+1, k+2, ...:
+    j &lt;- random integer from 1 to i
+    if j &lt;= k:
+        reservoir[j] &lt;- observation_i
+</pre></div>
+</div>
+<p>چرا این روش عادلانه است؟ رکورد جدید در لحظهٔ <span class="math notranslate nohighlight">\(i\)</span> با احتمال <span class="math notranslate nohighlight">\(k/i\)</span> وارد مخزن می‌شود. رکورد قدیمی که پیش از آن در مخزن بود، با احتمال <span class="math notranslate nohighlight">\((i-1)/i\)</span> باقی می‌ماند. با استقرا، پس از دیدن <span class="math notranslate nohighlight">\(n\)</span> رکورد، احتمال حضور هر رکورد همان <span class="math notranslate nohighlight">\(k/n\)</span> است. برای مثال با مخزن ده‌تایی، پس از رسیدن جریان به ۱۰۰ رکورد، هر رکورد دقیقاً احتمال <span class="math notranslate nohighlight">\(0.1\)</span> برای حضور در مخزن دارد.</p>
+<figure class="align-default" id="dm4-reservoir">
+<a class="reference internal image-reference" href="../_images/fig04_05.png"><img alt="../_images/fig04_05.png" src="../_images/fig04_05.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 45 </span><span class="caption-text">شکل ۴ـ۵. با افزایش طول جریان، احتمال حضور هر رکورد در مخزن ثابتِ ده‌تایی کاهش می‌یابد، اما <strong>برای همهٔ رکوردهای دیده‌شده برابر</strong> باقی می‌ماند.</span><a class="headerlink" href="#dm4-reservoir" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>محدودیت:</strong> یکنواختیِ نمونه به‌معنی مناسب‌بودن برای <strong>تغییر مفهوم در زمان (Concept Drift)</strong> نیست. اگر هدف تحلیل «ده دقیقهٔ اخیر» باشد، یک مخزن یکنواخت از کل تاریخ لزوماً مناسب نیست و پنجرهٔ زمانی یا نمونه‌گیری وزن‌دار لازم می‌شود. این بحث، بسط کاربردی فراتر از ارائهٔ پایهٔ دو مرجع است.</p>
+</section>
+<section id="id11">
+<h2>۴ـ۷. پاک‌سازی و یکپارچه‌سازی در حدی که بر استخراج الگو اثر می‌گذارند<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>فصل دوم دربارهٔ کیفیت داده، مقادیر گمشده، تکرار رکورد و نام‌گذاری ویژگی‌ها بود. اینجا فقط پیامد آن تصمیم‌ها را در <strong>پیش‌پردازش برای کشف</strong> می‌بینیم. پاک‌سازی باید تعریف مشخصی داشته باشد: آیا «صفر» واقعاً نبود خرید است؟ آیا <code class="docutils literal notranslate"><span class="pre">-999</span></code> کد گمشده است؟ آیا حذف یک تکرار برحسب «شناسهٔ سفارش» انجام شده یا «شناسهٔ قلم»؟ پاسخ هر سؤال ممکن است تعداد تراکنش‌ها، فراوانی یک قلم و در نهایت <strong>پشتیبانی قواعد انجمنی</strong> را عوض کند.</p>
+<p><strong>مثال دستی.</strong> در سبدهای <span class="math notranslate nohighlight">\(\{A,B\}\)</span>، <span class="math notranslate nohighlight">\(\{A\}\)</span> و <span class="math notranslate nohighlight">\(\{B\}\)</span>، فراوانی قلم <span class="math notranslate nohighlight">\(A\)</span> برابر ۲ از ۳ است. اگر سبد اول به‌اشتباه دوبار ثبت شده باشد، نسبت آن به ۳ از ۴ تغییر می‌کند؛ در نتیجه تصمیم «قلم A پرتکرار است یا نه؟» ممکن است با آستانهٔ مشخص تغییر کند. پس حذف تکراری که در تحلیل مبادلات به‌جا است، نباید به حذف خرید واقعیِ دوباره از سوی یک مشتری تبدیل شود.</p>
+<p>در <strong>یکپارچه‌سازی</strong> نیز کلیدهای پیوند مهم‌اند: پیوند سفارش به جدول اقلام از نوع یک‌به‌چند است؛ اگر پس از <code class="docutils literal notranslate"><span class="pre">join</span></code> تعداد سطرها زیاد شد، این افزایش لزوماً خطا نیست، اما محاسبهٔ «مبلغ کل سفارش» روی سطرهای تکرارشده می‌تواند اشتباه باشد. برای کنترل باید شمارش قبل/بعد، یکتایی کلید و قرارداد سطح رکورد ثبت شود. این موارد نمونه‌هایی از مباحث Han ۲٫۴ هستند که در پروژهٔ کشف الگو حیاتی‌اند.</p>
+</section>
+<section id="id12">
+<h2>۴ـ۸. تبدیل مقیاس: چرا ویژگی بزرگ‌تر لزوماً مهم‌تر نیست؟<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>فرض کنید دو ویژگی عددیِ «مبلغ خرید» و «تعداد مراجعه» داریم. اگر مبلغ بین ۱۰ تا ۱۰۰۰ و تعداد مراجعه بین ۱ تا ۱۰ باشد، در فاصلهٔ Euclidean خام، اختلاف مبلغ معمولاً غالب می‌شود. همان‌گونه که در فصل سوم دیدیم، <strong>تغییر واحد متر به سانتی‌متر</strong> هم می‌تواند همسایهٔ نزدیک را تغییر دهد. بنابراین مقیاس‌بندی بخشی از انتخاب هندسه است، نه یک عملیات زیبایی‌شناختی روی ستون‌ها.</p>
+<section id="minmax">
+<h3>Min–Max<a class="headerlink" href="#minmax" title="Link to this heading">#</a></h3>
+<p>برای دادهٔ آموزش با کمینه <span class="math notranslate nohighlight">\(a\)</span> و بیشینه <span class="math notranslate nohighlight">\(b\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\widetilde{x}=\frac{x-a}{b-a},\qquad b&gt;a.
+\]</div>
+<p>مثال: برای مقادیر ۱۰، ۲۰، ۳۰، سه خروجی ۰، ۰٫۵ و ۱ حاصل می‌شود. اگر دادهٔ آزمون مقدار ۴۰ داشته باشد، با همان <span class="math notranslate nohighlight">\(a=10,b=30\)</span> مقدار ۱٫۵ به‌دست می‌آید؛ <strong>لزومی ندارد دادهٔ آزمون در بازهٔ صفر تا یک بماند</strong> و نباید برای آن کمینه و بیشینه را دوباره برازش کرد.</p>
+</section>
+<section id="z-score">
+<h3>استانداردسازی Z-score<a class="headerlink" href="#z-score" title="Link to this heading">#</a></h3>
+<div class="math notranslate nohighlight">
+\[
+z=\frac{x-\mu_{\mathrm{train}}}{\sigma_{\mathrm{train}}}.
+\]</div>
+<p>اگر دادهٔ آموزش ۱۰، ۲۰، ۳۰ باشد، میانگین ۲۰ و انحراف معیار جامعه‌ای <span class="math notranslate nohighlight">\(\sqrt{200/3}\approx8.165\)</span> است؛ پس مقدار ۳۰ حدود <span class="math notranslate nohighlight">\(1.225\)</span> انحراف معیار بالاتر از میانگین قرار می‌گیرد. اگر <span class="math notranslate nohighlight">\(\sigma=0\)</span> باشد، ویژگی ثابت است و باید قرارداد روشنی برای آن داشت (مثلاً مقیاس ۱ و سپس حذف ستون ثابت).</p>
+</section>
+<section id="id13">
+<h3>مقیاس‌بندی مقاوم<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>برای دادهٔ دارای جهش شدید، می‌توان از میانه و دامنهٔ میان‌چارکی استفاده کرد:</p>
+<div class="math notranslate nohighlight">
+\[
+r=\frac{x-\operatorname{median}(X_{\mathrm{train}})}{Q_{0.75}(X_{\mathrm{train}})-Q_{0.25}(X_{\mathrm{train}})}.
+\]</div>
+<p>هر سه تبدیل خطی یا وابسته به آمارهٔ ساده‌اند، اما در برابر برون‌زدگی حساسیت یکسان ندارند. <strong>Min–Max به شدت به بیشینهٔ دورافتاده وابسته است؛ Z-score نیز میانگین و واریانس را از همان داده برآورد می‌کند؛ روش مقاوم میانه و IQR را مبنا قرار می‌دهد.</strong> بااین‌حال هیچ‌یک «همیشه بهترین» نیستند: روش مقاوم ممکن است در ویژگی‌ای با IQR صفر نیز به قرارداد ویژه نیاز داشته باشد.</p>
+<figure class="align-default" id="dm4-scale-geometry">
+<a class="reference internal image-reference" href="../_images/fig04_06.png"><img alt="../_images/fig04_06.png" src="../_images/fig04_06.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 46 </span><span class="caption-text">شکل ۴ـ۶. صرف تغییر واحد محور اول، هندسهٔ فاصله را تغییر می‌دهد؛ یک تصمیم از پیش‌پردازش می‌تواند پاسخ سؤال «چه کسی نزدیک‌تر است؟» را دگرگون کند.</span><a class="headerlink" href="#dm4-scale-geometry" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="dm4-scaling-outlier">
+<a class="reference internal image-reference" href="../_images/fig04_07.png"><img alt="../_images/fig04_07.png" src="../_images/fig04_07.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 47 </span><span class="caption-text">شکل ۴ـ۷. سه تبدیل مقیاس برای دادهٔ دارای مقدار دورافتاده. هدف نشان‌دادن تفاوتِ رفتار در برابر جهش است، نه برتری همیشگی یک روش.</span><a class="headerlink" href="#dm4-scaling-outlier" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id14">
+<h3>تبدیل لگاریتمی و نرمال‌سازی برداری<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>وقتی ویژگی نامنفی با دنبالهٔ راست بلند داریم، گاهی <span class="math notranslate nohighlight">\(\log(1+x)\)</span> توزیع را فشرده‌تر می‌کند. اما اگر صفر یا مقدار منفی معنی ویژه داشته باشد باید قرارداد تبدیل مشخص شود؛ <code class="docutils literal notranslate"><span class="pre">log1p</span></code> برای مقادیر بزرگ‌تر از <span class="math notranslate nohighlight">\(-1\)</span> تعریف حقیقی دارد و به‌خودی‌خود مسئلهٔ کدهای گمشده را حل نمی‌کند. برای شباهت کسینوسی، گاهی هر <strong>رکورد</strong> را با نرم <span class="math notranslate nohighlight">\(L_2\)</span> خود نرمال می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+\widehat{x}=\frac{x}{\|x\|_2},\qquad \|x\|_2&gt;0.
+\]</div>
+<p>این عمل با استانداردسازی یک <strong>ستون</strong> متفاوت است: اولی طول بردار رکورد را یک می‌کند، دومی مرکز و مقیاسِ توزیع یک ویژگی را تغییر می‌دهد. انتخاب میان آن‌ها باید از نوع شباهت و هدف کشف پیروی کند.</p>
+</section>
+</section>
+<section id="id15">
+<h2>۴ـ۹. نشت اطلاعات: مرز آموزش، اعتبارسنجی و آزمون را قبل از تبدیل مشخص کنید<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>اگر کمینه، میانگین، میانه، مؤلفه‌های PCA یا انتخاب ویژگی را روی <strong>تمام داده</strong> محاسبه کنیم و بعد به آموزش و آزمون تقسیم کنیم، بخش آزمون بر ساختِ بازنماییِ آموزش اثر گذاشته است. این نوع <strong>نشت اطلاعات (Data Leakage)</strong> می‌تواند برآورد عملکرد را مخدوش کند. در مسائل زمانی، همچنین نباید از آینده برای پردازش رکوردهای گذشته اطلاعات گرفت.</p>
+<p><strong>قرارداد عملی:</strong> ابتدا داده را با توجه به واحد استقلال و زمان/گروه به بخش‌های مناسب تقسیم کنید. سپس مراحل وابسته به داده (مانند Imputer، Scaler، PCA یا Feature Selector) را <strong>فقط روی بخش آموزش <code class="docutils literal notranslate"><span class="pre">fit</span></code></strong> کنید و روی اعتبارسنجی/آزمون صرفاً <strong><code class="docutils literal notranslate"><span class="pre">transform</span></code></strong> اجرا کنید. انتخاب روش و فراپارامتر نیز فقط با اعتبارسنجی انجام می‌شود؛ مجموعهٔ آزمون برای گزارش نهایی کنار می‌ماند.</p>
+<figure class="align-default" id="dm4-leakage">
+<a class="reference internal image-reference" href="../_images/fig04_08.png"><img alt="../_images/fig04_08.png" src="../_images/fig04_08.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 48 </span><span class="caption-text">شکل ۴ـ۸. جریانِ ایمنِ برازش: ابتدا تقسیم؛ سپس برازشِ تبدیل روی آموزش؛ در انتها فقط تبدیلِ بخش‌های دیگر. فلش برگشتِ دادهٔ آزمون به برازش مجاز نیست.</span><a class="headerlink" href="#dm4-leakage" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>مثال فکری.</strong> فرض کنید آزمون شامل مبلغ خریدی بسیار بزرگ است و از قبل روی همهٔ رکوردها Min–Max اجرا شده است. کمینه/بیشینهٔ دادهٔ آزمون، مقیاسِ رکوردهای آموزش را تعیین می‌کند و اگر بعداً آزمون با مقدار دیگری از راه برسد، نتیجهٔ تحلیل آموزش تغییر می‌کند. چنین خط لوله‌ای برای استقرار آینده هم سازگار نیست. نشت اطلاعات <strong>همیشه باعث بهترشدن عدد ارزیابی نمی‌شود</strong>؛ مسئله این است که ارزیابی دیگر واقعاً مستقل نیست.</p>
+<p>برای داده‌کاوی بدون‌ناظر نیز این مسئله مهم است: اگر قرار است «پایداری خوشه‌ها روی دادهٔ جدید» سنجیده شود، انتخاب بُعد، میانگین و مقیاس را نباید با مشاهدهٔ همان دادهٔ جدید انجام داد. اگر هدف صرفاً توصیفِ کل دادهٔ موجود است و هیچ ادعای تعمیم خارج از نمونه نداریم، می‌توان برازش روی کل داده را انتخاب کرد، اما باید <strong>نوع ادعای نتیجه</strong> را صریح بیان کنیم.</p>
+</section>
+<section id="id16">
+<h2>۴ـ۱۰. گسسته‌سازی: چگونه مقدار پیوسته را به «اقلام» قابل کشف تبدیل کنیم؟<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p>در بسیاری از روش‌های استخراج قواعد انجمنی، ورودی، تراکنش‌های شامل اقلام دودویی است. مبلغ خریدِ پیوسته را می‌توان به بازه‌هایی مانند <code class="docutils literal notranslate"><span class="pre">low</span></code>، <code class="docutils literal notranslate"><span class="pre">medium</span></code> و <code class="docutils literal notranslate"><span class="pre">high</span></code> تبدیل کرد؛ آنگاه اقلامی مثل <code class="docutils literal notranslate"><span class="pre">spend_high</span></code> وارد سبدها می‌شوند. اما هر مرز بازه، اطلاعاتی را حذف می‌کند. <strong>اختلاف ۱۰۰ و ۱۰۱ ممکن است در دو بازه قرار بگیرد، در حالی که اختلاف ۱۰۱ و ۱۹۰ ممکن است در همان بازه بیفتد.</strong></p>
+<section id="equal-width">
+<h3>هم‌عرض (Equal-width)<a class="headerlink" href="#equal-width" title="Link to this heading">#</a></h3>
+<p>برای حد پایین <span class="math notranslate nohighlight">\(a\)</span>، حد بالا <span class="math notranslate nohighlight">\(b\)</span> و <span class="math notranslate nohighlight">\(K\)</span> بازه، عرض هر بازه:</p>
+<div class="math notranslate nohighlight">
+\[
+\Delta=\frac{b-a}{K}.
+\]</div>
+<p>مثال: در مقادیر <span class="math notranslate nohighlight">\(1,2,3,4,20,21\)</span> و <span class="math notranslate nohighlight">\(K=3\)</span>، بازه‌ها تقریباً <span class="math notranslate nohighlight">\([1,7.67)\)</span>، <span class="math notranslate nohighlight">\([7.67,14.33)\)</span> و <span class="math notranslate nohighlight">\([14.33,21]\)</span> خواهند بود؛ ممکن است بازهٔ میانی خالی باشد. قرارداد بسته/بازبودن مرزها و برخورد با مقدار بیرون دامنهٔ آموزش باید روشن شود.</p>
+</section>
+<section id="equal-frequency-quantile">
+<h3>هم‌فراوانی (Equal-frequency/Quantile)<a class="headerlink" href="#equal-frequency-quantile" title="Link to this heading">#</a></h3>
+<p>مرزها را از صدک‌های دادهٔ آموزش به دست می‌آوریم تا هر بازه تقریباً شمار برابر داشته باشد. روی همان شش مقدار، می‌توان سه گروه مرتب <span class="math notranslate nohighlight">\(\{1,2\}\)</span>، <span class="math notranslate nohighlight">\(\{3,4\}\)</span> و <span class="math notranslate nohighlight">\(\{20,21\}\)</span> ساخت. اما با <strong>مقدارهای تکراری بسیار</strong> ممکن است مرزهای صدکی یکی شوند و تعداد بازه‌های متمایز کمتر از <span class="math notranslate nohighlight">\(K\)</span> شود. این موضوع نقص برنامه نیست، ویژگی داده است و باید مدیریت شود.</p>
+<figure class="align-default" id="dm4-binning">
+<a class="reference internal image-reference" href="../_images/fig04_09.png"><img alt="../_images/fig04_09.png" src="../_images/fig04_09.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 49 </span><span class="caption-text">شکل ۴ـ۹. مقایسهٔ تقسیم هم‌عرض و صدکی روی همان دادهٔ ساختگی. شکل توزیع تعیین می‌کند کدام بازنمایی گروه‌های پرتراکم را بهتر تفکیک می‌کند.</span><a class="headerlink" href="#dm4-binning" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>روش‌های آستانه‌گذاری دانش‌محور نیز مفیدند؛ مثلاً «خرید بیش از سقف قراردادی» برای فرایند عملیاتی معنی دارد. ولی تعیین آستانه از روی کل داده یا از روی برچسب‌های آزمون می‌تواند نشت اطلاعات ایجاد کند. گسسته‌سازی نظارت‌شده باید درون ارزیابیِ صحیح و فقط با دادهٔ آموزش انجام شود.</p>
+</section>
+</section>
+<section id="id17">
+<h2>۴ـ۱۱. تبدیل متغیر اسمی و دودویی‌سازی: به کد عددی معنای هندسی ندهیم<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>اگر چهار شهر را با ۰، ۱، ۲ و ۳ کدگذاری کنیم، فاصلهٔ عددی بین شهر اول و چهارم سه برابر فاصلهٔ شهر اول و دوم می‌شود؛ در حالی که <strong>شهر یک ویژگی اسمی</strong> است و چنین ترتیبی ممکن است کاملاً بی‌معنا باشد. راه عمومی برای بسیاری از مدل‌های عددی <strong>One-hot</strong> است: چهار ستون <code class="docutils literal notranslate"><span class="pre">city_A</span></code> تا <code class="docutils literal notranslate"><span class="pre">city_D</span></code> ساخته می‌شود و هر رکورد تنها در یکی از آن‌ها یک دارد.</p>
+<p>برای چهار رده، نمایش به‌صورت زیر است:</p>
+<div class="math notranslate nohighlight">
+\[
+A\mapsto(1,0,0,0),\quad B\mapsto(0,1,0,0),\quad
+C\mapsto(0,0,1,0),\quad D\mapsto(0,0,0,1).
+\]</div>
+<p>در این نمایش فاصلهٔ Euclidean هر دو شهر متفاوت <span class="math notranslate nohighlight">\(\sqrt{2}\)</span> است؛ هیچ ترتیب مصنوعی به آن‌ها تحمیل نمی‌شود. بااین‌حال One-hot در ویژگی اسمیِ بسیار پُررده می‌تواند بعد و تنکی را به‌شدت بالا ببرد. کد دودوییِ فشرده با <span class="math notranslate nohighlight">\(\lceil\log_2K\rceil\)</span> بیت فضای کمتری می‌گیرد، اما ممکن است رابطهٔ نزدیکی مصنوعی بین رده‌ها ایجاد کند؛ در قواعد انجمنی، تفسیر «وجود یک قلم» معمولاً مهم‌تر از صرف فشرده‌سازی بیت‌هاست.</p>
+<figure class="align-default" id="dm4-onehot">
+<a class="reference internal image-reference" href="../_images/fig04_10.png"><img alt="../_images/fig04_10.png" src="../_images/fig04_10.png" style="width: 86%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 50 </span><span class="caption-text">شکل ۴ـ۱۰. نمایش One-hot برای چهار گروه اسمی: هر ستون یک گزارهٔ مستقل از حضور رده است، نه درجهٔ بزرگی آن رده.</span><a class="headerlink" href="#dm4-onehot" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>مسئلهٔ ردهٔ ناشناخته.</strong> اگر شهری در دادهٔ جدید باشد که در آموزش دیده نشده است، خط لوله باید رفتار تعریف‌شده داشته باشد: خطا، ردهٔ <code class="docutils literal notranslate"><span class="pre">other</span></code>، یا بردار همه‌صفر. بردار همه‌صفر نیز باید آگاهانه تفسیر شود؛ نباید بی‌سروصدا آن را «شهر A» یا «عدم خرید» تلقی کرد.</p>
+</section>
+<section id="id18">
+<h2>۴ـ۱۲. انتخاب ویژگی: تفسیرپذیری را در برابر اطلاعات ازدست‌رفته بسنجیم<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>اگر <span class="math notranslate nohighlight">\(p\)</span> ویژگی داشته باشیم، انتخاب همهٔ زیرمجموعه‌ها به <span class="math notranslate nohighlight">\(2^p\)</span> حالت منجر می‌شود. بنابراین در ابعاد متوسط نیز بررسی کامل همهٔ گزینه‌ها اغلب عملی نیست. <strong>انتخاب ویژگی (Feature Subset Selection)</strong> ستون‌های اصلی را حفظ می‌کند و ستون‌هایی را که افزونگی دارند یا به هدف کمک نمی‌کنند حذف می‌کند؛ اما «غیرمفیدبودن» همیشه با واریانس کم برابر نیست.</p>
+<p><strong>مثال دستی.</strong> سه ویژگی برای چهار مشاهده تعریف کنید:</p>
+<div class="math notranslate nohighlight">
+\[
+F_1=(1,2,3,4)^\top,\quad F_2=(2,4,6,8)^\top,\quad F_3=(0,0,1,0)^\top.
+\]</div>
+<p><span class="math notranslate nohighlight">\(F_2=2F_1\)</span> و اطلاعات خطیِ جدیدی اضافه نمی‌کند. از سوی دیگر <span class="math notranslate nohighlight">\(F_3\)</span> واریانس کمی دارد، اما ممکن است دقیقاً رخداد نادری را کد کرده باشد؛ حذف آن فقط با معیار «واریانس کم» می‌تواند زیان‌آور باشد. نتیجه: انتخاب ویژگی را هم باید با <strong>هدف کشف</strong> و توان حفظ موارد نادر بسنجیم.</p>
+<p>روش‌های رایج عبارت‌اند از: <strong>Filter</strong> (ارزیابی ویژگی مستقل از الگوریتم نهایی، مانند هم‌بستگی/وابستگی/آزمون آماری)، <strong>Wrapper</strong> (سنجش زیرمجموعه‌ها با عملکرد الگوریتم مقصد) و <strong>Embedded</strong> (انتخاب به‌عنوان بخشی از یادگیری). در کشف الگوی بدون‌ناظر، ارزیابی باید متناسب با پایداری ساختار، همسایگی یا نیاز دامنه باشد؛ استفادهٔ خودسرانه از برچسبی که بعداً قرار است پیش‌بینی شود، هدف را عوض می‌کند.</p>
+<p><strong>سنجش سادهٔ افزونگی.</strong> برای دو ویژگی کاملاً همبسته <span class="math notranslate nohighlight">\(F_1,F_2\)</span>، هم‌بستگی Pearson برابر ۱ است؛ حذف یکی از آن‌ها در روش خطی ممکن است بی‌هزینه باشد، ولی در مسائل غیرخطی و در حضور فقدان داده، این نتیجه لزوماً برقرار نیست. در پروژهٔ واقعی، رده‌های اسمی را با معیارهای مناسب خود و اقلام تنک را با معنای حضور/عدم حضور تحلیل کنید.</p>
+<figure class="align-default" id="dm4-select-projection">
+<a class="reference internal image-reference" href="../_images/fig04_17.png"><img alt="../_images/fig04_17.png" src="../_images/fig04_17.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 51 </span><span class="caption-text">شکل ۴ـ۱۱. مقایسهٔ انتخابِ ستون‌های موجود با فرافکنی به مختصات تازه؛ در سمت دوم یک مؤلفه ممکن است ترکیبی از همهٔ ویژگی‌های اولیه باشد.</span><a class="headerlink" href="#dm4-select-projection" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id19">
+<h2>۴ـ۱۳. استخراج ویژگی: وقتی سؤال را با متغیر تازه بهتر می‌توان دید<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>ساخت ویژگی با انتخاب زیرمجموعه فرق دارد. گاهی نسبت یا اختلاف دو ستون معنای مسئله را بهتر آشکار می‌کند: برای دادهٔ خرید، <code class="docutils literal notranslate"><span class="pre">spend_per_unit</span> <span class="pre">=</span> <span class="pre">spend</span> <span class="pre">/</span> <span class="pre">units</span></code> شاخصی متفاوت از مبلغ کل است و در صورت مثبت‌بودن <code class="docutils literal notranslate"><span class="pre">units</span></code> قابل تعریف است. در یک سامانهٔ پایش، تغییر از سیگنال خام به دامنهٔ طیفی می‌تواند دوره‌های تکرارشونده را آشکار کند. این ایده در Tan ۲٫۳٫۵ با مثال‌های تبدیل فضا و ویژگی مشتق‌شده مطرح است.</p>
+<p><strong>مثال دستی.</strong> دو سفارش با مبلغ ۱۰۰ و ۱۲۰ ممکن است به نظر نزدیک باشند؛ اما اگر تعداد قلم به‌ترتیب ۱۰ و ۲ باشد، مبلغ هر قلم ۱۰ و ۶۰ است. برای کشف الگوی «خریدِ کم‌تعداد اما گران»، ویژگی مشتق‌شده ممکن است اطلاعات دقیق‌تری از مبلغ کل ارائه دهد. در برابر، اگر تعداد قلم صفر یا نامعلوم باشد، نسبت تعریف‌نشده است و باید جداگانه مدیریت شود.</p>
+<p>ساخت ویژگی‌های زیاد بدون فرضیه می‌تواند خطر انتخاب فرصت‌طلبانه را بالا ببرد: اگر صدها نسبت و تبدیل بی‌هدف بسازیم و تنها نتیجهٔ ظاهراً جالب را گزارش کنیم، اعتبار کشفیات کاهش می‌یابد. بنابراین <strong>منطق ساخت ویژگی، تعداد آزمایش‌ها و نحوهٔ ارزیابی مستقل</strong> باید ثبت شود.</p>
+</section>
+<section id="id20">
+<h2>۴ـ۱۴. کاهش بُعد: چرا فشرده‌سازی با انتخاب ویژگی یکسان نیست؟<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>در دادهٔ <span class="math notranslate nohighlight">\(n\times p\)</span>، ممکن است بسیاری از ستون‌ها ترکیب خطی یا تقریبی چند روند مشترک باشند؛ مثلاً مبلغ خرید، تعداد اقلام و امتیاز فعالیت با یک عامل نهفته مرتبط باشند. اگر بتوانیم رکوردها را با <span class="math notranslate nohighlight">\(k\ll p\)</span> مؤلفه نمایش دهیم، نگهداری و محاسبهٔ فاصله ساده‌تر می‌شود. در عوض، فرافکنی می‌تواند جزئیاتِ کم‌واریانس ولی مهم را حذف کند.</p>
+<p><strong>کاهش بُعد (Dimensionality Reduction)</strong> به معنای یافتن نگاشتی مانند <span class="math notranslate nohighlight">\(f:\mathbb{R}^p\to\mathbb{R}^k\)</span> است. در روش خطی، <span class="math notranslate nohighlight">\(f(x)=W^\top(x-\mu)\)</span>؛ در روش غیرخطی، <span class="math notranslate nohighlight">\(f\)</span> ممکن است ساختار پیچیده‌تری داشته باشد. کیفیت کاهش بُعد باید با <strong>معیار مربوط به مسئله</strong> سنجیده شود: خطای بازسازی برای فشرده‌سازی؛ حفظ فاصله یا همسایگی برای خوشه‌بندی؛ یا حفظ الگوهای نادر برای کشف ناهنجاری.</p>
+</section>
+<section id="pca">
+<h2>۴ـ۱۵. تحلیل مؤلفه‌های اصلی (PCA) از محاسبهٔ دستی تا هندسه<a class="headerlink" href="#pca" title="Link to this heading">#</a></h2>
+<p><strong>PCA</strong> جهتی را می‌یابد که دادهٔ مرکز‌شده روی آن بیشترین واریانس را دارد؛ سپس جهت‌های متعامد بعدی را به‌ترتیب واریانس انتخاب می‌کند. اگر دادهٔ <span class="math notranslate nohighlight">\(n\)</span> رکورد و <span class="math notranslate nohighlight">\(p\)</span> ویژگی داشته باشد، میانگین هر ستون را از آن کم می‌کنیم و ماتریس کوواریانس را می‌سازیم:</p>
+<div class="math notranslate nohighlight">
+\[
+X_c=X-\mathbf{1}\mu^\top,\qquad
+\Sigma=\frac{1}{n}X_c^\top X_c.
+\]</div>
+<p>قرارداد این جزوه، کوواریانس با مخرج <span class="math notranslate nohighlight">\(n\)</span> برای نشان‌دادن هندسهٔ مجموعهٔ محدود داده است؛ در بعضی کتابخانه‌ها و برآورد آماری با مخرج <span class="math notranslate nohighlight">\(n-1\)</span> کار می‌شود. <strong>جهت‌های PCA در این دو حالت یکسان‌اند</strong>، اگر فقط ضریب مقیاس کوواریانس تغییر کند، اما مقدارهای ویژه با ضریب یکسان تغییر می‌کنند.</p>
+<section id="id21">
+<h3>مثال دستی پنج نقطه<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>پنج مشاهدهٔ دوبعدی را در نظر بگیرید:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X=\begin{bmatrix}-2&amp;-1\\-1&amp;-0.5\\0&amp;0\\1&amp;0.5\\2&amp;1\end{bmatrix}.
+\end{split}\]</div>
+<p>میانگین هر ستون صفر است. با ضرب <span class="math notranslate nohighlight">\(X^\top X/5\)</span> داریم:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Sigma=\begin{bmatrix}2&amp;1\\1&amp;0.5\end{bmatrix}.
+\end{split}\]</div>
+<p>مقدارهای ویژه از معادلهٔ <span class="math notranslate nohighlight">\(\det(\Sigma-\lambda I)=0\)</span> به‌دست می‌آیند:</p>
+<div class="math notranslate nohighlight">
+\[
+\lambda_1=2.5,\qquad \lambda_2=0.
+\]</div>
+<p>بردار ویژهٔ یکهٔ اول را می‌توان به شکل <span class="math notranslate nohighlight">\(w_1=(2,1)^\top/\sqrt{5}\)</span> انتخاب کرد؛ جهت دوم بر آن عمود است. وقتی نقطهٔ <span class="math notranslate nohighlight">\((2,1)\)</span> روی جهت اول فرافکنی شود:</p>
+<div class="math notranslate nohighlight">
+\[
+z_1=(2,1)\cdot w_1=\sqrt{5}\approx2.236.
+\]</div>
+<p>اگر همان یک مؤلفه حفظ شود، نقطه از <span class="math notranslate nohighlight">\(z_1w_1\)</span> به <span class="math notranslate nohighlight">\((2,1)\)</span> بازسازی می‌شود. در این مثال همهٔ نقاط دقیقاً روی یک خط‌اند و خطای بازسازی با یک مؤلفه صفر است. <strong>در دادهٔ واقعی معمولاً چنین نیست</strong>؛ شکل بعدی نویز متعامد و خطا را نشان می‌دهد.</p>
+<figure class="align-default" id="dm4-pca-geometry">
+<a class="reference internal image-reference" href="../_images/fig04_11.png"><img alt="../_images/fig04_11.png" src="../_images/fig04_11.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 52 </span><span class="caption-text">شکل ۴ـ۱۲. PCA روی دادهٔ دوبعدیِ دارای نویز: محور اول در جهت پراکندگی غالب قرار می‌گیرد و فاصلهٔ نقطه تا تصویر آن، خطای بازسازی را می‌سازد.</span><a class="headerlink" href="#dm4-pca-geometry" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id22">
+<h3>چرا بردار ویژه ظاهر می‌شود؟<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>پرافکنی داده روی جهتِ یکهٔ <span class="math notranslate nohighlight">\(w\)</span> به بردار <span class="math notranslate nohighlight">\(X_cw\)</span> تبدیل می‌شود. واریانس آن برابر <span class="math notranslate nohighlight">\(w^\top\Sigma w\)</span> است؛ پس باید مسئلهٔ بهینه‌سازی را حل کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+\max_{\|w\|_2=1}\ w^\top\Sigma w.
+\]</div>
+<p>با ضریب لاگرانژ و مشتق‌گیری به <span class="math notranslate nohighlight">\(\Sigma w=\lambda w\)</span> می‌رسیم. برای بیشترین واریانس، بردار ویژهٔ متناظر با بزرگ‌ترین مقدار ویژه را انتخاب می‌کنیم. شرط متعامدبودنِ مؤلفه‌های بعدی از دوباره‌شماری همان جهت جلوگیری می‌کند. PCA جهت هندسی داده را یاد می‌گیرد؛ این جهت الزاماً همان ویژگیِ دارای بیشترین اهمیت برای <strong>کشف گروه نادر</strong> نیست.</p>
+</section>
+<section id="id23">
+<h3>سهم واریانس و انتخاب تعداد مؤلفه‌ها<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(\lambda_1\ge\cdots\ge\lambda_p\ge0\)</span>، سهم واریانس مؤلفهٔ <span class="math notranslate nohighlight">\(j\)</span> چنین تعریف می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{EVR}_j=\frac{\lambda_j}{\sum_{\ell=1}^p\lambda_\ell},
+\quad \mathrm{Cumulative}(k)=\sum_{j=1}^k\mathrm{EVR}_j.
+\]</div>
+<p>برای مقدارهای ویژهٔ <span class="math notranslate nohighlight">\(9,2,1\)</span>، سهم مؤلفهٔ اول <span class="math notranslate nohighlight">\(9/12=75\%\)</span> و سهم دو مؤلفهٔ اول <span class="math notranslate nohighlight">\(11/12\approx91.7\%\)</span> است. این معیار برای <strong>حفظ واریانس و بازسازی</strong> منطقی است، ولی آستانهٔ ۹۰٪ به‌معنای حفظ ۹۰٪ همهٔ اطلاعات کاربردی نیست. اگر علامت رخداد نادر روی جهتِ واریانس کم قرار گیرد، PCA می‌تواند دقیقاً همان نشانه را حذف کند.</p>
+<figure class="align-default" id="dm4-scree">
+<a class="reference internal image-reference" href="../_images/fig04_12.png"><img alt="../_images/fig04_12.png" src="../_images/fig04_12.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 53 </span><span class="caption-text">شکل ۴ـ۱۳. نمودار مقدار ویژه و سهم واریانس تجمعی: افزایش بُعد دقت بازسازی را بیشتر می‌کند، اما کیفیت کشف الگو باید جداگانه آزموده شود.</span><a class="headerlink" href="#dm4-scree" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id24">
+<h3>خطای بازسازی و قرارداد برازش<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>برای <span class="math notranslate nohighlight">\(W_k=[w_1,\dots,w_k]\)</span>، مختصات و بازسازی به‌ترتیب:</p>
+<div class="math notranslate nohighlight">
+\[
+Z=X_cW_k,\qquad \widehat{X}=ZW_k^\top+\mathbf{1}\mu^\top,
+\qquad \mathrm{MSE}=\frac{1}{np}\|X-\widehat{X}\|_F^2.
+\]</div>
+<p>وقتی از PCA در خط لوله استفاده می‌کنیم، <strong>میانگین، مقیاس و مؤلفه‌ها</strong> باید روی آموزش برازش شوند. در تحلیل بدون‌ناظر نیز اگر آزمون پایداری روی دادهٔ مستقل مد نظر است، همان قرارداد لازم است. علامت بردارهای ویژه ممکن است در اجرای دو پیاده‌سازی برعکس باشد؛ این اختلاف علامت، به‌تنهایی تفاوت در زیر‌فضای PCA نیست.</p>
+</section>
+</section>
+<section id="svd-pca">
+<h2>۴ـ۱۶. SVD و تقریب کم‌رتبه: فشرده‌سازی ماتریس را با PCA ربط بدهیم<a class="headerlink" href="#svd-pca" title="Link to this heading">#</a></h2>
+<p>در <strong>تجزیهٔ مقادیر تکین (SVD)</strong> هر ماتریس <span class="math notranslate nohighlight">\(X\)</span> را می‌توان به‌شکل زیر نمایش داد:</p>
+<div class="math notranslate nohighlight">
+\[
+X=U\operatorname{diag}(s_1,\ldots,s_r)V^\top,
+\qquad s_1\ge\cdots\ge s_r\ge0.
+\]</div>
+<p>اگر فقط <span class="math notranslate nohighlight">\(k\)</span> مقدار تکین اول را نگه داریم، تقریب کم‌رتبهٔ <span class="math notranslate nohighlight">\(X_k=U_k\operatorname{diag}(s_1,\ldots,s_k)V_k^\top\)</span> حاصل می‌شود. قضیهٔ استاندارد تقریب کم‌رتبه می‌گوید این تقریب از نظر نرم فروبنیوس، در میان ماتریس‌های با رتبهٔ حداکثر <span class="math notranslate nohighlight">\(k\)</span>، کمترین خطا را دارد. این نتیجه دربارهٔ <strong>خطای بازسازی همین ماتریس و همین نرم</strong> است، نه تضمین حفظ همهٔ الگوهای داده‌کاوی.</p>
+<p><strong>مثال دستی:</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X=\begin{bmatrix}2&amp;0\\0&amp;1\end{bmatrix}.
+\end{split}\]</div>
+<p>مقادیر تکین ۲ و ۱ هستند. با نگه‌داشتن رتبهٔ یک:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+X_1=\begin{bmatrix}2&amp;0\\0&amp;0\end{bmatrix},
+\qquad\|X-X_1\|_F^2=1.
+\end{split}\]</div>
+<p>برای دادهٔ مرکز‌شده، بردارهای راست SVD جهت‌های PCA را می‌دهند و <span class="math notranslate nohighlight">\(s_j^2/n\)</span> متناظر مقدارهای ویژهٔ کوواریانس است. اگر <strong>مرکزکردن داده فراموش شود</strong>، SVD ماتریس خام لزوماً همان PCA نیست. در ماتریس تراکنش–قلم، بُعد کم می‌تواند وابستگی‌های سبدی را خلاصه کند؛ ولی صفرهای واقعی و تنکی ممکن است باعث شوند تعبیر هر مؤلفه نیازمند احتیاط باشد.</p>
+<figure class="align-default" id="dm4-lowrank">
+<a class="reference internal image-reference" href="../_images/fig04_13.png"><img alt="../_images/fig04_13.png" src="../_images/fig04_13.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 54 </span><span class="caption-text">شکل ۴ـ۱۴. ماتریس ساختگی و تقریب‌های رتبهٔ یک و دو؛ هرچه رتبهٔ نگه‌داری‌شده بیشتر باشد، معمولاً جزئیات بیشتری بازسازی می‌شود.</span><a class="headerlink" href="#dm4-lowrank" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id25">
+<h3>جایگاه فشرده‌سازی موجک و تبدیل‌های ویژهٔ داده<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>Han در بخش ۲٫۵٫۳ به <strong>فشرده‌سازی داده و تبدیل موجک</strong> نیز اشاره می‌کند. در دادهٔ زمانی یا تصویر، ضرایب موجک بزرگ می‌توانند ساختارهای مهم را نگه دارند و برخی ضرایب کوچک را می‌توان برای فشرده‌سازی کنار گذاشت؛ اما چنین نگاشتی با PCAِ روی جدول ویژگی‌ها یکسان نیست. ازآنجاکه آموزش ریاضی تبدیل موجک در درس پردازش سیگنال و تصویر جداگانه انجام می‌شود، اینجا فقط نقش آن را به‌عنوان <strong>بازنمایی فشردهٔ مناسبِ نوع داده</strong> یادآوری می‌کنیم، نه آنکه آموزش کامل موجک را تکرار کنیم.</p>
+</section>
+</section>
+<section id="id26">
+<h2>۴ـ۱۷. فرافکنی تصادفی و روش‌های غیرخطی: چه وعده‌ای واقعاً می‌دهند؟<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p>وقتی تعداد ویژگی‌ها بسیار زیاد و تعداد مشاهده‌ها بزرگ است، گاهی به‌جای محاسبهٔ دقیق جهت‌های PCA از یک ماتریس تصادفی <span class="math notranslate nohighlight">\(R\in\mathbb{R}^{p\times k}\)</span> استفاده می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+Z=XR,\qquad R_{ij}\sim\mathcal{N}(0,1/k).
+\]</div>
+<p>در شرایط نظری مناسب، اگر <span class="math notranslate nohighlight">\(k\)</span> به اندازهٔ کافی بزرگ باشد، فاصله‌های زوجیِ مجموعهٔ محدود نقاط با خطای نسبی کنترل‌شده حفظ می‌شوند؛ این ایده با نام <strong>Johnson–Lindenstrauss</strong> شناخته می‌شود. این روش <strong>پراکندگی بیشینه</strong> را مانند PCA یاد نمی‌گیرد؛ هدفش حفظ تقریبی هندسهٔ زوجی است. عدد <span class="math notranslate nohighlight">\(k\)</span> از تعداد نقاط، دقتِ مورد انتظار و احتمال شکست تأثیر می‌پذیرد، نه فقط از تعداد ستون‌های اولیه.</p>
+<figure class="align-default" id="dm4-random-projection">
+<a class="reference internal image-reference" href="../_images/fig04_14.png"><img alt="../_images/fig04_14.png" src="../_images/fig04_14.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 55 </span><span class="caption-text">شکل ۴ـ۱۵. نسبت فاصلهٔ زوج‌ها پس از فرافکنی تصادفی به فاصلهٔ اولیه. در مثال ساختگی، ابعاد بیشتر پراکندگیِ نسبت‌ها را کمتر می‌کنند؛ این یک مشاهدهٔ عددی است، نه اثبات تضمین عمومی.</span><a class="headerlink" href="#dm4-random-projection" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>روش‌های غیرخطی</strong> مانند نگاشت‌های مبتنی بر همسایگی یا بازنمایی‌های مانيفولدی می‌توانند خمیدگی داده را بهتر نمایش دهند؛ Han در ۲٫۶٫۳ دید کلی این خانواده را ارائه می‌کند. اما نمودار دوبعدی زیبا، الزاماً حفظ فاصلهٔ جهانی، قابلیت تعمیم یا ساختار خوشهٔ واقعی را تضمین نمی‌کند. اگر هدف «فقط دیداری‌سازی» باشد، معیارِ انتخاب متفاوت از هدف «خوراک الگوریتم کاوش الگو» خواهد بود. در این فصل وارد آموزش تفصیلی الگوریتم‌های غیرخطی نمی‌شویم؛ آن‌ها را در دسته‌بندی، با مفروضات و ملاحظات مهمشان جای می‌دهیم.</p>
+</section>
+<section id="id27">
+<h2>۴ـ۱۸. نفرین بُعد و انتخاب بازنمایی برای کشف الگو<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+<p>در فضای با بُعد زیاد، بعضی توزیع‌ها باعث می‌شوند نسبت فاصلهٔ نزدیک‌ترین و دورترین رکورد به هم نزدیک شود. این پدیده گاهی <strong>تمرکز فاصله‌ها</strong> نامیده می‌شود و می‌تواند برای روش‌های وابسته به همسایه مشکل ایجاد کند. بااین‌حال این یک <strong>قاعدهٔ جهان‌شمول برای هر داده و هر متریک نیست</strong>؛ ساختار نهفته، تنکی و نوع توزیع می‌توانند نتیجه را تغییر دهند.</p>
+<figure class="align-default" id="dm4-concentration">
+<a class="reference internal image-reference" href="../_images/fig04_15.png"><img alt="../_images/fig04_15.png" src="../_images/fig04_15.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 56 </span><span class="caption-text">شکل ۴ـ۱۶. یک مثال تصادفی از نزدیک‌شدن نسبت «فاصلهٔ نزدیک‌ترین به دورترین» با رشد بُعد. برای دادهٔ ساختاریافته، نتیجه باید دوباره آزموده شود.</span><a class="headerlink" href="#dm4-concentration" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>تناقض کاربردی مهم:</strong> کاهش بُعد برای حفظ فاصلهٔ همسایگی مفید است، اما PCA بر اساس بیشینه‌کردن واریانس طراحی شده است و ممکن است همان همسایگی موردنیاز را تغییر دهد. بنابراین پس از هر فرافکنی، برای یک نمونهٔ کنترل‌شده باید مجموعهٔ همسایگان <span class="math notranslate nohighlight">\(k\)</span>تایی را قبل و بعد از تبدیل مقایسه کنیم. اگر <span class="math notranslate nohighlight">\(N_k(x)\)</span> همسایه‌های اولیه و <span class="math notranslate nohighlight">\(\widetilde{N}_k(x)\)</span> همسایه‌های تبدیل‌شده باشند، یک شاخص سادهٔ شباهت جاکارد است:</p>
+<div class="math notranslate nohighlight">
+\[
+J_k(x)=\frac{|N_k(x)\cap\widetilde{N}_k(x)|}{|N_k(x)\cup\widetilde{N}_k(x)|}.
+\]</div>
+<p>مقدار ۱ یعنی مجموعهٔ همسایه‌ها ثابت مانده‌اند؛ مقدار صفر یعنی هیچ اشتراکی ندارند. با وجود این، حتی Jaccard بالا تضمین نمی‌کند که <strong>فراوانی الگوهای انجمنی یا نتیجهٔ کشف ناهنجاری</strong> حفظ شده است. معیارِ ارزیابیِ تبدیلی باید متناسب با <strong>خروجی نهایی داده‌کاوی</strong> تعریف شود.</p>
+</section>
+<section id="id28">
+<h2>۴ـ۱۹. آزمایشگاه جامع: از تراکنش ساختگی تا دادهٔ آمادهٔ کشف<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
+<p>در فایل <code class="docutils literal notranslate"><span class="pre">transactions_synthetic.csv</span></code>، دادهٔ ۳۲۰ سفارشِ ساختگی قرار دارد. ویژگی‌های اصلی شامل <code class="docutils literal notranslate"><span class="pre">day</span></code>، <code class="docutils literal notranslate"><span class="pre">city</span></code>، <code class="docutils literal notranslate"><span class="pre">category</span></code>، <code class="docutils literal notranslate"><span class="pre">units</span></code>، <code class="docutils literal notranslate"><span class="pre">visits30</span></code>، <code class="docutils literal notranslate"><span class="pre">discount_pct</span></code> و <code class="docutils literal notranslate"><span class="pre">spend</span></code> هستند. شناسهٔ <code class="docutils literal notranslate"><span class="pre">transaction_id</span></code> کلید است و نباید بدون دلیل به‌عنوان یک مختصات عددی وارد PCA شود. ستون <code class="docutils literal notranslate"><span class="pre">rare_event</span></code> فقط برای کنترلِ وجود یک گروه نادر تولید شده و وارد فرافکنی مثال نمی‌شود.</p>
+<p>مراحل آزمایش پیشنهادی:</p>
+<ol class="arabic simple">
+<li><p><strong>پرسش:</strong> آیا بعد از خلاصه‌سازی یا نمونه‌گیری، رکوردهای نادر هنوز قابل مشاهده‌اند؟ آیا ساختار نزدیک‌ترین همسایگان حفظ می‌شود؟</p></li>
+<li><p><strong>واحد مشاهده:</strong> هر سطر یک تراکنش است؛ تجمیع روزانه را جداگانه ایجاد کنید و با تراکنش‌ها اشتباه نگیرید.</p></li>
+<li><p><strong>کنترل سادهٔ نمونه:</strong> از ۳۲۰ رکورد، نمونهٔ بدون جایگذاری ۵۰تایی بگیرید و حضور <code class="docutils literal notranslate"><span class="pre">rare_event</span></code> را با جمعیت کامل مقایسه کنید. نتیجه به seed وابسته است و دادهٔ واقعی نیست.</p></li>
+<li><p><strong>برش آموزش/آزمون:</strong> برای مثال محاسباتی، ۲۴۰ سطر نخست را به‌عنوان دادهٔ برازش و ۸۰ سطر دیگر را به‌عنوان دادهٔ تبدیل کنار بگذارید؛ این تقسیم تنها برای نشان‌دادن قرارداد کد است و در دادهٔ زمانیِ واقعی باید ترتیب و وابستگی گروهی نیز لحاظ شود.</p></li>
+<li><p><strong>برازش تبدیل:</strong> Z-score را فقط روی آموزشِ ویژگی‌های <code class="docutils literal notranslate"><span class="pre">spend,</span> <span class="pre">units,</span> <span class="pre">visits30,</span> <span class="pre">discount_pct</span></code> برازش کنید. سپس همان پارامترها را روی ۸۰ سطر دیگر اعمال کنید.</p></li>
+<li><p><strong>کاهش بُعد:</strong> PCA دو مؤلفه‌ای را فقط روی دادهٔ استانداردشدهٔ آموزش برازش کنید؛ مختصات آزمون را با همان مؤلفه‌ها به‌دست آورید.</p></li>
+<li><p><strong>ممیزی:</strong> نسبت واریانس حفظ‌شده، خطای بازسازیِ آزمون و شباهت همسایه‌ها را گزارش کنید؛ عدد خوبِ یکی از این شاخص‌ها جایگزین دیگری نیست.</p></li>
+</ol>
+<figure class="align-default" id="dm4-rare-hist">
+<a class="reference internal image-reference" href="../_images/fig04_16.png"><img alt="../_images/fig04_16.png" src="../_images/fig04_16.png" style="width: 86%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 57 </span><span class="caption-text">شکل ۴ـ۱۷. تعداد رخدادهای نادر در نمونه‌های ده‌تاییِ تکراری؛ بخش بزرگی از نمونه‌ها هیچ نمونه‌ای از گروه نادر ندارند. داده و تکرارها ساختگی‌اند.</span><a class="headerlink" href="#dm4-rare-hist" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="dm4-pca-example">
+<a class="reference internal image-reference" href="../_images/fig04_18.png"><img alt="../_images/fig04_18.png" src="../_images/fig04_18.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 58 </span><span class="caption-text">شکل ۴ـ۱۸. نمایش دو ویژگی خام در برابر دو مؤلفهٔ PCA استانداردشده؛ رنگ صرفاً نشانگر برچسب ساختگیِ آزمایشی است و در برازش PCA استفاده نشده است.</span><a class="headerlink" href="#dm4-pca-example" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id29">
+<h3>نحوهٔ اجرای کد و تفسیر خروجی<a class="headerlink" href="#id29" title="Link to this heading">#</a></h3>
+<p>پس از نصب وابستگی‌ها (<code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code> و برای شکل‌ها <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>)، فایل <code class="docutils literal notranslate"><span class="pre">chapter04_examples.py</span></code> را اجرا کنید. این فایل تابع‌های مستقلی برای نمونه‌گیری تصادفی، نمونه‌گیری طبقه‌ایِ وزن‌دار، مخزن جریانی، Min–Max، Z-score، مقیاس‌بندی مقاوم، One-hot، PCA، SVD و سنجش همسایگی دارد. Notebook همان تمرین را گام‌به‌گام اجرا می‌کند و کد آزمون <code class="docutils literal notranslate"><span class="pre">test_chapter04_examples.py</span></code> صحت چند حالت دستی و چند قرارداد را کنترل می‌کند.</p>
+<p><strong>نمونه‌ای از نتیجهٔ همین دادهٔ ساختگی با بذر ثابت:</strong> از ۳۲۰ تراکنش، ۱۲ رخداد نادر در جمعیت کامل و صفر رخداد نادر در نمونهٔ تصادفی ۵۰تاییِ انتخاب‌شده با seed مشخص وجود دارد. این دقیقاً نشان می‌دهد که حتی نمونهٔ نسبتاً بزرگ هم ممکن است نوع خاصی از پدیده را حذف کند؛ نتیجه از seed و سازوکار ساخت داده اثر می‌پذیرد و نباید به جامعهٔ واقعی تعمیم داده شود. مقدار واریانسِ دو مؤلفهٔ PCA برای همین مثال تقریباً <strong>۰٫۶۷۱</strong> و خطای بازسازی آزمون حدود <strong>۰٫۳۵۲</strong> است؛ این اعداد بدون مقایسه با هدف نهایی، معیار «موفقیت علمی» نیستند.</p>
+</section>
+<section id="id30">
+<h3>پروتکل پیشنهادی برای دفاع علمی از پیش‌پردازش<a class="headerlink" href="#id30" title="Link to this heading">#</a></h3>
+<p><strong>قبل از اجرا</strong> بنویسید هدف کشف چیست، واحد مشاهده کدام است، کدام گروه یا پدیده ممکن است نادر باشد و چرا یک تبدیلی انتخاب شده است. <strong>در زمان اجرا</strong> بذر تصادفی، محل تقسیم داده، آماره‌های برازش و نسخهٔ وابستگی‌ها را ثبت کنید. <strong>پس از اجرا</strong> هزینهٔ محاسباتی، میزان کاهش حجم، تغییر توزیع گروه‌ها، سهم واریانس، خطای بازسازی، حفظ همسایگی و پایداری الگوهای کشف‌شده را در یک جدول کنار هم گزارش دهید. برای هر مقایسه، تنها <strong>یک عامل</strong> را تغییر دهید؛ در غیر این صورت روشن نیست بهبود یا تخریب از کجا آمده است.</p>
+</section>
+</section>
+<section id="id31">
+<h2>۴ـ۲۰. خطاهای رایج و آزمون‌های تشخیصی<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>ادعا یا عمل اشتباه</p></th>
+<th class="head text-left"><p>چرا نامعتبر است؟</p></th>
+<th class="head text-left"><p>آزمون اصلاحی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>«۱۰٪ همهٔ داده‌ها همیشه کافی است»</p></td>
+<td class="text-left"><p>برای گروه‌های نادر احتمال حذف بالا است</p></td>
+<td class="text-left"><p>نمودار پایداریِ اندازهٔ نمونه و نرخ پوشش گروه‌ها</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>«تجمیع، فقط سطرها را کم می‌کند»</p></td>
+<td class="text-left"><p>معنای واحد مشاهده تغییر می‌کند</p></td>
+<td class="text-left"><p>تعریف کلید و مخرج هر شاخص قبل/بعد</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>«استانداردسازی هیچ تغییری در فاصله نمی‌دهد»</p></td>
+<td class="text-left"><p>وزن ضمنی محورهای عددی عوض می‌شود</p></td>
+<td class="text-left"><p>همسایه‌ها پیش/پس از تبدیل</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>«One-hot فاصلهٔ جغرافیایی می‌سازد»</p></td>
+<td class="text-left"><p>فاصلهٔ رده‌های اسمی را مساوی می‌بیند</p></td>
+<td class="text-left"><p>مقایسه با معنای واقعی متغیر</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>«۹۵٪ واریانس یعنی ۹۵٪ اطلاعات مفید»</p></td>
+<td class="text-left"><p>PCA برای واریانس بهینه است، نه هر مأموریت کشف</p></td>
+<td class="text-left"><p>معیار اختصاصی الگو و رخداد نادر</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>«برازش Scaler قبل از Split اشکالی ندارد»</p></td>
+<td class="text-left"><p>دادهٔ آزمون وارد برازش شده است</p></td>
+<td class="text-left"><p>بازاجرای Pipeline با fit فقط روی آموزش</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>«نمودار دوبعدی زیبا یعنی خوشهٔ واقعی»</p></td>
+<td class="text-left"><p>نمایش، تضمین ساختار جهانی نیست</p></td>
+<td class="text-left"><p>پایداری، حساسیت به seed و مقایسهٔ فضای اصلی</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>«همان دستهٔ رده‌های آموزش برای همهٔ آینده کافی است»</p></td>
+<td class="text-left"><p>ردهٔ ناشناخته ممکن است رخ دهد</p></td>
+<td class="text-left"><p>سناریوی آزمون برای unseen category</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="id32">
+<h2>۴ـ۲۱. تمرین‌های پایانی و فعالیت کلاسی<a class="headerlink" href="#id32" title="Link to this heading">#</a></h2>
+<p><strong>تمرین‌های مفهومی</strong></p>
+<p>۱. «کاهش تعداد تراکنش‌ها» و «تبدیل تراکنش‌ها به فروش ماهانه» را با یک مثال مقایسه کنید. کدام یک برای قواعد انجمنی مناسب‌تر است و چرا؟</p>
+<p>۲. در چه شرایطی تجمیع به سطح روز می‌تواند کشف ناهنجاری را بهتر کند، و در چه شرایطی آن را نابود می‌کند؟ پاسخ را با واحد مشاهده و نوع ناهنجاری توجیه کنید.</p>
+<p>۳. تفاوت طبقه و خوشه در نمونه‌گیری را با مثال فروشگاه و مشتری توضیح دهید. کدام طرح برای اطمینان از حضور شهر کم‌جمعیت مناسب‌تر است؟</p>
+<p>۴. چرا استانداردسازی هر ستون با نرمال‌سازی <span class="math notranslate nohighlight">\(L_2\)</span> هر رکورد یک کار واحد نیست؟ اثر هر کدام روی هندسه را بیان کنید.</p>
+<p>۵. آیا One-hot برای هر ستون و هر الگوریتم بهترین راه است؟ یک مسئلهٔ پُررده و پرتنک را تحلیل کنید.</p>
+<p>۶. چرا «همبستگی نزدیک یک» لزوماً مجوز حذف فوری یکی از دو ویژگی نیست؟ نقش missingness و معنا را توضیح دهید.</p>
+<p>۷. چه تفاوتی بین بیشینه‌کردن واریانس در PCA و حفظ فاصله‌ها در فرافکنی تصادفی وجود دارد؟</p>
+<p><strong>تمرین‌های محاسباتی</strong></p>
+<p>۸. برای جامعهٔ ۵۰۰تایی با ۱۰ رخداد نادر، احتمال حذف همهٔ رخدادها در نمونهٔ بدون جایگذاریِ ۲۰تایی را با ترکیب‌ها محاسبه کنید. با تقریبِ با جایگذاری مقایسه کنید.</p>
+<p>۹. دو طبقه با سهم‌های واقعی ۷۵٪ و ۲۵٪ و میانگین‌های ۱۲ و ۶۰ داریم. اگر از هر طبقه ۱۵ مشاهده برداریم، میانگین بی‌وزن نمونه و برآورد طبقه‌ایِ درست را محاسبه کنید.</p>
+<p>۱۰. برای داده‌های ۱۰، ۲۰ و ۳۰، مقدار استانداردشدهٔ ۴۰ را بر پایهٔ آماره‌های همان سه مقدار به‌دست آورید؛ سپس توضیح دهید چرا نباید دادهٔ آزمون را دوباره fit کرد.</p>
+<p>۱۱. داده‌های ۱، ۲، ۳، ۴، ۲۰ و ۲۱ را در سه بازهٔ هم‌عرض و سه گروه تقریباً هم‌فراوانی تقسیم کنید. کدام روش برای شناسایی مقادیر بالای ۲۰ مناسب‌تر است؟</p>
+<p>۱۲. برای چهار نقطهٔ <span class="math notranslate nohighlight">\((-2,-1),(-1,-0.5),(1,0.5),(2,1)\)</span>، کوواریانس با مخرج <span class="math notranslate nohighlight">\(n\)</span>، مقدار ویژهٔ غالب و جهت PCA را محاسبه کنید.</p>
+<p>۱۳. برای ماتریس قطری با قطر ۴، ۳ و ۱، خطای فروبنیوسِ مربعِ تقریب رتبهٔ ۱ و ۲ را محاسبه کنید و سهم انرژی را با جمع مربع مقادیر تکین مقایسه کنید.</p>
+<p>۱۴. نشان دهید چرا ضریب <span class="math notranslate nohighlight">\(1/n\)</span> به‌جای <span class="math notranslate nohighlight">\(1/(n-1)\)</span> در کوواریانسِ دادهٔ کاملِ غیرتبهگن، جهت مؤلفه‌های PCA را تغییر نمی‌دهد.</p>
+<p><strong>تمرین‌های برنامه‌نویسی و پژوهشی</strong></p>
+<p>۱۵. Notebook را با اندازهٔ نمونه‌های ۲۰، ۵۰، ۱۰۰ و ۲۰۰ بار اجرا کنید؛ درصد تکرارهایی را گزارش کنید که هیچ رخداد نادری ندارند. تکرارها را مستقل و با بذرهای ثبت‌شده انجام دهید.</p>
+<p>۱۶. نمونه‌گیری طبقه‌ای از <code class="docutils literal notranslate"><span class="pre">city</span></code> را با نمونه‌گیری تصادفی ساده مقایسه کنید؛ برای تخمین میانگین جامعه از وزن‌های درست استفاده کنید و نشان دهید چه زمانی میانگین سادهٔ نمونه سوگیر می‌شود.</p>
+<p>۱۷. برای ویژگی <code class="docutils literal notranslate"><span class="pre">spend</span></code>، سه مقیاس‌بندی Min–Max، Z-score و مقاوم را روی آموزش برازش کنید. حضور یک مقدار دورافتاده را بررسی و پراکندگی را ترسیم کنید.</p>
+<p>۱۸. پنج بُعد متفاوت برای PCA را روی دادهٔ بسط‌یافته با ویژگی‌های نویزی مقایسه کنید؛ خطای بازسازی و Jaccard همسایه‌ها را در مقابل تعداد مؤلفه رسم کنید. تفسیر کنید چرا بهترین تعداد مؤلفه برای این دو معیار می‌تواند متفاوت باشد.</p>
+<p>۱۹. یک ویژگی ساختگیِ بسیار کم‌واریانس ولی کاملاً مرتبط با رخداد نادر بسازید. نشان دهید چرا Filter مبتنی بر واریانس می‌تواند آن را حذف کند و چگونه باید اعتبار کشفِ رخداد نادر را مستقل سنجید.</p>
+<p>۲۰. برای مسئلهٔ استخراج قواعد انجمنی از سبدهای خرید، دو گسسته‌سازی متفاوت از «مبلغ» را آزمون کنید. تغییر در تعداد اقلام پرتکرار و حساسیت به آستانهٔ پشتیبانی را گزارش کنید. از تحلیل نتایج روی همان داده برای نتیجه‌گیری قطعی فراتر از نمونه خودداری کنید.</p>
+<section id="id33">
+<h3>فعالیت کلاسیِ پیشنهادی (۵۰ تا ۷۰ دقیقه)<a class="headerlink" href="#id33" title="Link to this heading">#</a></h3>
+<p>دانشجویان در گروه‌های کوچک یک پرسش کاوشی را انتخاب می‌کنند؛ گروه اول «الگوی خرید هم‌زمان»، گروه دوم «شناسایی خریدهای نادر» و گروه سوم «ساخت خوشه‌های رفتاری». همه یک دادهٔ یکسان می‌گیرند اما باید مستقلاً پیشنهاد دهند که <strong>تجمیع، نمونه‌گیری، تبدیل و کاهش بُعد</strong> برای هدف خود چگونه انجام شود. هر گروه به‌جای ارائهٔ صرفاً نمودار، باید <em>هزینهٔ اطلاعاتیِ تصمیم‌ها</em> و حدّ اعتبار نتیجه را گزارش کند. سپس گروه‌ها نشان می‌دهند چرا نسخهٔ «پیش‌پردازش عمومی و یکسان برای همهٔ مسائل» قابل دفاع نیست.</p>
+</section>
+</section>
+<section id="id34">
+<h2>۴ـ۲۲. جمع‌بندی و پیوند با فصل پنجم<a class="headerlink" href="#id34" title="Link to this heading">#</a></h2>
+<p>پیش‌پردازش نه «پاک‌کردن چند ستون» بلکه <strong>تعریف دیدگاهی از داده</strong> است. نمونه‌گیری تعیین می‌کند چه رکوردهایی دیده شوند؛ تجمیع مشخص می‌کند چه پدیده‌ای اصلاً رکورد تلقی شود؛ تبدیل مقیاس هندسه را تغییر می‌دهد؛ گسسته‌سازی و One-hot واژگانِ الگوهای بعدی را می‌سازند؛ انتخاب ویژگی بعضی پرسش‌ها را حذف می‌کند؛ و PCA/SVD بازنمایی را در ابعاد کمتر خلاصه می‌کنند. هیچ‌یک بدون سؤال علمی، تعریف مخرج، قرارداد برازش و ارزیابی پایداری قابل دفاع نیست.</p>
+<p><strong>پل به فصل بعد:</strong> در فصل پنجم به کشف <strong>الگوهای پرتکرار و قواعد انجمنی</strong> می‌پردازیم. در آنجا پشتیبانی، اطمینان و سنجه‌های جالب‌بودن الگو را محاسبه خواهیم کرد. اکنون می‌دانیم چرا نوع سبد، مرز گسسته‌سازی، طرح نمونه و حذف رکورد تکراری می‌توانند فراوانی همان الگوها را تغییر دهند. بنابراین نتایج فصل پنجم از <strong>قرارداد داده‌ای همین فصل</strong> شروع می‌شوند، نه صرفاً از اجرای الگوریتم Apriori یا FP-Growth.</p>
+</section>
+<section id="id35">
+<h2>منابع<a class="headerlink" href="#id35" title="Link to this heading">#</a></h2>
+<p>۱. <strong>Han, J., Pei, J., &amp; Tong, H.</strong> <em>Data Mining: Concepts and Techniques</em>, 4th ed., Elsevier، فصل ۲: بخش <strong>۲٫۴ Data quality, data cleaning, and data integration</strong> (صص. ۵۵–۶۳)، بخش <strong>۲٫۵ Data transformation</strong> (صص. ۶۳–۷۱) و بخش <strong>۲٫۶ Dimensionality reduction</strong> (صص. ۷۱–۷۹). مباحث جمع‌بندی‌شده متناسب با هدف درس‌اند؛ شکل‌ها و مثال‌های این جزوه بازتولید تصاویر کتاب نیستند.</p>
+<p>۲. <strong>Tan, P.-N., Steinbach, M., Karpatne, A., &amp; Kumar, V.</strong> <em>Introduction to Data Mining</em>, 2nd ed., Pearson، فصل ۲، بخش <strong>۲٫۳ Data Preprocessing</strong> (صص. ۵۰–۷۱)، زیربخش‌های ۲٫۳٫۱ تا ۲٫۳٫۷؛ شامل Aggregation، Sampling، Dimensionality Reduction، Feature Subset Selection، Feature Creation، Discretization and Binarization و Variable Transformation.</p>
+<p>۳. <strong>بسط‌های آموزشی این جزوه:</strong> تمایز «برازش فقط روی آموزش»، پروتکل سنجش حفظ همسایگی، تصویرسازیِ حساسیت به بذر، دادهٔ ساختگی و مثال‌های فرمول‌بندیِ خطا و نشتی، برای اتصال مبانی کتاب‌ها به کار عملی و ارزیابی بازتولیدپذیر تهیه شده‌اند؛ این موارد به‌عنوان نقلِ مستقیم یا محتوای انحصاری دو کتاب معرفی نشده‌اند.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-03.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل سوم — معیارهای شباهت، فاصله و هندسهٔ داده‌ها</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و مسئلهٔ آموزشی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه فصل در دو مرجع اصلی و مرزبندی با فصل‌های قبل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۴ـ۱. مسئلهٔ آغازین: چرا گزارش خلاصه‌شده، یک اتفاق مهم را پنهان کرد؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۴ـ۲. سه عملیات متفاوت که اغلب به اشتباه یکی گرفته می‌شوند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۴ـ۳. تجمیع و دانه‌بندی: پیش از میانگین‌گرفتن واحد مشاهده را بپرسیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۴ـ۴. نمونه‌گیری: از یک میلیارد رکورد چه چیزی را باید حفظ کنیم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">از نظر محاسباتی، نمونه به چه اندازه باشد؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۴ـ۵. نمونه‌گیری طبقه‌ای و خوشه‌ای: چرا وزن‌ها اهمیت دارند؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">تفاوت حیاتی بین طبقه و خوشه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reservoir-sampling">۴ـ۶. دادهٔ جریانی و نمونه‌گیری مخزنی (Reservoir Sampling)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۴ـ۷. پاک‌سازی و یکپارچه‌سازی در حدی که بر استخراج الگو اثر می‌گذارند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۴ـ۸. تبدیل مقیاس: چرا ویژگی بزرگ‌تر لزوماً مهم‌تر نیست؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#minmax">Min–Max</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#z-score">استانداردسازی Z-score</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">مقیاس‌بندی مقاوم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">تبدیل لگاریتمی و نرمال‌سازی برداری</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۴ـ۹. نشت اطلاعات: مرز آموزش، اعتبارسنجی و آزمون را قبل از تبدیل مشخص کنید</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۴ـ۱۰. گسسته‌سازی: چگونه مقدار پیوسته را به «اقلام» قابل کشف تبدیل کنیم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equal-width">هم‌عرض (Equal-width)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#equal-frequency-quantile">هم‌فراوانی (Equal-frequency/Quantile)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۴ـ۱۱. تبدیل متغیر اسمی و دودویی‌سازی: به کد عددی معنای هندسی ندهیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۴ـ۱۲. انتخاب ویژگی: تفسیرپذیری را در برابر اطلاعات ازدست‌رفته بسنجیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۴ـ۱۳. استخراج ویژگی: وقتی سؤال را با متغیر تازه بهتر می‌توان دید</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۴ـ۱۴. کاهش بُعد: چرا فشرده‌سازی با انتخاب ویژگی یکسان نیست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pca">۴ـ۱۵. تحلیل مؤلفه‌های اصلی (PCA) از محاسبهٔ دستی تا هندسه</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">مثال دستی پنج نقطه</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">چرا بردار ویژه ظاهر می‌شود؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">سهم واریانس و انتخاب تعداد مؤلفه‌ها</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">خطای بازسازی و قرارداد برازش</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svd-pca">۴ـ۱۶. SVD و تقریب کم‌رتبه: فشرده‌سازی ماتریس را با PCA ربط بدهیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">جایگاه فشرده‌سازی موجک و تبدیل‌های ویژهٔ داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۴ـ۱۷. فرافکنی تصادفی و روش‌های غیرخطی: چه وعده‌ای واقعاً می‌دهند؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۴ـ۱۸. نفرین بُعد و انتخاب بازنمایی برای کشف الگو</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۴ـ۱۹. آزمایشگاه جامع: از تراکنش ساختگی تا دادهٔ آمادهٔ کشف</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">نحوهٔ اجرای کد و تفسیر خروجی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">پروتکل پیشنهادی برای دفاع علمی از پیش‌پردازش</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۴ـ۲۰. خطاهای رایج و آزمون‌های تشخیصی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۴ـ۲۱. تمرین‌های پایانی و فعالیت کلاسی</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">فعالیت کلاسیِ پیشنهادی (۵۰ تا ۷۰ دقیقه)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">۴ـ۲۲. جمع‌بندی و پیوند با فصل پنجم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id35">منابع</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
