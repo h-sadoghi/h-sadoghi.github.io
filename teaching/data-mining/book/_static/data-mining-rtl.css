@@ -1,102 +1,153 @@
-/* Data Mining Jupyter Book — Persian reading direction, version 2.
- * Only activated by courses/data-mining/book/_config.yml.
- * The previous selector '.bd-article-container .bd-content' was reversed.
- * Scope all rules to rendered book article to preserve navigation UI.
+/* Persian and mixed English/Persian reading layout for Jupyter Book.
+ * Scope: book article only. Keep navigation, code, and mathematics unaffected.
+ * Important: '.bd-content' is a PARENT of article.bd-article.
  */
 
-/* Correct hierarchy in PyData/Sphinx Book Theme: .bd-content > .bd-article-container > article.bd-article. */
-.bd-content .bd-article-container,
-.bd-article-container article.bd-article,
-.bd-content article.bd-article,
-article.bd-article {
+.bd-content article.bd-article {
+  direction: rtl;
+  text-align: right;
+  unicode-bidi: normal;
+}
+
+/* Right-to-left base for headings and prose, even if a line begins in English. */
+.bd-content article.bd-article section,
+.bd-content article.bd-article h1,
+.bd-content article.bd-article h2,
+.bd-content article.bd-article h3,
+.bd-content article.bd-article h4,
+.bd-content article.bd-article h5,
+.bd-content article.bd-article h6,
+.bd-content article.bd-article p,
+.bd-content article.bd-article li,
+.bd-content article.bd-article blockquote,
+.bd-content article.bd-article dt,
+.bd-content article.bd-article dd,
+.bd-content article.bd-article figcaption,
+.bd-content article.bd-article caption,
+.bd-content article.bd-article summary,
+.bd-content article.bd-article .rubric,
+.bd-content article.bd-article .admonition,
+.bd-content article.bd-article .admonition-title,
+.bd-content article.bd-article .sd-card-text {
   direction: rtl;
   text-align: right;
 }
 
-/* Titles, prose, figures, admonitions and quotations. */
-article.bd-article :is(h1, h2, h3, h4, h5, h6, p, blockquote, figcaption, caption, dt, dd, summary),
-article.bd-article :is(.admonition, .admonition-title, .rubric, .caption, .sd-card-text) {
+/* List bullets and numbers belong on the right, not just the item text. */
+.bd-content article.bd-article ul,
+.bd-content article.bd-article ol,
+.bd-content article.bd-article dl {
   direction: rtl;
   text-align: right;
 }
 
-article.bd-article :is(ul, ol, dl) {
-  direction: rtl;
-  text-align: right;
-}
-article.bd-article ul,
-article.bd-article ol {
-  padding-right: 1.6rem;
+.bd-content article.bd-article ul,
+.bd-content article.bd-article ol {
   padding-left: 0;
-}
-article.bd-article li {
-  direction: rtl;
-  text-align: right;
-}
-
-/* Correct quote border on the right while preserving theme look. */
-article.bd-article blockquote {
-  margin-right: 0;
+  padding-right: 1.7rem;
   margin-left: 0;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  border-right: 4px solid var(--pst-color-border, #718096);
-  border-left: 0;
+  list-style-position: outside;
 }
 
-/* Read Persian tables from right to left. */
-article.bd-article :is(table, thead, tbody, tfoot, tr, th, td) {
-  direction: rtl;
+.bd-content article.bd-article li > p {
+  margin-left: 0;
   text-align: right;
 }
-article.bd-article table {
-  margin-right: 0;
-  margin-left: auto;
+
+/* Critical mixed-direction fix: isolate order_id, paid, YYYY-MM-DD, etc.
+ * Displaying inline code as one LTR island protects adjacent punctuation. */
+.bd-content article.bd-article code.docutils.literal,
+.bd-content article.bd-article code.literal {
+  direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: baseline;
+  max-width: 100%;
 }
 
-/* Keep mathematical notation and program code LTR (including notebook cells). */
-article.bd-article :is(pre, .highlight, .highlight pre, .highlight code, .literal-block,
-                       .cell_input, .cell_output, .jp-InputArea, .jp-OutputArea,
-                       .output, .output_area, .linenos, .math, .math-wrapper) {
+/* Inline formulas are isolated LTR islands in Persian paragraphs. */
+.bd-content article.bd-article span.math,
+.bd-content article.bd-article mjx-container:not([display="true"]) {
   direction: ltr;
+  unicode-bidi: isolate;
+  display: inline-block;
   text-align: left;
 }
-article.bd-article pre,
-article.bd-article .highlight,
-article.bd-article .cell_input,
-article.bd-article .cell_output {
-  unicode-bidi: isolate;
-}
-article.bd-article code,
-article.bd-article tt,
-article.bd-article kbd {
+
+/* Programming listings and notebook output retain their original LTR logic. */
+.bd-content article.bd-article pre,
+.bd-content article.bd-article .highlight,
+.bd-content article.bd-article .highlight pre,
+.bd-content article.bd-article .highlight code,
+.bd-content article.bd-article .literal-block,
+.bd-content article.bd-article .cell_input,
+.bd-content article.bd-article .cell_output,
+.bd-content article.bd-article .jp-InputArea,
+.bd-content article.bd-article .jp-OutputArea,
+.bd-content article.bd-article .output_area,
+.bd-content article.bd-article .linenos {
   direction: ltr;
+  text-align: left;
   unicode-bidi: isolate;
-}
-article.bd-article mjx-container,
-article.bd-article .MathJax,
-article.bd-article .MathJax_Display {
-  direction: ltr;
-  unicode-bidi: isolate;
-}
-article.bd-article mjx-container[display="true"],
-article.bd-article .math.display,
-article.bd-article .math-wrapper {
-  text-align: center;
 }
 
-/* Figures remain visually centered; their captions remain RTL. */
-article.bd-article :is(figure, .figure, .align-center) {
+.bd-content article.bd-article pre code,
+.bd-content article.bd-article .highlight code {
+  display: inline;
+  direction: ltr;
+  unicode-bidi: normal;
+  white-space: inherit;
+}
+
+.bd-content article.bd-article div.math,
+.bd-content article.bd-article .math.display,
+.bd-content article.bd-article .math-wrapper,
+.bd-content article.bd-article mjx-container[display="true"] {
+  direction: ltr;
+  unicode-bidi: isolate;
+  text-align: center;
+  max-width: 100%;
+}
+
+/* Tables have RTL row order; embedded Latin code tokens remain isolated. */
+.bd-content article.bd-article table,
+.bd-content article.bd-article thead,
+.bd-content article.bd-article tbody,
+.bd-content article.bd-article tfoot,
+.bd-content article.bd-article tr,
+.bd-content article.bd-article th,
+.bd-content article.bd-article td {
+  direction: rtl;
+  text-align: right;
+}
+
+.bd-content article.bd-article figure,
+.bd-content article.bd-article .figure,
+.bd-content article.bd-article .align-center {
   margin-right: auto;
   margin-left: auto;
 }
-article.bd-article :is(figure, .figure) figcaption,
-article.bd-article .figure .caption {
+
+.bd-content article.bd-article figure figcaption,
+.bd-content article.bd-article .figure figcaption {
   direction: rtl;
   text-align: center;
 }
 
-/* In narrow screens preserve scrolling of long formulas/tables/code. */
-article.bd-article :is(pre, .highlight, .table-wrapper, .math-wrapper) {
+/* Quotations: make the accent rule follow the reading direction. */
+.bd-content article.bd-article blockquote {
+  border-left: 0;
+  border-right: 4px solid var(--pst-color-border, #718096);
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Long code/equation/table blocks should stay scrollable. */
+.bd-content article.bd-article pre,
+.bd-content article.bd-article .highlight,
+.bd-content article.bd-article .table-wrapper,
+.bd-content article.bd-article .math-wrapper {
   max-width: 100%;
 }
