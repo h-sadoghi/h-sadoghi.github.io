@@ -26,3 +26,10 @@ html:
   extra_footer: |
     <p><a href="/teaching/image-processing/">Return to the Image Processing course</a></p>
   max_navbar_depth: 6
+
+sphinx:
+  config:
+    html_static_path:
+      - _static
+    html_css_files:
+      - persian-book-rtl.css

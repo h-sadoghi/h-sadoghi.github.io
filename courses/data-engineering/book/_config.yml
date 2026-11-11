@@ -20,3 +20,10 @@ html:
   max_navbar_depth: 6
   extra_footer: |
     <p><a href="/teaching/">Back to teaching courses</a></p>
+
+sphinx:
+  config:
+    html_static_path:
+      - _static
+    html_css_files:
+      - persian-book-rtl.css
