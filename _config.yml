@@ -423,7 +423,8 @@ imagemagick:
     - ".jpeg"
     - ".png"
     - ".tiff"
-    - ".gif"
+    # GIF files remain in their original animated form. Their generated WebP
+    # variants are not referenced by any built page and add about 32 MiB.
   output_formats:
     webp: "-quality 85"
 
