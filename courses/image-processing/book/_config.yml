@@ -11,8 +11,8 @@ execute:
 
 parse:
   myst_enable_extensions:
-  - amsmath
-  - dollarmath
+    - amsmath
+    - dollarmath
 
 repository:
   url: https://github.com/h-sadoghi/h-sadoghi.github.io
