@@ -1,0 +1,1104 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل پنجم — الگوهای پرتکرار و قواعد انجمنی &#8212; Data Mining Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/data-mining-rtl.css?v=0a14a926" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-05';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="فصل چهارم — پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد" href="chapter-04.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Mining Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    داده‌کاوی | Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های درس داده‌کاوی</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">مبانی داده‌کاوی و فرایند کشف دانش</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">معیارهای شباهت، فاصله و هندسهٔ داده‌ها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">الگوهای پرتکرار و قواعد انجمنی</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-05.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل پنجم — الگوهای پرتکرار و قواعد انجمنی</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و نقشهٔ استدلال</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه در دو کتاب و ادامهٔ فصل چهارم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۵ـ۱. مسئلهٔ آغازین: اگر مشتری یک کالا بخرد، چه چیز دیگری در سبد او دیده می‌شود؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">پرسشی برای شروع کلاس</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۵ـ۲. مدل دادهٔ تراکنشی: واحد مشاهده را عوض نکنیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۵ـ۳. پشتیبانی: «چند بار با هم» دقیقاً چه معنایی دارد؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">پشتیبانی حداقلی و تفاوت شمارش با درصد</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۵ـ۴. قاعدهٔ انجمنی: شرطی‌بودن با هم‌وقوعی فرق دارد</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">قاعدهٔ ظاهراً قوی که چیزی اضافه نمی‌کند</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lift-leverage-conviction">۵ـ۵. Lift، Leverage و Conviction: «بیش از انتظار» را بسنجیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ماتریس توافق: چهار خانهٔ مهم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۵ـ۶. انفجار فضای جست‌وجو: چرا شمارش همهٔ زیرمجموعه‌ها دشوار است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apriori">۵ـ۷. Apriori: از تک‌قلم تا هرس مجموعه‌های بزرگ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">یک محاسبهٔ دستی با هرس روشن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">هزینه و محدودیت</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۵ـ۸. تولید قواعد: پرتکراربودن مجموعه کافی نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fp-fp-growth">۵ـ۹. درخت FP و FP-Growth: به‌جای نامزدهای بی‌شمار، پیشوندها را فشرده کنیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">استخراج شرطی را دستی دنبال کنیم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">مرز ادعای کارایی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eclat">۵ـ۱۰. نمایش عمودی و Eclat: اشتراک شناسه‌ها به‌جای اسکن سبدها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">جمع‌بندی تطبیقی سه الگوریتم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۵ـ۱۱. مجموعه‌اقلام بسته و بیشینه: خروجی را کوتاه کنیم، نه اینکه معنا را گم کنیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۵ـ۱۲. خروجی قاعده را چگونه رتبه‌بندی کنیم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">چرا یک «قانون توصیهٔ خرید» الزاماً تصمیم خوبی نیست؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۵ـ۱۳. آستانه‌ها را از کجا بیاوریم؟ تحلیل حساسیت، نه تنظیم پسینی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۵ـ۱۴. دادهٔ بسیار کج و الگوهای نادر: خطر قاعدهٔ «درخشان»</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">۵ـ۱۵. از درصدهای مشاهده‌شده تا عدم‌قطعیت آماری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">جدول توافق و آزمون دقیق فیشر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">آزمون‌های متعدد و جداسازی داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lift">۵ـ۱۶. بوت‌استرپ آموزشی: چرا Lift نمونهٔ کوچک ناپایدار است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۵ـ۱۷. پارادوکس سیمپسون: میانگین دو گروه می‌تواند علامت رابطه را وارونه کند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۵ـ۱۸. وقتی رابطه معنا ندارد: هشدارهای تفسیر و حریم خصوصی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۵ـ۱۹. آزمایشگاه عملی یکپارچه: هم‌جوابی سه روش، نه مسابقهٔ تبلیغاتی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۵ـ۲۰. پرسش‌های ممیزی خروجی: یک چک‌لیست علمی کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۵ـ۲۱. تمرین‌های پایانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۵ـ۲۲. جمع‌بندیِ استدلال فصل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">پیوند با فصل ششم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">منابع و مسیر مطالعه</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل پنجم — الگوهای پرتکرار و قواعد انجمنی<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>درس داده‌کاوی، کارشناسی ارشد مهندسی کامپیوتر</strong><br />
+<strong>پرسش محوری:</strong> در انبوه تراکنش‌ها، چه اقلامی بیش از حد انتظار با هم ظاهر می‌شوند، و چگونه میان یک هم‌وقوعی واقعی، یک قاعدهٔ ظاهراً قوی و یک کشف آماریِ قابل دفاع تفاوت بگذاریم؟</p>
+</div></blockquote>
+<p><strong>فایل‌های آموزشی:</strong> <a href="/assets/downloads/courses/data-mining/course-notes/chapter-05/DataMining_Chapter05.pdf" download>PDF فصل پنجم</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-05/DataMining_Chapter05_TEX_PDF_SOURCE.zip" download>سورس XeLaTeX و شکل‌ها در ZIP</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-05/chapter05_examples.py" download>کد Python</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-05/chapter05_examples.ipynb" download>Notebook</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-05/baskets_synthetic.csv" download>دادهٔ تراکنش ساختگی</a>. تمام مثال‌های محاسباتی با دادهٔ همین بسته قابل تکرارند.</p>
+<section id="id2">
+<h2>اهداف یادگیری و نقشهٔ استدلال<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>پس از این فصل دانشجو باید بتواند: (۱) واحد «تراکنش» و قرارداد حضور/عدم‌حضور قلم را تعریف کند؛ (۲) پشتیبانی شمارشی و نسبی مجموعه‌اقلام را با محاسبهٔ دستی به دست آورد؛ (۳) از پشتیبانی و اطمینان به Lift و Leverage برسد و تفاوت معنایی آن‌ها را توضیح دهد؛ (۴) خاصیت ضدتک‌سوییِ پشتیبانی را اثبات و برای هرس فضای جست‌وجو استفاده کند؛ (۵) الگوریتم Apriori و محل هزینهٔ آن را مرحله‌به‌مرحله اجرا کند؛ (۶) فهم شهودی و عملی FP-tree و FP-Growth را با فرمت عمودی TID و Eclat مقایسه کند؛ (۷) الگوی بسته و بیشینه را تشخیص دهد؛ (۸) قواعد هم‌بسته را از قواعد صرفاً پرتکرار جدا کند؛ (۹) نسبت به اندازهٔ نمونه، آزمون چندگانه، متغیر مخدوش‌گر و پایداری زمانی حساس باشد؛ و (۱۰) گزارش قابل دفاعی از الگوهای کشف‌شده ارائه دهد.</p>
+<figure class="align-default" id="dm5-fig-01">
+<a class="reference internal image-reference" href="../_images/fig05_01.png"><img alt="../_images/fig05_01.png" src="../_images/fig05_01.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 59 </span><span class="caption-text">نقشهٔ فصل: از سبدهای تراکنشی به شمارش، کاوش، ارزیابی و سپس اعتبارسنجی. چهار مرحلهٔ میانی به‌تنهایی «کشف قابل استفاده» تولید نمی‌کنند.</span><a class="headerlink" href="#dm5-fig-01" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id3">
+<h3>جایگاه در دو کتاب و ادامهٔ فصل چهارم<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>در <strong>Han, Pei &amp; Tong، ویرایش چهارم</strong>، این مبحث در <strong>فصل ۴، بخش‌های ۴٫۱ تا ۴٫۳ (صفحات چاپی ۱۴۵ تا ۱۶۹)</strong> با عنوان <em>Pattern mining: basic concepts and methods</em> آمده است؛ از Apriori و رشد الگو تا فرمت عمودی و سنجه‌های جالب‌بودن. در <strong>Tan, Steinbach, Karpatne &amp; Kumar، ویرایش دوم</strong>، مبنای اصلی <strong>فصل ۵، بخش‌های ۵٫۱ تا ۵٫۸ (صفحات چاپی ۳۵۷ تا ۴۲۴)</strong> با عنوان <em>Association Analysis: Basic Concepts and Algorithms</em> است؛ این کتاب علاوه بر الگوریتم، بر شمارش پشتیبانی، فشرده‌سازی جواب، ارزیابی قواعد، توزیع کج و پارادوکس سیمپسون تأکید بیشتری دارد. شمارهٔ صفحه‌ها، شمارهٔ <strong>چاپی خود کتاب</strong> هستند. بحث بوت‌استرپ و پروتکل پیشنهادی اعتبارسنجی در این جزوه تکمیل آموزشی مستقل است، نه نقل از یک بخش مشخص کتاب.</p>
+<p>در فصل چهارم یاد گرفتیم که دادهٔ پیوسته را می‌توان با قرارداد دقیق به اقلام یا ویژگی‌های دودویی تبدیل کرد. اکنون یک قدم جلو می‌رویم: <strong>از بازنمایی داده، به کشف ساختارهای تکرارشونده در آن</strong>. در عین حال موضوعات چندسطحی، کمیِ پیشرفته، ترتیبی و الگوهای گرافی را برای فصل ششم نگه می‌داریم. در این فصل همهٔ تراکنش‌ها و نتیجه‌های عددی <strong>ساختگی آموزشی</strong> هستند؛ هیچ ادعای واقعی دربارهٔ رفتار خریداران یا اثر علی اقلام مطرح نیست.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>۵ـ۱. مسئلهٔ آغازین: اگر مشتری یک کالا بخرد، چه چیز دیگری در سبد او دیده می‌شود؟<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>فرض کنید یک فروشگاه می‌خواهد جای‌گذاری اقلام روی قفسه را بازنگری کند. تیم داده به‌جای حدس‌زدن از روی مجموع فروش کالاها، صورت‌حساب‌های خرید را می‌بیند: در یک خرید واحد، کدام اقلام هم‌زمان حضور دارند؟ این سؤال با «کدام کالا محبوب‌تر است؟» فرق دارد؛ ممکن است دو کالای بسیار محبوب تقریباً مستقل از هم خریداری شوند، اما دو کالای کمتر محبوب با هم‌وقوعی غیرمعمول همراه باشند.</p>
+<p>در این مثال، فقط <strong>هشت تراکنش</strong> و <strong>پنج قلم کالا</strong> داریم. نام‌های انگلیسی نمادهای قرارداد ثابت‌اند و داده‌ها ساختگی هستند:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>شناسه</p></th>
+<th class="head"><p>اقلام حاضر در سبد</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bread</span></code>, <code class="docutils literal notranslate"><span class="pre">milk</span></code>, <code class="docutils literal notranslate"><span class="pre">eggs</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T2</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bread</span></code>, <code class="docutils literal notranslate"><span class="pre">milk</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T3</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bread</span></code>, <code class="docutils literal notranslate"><span class="pre">milk</span></code>, <code class="docutils literal notranslate"><span class="pre">diaper</span></code>, <code class="docutils literal notranslate"><span class="pre">beer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T4</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bread</span></code>, <code class="docutils literal notranslate"><span class="pre">diaper</span></code>, <code class="docutils literal notranslate"><span class="pre">beer</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T5</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">milk</span></code>, <code class="docutils literal notranslate"><span class="pre">diaper</span></code>, <code class="docutils literal notranslate"><span class="pre">beer</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T6</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bread</span></code>, <code class="docutils literal notranslate"><span class="pre">milk</span></code>, <code class="docutils literal notranslate"><span class="pre">diaper</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">T7</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bread</span></code>, <code class="docutils literal notranslate"><span class="pre">eggs</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">T8</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">milk</span></code>, <code class="docutils literal notranslate"><span class="pre">eggs</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>اگر فقط به این جدول نگاه کنیم، «نان» و «شیر» به نظر زوج مناسبی می‌آیند. اما برای قضاوت باید <strong>دو مخرج متفاوت</strong> را تشخیص دهیم: از چند تراکنش کل فروشگاه؟ و از چند تراکنش حاوی کالای اول؟ کل فصل بر مدیریت دقیق همین مخرج‌ها و تفسیر آن‌ها بنا شده است.</p>
+<figure class="align-default" id="dm5-fig-02">
+<a class="reference internal image-reference" href="../_images/fig05_02.png"><img alt="../_images/fig05_02.png" src="../_images/fig05_02.png" style="width: 85%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 60 </span><span class="caption-text">ماتریس تراکنش–قلم دادهٔ مثال. هر خانهٔ یک‌رنگ یعنی حضور قلم در همان تراکنش؛ عدد «۱» به تعداد واحد خریداری‌شده اشاره نمی‌کند.</span><a class="headerlink" href="#dm5-fig-02" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id5">
+<h3>پرسشی برای شروع کلاس<a class="headerlink" href="#id5" title="Link to this heading">#</a></h3>
+<p>بدون استفاده از فرمول، پاسخ دهید: آیا حضور هم‌زمان <code class="docutils literal notranslate"><span class="pre">bread</span></code> و <code class="docutils literal notranslate"><span class="pre">milk</span></code> دلیل خوبی است که خرید نان را پیش‌بینی‌کنندهٔ خرید شیر بدانیم؟ وقتی می‌دانیم شیر به‌تنهایی در شش تراکنش از هشت تراکنش حضور دارد، باید چه چیزی را با چه چیزی مقایسه کنیم؟ پاسخ را در بخش ۵ـ۴ محاسبه می‌کنیم.</p>
+</section>
+</section>
+<section id="id6">
+<h2>۵ـ۲. مدل دادهٔ تراکنشی: واحد مشاهده را عوض نکنیم<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>یک پایگاه تراکنشی مجموعه‌ای از سبدهاست؛ هر سبد یک زیرمجموعه از جهان اقلام است. برای مثال، جهان اقلام را چنین تعریف می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+I=\{\mathrm{bread},\mathrm{milk},\mathrm{eggs},\mathrm{diaper},\mathrm{beer}\},\quad
+D=\{T_1,T_2,\ldots,T_N\},\quad T_i\subseteq I.
+\]</div>
+<p>در این رابطه، <span class="math notranslate nohighlight">\(I\)</span> مجموعهٔ اقلام، <span class="math notranslate nohighlight">\(D\)</span> مجموعهٔ تراکنش‌ها و <span class="math notranslate nohighlight">\(N\)</span> تعداد تراکنش‌هاست. <strong>هیچ کلمهٔ فارسی داخل فرمول نوشته نشده است</strong> تا نمایش MathJax در صفحهٔ راست‌به‌چپ مختل نشود. برای هر مجموعه‌اقلام <span class="math notranslate nohighlight">\(X\)</span>، تابع نشانگر <span class="math notranslate nohighlight">\(\mathbf{1}[X\subseteq T_i]\)</span> برابر یک است اگر تمام اعضای <span class="math notranslate nohighlight">\(X\)</span> در تراکنش <span class="math notranslate nohighlight">\(i\)</span> حاضر باشند وگرنه صفر.</p>
+<p>در عمل، «سفارش»، «سبد»، «رسید»، «جلسهٔ وب» و «خرید هر مشتری در یک روز» واحدهای متفاوت‌اند. اگر یک مشتری ده بار خرید کرده باشد، در تحلیل تراکنش‌محور ده واحد داریم نه یک واحد؛ اگر اقلام چند سفارش را با هم تجمیع کنیم، هم‌وقوعی‌های مصنوعی می‌سازیم. در دادهٔ کد همراه، <code class="docutils literal notranslate"><span class="pre">tid</span></code> یکتا است؛ اقلام یک سبد به‌صورت مجموعه خوانده می‌شوند و تکرار نام یک قلم داخل یک تراکنش پشتیبانی را افزایش نمی‌دهد. مقدار خرید، قیمت و ترتیب زمانی عمداً در مدل پایه وارد نشده‌اند.</p>
+</section>
+<section id="id7">
+<h2>۵ـ۳. پشتیبانی: «چند بار با هم» دقیقاً چه معنایی دارد؟<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p><strong>پشتیبانی شمارشی</strong> مجموعه‌اقلام <span class="math notranslate nohighlight">\(X\)</span>، تعداد تراکنش‌هایی است که <span class="math notranslate nohighlight">\(X\)</span> را در خود دارند. <strong>پشتیبانی نسبی</strong> این تعداد تقسیم بر کل تراکنش‌هاست:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{count}(X)=\sum_{i=1}^{N}\mathbf{1}[X\subseteq T_i],\qquad
+\operatorname{sup}(X)=\frac{\operatorname{count}(X)}{N}.
+\]</div>
+<p>مثلاً در هشت تراکنش ما، <code class="docutils literal notranslate"><span class="pre">bread</span></code> در شش تراکنش، <code class="docutils literal notranslate"><span class="pre">milk</span></code> در شش تراکنش، و زوج آن‌ها در چهار تراکنش دیده می‌شوند:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{count}(\{\mathrm{bread},\mathrm{milk}\})=4,
+\qquad \operatorname{sup}(\{\mathrm{bread},\mathrm{milk}\})=\frac48=0.5.
+\]</div>
+<p>زوج <code class="docutils literal notranslate"><span class="pre">diaper</span></code> و <code class="docutils literal notranslate"><span class="pre">beer</span></code> در سه تراکنش دیده می‌شود، پس پشتیبانی آن <span class="math notranslate nohighlight">\(3/8=0.375\)</span> است. این محاسبه فقط یک <em>نرخ مشاهده‌شده در همین نمونه</em> است؛ دربارهٔ احتمال خرید در جامعهٔ مشتریان، بدون فرض نمونه‌گیری و بازهٔ زمانی مناسب نمی‌توان حکم قطعی داد.</p>
+<figure class="align-default" id="dm5-fig-03">
+<a class="reference internal image-reference" href="../_images/fig05_03.png"><img alt="../_images/fig05_03.png" src="../_images/fig05_03.png" style="width: 78%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 61 </span><span class="caption-text">فراوانی تک‌قلم‌ها و آستانهٔ نمونهٔ آموزشی (سه تراکنش). آستانه را پیش از دیدن خروجی انتخاب می‌کنیم، نه بعد از مشاهدهٔ قاعدهٔ دلخواه.</span><a class="headerlink" href="#dm5-fig-03" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id8">
+<h3>پشتیبانی حداقلی و تفاوت شمارش با درصد<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>اگر حداقل فراوانی شمارشی را <span class="math notranslate nohighlight">\(m=3\)</span> تعیین کنیم، یک مجموعه‌اقلام «پرتکرار» است هرگاه <span class="math notranslate nohighlight">\(\operatorname{count}(X)\ge m\)</span>. در هشت تراکنش این شرط معادل حداقل پشتیبانی نسبی <span class="math notranslate nohighlight">\(3/8\)</span> است. اما در یک میلیون تراکنش، عدد سه همان معنا را ندارد؛ پس آستانه همیشه باید همراه با <strong>مخرج و مقیاس داده</strong> گزارش شود. مقادیر متعارف و بی‌مسئله‌ای برای آستانه وجود ندارد. آستانهٔ بالا الگوهای نادر را حذف می‌کند؛ آستانهٔ بسیار پایین فضای جست‌وجو و خطر کشف اتفاقی را بزرگ می‌کند.</p>
+</section>
+</section>
+<section id="id9">
+<h2>۵ـ۴. قاعدهٔ انجمنی: شرطی‌بودن با هم‌وقوعی فرق دارد<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>یک قاعدهٔ انجمنی را به‌صورت <span class="math notranslate nohighlight">\(A\Rightarrow B\)</span> می‌نویسیم؛ <span class="math notranslate nohighlight">\(A\)</span> پیش‌شرط و <span class="math notranslate nohighlight">\(B\)</span> پیامد قاعده‌اند، با <span class="math notranslate nohighlight">\(A\cap B=\varnothing\)</span>. این نماد <strong>به معنی علت‌ومعلول یا ترتیب زمانی نیست</strong>. صرفاً نرخ همراهیِ <span class="math notranslate nohighlight">\(B\)</span> در سبدهای حاوی <span class="math notranslate nohighlight">\(A\)</span> را گزارش می‌کند.</p>
+<p><strong>اطمینان (Confidence)</strong> چنین محاسبه می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{conf}(A\Rightarrow B)=
+\frac{\operatorname{sup}(A\cup B)}{\operatorname{sup}(A)}
+=\frac{\operatorname{count}(A\cup B)}{\operatorname{count}(A)},
+\quad \operatorname{sup}(A)&gt;0.
+\]</div>
+<p>برای <code class="docutils literal notranslate"><span class="pre">bread</span></code> به <code class="docutils literal notranslate"><span class="pre">milk</span></code> داریم <span class="math notranslate nohighlight">\(4/6=0.667\)</span>. اما برای <code class="docutils literal notranslate"><span class="pre">milk</span></code> به <code class="docutils literal notranslate"><span class="pre">bread</span></code> هم اتفاقاً <span class="math notranslate nohighlight">\(4/6=0.667\)</span> است؛ <strong>این برابری تصادفیِ دادهٔ حاضر است، نه تقارن ذاتی Confidence</strong>. قاعدهٔ <code class="docutils literal notranslate"><span class="pre">diaper</span></code> به <code class="docutils literal notranslate"><span class="pre">beer</span></code> دارای اطمینان <span class="math notranslate nohighlight">\(3/4=0.75\)</span> است، ولی جهت معکوس <code class="docutils literal notranslate"><span class="pre">beer</span></code> به <code class="docutils literal notranslate"><span class="pre">diaper</span></code> دارای اطمینان <span class="math notranslate nohighlight">\(3/3=1\)</span> است. همین مثال نشان می‌دهد جای صورت و مخرج را نمی‌توان خودسرانه عوض کرد.</p>
+<section id="id10">
+<h3>قاعدهٔ ظاهراً قوی که چیزی اضافه نمی‌کند<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">diaper</span></code> در چهار تراکنش و <code class="docutils literal notranslate"><span class="pre">bread</span></code> در شش تراکنش حاضر است؛ هر دو در سه تراکنش با هم هستند. پس:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{conf}(\mathrm{diaper}\Rightarrow\mathrm{bread})=\frac34=0.75,
+\qquad \operatorname{sup}(\{\mathrm{bread}\})=\frac68=0.75.
+\]</div>
+<p>با دانستن وجود پوشک، نرخ نان از <strong>۷۵ درصد پایه</strong> تغییری نکرده است! این قاعده ممکن است آستانهٔ اطمینان ۷۰ درصد را رد کند، اما از منظر پیش‌بینی نان، اطلاعات جدیدی نداده است. همین شکست انگیزهٔ معرفی Lift است.</p>
+</section>
+</section>
+<section id="lift-leverage-conviction">
+<h2>۵ـ۵. Lift، Leverage و Conviction: «بیش از انتظار» را بسنجیم<a class="headerlink" href="#lift-leverage-conviction" title="Link to this heading">#</a></h2>
+<p><strong>Lift</strong> نسبت اطمینان قاعده به پشتیبانی پیامد است. اگر دو رویداد مستقل باشند و مخرج‌ها غیرصفر، Lift برابر یک می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{lift}(A\Rightarrow B)=
+\frac{\operatorname{sup}(A\cup B)}{\operatorname{sup}(A)\operatorname{sup}(B)}
+=\frac{\operatorname{conf}(A\Rightarrow B)}{\operatorname{sup}(B)}.
+\]</div>
+<p>Lift بزرگ‌تر از یک، همراهی مثبت نسبت به مدل استقلال؛ کمتر از یک، همراهی منفی؛ و نزدیک یک، نبود شواهدی برای تفاوت محسوس از استقلال در دادهٔ مشاهده‌شده است. <strong>این شاخص به‌تنهایی آزمون معناداری نیست و رابطهٔ علّی را نشان نمی‌دهد.</strong></p>
+<p>برای <code class="docutils literal notranslate"><span class="pre">beer</span></code> و <code class="docutils literal notranslate"><span class="pre">diaper</span></code>، پشتیبانی‌ها به‌ترتیب <span class="math notranslate nohighlight">\(3/8\)</span> و <span class="math notranslate nohighlight">\(4/8\)</span> هستند، پس:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{lift}(\mathrm{beer}\Rightarrow\mathrm{diaper})=
+\frac{3/8}{(3/8)(4/8)}=2.
+\]</div>
+<p>در برابر، برای <code class="docutils literal notranslate"><span class="pre">diaper</span></code> به <code class="docutils literal notranslate"><span class="pre">bread</span></code>، مقدار Lift برابر <span class="math notranslate nohighlight">\((3/8)/[(4/8)(6/8)]=1\)</span> است. از این رو، <strong>اطمینان بالا به‌تنهایی معیار کافی برای توصیه‌گر نیست</strong>.</p>
+<p><strong>Leverage</strong> تفاوت مطلق هم‌وقوعی مشاهده‌شده با مقدار مورد انتظار تحت استقلال است:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{lev}(A,B)=\operatorname{sup}(A\cup B)-\operatorname{sup}(A)\operatorname{sup}(B).
+\]</div>
+<p>در مثال <code class="docutils literal notranslate"><span class="pre">beer</span></code> و <code class="docutils literal notranslate"><span class="pre">diaper</span></code> مقدار آن <span class="math notranslate nohighlight">\(3/8-(3/8)(4/8)=3/16=0.1875\)</span> می‌شود. Lift نسبت و Leverage اختلاف است: ممکن است نسبت بالا اما اثر مطلق ناچیز باشد، به‌ویژه اگر رویداد بسیار کمیاب است. Conviction نیز یک سنجهٔ جهت‌دار بر پایهٔ نرخ نقض قاعده است:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{conv}(A\Rightarrow B)=\frac{1-\operatorname{sup}(B)}{1-\operatorname{conf}(A\Rightarrow B)}.
+\]</div>
+<p>در حالت اطمینان یک و پشتیبانی پیامد کمتر از یک، مقدار نظری Conviction بی‌نهایت است؛ این <strong>نشانهٔ قطعیت علمی نیست</strong>، بلکه حاصل تقسیم بر صفر در تعریف است. در کد همراه، برای چنین حالت‌هایی <code class="docutils literal notranslate"><span class="pre">null</span></code> (مقدار تعریف‌نشدهٔ عددی) به‌جای خروجی JSON نامعتبر قرار داده شده است.</p>
+<figure class="align-default" id="dm5-fig-08">
+<a class="reference internal image-reference" href="../_images/fig05_08.png"><img alt="../_images/fig05_08.png" src="../_images/fig05_08.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 62 </span><span class="caption-text">چهار قاعده با Confidence بالا؛ دو قاعده با وجود اطمینان ۷۵٪ دارای Lift برابر یک‌اند و اطلاع افزوده‌ای نسبت به پایه نمی‌دهند.</span><a class="headerlink" href="#dm5-fig-08" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id11">
+<h3>ماتریس توافق: چهار خانهٔ مهم<a class="headerlink" href="#id11" title="Link to this heading">#</a></h3>
+<p>برای دو قلم <code class="docutils literal notranslate"><span class="pre">beer</span></code> و <code class="docutils literal notranslate"><span class="pre">diaper</span></code>، تعداد سبدهای «هر دو»، «فقط اول»، «فقط دوم» و «هیچ‌کدام» برابر <span class="math notranslate nohighlight">\(3,0,1,4\)</span> است. در قالب یک جدول <span class="math notranslate nohighlight">\(2\times2\)</span>، حاشیه‌ها و مخرج‌ها آشکار می‌شوند. از این جدول می‌توان نسبت شانس، ضریب فی و آزمون دقیق فیشر را نیز تعریف کرد؛ اما نتیجهٔ آماری باید با اندازهٔ نمونه و فرض‌های آزمون سنجیده شود.</p>
+<figure class="align-default" id="dm5-fig-07">
+<a class="reference internal image-reference" href="../_images/fig05_07.png"><img alt="../_images/fig05_07.png" src="../_images/fig05_07.png" style="width: 79%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 63 </span><span class="caption-text">جدول توافق هشت تراکنش. خانهٔ صفر می‌تواند با نمونهٔ کوچک به‌سادگی رخ دهد؛ بنابراین Confidence یک تضمین قطعی در آینده نیست.</span><a class="headerlink" href="#dm5-fig-07" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id12">
+<h2>۵ـ۶. انفجار فضای جست‌وجو: چرا شمارش همهٔ زیرمجموعه‌ها دشوار است؟<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>اگر <span class="math notranslate nohighlight">\(d\)</span> قلم کالا داشته باشیم، تعداد زیرمجموعه‌های غیرتهی آن‌ها <span class="math notranslate nohighlight">\(2^d-1\)</span> است. برای <span class="math notranslate nohighlight">\(d=5\)</span> فقط <span class="math notranslate nohighlight">\(31\)</span> حالت داریم؛ برای <span class="math notranslate nohighlight">\(d=30\)</span> بیش از یک میلیارد زیرمجموعه ممکن است. حتی پیش از تولید قواعد، الگوریتم باید راهی پیدا کند تا <strong>بدون شمارش تمام این حالت‌ها</strong> زیرمجموعه‌های امیدبخش را شناسایی کند.</p>
+<p>نکتهٔ اصلی پشتیبانی این است: افزودن قلم به یک مجموعه نمی‌تواند تعداد تراکنش‌های حاوی آن را افزایش دهد. اگر <span class="math notranslate nohighlight">\(X\subseteq Y\)</span>، آنگاه هر تراکنش حاوی <span class="math notranslate nohighlight">\(Y\)</span> لزوماً <span class="math notranslate nohighlight">\(X\)</span> را نیز دارد؛ بنابراین:</p>
+<div class="math notranslate nohighlight">
+\[
+X\subseteq Y\quad\Longrightarrow\quad
+\operatorname{count}(Y)\le\operatorname{count}(X).
+\]</div>
+<p>این <strong>خاصیت ضدتک‌سویی (Anti-monotonicity)</strong> پایهٔ اصل Apriori است: اگر مجموعه‌ای پرتکرار نباشد، هیچ ابرمجموعهٔ آن پرتکرار نیست. <strong>وارونِ جمله درست نیست</strong>: پرتکراربودن یک تک‌قلم به معنی پرتکراربودن همهٔ زوج‌های شامل آن نیست. در مثال ما، <code class="docutils literal notranslate"><span class="pre">bread</span></code> و <code class="docutils literal notranslate"><span class="pre">milk</span></code> هر دو شش‌بار تکرار شده‌اند اما مجموعهٔ سه‌قلمی <code class="docutils literal notranslate"><span class="pre">bread,milk,diaper</span></code> فقط دو بار رخ داده است.</p>
+<figure class="align-default" id="dm5-fig-06">
+<a class="reference internal image-reference" href="../_images/fig05_06.png"><img alt="../_images/fig05_06.png" src="../_images/fig05_06.png" style="width: 87%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 64 </span><span class="caption-text">یک مجموعهٔ سه‌قلمی می‌تواند نامتداول باشد، با اینکه تمام زیرمجموعه‌های دوقلمی آن پرتکرارند. اصل Apriori فقط جهت صحیح استدلال را مجاز می‌داند.</span><a class="headerlink" href="#dm5-fig-06" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="apriori">
+<h2>۵ـ۷. Apriori: از تک‌قلم تا هرس مجموعه‌های بزرگ<a class="headerlink" href="#apriori" title="Link to this heading">#</a></h2>
+<p><strong>Apriori</strong> جست‌وجو را سطح‌به‌سطح انجام می‌دهد. در گذر نخست، اقلام تکی را می‌شمارد. سپس فقط زوج‌هایی را به‌عنوان <em>نامزد</em> می‌سازد که از اقلام تکیِ پرتکرار تشکیل شده‌اند. در مراحل بعد، تنها مجموعه‌هایی ساخته می‌شوند که <strong>همهٔ زیرمجموعه‌های یک‌قلم‌کوچک‌تر آن‌ها پرتکرار باشند</strong>. پس از هر مرحله، یک عبور از داده برای شمارش نامزدها انجام می‌شود.</p>
+<p>شبه‌کد ساده‌شده:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>L1 = frequent singletons with count &gt;= min_count
+k = 2
+while L[k-1] is nonempty:
+    Ck = join compatible itemsets in L[k-1]
+    Ck = {c in Ck : every (k-1)-subset of c is in L[k-1]}
+    count c in the transaction database
+    Lk = {c in Ck : count(c) &gt;= min_count}
+    k = k + 1
+return union(L1, L2, ...)
+</pre></div>
+</div>
+<p>این الگوریتم صرفاً شمارش ترکیب‌ها نیست؛ <strong>دلیل حذف هر نامزد، یک گزارهٔ ریاضی دربارهٔ پشتیبانی است</strong>. برای دادهٔ خودمان با آستانهٔ شمارشی سه، همهٔ پنج تک‌قلم پرتکرارند. از ده زوج ممکن، چهار زوج پرتکرار می‌مانند: <code class="docutils literal notranslate"><span class="pre">bread+milk</span></code> با شمارش ۴، و <code class="docutils literal notranslate"><span class="pre">bread+diaper</span></code>، <code class="docutils literal notranslate"><span class="pre">milk+diaper</span></code> و <code class="docutils literal notranslate"><span class="pre">diaper+beer</span></code> هر یک با شمارش ۳. فقط مجموعهٔ سه‌قلمی <code class="docutils literal notranslate"><span class="pre">bread+milk+diaper</span></code> از سد هرس زیرمجموعه‌ها عبور می‌کند؛ ولی شمارش واقعی آن ۲ است، بنابراین هیچ مجموعهٔ سه‌قلمی پرتکرار نداریم.</p>
+<figure class="align-default" id="dm5-fig-04">
+<a class="reference internal image-reference" href="../_images/fig05_04.png"><img alt="../_images/fig05_04.png" src="../_images/fig05_04.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 65 </span><span class="caption-text">سطح‌های پرتکرار و تنها نامزد سه‌قلمی قابل شمارش؛ قرمز نشان می‌دهد پشتیبانی آن کمتر از آستانهٔ انتخاب‌شده است.</span><a class="headerlink" href="#dm5-fig-04" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="dm5-fig-05">
+<a class="reference internal image-reference" href="../_images/fig05_05.png"><img alt="../_images/fig05_05.png" src="../_images/fig05_05.png" style="width: 97%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 66 </span><span class="caption-text">فراگرد Apriori روی مثال: از ۵ تک‌قلم تا ۱۰ زوج نامزد، ۴ زوج پرتکرار و در نهایت نامزد سه‌قلمی ناموفق.</span><a class="headerlink" href="#dm5-fig-05" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id13">
+<h3>یک محاسبهٔ دستی با هرس روشن<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>چرا مجموعهٔ <code class="docutils literal notranslate"><span class="pre">bread+diaper+beer</span></code> را حتی نمی‌شماریم؟ زیرا زیرمجموعهٔ <code class="docutils literal notranslate"><span class="pre">bread+beer</span></code> فقط دو بار رخ داده است و آستانهٔ ما سه است. بنابراین طبق اصل ضدتک‌سویی، مجموعهٔ بزرگ‌تر نیز حداکثر دو بار رخ می‌دهد. حذف آن <strong>بدون از دست دادن هیچ جواب پرتکراری</strong> ممکن است؛ این با حذف قواعد کم‌اطمینان پس از کاوش فرق دارد.</p>
+</section>
+<section id="id14">
+<h3>هزینه و محدودیت<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>Apriori ممکن است چند بار بانک تراکنش را اسکن کند و در دادهٔ متراکم نامزدهای بسیار زیاد بسازد. آن را به‌خاطر سادگی مفهوم و قابلیت کنترل تدریس می‌کنیم، نه به این ادعا که برای تمام داده‌های بزرگ بهترین انتخاب است. هزینه به تعداد اقلام، طول سبدها، آستانهٔ فراوانی، ساختمان دادهٔ نامزدها و شیوهٔ شمارش وابسته است. در کد آموزشی، سادگی و صحت خروجی در اولویت‌اند، نه حداکثر کارایی صنعتی.</p>
+</section>
+</section>
+<section id="id15">
+<h2>۵ـ۸. تولید قواعد: پرتکراربودن مجموعه کافی نیست<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>پس از یافتن مجموعهٔ پرتکرار <span class="math notranslate nohighlight">\(L\)</span>، برای هر زیرمجموعهٔ غیرتهی <span class="math notranslate nohighlight">\(A\subset L\)</span> می‌توان قاعدهٔ <span class="math notranslate nohighlight">\(A\Rightarrow L\setminus A\)</span> را ساخت و اطمینان آن را حساب کرد. قاعده را فقط وقتی نگه می‌داریم که علاوه بر حداقل پشتیبانی مجموعه، حداقل اطمینان را هم پاس کند. مثلاً برای زوج <code class="docutils literal notranslate"><span class="pre">diaper,beer</span></code> هر دو جهت را بررسی می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\operatorname{conf}(\mathrm{diaper}\Rightarrow\mathrm{beer})&amp;=3/4=0.75,\\
+\operatorname{conf}(\mathrm{beer}\Rightarrow\mathrm{diaper})&amp;=3/3=1.
+\end{aligned}
+\end{split}\]</div>
+<p>در آستانهٔ اطمینان <span class="math notranslate nohighlight">\(0.70\)</span> هر دو پذیرفته می‌شوند. برای یک مجموعهٔ سه‌قلمی احتمالی، باید پیامدهای یک‌قلمی و چندقلمی را جدا بررسی کرد. اصل مهم برای <strong>هرس بر پایهٔ اطمینان</strong> در هنگام بزرگ‌کردن پیامد آن است که، برای یک <span class="math notranslate nohighlight">\(L\)</span> ثابت، اگر <span class="math notranslate nohighlight">\(A\Rightarrow B\)</span> با <span class="math notranslate nohighlight">\(A=L\setminus B\)</span> کم‌اطمینان باشد، افزایش مجموعهٔ پیامد با کوچک‌شدن پیش‌شرط نمی‌تواند اطمینان را افزایش دهد. این خاصیت با <strong>ضدتک‌سویی پشتیبانی</strong> یکی نیست و مخرج‌های متفاوت دارد.</p>
+</section>
+<section id="fp-fp-growth">
+<h2>۵ـ۹. درخت FP و FP-Growth: به‌جای نامزدهای بی‌شمار، پیشوندها را فشرده کنیم<a class="headerlink" href="#fp-fp-growth" title="Link to this heading">#</a></h2>
+<p>ایدهٔ FP-Growth این است که تراکنش‌ها را پس از حذف اقلام غیرپرتکرار و مرتب‌کردن اقلام براساس فراوانی کلی، در <strong>درخت پیشوند مشترک (FP-tree)</strong> ذخیره کنیم. اگر سبدهای مختلف با اقلام پرتکرار یکسان آغاز شوند، مسیر مشترک به‌جای چند بار ذخیره‌شدن، با <strong>شمارندهٔ گره</strong> نمایش داده می‌شود. سپس برای استخراج الگوهای حاوی یک قلم، <strong>پایگاه الگوهای شرطی (conditional pattern base)</strong> آن قلم را از مسیرهای پیشوندی استخراج می‌کنیم؛ این فرایند به‌طور بازگشتی روی دادهٔ کوچک‌تر تکرار می‌شود.</p>
+<p>در مثال حاضر، فراوانی‌های <code class="docutils literal notranslate"><span class="pre">bread</span></code> و <code class="docutils literal notranslate"><span class="pre">milk</span></code> برابر ۶، <code class="docutils literal notranslate"><span class="pre">diaper</span></code> برابر ۴ و <code class="docutils literal notranslate"><span class="pre">beer</span></code> و <code class="docutils literal notranslate"><span class="pre">eggs</span></code> برابر ۳ است. برای رفع ابهام تساوی، نام‌های انگلیسی را به‌ترتیب لغوی مرتب می‌کنیم. پس ترتیب جهانی برابر <code class="docutils literal notranslate"><span class="pre">bread,</span> <span class="pre">milk,</span> <span class="pre">diaper,</span> <span class="pre">beer,</span> <span class="pre">eggs</span></code> نیست لزوماً؛ <strong>در تساوی‌های شمارشی ترتیب لغوی نیز تعیین‌کننده است</strong>. کد واقعیِ همراه ترتیب مرتب‌سازی را دقیقاً از <code class="docutils literal notranslate"><span class="pre">(−frequency,</span> <span class="pre">item_name)</span></code> می‌سازد. مهم آن است که ترتیب برای همهٔ سبدها ثابت بماند.</p>
+<figure class="align-default" id="dm5-fig-09">
+<a class="reference internal image-reference" href="../_images/fig05_09.png"><img alt="../_images/fig05_09.png" src="../_images/fig05_09.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 67 </span><span class="caption-text">FP-tree واقعی هشت تراکنش، تولیدشده با همان ترتیب قطعی کد. عدد کنار هر نام، تعداد تراکنش‌هایی است که از آن گره عبور کرده‌اند؛ این عدد لزوماً پشتیبانی کل قلم در بانک نیست.</span><a class="headerlink" href="#dm5-fig-09" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id16">
+<h3>استخراج شرطی را دستی دنبال کنیم<a class="headerlink" href="#id16" title="Link to this heading">#</a></h3>
+<p>برای استخراج الگوهای شامل <code class="docutils literal notranslate"><span class="pre">beer</span></code>، به گره‌های این قلم نگاه می‌کنیم و مسیرهای پیش از آن را با شمارنده‌های مربوط جمع می‌زنیم. در تراکنش‌های <code class="docutils literal notranslate"><span class="pre">T3,T4,T5</span></code> قلم <code class="docutils literal notranslate"><span class="pre">diaper</span></code> هم حضور دارد. بنابراین <strong>پشتیبانی شرطی <code class="docutils literal notranslate"><span class="pre">diaper</span></code> همراه با <code class="docutils literal notranslate"><span class="pre">beer</span></code> برابر ۳</strong> است؛ از همین‌جا مجموعهٔ پرتکرار <code class="docutils literal notranslate"><span class="pre">diaper,beer</span></code> با شمارش ۳ استخراج می‌شود. این نتیجه باید با خروجی Apriori یکسان باشد، زیرا دو روش فضای <strong>پاسخ</strong> یکسانی را با ساختمان دادهٔ متفاوت جست‌وجو می‌کنند.</p>
+</section>
+<section id="id17">
+<h3>مرز ادعای کارایی<a class="headerlink" href="#id17" title="Link to this heading">#</a></h3>
+<p>FP-Growth از انفجار نامزدهای Apriori می‌کاهد، اما الزاماً روی همهٔ مجموعه‌ها سریع‌تر یا کم‌حافظه‌تر نیست. فشرده‌سازی در دادهٔ دارای پیشوندهای مشترک مفید است؛ در دادهٔ بسیار پراکنده یا وقتی تعداد الگوهای واقعی عظیم است، باز هم حافظه، بازگشت و حجم خروجی مسئله‌ساز می‌شوند. <strong>هیچ الگوریتمی نمی‌تواند بدون هزینهٔ متناسب با حجم خروجی، میلیاردها الگوی واقعی را چاپ کند.</strong></p>
+</section>
+</section>
+<section id="eclat">
+<h2>۵ـ۱۰. نمایش عمودی و Eclat: اشتراک شناسه‌ها به‌جای اسکن سبدها<a class="headerlink" href="#eclat" title="Link to this heading">#</a></h2>
+<p>در نمایش افقی، برای هر تراکنش فهرست اقلام را داریم. در نمایش عمودی، برای هر قلم، <strong>مجموعهٔ شناسهٔ تراکنش‌های حاوی آن</strong> را نگه می‌داریم؛ آن را <span class="math notranslate nohighlight">\(\operatorname{TID}(X)\)</span> می‌نامیم. ویژگی کلیدی:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{TID}(X\cup Y)=\operatorname{TID}(X)\cap\operatorname{TID}(Y),
+\quad \operatorname{count}(X\cup Y)=|\operatorname{TID}(X)\cap\operatorname{TID}(Y)|.
+\]</div>
+<p>برای مثال، <code class="docutils literal notranslate"><span class="pre">diaper</span></code> در تراکنش‌های <code class="docutils literal notranslate"><span class="pre">T3,T4,T5,T6</span></code> و <code class="docutils literal notranslate"><span class="pre">beer</span></code> در <code class="docutils literal notranslate"><span class="pre">T3,T4,T5</span></code> دیده می‌شود؛ اشتراک آن‌ها سه شناسه دارد. به‌جای مرور دوبارهٔ همهٔ سبدها، با تقاطع دو فهرست می‌توان شمارش زوج را محاسبه کرد. الگوریتم Eclat با توسعهٔ عمقیِ مجموعه‌اقلام از همین خاصیت بهره می‌گیرد. اگر شناسه‌ها را به‌صورت آرایهٔ مرتب یا Bitmap ذخیره کنیم، عمل اشتراک می‌تواند بسیار سریع شود؛ ولی حافظه و الگوی تراکنش تعیین‌کننده‌اند.</p>
+<figure class="align-default" id="dm5-fig-10">
+<a class="reference internal image-reference" href="../_images/fig05_10.png"><img alt="../_images/fig05_10.png" src="../_images/fig05_10.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 68 </span><span class="caption-text">بازنمایی عمودی هشت تراکنش. اشتراک شناسه‌ها همان شمارش پشتیبانی را برمی‌گرداند.</span><a class="headerlink" href="#dm5-fig-10" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id18">
+<h3>جمع‌بندی تطبیقی سه الگوریتم<a class="headerlink" href="#id18" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>روش</p></th>
+<th class="head"><p>ایدهٔ مرکزی</p></th>
+<th class="head"><p>مزیت آموزشی/عملی</p></th>
+<th class="head"><p>محدودیت برجسته</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Apriori</p></td>
+<td><p>هرس نامزدها به کمک ضدتک‌سویی</p></td>
+<td><p>فهم و وارسی ساده</p></td>
+<td><p>عبورهای مکرر و تعداد نامزد</p></td>
+</tr>
+<tr class="row-odd"><td><p>FP-Growth</p></td>
+<td><p>فشرده‌سازی پیشوندها و کاوش شرطی</p></td>
+<td><p>اجتناب از نامزدسازی صریحِ فراگیر</p></td>
+<td><p>پیاده‌سازی پیچیده و هزینهٔ درخت/خروجی</p></td>
+</tr>
+<tr class="row-even"><td><p>Eclat</p></td>
+<td><p>اشتراک مجموعهٔ شناسهٔ تراکنش‌ها</p></td>
+<td><p>محاسبهٔ مستقیم پشتیبانی با تقاطع</p></td>
+<td><p>فشار حافظه برای TIDهای بزرگ</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>این جدول نمی‌گوید کدام روش به‌طور مطلق برتر است. در Notebook، هر سه روش برای <strong>یک آستانهٔ یکسان</strong> به مجموعه‌اقلام و شمارش‌های برابر می‌رسند؛ برتری سرعتی فقط با Benchmark منصفانه، مقیاس داده و پیاده‌سازی بهینه قابل دفاع است.</p>
+</section>
+</section>
+<section id="id19">
+<h2>۵ـ۱۱. مجموعه‌اقلام بسته و بیشینه: خروجی را کوتاه کنیم، نه اینکه معنا را گم کنیم<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>پرتکراربودن مجموعه‌اقلام، خودبه‌خود به معنی «مفیدبودنِ تمام زیرمجموعه‌ها» نیست. اگر <span class="math notranslate nohighlight">\(1000\)</span> قلم همیشه همراه هم رخ دهند، میلیاردها زیرمجموعهٔ پرتکرار ممکن است تولید شود؛ در حالی که بسیاری از آن‌ها همان اطلاعات هم‌وقوعی را تکرار می‌کنند. دو مفهوم فشرده‌ساز مهم عبارت‌اند از <strong>مجموعهٔ بسته (Closed)</strong> و <strong>مجموعهٔ بیشینه (Maximal)</strong>.</p>
+<p>یک مجموعهٔ پرتکرار <span class="math notranslate nohighlight">\(X\)</span> بسته است اگر هیچ ابرمجموعهٔ درست <span class="math notranslate nohighlight">\(Y\supset X\)</span> با <strong>شمارش یکسان</strong> نداشته باشد. مجموعهٔ پرتکرار بیشینه است اگر <strong>هیچ ابرمجموعهٔ پرتکراری</strong> نداشته باشد. از تعریف‌ها نتیجه می‌گیریم:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{Maximal}(D,m)\subseteq\operatorname{Closed}(D,m)\subseteq\operatorname{Frequent}(D,m).
+\]</div>
+<p><strong>مثال دستی:</strong> در دادهٔ ما <code class="docutils literal notranslate"><span class="pre">beer</span></code> دقیقاً سه بار رخ می‌دهد و هر سه بار <code class="docutils literal notranslate"><span class="pre">diaper</span></code> نیز حاضر است. پس:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{count}(\{\mathrm{beer}\})=
+\operatorname{count}(\{\mathrm{beer},\mathrm{diaper}\})=3.
+\]</div>
+<p>بنابراین <code class="docutils literal notranslate"><span class="pre">beer</span></code> <strong>بسته نیست</strong>؛ زیرا افزودن <code class="docutils literal notranslate"><span class="pre">diaper</span></code> شمارش را تغییر نداده است. در مقابل، <code class="docutils literal notranslate"><span class="pre">diaper,beer</span></code> بسته و بیشینه است، چون هیچ ابرمجموعهٔ پرتکراری ندارد. <code class="docutils literal notranslate"><span class="pre">eggs</span></code> با شمارش سه نیز در آستانهٔ ما مجموعه‌ای بیشینه است؛ هیچ زوجِ شامل تخم‌مرغ به شمارش سه نمی‌رسد. تک‌قلم <code class="docutils literal notranslate"><span class="pre">bread</span></code> بسته است اما بیشینه نیست، زیرا <code class="docutils literal notranslate"><span class="pre">bread,milk</span></code> پرتکرار است.</p>
+<p>در این مثال، ۹ مجموعهٔ پرتکرار، ۸ مجموعهٔ بسته و ۵ مجموعهٔ بیشینه داریم. کد همراه این سه نوع خروجی را جدا محاسبه می‌کند.</p>
+<figure class="align-default" id="dm5-fig-11">
+<a class="reference internal image-reference" href="../_images/fig05_11.png"><img alt="../_images/fig05_11.png" src="../_images/fig05_11.png" style="width: 84%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 69 </span><span class="caption-text">فشرده‌سازی مجموعه‌های پرتکرار به نوع بسته و بیشینه با حداقل شمارش ۳. این سه مجموعه <strong>یکسان‌معنا نیستند</strong>.</span><a class="headerlink" href="#dm5-fig-11" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>تفاوت اطلاعاتی:</strong> مجموعه‌های بسته، همراه با شمارش‌شان، برای بازسازی شمارش مجموعه‌های پرتکرار کافی‌اند؛ مجموعه‌های بیشینه به‌تنهایی چنین امکانی نمی‌دهند. اگر فقط مجموعهٔ بیشینه را ذخیره کنیم، می‌دانیم زیرمجموعه‌های آن پرتکرارند، اما شمارش دقیق تک‌تک آن‌ها را لزوماً نمی‌دانیم. این تفاوت در گزارش‌سازی و ممیزی بعدی حیاتی است.</p>
+</section>
+<section id="id20">
+<h2>۵ـ۱۲. خروجی قاعده را چگونه رتبه‌بندی کنیم؟<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>تاکنون حداقل پشتیبانی و اطمینان را به‌عنوان <strong>فیلتر</strong> استفاده کردیم. برای <strong>رتبه‌بندی</strong> قواعد، مسئله عوض می‌شود: آیا قاعده با بیشترین Lift را اول نشان دهیم، یا قاعده‌ای را که بیشترین تعداد تراکنش را تحت تأثیر قرار می‌دهد؟ پاسخ به کاربرد بستگی دارد. برای چیدمان کالا، تغییر مطلق نرخ همراهی و تعداد خریدها ممکن است مهم‌تر از نسبت بسیار بزرگی باشد که روی تنها دو تراکنش دیده شده است.</p>
+<p>در کد همراه، هر قاعدهٔ پذیرفته‌شده دارای <code class="docutils literal notranslate"><span class="pre">support</span></code>، <code class="docutils literal notranslate"><span class="pre">confidence</span></code>، <code class="docutils literal notranslate"><span class="pre">lift</span></code> و <code class="docutils literal notranslate"><span class="pre">leverage</span></code> است. به‌صورت پیش‌فرض رتبه‌بندی به ترتیب Lift و سپس Confidence انجام می‌شود؛ ولی این ترتیب، فقط <strong>قرارداد نمایش مثال</strong> است نه حکم اقتصادی. هنگام انتخاب قاعده برای تصمیم، باید هزینهٔ اجرا، سود واقعی، خطای پیش‌بینی و شواهد خارج از نمونه نیز مشخص شوند.</p>
+<section id="id21">
+<h3>چرا یک «قانون توصیهٔ خرید» الزاماً تصمیم خوبی نیست؟<a class="headerlink" href="#id21" title="Link to this heading">#</a></h3>
+<p>فرض کنید قاعدهٔ <code class="docutils literal notranslate"><span class="pre">beer</span> <span class="pre">-&gt;</span> <span class="pre">diaper</span></code> اطمینان یک دارد. پیشنهاد پوشک به هر خریدار نوشیدنی به‌معنی افزایش فروش نیست: شاید فرد از قبل پوشک در سبد داشته باشد، شاید نوشیدنی و پوشک هر دو از یک تبلیغ خاص تأثیر گرفته باشند، یا خرید هم‌زمان در یک فروشگاهِ خاص رخ داده باشد. الگوریتم کشف قاعده، <strong>آزمایش مداخله‌ای</strong> انجام نداده است. اگر هدف تصمیم‌گیری اقتصادی است، باید اثر افزودهٔ توصیه را در آزمایش مناسب سنجید، نه صرفاً Lift تاریخی را.</p>
+</section>
+</section>
+<section id="id22">
+<h2>۵ـ۱۳. آستانه‌ها را از کجا بیاوریم؟ تحلیل حساسیت، نه تنظیم پسینی<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p>فرض کنید با آستانهٔ شمارشی ۳، نه مجموعهٔ پرتکرار داریم. اگر آستانه را به ۲ کاهش دهیم، بسیاری از زوج‌های کمتر دیده‌شده و بعضی مجموعه‌های سه‌قلمی ظاهر می‌شوند؛ اگر آن را به ۵ افزایش دهیم، بیشتر زوج‌ها حذف می‌شوند. این تغییر، «کشف جهان جدید» نیست؛ تغییر یک پارامتر اندازه‌گیری است.</p>
+<figure class="align-default" id="dm5-fig-12">
+<a class="reference internal image-reference" href="../_images/fig05_12.png"><img alt="../_images/fig05_12.png" src="../_images/fig05_12.png" style="width: 81%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 70 </span><span class="caption-text">حساسیت تعداد الگوهای پرتکرار نسبت به حداقل شمارش در همان هشت تراکنش. اگر آستانه را فقط برای حفظ یک نتیجهٔ دلخواه تغییر دهیم، خطر انتخاب پس از مشاهده پیش می‌آید.</span><a class="headerlink" href="#dm5-fig-12" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="dm5-fig-13">
+<a class="reference internal image-reference" href="../_images/fig05_13.png"><img alt="../_images/fig05_13.png" src="../_images/fig05_13.png" style="width: 81%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 71 </span><span class="caption-text">با ثابت‌بودن حداقل پشتیبانی، بالا بردن آستانهٔ Confidence تعداد قواعد را کاهش می‌دهد؛ لزوماً کیفیت تصمیم را افزایش نمی‌دهد.</span><a class="headerlink" href="#dm5-fig-13" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>یک پروتکل قابل دفاع عبارت است از: ابتدا <strong>حداقل فراوانی موردنیاز برای اعتبار عملی</strong> و حجم داده را تعیین کنید؛ سپس تعداد و پایداری الگوها را در چند آستانهٔ نزدیک گزارش کنید. اگر فقط یک بازهٔ باریک، قاعدهٔ مطلوب را تولید می‌کند، آن را نشانهٔ شکنندگی بدانید. برای داده‌های بسیار بزرگ، انتخاب حداقل فراوانی شمارشی و نسبی باید با هم بررسی شود؛ برای رخدادهای نادر، حذف کورکورانهٔ کم‌فراوان‌ها ممکن است دقیقاً پدیدهٔ مهم را نابود کند.</p>
+</section>
+<section id="id23">
+<h2>۵ـ۱۴. دادهٔ بسیار کج و الگوهای نادر: خطر قاعدهٔ «درخشان»<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p>بسیاری از مجموعه‌داده‌ها توزیع کجی دارند: تعداد کمی قلم تقریباً همه‌جا هستند و تعداد زیادی قلم به‌ندرت رخ می‌دهند. معیارهای نسبتی مانند Lift در برخورد با احتمال پایهٔ بسیار کوچک می‌توانند مقادیر بزرگی بسازند. اگر <span class="math notranslate nohighlight">\(\operatorname{sup}(B)\)</span> نزدیک صفر باشد، مقدار <span class="math notranslate nohighlight">\(\operatorname{conf}(A\Rightarrow B)/\operatorname{sup}(B)\)</span> ممکن است از نظر عددی بزرگ شود حتی اگر تنها دو مشاهدهٔ مشترک وجود داشته باشد.</p>
+<p>برای روشن‌شدن خطر، فرض کنید از <span class="math notranslate nohighlight">\(10,000\)</span> تراکنش، قلم <span class="math notranslate nohighlight">\(B\)</span> فقط در <span class="math notranslate nohighlight">\(10\)</span> تراکنش باشد و <span class="math notranslate nohighlight">\(A\)</span> در <span class="math notranslate nohighlight">\(20\)</span> تراکنش؛ اگر در دو تراکنش هر دو حضور داشته باشند، Confidence برابر <span class="math notranslate nohighlight">\(2/20=0.1\)</span> و Lift برابر <span class="math notranslate nohighlight">\(0.1/(10/10000)=100\)</span> می‌شود. <strong>Lift صد برابر، روی تنها دو هم‌وقوعی</strong>؛ بدون تحلیل عدم‌قطعیت، چنین عددی برای تصمیم عملی کافی نیست. در مقابل، یک قاعدهٔ Lift برابر <span class="math notranslate nohighlight">\(1.3\)</span> با هزاران مشاهده ممکن است پایدارتر باشد. هیچ‌کدام را تنها با این اعداد رتبه‌بندی قطعی نمی‌کنیم.</p>
+<p>بحث <strong>چندآستانه‌ای (Multiple minimum supports)</strong>، الگوهای نادر، منفی و قیود پیشرفته در فصل ششم به‌صورت متمرکز دنبال می‌شود. در اینجا کافی است دانشجو بداند آستانهٔ واحد می‌تواند یک طبقهٔ کامل از پدیده‌ها را پنهان کند.</p>
+</section>
+<section id="id24">
+<h2>۵ـ۱۵. از درصدهای مشاهده‌شده تا عدم‌قطعیت آماری<a class="headerlink" href="#id24" title="Link to this heading">#</a></h2>
+<p>وقتی یک قاعده را از بین هزاران نامزد انتخاب می‌کنیم، لازم است بین «بهترین عدد در نمونه» و «یافتهٔ قابل‌تعمیم» تفاوت بگذاریم. حتی اگر اقلام مستقل باشند، به‌دلیل نوسان تصادفی ممکن است بعضی زوج‌ها Lift بزرگ‌تر از یک بگیرند. وقتی تعداد آزمایش‌های پنهان زیاد است، انتخاب بیشینهٔ Lift سوگیری رو به بالا ایجاد می‌کند.</p>
+<section id="id25">
+<h3>جدول توافق و آزمون دقیق فیشر<a class="headerlink" href="#id25" title="Link to this heading">#</a></h3>
+<p>برای دو متغیر دودویی، می‌توان جدول توافقی با چهار شمارش <span class="math notranslate nohighlight">\(n_{11},n_{10},n_{01},n_{00}\)</span> ساخت و فرض استقلال را بررسی کرد. در نمونهٔ هشت‌تایی ما، جدول <code class="docutils literal notranslate"><span class="pre">beer</span></code> و <code class="docutils literal notranslate"><span class="pre">diaper</span></code> برابر <span class="math notranslate nohighlight">\((3,0,1,4)\)</span> است. اگر حاشیه‌های جدول را ثابت فرض کنیم، احتمال یک‌طرفهٔ مشاهدهٔ اشتراکِ <strong>دست‌کم سه</strong> تحت مدل صفر از توزیع فوق‌هندسی به دست می‌آید:</p>
+<div class="math notranslate nohighlight">
+\[
+P(X\ge3\mid n=8,n_A=3,n_B=4)=
+\frac{\binom43\binom40}{\binom83}=\frac4{56}\approx0.0714.
+\]</div>
+<p>بنابراین در آزمون یک‌طرفه با سطح <span class="math notranslate nohighlight">\(0.05\)</span>، این دادهٔ کوچک <strong>به‌تنهایی شاهد کافی برای رد استقلال نیست</strong>؛ با اینکه Lift برابر ۲ و Confidence قاعدهٔ معکوس برابر یک بود. این محاسبه <strong>فقط برای جدول آموزشی با حاشیه‌های ثابت</strong> معتبر است و آزمایش با پیش‌ثبت‌نام فرض را شبیه‌سازی نمی‌کند؛ اگر پس از جست‌وجوی فراگیر همین زوج را انتخاب کرده باشیم، باید گزینش پس از مشاهده و آزمون‌های چندگانه را نیز در نظر بگیریم.</p>
+</section>
+<section id="id26">
+<h3>آزمون‌های متعدد و جداسازی داده<a class="headerlink" href="#id26" title="Link to this heading">#</a></h3>
+<p>اگر به‌جای یک زوج، هزاران رابطه را می‌سنجیم، نرخ هشدار کاذب کلی ممکن است بسیار بالا برود. تصحیح‌هایی مانند Bonferroni یا کنترل نرخ کشف نادرست (FDR) در صورت برقرار بودن مفروضات، مسیرهای شناخته‌شده‌اند، اما این فصل آن‌ها را جایگزین طراحی مطالعه یا ارزیابی مستقل نمی‌داند. یک راهکار عملی این است که <strong>قواعد را در دورهٔ اکتشاف پیدا کنیم و فقط قواعد ازپیش‌منتخب را در دورهٔ زمانی دیگر ارزیابی کنیم</strong>؛ اگر در همهٔ داده‌ها کاوش و همان داده‌ها را معیار قطعی قاعده قرار دهیم، نتیجه خوش‌بینانه می‌شود.</p>
+</section>
+</section>
+<section id="lift">
+<h2>۵ـ۱۶. بوت‌استرپ آموزشی: چرا Lift نمونهٔ کوچک ناپایدار است؟<a class="headerlink" href="#lift" title="Link to this heading">#</a></h2>
+<p>در <strong>بوت‌استرپ (Bootstrap)</strong>، بارها هشت تراکنش را با جایگذاری از همان هشت تراکنش نمونه‌گیری می‌کنیم و Lift را دوباره حساب می‌کنیم. هدف، دیدن حساسیت برآورد به تغییر ترکیب داده‌هاست؛ این روش جادویی نیست و اگر خود نمونه غیرنماینده باشد، آن را اصلاح نمی‌کند. در برخی بازنمونه‌ها ممکن است مخرج صفر شود؛ باید چنین مواردی را آشکارا کنار گذاشت یا طبق قرارداد آماری جدا بررسی کرد.</p>
+<figure class="align-default" id="dm5-fig-14">
+<a class="reference internal image-reference" href="../_images/fig05_14.png"><img alt="../_images/fig05_14.png" src="../_images/fig05_14.png" style="width: 85%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 72 </span><span class="caption-text">توزیع بوت‌استرپ Lift قاعدهٔ <code class="docutils literal notranslate"><span class="pre">beer</span> <span class="pre">-&gt;</span> <span class="pre">diaper</span></code> با ۷۰۰ بازنمونه‌گیری از هشت سبد. پراکندگی مقادیر نشان می‌دهد نقطهٔ برآوردِ ۲ به‌تنهایی توصیف کاملی نیست.</span><a class="headerlink" href="#dm5-fig-14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای داده‌های زمانی، بازنمونه‌گیری مستقلِ تراکنش‌ها ممکن است ساختار زمان را بشکند؛ در چنین وضعیتی ارزیابی روی <strong>بازه‌های زمانی جداگانه</strong> یا بلوک‌بندی مناسب ضروری است. ادعای «قاعدهٔ پایدار» زمانی قابل دفاع است که هم تعریف تراکنش و هم توزیع جمعیتِ هدف در دورهٔ ارزیابی روشن باشد.</p>
+</section>
+<section id="id27">
+<h2>۵ـ۱۷. پارادوکس سیمپسون: میانگین دو گروه می‌تواند علامت رابطه را وارونه کند<a class="headerlink" href="#id27" title="Link to this heading">#</a></h2>
+<p>چرا نباید مشتریان تمام شعبه‌ها را بدون بررسی تفاوت‌های پایه در یک ظرف بریزیم؟ مثال کاملاً ساختگی زیر را ببینید. در دو گروه «نرخ پایهٔ بالا» و «نرخ پایهٔ پایین»، رویداد <span class="math notranslate nohighlight">\(B\)</span> برای دارندگان قلم <span class="math notranslate nohighlight">\(A\)</span> <strong>کمتر</strong> از افراد بدون <span class="math notranslate nohighlight">\(A\)</span> دیده می‌شود؛ ولی در دادهٔ تجمیع‌شده، نرخ ظاهراً برای دارندگان <span class="math notranslate nohighlight">\(A\)</span> بیشتر می‌شود:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>گروه</p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(P(B\mid A)\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(P(B\mid \neg A)\)</span></p></th>
+<th class="head text-right"><p>تعداد افراد دارای <span class="math notranslate nohighlight">\(A\)</span> / بدون <span class="math notranslate nohighlight">\(A\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>نرخ پایهٔ بالا</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(72/80=0.90\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(19/20=0.95\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(80/20\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>نرخ پایهٔ پایین</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(2/20=0.10\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(16/80=0.20\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(20/80\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>همهٔ افراد</p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(74/100=0.74\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(35/100=0.35\)</span></p></td>
+<td class="text-right"><p><span class="math notranslate nohighlight">\(100/100\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>در هر دو گروه، حضور <span class="math notranslate nohighlight">\(A\)</span> با <strong>نرخ کمتر</strong> <span class="math notranslate nohighlight">\(B\)</span> همراه بوده است؛ ولی چون <span class="math notranslate nohighlight">\(A\)</span> بیشتر در گروه نرخ پایهٔ بالا مشاهده می‌شود، تجمیع دو گروه جهت رابطه را <strong>معکوس</strong> نشان می‌دهد. این نمونه برای آموزش ساخته شده و اثبات علیت یا وضعیت یک فروشگاه واقعی نیست.</p>
+<figure class="align-default" id="dm5-fig-15">
+<a class="reference internal image-reference" href="../_images/fig05_15.png"><img alt="../_images/fig05_15.png" src="../_images/fig05_15.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 73 </span><span class="caption-text">نمونهٔ عددی پارادوکس سیمپسون. تفاوت ترکیب گروه‌ها باعث وارونگی نرخ شرطی در دادهٔ ادغام‌شده می‌شود.</span><a class="headerlink" href="#dm5-fig-15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>راهکار آموزشی:</strong> اگر فروشگاه، منطقه، تبلیغ، فصل یا گروه مشتری می‌توانند با هر دو قلم مرتبط باشند، علاوه بر گزارش تجمیعی، قواعد را در لایه‌های مناسب نیز محاسبه کنید. برای نتیجه‌گیری علّی همچنان به طراحی مطالعه یا آزمایش نیاز داریم؛ صرف لایه‌بندی به معنی حذف تمام مخدوش‌گری‌ها نیست.</p>
+</section>
+<section id="id28">
+<h2>۵ـ۱۸. وقتی رابطه معنا ندارد: هشدارهای تفسیر و حریم خصوصی<a class="headerlink" href="#id28" title="Link to this heading">#</a></h2>
+<p>قاعدهٔ هم‌وقوعی در سطح یک تراکنش، یک جملهٔ توصیفی دربارهٔ داده است. آن را با «شخصی که A خریده حتماً B می‌خرد»، «A باعث خرید B می‌شود» یا «رفتار همهٔ جوامع چنین است» یکی نگیرید. همچنین فهرست اقلامی که به بیماری، باور یا موضوع حساس مربوط می‌شوند می‌توانند دربارهٔ مشتریان اطلاعاتی آشکار کنند؛ استفاده از آن‌ها در داده‌کاوی نیازمند مبنای قانونی و محدودیت دسترسی و هدف است.</p>
+<p>مشکلات دادهٔ واقعی که خروجی قواعد را تغییر می‌دهند: برگشت کالا، سفارش ابطال‌شده، تخفیف‌های محدود، اقلامِ همراه بسته‌های تبلیغاتی، دادهٔ Missing به‌جای صفر، چند خرید متعلق به یک مشتری، تغییر نام محصول، کالاهای خارج از موجودی و ادغام دادهٔ چند فروشگاه. دانشجو باید در گزارش خود <strong>تعریف یک تراکنش، بازهٔ زمانی، شیوهٔ برخورد با اقلام گمشده و دامنهٔ تحلیل</strong> را دقیق ذکر کند؛ این تصمیم‌ها بخشی از مدل‌اند، نه مرحلهٔ نظافتِ بی‌اثر.</p>
+</section>
+<section id="id29">
+<h2>۵ـ۱۹. آزمایشگاه عملی یکپارچه: هم‌جوابی سه روش، نه مسابقهٔ تبلیغاتی<a class="headerlink" href="#id29" title="Link to this heading">#</a></h2>
+<p>Notebook این فصل از همان CSV هشت‌تراکنشی استفاده می‌کند و مسیر زیر را بدون اینترنت طی می‌کند: خواندن داده؛ ساخت جدول پشتیبانی؛ اجرای Apriori، Eclat و FP-Growth؛ مقایسهٔ مجموعه‌های نتیجه و شمارش‌ها؛ تولید قواعد با Confidence حداقلی <span class="math notranslate nohighlight">\(0.70\)</span>؛ رتبه‌بندی برحسب Lift؛ محاسبهٔ دستی شاخص‌های چند قاعده؛ و در پایان مقایسهٔ خروجی‌های بسته و بیشینه.</p>
+<p>برای شروع مستقل، در پوشهٔ <code class="docutils literal notranslate"><span class="pre">downloads</span></code> اجرا کنید:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>chapter05_examples.py<span class="w"> </span>--min-count<span class="w"> </span><span class="m">3</span><span class="w"> </span>--min-conf<span class="w"> </span><span class="m">0</span>.70
+python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>-v<span class="w"> </span>test_chapter05_examples.py
+</pre></div>
+</div>
+<p>کد استاندارد پایتون است و برای محاسبات اصلی به <code class="docutils literal notranslate"><span class="pre">mlxtend</span></code> یا یک سرویس آنلاین وابسته نیست. سه پیاده‌سازی از نظر روش جست‌وجو مستقل‌اند؛ آزمون‌ها علاوه بر دادهٔ اصلی، روی نمونه‌های تصادفی کوچک نیز برابری نتیجه را بررسی می‌کنند. اگر قصد محک‌زدن زمان اجرا دارید، همین کد آموزشی را مستقیماً با پیاده‌سازی صنعتی مقایسه نکنید: بهینه‌سازی، ساختمان داده، بار ورودی و هزینهٔ ساخت خروجی باید یکسان و گزارش شوند.</p>
+<figure class="align-default" id="dm5-fig-16">
+<a class="reference internal image-reference" href="../_images/fig05_16.png"><img alt="../_images/fig05_16.png" src="../_images/fig05_16.png" style="width: 87%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 74 </span><span class="caption-text">Confidence را باید همراه با پشتیبانی پایهٔ پیامد تفسیر کرد. برای Lift ثابت، اطمینان موردنیاز با فراوانی پایهٔ پیامد تغییر می‌کند؛ اگر حاصل‌ضرب Lift و پشتیبانی پایه از یک فراتر رود، آن ترکیب ناممکن است.</span><a class="headerlink" href="#dm5-fig-16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id30">
+<h2>۵ـ۲۰. پرسش‌های ممیزی خروجی: یک چک‌لیست علمی کوتاه<a class="headerlink" href="#id30" title="Link to this heading">#</a></h2>
+<p>پیش از معرفی یک قاعده به استاد یا تیم تصمیم‌گیرنده، باید بتوان پاسخ داد: واحد تراکنش چیست؟ آیا آستانه‌ها پیش از مشاهدهٔ نتایج یا با دلیل مشخص انتخاب شده‌اند؟ برای قاعده چند مشاهدهٔ مشترک داریم؟ نرخ پایهٔ پیامد چقدر است؟ آیا Lift و اختلاف مطلق هر دو گزارش شده‌اند؟ آیا مشتری، شعبه، فصل یا طرح تبلیغاتی می‌توانند توضیح جایگزین باشند؟ آیا قاعده در بازهٔ مستقل زمانی حفظ می‌شود؟ چه میزان آزمون نامزد انجام شده و آیا اثر انتخاب بهترین مشاهده کنترل شده است؟ چه اقدام تصمیمی از قاعده برمی‌آید و چگونه اثر آن را جداگانه می‌سنجیم؟</p>
+<p>شکست در پاسخ به هر یک از این پرسش‌ها به‌معنی «غلط‌بودن فرمول» نیست؛ به معنی آن است که <strong>تفسیر نتیجه هنوز کامل نیست</strong>. این تمایز، قلب روش تحقیق در داده‌کاوی است. اگر قاعده صرفاً برای نمایش نمونهٔ آموزشی تولید شده، همان را شفاف بنویسید.</p>
+</section>
+<section id="id31">
+<h2>۵ـ۲۱. تمرین‌های پایانی<a class="headerlink" href="#id31" title="Link to this heading">#</a></h2>
+<p>تمرین‌ها عمداً از خواندن و محاسبهٔ دستی آغاز می‌شوند و به طراحی آزمایش، کدنویسی و نقد نتیجه می‌رسند. برای همهٔ مسائل، فرض کنید دادهٔ هشت‌سبدی همان جدول ابتدای فصل است، مگر خلافش نوشته شده باشد.</p>
+<ol class="arabic simple">
+<li><p><strong>تعریف تراکنش:</strong> فرض کنید یک مشتری در دو روز خرید کرده است. توضیح دهید چرا ادغام دو خرید می‌تواند پشتیبانی مجموعه‌اقلام را افزایش یا کاهش دهد؛ دو مثال کوچک بسازید.</p></li>
+<li><p><strong>جدول پشتیبانی:</strong> تعداد و پشتیبانی نسبی تک‌قلم‌ها و تمام ده زوج ممکن را دستی محاسبه کنید. نتایج را با خروجی Python تطبیق دهید.</p></li>
+<li><p><strong>جهت قاعده:</strong> Confidence دو جهت <code class="docutils literal notranslate"><span class="pre">bread</span> <span class="pre">&lt;-&gt;</span> <span class="pre">milk</span></code> و دو جهت <code class="docutils literal notranslate"><span class="pre">beer</span> <span class="pre">&lt;-&gt;</span> <span class="pre">diaper</span></code> را محاسبه کنید؛ توضیح دهید چرا مقدار یک معیار در جهت معکوس الزاماً ثابت نمی‌ماند.</p></li>
+<li><p><strong>Lift و خطای اطمینان:</strong> برای قواعد <code class="docutils literal notranslate"><span class="pre">diaper</span> <span class="pre">-&gt;</span> <span class="pre">bread</span></code> و <code class="docutils literal notranslate"><span class="pre">diaper</span> <span class="pre">-&gt;</span> <span class="pre">beer</span></code> هر سه مقدار Support، Confidence و Lift را محاسبه و کاربرد فرضی آن‌ها را نقد کنید.</p></li>
+<li><p><strong>Leverage:</strong> مقدار Leverage دو زوج مسئلهٔ قبل را حساب کنید. آیا نتیجه با رتبه‌بندی Lift یکسان است؟</p></li>
+<li><p><strong>اصل Apriori:</strong> اثبات کنید اگر یک مجموعه شمارش کمتر از حداقل پشتیبانی دارد، ابرمجموعهٔ آن نیز نمی‌تواند پرتکرار باشد؛ جهت عکس را با مثال نقض نشان دهید.</p></li>
+<li><p><strong>گذرهای Apriori:</strong> نامزدهای <span class="math notranslate nohighlight">\(C_2\)</span>، خروجی <span class="math notranslate nohighlight">\(L_2\)</span>، نامزدهای <span class="math notranslate nohighlight">\(C_3\)</span> و خروجی <span class="math notranslate nohighlight">\(L_3\)</span> را با <span class="math notranslate nohighlight">\(m=3\)</span> به دست آورید و در هر گام دلیل هرس را بنویسید.</p></li>
+<li><p><strong>تغییر آستانه:</strong> برای <span class="math notranslate nohighlight">\(m=2\)</span> تمام مجموعه‌های پرتکرار را پیدا کنید و تعداد آن‌ها را با <span class="math notranslate nohighlight">\(m=3\)</span> مقایسه کنید. آیا یافتن الگوهای بیشتر به معنی بهترشدن مدل است؟</p></li>
+<li><p><strong>قاعده با پیامد چندقلمی:</strong> برای یک مجموعهٔ سه‌قلمی با <span class="math notranslate nohighlight">\(m=2\)</span>، تمام قواعد غیرتهی و مجاز آن را بسازید و Confidence هرکدام را حساب کنید.</p></li>
+<li><p><strong>شمارش عمودی:</strong> مجموعه‌های شناسه برای <code class="docutils literal notranslate"><span class="pre">bread</span></code> و <code class="docutils literal notranslate"><span class="pre">diaper</span></code> را استخراج و با تقاطع، شمارش زوجشان را پیدا کنید.</p></li>
+<li><p><strong>درخت FP:</strong> ترتیب ثابت اقلام را تعیین کنید؛ دو تراکنش اول را به‌صورت دستی در درخت وارد کنید و تغییر شمارندهٔ هر گره را توضیح دهید.</p></li>
+<li><p><strong>شرطی‌سازی FP:</strong> پایگاه الگوهای شرطی <code class="docutils literal notranslate"><span class="pre">beer</span></code> را بنویسید و نشان دهید چگونه الگوی <code class="docutils literal notranslate"><span class="pre">beer,diaper</span></code> با شمارش سه به دست می‌آید.</p></li>
+<li><p><strong>الگوی بسته:</strong> توضیح دهید چرا <code class="docutils literal notranslate"><span class="pre">beer</span></code> در <span class="math notranslate nohighlight">\(m=3\)</span> بسته نیست. یک الگوی بسته ولی نه بیشینه و یک الگوی بیشینه پیدا کنید.</p></li>
+<li><p><strong>کاهش خروجی:</strong> نسبت تعداد الگوهای بسته به تمام الگوهای پرتکرار را در دادهٔ مثال محاسبه کنید؛ چرا مجموعه‌های بیشینه برای بازسازی دقیق شمارش کافی نیستند؟</p></li>
+<li><p><strong>مثال نقض Lift:</strong> یک مجموعه‌دادهٔ ساختگی ۱۰۰۰تراکنشی طراحی کنید که Lift دو قلم بزرگ‌تر از ۵ باشد اما فقط یک یا دو بار با هم دیده شده باشند.</p></li>
+<li><p><strong>آزمون دقیق:</strong> با حاشیه‌های جدول نمونهٔ <code class="docutils literal notranslate"><span class="pre">beer/diaper</span></code>، احتمال اشتراک سه مورد را با ترکیب‌های شمارشی به دست آورید. آیا با آستانهٔ ۰٫۰۵ نتیجهٔ شما با مشاهدهٔ Lift=2 متناقض است؟</p></li>
+<li><p><strong>انتخاب پس از مشاهده:</strong> اگر ۲۰۰۰ زوج را بررسی کنید و بهترین Lift را گزارش کنید، چرا نمی‌توان همان شواهد را مثل یک فرضیهٔ ازپیش‌تعیین‌شده تفسیر کرد؟</p></li>
+<li><p><strong>پارادوکس سیمپسون:</strong> تمام فراوانی‌های جدول بخش ۵ـ۱۷ را به شکل چهارخانه‌ای بازسازی کنید. با وزن یکسان برای دو گروه، چه چیزی دربارهٔ نرخ‌ها تغییر می‌کند؟</p></li>
+<li><p><strong>پایداری:</strong> در Notebook، داده را با بذرهای مختلف بازنمونه‌گیری کنید و توزیع Lift و تعداد موارد دارای مخرج صفر را گزارش دهید. چرا یک بازهٔ زمانی مستقل ممکن است آزمون مناسب‌تری باشد؟</p></li>
+<li><p><strong>کار مهندسی کد:</strong> در CSV یک شناسهٔ تراکنش تکراری اضافه کنید. آزمون ورودی را اجرا و توضیح دهید چرا توقف محاسبه از پذیرش بی‌سروصدای دادهٔ غلط بهتر است.</p></li>
+<li><p><strong>مقایسهٔ الگوریتم‌ها:</strong> دادهٔ ساختگی دیگری با ۲۰ تراکنش و شش قلم بسازید. برای حداقل شمارش‌های ۱ تا ۵، برابری نتیجهٔ Apriori، Eclat و FP-Growth را اثبات عملی کنید.</p></li>
+<li><p><strong>گزارش تصمیم:</strong> یک قاعده را انتخاب کنید و گزارشی نیم‌صفحه‌ای با تعریف جامعهٔ هدف، شمارش، Support، Confidence، Lift، نرخ پایه، توضیح جایگزین و طرح اعتبارسنجی بنویسید.</p></li>
+<li><p><strong>دادهٔ کج:</strong> دو قلم با فراوانی‌های بسیار متفاوت فرض کنید. نشان دهید چرا یک حداقل پشتیبانی مشترک ممکن است الگوی مربوط به قلم نادر را حذف کند و چه جایگزین‌هایی باید بررسی شوند.</p></li>
+<li><p><strong>پرسش پژوهشی:</strong> تفاوت «کشف هم‌وقوعی»، «پیش‌بینی پاسخ»، «آزمون وابستگی» و «اثبات اثر علی» را با یک مثال سفارش آنلاین توضیح دهید. کدام یک را Apriori به‌تنهایی حل می‌کند؟</p></li>
+</ol>
+</section>
+<section id="id32">
+<h2>۵ـ۲۲. جمع‌بندیِ استدلال فصل<a class="headerlink" href="#id32" title="Link to this heading">#</a></h2>
+<p>مسیر این فصل از یک سؤال ساده شروع شد: «کدام اقلام در یک سبد همراه هم دیده می‌شوند؟» ابتدا دیدیم شمارش هم‌وقوعی، بدون تعیین مخرج، معنی کافی ندارد. پس Support را تعریف کردیم؛ سپس Confidence را به‌صورت احتمال شرطی تجربی و Lift را به‌عنوان مقایسه با نرخ پایه به دست آوردیم. با اصل ضدتک‌سویی، فضای نمایی مجموعه‌اقلام را بدون حذف پاسخ‌های پرتکرار هرس کردیم. Apriori این اصل را صریح اجرا می‌کند؛ FP-Growth پیشوندها را فشرده می‌سازد؛ Eclat با اشتراک TIDها شمارش را انجام می‌دهد. الگوهای بسته و بیشینه، نمایش جواب را فشرده می‌کنند، اما سطح اطلاعات حفظ‌شدهٔ یکسانی ندارند.</p>
+<p>در پایان آموختیم که <strong>یک قاعدهٔ قوی از نظر Support یا Confidence هنوز یک یافتهٔ تأییدشده نیست</strong>. نقش نرخ پایه، اندازهٔ نمونه، آزمون‌های متعدد، پارادوکس سیمپسون و اعتبارسنجی مستقل باید روشن باشد. پرسش اساسی این است که آیا قاعده پس از انتقال از نمونهٔ کوچک به جمعیتِ هدف، همچنان مفید خواهد بود.</p>
+<section id="id33">
+<h3>پیوند با فصل ششم<a class="headerlink" href="#id33" title="Link to this heading">#</a></h3>
+<p>پس از تسلط بر الگوی پرتکرار و قاعدهٔ انجمنی در دادهٔ تراکنشی ساده، آماده‌ایم الگوهای <strong>چندسطحی، کمی، چندبعدی، نادر، ترتیبی و ساختاری</strong> را با قیود پیچیده‌تر بررسی کنیم. آنجا دیگر صرفاً «حضور هم‌زمان اقلام» کافی نیست؛ ترتیب، نوع، مفهوم و وابستگی ساختاری وارد تعریف الگو می‌شوند.</p>
+</section>
+</section>
+<section id="id34">
+<h2>منابع و مسیر مطالعه<a class="headerlink" href="#id34" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Han, Jiawei; Pei, Jian; Tong, Hanghang.</strong> <em>Data Mining: Concepts and Techniques</em>, 4th ed., فصل ۴، بخش‌های <strong>۴٫۱–۴٫۳</strong>، صفحات <strong>۱۴۵–۱۶۹</strong>. موضوعات پایه، Apriori، رشد الگو، فرمت عمودی، مجموعه‌اقلام بسته/بیشینه و ارزیابی الگو.</p></li>
+<li><p><strong>Tan, Pang-Ning; Steinbach, Michael; Karpatne, Anuj; Kumar, Vipin.</strong> <em>Introduction to Data Mining</em>, 2nd ed., فصل ۵، بخش‌های <strong>۵٫۱–۵٫۸</strong>، صفحات <strong>۳۵۷–۴۲۴</strong>. مفاهیم، اصل Apriori، شمارش و هرس نامزد، FP-Growth، فشرده‌سازی جواب، سنجه‌ها، پارادوکس سیمپسون و توزیع کج.</p></li>
+</ul>
+<p><strong>یادداشت اصالت:</strong> تمام جدول دادهٔ اصلی، مثال‌های محاسباتی، متن توضیحی، نمودارها و کدها برای همین جزوه طراحی شده‌اند. شکل‌ها بازطراحی تصویر کتاب‌ها نیستند. محاسبات استنباطی و بوت‌استرپ به‌عنوان بسط آموزشی آمده‌اند؛ اعتبار آن‌ها وابسته به فرض‌های تعریف‌شده در همان بخش است.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-04.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل چهارم — پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و نقشهٔ استدلال</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه در دو کتاب و ادامهٔ فصل چهارم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۵ـ۱. مسئلهٔ آغازین: اگر مشتری یک کالا بخرد، چه چیز دیگری در سبد او دیده می‌شود؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">پرسشی برای شروع کلاس</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۵ـ۲. مدل دادهٔ تراکنشی: واحد مشاهده را عوض نکنیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۵ـ۳. پشتیبانی: «چند بار با هم» دقیقاً چه معنایی دارد؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">پشتیبانی حداقلی و تفاوت شمارش با درصد</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۵ـ۴. قاعدهٔ انجمنی: شرطی‌بودن با هم‌وقوعی فرق دارد</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">قاعدهٔ ظاهراً قوی که چیزی اضافه نمی‌کند</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lift-leverage-conviction">۵ـ۵. Lift، Leverage و Conviction: «بیش از انتظار» را بسنجیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">ماتریس توافق: چهار خانهٔ مهم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۵ـ۶. انفجار فضای جست‌وجو: چرا شمارش همهٔ زیرمجموعه‌ها دشوار است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apriori">۵ـ۷. Apriori: از تک‌قلم تا هرس مجموعه‌های بزرگ</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">یک محاسبهٔ دستی با هرس روشن</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">هزینه و محدودیت</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۵ـ۸. تولید قواعد: پرتکراربودن مجموعه کافی نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fp-fp-growth">۵ـ۹. درخت FP و FP-Growth: به‌جای نامزدهای بی‌شمار، پیشوندها را فشرده کنیم</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">استخراج شرطی را دستی دنبال کنیم</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">مرز ادعای کارایی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eclat">۵ـ۱۰. نمایش عمودی و Eclat: اشتراک شناسه‌ها به‌جای اسکن سبدها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">جمع‌بندی تطبیقی سه الگوریتم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۵ـ۱۱. مجموعه‌اقلام بسته و بیشینه: خروجی را کوتاه کنیم، نه اینکه معنا را گم کنیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۵ـ۱۲. خروجی قاعده را چگونه رتبه‌بندی کنیم؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">چرا یک «قانون توصیهٔ خرید» الزاماً تصمیم خوبی نیست؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۵ـ۱۳. آستانه‌ها را از کجا بیاوریم؟ تحلیل حساسیت، نه تنظیم پسینی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۵ـ۱۴. دادهٔ بسیار کج و الگوهای نادر: خطر قاعدهٔ «درخشان»</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">۵ـ۱۵. از درصدهای مشاهده‌شده تا عدم‌قطعیت آماری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">جدول توافق و آزمون دقیق فیشر</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">آزمون‌های متعدد و جداسازی داده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lift">۵ـ۱۶. بوت‌استرپ آموزشی: چرا Lift نمونهٔ کوچک ناپایدار است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id27">۵ـ۱۷. پارادوکس سیمپسون: میانگین دو گروه می‌تواند علامت رابطه را وارونه کند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id28">۵ـ۱۸. وقتی رابطه معنا ندارد: هشدارهای تفسیر و حریم خصوصی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id29">۵ـ۱۹. آزمایشگاه عملی یکپارچه: هم‌جوابی سه روش، نه مسابقهٔ تبلیغاتی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id30">۵ـ۲۰. پرسش‌های ممیزی خروجی: یک چک‌لیست علمی کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id31">۵ـ۲۱. تمرین‌های پایانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id32">۵ـ۲۲. جمع‌بندیِ استدلال فصل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id33">پیوند با فصل ششم</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id34">منابع و مسیر مطالعه</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
