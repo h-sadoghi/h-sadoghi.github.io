@@ -14,3 +14,5 @@ chapters:
         title: پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد
       - file: course-notes/chapter-05
         title: الگوهای پرتکرار و قواعد انجمنی
+      - file: course-notes/chapter-06
+        title: الگوهای پیشرفته، دنباله‌ها و ساختارهای گرافی

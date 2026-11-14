@@ -140,3 +140,8 @@
       title: الگوهای پرتکرار و قواعد انجمنی
       summary: "> **درس داده‌کاوی، کارشناسی ارشد مهندسی کامپیوتر**"
       book_url: /teaching/data-mining/book/course-notes/chapter-05.html
+    - id: chapter-06
+      number: 6
+      title: الگوهای پیشرفته، دنباله‌ها و ساختارهای گرافی
+      summary: "> **درس داده‌کاوی — کارشناسی ارشد مهندسی کامپیوتر**"
+      book_url: /teaching/data-mining/book/course-notes/chapter-06.html
