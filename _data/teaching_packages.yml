@@ -135,3 +135,8 @@
       title: پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد
       summary: "> **درس داده‌کاوی ـ کارشناسی ارشد مهندسی کامپیوتر**"
       book_url: /teaching/data-mining/book/course-notes/chapter-04.html
+    - id: chapter-05
+      number: 5
+      title: الگوهای پرتکرار و قواعد انجمنی
+      summary: "> **درس داده‌کاوی، کارشناسی ارشد مهندسی کامپیوتر**"
+      book_url: /teaching/data-mining/book/course-notes/chapter-05.html
