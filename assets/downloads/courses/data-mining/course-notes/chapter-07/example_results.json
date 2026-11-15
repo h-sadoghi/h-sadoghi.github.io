@@ -1,0 +1,85 @@
+{
+  "manual": {
+    "gini": {
+      "parent": 0.5,
+      "children_weighted": 0.31999999999999984,
+      "gain": 0.18000000000000016
+    },
+    "entropy": {
+      "parent": 1.0,
+      "children_weighted": 0.7219280948873623,
+      "gain": 0.2780719051126377
+    },
+    "laplace_nb": {
+      "class1": 0.25510204081632654,
+      "class0": 0.02040816326530612,
+      "posterior": 0.9259259259259258
+    },
+    "confusion": {
+      "tp": 12,
+      "fp": 18,
+      "fn": 8,
+      "tn": 162,
+      "accuracy": 0.87,
+      "balanced_accuracy": 0.75,
+      "precision": 0.4,
+      "recall": 0.6,
+      "f1": 0.48
+    }
+  },
+  "benchmark": {
+    "n_total": 720,
+    "prevalence_all": 0.14583333333333334,
+    "sizes": {
+      "train": 402,
+      "validation": 138,
+      "test": 180
+    },
+    "prevalence": {
+      "train": 0.15920398009950248,
+      "validation": 0.15217391304347827,
+      "test": 0.1111111111111111
+    },
+    "model_validation": {
+      "majority": {
+        "ap": 0.15217391304347827,
+        "roc_auc": 0.5,
+        "brier": 0.1290664350753264
+      },
+      "tree": {
+        "ap": 0.6259368530020704,
+        "roc_auc": 0.9023199023199022,
+        "brier": 0.08237158626598264
+      },
+      "logistic": {
+        "ap": 0.7103937943157108,
+        "roc_auc": 0.9210419210419211,
+        "brier": 0.07824883467055439
+      }
+    },
+    "selected_model": "logistic",
+    "selected_threshold": 0.05,
+    "validation_cost": 31,
+    "test": {
+      "roc_auc": 0.949375,
+      "average_precision": 0.8679955287488019,
+      "brier": 0.03534781447175803,
+      "tp": 19,
+      "fp": 52,
+      "fn": 1,
+      "tn": 108,
+      "accuracy": 0.7055555555555556,
+      "balanced_accuracy": 0.8125,
+      "precision": 0.2676056338028169,
+      "recall": 0.95,
+      "f1": 0.4175824175824176
+    },
+    "group_cv_logistic_AP": [
+      0.7495178298543417,
+      0.8227611332983256,
+      0.7334564583028829,
+      0.7364008108156748
+    ],
+    "baseline_test_ap": 0.1111111111111111
+  }
+}

@@ -16,3 +16,5 @@ chapters:
         title: الگوهای پرتکرار و قواعد انجمنی
       - file: course-notes/chapter-06
         title: الگوهای پیشرفته، دنباله‌ها و ساختارهای گرافی
+      - file: course-notes/chapter-07
+        title: "طبقه‌بندی، انتخاب مدل و ارزیابی قابل اعتماد"
