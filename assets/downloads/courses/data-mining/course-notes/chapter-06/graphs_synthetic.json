@@ -1,0 +1,11 @@
+{
+  "description": "Six tiny independent undirected labeled graphs; synthetic teaching data.",
+  "graphs": [
+    {"id":"G1","nodes":{"a":"A","b":"B","c":"C"},"edges":[["a","b"],["b","c"],["a","c"]]},
+    {"id":"G2","nodes":{"a":"A","b":"B","c":"C"},"edges":[["a","b"],["b","c"]]},
+    {"id":"G3","nodes":{"a":"A","b":"B","c":"C"},"edges":[["a","b"],["a","c"]]},
+    {"id":"G4","nodes":{"a":"A","b":"B","d":"D"},"edges":[["a","b"],["b","d"]]},
+    {"id":"G5","nodes":{"a":"A","b":"B","c":"C","d":"D"},"edges":[["a","b"],["b","c"],["c","d"]]},
+    {"id":"G6","nodes":{"a":"A","c":"C","d":"D"},"edges":[["a","c"],["c","d"]]}
+  ]
+}
