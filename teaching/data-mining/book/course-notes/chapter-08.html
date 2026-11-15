@@ -1,0 +1,1044 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل هشتم — خوشه‌بندی: کشف ساختار، الگوریتم‌ها و اعتبارسنجی &#8212; Data Mining Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/data-mining-rtl.css?v=0a14a926" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-08';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="فصل هفتم — طبقه‌بندی، انتخاب مدل و ارزیابی قابل اعتماد" href="chapter-07.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Mining Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    داده‌کاوی | Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های درس داده‌کاوی</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">مبانی داده‌کاوی و فرایند کشف دانش</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">معیارهای شباهت، فاصله و هندسهٔ داده‌ها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">الگوهای پرتکرار و قواعد انجمنی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-06.html">الگوهای پیشرفته، دنباله‌ها و ساختارهای گرافی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-07.html">طبقه‌بندی، انتخاب مدل و ارزیابی قابل اعتماد</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">خوشه‌بندی: کشف ساختار، الگوریتم‌ها و اعتبارسنجی</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-08.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل هشتم — خوشه‌بندی: کشف ساختار، الگوریتم‌ها و اعتبارسنجی</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و جایگاه فصل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ارتباط دقیق با دو مرجع</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۸ـ۱. مسئلهٔ آغازین: بخش‌بندی مشتری یا تحمیل سه دسته؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۸ـ۲. خوشه چیست؟ یک جواب واحد وجود ندارد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۸ـ۳. صورت‌بندی: از داده به یک افراز</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means">۸ـ۴. الگوریتم k-means: از شش نقطه تا دو مرکز</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sse">۸ـ۴ـ۱. محاسبهٔ دستی SSE؛ چرا پاسخ دقیقاً ۸/۳ می‌شود؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۸ـ۵. شبه‌کد k-means و مسئلهٔ مقداردهی اولیه</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۸ـ۵ـ۱. چرا k-means++ بهتر از انتخاب بی‌فکرِ دو مرکز است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۸ـ۵ـ۲. نتیجهٔ اجرای واقعی روی دادهٔ فشرده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elbow">۸ـ۶. انتخاب تعداد خوشه‌ها: Elbow و نقش قضاوت علمی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centroid-medoid">۸ـ۷. نمایندهٔ خوشه: centroid در برابر medoid</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۸ـ۸. چرا k-means روی شکل هلالی شکست می‌خورد؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۸ـ۹. خوشه‌بندی سلسله‌مراتبی: از فاصلهٔ دو نمونه تا دندروگرام</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۸ـ۹ـ۱. سه تعریف اصلی فاصلهٔ خوشه‌ها</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dbscan">۸ـ۱۰. DBSCAN: نقطهٔ هسته، مرزی و نویز</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۸ـ۱۰ـ۱. شمارش دستی در یک خط</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۸ـ۱۰ـ۲. دسترسی‌پذیری چگال و شکل خوشه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eps-minpts">۸ـ۱۱. چگونه eps و MinPts را انتخاب کنیم؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۸ـ۱۲. مقیاس ویژگی‌ها: بازگشت ضروری به فصل سوم و چهارم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۸ـ۱۳. اعتبار خوشه: دو پرسش را از هم جدا کنیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette">۸ـ۱۴. Silhouette: یک مثال دستی با دو عدد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daviesbouldin">۸ـ۱۵. اعتبار داخلی دیگر: Davies–Bouldin و محدودیت آن</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۸ـ۱۶. ارزیابی خارجی: برچسب‌های واقعی نباید در ساخت خوشه دخالت کنند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۸ـ۱۷. پایداری و تکرارپذیری: نتیجهٔ یک بذر کافی نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۸ـ۱۸. تفسیر خوشه‌ها: «نام‌گذاری» با «کشف» فرق دارد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#csv">۸ـ۱۹. یک آزمایش بازتولیدپذیر: از CSV تا مقایسهٔ سه هندسه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۸ـ۲۰. راهنمای انتخاب روش؛ هیچ انتخابی بدون شرط معتبر نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۸ـ۲۱. تمرین‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">پرسش‌های مفهومی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">مسائل محاسباتی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">برنامه‌نویسی و تحلیل انتقادی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">۸ـ۲۲. جمع‌بندی و پل به فصل نهم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۸ـ۲۳. منابع و بازتولید</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل هشتم — خوشه‌بندی: کشف ساختار، الگوریتم‌ها و اعتبارسنجی<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>درس داده‌کاوی، کارشناسی ارشد مهندسی کامپیوتر</strong><br />
+<strong>پرسش محوری:</strong> اگر هیچ برچسبی برای مشتریان یا رخدادها نداشته باشیم، چه زمانی حق داریم بگوییم در داده «گروه» کشف کرده‌ایم؟ آیا گروه‌هایی که یک الگوریتم نشان می‌دهد واقعاً در داده وجود دارند، یا نتیجهٔ انتخاب فاصله، مقیاس و پارامترهای خود ما هستند؟</p>
+</div></blockquote>
+<p><strong>فایل‌های آموزشی:</strong> <a href="/assets/downloads/courses/data-mining/course-notes/chapter-08/DataMining_Chapter08.pdf" download>جزوهٔ PDF فصل هشتم</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-08/DataMining_Chapter08_TEX_PDF_SOURCE.zip" download>سورس XeLaTeX و شکل‌ها</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-08/chapter08_examples.py" download>کد Python</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-08/chapter08_examples.ipynb" download>Notebook اجرایی</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-08/clustering_synthetic.csv" download>دادهٔ ساختگی</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-08/example_results.json" download>خروجی‌های عددی قابل بازتولید</a>. هیچ دادهٔ واقعی مشتری و هیچ اطلاعات حساس در این بسته وجود ندارد.</p>
+<section id="id2">
+<h2>اهداف یادگیری و جایگاه فصل<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>در فصل هفتم برای پیش‌بینی برچسبِ یک مشاهده، از مثال‌های برچسب‌دار استفاده کردیم. این بار <strong>برچسب هدفی در اختیار نداریم</strong>. فقط می‌خواهیم بدانیم آیا نمونه‌ها در بازنمایی انتخاب‌شده، ساختار قابل دفاعی دارند. پس از این فصل باید بتوانید: (۱) تفاوت دسته‌بندی با و بدون برچسب را توضیح دهید؛ (۲) تمایز خوشه‌های فشرده، متصل و چگال را درک کنید؛ (۳) یک تکرار <code class="docutils literal notranslate"><span class="pre">k-means</span></code> و مقدار SSE را دستی حساب کنید؛ (۴) تفاوت مرکز، میانه و نمایندهٔ واقعی را بیان کنید؛ (۵) یک دندروگرام را از فاصلهٔ پیوند بسازید؛ (۶) نقاط هسته، مرزی و نویز <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> را با شمارش همسایه تشخیص دهید؛ (۷) Silhouette و شاخص‌های اعتبار را با مفروضاتشان تفسیر کنید؛ (۸) بین انتخاب پارامتر، ارزیابی نهایی و تفسیر خوشه‌ها مرز بگذارید؛ و (۹) از کشف خوشه در دادهٔ فاقد ساختار طبیعی پرهیز کنید.</p>
+<figure class="align-default" id="dm8-reasoning">
+<a class="reference internal image-reference" href="../_images/fig08_01.png"><img alt="../_images/fig08_01.png" src="../_images/fig08_01.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 109 </span><span class="caption-text">شکل ۸ـ۱. زنجیرهٔ تصمیم علمی در خوشه‌بندی: ابتدا مسئله و واحد مشاهده، سپس هندسه، تمایل به خوشه‌بندی، الگوریتم و در نهایت ممیزی نتیجه.</span><a class="headerlink" href="#dm8-reasoning" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id3">
+<h3>ارتباط دقیق با دو مرجع<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p><strong>Han, Pei &amp; Tong، ویرایش چهارم</strong>: فصل ۸، بخش‌های ۸٫۱ تا ۸٫۵، صفحات چاپی <strong>۳۷۹ تا ۴۲۴</strong>؛ شامل مفهوم خوشه، روش‌های افرازی، سلسله‌مراتبی و چگالی‌محور و ارزیابی. <strong>Tan, Steinbach, Karpatne &amp; Kumar، ویرایش دوم</strong>: فصل ۷، بخش‌های <strong>۷٫۱ تا ۷٫۵</strong>، صفحات چاپی <strong>۵۲۵ تا ۵۹۶</strong>؛ شامل انواع تعریف خوشه، <code class="docutils literal notranslate"><span class="pre">k-means</span></code>، خوشه‌بندی تجمیعی، <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code>، اعتبار داخلی و خارجی و تمایل به خوشه‌بندی. تأکید Han بر خانوادهٔ الگوریتم‌ها و مقیاس‌پذیری، و تأکید Tan بر <strong>معنای انواع خوشه و دام‌های ارزیابی</strong>، در این فصل با هم ترکیب شده‌اند. مثال‌های عددی و ۲۱ شکل این فصل تألیفی هستند، نه بازنشر شکل‌های کتاب. مدل‌های مخلوط، خوشه‌بندی طیفی، زیر‌فضایی، فازی و شبکه‌ای موضوع <strong>فصل نهم</strong> خواهند بود.</p>
+</section>
+</section>
+<section id="id4">
+<h2>۸ـ۱. مسئلهٔ آغازین: بخش‌بندی مشتری یا تحمیل سه دسته؟<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>فرض کنید یک فروشگاه برای هر مشتری دو شاخص ساخته است: <code class="docutils literal notranslate"><span class="pre">x1</span></code> (میانگین تعداد مراجعه در یک بازه) و <code class="docutils literal notranslate"><span class="pre">x2</span></code> (یک شاخص مقیاس‌شدهٔ شدت خرید). مدیر می‌خواهد برای طراحی برنامهٔ خدمت‌رسانی، الگوهای رفتاری را بشناسد. در دادهٔ واقعی، هیچ ستونی با عنوان «نوع مشتری» نداریم. حتی اگر یک نرم‌افزار عدد سه را به‌عنوان تعداد گروه از ما بگیرد و سه رنگ رسم کند، هنوز معلوم نیست سه الگوی معنادار کشف شده‌اند.</p>
+<p>در بستهٔ فصل، برای آموزش سه مجموعهٔ <strong>کاملاً ساختگی</strong> ساخته‌ایم: <code class="docutils literal notranslate"><span class="pre">compact</span></code> (سه گروه فشرده و چند نقطهٔ بیرونی)، <code class="docutils literal notranslate"><span class="pre">moons</span></code> (دو ساختار هلالی و نویز تزریق‌شده) و <code class="docutils literal notranslate"><span class="pre">uniform</span></code> (نمونه‌گیری یکنواخت بدون گروه‌های تعبیه‌شده). ستون <code class="docutils literal notranslate"><span class="pre">synthetic_group</span></code> فقط برای کنترلِ پس از آزمایش است؛ در هیچ مرحله‌ای ورودی الگوریتم نیست. این جداسازی برای آن است که دانشجو ببیند داشتن «واقعیت آزمایشگاهیِ ساختگی» با داشتن «برچسب در مسئلهٔ واقعی» یکسان نیست.</p>
+<figure class="align-default" id="dm8-three-geometry">
+<a class="reference internal image-reference" href="../_images/fig08_02.png"><img alt="../_images/fig08_02.png" src="../_images/fig08_02.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 110 </span><span class="caption-text">شکل ۸ـ۲. سه هندسهٔ متفاوت: خوشه‌های فشرده، شکل‌های خمیده و ابر نقطه‌ای یکنواخت. یک روش واحد ضرورتاً برای هر سه مناسب نیست.</span><a class="headerlink" href="#dm8-three-geometry" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>سؤال نخست علمی</strong>: «شباهت» در این مسئله به چه معناست؟ اگر <code class="docutils literal notranslate"><span class="pre">x1</span></code> برحسب تعداد و <code class="docutils literal notranslate"><span class="pre">x2</span></code> برحسب ریال اندازه‌گیری شود، فاصلهٔ اقلیدسیِ خام تحت تسلط ریال قرار می‌گیرد. بنابراین انتخاب خوشه‌بند پیش از تعریف ویژگی، واحد و فاصله بی‌معناست؛ این همان پیوند مستقیم با فصل‌های دوم، سوم و چهارم است.</p>
+</section>
+<section id="id5">
+<h2>۸ـ۲. خوشه چیست؟ یک جواب واحد وجود ندارد<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>سه تصور رایج از خوشه را جدا کنید. در تصور <strong>مرکز-محور</strong>، نمونه‌های هر گروه به یک مرکز نزدیک‌اند؛ در تصور <strong>اتصال-محور</strong>، نمونه‌ها با زنجیره‌ای از همسایگی‌ها به هم می‌رسند؛ در تصور <strong>چگالی-محور</strong>، گروه ناحیه‌ای متصل و پرچگال است که از فضای کم‌تراکم جدا می‌شود. یک مجموعهٔ هلالی ممکن است مرکز واحد مناسبی نداشته باشد، ولی ناحیه‌ای چگال و متصل باشد.</p>
+<figure class="align-default" id="dm8-three-definitions">
+<a class="reference internal image-reference" href="../_images/fig08_03.png"><img alt="../_images/fig08_03.png" src="../_images/fig08_03.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 111 </span><span class="caption-text">شکل ۸ـ۳. یک خوشه می‌تواند به معنی فشردگی حول مرکز، اتصال از راه همسایه‌ها یا اتصالِ نواحی چگال باشد؛ این سه تعریف هم‌ارز نیستند.</span><a class="headerlink" href="#dm8-three-definitions" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>افزون بر آن، خوشه‌بندی می‌تواند <strong>افرازی</strong> باشد (هر مشاهده در یک گروه)، <strong>سلسله‌مراتبی</strong> باشد (گروه‌های تو در تو بسازد)، یا <strong>دارای نویز</strong> باشد (برخی نمونه‌ها را به هیچ خوشه‌ای نسبت ندهد). برچسب‌های عددی <code class="docutils literal notranslate"><span class="pre">0</span></code>، <code class="docutils literal notranslate"><span class="pre">1</span></code> و <code class="docutils literal notranslate"><span class="pre">2</span></code> در خروجی صرفاً شناسهٔ گروه‌اند؛ نه رتبه، نه کیفیت، نه نامِ واقعی مشتری.</p>
+</section>
+<section id="id6">
+<h2>۸ـ۳. صورت‌بندی: از داده به یک افراز<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>ماتریس داده را به شکل <span class="math notranslate nohighlight">\(X\in\mathbb{R}^{n\times d}\)</span> با <span class="math notranslate nohighlight">\(n\)</span> مشاهده و <span class="math notranslate nohighlight">\(d\)</span> ویژگی در نظر بگیرید. یک الگوریتم افرازی به هر مشاهده یک شناسهٔ <span class="math notranslate nohighlight">\(z_i\in\{1,\ldots,k\}\)</span> می‌دهد. اگر گروه <span class="math notranslate nohighlight">\(C_j\)</span> مجموعهٔ شاخص‌هایی باشد که <span class="math notranslate nohighlight">\(z_i=j\)</span>، یک افراز باید گروه‌های ناسازگار و پوشانندهٔ کل نمونه‌ها بسازد. در روش‌هایی مانند <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> ممکن است تعدادی مشاهده با شناسهٔ نویز <span class="math notranslate nohighlight">\(-1\)</span> خارج از گروه‌ها بمانند.</p>
+<p>هیچ تابع هدفِ مشترکی که همهٔ الگوریتم‌های خوشه‌بندی را تعریف کند وجود ندارد. <code class="docutils literal notranslate"><span class="pre">k-means</span></code> مجموع مربعات فاصله تا مرکز را کمینه می‌کند؛ روش سلسله‌مراتبی در هر گام یک زوج خوشه را با معیار پیوند انتخاب می‌کند؛ <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> از همسایگی چگال و دسترسی‌پذیری استفاده می‌کند. از این رو مقایسهٔ صرفِ تعداد گروه‌ها، مقایسهٔ کیفیت علمی نیست.</p>
+</section>
+<section id="k-means">
+<h2>۸ـ۴. الگوریتم k-means: از شش نقطه تا دو مرکز<a class="headerlink" href="#k-means" title="Link to this heading">#</a></h2>
+<p>برای شروع، شش مشاهدهٔ دو‌بعدی زیر را داریم:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>مشاهده</p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(x_1\)</span></p></th>
+<th class="head text-right"><p><span class="math notranslate nohighlight">\(x_2\)</span></p></th>
+<th class="head"><p>مرکز اولیه</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td class="text-right"><p>۱</p></td>
+<td class="text-right"><p>۱</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mu_1=(1,1)\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td class="text-right"><p>۱</p></td>
+<td class="text-right"><p>۲</p></td>
+<td><p>همان نزدیک‌ترین مرکز</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td class="text-right"><p>۲</p></td>
+<td class="text-right"><p>۱</p></td>
+<td><p>همان نزدیک‌ترین مرکز</p></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td class="text-right"><p>۸</p></td>
+<td class="text-right"><p>۸</p></td>
+<td><p><span class="math notranslate nohighlight">\(\mu_2=(8,8)\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>E</p></td>
+<td class="text-right"><p>۸</p></td>
+<td class="text-right"><p>۹</p></td>
+<td><p>همان نزدیک‌ترین مرکز</p></td>
+</tr>
+<tr class="row-odd"><td><p>F</p></td>
+<td class="text-right"><p>۹</p></td>
+<td class="text-right"><p>۸</p></td>
+<td><p>همان نزدیک‌ترین مرکز</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>قانون انتساب آن است که برای هر نقطه، فاصلهٔ مربع‌شده تا هر مرکز را حساب کنیم و مرکز با مقدار کمتر را انتخاب کنیم. برای نمونه، نقطهٔ B تا مرکز اول فاصلهٔ مربع‌شدهٔ <span class="math notranslate nohighlight">\(1\)</span> دارد و تا مرکز دوم <span class="math notranslate nohighlight">\(85\)</span>؛ پس به گروه اول می‌رود. نقطهٔ E تا مرکز دوم فاصلهٔ مربع‌شدهٔ <span class="math notranslate nohighlight">\(1\)</span> دارد. در نتیجه گروه‌ها پس از نخستین گام عبارت‌اند از <span class="math notranslate nohighlight">\(C_1=\{A,B,C\}\)</span> و <span class="math notranslate nohighlight">\(C_2=\{D,E,F\}\)</span>.</p>
+<figure class="align-default" id="dm8-manual-first">
+<a class="reference internal image-reference" href="../_images/fig08_04.png"><img alt="../_images/fig08_04.png" src="../_images/fig08_04.png" style="width: 86%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 112 </span><span class="caption-text">شکل ۸ـ۴. نقطه‌های A تا F و دو مرکز اولیه. علامت ضربدر مرکز است و رنگ، انتساب به نزدیک‌ترین مرکز را نشان می‌دهد.</span><a class="headerlink" href="#dm8-manual-first" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>مرکز جدید میانگین حسابیِ اعضای همان گروه است:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu_j=\frac{1}{|C_j|}\sum_{i\in C_j}x_i.
+\]</div>
+<p>بنابراین با محاسبهٔ مستقل هر مؤلفه به دست می‌آوریم:</p>
+<div class="math notranslate nohighlight">
+\[
+\mu_1=\left(\frac{4}{3},\frac{4}{3}\right),\qquad
+\mu_2=\left(\frac{25}{3},\frac{25}{3}\right).
+\]</div>
+<figure class="align-default" id="dm8-new-centroids">
+<a class="reference internal image-reference" href="../_images/fig08_05.png"><img alt="../_images/fig08_05.png" src="../_images/fig08_05.png" style="width: 86%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 113 </span><span class="caption-text">شکل ۸ـ۵. حرکت مراکز از مکان اولیه به میانگین اعضا. این جابه‌جایی بخشی از بهینه‌سازی است، نه تغییر دادهٔ اصلی.</span><a class="headerlink" href="#dm8-new-centroids" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="sse">
+<h3>۸ـ۴ـ۱. محاسبهٔ دستی SSE؛ چرا پاسخ دقیقاً ۸/۳ می‌شود؟<a class="headerlink" href="#sse" title="Link to this heading">#</a></h3>
+<p>تابع هدف <code class="docutils literal notranslate"><span class="pre">k-means</span></code> چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+J(Z,M)=\sum_{j=1}^{k}\sum_{i\in C_j}\|x_i-\mu_j\|_2^2.
+\]</div>
+<p>برای گروه اول، فاصلهٔ مربع‌شدهٔ A تا مرکز جدید <span class="math notranslate nohighlight">\(2/9\)</span> و فاصلهٔ مربع‌شدهٔ B و C هرکدام <span class="math notranslate nohighlight">\(5/9\)</span> است؛ مجموع <span class="math notranslate nohighlight">\(12/9=4/3\)</span> می‌شود. گروه دوم ساختاری هم‌ارز دارد و سهم آن نیز <span class="math notranslate nohighlight">\(4/3\)</span> است؛ پس <strong>مقدار کل SSE برابر <span class="math notranslate nohighlight">\(8/3\approx2.667\)</span></strong> است. این مقدار را برنامهٔ <code class="docutils literal notranslate"><span class="pre">chapter08_examples.py</span></code> بدون تقریب اولیه تکرار می‌کند.</p>
+<p>هر مرحلهٔ «انتساب به نزدیک‌ترین مرکز» با مراکز ثابت، و هر مرحلهٔ «گرفتن میانگین» با عضویت ثابت، مقدار SSE را افزایش نمی‌دهد. پس الگوریتم لوید (Lloyd) تا حالت پایدار پیش می‌رود؛ <strong>اما تضمینی برای رسیدن به بهترین جواب سراسری ندارد</strong> و ممکن است در کمینهٔ محلی بماند.</p>
+<figure class="align-default" id="dm8-sse-iterations">
+<a class="reference internal image-reference" href="../_images/fig08_06.png"><img alt="../_images/fig08_06.png" src="../_images/fig08_06.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 114 </span><span class="caption-text">شکل ۸ـ۶. مقدار SSE در تکرارهای یک اجرای مشخص روی شش نقطه؛ کاهش یا ثابت‌ماندن تابع هدف به‌معنای کشف خوشهٔ واقعی نیست.</span><a class="headerlink" href="#dm8-sse-iterations" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id7">
+<h2>۸ـ۵. شبه‌کد k-means و مسئلهٔ مقداردهی اولیه<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>گام‌های اصلی را به‌صورت شبه‌کد بخوانید:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>INPUT: X, k, initial centroids, stopping rule
+REPEAT:
+    assign each point to the nearest centroid
+    replace each nonempty centroid by its members' mean
+UNTIL assignments or objective stop changing sufficiently
+OUTPUT: assignments, centroids, inertia
+</pre></div>
+</div>
+<p>اگر خوشه‌ای خالی شود، باید راهبرد مشخصی برای بازآغاز مرکز آن وجود داشته باشد؛ رفتار دقیق به پیاده‌سازی بستگی دارد. در داده‌های بزرگ، نگهداری تمام فاصله‌ها نیز هزینه دارد. در هر تکرار ساده، محاسبهٔ فاصلهٔ <span class="math notranslate nohighlight">\(n\)</span> نمونه به <span class="math notranslate nohighlight">\(k\)</span> مرکز در <span class="math notranslate nohighlight">\(d\)</span> مؤلفه تقریباً مرتبهٔ <span class="math notranslate nohighlight">\(O(nkd)\)</span> دارد؛ تعداد تکرار و هزینهٔ مقداردهی اولیه هم باید لحاظ شود.</p>
+<section id="id8">
+<h3>۸ـ۵ـ۱. چرا k-means++ بهتر از انتخاب بی‌فکرِ دو مرکز است؟<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<p>در <code class="docutils literal notranslate"><span class="pre">k-means++</span></code> پس از انتخاب مرکز اول، احتمال انتخاب هر نمونهٔ دیگر متناسب با <strong>مربع فاصلهٔ آن تا نزدیک‌ترین مرکز انتخاب‌شده</strong> است. اگر مرکز اول در مختصات <span class="math notranslate nohighlight">\(0\)</span> باشد و سه گزینه در فاصله‌های <span class="math notranslate nohighlight">\(1\)</span>، <span class="math notranslate nohighlight">\(5\)</span> و <span class="math notranslate nohighlight">\(6\)</span> باشند، وزن‌ها <span class="math notranslate nohighlight">\(1\)</span>، <span class="math notranslate nohighlight">\(25\)</span> و <span class="math notranslate nohighlight">\(36\)</span> و مجموع <span class="math notranslate nohighlight">\(62\)</span> خواهد بود. احتمال انتخاب دورترین گزینه <span class="math notranslate nohighlight">\(36/62\)</span> است؛ بااین‌حال نتیجه قطعی نیست و اجرای چند آغاز (<code class="docutils literal notranslate"><span class="pre">n_init</span></code>) همچنان مفید است.</p>
+<figure class="align-default" id="dm8-plus-plus">
+<a class="reference internal image-reference" href="../_images/fig08_07.png"><img alt="../_images/fig08_07.png" src="../_images/fig08_07.png" style="width: 86%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 115 </span><span class="caption-text">شکل ۸ـ۷. احتمال نسبی مراکز دوم در انتخاب <code class="docutils literal notranslate"><span class="pre">k-means++</span></code> روی یک مثال تک‌بعدی. دوری بیشتر به معنی احتمال بیشتر، نه انتخاب قطعی است.</span><a class="headerlink" href="#dm8-plus-plus" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id9">
+<h3>۸ـ۵ـ۲. نتیجهٔ اجرای واقعی روی دادهٔ فشرده<a class="headerlink" href="#id9" title="Link to this heading">#</a></h3>
+<p>در دادهٔ ساختگی <code class="docutils literal notranslate"><span class="pre">compact</span></code>، سه تودهٔ نقطه‌ای با تعدادی نویز بیرونی قرار دارند. با <code class="docutils literal notranslate"><span class="pre">k=3</span></code>، مقدار ثابت <code class="docutils literal notranslate"><span class="pre">random_state=824</span></code> و <code class="docutils literal notranslate"><span class="pre">n_init=20</span></code> نتیجهٔ زیر به دست آمد: <strong>Silhouette برابر تقریباً ۰٫۷۷۱۳</strong>. این عدد متعلق به <strong>همین دادهٔ ساختگی و همین تنظیمات</strong> است و شاهدی دربارهٔ مشتریان واقعی محسوب نمی‌شود.</p>
+<figure class="align-default" id="dm8-compact-fit">
+<a class="reference internal image-reference" href="../_images/fig08_08.png"><img alt="../_images/fig08_08.png" src="../_images/fig08_08.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 116 </span><span class="caption-text">شکل ۸ـ۸. نتیجهٔ <code class="docutils literal notranslate"><span class="pre">k-means</span></code> در دادهٔ فشرده، همراه با مراکز محاسبه‌شده؛ رنگ خوشه به‌تنهایی نام یا معنای تجاری ندارد.</span><a class="headerlink" href="#dm8-compact-fit" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="elbow">
+<h2>۸ـ۶. انتخاب تعداد خوشه‌ها: Elbow و نقش قضاوت علمی<a class="headerlink" href="#elbow" title="Link to this heading">#</a></h2>
+<p>به‌طور طبیعی، با افزایش <span class="math notranslate nohighlight">\(k\)</span>، SSE معمولاً کاهش می‌یابد؛ حتی با انتخاب <span class="math notranslate nohighlight">\(k=n\)</span> می‌توان آن را برای داده‌های متمایز به صفر رساند. پس انتخاب <span class="math notranslate nohighlight">\(k\)</span> براساس کمترین SSE ممکن بی‌معناست. در <strong>روش زانویی (Elbow)</strong> به نقطه‌ای نگاه می‌کنیم که ادامهٔ افزایش <span class="math notranslate nohighlight">\(k\)</span> بهبود نسبتاً کوچکی به همراه دارد. این نقطه ممکن است اصلاً واضح نباشد.</p>
+<figure class="align-default" id="dm8-elbow">
+<a class="reference internal image-reference" href="../_images/fig08_09.png"><img alt="../_images/fig08_09.png" src="../_images/fig08_09.png" style="width: 86%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 117 </span><span class="caption-text">شکل ۸ـ۹. SSE در برابر تعداد خوشه برای دادهٔ ساختگی. نمودار زانویی یک راهنمای اکتشافی است، نه آزمون اثبات وجود خوشه.</span><a class="headerlink" href="#dm8-elbow" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>روش دوم محاسبهٔ معیارهایی چون Silhouette برای چند مقدار <span class="math notranslate nohighlight">\(k\)</span> است. اما توجه کنید <strong>هیچ معیاری مستقل از هندسه و فاصله انتخاب‌شده نیست</strong>. علاوه بر این، اگر <span class="math notranslate nohighlight">\(k\)</span> را با نگاه‌کردن به نتیجهٔ ارزیابی عوض کنیم، همان معیار در حکم معیار انتخاب پارامتر بوده و دیگر نباید «ارزیابی کاملاً مستقل» قلمداد شود.</p>
+</section>
+<section id="centroid-medoid">
+<h2>۸ـ۷. نمایندهٔ خوشه: centroid در برابر medoid<a class="headerlink" href="#centroid-medoid" title="Link to this heading">#</a></h2>
+<p>مرکز <code class="docutils literal notranslate"><span class="pre">centroid</span></code> میانگین اعضاست؛ ممکن است اصلاً یکی از نمونه‌ها نباشد و به دادهٔ پرت حساس است. در مقابل، <strong>نمایندهٔ واقعی (medoid)</strong> یکی از نمونه‌های داخل مجموعه است که مجموع فاصله‌اش تا سایر اعضا را کمینه می‌کند. این مفهوم با فاصله‌های غیر اقلیدسی نیز قابل تعریف است. برای دادهٔ تک‌بعدی <span class="math notranslate nohighlight">\(\{0,1,5\}\)</span> و فاصلهٔ قدرمطلق، هزینهٔ نمایندهٔ ۰ برابر ۶، نمایندهٔ ۱ برابر ۵ و نمایندهٔ ۵ برابر ۹ است؛ پس نمونهٔ ۱ medoid است.</p>
+<p>اگر دادهٔ <span class="math notranslate nohighlight">\(\{1,2,2,3\}\)</span> را به <span class="math notranslate nohighlight">\(\{1,2,2,3,17\}\)</span> تبدیل کنیم، میانگین از ۲ به ۵ می‌رود، اما میانه همان ۲ می‌ماند. در یک خوشهٔ تک‌بعدی با فاصلهٔ قدرمطلق، medoid با کمینه‌کردن مجموع فاصله‌ها مرتبط با میانه است؛ <strong>این به معنی یکسان‌بودن کلی medoid و median در همهٔ فضاها نیست</strong>.</p>
+<figure class="align-default" id="dm8-outlier-center">
+<a class="reference internal image-reference" href="../_images/fig08_10.png"><img alt="../_images/fig08_10.png" src="../_images/fig08_10.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 118 </span><span class="caption-text">شکل ۸ـ۱۰. اثر یک مقدار دورافتاده بر میانگین و میانه؛ انتخاب نماینده باید با نوع فاصله و مسئله سازگار باشد.</span><a class="headerlink" href="#dm8-outlier-center" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در کد فصل، تابع <code class="docutils literal notranslate"><span class="pre">k_medoids_exhaustive</span></code> برای مثال‌های بسیار کوچک همهٔ ترکیب‌ها را می‌آزماید؛ این کد <strong>الگوریتم PAM بهینه برای دادهٔ بزرگ نیست</strong> و صرفاً تعریف دقیق هزینه را نشان می‌دهد.</p>
+</section>
+<section id="id10">
+<h2>۸ـ۸. چرا k-means روی شکل هلالی شکست می‌خورد؟<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>برای دو هلال درهم‌رفته، هر هلال با خمیدگی خود گروه طبیعیِ هندسی محسوب می‌شود، اما خط مرز نزدیک‌ترین مرکز معمولاً نمی‌تواند این خمیدگی را دنبال کند. از همین رو، <code class="docutils literal notranslate"><span class="pre">k-means</span></code> ممکن است هر هلال را ببرد و بخش‌هایی از دو هلال را در یک خوشه بگذارد. در این مسئله «تعداد خوشه» به‌تنهایی کافی نیست؛ <strong>شکل خوشه</strong> نیز تعیین‌کننده است.</p>
+<figure class="align-default" id="dm8-moons-compare">
+<a class="reference internal image-reference" href="../_images/fig08_11.png"><img alt="../_images/fig08_11.png" src="../_images/fig08_11.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 119 </span><span class="caption-text">شکل ۸ـ۱۱. مقایسهٔ <code class="docutils literal notranslate"><span class="pre">k-means</span></code> و <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> روی نقاط هلالی. برچسب <span class="math notranslate nohighlight">\(-1\)</span> در روش دوم به معنی نویز است؛ دو روش تعریف متفاوتی از گروه دارند.</span><a class="headerlink" href="#dm8-moons-compare" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>این مثال به معنای برتری مطلق <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> نیست. اگر چگالی دو هلال بسیار متفاوت، تعداد نمونه‌ها اندک یا فاصلهٔ انتخابی نامناسب باشد، <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> نیز ممکن است چند گروه را ادغام کند یا همه‌چیز را نویز تشخیص دهد.</p>
+</section>
+<section id="id11">
+<h2>۸ـ۹. خوشه‌بندی سلسله‌مراتبی: از فاصلهٔ دو نمونه تا دندروگرام<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>روش <strong>تجمیعی (Agglomerative)</strong> ابتدا هر مشاهده را یک خوشهٔ تک‌عضوی می‌داند؛ در هر مرحله دو خوشهٔ نزدیک‌تر را ادغام می‌کند تا به تعداد هدف یا یک ریشه برسد. خروجی را با یک <strong>دندروگرام (Dendrogram)</strong> نمایش می‌دهیم. ارتفاع هر ادغام به معیار پیوند (linkage) مربوط است؛ الزاماً فاصلهٔ اقلیدسی دو مرکز نیست.</p>
+<figure class="align-default" id="dm8-dendrogram">
+<a class="reference internal image-reference" href="../_images/fig08_12.png"><img alt="../_images/fig08_12.png" src="../_images/fig08_12.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 120 </span><span class="caption-text">شکل ۸ـ۱۲. نمونهٔ دندروگرام با پیوند میانگین؛ بریدن در یک ارتفاع، افرازهای متفاوتی ایجاد می‌کند.</span><a class="headerlink" href="#dm8-dendrogram" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id12">
+<h3>۸ـ۹ـ۱. سه تعریف اصلی فاصلهٔ خوشه‌ها<a class="headerlink" href="#id12" title="Link to this heading">#</a></h3>
+<p>اگر <span class="math notranslate nohighlight">\(A\)</span> و <span class="math notranslate nohighlight">\(B\)</span> دو گروه و <span class="math notranslate nohighlight">\(d(x,y)\)</span> فاصلهٔ دو مشاهده باشد، سه تعریف رایج چنین‌اند:</p>
+<div class="math notranslate nohighlight">
+\[
+D_{\mathrm{single}}(A,B)=\min_{x\in A,y\in B}d(x,y),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D_{\mathrm{complete}}(A,B)=\max_{x\in A,y\in B}d(x,y),
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+D_{\mathrm{average}}(A,B)=\frac{1}{|A||B|}\sum_{x\in A}\sum_{y\in B}d(x,y).
+\]</div>
+<p>مثلاً روی خط، چهار نقطهٔ <span class="math notranslate nohighlight">\(A=0\)</span>، <span class="math notranslate nohighlight">\(B=1\)</span>، <span class="math notranslate nohighlight">\(C=4\)</span> و <span class="math notranslate nohighlight">\(D=10\)</span> را در نظر بگیرید. ابتدا A و B با فاصلهٔ ۱ ادغام می‌شوند. اکنون فاصلهٔ گروه <span class="math notranslate nohighlight">\(\{A,B\}\)</span> تا C در سه روش به‌ترتیب <strong>۳، ۴ و ۳٫۵</strong> خواهد بود. بنابراین تفاوت روش‌ها نه یک جزئیات نرم‌افزاری، بلکه تفاوت در <strong>تعریف فاصلهٔ دو گروه</strong> است.</p>
+<figure class="align-default" id="dm8-linkage-manual">
+<a class="reference internal image-reference" href="../_images/fig08_13.png"><img alt="../_images/fig08_13.png" src="../_images/fig08_13.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 121 </span><span class="caption-text">شکل ۸ـ۱۳. مثال تک‌بعدی برای فهم Single، Complete و Average linkage. روش Single امکان زنجیره‌شدن از مسیر نقاط واسط را بیشتر می‌کند.</span><a class="headerlink" href="#dm8-linkage-manual" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Ward linkage</strong> رویکردی متفاوت دارد: ادغامی را برمی‌گزیند که افزایش مجموع مربعات درون‌خوشه‌ای کمینه شود؛ در کاربرد استاندارد آن، فاصلهٔ اقلیدسی و منطق واریانس درونی مهم‌اند. ترکیب کورکورانهٔ Ward با هر ماتریس فاصلهٔ دلخواه از نظر علمی مجاز نیست. حافظه و زمان بسیاری از روش‌های تجمیعی نیز برای دادهٔ بسیار بزرگ محدودیت ایجاد می‌کنند.</p>
+</section>
+</section>
+<section id="dbscan">
+<h2>۸ـ۱۰. DBSCAN: نقطهٔ هسته، مرزی و نویز<a class="headerlink" href="#dbscan" title="Link to this heading">#</a></h2>
+<p>در <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> دو پارامتر داریم: شعاع همسایگی <span class="math notranslate nohighlight">\(\varepsilon\)</span> و حداقل تعداد نمونهٔ همسایه <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> یا <code class="docutils literal notranslate"><span class="pre">MinPts</span></code>. تعریف همسایگی را چنین می‌نویسیم:</p>
+<div class="math notranslate nohighlight">
+\[
+N_{\varepsilon}(p)=\{q\mid d(p,q)\leq\varepsilon\}.
+\]</div>
+<p>در قراردادی که این فصل و کتابخانهٔ <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> استفاده می‌کنند، <strong>خودِ نقطهٔ <span class="math notranslate nohighlight">\(p\)</span> نیز عضو همسایگی خودش است</strong>. اگر <span class="math notranslate nohighlight">\(|N_{\varepsilon}(p)|\geq\mathrm{MinPts}\)</span> باشد، p نقطهٔ <strong>هسته (core)</strong> است. نمونهٔ غیرهسته‌ای که در همسایگی یک هسته قرار می‌گیرد <strong>مرزی (border)</strong> است. نمونه‌ای که از این اتصال‌های چگال بیرون بماند <strong>نویز (noise)</strong> تلقی می‌شود. نقاط مرزی ممکن است میان دو ناحیهٔ هسته‌ای قرار بگیرند؛ ترتیب پیمایش و قرارداد پیاده‌سازی می‌تواند انتساب آن‌ها را در برخی حالت‌ها تحت تأثیر قرار دهد.</p>
+<section id="id13">
+<h3>۸ـ۱۰ـ۱. شمارش دستی در یک خط<a class="headerlink" href="#id13" title="Link to this heading">#</a></h3>
+<p>پنج نقطهٔ <span class="math notranslate nohighlight">\(\{0,1,2,5,8\}\)</span> را با <span class="math notranslate nohighlight">\(\varepsilon=1.1\)</span> و <span class="math notranslate nohighlight">\(\mathrm{MinPts}=3\)</span> در نظر بگیرید. همسایگان نقطهٔ ۱ عبارت‌اند از ۰، ۱ و ۲؛ بنابراین ۱ <strong>هسته</strong> است. نقطهٔ ۰ فقط ۰ و ۱ را در همسایگی دارد و هسته نیست، اما به هستهٔ ۱ وصل است؛ پس <strong>مرزی</strong> است. نقطهٔ ۲ نیز مرزی است. نقاط ۵ و ۸ نه هسته‌اند و نه در همسایگی هسته؛ در نتیجه <strong>نویز</strong> هستند. خروجی محاسباتی متناظر در کد <code class="docutils literal notranslate"><span class="pre">[0,0,0,-1,-1]</span></code> است.</p>
+<figure class="align-default" id="dm8-dbscan-manual">
+<a class="reference internal image-reference" href="../_images/fig08_14.png"><img alt="../_images/fig08_14.png" src="../_images/fig08_14.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 122 </span><span class="caption-text">شکل ۸ـ۱۴. مسئلهٔ تک‌بعدی DBSCAN با شعاع ۱٫۱. دایرهٔ خط‌چین حول نقطهٔ ۱ محدودهٔ همسایگی را نشان می‌دهد.</span><a class="headerlink" href="#dm8-dbscan-manual" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id14">
+<h3>۸ـ۱۰ـ۲. دسترسی‌پذیری چگال و شکل خوشه<a class="headerlink" href="#id14" title="Link to this heading">#</a></h3>
+<p>یک نقطهٔ هسته می‌تواند همسایگان خود را به گروه متصل کند، و این اتصال از طریق هسته‌های دیگر گسترش می‌یابد. به همین دلیل، مسیر خمیده‌ای از نقاط چگال می‌تواند یک گروه بسازد، حتی اگر میانگین مختصات آن بیرونِ نوار خمیده باشد. در عوض، دو نوار نزدیک و متصل از راه نقاط مرزی یا چگالی‌های متفاوت ممکن است به‌سادگی جدا نشوند.</p>
+<figure class="align-default" id="dm8-dbscan-disk">
+<a class="reference internal image-reference" href="../_images/fig08_15.png"><img alt="../_images/fig08_15.png" src="../_images/fig08_15.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 123 </span><span class="caption-text">شکل ۸ـ۱۵. یک همسایگی شعاعی روی دادهٔ هلالی. مفهوم هسته به تعداد نقاط در همین ناحیه و پارامتر <code class="docutils literal notranslate"><span class="pre">MinPts</span></code> وابسته است.</span><a class="headerlink" href="#dm8-dbscan-disk" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="eps-minpts">
+<h2>۸ـ۱۱. چگونه eps و MinPts را انتخاب کنیم؟<a class="headerlink" href="#eps-minpts" title="Link to this heading">#</a></h2>
+<p>یک راه تجربی، رسم فاصلهٔ هر نمونه تا همسایهٔ <span class="math notranslate nohighlight">\(k\)</span>ام و مرتب‌کردن این فاصله‌هاست. اگر <code class="docutils literal notranslate"><span class="pre">MinPts=5</span></code> و خود نقطه شمرده شود، فاصلهٔ پنجمِ گزارش‌شده شامل همان قرارداد است. تغییر شدیدِ شیب منحنی ممکن است مرزی بین نواحی چگال و نقاط دورافتاده را پیشنهاد دهد، اما <strong>هیچ قانون جهانی برای تشخیص خودکار آن وجود ندارد</strong>.</p>
+<figure class="align-default" id="dm8-kdist">
+<a class="reference internal image-reference" href="../_images/fig08_16.png"><img alt="../_images/fig08_16.png" src="../_images/fig08_16.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 124 </span><span class="caption-text">شکل ۸ـ۱۶. نمودار فاصله تا همسایهٔ پنجم در دادهٔ هلالی، با خط افقی برای شعاع نمونه. خط‌چین فقط یک گزینهٔ آزمایشی است.</span><a class="headerlink" href="#dm8-kdist" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>با کوچک‌کردن <span class="math notranslate nohighlight">\(\varepsilon\)</span>، ممکن است بسیاری از نقاط نویز شوند. با بزرگ‌کردن بیش از حد آن، خوشه‌ها به هم متصل می‌شوند. افزودن ویژگی‌های جدید یا تغییر مقیاس نیز همهٔ همسایگی‌ها را جابه‌جا می‌کند. بنابراین در گزارش نهایی باید <strong>شعاع، <code class="docutils literal notranslate"><span class="pre">MinPts</span></code>، معیار فاصله، مقیاس‌بندی و سهم نویز</strong> را صریحاً ذکر کنیم؛ وگرنه خوشه‌بندی قابل بازتولید نیست.</p>
+</section>
+<section id="id15">
+<h2>۸ـ۱۲. مقیاس ویژگی‌ها: بازگشت ضروری به فصل سوم و چهارم<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>فرض کنید یکی از ویژگی‌ها در بازهٔ ۰ تا ۱ و دیگری در بازهٔ صفر تا ۱۰۰۰۰ باشد. اگر مقیاس تغییر نکند، فاصلهٔ اقلیدسی تقریباً تنها به ویژگی دوم حساس خواهد بود. استانداردسازی به‌شکل زیر، هر مؤلفه را بر انحراف معیار همان مؤلفه تقسیم می‌کند:</p>
+<div class="math notranslate nohighlight">
+\[
+\widetilde{x}_{ij}=\frac{x_{ij}-\mu_j}{\sigma_j}.
+\]</div>
+<p>این تبدیل فرض می‌کند نسبت‌دادن اهمیت مساوی به ویژگی‌های استانداردشده قابل دفاع است. اگر یک ویژگی واقعاً مهم‌تر باشد یا داده پرت فراوان داشته باشد، استانداردسازی کورکورانه نیز مناسب نیست. در دادهٔ زمانی و دادهٔ دارای تقسیم آموزش/آزمون، پارامترهای تبدیل باید فقط از دادهٔ مجاز برآورد شوند.</p>
+<figure class="align-default" id="dm8-scale-effect">
+<a class="reference internal image-reference" href="../_images/fig08_17.png"><img alt="../_images/fig08_17.png" src="../_images/fig08_17.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 125 </span><span class="caption-text">شکل ۸ـ۱۷. همان شش مشاهده در واحد خام و پس از استانداردسازی. حتی اگر الگوریتم ثابت بماند، هندسه و انتساب ممکن است تغییر کند.</span><a class="headerlink" href="#dm8-scale-effect" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای ویژگی اسمی نباید بدون تعریف معنا کد عددی و فاصلهٔ اقلیدسی تحمیل کرد؛ برای دادهٔ مختلط می‌توان از فاصله‌های متناسب با نوع ویژگی مانند Gower استفاده کرد، اما سازگاری آن‌ها با الگوریتم نیز باید جدا بررسی شود. برای دادهٔ خیلی تنک، Cosine می‌تواند از Euclidean معنادارتر باشد؛ در عین حال <code class="docutils literal notranslate"><span class="pre">k-means</span></code> استاندارد با مرکز میانگین و SSE اقلیدسی یکسان با هر انتخاب دلخواه فاصله نیست.</p>
+</section>
+<section id="id16">
+<h2>۸ـ۱۳. اعتبار خوشه: دو پرسش را از هم جدا کنیم<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p><strong>پرسش اول:</strong> داده واقعاً تمایل به خوشه‌بندی دارد؟ <strong>پرسش دوم:</strong> اگر خوشه‌بندی را انجام دادیم، افراز به‌دست‌آمده تحت تعریف خاصی چقدر منسجم است؟ پاسخ مثبت به سؤال دوم، لزوماً پاسخ مثبت به سؤال اول نیست. یک الگوریتم افرازی همیشه می‌تواند دادهٔ یکنواخت را به چند قسمت تقسیم کند.</p>
+<p>در دادهٔ ساختگی <code class="docutils literal notranslate"><span class="pre">uniform</span></code>، که <strong>عمداً گروه طبیعی در آن قرار داده نشده است</strong>، الگوریتم <code class="docutils literal notranslate"><span class="pre">k-means</span></code> با <span class="math notranslate nohighlight">\(k=3\)</span> همچنان سه رنگ تولید می‌کند و مقدار Silhouette نزدیک <strong>۰٫۴۶</strong> به دست می‌آید. این یک شاهد آموزشی مهم است: عدد مثبت به‌تنهایی <strong>گواه وجود سه خوشهٔ طبیعی</strong> نیست.</p>
+<figure class="align-default" id="dm8-uniform-null">
+<a class="reference internal image-reference" href="../_images/fig08_18.png"><img alt="../_images/fig08_18.png" src="../_images/fig08_18.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 126 </span><span class="caption-text">شکل ۸ـ۱۸. همان دادهٔ یکنواخت پیش و پس از تحمیل سه مرکز. وجود سه رنگ در تصویر راست، ساختار واقعی جدیدی در داده خلق نکرده است.</span><a class="headerlink" href="#dm8-uniform-null" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای ارزیابی تمایل، می‌توان از نمایش هندسی، مقایسه با دادهٔ مرجعِ بدون ساختار در همان فضای ویژگی، آزمون‌های مبتنی بر فاصله و روش‌هایی مانند Hopkins استفاده کرد؛ هیچ‌کدام مستقل از نمونه‌گیری و هندسهٔ مسئله نیستند. این فصل به‌جای حفظ یک «آستانهٔ جادویی»، بر طراحی <strong>مبنای مقایسه (null reference)</strong> تأکید می‌کند.</p>
+</section>
+<section id="silhouette">
+<h2>۸ـ۱۴. Silhouette: یک مثال دستی با دو عدد<a class="headerlink" href="#silhouette" title="Link to this heading">#</a></h2>
+<p>برای مشاهدهٔ <span class="math notranslate nohighlight">\(i\)</span>، مقدار <span class="math notranslate nohighlight">\(a(i)\)</span> میانگین فاصلهٔ آن تا سایر اعضای <strong>همان</strong> خوشه و <span class="math notranslate nohighlight">\(b(i)\)</span> کمترین میانگین فاصلهٔ آن تا <strong>یکی از خوشه‌های دیگر</strong> است. سپس:</p>
+<div class="math notranslate nohighlight">
+\[
+ s(i)=\frac{b(i)-a(i)}{\max\{a(i),b(i)\}}.
+\]</div>
+<p>اگر <span class="math notranslate nohighlight">\(a(i)=2\)</span> و <span class="math notranslate nohighlight">\(b(i)=6\)</span>، آنگاه <span class="math notranslate nohighlight">\(s(i)=(6-2)/6=2/3\)</span> است؛ پس مشاهده به‌طور متوسط به گروه خود نزدیک‌تر است. اگر <span class="math notranslate nohighlight">\(a(i)=5\)</span> و <span class="math notranslate nohighlight">\(b(i)=3\)</span>، مقدار <span class="math notranslate nohighlight">\(-2/5\)</span> می‌شود؛ این مشاهده در فاصلهٔ متوسط به گروه دیگری نزدیک‌تر است. برای خوشهٔ تک‌عضوی، قرارداد رایج در نرم‌افزارهایی مانند <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> مقدار صفر است؛ این قرارداد را با فرمول میانگین‌گیری از یک مجموعهٔ تهی اشتباه نگیرید.</p>
+<p><strong>شرط اعتبار محاسبه:</strong> پس از کنارگذاشتن نویز، باید دست‌کم دو گروه و کمتر از تعداد نمونه‌ها گروه داشته باشیم. محاسبهٔ Silhouette روی برچسب نویز به‌عنوان «خوشهٔ معمولی» یا کنارگذاشتن بی‌سروصدای نویز می‌تواند نتیجه را عوض کند. کد فصل در گزارش <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> سهم نویز کنارگذاشته‌شده را ثبت می‌کند.</p>
+<figure class="align-default" id="dm8-silhouette-plot">
+<a class="reference internal image-reference" href="../_images/fig08_19.png"><img alt="../_images/fig08_19.png" src="../_images/fig08_19.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 127 </span><span class="caption-text">شکل ۸ـ۱۹. توزیع Silhouette برای تک‌تک مشاهده‌های دادهٔ فشرده. میانگین کلی نمی‌تواند همهٔ نمونه‌های مرزی را آشکار کند.</span><a class="headerlink" href="#dm8-silhouette-plot" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="daviesbouldin">
+<h2>۸ـ۱۵. اعتبار داخلی دیگر: Davies–Bouldin و محدودیت آن<a class="headerlink" href="#daviesbouldin" title="Link to this heading">#</a></h2>
+<p>شاخص Davies–Bouldin به‌صورت تقریبی میانگینی از بدترین نسبت «پراکندگی درونی دو خوشه» به «فاصلهٔ نماینده‌های آن‌ها» است. شکل متداول آن:</p>
+<div class="math notranslate nohighlight">
+\[
+\mathrm{DB}=\frac{1}{k}\sum_{i=1}^{k}\max_{j\ne i}
+\frac{S_i+S_j}{M_{ij}},
+\]</div>
+<p>که <span class="math notranslate nohighlight">\(S_i\)</span> میزان پراکندگی خوشهٔ <span class="math notranslate nohighlight">\(i\)</span> و <span class="math notranslate nohighlight">\(M_{ij}\)</span> فاصلهٔ مراکز دو خوشه است. <strong>مقدار کوچک‌تر</strong> در این تعریف بهتر است؛ اما چنین شاخصی به ساختار مرکز-محور تمایل دارد و ممکن است دو هلال واقعی را کمتر از گروه‌های گرد ترجیح دهد. شاخص Calinski–Harabasz، نسبت پراکندگی بین‌گروهی به درون‌گروهی، نیز همین وابستگی به مدل هندسی و تعداد نمونه‌ها را دارد. هیچ شاخص واحدی همهٔ کاربردها را رتبه‌بندی نمی‌کند.</p>
+</section>
+<section id="id17">
+<h2>۸ـ۱۶. ارزیابی خارجی: برچسب‌های واقعی نباید در ساخت خوشه دخالت کنند<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>گاهی برای ممیزی یک مجموعهٔ برچسب مستقل داریم؛ مثلاً گروه‌هایی که با آزمایش مستقل تأیید شده‌اند. در آن صورت می‌توان از معیارهایی مانند Adjusted Rand Index یا <code class="docutils literal notranslate"><span class="pre">ARI</span></code> استفاده کرد. این معیار در برابر جابه‌جایی دلخواه شناسهٔ خوشه‌ها مقاوم است؛ یعنی اگر برچسب‌های <code class="docutils literal notranslate"><span class="pre">0</span></code> و <code class="docutils literal notranslate"><span class="pre">1</span></code> را به <code class="docutils literal notranslate"><span class="pre">9</span></code> و <code class="docutils literal notranslate"><span class="pre">4</span></code> تبدیل کنیم، ارزیابی تغییر نمی‌کند.</p>
+<p><strong>قاعدهٔ علمی:</strong> برچسب بیرونی فقط پس از ساخت خوشه برای ممیزی به‌کار می‌رود؛ اگر همان برچسب در انتخاب فاصله یا پارامتر دخالت کند، ارزیابی دیگر کاملاً مستقل نیست. در دادهٔ ساختگی این فصل، ستون <code class="docutils literal notranslate"><span class="pre">synthetic_group</span></code> برای همین ممیزی نهایی نگه داشته شده و از ماتریس ورودی حذف می‌شود. اعداد آن را نمی‌توان به یک مسئلهٔ واقعیِ بدون برچسب تعمیم داد.</p>
+</section>
+<section id="id18">
+<h2>۸ـ۱۷. پایداری و تکرارپذیری: نتیجهٔ یک بذر کافی نیست<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>دو نوع پایداری داریم. <strong>پایداری به مقداردهی اولیه</strong> بررسی می‌کند آیا اجراهای مختلف یک الگوریتم روی همان داده نتیجهٔ مشابه می‌دهند. <strong>پایداری به نمونه‌گیری</strong> می‌پرسد اگر بخش کوچکی از داده تغییر کند، گروه‌ها تا چه حد باقی می‌مانند. این دو مسئله متفاوت‌اند. نمونه‌برداری مجدد با جایگذاری، برچسب‌های مشاهده‌ها را تکرار می‌کند؛ برای مقایسهٔ منصفانه باید زیرمجموعهٔ مشترک مشاهده‌ها را شناسایی کنیم، نه آنکه برچسب‌های دو نمونهٔ ناهماهنگ را ردیف‌به‌ردیف مقایسه کنیم.</p>
+<figure class="align-default" id="dm8-stability">
+<a class="reference internal image-reference" href="../_images/fig08_20.png"><img alt="../_images/fig08_20.png" src="../_images/fig08_20.png" style="width: 89%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 128 </span><span class="caption-text">شکل ۸ـ۲۰. همان دادهٔ فشرده با آغازهای مختلف <code class="docutils literal notranslate"><span class="pre">k-means</span></code> و معیار ARI نسبت به یک اجرای مرجع. پایداری به آغاز، اثبات وجود گروه واقعی نیست.</span><a class="headerlink" href="#dm8-stability" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در آزمایش این فصل، <code class="docutils literal notranslate"><span class="pre">n_init=20</span></code> برای نتیجهٔ اصلی به کار رفته و برخی اجراهای مستقل با <code class="docutils literal notranslate"><span class="pre">n_init=1</span></code> فقط برای بررسی حساسیت‌اند. اگر تحلیل‌گر فقط بهترین اجرای یک بذر خاص را نمایش دهد و دامنهٔ نوسان را پنهان کند، گزارش ناقص است.</p>
+</section>
+<section id="id19">
+<h2>۸ـ۱۸. تفسیر خوشه‌ها: «نام‌گذاری» با «کشف» فرق دارد<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>بعد از خوشه‌بندی ممکن است میانگین دو ویژگی در هر گروه را بررسی کنیم و آن‌ها را «فعال»، «کم‌تردد» یا «پرهزینه» بنامیم. چنین نام‌گذاری‌ای یک <strong>تفسیر پسینی</strong> است؛ از تابع هدف استخراج نمی‌شود و باید با معنای واقعی ویژگی‌ها، نمونه‌های مرزی، پراکندگی درون‌گروهی و دانش حوزه بررسی شود. در دادهٔ ساختگی این فصل نام‌های <code class="docutils literal notranslate"><span class="pre">x1</span></code> و <code class="docutils literal notranslate"><span class="pre">x2</span></code> عمداً خنثی‌اند تا از برچسب‌گذاریِ بی‌پشتوانه جلوگیری شود.</p>
+<figure class="align-default" id="dm8-profiles">
+<a class="reference internal image-reference" href="../_images/fig08_21.png"><img alt="../_images/fig08_21.png" src="../_images/fig08_21.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 129 </span><span class="caption-text">شکل ۸ـ۲۱. میانگین ویژگی‌ها برای سه خوشهٔ ساخته‌شده. اختلاف میانگین‌ها به‌خودی‌خود به معنی اختلاف ماهوی یا علی نیست.</span><a class="headerlink" href="#dm8-profiles" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>تفاوت متوسط یک ویژگی میان دو خوشه نمی‌گوید آن ویژگی «سبب» عضویت شده است؛ چه‌بسا همان ویژگی در تابع فاصله استفاده شده و تفاوت مشاهده‌شده <strong>تا حدی حاصل روش خوشه‌بندی خود ما</strong> باشد. برای ادعای عملی باید اثر تصمیم در زمان آینده، محدودیت داده و امکان خطای گروه‌بندی را روشن کنیم.</p>
+</section>
+<section id="csv">
+<h2>۸ـ۱۹. یک آزمایش بازتولیدپذیر: از CSV تا مقایسهٔ سه هندسه<a class="headerlink" href="#csv" title="Link to this heading">#</a></h2>
+<p>فایل <code class="docutils literal notranslate"><span class="pre">clustering_synthetic.csv</span></code> شامل ۵۷۳ ردیف و ستون‌های <code class="docutils literal notranslate"><span class="pre">observation_id</span></code>، <code class="docutils literal notranslate"><span class="pre">dataset</span></code>، <code class="docutils literal notranslate"><span class="pre">x1</span></code>، <code class="docutils literal notranslate"><span class="pre">x2</span></code> و <code class="docutils literal notranslate"><span class="pre">synthetic_group</span></code> است. مجموعه‌ها به ترتیب ۲۰۴ رکورد فشرده، ۲۱۴ رکورد هلالی و ۱۵۵ رکورد یکنواخت دارند. هر مشاهده یک شناسهٔ یکتا دارد و بذر تولید <code class="docutils literal notranslate"><span class="pre">824</span></code> است. تنها ستون‌های <code class="docutils literal notranslate"><span class="pre">x1</span></code> و <code class="docutils literal notranslate"><span class="pre">x2</span></code> وارد الگوریتم‌ها می‌شوند.</p>
+<p>کد زیر نمونهٔ فشرده‌ای از مسیر اجرا است:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span><span class="p">,</span> <span class="n">DBSCAN</span>
+
+<span class="n">frame</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">'clustering_synthetic.csv'</span><span class="p">))</span>
+<span class="n">compact</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">frame</span><span class="p">[</span><span class="s1">'dataset'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'compact'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'x1'</span><span class="p">,</span> <span class="s1">'x2'</span><span class="p">]]</span>
+<span class="n">moons</span> <span class="o">=</span> <span class="n">frame</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">frame</span><span class="p">[</span><span class="s1">'dataset'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'moons'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'x1'</span><span class="p">,</span> <span class="s1">'x2'</span><span class="p">]]</span>
+
+<span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">824</span><span class="p">,</span> <span class="n">n_init</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">compact</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">DBSCAN</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">0.38</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">moons</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'SSE:'</span><span class="p">,</span> <span class="n">km</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'DBSCAN noise:'</span><span class="p">,</span> <span class="p">(</span><span class="n">db</span><span class="o">.</span><span class="n">labels_</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>این مثال <strong>SSE را با k-means</strong> و <strong>نویز را با DBSCAN</strong> روی دو دادهٔ متفاوت گزارش می‌کند؛ مقایسهٔ عدد خام SSE میان آن‌ها مجاز نیست. نتیجهٔ اجرای بسته برای دادهٔ هلالی، <strong>دو خوشه و ۱۲ نقطه با برچسب نویز</strong> است. نقطه‌های تزریق‌شدهٔ نویز الزاماً همان ۱۲ نمونهٔ تشخیص‌داده‌شده نیستند: «نویز ساخته‌شده» و «نویز برچسب‌خورده توسط الگوریتم» دو مفهوم متفاوت‌اند.</p>
+<p>برای تکرار کامل، از فایل <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>، کد <code class="docutils literal notranslate"><span class="pre">chapter08_examples.py</span></code>، Notebook و آزمون‌های <code class="docutils literal notranslate"><span class="pre">test_chapter08_examples.py</span></code> استفاده کنید. فایل <code class="docutils literal notranslate"><span class="pre">example_results.json</span></code> نسخهٔ ذخیره‌شدهٔ نتایج همان نمونه است؛ در اجرای جدید اعداد باید با همان نسخه‌های وابستگی و بذر کنترل شوند. اگر در آینده الگوریتم یا نسخهٔ کتابخانه تغییر کند، باید تغییر در گزارش بازتولید ثبت شود.</p>
+</section>
+<section id="id20">
+<h2>۸ـ۲۰. راهنمای انتخاب روش؛ هیچ انتخابی بدون شرط معتبر نیست<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>وضعیت داده/هدف</p></th>
+<th class="head"><p>انتخاب آغازین قابل بررسی</p></th>
+<th class="head"><p>شرط و احتیاط</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>گروه‌های تقریباً فشرده با دادهٔ عددی</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">k-means</span></code></p></td>
+<td><p>نیاز به <span class="math notranslate nohighlight">\(k\)</span>، حساسیت به واحد و مقداردهی اولیه</p></td>
+</tr>
+<tr class="row-odd"><td><p>نیاز به دید سلسله‌مراتبی و تعداد نمونهٔ متوسط</p></td>
+<td><p>Agglomerative</p></td>
+<td><p>تعریف linkage و هزینهٔ زمانی/حافظه‌ای</p></td>
+</tr>
+<tr class="row-even"><td><p>نواحی خمیده با نقاط کم‌تراکم جداکننده</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code></p></td>
+<td><p>تنظیم <span class="math notranslate nohighlight">\(\varepsilon\)</span> و <code class="docutils literal notranslate"><span class="pre">MinPts</span></code>، حساسیت به چگالی متغیر</p></td>
+</tr>
+<tr class="row-odd"><td><p>دادهٔ پرت فراوان یا فاصلهٔ غیراقلیدسی</p></td>
+<td><p>medoid-based</p></td>
+<td><p>هزینهٔ محاسباتی و نحوهٔ انتخاب نماینده</p></td>
+</tr>
+<tr class="row-even"><td><p>دادهٔ بدون شواهد ساختار</p></td>
+<td><p><strong>عدم گزارش خوشهٔ واقعی</strong></p></td>
+<td><p>مقایسه با مدل مرجع و بررسی تمایل</p></td>
+</tr>
+<tr class="row-odd"><td><p>دادهٔ بسیار پُربعد، فازی، گرافی یا شبکه‌ای</p></td>
+<td><p>فصل نهم</p></td>
+<td><p>نیازمند فرض‌های دقیق‌تر و روش‌های پیشرفته</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>مقیاس‌پذیری:</strong> برای دادهٔ انبوه، راهبردهای mini-batch، نمونه‌گیری نماینده و روش‌های مبتنی بر خلاصه‌سازی مطرح‌اند؛ ولی این فصل برای جلوگیری از سطحی‌شدن، بیشتر بر اعتبار تعریف خوشه تمرکز دارد. الگوریتم‌هایی مانند BIRCH و خوشه‌بندی طیفی را در فصل بعد با انگیزهٔ مشخص پی می‌گیریم.</p>
+</section>
+<section id="id21">
+<h2>۸ـ۲۱. تمرین‌ها<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<section id="id22">
+<h3>پرسش‌های مفهومی<a class="headerlink" href="#id22" title="Link to this heading">#</a></h3>
+<p>۱. چرا نامیدن سه خروجی <code class="docutils literal notranslate"><span class="pre">k-means</span></code> به «سه تیپ واقعی مشتری» لزوماً مجاز نیست؟ دو شرط قابل بررسی پیشنهاد کنید.</p>
+<p>۲. خوشهٔ فشرده، متصل و چگال را با مثالی توصیف کنید که این سه تعریف نتیجهٔ متفاوت می‌دهند.</p>
+<p>۳. چرا <code class="docutils literal notranslate"><span class="pre">synthetic_group</span></code> نباید ورودی خوشه‌بندی مثال این فصل باشد؟</p>
+<p>۴. یک دادهٔ یکنواخت رسم کنید. چرا <code class="docutils literal notranslate"><span class="pre">k-means</span></code> همچنان می‌تواند آن را به سه قسمت تقسیم کند؟</p>
+<p>۵. فرق بین تمایل به خوشه‌بندی و کیفیت یک افرازِ ازپیش‌ساخته را توضیح دهید.</p>
+<p>۶. چرا مقایسهٔ SSE داده‌های دارای مقیاس یا تعداد نمونهٔ متفاوت گمراه‌کننده است؟</p>
+</section>
+<section id="id23">
+<h3>مسائل محاسباتی<a class="headerlink" href="#id23" title="Link to this heading">#</a></h3>
+<p>۷. برای نقاط A تا F در بخش ۸ـ۴، فاصلهٔ مربع‌شدهٔ C تا هر دو مرکز اولیه را حساب کنید.</p>
+<p>۸. مقدار <span class="math notranslate nohighlight">\(4/3\)</span> برای سهم SSE گروه اول را با جزئیات جمع سه جمله بازسازی کنید.</p>
+<p>۹. برای یک اجرای <code class="docutils literal notranslate"><span class="pre">k-means</span></code> که مقدار SSE ابتدا ۳۰ و سپس ۱۶ شده، توضیح دهید کدام ادعا دربارهٔ بهینگی مجاز و کدام غیرمجاز است.</p>
+<p>۱۰. در مثال <code class="docutils literal notranslate"><span class="pre">k-means++</span></code>، احتمال انتخاب گزینهٔ C با وزن ۲۵ از مجموع ۶۲ را حساب کنید.</p>
+<p>۱۱. برای دادهٔ <span class="math notranslate nohighlight">\(\{0,1,5\}\)</span>، هر سه هزینهٔ ممکن medoid را با فاصلهٔ قدرمطلق به دست آورید.</p>
+<p>۱۲. در مثال چهار نقطهٔ سلسله‌مراتبی، فاصلهٔ گروه <span class="math notranslate nohighlight">\(\{A,B\}\)</span> تا C را به سه روش محاسبه کنید.</p>
+<p>۱۳. با افزودن نقطهٔ <span class="math notranslate nohighlight">\(2.05\)</span> به مسئلهٔ <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> تک‌بعدی، نقاط هسته و مرزی را دوباره شمارش کنید.</p>
+<p>۱۴. برای <span class="math notranslate nohighlight">\(a=2\)</span> و <span class="math notranslate nohighlight">\(b=6\)</span> مقدار Silhouette و تفسیر آن را بنویسید.</p>
+<p>۱۵. برای <span class="math notranslate nohighlight">\(a=5\)</span> و <span class="math notranslate nohighlight">\(b=3\)</span> مقدار Silhouette و یک دلیل احتمالی منفی‌شدن آن را بیان کنید.</p>
+<p>۱۶. اگر در ارزیابی <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code>، تعداد ۱۰۰ مشاهده و ۲۰ نویز باشد، دو شیوهٔ متفاوت محاسبه/گزارش Silhouette را مقایسه کنید.</p>
+</section>
+<section id="id24">
+<h3>برنامه‌نویسی و تحلیل انتقادی<a class="headerlink" href="#id24" title="Link to this heading">#</a></h3>
+<p>۱۷. در CSV، سه مقدار <span class="math notranslate nohighlight">\(k=2,3,4\)</span> را با <code class="docutils literal notranslate"><span class="pre">n_init=1</span></code> و <code class="docutils literal notranslate"><span class="pre">n_init=20</span></code> مقایسه کنید. فقط SSE گزارش نکنید؛ حساسیت به آغاز را نیز بررسی کنید.</p>
+<p>۱۸. روی دادهٔ هلالی <span class="math notranslate nohighlight">\(\varepsilon\)</span> را از ۰٫۲۵ تا ۰٫۶ تغییر دهید. تعداد خوشه‌ها، تعداد نویز و سهم نویز را در هر مرحله گزارش کنید.</p>
+<p>۱۹. در آزمایش سلسله‌مراتبی، <code class="docutils literal notranslate"><span class="pre">single</span></code>، <code class="docutils literal notranslate"><span class="pre">complete</span></code> و <code class="docutils literal notranslate"><span class="pre">average</span></code> را روی یک دادهٔ باریک و کشیده مقایسه کنید.</p>
+<p>۲۰. با <code class="docutils literal notranslate"><span class="pre">StandardScaler</span></code> دو ویژگی را استاندارد کنید. آیا انتساب <code class="docutils literal notranslate"><span class="pre">k-means</span></code> تغییر می‌کند؟ دلیل هندسی بیاورید.</p>
+<p>۲۱. برای دادهٔ یکنواخت، Silhouette مثبت را محاسبه کنید. آیا می‌توان از آن وجود گروه واقعی نتیجه گرفت؟ مقایسهٔ مناسبی پیشنهاد دهید.</p>
+<p>۲۲. دو مقدار متفاوت <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> را با شعاع یکسان در DBSCAN بررسی کنید. چه تغییری در تعداد نقاط هسته رخ می‌دهد؟</p>
+<p>۲۳. از دادهٔ فشرده ۸۰٪ مشاهده‌ها را بدون جایگذاری انتخاب کنید و روی آن‌ها خوشه بسازید. یک راه درست برای مقایسهٔ روی <strong>مشاهدات مشترک</strong> توضیح دهید.</p>
+<p>۲۴. در مثال‌های CSV، ستون <code class="docutils literal notranslate"><span class="pre">synthetic_group</span></code> را به‌اشتباه همراه <code class="docutils literal notranslate"><span class="pre">x1</span></code> و <code class="docutils literal notranslate"><span class="pre">x2</span></code> کدگذاری و وارد مدل کنید؛ سپس توضیح دهید چرا این ارزیابی آلوده است. آن را در نتیجهٔ علمی نهایی استفاده نکنید.</p>
+<p>۲۵. فرض کنید در دادهٔ واقعی نام یک ویژگی «هزینهٔ خرید» است. نشان دهید چرا اختلاف هزینهٔ متوسط میان خوشه‌ها، شواهد علیت نیست.</p>
+<p>۲۶. برای گروه‌بندی دادهٔ تراکنشیِ بسیار تنک، توضیح دهید چه اصلاحی در بازنمایی و معیار فاصله لازم است و چرا اجرای مستقیم <code class="docutils literal notranslate"><span class="pre">k-means</span></code> اقلیدسی شاید مناسب نباشد.</p>
+</section>
+</section>
+<section id="id25">
+<h2>۸ـ۲۲. جمع‌بندی و پل به فصل نهم<a class="headerlink" href="#id25" title="Link to this heading">#</a></h2>
+<p>در این فصل دیدیم که <strong>خوشه‌بندی نه برچسب واقعی تولید می‌کند و نه به‌خودی‌خود کشف علمی را اثبات می‌کند</strong>؛ بلکه یک ساختار پیشنهادی تحت انتخاب‌های صریح تحلیل‌گر می‌سازد. <code class="docutils literal notranslate"><span class="pre">k-means</span></code> برای فشردگی حول میانگین تعریف دقیقی دارد؛ پیوندهای سلسله‌مراتبی مفهوم فاصلهٔ دو گروه را تغییر می‌دهند؛ و <code class="docutils literal notranslate"><span class="pre">DBSCAN</span></code> برای نواحی چگال و نویز مناسب است، به شرط آنکه پارامترها و فاصله گزارش شوند. اعتبار داخلی، تمایل به خوشه‌بندی، پایداری و ممیزی خارجی هرکدام پرسش متفاوتی پاسخ می‌دهند.</p>
+<p><strong>فصل نهم</strong> از همین محدودیت‌ها شروع می‌کند: وقتی خوشه‌ها هم‌پوشان، فازی، با شکل پیچیده، در ابعاد بسیار بالا یا روی گراف باشند، مدل‌های احتمالاتی، فازی، طیفی، زیر‌فضایی و روش‌های مخصوص ساختار شبکه را بررسی می‌کنیم. معیار موفقیت در همهٔ آن‌ها همچنان تناسب با مسئله و شواهد قابل ارزیابی خواهد بود.</p>
+</section>
+<section id="id26">
+<h2>۸ـ۲۳. منابع و بازتولید<a class="headerlink" href="#id26" title="Link to this heading">#</a></h2>
+<p>۱. Han, J., Pei, J., &amp; Tong, H. <em>Data Mining: Concepts and Techniques</em>, 4th ed., Elsevier, 2023. Chapter 8, Sections 8.1–8.5, printed pp. 379–424.</p>
+<p>۲. Tan, P.-N., Steinbach, M., Karpatne, A., &amp; Kumar, V. <em>Introduction to Data Mining</em>, 2nd ed., Pearson, 2019. Chapter 7, Sections 7.1–7.5, printed pp. 525–596.</p>
+<p>۳. فایل‌های تألیفی همین فصل: <code class="docutils literal notranslate"><span class="pre">chapter08_examples.py</span></code>، <code class="docutils literal notranslate"><span class="pre">chapter08_examples.ipynb</span></code>، <code class="docutils literal notranslate"><span class="pre">clustering_synthetic.csv</span></code>، <code class="docutils literal notranslate"><span class="pre">example_results.json</span></code>، <code class="docutils literal notranslate"><span class="pre">test_chapter08_examples.py</span></code> و ۲۱ شکل اختصاصی. داده و نمودارها بازتولید آموزشی‌اند و هیچ ادعایی دربارهٔ وضعیت مشتریان واقعی ندارند.</p>
+<p><strong>راهنمای اجرا:</strong> در پوشهٔ دانلودها ابتدا <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> و سپس <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">chapter08_examples.py</span></code> را اجرا کنید. برای آزمون‌ها <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">unittest</span> <span class="pre">-v</span> <span class="pre">test_chapter08_examples.py</span></code> و برای Notebook سلول‌ها را به‌ترتیب اجرا کنید. اگر می‌خواهید فقط PDF را بخوانید، نصب Python لازم نیست؛ اگر می‌خواهید شکل‌ها و محاسبات را بازتولید کنید، همهٔ ورودی‌ها در بسته وجود دارند.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-07.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل هفتم — طبقه‌بندی، انتخاب مدل و ارزیابی قابل اعتماد</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و جایگاه فصل</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">ارتباط دقیق با دو مرجع</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۸ـ۱. مسئلهٔ آغازین: بخش‌بندی مشتری یا تحمیل سه دسته؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۸ـ۲. خوشه چیست؟ یک جواب واحد وجود ندارد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۸ـ۳. صورت‌بندی: از داده به یک افراز</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means">۸ـ۴. الگوریتم k-means: از شش نقطه تا دو مرکز</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sse">۸ـ۴ـ۱. محاسبهٔ دستی SSE؛ چرا پاسخ دقیقاً ۸/۳ می‌شود؟</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۸ـ۵. شبه‌کد k-means و مسئلهٔ مقداردهی اولیه</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۸ـ۵ـ۱. چرا k-means++ بهتر از انتخاب بی‌فکرِ دو مرکز است؟</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۸ـ۵ـ۲. نتیجهٔ اجرای واقعی روی دادهٔ فشرده</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elbow">۸ـ۶. انتخاب تعداد خوشه‌ها: Elbow و نقش قضاوت علمی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#centroid-medoid">۸ـ۷. نمایندهٔ خوشه: centroid در برابر medoid</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۸ـ۸. چرا k-means روی شکل هلالی شکست می‌خورد؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۸ـ۹. خوشه‌بندی سلسله‌مراتبی: از فاصلهٔ دو نمونه تا دندروگرام</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۸ـ۹ـ۱. سه تعریف اصلی فاصلهٔ خوشه‌ها</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dbscan">۸ـ۱۰. DBSCAN: نقطهٔ هسته، مرزی و نویز</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۸ـ۱۰ـ۱. شمارش دستی در یک خط</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۸ـ۱۰ـ۲. دسترسی‌پذیری چگال و شکل خوشه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#eps-minpts">۸ـ۱۱. چگونه eps و MinPts را انتخاب کنیم؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۸ـ۱۲. مقیاس ویژگی‌ها: بازگشت ضروری به فصل سوم و چهارم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۸ـ۱۳. اعتبار خوشه: دو پرسش را از هم جدا کنیم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#silhouette">۸ـ۱۴. Silhouette: یک مثال دستی با دو عدد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#daviesbouldin">۸ـ۱۵. اعتبار داخلی دیگر: Davies–Bouldin و محدودیت آن</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۸ـ۱۶. ارزیابی خارجی: برچسب‌های واقعی نباید در ساخت خوشه دخالت کنند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۸ـ۱۷. پایداری و تکرارپذیری: نتیجهٔ یک بذر کافی نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۸ـ۱۸. تفسیر خوشه‌ها: «نام‌گذاری» با «کشف» فرق دارد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#csv">۸ـ۱۹. یک آزمایش بازتولیدپذیر: از CSV تا مقایسهٔ سه هندسه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۸ـ۲۰. راهنمای انتخاب روش؛ هیچ انتخابی بدون شرط معتبر نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۸ـ۲۱. تمرین‌ها</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">پرسش‌های مفهومی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">مسائل محاسباتی</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id24">برنامه‌نویسی و تحلیل انتقادی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id25">۸ـ۲۲. جمع‌بندی و پل به فصل نهم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id26">۸ـ۲۳. منابع و بازتولید</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
