@@ -84,6 +84,8 @@ jobs:
           cache-dependency-path: tools/jupyterbook_manager/requirements*.txt
       - name: Validate Data Mining downloads before expensive build
         run: python tools/data_mining_downloads_guard.py --repo "$GITHUB_WORKSPACE" --check
+      - name: Validate universal course downloads before expensive build
+        run: python tools/stage_universal_course_downloads.py --repo "$GITHUB_WORKSPACE" --check
       - name: Install Jupyter Book dependencies
         run: python -m pip install -r tools/jupyterbook_manager/requirements-ci.txt
       - name: Update _config.yml ⚙️
@@ -144,6 +146,8 @@ jobs:
 
       - name: Stage Data Mining downloadable files
         run: python tools/stage_data_mining_downloads.py --repo "$GITHUB_WORKSPACE" --site-dir _site
+      - name: Stage universal course downloads
+        run: python tools/stage_universal_course_downloads.py --repo "$GITHUB_WORKSPACE" --site-dir _site
 
       - name: Stage linked course notebooks
         run: python tools/stage_course_notebook_downloads.py --repo "$GITHUB_WORKSPACE" --site-dir _site

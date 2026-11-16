@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "packages": [
+    {
+      "course_id": "data-mining",
+      "markdown": "courses/data-mining/book/course-notes/chapter-09.md",
+      "downloads": [
+        "assets/downloads/courses/data-mining/course-notes/chapter-09/bicluster_synthetic.csv",
+        "assets/downloads/courses/data-mining/course-notes/chapter-09/chapter09_examples.ipynb",
+        "assets/downloads/courses/data-mining/course-notes/chapter-09/chapter09_examples.py",
+        "assets/downloads/courses/data-mining/course-notes/chapter-09/DataMining_Chapter09.pdf",
+        "assets/downloads/courses/data-mining/course-notes/chapter-09/DataMining_Chapter09_TEX_PDF_SOURCE.zip",
+        "assets/downloads/courses/data-mining/course-notes/chapter-09/highdim_synthetic.csv",
+        "assets/downloads/courses/data-mining/course-notes/chapter-09/network_synthetic.json",
+        "assets/downloads/courses/data-mining/course-notes/chapter-09/overlap_synthetic.csv"
+      ]
+    }
+  ]
+}
