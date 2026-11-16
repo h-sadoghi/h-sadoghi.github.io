@@ -1,0 +1,981 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل نهم — خوشه‌بندی پیشرفته: مدل‌های احتمالاتی، زیر‌فضاها و گراف‌ها &#8212; Data Mining Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/data-mining-rtl.css?v=0a14a926" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-09';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="فصل هشتم — خوشه‌بندی: کشف ساختار، الگوریتم‌ها و اعتبارسنجی" href="chapter-08.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Mining Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    داده‌کاوی | Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های درس داده‌کاوی</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">مبانی داده‌کاوی و فرایند کشف دانش</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">معیارهای شباهت، فاصله و هندسهٔ داده‌ها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">الگوهای پرتکرار و قواعد انجمنی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-06.html">الگوهای پیشرفته، دنباله‌ها و ساختارهای گرافی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-07.html">طبقه‌بندی، انتخاب مدل و ارزیابی قابل اعتماد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-08.html">خوشه‌بندی: کشف ساختار، الگوریتم‌ها و اعتبارسنجی</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">خوشه‌بندی پیشرفته: مدل‌های احتمالاتی، زیر‌فضاها و گراف‌ها</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-09.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل نهم — خوشه‌بندی پیشرفته: مدل‌های احتمالاتی، زیر‌فضاها و گراف‌ها</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و نقشهٔ استدلال</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه موضوع در دو مرجع</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۹ـ۱. مسئلهٔ واقعیِ آغازین: مشتریانی که در مرز دو رفتار قرار دارند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۹ـ۲. سه مفهوم متفاوتِ تعلق به گروه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۹ـ۳. مدل مخلوط گاوسی: فرض و فرمول</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۹ـ۴. حل دستیِ یک مسئولیت احتمالاتی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#em">۹ـ۵. الگوریتم EM از کجا می‌آید؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">شبه‌کد و مسئلهٔ همگرایی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۹ـ۶. تعداد مؤلفه‌ها را چگونه انتخاب کنیم؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-means-gmm">۹ـ۷. خوشه‌بندی فازی c-means و تفاوت معنایی آن با GMM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۹ـ۸. به‌روزرسانی مراکز فازی و یک مثال ساده</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۹ـ۹. چرا دادهٔ پُربعد، هندسهٔ خوشه را تغییر می‌دهد؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subspace">۹ـ۱۰. زیر‌فضا (Subspace) در برابر خوشه‌بندی در همهٔ ویژگی‌ها</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۹ـ۱۱. تفاوت کاهش بُعد و زیر‌فضا: دو پاسخ به دو سؤال</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biclustering">۹ـ۱۲. دوخوشه‌ای (Biclustering): هم‌زمان گروهی از سطرها و ستون‌ها</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۹ـ۱۳. حل دستیِ معیار باقیماندهٔ دوخوشه‌ای</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۹ـ۱۴. خوشه‌بندی شبکه‌ای: وقتی فاصلهٔ اقلیدسی کافی نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۹ـ۱۵. خوشه‌بندی طیفی از لاپلاسین تا فضای جدید</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۹ـ۱۶. چه وقت خوشه‌بندی طیفی مناسب نیست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snn">۹ـ۱۷. شباهت همسایهٔ مشترک (SNN): حل عددی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nmf">۹ـ۱۸. تجزیهٔ ماتریس نامنفی (NMF) و خوشه‌بندی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#birch">۹ـ۱۹. مقیاس‌پذیری و BIRCH: چرا آمار فشرده لازم است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cf-sse">۹ـ۲۰. حل دستیِ CF و محاسبهٔ SSE بدون دادهٔ خام</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cure">۹ـ۲۱. CURE و طرح‌های دیگری برای مقیاس‌پذیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۹ـ۲۲. راهنمای انتخاب روش بر اساس ساختار مسئله</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۹ـ۲۳. آزمایش بازتولیدپذیر و ممیزی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۹ـ۲۴. تمرین‌ها و پروژهٔ کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۹ـ۲۵. جمع‌بندی و گذر به فصل دهم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۹ـ۲۶. منابع و یادداشت بازتولید</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل نهم — خوشه‌بندی پیشرفته: مدل‌های احتمالاتی، زیر‌فضاها و گراف‌ها<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>درس داده‌کاوی — کارشناسی ارشد مهندسی کامپیوتر</strong><br />
+<strong>پرسش محوری:</strong> وقتی مرز گروه‌ها مبهم است، ویژگی‌های مفید تنها در بخشی از ابعاد قرار دارند، یا روابط به‌جای یک صفحهٔ اقلیدسی به‌صورت شبکه بیان می‌شوند، چگونه می‌توان ساختار داده را کشف کرد و از تعبیر بی‌پشتوانهٔ خروجی یک الگوریتم پرهیز کرد؟</p>
+</div></blockquote>
+<p><strong>دریافت فایل‌ها:</strong> <a href="/assets/downloads/courses/data-mining/course-notes/chapter-09/DataMining_Chapter09.pdf" download>PDF فصل نهم</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-09/DataMining_Chapter09_TEX_PDF_SOURCE.zip" download>سورس XeLaTeX و شکل‌ها</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-09/chapter09_examples.py" download>کد Python</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-09/chapter09_examples.ipynb" download>Notebook اجراشده</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-09/overlap_synthetic.csv" download>دادهٔ هم‌پوشان</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-09/highdim_synthetic.csv" download>دادهٔ پُربعد</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-09/bicluster_synthetic.csv" download>ماتریس دوخوشه‌ای</a> · <a href="/assets/downloads/courses/data-mining/course-notes/chapter-09/network_synthetic.json" download>شبکهٔ ساختگی</a>. داده‌ها همگی ساختگی‌اند؛ هیچ دادهٔ مشتری واقعی منتشر نشده است.</p>
+<section id="id2">
+<h2>اهداف یادگیری و نقشهٔ استدلال<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>هدف فصل، فهرست‌کردن نام الگوریتم‌ها نیست. دانشجو پس از مطالعه باید بتواند: (۱) خوشه‌بندی سخت، فازی و احتمالاتی را با زبان دقیق مقایسه کند؛ (۲) احتمال مسئولیت یک مؤلفه در مدل مخلوط را دستی محاسبه کند؛ (۳) دو گام E و M و محدودیت کمینهٔ محلی را توضیح دهد؛ (۴) مسئلهٔ انتخاب تعداد مؤلفه و بیش‌برازش را تشخیص دهد؛ (۵) قاعدهٔ عضویت فازی را از فواصل استخراج کند؛ (۶) توضیح دهد چرا فاصله در فضای پُربعد گمراه‌کننده می‌شود؛ (۷) تمایز زیر‌فضا، دوخوشه‌ای و کاهش بُعد را بگوید؛ (۸) از ماتریس وزن‌دار گراف به لاپلاسین و بردارهای ویژه برسد؛ (۹) یک شاخص همسایهٔ مشترک را محاسبه کند؛ (۱۰) آمار فشردهٔ CF در BIRCH را بیابد؛ و (۱۱) بدون استفاده از برچسب ساختگی در آموزش، نتیجه را ممیزی کند.</p>
+<figure class="align-default" id="dm9-plan">
+<a class="reference internal image-reference" href="../_images/fig09_01.png"><img alt="../_images/fig09_01.png" src="../_images/fig09_01.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 130 </span><span class="caption-text">شکل ۹ـ۱. فرایند تصمیم‌گیری در خوشه‌بندی پیشرفته: از هندسه و تعریف خوشه به مدل مناسب، بررسی پایداری و تفسیر مشروط.</span><a class="headerlink" href="#dm9-plan" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id3">
+<h3>جایگاه موضوع در دو مرجع<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>منبع اول <strong>Han, Pei &amp; Tong, Data Mining: Concepts and Techniques, 4th ed.</strong>، فصل ۹، بخش‌های <strong>۹٫۱ تا ۹٫۵</strong>، صفحات چاپی <strong>۴۳۱ تا ۴۷۴</strong> و برای نقش دانش پیشین بخش ۹٫۶، صفحات ۴۷۵ تا ۴۷۷ است. منبع دوم <strong>Tan, Steinbach, Karpatne &amp; Kumar, Introduction to Data Mining, 2nd ed.</strong>، فصل ۸، بخش‌های <strong>۸٫۱ تا ۸٫۶</strong>، صفحات چاپی <strong>۶۱۴ تا ۶۹۰</strong> است. از Han چارچوب مدل‌های احتمالاتی، پُربعد، دوخوشه‌ای، کاهش بُعد و گراف، و از Tan صورت‌بندی فازی/مخلوط، SNN، خوشه‌بندی طیفی و مقیاس‌پذیری را ترکیب کرده‌ایم. مثال‌های عددی، همهٔ شکل‌ها و داده‌های این فصل تألیفی‌اند. توضیحات صریح دربارهٔ ارزیابی و دادهٔ ساختگی، انتخاب آموزشی این جزوه است و نباید به‌صورت نقل‌قول از کتاب تلقی شود.</p>
+</section>
+</section>
+<section id="id4">
+<h2>۹ـ۱. مسئلهٔ واقعیِ آغازین: مشتریانی که در مرز دو رفتار قرار دارند<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>فرض کنید برای هر مشتری، پس از تعریف واحد اندازه‌گیری و استانداردسازی معقول، دو ویژگی رفتاری داریم: فراوانی مراجعه و شدت خرید. در فصل هشتم آموختیم که <code class="docutils literal notranslate"><span class="pre">k-means</span></code> هر مشتری را به نزدیک‌ترین مرکز نسبت می‌دهد. اما مشتری‌ای که بین دو گروه قرار دارد واقعاً چقدر به هر گروه شباهت دارد؟ چه می‌شود اگر یک گروه پراکندگیِ کشیده و دیگری پراکندگیِ تقریباً دایره‌ای داشته باشد؟ در این حالت «مرکز نزدیک‌تر» لزوماً نشانهٔ عضویت قاطع نیست.</p>
+<p>در دادهٔ آموزشی <code class="docutils literal notranslate"><span class="pre">overlap_synthetic.csv</span></code> دو فرایند تولیدیِ هم‌پوشان به‌صورت ساختگی تعبیه شده است. ستون <code class="docutils literal notranslate"><span class="pre">synthetic_component_not_for_fit</span></code> فقط برای ارزیابی پس از مدل وجود دارد. در دنیای واقعی چنین ستونِ حقیقتِ پنهان وجود ندارد و حتی احتمال خوشهٔ مدل با «احتمال نوع واقعی مشتری» یکی نیست. این نمونه را در سراسر فصل برای مقایسهٔ نگاه سخت، فازی، احتمالاتی و زیر‌فضایی دنبال می‌کنیم.</p>
+<figure class="align-default" id="dm9-overlap">
+<a class="reference internal image-reference" href="../_images/fig09_02.png"><img alt="../_images/fig09_02.png" src="../_images/fig09_02.png" style="width: 96%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 131 </span><span class="caption-text">شکل ۹ـ۲. نمونه‌های هم‌پوشان و نمایش تدریجی مسئولیت مؤلفه‌های یک مدل مخلوط؛ رنگ پیوسته به معنی برچسب قطعی نیست.</span><a class="headerlink" href="#dm9-overlap" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id5">
+<h2>۹ـ۲. سه مفهوم متفاوتِ تعلق به گروه<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p><strong>خوشه‌بندی سخت (Hard clustering)</strong>: برای هر مشاهده، یک شناسهٔ خوشه تعیین می‌شود؛ مثلاً <span class="math notranslate nohighlight">\(z_i\in\{1,2\}\)</span>. <strong>خوشه‌بندی فازی (Fuzzy clustering)</strong>: عددهای تعلق <span class="math notranslate nohighlight">\(u_{ik}\in[0,1]\)</span> برای هر نقطه و هر خوشه تعریف می‌شوند و معمولاً <span class="math notranslate nohighlight">\(\sum_k u_{ik}=1\)</span>. این عددها درجهٔ تعلق در چارچوب تابع هدف‌اند و به‌خودی‌خود احتمال آماری نیستند. <strong>مدل مخلوط احتمالاتی (Mixture model)</strong>: داده از یک توزیع با مؤلفهٔ پنهان تصور می‌شود و <span class="math notranslate nohighlight">\(\gamma_{ik}=P(z_i=k\mid x_i,\theta)\)</span> برآورد احتمال پسین عضویت تحت مفروضات مدل است. فازی و احتمالاتی در ظاهر هر دو عددهای بین صفر و یک دارند، اما معنایشان متفاوت است.</p>
+<figure class="align-default" id="dm9-hard-vs-fuzzy">
+<a class="reference internal image-reference" href="../_images/fig09_03.png"><img alt="../_images/fig09_03.png" src="../_images/fig09_03.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 132 </span><span class="caption-text">شکل ۹ـ۳. انتساب سخت در مقابل درجات عضویت فازی بین دو مرکز؛ مرز ناگهانی در سمت چپ به تنهایی عدم‌قطعیت را بیان نمی‌کند.</span><a class="headerlink" href="#dm9-hard-vs-fuzzy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>خطای تفسیری رایج:</strong> اگر مدل به مشاهده‌ای مسئولیت <span class="math notranslate nohighlight">\(0.80\)</span> بدهد، نمی‌توان گفت «با احتمال ۸۰ درصد واقعاً این مشتری از این نوع است»؛ مگر اینکه مدل آماری، تعریف مؤلفه و کالیبراسیون آن قابل دفاع باشند. در خوشه‌بندی بدون برچسب، شناسهٔ مؤلفه ممکن است حتی میان دو اجرای معادل جابه‌جا شود (label switching).</p>
+</section>
+<section id="id6">
+<h2>۹ـ۳. مدل مخلوط گاوسی: فرض و فرمول<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>برای بردار <span class="math notranslate nohighlight">\(x\in\mathbb{R}^{d}\)</span>، مدل مخلوط گاوسی (GMM) چگالی زیر را فرض می‌کند:</p>
+<div class="math notranslate nohighlight">
+\[
+p(x\mid\theta)=\sum_{k=1}^{K}\pi_k\,\mathcal{N}(x\mid\mu_k,\Sigma_k),\qquad \pi_k\ge0,\quad\sum_k\pi_k=1.
+\]</div>
+<p>در اینجا <span class="math notranslate nohighlight">\(K\)</span> تعداد مؤلفه‌ها، <span class="math notranslate nohighlight">\(\pi_k\)</span> وزن مؤلفه، <span class="math notranslate nohighlight">\(\mu_k\)</span> میانگین و <span class="math notranslate nohighlight">\(\Sigma_k\)</span> ماتریس کوواریانسِ مثبت‌معین است. بر خلاف <code class="docutils literal notranslate"><span class="pre">k-means</span></code>، کوواریانس می‌تواند خوشهٔ بیضوی و هم‌پوشان را بیان کند. ولی اگر مؤلفهٔ واقعی غیرگاوسی باشد، تقریب گاوسی می‌تواند چند مؤلفه برای یک گروهِ معنایی بسازد. تعداد «مؤلفه‌های آماری» الزاماً تعداد «گروه‌های واقعی کسب‌وکار» نیست.</p>
+<p>برای یک متغیر تک‌بعدی، <span class="math notranslate nohighlight">\(\mathcal{N}(x\mid\mu,\sigma^2)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp[-(x-\mu)^2/(2\sigma^2)]\)</span>. انتخاب کوواریانس‌های «کامل»، «قطری» یا «مشترک» تعادلی میان انعطاف مدل و شمار پارامترهاست. استفاده از کوواریانس کامل با تعداد نمونهٔ کم در بُعد بالا ممکن است به برآورد ناپایدار یا ماتریس نزدیک به تکین برسد؛ پس منظم‌سازی و کنترل مقدار ویژه ضرورت دارند.</p>
+<figure class="align-default" id="dm9-gaussian">
+<a class="reference internal image-reference" href="../_images/fig09_04.png"><img alt="../_images/fig09_04.png" src="../_images/fig09_04.png" style="width: 89%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 133 </span><span class="caption-text">شکل ۹ـ۴. دو مؤلفهٔ گاوسی هم‌پوشان؛ در ناحیهٔ مشترک، عضویت پسین از مقدار چگالی هر دو مؤلفه اثر می‌گیرد.</span><a class="headerlink" href="#dm9-gaussian" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id7">
+<h2>۹ـ۴. حل دستیِ یک مسئولیت احتمالاتی<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>دو مؤلفه با <span class="math notranslate nohighlight">\(\mu_1=1\)</span> و <span class="math notranslate nohighlight">\(\mu_2=4\)</span>، واریانس برابر <span class="math notranslate nohighlight">\(\sigma_1^2=\sigma_2^2=1\)</span> و وزن‌های <span class="math notranslate nohighlight">\(\pi_1=\pi_2=0.5\)</span> داریم. برای مشاهدهٔ <span class="math notranslate nohighlight">\(x=2\)</span>، فاصله‌های مربع‌شده به ترتیب <span class="math notranslate nohighlight">\(1\)</span> و <span class="math notranslate nohighlight">\(4\)</span> هستند؛ عامل مشترکِ نرمال‌سازی چگالی و وزن نیم، در نسبت حذف می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+\gamma_{1}(2)=\frac{e^{-1/2}}{e^{-1/2}+e^{-4/2}}=\frac{e^{-0.5}}{e^{-0.5}+e^{-2}}\approx0.817574,
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\gamma_{2}(2)\approx0.182426,\qquad\gamma_1(2)+\gamma_2(2)=1.
+\]</div>
+<p>مشاهدهٔ <span class="math notranslate nohighlight">\(x=2\)</span> در خوشه‌بندی سخت بر اساس نزدیک‌ترین مرکز به گروه اول می‌رود؛ در مدل مخلوط، هنوز سهم مشخصی برای مؤلفهٔ دوم دارد. <strong>این عدد با فرض برابری واریانس و وزن‌ها محاسبه شده</strong> و اگر <span class="math notranslate nohighlight">\(\pi_2\)</span> یا <span class="math notranslate nohighlight">\(\sigma_2^2\)</span> عوض شود، جواب عوض خواهد شد. تمرین مهم: برای همان <span class="math notranslate nohighlight">\(x=2\)</span> اگر وزن‌ها <span class="math notranslate nohighlight">\(\pi_1=.2\)</span> و <span class="math notranslate nohighlight">\(\pi_2=.8\)</span> باشند، آیا هنوز مسئولیت مؤلفهٔ اول بالاتر از نیم می‌ماند؟</p>
+</section>
+<section id="em">
+<h2>۹ـ۵. الگوریتم EM از کجا می‌آید؟<a class="headerlink" href="#em" title="Link to this heading">#</a></h2>
+<p>در دادهٔ بدون برچسب، متغیر پنهان <span class="math notranslate nohighlight">\(z_i\)</span> را نمی‌بینیم. بیشینه‌سازی مستقیم <span class="math notranslate nohighlight">\(\sum_i\log\sum_k\pi_k\mathcal{N}(x_i\mid\mu_k,\Sigma_k)\)</span> دشوارتر از حالتی است که عضویت‌ها معلوم باشند. الگوریتم <strong>بیشینه‌سازی امید (Expectation–Maximization)</strong> دو مرحله را تکرار می‌کند. در گام E، با پارامترهای فعلی مسئولیت هر مؤلفه را حساب می‌کنیم. در گام M، با همین وزن‌های نرم، وزن‌ها و پارامترهای توزیع‌ها را به‌روزرسانی می‌کنیم.</p>
+<div class="math notranslate nohighlight">
+\[
+\gamma_{ik}=\frac{\pi_k\mathcal{N}(x_i\mid\mu_k,\Sigma_k)}{\sum_{j=1}^K\pi_j\mathcal{N}(x_i\mid\mu_j,\Sigma_j)},\qquad N_k=\sum_i\gamma_{ik}.
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\pi_k^{\mathrm{new}}=\frac{N_k}{n},\quad
+\mu_k^{\mathrm{new}}=\frac{\sum_i\gamma_{ik}x_i}{N_k},\quad
+\Sigma_k^{\mathrm{new}}=\frac{\sum_i\gamma_{ik}(x_i-\mu_k^{\mathrm{new}})(x_i-\mu_k^{\mathrm{new}})^T}{N_k}.
+\]</div>
+<p>در گام E هیچ مشاهده‌ای تکثیر نمی‌شود: همان نقطه با وزن‌های مختلف در برآورد چند مؤلفه مشارکت می‌کند. در گام M نیز کوواریانس وزن‌دار پیرامون <strong>میانگین جدید</strong> محاسبه می‌شود؛ جابه‌جا کردن این دو نکته خطای رایج است. کد فصل برای روشن‌ماندن محاسبات، نمونهٔ آموزشیِ یک‌بعدی و دو مؤلفه‌ای را از صفر پیاده می‌کند؛ برای کاربرد جدی پُربعد، یک پیاده‌سازی معتبر با منظم‌سازی و بررسی همگرایی ضروری است.</p>
+<figure class="align-default" id="dm9-em-cycle">
+<a class="reference internal image-reference" href="../_images/fig09_05.png"><img alt="../_images/fig09_05.png" src="../_images/fig09_05.png" style="width: 92%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 134 </span><span class="caption-text">شکل ۹ـ۵. چرخهٔ EM: مقداردهی اولیه، محاسبهٔ مسئولیت، بازبرآورد پارامترها و بررسی تغییر درست‌نمایی.</span><a class="headerlink" href="#dm9-em-cycle" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id8">
+<h3>شبه‌کد و مسئلهٔ همگرایی<a class="headerlink" href="#id8" title="Link to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>initialize weights, means, covariances
+repeat:
+    E: compute responsibilities using current parameters
+    M: update weights and distribution parameters
+    compute observed-data log likelihood
+until improvement is smaller than tolerance
+return parameters, responsibilities, diagnostic history
+</pre></div>
+</div>
+<p>در مفروضات استاندارد EM، هر تکرار درست‌نمایی مشاهده‌شده را کاهش نمی‌دهد؛ بااین‌حال تضمینِ رسیدن به بهترین بهینهٔ سراسری ندارد. بهینهٔ محلی، وابستگی به شروع اولیه، فروپاشی یک مؤلفه روی چند مشاهده و تکین‌شدن کوواریانس از خطرها هستند. به همین سبب در عمل چند شروع، کف واریانس/regularization و معیار توقف باید گزارش شوند. افزایشی‌بودن منحنی درست‌نمایی، به معنای «درست‌بودن تعداد خوشه‌ها» نیست.</p>
+<figure class="align-default" id="dm9-em-history">
+<a class="reference internal image-reference" href="../_images/fig09_06.png"><img alt="../_images/fig09_06.png" src="../_images/fig09_06.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 135 </span><span class="caption-text">شکل ۹ـ۶. تغییر لگاریتم درست‌نمایی در اجرای یک مدل آموزشی روی فقط هشت مشاهدهٔ ساختگی؛ عددها متعلق به همین مثال‌اند.</span><a class="headerlink" href="#dm9-em-history" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="id9">
+<h2>۹ـ۶. تعداد مؤلفه‌ها را چگونه انتخاب کنیم؟<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>در افزایش <span class="math notranslate nohighlight">\(K\)</span>، بیشینهٔ درست‌نمایی آموزشی معمولاً بهتر می‌شود؛ اما این به معنی مدل بهتر روی دادهٔ دیده‌نشده نیست. معیار اطلاعات بیزی (BIC) برآوردی از مصالحهٔ برازش و پیچیدگی است:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{BIC}=-2\log\widehat{L}+p\log n.
+\]</div>
+<p><span class="math notranslate nohighlight">\(p\)</span> شمار پارامترهای آزاد است. برای یک مخلوط گاوسی تک‌بعدی با <span class="math notranslate nohighlight">\(K\)</span> مؤلفه و واریانس‌های مستقل، <span class="math notranslate nohighlight">\(p=(K-1)+K+K=3K-1\)</span>؛ برای <span class="math notranslate nohighlight">\(K=2\)</span>، پنج پارامتر می‌شود. در بُعد <span class="math notranslate nohighlight">\(d\)</span> با کوواریانس کامل برای هر مؤلفه: <span class="math notranslate nohighlight">\(p=(K-1)+Kd+K d(d+1)/2\)</span>. BIC کمتر در میان مدل‌های مقایسه‌شده ارجح است، اما این نتیجه به مفروضات خانوادهٔ مدل و اندازهٔ نمونه وابسته است. بررسی پایداری، ارتباط علمی اجزا و تکرار آزمایش همچنان لازم است.</p>
+<p><strong>دام رایج:</strong> برچسب‌های پنهان ساختگی را برای انتخاب <span class="math notranslate nohighlight">\(K\)</span> یا تنظیم ابرپارامترها استفاده نکنید؛ آن‌ها فقط برای وارسی پس از اتمام انتخاب مدل نگه داشته شده‌اند. اگر همان دادهٔ نهایی بارها برای گزینش مدل استفاده شود، ارزیابی غیرمستقل خواهد شد.</p>
+</section>
+<section id="c-means-gmm">
+<h2>۹ـ۷. خوشه‌بندی فازی c-means و تفاوت معنایی آن با GMM<a class="headerlink" href="#c-means-gmm" title="Link to this heading">#</a></h2>
+<p>در خوشه‌بندی فازی c-means با درجهٔ فازی‌سازی <span class="math notranslate nohighlight">\(m&gt;1\)</span>، تابع هدف متداول چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+J_m=\sum_{i=1}^{n}\sum_{k=1}^{K}u_{ik}^{m}\|x_i-c_k\|_2^2,
+\qquad \sum_k u_{ik}=1.
+\]</div>
+<p>وقتی همهٔ فاصله‌ها غیرصفر باشند، درجهٔ عضویت نقطهٔ <span class="math notranslate nohighlight">\(x_i\)</span> در مرکز <span class="math notranslate nohighlight">\(c_k\)</span> برابر است با:</p>
+<div class="math notranslate nohighlight">
+\[
+u_{ik}=\left[\sum_{j=1}^{K}\left(\frac{\|x_i-c_k\|}{\|x_i-c_j\|}\right)^{2/(m-1)}\right]^{-1}.
+\]</div>
+<p><strong>حل دستی:</strong> برای <span class="math notranslate nohighlight">\(x=2\)</span> و مراکز <span class="math notranslate nohighlight">\(c_1=0\)</span>، <span class="math notranslate nohighlight">\(c_2=5\)</span> و <span class="math notranslate nohighlight">\(m=2\)</span>، فاصله‌ها <span class="math notranslate nohighlight">\(2\)</span> و <span class="math notranslate nohighlight">\(3\)</span> است؛ بنابراین <span class="math notranslate nohighlight">\(u_1=1/[1+(2/3)^2]=9/13\approx0.692308\)</span> و <span class="math notranslate nohighlight">\(u_2=4/13\approx0.307692\)</span>. این نسبت با <span class="math notranslate nohighlight">\(0.817574\)</span> حاصل از GMM در بخش ۹ـ۴ <strong>فرق دارد</strong>، چون دو عدد تابع دو مدل متفاوت‌اند.</p>
+<p>اگر نقطه دقیقاً بر یکی از مراکز منطبق شود، فرمولِ تقسیم بر فاصلهٔ صفر را نباید مستقیم اجرا کرد؛ در نمونهٔ آموزشی، همهٔ وزن به همان مرکز داده می‌شود، و اگر چند مرکز هم‌مکان باشند وزن به‌طور مساوی بین آن‌ها تقسیم می‌شود. این صرفاً قرارداد پیاده‌سازی برای حالت مرزی است.</p>
+<figure class="align-default" id="dm9-fuzzifier">
+<a class="reference internal image-reference" href="../_images/fig09_07.png"><img alt="../_images/fig09_07.png" src="../_images/fig09_07.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 136 </span><span class="caption-text">شکل ۹ـ۷. نقش پارامتر <span class="math notranslate nohighlight">\(m\)</span> در میزان نرم‌بودن عضویت؛ انتخاب آن تعبیر خروجی را تغییر می‌دهد.</span><a class="headerlink" href="#dm9-fuzzifier" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id10">
+<h2>۹ـ۸. به‌روزرسانی مراکز فازی و یک مثال ساده<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>در گام به‌روزرسانیِ مراکز، هر مشاهده با توان <span class="math notranslate nohighlight">\(m\)</span> عضویت خود وزن می‌گیرد:</p>
+<div class="math notranslate nohighlight">
+\[
+c_k=\frac{\sum_i u_{ik}^{m}x_i}{\sum_i u_{ik}^{m}}.
+\]</div>
+<p>این فرمول از میانگین عادی متفاوت است: نقطه‌ای که عضویت <span class="math notranslate nohighlight">\(0.2\)</span> داشته باشد در <span class="math notranslate nohighlight">\(m=2\)</span> با وزن <span class="math notranslate nohighlight">\(0.04\)</span> وارد می‌شود، نه با وزن <span class="math notranslate nohighlight">\(0.2\)</span>. با افزایش <span class="math notranslate nohighlight">\(m\)</span>، مرزهای عضویت نرم‌تر می‌شوند؛ اما نباید از نرم‌بودن اعداد، «کالیبراسیون احتمال» نتیجه گرفت. <code class="docutils literal notranslate"><span class="pre">fuzzy_cmeans_1d</span></code> در کد فصل، به‌روزرسانی مرکز و عضویت را روی شش نمونه انجام می‌دهد و برای شفافیت آموزش از نسخهٔ تک‌بعدی استفاده می‌کند.</p>
+<figure class="align-default" id="dm9-fuzzy-toy">
+<a class="reference internal image-reference" href="../_images/fig09_08.png"><img alt="../_images/fig09_08.png" src="../_images/fig09_08.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 137 </span><span class="caption-text">شکل ۹ـ۸. دو مرکز فازی و عضویت پیوستهٔ نمونه‌های تک‌بعدی؛ نمایندهٔ هر خوشه با میانگینِ وزن‌دار به‌روز می‌شود.</span><a class="headerlink" href="#dm9-fuzzy-toy" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>جمع‌بندی این دو روش:</strong> GMM با مدل چگالی کار می‌کند و کوواریانس و وزن مخلوط دارد؛ FCM تابع هدفی مبتنی بر فاصله و درجهٔ تعلق دارد. هر دو می‌توانند به شروع حساس باشند. اگر داده دارای گروه‌هایی با هندسه و اندازهٔ بسیار متفاوت باشد، مدل و وزن ویژگی‌ها باید با مسئله سازگار شوند.</p>
+</section>
+<section id="id11">
+<h2>۹ـ۹. چرا دادهٔ پُربعد، هندسهٔ خوشه را تغییر می‌دهد؟<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>فاصلهٔ اقلیدسی در بُعد بالا ممکن است به‌دلیل ویژگی‌های نامربوط، نویز، هم‌بستگی و مقیاس، قدرت تمایز کمی داشته باشد. در یک تصویر ساده، با افزایش شمار ابعادِ نویزیِ مستقل، نسبت پراکندگی فاصله‌ها به میانگین آن‌ها می‌تواند کاهش یابد؛ در نتیجه «نزدیک‌ترین» و «دورترین» نمونه از نظر نسبت فاصله شبیه‌تر می‌شوند. این مشاهده تحت فرض‌های آماری خاص است و به معنی ناممکن‌بودن هر خوشه‌بندی پُربعد نیست. <strong>بُعد مؤثر، ساختار هم‌بستگی و معیار فاصله</strong> اهمیت بیشتری از صرف تعداد ستون‌ها دارند.</p>
+<figure class="align-default" id="dm9-concentration">
+<a class="reference internal image-reference" href="../_images/fig09_09.png"><img alt="../_images/fig09_09.png" src="../_images/fig09_09.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 138 </span><span class="caption-text">شکل ۹ـ۹. یک آزمایش مستقل روی نویز گاوسی: با افزایش تعداد ابعاد، ضریب تغییرات فاصله‌های بین زوج نمونه‌ها کاهش می‌یابد.</span><a class="headerlink" href="#dm9-concentration" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در دادهٔ آموزشی دوم، ۲۰ ویژگی داریم، اما فقط دو ویژگی نخست حاوی ساختارِ تعبیه‌شده‌اند و ۱۸ ویژگی دیگر نویزند. اگر بدون تعریف ویژگی و مقیاس‌گذاری، همه را یکسان وارد الگوریتم کنیم، فاصله می‌تواند تحت تأثیر متغیرهای نامربوط قرار بگیرد. در کار کاربردی، انتخاب ویژگی مبتنی بر تخصص موضوعی و ارزیابی پایداری باید بر گزینش صرفاً ظاهری در نمودار مقدم باشد.</p>
+<figure class="align-default" id="dm9-subspace-need">
+<a class="reference internal image-reference" href="../_images/fig09_10.png"><img alt="../_images/fig09_10.png" src="../_images/fig09_10.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 139 </span><span class="caption-text">شکل ۹ـ۱۰. ساختار دوبعدی در دو ویژگی مرتبط در برابر دو ویژگی نویزی از همان رکوردها؛ خوشه ممکن است فقط در زیرمجموعه‌ای از ستون‌ها دیده شود.</span><a class="headerlink" href="#dm9-subspace-need" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="subspace">
+<h2>۹ـ۱۰. زیر‌فضا (Subspace) در برابر خوشه‌بندی در همهٔ ویژگی‌ها<a class="headerlink" href="#subspace" title="Link to this heading">#</a></h2>
+<p>در خوشه‌بندی زیر‌فضایی، برای هر گروه ممکن است زیرمجموعهٔ ویژگی‌های مؤثر متفاوت باشد. در روش‌های <strong>محورموازی (axis-parallel)</strong> تنها زیرمجموعه‌ای از مختصات انتخاب می‌شود؛ در روش‌های <strong>جهت‌دار (arbitrarily oriented)</strong> گروه ممکن است در ترکیبی خطی از ویژگی‌ها ظاهر شود. مثال آموزشی: در بین مشتریان، یک گروه با ترکیب تعداد مراجعه و مدت زمان پاسخ تعریف می‌شود، اما گروه دوم با نوع خدمت و حجم خرید؛ الزاماً یک فهرست ویژگی برای هر دو گروه مناسب نیست.</p>
+<p>جست‌وجوی همهٔ زیرمجموعه‌های ویژگی با <span class="math notranslate nohighlight">\(d\)</span> بُعد، در حالت خام <span class="math notranslate nohighlight">\(2^d-1\)</span> حالت دارد؛ بنابراین روش‌های پیشرفته به راهبردهای هرس، جست‌وجوی مرحله‌ای یا مدل‌های منظم‌سازی وابسته‌اند. انتخاب زیر‌فضا بر مبنای همین نمونه‌ها و سپس سنجش «معناداری» روی همان نمونه‌ها می‌تواند به کشف تصادفی منجر شود. پس لازم است پایایی مجموعهٔ ویژگی‌های انتخابی تحت نمونه‌گیری مجدد و دادهٔ مستقل بررسی شود.</p>
+</section>
+<section id="id12">
+<h2>۹ـ۱۱. تفاوت کاهش بُعد و زیر‌فضا: دو پاسخ به دو سؤال<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p><strong>کاهش بُعد</strong> بازنمایی تازه‌ای <span class="math notranslate nohighlight">\(Z=XW\)</span> می‌سازد که ممکن است ترکیبی از ستون‌ها باشد؛ <strong>خوشه‌بندی زیر‌فضایی</strong> به دنبال ساختار گروه‌ها در زیرمجموعه‌ها یا جهت‌های خاص می‌گردد. PCA جهت بیشترین واریانس را پیدا می‌کند، ولی بیشترین واریانس لزوماً همان جهتی نیست که گروه‌ها را بهتر جدا می‌کند. اگر واریانس نویز از سیگنال بیشتر باشد، PCA ممکن است جهت مورد نظر ما را کنار بگذارد. از سوی دیگر، یک روش زیر‌فضاییِ بهینه برای جداسازی مصنوعی نیز ممکن است در دادهٔ مستقل پایدار نباشد.</p>
+<p><strong>مثال مفهومی:</strong> دو جمعیت با میانگین‌های متفاوت در <span class="math notranslate nohighlight">\(x_1\)</span>، اما نویز بزرگ در <span class="math notranslate nohighlight">\(x_2\)</span>. مؤلفهٔ اول PCA احتمالاً جهت <span class="math notranslate nohighlight">\(x_2\)</span> می‌شود، هرچند تفاوت گروهی اصلی در <span class="math notranslate nohighlight">\(x_1\)</span> است. پس کاهش بُعد ابزار کمکی است؛ باید با هدف علمی و معیار اعتبار سنجیده شود.</p>
+</section>
+<section id="biclustering">
+<h2>۹ـ۱۲. دوخوشه‌ای (Biclustering): هم‌زمان گروهی از سطرها و ستون‌ها<a class="headerlink" href="#biclustering" title="Link to this heading">#</a></h2>
+<p>در یک ماتریس مشتری × کالا، ممکن است گروهی از مشتریان صرفاً برای مجموعهٔ محدودی از کالاها الگوی مشابهی داشته باشند. این ویژگی در خوشه‌بندی عادیِ تمام ستون‌ها محو می‌شود. <strong>دوخوشه‌ای</strong> زیرماتریسی از سطرها و ستون‌ها را پیدا می‌کند که الگوی مشخصی دارد. سطرها یا ستون‌ها در دوخوشه‌های متفاوت می‌توانند هم‌پوشانی داشته باشند؛ بنابراین دوخوشه‌ای لزوماً افرازِ جدا از هم نیست.</p>
+<p>در <code class="docutils literal notranslate"><span class="pre">bicluster_synthetic.csv</span></code>، زیرماتریس سطرهای <strong>۳ تا ۶</strong> و ستون‌های <strong>۴ تا ۸</strong> دارای الگوی جمع‌پذیر ساخته شده است؛ باقی ماتریس عمداً از مقادیر نویزی مستقل پر شده است. این «مکانِ الگو» یک حقیقت ساختگی برای آموزش است و در دادهٔ واقعی باید کشف شود، نه اینکه از قبل به الگوریتم داده شود.</p>
+<figure class="align-default" id="dm9-bicluster-matrix">
+<a class="reference internal image-reference" href="../_images/fig09_11.png"><img alt="../_images/fig09_11.png" src="../_images/fig09_11.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 140 </span><span class="caption-text">شکل ۹ـ۱۱. زیرماتریس دارای الگوی جمع‌پذیر در دادهٔ ساختگی؛ گروه معنادار، همزمان مجموعه‌ای از سطرها و ستون‌هاست.</span><a class="headerlink" href="#dm9-bicluster-matrix" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id13">
+<h2>۹ـ۱۳. حل دستیِ معیار باقیماندهٔ دوخوشه‌ای<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>برای یک زیرماتریس <span class="math notranslate nohighlight">\(A_{I,J}\)</span>، معیار <strong>میانگین مربع باقیمانده</strong> (Mean Squared Residue) یکی از صورت‌بندی‌های رایجِ هم‌رفتاری جمع‌پذیر است:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{MSR}=\frac{1}{|I||J|}\sum_{i\in I}\sum_{j\in J}
+\left(a_{ij}-\bar a_{i\cdot}-\bar a_{\cdot j}+\bar a_{\cdot\cdot}\right)^2.
+\]</div>
+<p>برای ماتریس سادهٔ دو در دو</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+A=\begin{bmatrix}3&amp;4\\5&amp;6\end{bmatrix}
+\end{split}\]</div>
+<p>میانگین سطرها <span class="math notranslate nohighlight">\(3.5\)</span> و <span class="math notranslate nohighlight">\(5.5\)</span>، میانگین ستون‌ها <span class="math notranslate nohighlight">\(4\)</span> و <span class="math notranslate nohighlight">\(5\)</span> و میانگین کل <span class="math notranslate nohighlight">\(4.5\)</span> است. در خانهٔ بالا-چپ باقیمانده <span class="math notranslate nohighlight">\(3-3.5-4+4.5=0\)</span>؛ در سه خانهٔ دیگر نیز صفر می‌شود؛ پس <span class="math notranslate nohighlight">\(\operatorname{MSR}=0\)</span>. این به معنی یکسان‌بودن همهٔ مقادیر نیست، بلکه نشان می‌دهد اثر سطر و ستون به‌طور جمع‌پذیر بیان می‌شود. اگر یک خانه جهش غیرجمع‌پذیر داشته باشد، MSR بزرگ‌تر می‌شود.</p>
+<figure class="align-default" id="dm9-bicluster-residue">
+<a class="reference internal image-reference" href="../_images/fig09_12.png"><img alt="../_images/fig09_12.png" src="../_images/fig09_12.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 141 </span><span class="caption-text">شکل ۹ـ۱۲. دوخوشهٔ دارای اثرهای سطر و ستون، و باقیمانده پس از دوبار مرکزکردن؛ MSR صفرِ دادهٔ ساختگی دلیل کشف در دادهٔ واقعی نیست.</span><a class="headerlink" href="#dm9-bicluster-residue" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>محدودیت:</strong> یک زیرماتریس بسیار کوچک نیز ممکن است MSR پایین داشته باشد. بنابراین اندازهٔ دوخوشه، آزمون تصادفی‌سازی، تکرارپذیری و جست‌وجوی چندگانه را باید همراه معیار گزارش کرد. در این فصل، کد فقط <strong>محاسبهٔ دقیق MSR برای زیرماتریسِ داده‌شده</strong> را انجام می‌دهد، نه جست‌وجوی کاملِ خودکار تمام دوخوشه‌ها؛ این تمایز عمداً شفاف بیان شده است.</p>
+</section>
+<section id="id14">
+<h2>۹ـ۱۴. خوشه‌بندی شبکه‌ای: وقتی فاصلهٔ اقلیدسی کافی نیست<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>برای کاربران شبکهٔ اجتماعی، صفحات وب یا اجزای یک سامانه، داده می‌تواند مجموعهٔ رأس‌ها و یال‌های وزن‌دار باشد. در چنین مسئله‌ای معنای نزدیک‌بودن به جای فاصلهٔ مختصاتی، از اتصالات و وزن روابط به دست می‌آید. ماتریس مجاورت وزن‌دارِ متقارن <span class="math notranslate nohighlight">\(W\)</span> با <span class="math notranslate nohighlight">\(w_{ij}\ge0\)</span> نشان می‌دهد کدام رأس‌ها و با چه شدتی مرتبط‌اند. ماتریس درجه <span class="math notranslate nohighlight">\(D\)</span> قطری است و <span class="math notranslate nohighlight">\(D_{ii}=\sum_j w_{ij}\)</span>.</p>
+<p>در گراف ساختگی این فصل هشت رأس داریم: دو گروه چهارتایی با وزن داخلی <span class="math notranslate nohighlight">\(1\)</span> و فقط یک یال ضعیف با وزن <span class="math notranslate nohighlight">\(0.12\)</span> بین رأس‌های ۴ و ۵. هدف آموزشی این است که بفهمیم چرا یک پیوند ضعیف نباید لزوماً دو جامعهٔ پرتراکم را به یک گروهِ یکپارچه تبدیل کند. این شبکه هیچ نام یا اطلاعات واقعی کاربر ندارد.</p>
+<figure class="align-default" id="dm9-graph-structure">
+<a class="reference internal image-reference" href="../_images/fig09_13.png"><img alt="../_images/fig09_13.png" src="../_images/fig09_13.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 142 </span><span class="caption-text">شکل ۹ـ۱۳. دو بخش متراکمِ گراف و یک پل ضعیف با وزن <span class="math notranslate nohighlight">\(0.12\)</span>؛ خوشه‌بندی شبکه‌ای به ساختار ارتباط توجه می‌کند.</span><a class="headerlink" href="#dm9-graph-structure" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id15">
+<h2>۹ـ۱۵. خوشه‌بندی طیفی از لاپلاسین تا فضای جدید<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>لاپلاسین نامنظم گراف <span class="math notranslate nohighlight">\(L=D-W\)</span> و لاپلاسین نرمال‌شدهٔ متقارن، برای درجه‌های مثبت، به‌صورت زیر است:</p>
+<div class="math notranslate nohighlight">
+\[
+L_{\mathrm{sym}}=I-D^{-1/2}WD^{-1/2}.
+\]</div>
+<p>ایدهٔ خوشه‌بندی طیفی این است که یک معیار جداسازیِ گرافی را به مسئلهٔ بردارهای ویژه تبدیل کنیم. برای دو جامعهٔ ضعیف‌متصل، بردارهای ویژهٔ مربوط به مقادیر ویژهٔ کوچک می‌توانند بازنمایی‌ای بدهند که در آن رأس‌های هر جامعه نزدیک‌تر شوند. در یک پیاده‌سازی متداولِ <span class="math notranslate nohighlight">\(K\)</span>-گروهی، <span class="math notranslate nohighlight">\(K\)</span> بردار ویژهٔ متناظر با کوچک‌ترین مقادیر ویژه را انتخاب، سطرهای ماتریس بردارویژه را نرمال و سپس آن‌ها را خوشه‌بندی می‌کنیم. گزینه‌های دیگری برای لاپلاسین و نرمال‌سازی وجود دارد و نتایج دقیقاً یکسان نیستند.</p>
+<p><strong>حل دستیِ لاپلاسین برای دو رأس:</strong> اگر <span class="math notranslate nohighlight">\(W=\begin{bmatrix}0&amp;1\\1&amp;0\end{bmatrix}\)</span>، آنگاه <span class="math notranslate nohighlight">\(D=I\)</span> و <span class="math notranslate nohighlight">\(L_{\mathrm{sym}}=\begin{bmatrix}1&amp;-1\\-1&amp;1\end{bmatrix}\)</span>. مقادیر ویژه <span class="math notranslate nohighlight">\(0\)</span> و <span class="math notranslate nohighlight">\(2\)</span> هستند. بردار متناظر با مقدار صفر، بردار ثابتِ جهت نرمال‌شده است. برای دو جزء جدا، دو مقدار ویژهٔ صفر داریم؛ وصل‌کردن دو جزء با یک یال ضعیف، دومین مقدار ویژه را به عددی مثبتِ کوچک تغییر می‌دهد.</p>
+<p>در شبکهٔ هشت‌رأسیِ خودمان، مقادیر ویژهٔ نخست تقریبی برابر <strong>۰</strong> و <strong>۰٫۰۱۸۹۵۳</strong> هستند؛ مقدار سوم <strong>۱٫۲۹۴۸۷۲</strong> است. این فاصله به ساختار دو جامعهٔ دادهٔ <em>همین مثال</em> اشاره دارد و معیار عمومیِ انتخاب قطعی <span class="math notranslate nohighlight">\(K\)</span> نیست. کد <code class="docutils literal notranslate"><span class="pre">spectral_embedding</span></code> ماتریس وزن را می‌گیرد، مقادیر ویژه و نهفته‌سازی سطرنرمال‌شده را برمی‌گرداند، اما عمداً مرحلهٔ خوشه‌بندی نهاییِ این نهفته‌سازی را به استفاده‌کننده واگذار می‌کند.</p>
+<figure class="align-default" id="dm9-eigenspectrum">
+<a class="reference internal image-reference" href="../_images/fig09_14.png"><img alt="../_images/fig09_14.png" src="../_images/fig09_14.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 143 </span><span class="caption-text">شکل ۹ـ۱۴. طیف لاپلاسین نرمال‌شدهٔ گراف هشت‌رأسی؛ فاصلهٔ مقدار ویژهٔ دوم و سوم در این مثال دیده می‌شود.</span><a class="headerlink" href="#dm9-eigenspectrum" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="dm9-embedding">
+<a class="reference internal image-reference" href="../_images/fig09_15.png"><img alt="../_images/fig09_15.png" src="../_images/fig09_15.png" style="width: 89%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 144 </span><span class="caption-text">شکل ۹ـ۱۵. نهفته‌سازی طیفی همان هشت رأس در فضای بردارهای ویژه؛ خوشه‌بندی روی این فضا انجام می‌شود، نه روی مختصات اصلیِ ناموجود.</span><a class="headerlink" href="#dm9-embedding" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id16">
+<h2>۹ـ۱۶. چه وقت خوشه‌بندی طیفی مناسب نیست؟<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p>کیفیت خروجی به <strong>ساخت گراف شباهت</strong> وابسته است: انتخاب <span class="math notranslate nohighlight">\(k\)</span> همسایه، پهنای هستهٔ شباهت، حذف یال‌های ضعیف و سیاست وزن‌دهی می‌تواند شکل گروه‌ها را تغییر دهد. ساخت ماتریس تشابهِ متراکم برای <span class="math notranslate nohighlight">\(n\)</span> مشاهده حافظهٔ مرتبهٔ <span class="math notranslate nohighlight">\(O(n^2)\)</span> می‌خواهد؛ محاسبهٔ کامل طیف نیز در ابعاد بزرگ پرهزینه است. روش‌های ماتریس تُنُک و حل‌کنندهٔ ویژهٔ جزئی کمک می‌کنند، ولی کیفیت تقریب و حساسیت پارامتر باید گزارش شود. از طرف دیگر گراف نامتقارن یا دارای درجهٔ صفر، نیازمند قرارداد متفاوتی برای نرمال‌سازی است؛ کد آموزشیِ ما صریحاً چنین ورودی‌ای را رد می‌کند، نه اینکه بی‌هشدار جوابی نامعتبر بدهد.</p>
+</section>
+<section id="snn">
+<h2>۹ـ۱۷. شباهت همسایهٔ مشترک (SNN): حل عددی<a class="headerlink" href="#snn" title="Link to this heading">#</a></h2>
+<p>در داده‌ای با چگالی متغیر، دو نقطه ممکن است فاصلهٔ هندسی نسبتاً کمی داشته باشند اما به دو ناحیهٔ متفاوت تعلق داشته باشند. مفهوم <strong>همسایهٔ مشترک</strong> از بافت محلی کمک می‌گیرد. اگر مجموعه‌های همسایگی <span class="math notranslate nohighlight">\(N(A)=\{2,3,4\}\)</span> و <span class="math notranslate nohighlight">\(N(B)=\{2,4,5\}\)</span> باشند، شباهت سادهٔ همسایهٔ مشترک عبارت است از</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{SNN}(A,B)=|N(A)\cap N(B)|=|\{2,4\}|=2.
+\]</div>
+<p>برخی تعریف‌ها وزن‌دهی بر پایهٔ رتبهٔ همسایه‌ها دارند؛ عدد ۲ مربوط به <strong>نسخهٔ شمارشی ساده</strong> است و نباید به کل خانوادهٔ SNN تعمیم داده شود. همچنین، اگر دو نقطه در همسایگی یکدیگر نیستند ممکن است در ساخت گراف SNN، هرچند چند همسایهٔ مشترک داشته باشند، یال حذف شود؛ این تصمیم تابع قرارداد روش است.</p>
+<figure class="align-default" id="dm9-snn">
+<a class="reference internal image-reference" href="../_images/fig09_16.png"><img alt="../_images/fig09_16.png" src="../_images/fig09_16.png" style="width: 88%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 145 </span><span class="caption-text">شکل ۹ـ۱۶. مثال شمارشی SNN با دو همسایهٔ مشترک؛ تفسیر شباهت به تعریف همسایگی مقدم است.</span><a class="headerlink" href="#dm9-snn" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="nmf">
+<h2>۹ـ۱۸. تجزیهٔ ماتریس نامنفی (NMF) و خوشه‌بندی<a class="headerlink" href="#nmf" title="Link to this heading">#</a></h2>
+<p>وقتی داده ذاتاً نامنفی است، مانند ماتریس تعداد واژه‌ها یا مصرف محصولات، تجزیهٔ نامنفی تقریب <span class="math notranslate nohighlight">\(V\approx WH\)</span> را پیشنهاد می‌دهد که در آن <span class="math notranslate nohighlight">\(V\ge0\)</span>، <span class="math notranslate nohighlight">\(W\ge0\)</span> و <span class="math notranslate nohighlight">\(H\ge0\)</span>. اگر <span class="math notranslate nohighlight">\(V\)</span> ابعاد <span class="math notranslate nohighlight">\(n\times d\)</span> و رتبهٔ نهفته <span class="math notranslate nohighlight">\(r\)</span> داشته باشد، آنگاه <span class="math notranslate nohighlight">\(W\)</span> ابعاد <span class="math notranslate nohighlight">\(n\times r\)</span> و <span class="math notranslate nohighlight">\(H\)</span> ابعاد <span class="math notranslate nohighlight">\(r\times d\)</span> دارد. سطر <span class="math notranslate nohighlight">\(W\)</span> می‌تواند شدت مؤلفه‌های نهفته برای هر نمونه را نمایش دهد؛ سپس می‌توان برای خوشه‌بندی روی <span class="math notranslate nohighlight">\(W\)</span> کار کرد. این روش به خودی خود برچسب خوشه یا تضمین جدایی نمی‌دهد.</p>
+<div class="math notranslate nohighlight">
+\[
+\min_{W,H\ge0}\frac{1}{2}\|V-WH\|_{F}^{2}.
+\]</div>
+<p>در کد فصل، یک به‌روزرسانی ضربی آموزشی برای <span class="math notranslate nohighlight">\(W\)</span> و <span class="math notranslate nohighlight">\(H\)</span> پیاده شده است. خطای بازسازی با تکرار کاهش می‌یابد، اما جواب به آغاز اولیه و رتبه وابسته است و تجزیه یکتا نیست: تغییر مقیاس یکی از عوامل و تغییر معکوس عامل دیگر، حاصل‌ضرب را ثابت نگه می‌دارد. NMF بر دادهٔ منفی بدون تبدیل مناسب تعریف متداولی ندارد؛ کد ما چنین ورودی‌ای را رد می‌کند.</p>
+<figure class="align-default" id="dm9-nmf">
+<a class="reference internal image-reference" href="../_images/fig09_17.png"><img alt="../_images/fig09_17.png" src="../_images/fig09_17.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 146 </span><span class="caption-text">شکل ۹ـ۱۷. یک ماتریس نامنفی و دو عاملِ محدود به مقادیر غیرمنفی؛ کاهش خطای بازسازی به معنی کشف موضوعات واقعی نیست.</span><a class="headerlink" href="#dm9-nmf" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="birch">
+<h2>۹ـ۱۹. مقیاس‌پذیری و BIRCH: چرا آمار فشرده لازم است؟<a class="headerlink" href="#birch" title="Link to this heading">#</a></h2>
+<p>در دادهٔ بزرگ، نگهداری همهٔ فاصله‌های زوجی یا جست‌وجوی تکراری روی کل داده گران است. <strong>BIRCH</strong> به‌جای نگهداری تک‌تک مشاهده‌ها در هر تصمیم، مفهوم <strong>ویژگی خوشه‌ای</strong> (Clustering Feature یا CF) را به کار می‌برد. برای یک مجموعهٔ <span class="math notranslate nohighlight">\(C=\{x_1,\ldots,x_N\}\)</span> تعریف کنید:</p>
+<div class="math notranslate nohighlight">
+\[
+\operatorname{CF}(C)=(N,LS,SS),\quad LS=\sum_{i=1}^{N}x_i,\quad SS=\sum_{i=1}^{N}\|x_i\|_2^2.
+\]</div>
+<p>این تعریف <span class="math notranslate nohighlight">\(SS\)</span> را <strong>مجموع مربع نرم بردارها به صورت عدد اسکالر</strong> در نظر می‌گیرد. در برخی ارائه‌ها آمار مربع‌ها به صورت مولفه‌ای نگهداری می‌شود و باید قرارداد را هنگام مقایسه روشن کرد. دو CF با جمع مؤلفه‌به‌مؤلفه ادغام می‌شوند. مرکز و پراکندگیِ درون‌گروه از CF بازیابی می‌شوند، اما مختصات هر مشاهدهٔ منفرد از این سه آمار بازیابی‌پذیر نیست.</p>
+<figure class="align-default" id="dm9-cf-flow">
+<a class="reference internal image-reference" href="../_images/fig09_18.png"><img alt="../_images/fig09_18.png" src="../_images/fig09_18.png" style="width: 93%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 147 </span><span class="caption-text">شکل ۹ـ۱۸. جریان فشرده‌سازی با CF و سپس خوشه‌بندی مجموعهٔ خلاصه‌شده؛ این نمودار جایگزین جزئیات درخت CF در پیاده‌سازی کامل نیست.</span><a class="headerlink" href="#dm9-cf-flow" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="cf-sse">
+<h2>۹ـ۲۰. حل دستیِ CF و محاسبهٔ SSE بدون دادهٔ خام<a class="headerlink" href="#cf-sse" title="Link to this heading">#</a></h2>
+<p>سه نقطهٔ دوبعدی <span class="math notranslate nohighlight">\(x_1=(1,1)\)</span>، <span class="math notranslate nohighlight">\(x_2=(2,1)\)</span> و <span class="math notranslate nohighlight">\(x_3=(5,4)\)</span> را در نظر بگیرید. با جمع‌زدن مؤلفه‌ها، داریم:</p>
+<div class="math notranslate nohighlight">
+\[
+N=3,\quad LS=(8,6),\quad SS=(1^2+1^2)+(2^2+1^2)+(5^2+4^2)=48.
+\]</div>
+<p>مرکز <span class="math notranslate nohighlight">\(LS/N=(8/3,2)\)</span> است. مجموع مربعات فاصله تا مرکز با اتحاد شناخته‌شده محاسبه می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[
+SSE=SS-\frac{\|LS\|_2^2}{N}=48-\frac{64+36}{3}=\frac{44}{3}\approx14.666667.
+\]</div>
+<p>به این ترتیب فقط با ذخیرهٔ <span class="math notranslate nohighlight">\(N\)</span> و <span class="math notranslate nohighlight">\(LS\)</span> و <span class="math notranslate nohighlight">\(SS\)</span>، مرکز و SSE را می‌توان حساب کرد. اگر داده‌ها را در دو بلوک بخوانیم و CF هر بلوک را بسازیم، ادغام آن‌ها باید همین جواب را بدهد؛ آزمون واحد فصل این خاصیت را بررسی می‌کند. الگوریتم BIRCH واقعی افزون بر این آمار، سیاست آستانه، ظرفیت گره، شاخه‌بندی درخت و مراحل خوشه‌بندی میانی دارد. <strong>کد فصل فقط CF و خاصیت جمع‌پذیری آن را اجرا می‌کند، نه پیاده‌سازی کامل BIRCH.</strong></p>
+<figure class="align-default" id="dm9-cf-manual">
+<a class="reference internal image-reference" href="../_images/fig09_19.png"><img alt="../_images/fig09_19.png" src="../_images/fig09_19.png" style="width: 89%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 148 </span><span class="caption-text">شکل ۹ـ۱۹. سه نقطه، مرکز و بازیابی SSE از خلاصهٔ CF؛ مقدار ۱۴٫۶۶۶۷ مربوط به همین سه نقطه است.</span><a class="headerlink" href="#dm9-cf-manual" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="cure">
+<h2>۹ـ۲۱. CURE و طرح‌های دیگری برای مقیاس‌پذیری<a class="headerlink" href="#cure" title="Link to this heading">#</a></h2>
+<p>یکی از محدودیت‌های روش‌های مبتنی بر یک مرکز آن است که شکل‌های کشیده یا غیرکروی را خوب نمایندگی نمی‌کنند. در روش <strong>CURE</strong>، چند نقطهٔ نمایندهٔ پراکنده از خوشه انتخاب و به‌سمت مرکز منقبض می‌شوند تا شکل خوشه بهتر بیان شود. این راهبرد می‌تواند در مقایسه با تک‌مرکز نسبت به شکل‌های غیرکروی مقاوم‌تر باشد، ولی هزینهٔ انتخاب نمایندگان و ساختار ادغام دارد. به همین دلیل در متن، CURE به‌صورت مقایسهٔ مفهومی آمده و در کد، اجرای ناقص آن به‌عنوان «الگوریتم کامل» عرضه نشده است. همچنین BIRCH و CURE جایگزین بررسی نویز، پایداری و ویژگی‌های دامنه نمی‌شوند.</p>
+</section>
+<section id="id17">
+<h2>۹ـ۲۲. راهنمای انتخاب روش بر اساس ساختار مسئله<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>مسئله و داده</p></th>
+<th class="head"><p>گزینهٔ قابل بررسی</p></th>
+<th class="head"><p>هشدار اصلی</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>دو گروه هم‌پوشان با پراکندگی متفاوت</p></td>
+<td><p>GMM با کوواریانس سنجیده</p></td>
+<td><p>تعداد مؤلفه و فرض گاوسی</p></td>
+</tr>
+<tr class="row-odd"><td><p>تعلق تدریجیِ مبتنی بر فاصله</p></td>
+<td><p>Fuzzy c-means</p></td>
+<td><p>عضویت فازی، احتمال آماری نیست</p></td>
+</tr>
+<tr class="row-even"><td><p>گروه در زیرمجموعه‌ای از ستون‌ها</p></td>
+<td><p>Subspace clustering</p></td>
+<td><p>جست‌وجوی چندگانه و ناپایداری</p></td>
+</tr>
+<tr class="row-odd"><td><p>زیرماتریسِ سطر و ستونِ هم‌رفتار</p></td>
+<td><p>Biclustering</p></td>
+<td><p>انتخاب اندازهٔ الگو و معنی MSR</p></td>
+</tr>
+<tr class="row-even"><td><p>شبکه یا ساختار بر اساس یال</p></td>
+<td><p>Spectral / SNN</p></td>
+<td><p>نحوهٔ ساخت گراف</p></td>
+</tr>
+<tr class="row-odd"><td><p>دادهٔ نامنفیِ دارای عوامل نهفته</p></td>
+<td><p>NMF سپس خوشه‌بندی</p></td>
+<td><p>نامعینی عوامل و رتبه</p></td>
+</tr>
+<tr class="row-even"><td><p>جریان دادهٔ بزرگ</p></td>
+<td><p>BIRCH و خلاصهٔ CF</p></td>
+<td><p>فشرده‌سازی ممکن است جزئیات را حذف کند</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="align-default" id="dm9-choice">
+<a class="reference internal image-reference" href="../_images/fig09_20.png"><img alt="../_images/fig09_20.png" src="../_images/fig09_20.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 149 </span><span class="caption-text">شکل ۹ـ۲۰. انتخاب روش براساس عدم‌قطعیتِ عضویت، وجود زیر‌فضا، ساختار گراف و محدودیت مقیاس؛ هیچ روش یگانه‌ای برای همهٔ داده‌ها بهینه نیست.</span><a class="headerlink" href="#dm9-choice" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در تصمیم واقعی، ابتدا منبع داده، واحد مشاهده و خطای اندازه‌گیری را روشن کنید. سپس مشخص کنید آیا مدل نرم را برای <strong>بیان عدم‌قطعیت</strong> می‌خواهید، یا گروه‌ها در فضای معمولی تفکیک‌پذیر نیستند، یا اصلاً داده از نوع گراف است. آنگاه یک خط پایهٔ سادهٔ فصل هشتم را در کنار روش پیشرفته قرار دهید. هیچ افزایش امتیاز داخلی نباید بدون بررسی تفسیرپذیری و ثبات نتیجه به «کشف معتبر» تبدیل شود.</p>
+</section>
+<section id="id18">
+<h2>۹ـ۲۳. آزمایش بازتولیدپذیر و ممیزی<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>کد <code class="docutils literal notranslate"><span class="pre">chapter09_examples.py</span></code> و Notebook همراه فصل، بدون دادهٔ بیرونی، این موارد را محاسبه می‌کنند: احتمال مسئولیت دستی <span class="math notranslate nohighlight">\(0.817574\)</span>، عضویت فازی <span class="math notranslate nohighlight">\(9/13\)</span>، تکرارهای EM تک‌بعدی، بردارهای ویژهٔ لاپلاسین، شمارش همسایهٔ مشترک، MSR یک زیرماتریس، NMF و آمار CF. فایل‌های ساختگی با بذر ثابت ۲۲۰۹ تولید می‌شوند. نتایج اصلی در <code class="docutils literal notranslate"><span class="pre">example_results.json</span></code> ثبت شده‌اند.</p>
+<p><strong>مرزبندی شفاف قابلیت اجرا:</strong> GMM کد آموزشی <strong>تک‌بعدی و دو مؤلفه‌ای</strong> است؛ FCM کد <strong>تک‌بعدی</strong> است؛ طیفی فقط <strong>نهفته‌سازیِ گراف وزن‌دار</strong> را انجام می‌دهد؛ دوخوشه‌ای فقط <strong>امتیازدهی یک زیرماتریس موجود</strong> را محاسبه می‌کند؛ NMF یک الگوریتم ضربی آموزشی است؛ BIRCH فقط CF را نشان می‌دهد. بنابراین ادعای پیاده‌سازی کامل همهٔ الگوریتم‌های فصل نداریم. این انتخاب کمک می‌کند دانشجو هر فرمول را خط‌به‌خط با مثال دستی تطبیق دهد.</p>
+<p>برای ارزیابی کاربردی باید حداقل چند مقدار شروع، تغییر در مقیاس یا تعداد ویژگی، بازنمونه‌گیری، حساسیت به پارامتر و تفکیک دادهٔ انتخاب مدل از دادهٔ ارزیابی بررسی شود. استفاده از متغیر ساختگیِ منشأ مؤلفه در تعیین ابرپارامترها مجاز نیست. همچنین نتایج این مثال‌های مصنوعی هیچ ادعایی دربارهٔ مشتریان واقعی یا داده‌های حساس ندارند.</p>
+</section>
+<section id="id19">
+<h2>۹ـ۲۴. تمرین‌ها و پروژهٔ کوتاه<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p><strong>بخش اول — محاسبهٔ دستی</strong></p>
+<p>۱. برای <span class="math notranslate nohighlight">\(x=2\)</span> در مثال ۹ـ۴، با وزن‌های <span class="math notranslate nohighlight">\(\pi_1=.2\)</span> و <span class="math notranslate nohighlight">\(\pi_2=.8\)</span>، مسئولیت‌ها را از ابتدا محاسبه کنید و با حالت نیم-نیم مقایسه کنید.</p>
+<p>۲. همان مثال را با واریانس‌های <span class="math notranslate nohighlight">\(1\)</span> و <span class="math notranslate nohighlight">\(4\)</span> تکرار کنید؛ چرا عامل نرمال‌سازی دیگر حذف نمی‌شود؟</p>
+<p>۳. نشان دهید <span class="math notranslate nohighlight">\(\sum_k\gamma_{ik}=1\)</span> و برای یک مشاهده تفاوت این هویت با معنای احتمال واقعی را توضیح دهید.</p>
+<p>۴. برای چهار نقطهٔ <span class="math notranslate nohighlight">\([0,1,4,5]\)</span> و دو مرکز آغازین <span class="math notranslate nohighlight">\(0\)</span> و <span class="math notranslate nohighlight">\(5\)</span>، مسئولیت‌ها را در گام E با واریانس برابر حساب کنید.</p>
+<p>۵. با همان مسئولیت‌ها، <span class="math notranslate nohighlight">\(N_k\)</span> و میانگین‌های جدید را در گام M حساب کنید.</p>
+<p>۶. تعداد پارامترهای آزاد GMM با سه مؤلفه، چهار ویژگی و کوواریانس کامل را حساب کنید.</p>
+<p>۷. اگر <span class="math notranslate nohighlight">\(\log\widehat L=-125\)</span> و <span class="math notranslate nohighlight">\(n=100\)</span> و <span class="math notranslate nohighlight">\(p=5\)</span> باشد، BIC را به دست آورید؛ توضیح دهید چرا باید مدل رقیب را نیز بسنجیم.</p>
+<p>۸. برای <span class="math notranslate nohighlight">\(x=3\)</span>، مراکز <span class="math notranslate nohighlight">\(0\)</span> و <span class="math notranslate nohighlight">\(6\)</span> و <span class="math notranslate nohighlight">\(m=2\)</span>، عضویت فازی را محاسبه کنید.</p>
+<p>۹. همان نقطه را با <span class="math notranslate nohighlight">\(m=3\)</span> بررسی کنید؛ آیا مرکز تغییر کرده است یا فقط نرمی عضویت؟</p>
+<p>۱۰. برای سه مشاهده و عضویت‌های داده‌شده، فرمول مرکزِ وزن‌دارِ FCM را با <span class="math notranslate nohighlight">\(m=2\)</span> اعمال کنید.</p>
+<p>۱۱. دو ماتریس <span class="math notranslate nohighlight">\(2\times2\)</span> بسازید: یکی با MSR صفر و دیگری با MSR مثبت، و همهٔ میانگین‌ها را نشان دهید.</p>
+<p>۱۲. برای <span class="math notranslate nohighlight">\(N=4\)</span>، <span class="math notranslate nohighlight">\(LS=(6,8)\)</span> و <span class="math notranslate nohighlight">\(SS=40\)</span>، مقدار SSE را حساب کنید و شرط غیرمنفی‌بودن آن را بیان کنید.</p>
+<p><strong>بخش دوم — تحلیل و طراحی</strong></p>
+<p>۱۳. توضیح دهید چرا «احتمال مسئولیت ۰٫۸» بدون اعتبارسنجی مدل با احتمال قطعی نوع مشتری یکسان نیست.</p>
+<p>۱۴. تفاوت اصلی تابع هدف FCM و درست‌نمایی GMM را با یک جدول دو ستونی توضیح دهید.</p>
+<p>۱۵. چه شرایطی می‌تواند باعث تکین‌شدن کوواریانس یک مؤلفهٔ گاوسی شود؟ دو راه کنترل پیشنهاد کنید.</p>
+<p>۱۶. نمونه‌ای بسازید که PCA بیشترین واریانس را حفظ کند، ولی بعدِ تفکیک‌کنندهٔ گروه‌ها را ضعیف کند.</p>
+<p>۱۷. نشان دهید چرا جست‌وجوی تمام زیرمجموعه‌های ۲۰ ویژگی با افزایش بُعد دشوار می‌شود.</p>
+<p>۱۸. به‌صورت مفهومی مقایسه کنید زیر‌فضای محورموازی و زیر‌فضای چرخیده چه تفاوتی دارند.</p>
+<p>۱۹. ماتریس مشتری × محصولی طراحی کنید که فقط یک زیرماتریس کوچک دارای الگوی هم‌رفتاری باشد.</p>
+<p>۲۰. برای گراف زنجیره‌ای سه رأس، <span class="math notranslate nohighlight">\(W\)</span>، <span class="math notranslate nohighlight">\(D\)</span> و لاپلاسین نامنظم <span class="math notranslate nohighlight">\(L\)</span> را بنویسید.</p>
+<p>۲۱. توضیح دهید در گراف هشت‌رأسی فصل، افزایش وزن پل از <span class="math notranslate nohighlight">\(0.12\)</span> به <span class="math notranslate nohighlight">\(1\)</span> چه معنای کیفی برای جداسازی طیفی دارد.</p>
+<p>۲۲. اگر <span class="math notranslate nohighlight">\(N(A)=\{1,3,4,7\}\)</span> و <span class="math notranslate nohighlight">\(N(B)=\{2,3,7,9\}\)</span>، شباهت شمارشی SNN چقدر است؟</p>
+<p>۲۳. چرا NMF بدون پیش‌پردازشِ مناسب روی دادهٔ دارای مقدار منفی مجاز نیست؟</p>
+<p>۲۴. برای <span class="math notranslate nohighlight">\(V\)</span> با ابعاد <span class="math notranslate nohighlight">\(100\times30\)</span> و رتبهٔ <span class="math notranslate nohighlight">\(r=4\)</span>، ابعاد <span class="math notranslate nohighlight">\(W\)</span> و <span class="math notranslate nohighlight">\(H\)</span> را تعیین کنید.</p>
+<p><strong>بخش سوم — برنامه‌نویسی و پژوهش بازتولیدپذیر</strong></p>
+<p>۲۵. EM یک‌بعدی را با دو مقداردهی اولیهٔ متفاوت اجرا کنید؛ مسیر درست‌نمایی و مراکز نهایی را مقایسه کنید.</p>
+<p>۲۶. پارامتر <span class="math notranslate nohighlight">\(m\)</span> در FCM را برای پنج مقدار تغییر دهید؛ منحنی عضویت همان نقطه را رسم و تفسیر کنید.</p>
+<p>۲۷. روی دادهٔ ۲۰بعدی، تنها دو ویژگی نخست را با همهٔ ۲۰ ویژگی از نظر شاخص‌های خوشه‌بندی مقایسه کنید؛ متغیر برچسب ساختگی را وارد fit نکنید.</p>
+<p>۲۸. برای ماتریس دوخوشه‌ای، MSR زیرماتریس درست و سه زیرماتریس تصادفی هم‌اندازه را گزارش کنید؛ چرا این هنوز اثبات آماری کافی نیست؟</p>
+<p>۲۹. وزن یال پل را تغییر دهید و مقادیر ویژهٔ نخست لاپلاسین نرمال‌شده را رسم کنید.</p>
+<p>۳۰. با خلاصه‌های CF دو نیمهٔ داده، مرکز و SSE کل را بدون دسترسی به تک‌تک نقاط بازسازی و نتیجه را با محاسبهٔ مستقیم کنترل کنید.</p>
+<p><strong>پروژهٔ کوتاه:</strong> یک مسئلهٔ ساختگی از نوع مشتری، اسناد یا شبکه انتخاب کنید. ابتدا خط پایهٔ سادهٔ فصل هشتم، سپس یک روش پیشرفتهٔ فصل نهم را اجرا کنید. جدول مفروضات، تصمیم‌های پارامتری، یک آزمون حساسیت، یک نتیجهٔ منفی یا محدودیت، و فایل‌های بازتولید را تحویل دهید. امتیاز بهترِ یک روش فقط وقتی ارزش دارد که تعبیر مسئله و پایداری آن قابل دفاع باشد.</p>
+</section>
+<section id="id20">
+<h2>۹ـ۲۵. جمع‌بندی و گذر به فصل دهم<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>در این فصل دیدیم که «خوشه» دیگر لزوماً مجموعه‌ای از نقاط دور یک مرکز نیست. مرزها می‌توانند احتمالاتی یا فازی باشند؛ ساختار ممکن است تنها در برخی ابعاد دیده شود؛ واحد معنی‌دار شاید زیرماتریسی از سطر و ستون یا زیرگرافی از روابط باشد؛ و مقیاس داده ممکن است استفاده از خلاصه‌های CF را ضروری کند. مهم‌ترین مهارت، <strong>تشخیص فرض‌های مدل و حدود اعتبار خروجی</strong> است. فصل دهم این پرسش را ادامه می‌دهد که اگر هدف به‌جای یافتن گروه‌های معمول، شناسایی مشاهدهٔ غیرعادی یا نادر باشد، چگونه باید مسئله را صورت‌بندی کنیم؟</p>
+</section>
+<section id="id21">
+<h2>۹ـ۲۶. منابع و یادداشت بازتولید<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p>۱. Han, J., Pei, J., &amp; Tong, H. (2023), <em>Data Mining: Concepts and Techniques</em>, 4th ed., Morgan Kaufmann, <strong>Chapter 9, Sections 9.1–9.6</strong> (چاپی 431–477).<br />
+۲. Tan, P.-N., Steinbach, M., Karpatne, A., &amp; Kumar, V. (2019), <em>Introduction to Data Mining</em>, 2nd ed., Pearson, <strong>Chapter 8, Sections 8.1–8.6</strong> (چاپی 614–690).<br />
+۳. <code class="docutils literal notranslate"><span class="pre">SOURCE_MAPPING_FA.md</span></code> در بستهٔ دانلودها، نگاشت جزئی‌تر هر مبحث به مرجع و مرزبندی محتوای تألیفی را ثبت می‌کند.<br />
+۴. همهٔ ۲۰ تصویر و همهٔ داده‌های همراه فصل در این بسته تولید شده‌اند؛ دادهٔ واقعی، منبع خصوصی یا فایل دارای مجوز شخص ثالث به کار نرفته است.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-08.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل هشتم — خوشه‌بندی: کشف ساختار، الگوریتم‌ها و اعتبارسنجی</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و نقشهٔ استدلال</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه موضوع در دو مرجع</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۹ـ۱. مسئلهٔ واقعیِ آغازین: مشتریانی که در مرز دو رفتار قرار دارند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۹ـ۲. سه مفهوم متفاوتِ تعلق به گروه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۹ـ۳. مدل مخلوط گاوسی: فرض و فرمول</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۹ـ۴. حل دستیِ یک مسئولیت احتمالاتی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#em">۹ـ۵. الگوریتم EM از کجا می‌آید؟</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">شبه‌کد و مسئلهٔ همگرایی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۹ـ۶. تعداد مؤلفه‌ها را چگونه انتخاب کنیم؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-means-gmm">۹ـ۷. خوشه‌بندی فازی c-means و تفاوت معنایی آن با GMM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۹ـ۸. به‌روزرسانی مراکز فازی و یک مثال ساده</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۹ـ۹. چرا دادهٔ پُربعد، هندسهٔ خوشه را تغییر می‌دهد؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subspace">۹ـ۱۰. زیر‌فضا (Subspace) در برابر خوشه‌بندی در همهٔ ویژگی‌ها</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۹ـ۱۱. تفاوت کاهش بُعد و زیر‌فضا: دو پاسخ به دو سؤال</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#biclustering">۹ـ۱۲. دوخوشه‌ای (Biclustering): هم‌زمان گروهی از سطرها و ستون‌ها</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۹ـ۱۳. حل دستیِ معیار باقیماندهٔ دوخوشه‌ای</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۹ـ۱۴. خوشه‌بندی شبکه‌ای: وقتی فاصلهٔ اقلیدسی کافی نیست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۹ـ۱۵. خوشه‌بندی طیفی از لاپلاسین تا فضای جدید</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۹ـ۱۶. چه وقت خوشه‌بندی طیفی مناسب نیست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#snn">۹ـ۱۷. شباهت همسایهٔ مشترک (SNN): حل عددی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nmf">۹ـ۱۸. تجزیهٔ ماتریس نامنفی (NMF) و خوشه‌بندی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#birch">۹ـ۱۹. مقیاس‌پذیری و BIRCH: چرا آمار فشرده لازم است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cf-sse">۹ـ۲۰. حل دستیِ CF و محاسبهٔ SSE بدون دادهٔ خام</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cure">۹ـ۲۱. CURE و طرح‌های دیگری برای مقیاس‌پذیری</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۹ـ۲۲. راهنمای انتخاب روش بر اساس ساختار مسئله</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۹ـ۲۳. آزمایش بازتولیدپذیر و ممیزی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۹ـ۲۴. تمرین‌ها و پروژهٔ کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۹ـ۲۵. جمع‌بندی و گذر به فصل دهم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۹ـ۲۶. منابع و یادداشت بازتولید</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
