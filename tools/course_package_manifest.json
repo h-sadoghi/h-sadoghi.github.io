@@ -39,6 +39,17 @@
         "assets/downloads/courses/data-mining/course-notes/chapter-11/paired_predictions_synthetic.csv",
         "assets/downloads/courses/data-mining/course-notes/chapter-11/pvalues_synthetic.csv"
       ]
+    },
+    {
+      "course_id": "data-mining",
+      "markdown": "courses/data-mining/book/course-notes/chapter-12.md",
+      "downloads": [
+        "assets/downloads/courses/data-mining/course-notes/chapter-12/chapter12_examples.ipynb",
+        "assets/downloads/courses/data-mining/course-notes/chapter-12/chapter12_examples.py",
+        "assets/downloads/courses/data-mining/course-notes/chapter-12/DataMining_Chapter12.pdf",
+        "assets/downloads/courses/data-mining/course-notes/chapter-12/DataMining_Chapter12_TEX_PDF_SOURCE.zip",
+        "assets/downloads/courses/data-mining/course-notes/chapter-12/TEST_RESULTS.json"
+      ]
     }
   ]
 }
