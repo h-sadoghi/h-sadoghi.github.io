@@ -1,0 +1,13 @@
+record,model_A_correct,model_B_correct,split
+1,1,0,held_out_synthetic
+2,1,0,held_out_synthetic
+3,1,0,held_out_synthetic
+4,1,0,held_out_synthetic
+5,1,0,held_out_synthetic
+6,1,0,held_out_synthetic
+7,0,0,held_out_synthetic
+8,0,0,held_out_synthetic
+9,0,0,held_out_synthetic
+10,0,0,held_out_synthetic
+11,0,0,held_out_synthetic
+12,0,0,held_out_synthetic

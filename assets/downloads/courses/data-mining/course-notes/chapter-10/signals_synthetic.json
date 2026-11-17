@@ -1,0 +1,34 @@
+{
+  "baseline": [
+    0.1,
+    -0.3,
+    0.4,
+    -0.1,
+    0.0,
+    0.2,
+    0.1,
+    0.1
+  ],
+  "isolated_spike": [
+    0.1,
+    -0.3,
+    0.4,
+    7.0,
+    0.0,
+    0.2,
+    0.1,
+    0.1
+  ],
+  "collective_shift": [
+    0.1,
+    -0.3,
+    0.4,
+    -0.1,
+    1.5,
+    1.6,
+    1.7,
+    1.4
+  ],
+  "units": "standardized sensor residuals",
+  "data_kind": "synthetic"
+}

@@ -1,0 +1,944 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل دهم — تشخیص ناهنجاری: از دادهٔ پرت تا تصمیم قابل دفاع &#8212; Data Mining Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/data-mining-rtl.css?v=0a14a926" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-10';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="فصل یازدهم — اعتبار آماری کشفیات و پیشگیری از کشفیات کاذب" href="chapter-11.html" />
+    <link rel="prev" title="فصل نهم — خوشه‌بندی پیشرفته: مدل‌های احتمالاتی، زیر‌فضاها و گراف‌ها" href="chapter-09.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Mining Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    داده‌کاوی | Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های درس داده‌کاوی</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">مبانی داده‌کاوی و فرایند کشف دانش</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">معیارهای شباهت، فاصله و هندسهٔ داده‌ها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">الگوهای پرتکرار و قواعد انجمنی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-06.html">الگوهای پیشرفته، دنباله‌ها و ساختارهای گرافی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-07.html">طبقه‌بندی، انتخاب مدل و ارزیابی قابل اعتماد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-08.html">خوشه‌بندی: کشف ساختار، الگوریتم‌ها و اعتبارسنجی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-09.html">خوشه‌بندی پیشرفته: مدل‌های احتمالاتی، زیر‌فضاها و گراف‌ها</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">تشخیص ناهنجاری: از دادهٔ پرت تا تصمیم قابل دفاع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-11.html">اعتبار آماری کشفیات و پیشگیری از کشفیات کاذب</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-10.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل دهم — تشخیص ناهنجاری: از دادهٔ پرت تا تصمیم قابل دفاع</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و نقشهٔ استدلال</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه موضوع در دو مرجع اصلی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۱۰ـ۱. آغاز با یک مسئلهٔ واقعی: آیا مبلغ بزرگ، مشکوک است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۱۰ـ۲. چه چیزی ناهنجاری است و چه چیزی نیست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۱۰ـ۳. گونه‌ها: نقطه‌ای، زمینه‌ای و جمعی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۱۰ـ۴. امتیاز، رتبه و آستانه سه مفهوم متفاوت‌اند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۱۰ـ۵. معیارهای آماری کلاسیک: میانگین و انحراف معیار</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mad">۱۰ـ۶. محاسبهٔ دستیِ میانه، MAD و نمرهٔ مقاوم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tukey">۱۰ـ۷. چارک‌ها و حصارهای Tukey: یک مقایسهٔ مکمل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۱۰ـ۸. مدل آماری و احتمال دُم: تحت چه فرضی؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۱۰ـ۹. فاصلهٔ ماهالانوبیس و شکلِ بیضوی رفتار عادی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k">۱۰ـ۱۰. روش فاصله‌ای: فاصله تا همسایهٔ kام</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lof">۱۰ـ۱۱. از فاصله به چگالی محلی: چرا LOF لازم شد؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۱۰ـ۱۲. تعریف و حل دستی LOF با شش نقطه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۱۰ـ۱۳. انتخاب k و نقاط ضعفِ روش‌های مجاورت</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۱۰ـ۱۴. ناهنجاری زمینه‌ای: «با چه گروهی مقایسه کنیم؟»</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۱۰ـ۱۵. ناهنجاری جمعی: چرا تشخیص تک‌نقطه‌ای کافی نیست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cusum">۱۰ـ۱۶. CUSUM: جمع‌کردن شواهد کوچک در زمان</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۱۰ـ۱۷. روش‌های بازسازی: هرچه بد بازسازی می‌شود، غیرعادی‌تر است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۱۰ـ۱۸. روش‌های مبتنی بر خوشه و طبقه‌بندی یک‌کلاسه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isolation-forest">۱۰ـ۱۹. جداسازی تصادفی: ایدهٔ Isolation Forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۱۰ـ۲۰. وقتی داده بُعد بالا دارد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۱۰ـ۲۱. ارزیابی عملی: معیارها باید با هزینه و ظرفیت سازگار باشند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۱۰ـ۲۲. ماتریس خطا، آستانه و هزینهٔ هشدار</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۱۰ـ۲۳. طراحی آزمایش درست: زمان، حساب و آلودگی مرجع</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۱۰ـ۲۴. پایش در طول زمان: رانش، بازآموزی و بازخورد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">۱۰ـ۲۵. کارگاه Python و راهنمای تفسیر خروجی‌ها</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۱۰ـ۲۶. تمرین‌های مفهومی، محاسباتی و پروژهٔ کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۱۰ـ۲۷. جمع‌بندی، ارتباط با فصل یازدهم و منابع</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل دهم — تشخیص ناهنجاری: از دادهٔ پرت تا تصمیم قابل دفاع<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<blockquote>
+<div><p><strong>درس داده‌کاوی — کارشناسی ارشد مهندسی کامپیوتر</strong><br />
+<strong>مسئلهٔ محوری:</strong> در میان هزاران تراکنش مالی یا اندازه‌گیری یک سامانه، چگونه رویدادهایی را پیدا کنیم که «واقعاً سزاوار بررسی» هستند؛ بی‌آنکه هر مقدار بزرگ را تقلب، هر خطای سنسور را خرابی، یا هر تغییر طبیعیِ الگو را ناهنجاری بدانیم؟</p>
+</div></blockquote>
+<p><strong>دریافت فایل‌های آموزشی:</strong> <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-10/DataMining_Chapter10.pdf"><span class="xref myst">PDF فصل دهم</span></a> · <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-10/DataMining_Chapter10_TEX_PDF_SOURCE.zip"><span class="xref myst">سورس XeLaTeX و شکل‌ها</span></a> · <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-10/chapter10_examples.py"><span class="xref myst">کد Python</span></a> · <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-10/chapter10_examples.ipynb"><span class="xref myst">Notebook اجراشده</span></a> · <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-10/events_synthetic.csv"><span class="xref myst">دادهٔ تراکنش ساختگی</span></a> · <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-10/signals_synthetic.json"><span class="xref myst">سیگنال‌های زمانی ساختگی</span></a>. همهٔ داده‌ها برای آموزش تولید شده‌اند؛ هیچ دادهٔ فردی واقعی، API یا کلید دسترسی لازم نیست.</p>
+<section id="id2">
+<h2>اهداف یادگیری و نقشهٔ استدلال<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>دانشجو پس از پایان این فصل باید بتواند: (۱) ناهنجاری نقطه‌ای، زمینه‌ای و جمعی را به‌دقت تعریف کند؛ (۲) تفاوت ناهنجاری، اشتباه ثبت، رویداد نادر و رخداد واقعاً نامطلوب را توضیح دهد؛ (۳) میانه، MAD، چارک و مرزهای Tukey را دستی حساب کند؛ (۴) امتیاز فاصلهٔ همسایهٔ <span class="math notranslate nohighlight">\(k\)</span>ام و LOF را گام‌به‌گام به‌دست آورد؛ (۵) نقش کوواریانس در فاصلهٔ ماهالانوبیس را بفهمد؛ (۶) امتیازهای آماری، مبتنی بر مجاورت، بازسازی و جداسازی را مقایسه کند؛ (۷) اثر زمینه و ترتیب زمان را در تشخیص نشان دهد؛ (۸) CUSUM و پنجرهٔ علّی را محاسبه کند؛ (۹) محدودیت دادهٔ پُربعد و آلودگی مرجع را تشخیص دهد؛ و (۱۰) با معیارهایی متناسب با بودجهٔ بررسی، سامانهٔ هشدار را بدون نشت اطلاعات ممیزی کند.</p>
+<figure class="align-default" id="dm10-workflow">
+<a class="reference internal image-reference" href="../_images/fig10_01.png"><img alt="../_images/fig10_01.png" src="../_images/fig10_01.png" style="width: 95%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 150 </span><span class="caption-text">شکل ۱۰ـ۱. زنجیرهٔ تحلیل: تعریف واحد مشاهده و زمینه، ساخت مرجع، محاسبهٔ امتیاز، انتخاب آستانه و بازبینی انسانی. هشدار الگوریتم معادل اثبات تقلب نیست.</span><a class="headerlink" href="#dm10-workflow" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="id3">
+<h3>جایگاه موضوع در دو مرجع اصلی<a class="headerlink" href="#id3" title="Link to this heading">#</a></h3>
+<p>مبنای فصل، <strong>Han, Pei &amp; Tong, Data Mining: Concepts and Techniques, 4th ed.</strong>، فصل <strong>۱۱: Outlier Detection</strong>، بخش‌های <strong>۱۱٫۱ تا ۱۱٫۷</strong>، صفحات چاپی <strong>۵۵۷ تا ۶۰۰</strong> و <strong>Tan, Steinbach, Karpatne &amp; Kumar, Introduction to Data Mining, 2nd ed.</strong>، فصل <strong>۹: Anomaly Detection</strong>، بخش‌های <strong>۹٫۱ تا ۹٫۹</strong>، صفحات چاپی <strong>۷۰۳ تا ۷۴۲</strong> است. تعریف نوع ناهنجاری و پیوند با روش‌های مجاورت/بازسازی را از هر دو منبع ترکیب کرده‌ایم؛ اهمیت ارزیابی و هزینهٔ هشدار در Tan برجسته است، و مفهوم ناهنجاری زمینه‌ای، جمعی و دادهٔ پُربعد در Han سازمان‌یافته‌تر آمده است. مثال عددی، تصاویر، طرح ممیزی و داده‌ها تألیفی هستند. CUSUM در این جزوه ابزار تکمیلی مهندسی پایش است و به‌عنوان محتوای اختصاصی فصل‌های یادشدهٔ دو کتاب ادعا نمی‌شود.</p>
+</section>
+</section>
+<section id="id4">
+<h2>۱۰ـ۱. آغاز با یک مسئلهٔ واقعی: آیا مبلغ بزرگ، مشکوک است؟<a class="headerlink" href="#id4" title="Link to this heading">#</a></h2>
+<p>سامانه‌ای را فرض کنید که در هر سطر، شناسهٔ تراکنش، شناسهٔ حساب، گروه مقایسهٔ مشتری، ساعت و مبلغ را ثبت کرده است. پژوهشگر می‌خواهد از میان حجم زیادی رویداد، تعداد محدودی را برای کارشناسی انتخاب کند. اگر فقط «بزرگ‌ترین مبلغ‌ها» را فهرست کنیم، تراکنش عادیِ یک مشتری عمده‌فروش ممکن است بالاتر از تراکنش غیرمعمولِ مشتری خرد باشد. بنابراین پرسش درست معمولاً «این رویداد نسبت به <strong>چه مرجع و چه زمینه‌ای</strong> غیرعادی است؟» خواهد بود، نه فقط «آیا مقدار آن زیاد است؟».</p>
+<p>در فایل <code class="docutils literal notranslate"><span class="pre">events_synthetic.csv</span></code> تعداد <strong>۳۰۰ تراکنش ساختگی</strong> با دو گروهِ <code class="docutils literal notranslate"><span class="pre">retail</span></code> و <code class="docutils literal notranslate"><span class="pre">business</span></code> و یک شناسهٔ حساب ساخته شده است. ستون <code class="docutils literal notranslate"><span class="pre">synthetic_truth_for_evaluation_only</span></code> صرفاً حقیقت ساختگیِ تزریق‌شده برای <strong>آزمون آموزشی پس از محاسبهٔ امتیازها</strong> است. در تولید امتیاز زمینه‌ای، مرجع به‌صورت «۲۰۰ رویداد اول بر اساس زمان قراردادی فایل» گرفته شده و این برچسب در ساخت مرجع استفاده نمی‌شود؛ بااین‌حال همین مرجع ممکن است آلوده به رویداد غیرعادی باشد. در محیط واقعی، برچسب اغلب با تأخیر، ناقص و وابسته به سیاست بررسی در دسترس است.</p>
+<figure class="align-default" id="dm10-three-types">
+<a class="reference internal image-reference" href="../_images/fig10_02.png"><img alt="../_images/fig10_02.png" src="../_images/fig10_02.png" style="width: 97%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 151 </span><span class="caption-text">شکل ۱۰ـ۲. ناهنجاری تک‌نقطه‌ای، دنباله‌ای از انحراف‌های نسبتاً کوچک و تغییرِ زمینه/رژیم، سه مسئلهٔ متفاوت‌اند.</span><a class="headerlink" href="#dm10-three-types" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>وحدت مشاهده:</strong> اگر یک حساب ۱۰ تراکنش دارد، واحد آموزش می‌تواند «تراکنش» و واحد تقسیم دادهٔ ارزیابی می‌تواند «حساب» باشد. رعایت نکردن این تفاوت سبب می‌شود اطلاعات یک حساب از بخش آموزش به آزمون نشت کند. همچنین باید تعیین کنیم آیا می‌خواهیم تراکنشِ غیرعادی، حسابِ غیرعادی یا یک توالیِ غیرعادی را کشف کنیم؛ این سه، تعریف یکسانی از ناهنجاری ندارند.</p>
+</section>
+<section id="id5">
+<h2>۱۰ـ۲. چه چیزی ناهنجاری است و چه چیزی نیست؟<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>ناهنجاری (Anomaly/Outlier) <strong>مشاهده یا ساختاری با ناسازگاری محسوس نسبت به الگوی مرجعِ مشخص</strong> است. این تعریف عامدانه «تقلب» یا «خطا» را در خود ندارد. یک مقدار دورافتاده ممکن است: خطای ورود داده، تغییر واحد اندازه‌گیری، وضعیت نادر ولی مجاز، خرابی واقعی، حمله، یا آغاز رفتار تازهٔ عادی باشد. خروجی سامانهٔ تشخیص معمولاً <strong>امتیاز ناهنجاری</strong> است و تفسیر علت، نیازمند شواهد تکمیلی است.</p>
+<p>در کشف بدون برچسب (Unsupervised)، بیشتر داده‌ها را معمول تصور می‌کنیم یا ساختار غالب را می‌آموزیم. در آشکارسازی نیمه‌نظارتیِ نوآوری (Novelty detection)، غالباً دادهٔ مرجعِ عادی را جداگانه جمع می‌کنیم. در حالت نظارت‌شده، مثال‌های برچسب‌دارِ هر دو گروه موجودند؛ این حالت از نظر تعریف به طبقه‌بندی نزدیک‌تر می‌شود. برای هر کاربرد باید روشن شود کدام فرض عملی برقرار است؛ نباید صرفاً نام «بی‌نظارت» را بر هر مدلِ بدون ستون هدف گذاشت.</p>
+<p><strong>ندرت به‌تنهایی کافی نیست:</strong> عددی که به‌دلیل تعطیلات رسمی در یک روز خاص کم‌تکرار شده، ممکن است کاملاً قابل انتظار باشد. برعکس، خراب‌کاری‌ای که بارها تکرار می‌شود می‌تواند از دید آمار شمارشی «معمول» جلوه کند؛ پس تعریف ناهنجاری نسبت به هدف پایش و سیاست بازخورد تغییر می‌کند.</p>
+</section>
+<section id="id6">
+<h2>۱۰ـ۳. گونه‌ها: نقطه‌ای، زمینه‌ای و جمعی<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>در <strong>ناهنجاری نقطه‌ای</strong> یک رکورد در مقایسه با جمعیت مرجع دور می‌افتد: مثلاً مبلغ ۴۸ در داده‌ای که بیشتر مقادیر ۱۰ تا ۱۵ هستند. در <strong>ناهنجاری زمینه‌ای</strong> رکورد در کل جمعیت عادی به نظر می‌رسد، اما نسبت به هم‌گروه‌ها، ساعت یا شرایط محیطی نامعمول است: تراکنش ۹۰ واحدی برای یک گروه ممکن است معمول و برای گروه دیگر غیرعادی باشد. در <strong>ناهنجاری جمعی</strong> تک‌تک نقاط الزاماً دورافتاده نیستند، ولی <strong>الگوی مشترک</strong> آن‌ها عجیب است؛ مانند افزایش پایدار و آرام دمای دستگاه در چند بازه.</p>
+<figure class="align-default" id="dm10-hist">
+<a class="reference internal image-reference" href="../_images/fig10_03.png"><img alt="../_images/fig10_03.png" src="../_images/fig10_03.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 152 </span><span class="caption-text">شکل ۱۰ـ۳. مشاهدهٔ ۴۸ نسبت به توزیع مرجع به‌وضوح دور است؛ اما علت آن فقط با بررسی دادهٔ زمینه‌ای روشن می‌شود.</span><a class="headerlink" href="#dm10-hist" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای هر نوع، امتیاز و واحد قضاوت متفاوتی مناسب است. در ناهنجاری جمعی، آستانهٔ مستقلِ هر نمونه ممکن است همهٔ عناصر توالی را عادی تشخیص دهد. در ناهنجاری زمینه‌ای، مدل جهانی بدون ویژگی‌های شرایط کار ممکن است هشدارهای کاذب ایجاد کند. معیار ارزیابی هم باید با واحد هشدار هماهنگ باشد؛ یک رخداد دنباله‌ای را نباید صرفاً به تعداد نقاط تشکیل‌دهنده‌اش چند بار شمرد.</p>
+</section>
+<section id="id7">
+<h2>۱۰ـ۴. امتیاز، رتبه و آستانه سه مفهوم متفاوت‌اند<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>فرض کنید <span class="math notranslate nohighlight">\(s(x)\)</span> یک تابع امتیاز باشد که مقدار <strong>بزرگ‌تر یعنی غیرعادی‌تر</strong>. با مرتب‌کردن <span class="math notranslate nohighlight">\(s\)</span> می‌توان بهترین <span class="math notranslate nohighlight">\(k\)</span> مورد را برای بررسی انتخاب کرد. اما برای هشدار قطعی‌تر به آستانهٔ <span class="math notranslate nohighlight">\(\tau\)</span> نیاز داریم: <span class="math notranslate nohighlight">\(\widehat{y}(x)=\mathbf{1}[s(x)\ge\tau]\)</span>. <strong>امتیاز، احتمال نیست</strong>؛ مثلاً عدد LOF برابر ۳ را نمی‌توان «احتمال ۳۰۰ درصدِ تقلب» نامید. حتی امتیازهای برآمده از احتمال آماری، تا هنگام تعریف مناسب فرضیات و کالیبراسیون، احتمال وقوع تخلف نیستند.</p>
+<p>در مسائل بدون برچسب، نرخ آلودگی (Contamination) گاهی به‌عنوان «حدس درصد ناهنجاری‌ها» برای تعیین آستانه استفاده می‌شود. این یک <strong>فرض سیاستی/آماری</strong> است، نه نتیجهٔ استخراج‌شده از حقیقت پنهان. اگر نرخ واقعیِ ناهنجاری تغییر کند، تعداد هشدارها یا دقت هشدارها هم عوض می‌شود. وقتی ظرفیت کارشناسی روزانه ثابت است، رتبه‌بندی Top-<span class="math notranslate nohighlight">\(k\)</span> گاه از یک آستانهٔ جهانی مفیدتر است.</p>
+</section>
+<section id="id8">
+<h2>۱۰ـ۵. معیارهای آماری کلاسیک: میانگین و انحراف معیار<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>در یک مرجع تقریباً نرمال و تک‌متغیره، می‌توان <span class="math notranslate nohighlight">\(z=(x-\mu)/\sigma\)</span> را محاسبه کرد و قدر مطلق آن را به‌عنوان شاخص دوری به کار برد. نکتهٔ بنیادی این است که <strong>خودِ ناهنجاری‌ها، میانگین و انحراف معیار را تغییر می‌دهند</strong>. اگر داده دُم‌سنگین، نامتقارن یا چندوجهی باشد، «بیش از سه انحراف معیار» لزوماً یک نرخ خطای ثابت ندارد؛ این تفسیر به فرض توزیع بستگی دارد.</p>
+<p>در مثال دستیِ فصل، ده مبلغ آموزشی را در نظر بگیرید:</p>
+<div class="math notranslate nohighlight">
+\[
+10,\;11,\;11,\;12,\;12,\;13,\;13,\;14,\;15,\;48.
+\]</div>
+<p>جمع برابر ۱۵۹ و <strong>میانگین برابر ۱۵٫۹</strong> است، در حالی که بیشتر مقادیر بین ۱۰ و ۱۵‌اند. در صورت حذف ۴۸، میانگین نه مقدار ثابت قبلی، بلکه <span class="math notranslate nohighlight">\(111/9\approx12.333\)</span> می‌شود. همین اختلاف نشان می‌دهد مرجعِ حساس به پرت، برای تشخیص خودِ پرت ممکن است نامناسب باشد.</p>
+<figure class="align-default" id="dm10-mean-median">
+<a class="reference internal image-reference" href="../_images/fig10_04.png"><img alt="../_images/fig10_04.png" src="../_images/fig10_04.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 153 </span><span class="caption-text">شکل ۱۰ـ۴. اثر یک مقدار دورافتاده بر میانگین در برابر پایداری نسبیِ میانه؛ این پایداری مطلق و بدون شرط نیست.</span><a class="headerlink" href="#dm10-mean-median" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="mad">
+<h2>۱۰ـ۶. محاسبهٔ دستیِ میانه، MAD و نمرهٔ مقاوم<a class="headerlink" href="#mad" title="Link to this heading">#</a></h2>
+<p>در دادهٔ مرتب‌شدهٔ بالا، دو مقدار میانی ۱۲ و ۱۳ هستند؛ پس <span class="math notranslate nohighlight">\(m=12.5\)</span>. قدرمطلق فاصله‌ها از میانه به ترتیب <span class="math notranslate nohighlight">\(2.5,1.5,1.5,0.5,0.5,0.5,0.5,1.5,2.5,35.5\)</span> است. پس از مرتب‌کردن این فاصله‌ها، دو مقدار وسط هر دو <strong>۱٫۵</strong> بوده و بنابراین <span class="math notranslate nohighlight">\(MAD=1.5\)</span>. نمرهٔ مقاوم اصلاح‌شده با ضریب تقریباً <span class="math notranslate nohighlight">\(0.67449\)</span> چنین است:</p>
+<div class="math notranslate nohighlight">
+\[
+M(x)=0.67448975\frac{x-m}{MAD},\qquad
+M(48)=0.67448975\frac{48-12.5}{1.5}\approx15.9629.
+\]</div>
+<p>ضریب یادشده برای ارتباط مقیاس MAD با انحراف معیار در توزیع نرمال به کار می‌رود؛ این عدد برای دادهٔ دلخواه «احتمال آماری ناهنجاری» تولید نمی‌کند. اگر <span class="math notranslate nohighlight">\(MAD=0\)</span>، تقسیم مجاز نیست؛ برنامهٔ همراه عمداً خطا می‌دهد تا دانشجو بدون استدلال، ثابت کوچک به مخرج اضافه نکند. در چنین وضعی باید به نوع داده، گردشدگی، تکرار زیاد و روش جایگزین توجه کرد.</p>
+<p><strong>مرجع را منجمد کنید:</strong> اگر امتیاز یک روز تازه را با میانه و MAD محاسبه می‌کنیم، آن آمار باید از دورهٔ مرجعِ مجاز استخراج شده باشند. بازبرآورد آنها با استفاده از تمام رکوردهای دورهٔ آزمون به‌معنای نگاه به آینده و تغییر تعریف آزمون است؛ مگر اینکه صریحاً پروتکل بدون‌نظارتِ برخط با به‌روزرسانیِ گذشته‌نگر طراحی شده باشد.</p>
+</section>
+<section id="tukey">
+<h2>۱۰ـ۷. چارک‌ها و حصارهای Tukey: یک مقایسهٔ مکمل<a class="headerlink" href="#tukey" title="Link to this heading">#</a></h2>
+<p>مرزهای Tukey از <span class="math notranslate nohighlight">\(Q_1\)</span> و <span class="math notranslate nohighlight">\(Q_3\)</span> استفاده می‌کنند و برای مقادیر بیرون از <span class="math notranslate nohighlight">\([Q_1-1.5IQR,Q_3+1.5IQR]\)</span> علامت بررسی می‌گذارند، که در آن <span class="math notranslate nohighlight">\(IQR=Q_3-Q_1\)</span>. در قرارداد پیش‌فرض NumPy برای ده عدد نمونه، <span class="math notranslate nohighlight">\(Q_1=11.25\)</span> و <span class="math notranslate nohighlight">\(Q_3=13.75\)</span>، بنابراین <span class="math notranslate nohighlight">\(IQR=2.5\)</span> و حصارها <strong>۷٫۵ و ۱۷٫۵</strong> هستند. پس ۴۸ یک مقدار بیرون از حصار است.</p>
+<figure class="align-default" id="dm10-tukey">
+<a class="reference internal image-reference" href="../_images/fig10_05.png"><img alt="../_images/fig10_05.png" src="../_images/fig10_05.png" style="width: 89%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 154 </span><span class="caption-text">شکل ۱۰ـ۵. حصار بالایی ۱۷٫۵ در مثال آموزشی؛ علامت «پرت» در نمودار جعبه‌ای اثبات خطا یا تقلب نیست.</span><a class="headerlink" href="#dm10-tukey" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>نکتهٔ قرارداد:</strong> روش محاسبهٔ چارک برای نمونهٔ کوچک در نرم‌افزارها ممکن است متفاوت باشد (درون‌یابی، نیمه‌های نمونه و مانند آن). بنابراین در حل دستی باید قرارداد را ذکر کنیم. این روش در دادهٔ شدیداً چندوجهی یا جایی که هر گروه مرجع جداگانه دارد، بدون جداسازی زمینه ممکن است هشدارهای بی‌معنا بدهد.</p>
+</section>
+<section id="id9">
+<h2>۱۰ـ۸. مدل آماری و احتمال دُم: تحت چه فرضی؟<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<p>اگر رفتار عادی را با چگالی <span class="math notranslate nohighlight">\(p(x\mid\theta)\)</span> مدل کنیم، می‌توان امتیاز <span class="math notranslate nohighlight">\(s(x)=-\log p(x\mid\theta)\)</span> را تعریف کرد. <strong>چگالی پایین</strong> به معنای ناسازگاری بیشتر با مدل است، اما در فضای پیوسته «چگالی نقطه‌ای» همان احتمالِ یک بازه نیست. در مدل نرمال تک‌بعدی، افزایش <span class="math notranslate nohighlight">\(|x-\mu|/\sigma\)</span>، امتیاز منفیِ لگاریتم چگالی را افزایش می‌دهد. در بُعد بالا، مقدار مطلق چگالی حتی برای نمونه‌های معمول هم می‌تواند کوچک شود؛ بنابراین مقایسهٔ خام چگالی میان مدل‌هایی با ابعاد متفاوت تفسیر آسانی ندارد.</p>
+<figure class="align-default" id="dm10-gaussian">
+<a class="reference internal image-reference" href="../_images/fig10_06.png"><img alt="../_images/fig10_06.png" src="../_images/fig10_06.png" style="width: 89%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 155 </span><span class="caption-text">شکل ۱۰ـ۶. نواحی دُم تحت فرض مدل گاوسی. با تغییر یا شکست فرض توزیع، معنای آستانهٔ دُم تغییر می‌کند.</span><a class="headerlink" href="#dm10-gaussian" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>روش‌های پارامتری وقتی فرض توزیع قابل دفاع است کارآمدند؛ روش‌های ناپارامتری انعطاف بیشتری دارند، ولی انتخاب پهنای باند یا تعداد همسایه به همان اندازه مهم است. در هر دو، اندازهٔ نمونه، آلودگی مرجع و تغییر فرایند تولید داده می‌توانند نتیجه را مخدوش کنند.</p>
+</section>
+<section id="id10">
+<h2>۱۰ـ۹. فاصلهٔ ماهالانوبیس و شکلِ بیضوی رفتار عادی<a class="headerlink" href="#id10" title="Link to this heading">#</a></h2>
+<p>در چند بُعد، فاصلهٔ اقلیدسی هم‌بستگی ویژگی‌ها را نادیده می‌گیرد. اگر دو ویژگی در دادهٔ عادی تقریباً روی یک خط حرکت کنند، نقطه‌ای که در جهت عمود بر خط جابه‌جا شده، حتی با فاصلهٔ اقلیدسی متوسط، نامعمول است. فاصلهٔ ماهالانوبیس از میانگین <span class="math notranslate nohighlight">\(\mu\)</span> و ماتریس کوواریانس <span class="math notranslate nohighlight">\(\Sigma\)</span> استفاده می‌کند:</p>
+<div class="math notranslate nohighlight">
+\[
+d_M(x)=\sqrt{(x-\mu)^T\Sigma^{-1}(x-\mu)}.
+\]</div>
+<p>در نمودار زیر دایرهٔ اقلیدسی و بیضیِ کوواریانس برای یک مقدار مقیاس یکسان رسم شده‌اند. در دادهٔ کم‌نمونه یا ابعاد زیاد، <span class="math notranslate nohighlight">\(\Sigma\)</span> ممکن است نزدیک به تکین باشد؛ کد آموزشی از <span class="math notranslate nohighlight">\(\Sigma+\lambda I\)</span> با <span class="math notranslate nohighlight">\(\lambda&gt;0\)</span> استفاده می‌کند و نشان می‌دهد منظم‌سازی جزئی از قرارداد امتیاز است. <strong>تخمین کوواریانس با دادهٔ شدیداً پرت هم می‌تواند خراب شود</strong> و روش‌های مقاوم یا نمونهٔ مرجعِ کنترل‌شده مناسب‌ترند.</p>
+<figure class="align-default" id="dm10-mahalanobis">
+<a class="reference internal image-reference" href="../_images/fig10_07.png"><img alt="../_images/fig10_07.png" src="../_images/fig10_07.png" style="width: 89%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 156 </span><span class="caption-text">شکل ۱۰ـ۷. دامنهٔ عادیِ بیضوی در مقابل یک دایرهٔ اقلیدسی؛ تفسیر فاصله به شکل توزیع مرجع وابسته است.</span><a class="headerlink" href="#dm10-mahalanobis" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="k">
+<h2>۱۰ـ۱۰. روش فاصله‌ای: فاصله تا همسایهٔ kام<a class="headerlink" href="#k" title="Link to this heading">#</a></h2>
+<p>برای دادهٔ چندبعدی <span class="math notranslate nohighlight">\(X=\{x_1,\dots,x_n\}\)</span>، ابتدا یک فاصلهٔ مناسب تعریف می‌کنیم. امتیاز سادهٔ <span class="math notranslate nohighlight">\(s_k(x)\)</span>، فاصلهٔ نمونه از <strong>همسایهٔ <span class="math notranslate nohighlight">\(k\)</span>ام</strong> است. اگر خودِ نمونه داخل مرجع باشد، در زمان امتیازدهی آموزش باید خودهمسایگی حذف شود؛ وگرنه نزدیک‌ترین فاصله همواره صفر می‌شود. برای نمونهٔ جدید، همسایه‌ها از مجموعهٔ مرجعِ گذشته می‌آیند و خودِ نمونه در آن نیست.</p>
+<p>مثال: دادهٔ تک‌بعدی مرجع <span class="math notranslate nohighlight">\(\{0,1,2,3,4\}\)</span> و نمونهٔ آزمون <span class="math notranslate nohighlight">\(x=7\)</span> است. فاصله‌های مرتب‌شده <span class="math notranslate nohighlight">\(3,4,5,6,7\)</span> هستند؛ در نتیجه <span class="math notranslate nohighlight">\(s_2(7)=4\)</span>. برای نقطهٔ <span class="math notranslate nohighlight">\(x=2.5\)</span>، دو فاصلهٔ نخست <span class="math notranslate nohighlight">\(0.5\)</span> و <span class="math notranslate nohighlight">\(0.5\)</span> هستند و <span class="math notranslate nohighlight">\(s_2(2.5)=0.5\)</span>. این اختلاف به‌سادگی دورافتادگی نقطهٔ اول را نشان می‌دهد.</p>
+<figure class="align-default" id="dm10-knn">
+<a class="reference internal image-reference" href="../_images/fig10_08.png"><img alt="../_images/fig10_08.png" src="../_images/fig10_08.png" style="width: 89%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 157 </span><span class="caption-text">شکل ۱۰ـ۸. اتصال یک نمونهٔ جدید به نزدیک‌ترین نقاط مرجع؛ فاصلهٔ همسایهٔ سوم یا <span class="math notranslate nohighlight">\(k\)</span>ام، با خط‌چین‌ها قابل مشاهده است.</span><a class="headerlink" href="#dm10-knn" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>مزیت روش، روشن بودن معنای عدد است. اما در نواحی کم‌تراکمِ <strong>طبیعی</strong>، فاصلهٔ همسایه زیاد می‌شود؛ پس یک الگوریتم فاصله‌ایِ جهانی ممکن است نقاط عادیِ خوشهٔ پراکنده را به‌اشتباه غیرعادی بداند. همچنین در بُعد بالا اختلاف فواصل کوچک می‌شود و شیوهٔ استانداردسازی و تعریف فاصله اهمیت بسیار می‌یابد.</p>
+</section>
+<section id="lof">
+<h2>۱۰ـ۱۱. از فاصله به چگالی محلی: چرا LOF لازم شد؟<a class="headerlink" href="#lof" title="Link to this heading">#</a></h2>
+<p>فرض کنید یک خوشهٔ بسیار فشرده از مشتریان و یک خوشهٔ پراکنده‌تر از مشتریان دیگر داریم. برای نقطهٔ عادیِ لبهٔ خوشهٔ پراکنده، فاصلهٔ همسایه می‌تواند از نقطه‌ای غیرعادی در خوشهٔ فشرده بیشتر باشد. برای مقایسهٔ منصفانه‌تر، باید <strong>تراکم خودِ نقطه نسبت به تراکم همسایه‌هایش</strong> را اندازه بگیریم. این ایدهٔ امتیاز <strong>عامل پرت محلی (Local Outlier Factor, LOF)</strong> است.</p>
+<figure class="align-default" id="dm10-density">
+<a class="reference internal image-reference" href="../_images/fig10_09.png"><img alt="../_images/fig10_09.png" src="../_images/fig10_09.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 158 </span><span class="caption-text">شکل ۱۰ـ۹. ناحیهٔ متراکم و ناحیهٔ پراکنده در کنار یک نمونهٔ مرزی؛ فاصلهٔ خام همیشه با «غرابت نسبت به همسایگان» یکسان نیست.</span><a class="headerlink" href="#dm10-density" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>LOF معمولاً حول مقدار نزدیک به یک برای نمونه‌های دارای تراکم محلی مشابه همسایه‌ها قرار می‌گیرد. مقدار بیشتر از یک نشان‌دهندهٔ تراکم محلی پایین‌تر نسبت به همسایه‌هاست؛ بااین‌حال <strong>عدد یک یک مرز قطعی یا تضمینی برای ناهنجاری نیست</strong> و تفسیر آن به انتخاب <span class="math notranslate nohighlight">\(k\)</span> و شکل داده وابسته است. برای نمونهٔ جدید، باید تعریف همسایه‌ها و مرجع ثابت را رعایت کرد؛ پیاده‌سازی نمونهٔ آموزشیِ ما فقط LOF درون‌نمونه را محاسبه می‌کند.</p>
+</section>
+<section id="id11">
+<h2>۱۰ـ۱۲. تعریف و حل دستی LOF با شش نقطه<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>برای نقطهٔ <span class="math notranslate nohighlight">\(p\)</span>، مجموعهٔ همسایه‌ها را <span class="math notranslate nohighlight">\(N_k(p)\)</span> و فاصلهٔ همسایهٔ <span class="math notranslate nohighlight">\(k\)</span>ام هر نقطهٔ <span class="math notranslate nohighlight">\(o\)</span> را <span class="math notranslate nohighlight">\(kdist(o)\)</span> بنامیم. فاصلهٔ دسترسی:</p>
+<div class="math notranslate nohighlight">
+\[
+reach_k(p,o)=\max\{kdist(o),d(p,o)\}.
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+lrd_k(p)=\left(\frac{1}{|N_k(p)|}\sum_{o\in N_k(p)}reach_k(p,o)\right)^{-1}.
+\]</div>
+<p>و سپس:</p>
+<div class="math notranslate nohighlight">
+\[
+LOF_k(p)=\frac{1}{|N_k(p)|}\sum_{o\in N_k(p)}\frac{lrd_k(o)}{lrd_k(p)}.
+\]</div>
+<p>شش نقطهٔ یک‌بعدی <span class="math notranslate nohighlight">\(\{0,0.1,0.2,0.3,0.4,1.8\}\)</span> را با <span class="math notranslate nohighlight">\(k=2\)</span> در نظر بگیرید. برای <span class="math notranslate nohighlight">\(p=1.8\)</span> همسایه‌ها <span class="math notranslate nohighlight">\(0.4\)</span> و <span class="math notranslate nohighlight">\(0.3\)</span> هستند. فاصله‌های دسترسی به‌ترتیب <span class="math notranslate nohighlight">\(1.4\)</span> و <span class="math notranslate nohighlight">\(1.5\)</span> می‌شوند، پس <span class="math notranslate nohighlight">\(lrd(1.8)=1/1.45\approx0.689655\)</span>. دو همسایهٔ یادشده هر کدام در این مثال دارای <span class="math notranslate nohighlight">\(lrd\approx6.666667\)</span> هستند و بنابراین:</p>
+<div class="math notranslate nohighlight">
+\[
+LOF_2(1.8)=\frac{6.666667}{0.689655}\approx9.666667.
+\]</div>
+<p>این مقدار بسیار بیشتر از یک است، زیرا نقطهٔ ۱٫۸ بسیار کم‌تراکم‌تر از همسایگانش دیده می‌شود. <strong>جزئیات فنی مهم:</strong> پیاده‌سازی آموزشی دقیقاً <span class="math notranslate nohighlight">\(k\)</span> همسایهٔ مرتب‌شده را می‌گیرد و در تساوی فاصله، ترتیب ورودی را ملاک می‌گذارد؛ در تعریف کلاسیک LOF ممکن است تمام نقاط با فاصلهٔ مساویِ <span class="math notranslate nohighlight">\(k\)</span>ام وارد همسایگی شوند. در نتیجه اعداد پیاده‌سازیِ آموزشی لزوماً با تمام کتابخانه‌ها یکسان نیستند.</p>
+<figure class="align-default" id="dm10-lof">
+<a class="reference internal image-reference" href="../_images/fig10_10.png"><img alt="../_images/fig10_10.png" src="../_images/fig10_10.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 159 </span><span class="caption-text">شکل ۱۰ـ۱۰. امتیاز LOF در مثال شش‌نقطه‌ای با قرارداد دقیقاً دو همسایه؛ مقدار ۹٫۶۷ برای نقطهٔ دورافتاده.</span><a class="headerlink" href="#dm10-lof" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="id12">
+<h2>۱۰ـ۱۳. انتخاب k و نقاط ضعفِ روش‌های مجاورت<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>انتخاب <span class="math notranslate nohighlight">\(k\)</span> کوچک حساسیت به نویز و تغییر تصادفی همسایگان را بیشتر می‌کند. انتخاب <span class="math notranslate nohighlight">\(k\)</span> بزرگ ممکن است ویژگی‌های محلی را محو کند و روش را به یک معیار تقریباً جهانی تبدیل کند. راه بهتر، بررسی چند مقدار معقول <span class="math notranslate nohighlight">\(k\)</span> روی مجموعهٔ اعتبارسنجی مناسب یا سنجش <strong>پایداری رتبهٔ موارد با اولویت بالا</strong> در دامنه‌ای از <span class="math notranslate nohighlight">\(k\)</span>هاست. اگر دادهٔ مرجع بسیار بزرگ باشد، محاسبهٔ همهٔ فاصله‌ها مرتبهٔ زمانی و حافظهٔ زیادی می‌طلبد؛ نمایه‌های همسایگی یا تقریب مناسب باید جداگانه ارزیابی شوند.</p>
+<p>وجود ویژگی دسته‌ای، مقیاس‌های متفاوت و دادهٔ گمشده تعریف «نزدیک» را دشوار می‌کند. به‌خصوص <strong>فاصلهٔ اقلیدسی روی کدگذاری عددیِ یک متغیر اسمی، لزوماً معنای واقعی ندارد</strong>. نرمال‌سازی یا تبدیل ویژگی باید فقط با دادهٔ مجازِ آموزش برازش شود و بعد بدون نگاه به آزمون روی بقیه اعمال شود.</p>
+</section>
+<section id="id13">
+<h2>۱۰ـ۱۴. ناهنجاری زمینه‌ای: «با چه گروهی مقایسه کنیم؟»<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<p>در مسئلهٔ تراکنش‌ها، دو گروه مشتری سطح مبلغ بسیار متفاوتی دارند. اگر میانهٔ مبالغ مشتریان خرد تقریباً ۲۷ واحد و مشتریان کسب‌وکار حدود ۱۴۸ واحد باشد، مبلغ ۱۰۰ واحد برای گروه اول دورتر از مرکز گروه است، اما برای گروه دوم چنین نیست. این مقادیر تقریبی فقط برای شهودند و به توزیع مرجع و بذر تولید داده وابسته‌اند. به‌جای یک امتیاز جهانی، یک امتیاز سادهٔ زمینه‌ای تعریف می‌کنیم:</p>
+<div class="math notranslate nohighlight">
+\[
+s_{ctx}(x_i)=\left|amount_i-\operatorname{median}(amount\mid group=g_i,\;reference)\right|.
+\]</div>
+<p>نقطهٔ قوت این تعریف، توضیح‌پذیری آن است. اما با گروه‌هایی که اندازهٔ خیلی متفاوت، پراکندگی زیاد یا زمینهٔ ناشناخته دارند، <strong>باقی‌ماندهٔ خامِ مبلغ هم قابل مقایسهٔ جهانی نیست</strong>. برای کار واقعی، بهتر است در هر گروه مقیاس مقاوم را نیز برآورد کنیم، یا امتیازها را جداگانه رتبه‌بندی کنیم، به شرط داشتن دادهٔ مرجع کافی. در فایل Python، حالت زمینهٔ دیده‌نشده عمداً خطا می‌دهد؛ نسبت دادن بی‌توضیح یک گروه جدید به مرجع قدیمی گمراه‌کننده است.</p>
+<figure class="align-default" id="dm10-context">
+<a class="reference internal image-reference" href="../_images/fig10_11.png"><img alt="../_images/fig10_11.png" src="../_images/fig10_11.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 160 </span><span class="caption-text">شکل ۱۰ـ۱۱. توزیع مبالغ در دو گروهِ ساختگی با محور لگاریتمی؛ نقاط ضربدری، موارد تزریق‌شده برای ارزیابی آموزشی هستند.</span><a class="headerlink" href="#dm10-context" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-default" id="dm10-residual">
+<a class="reference internal image-reference" href="../_images/fig10_12.png"><img alt="../_images/fig10_12.png" src="../_images/fig10_12.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 161 </span><span class="caption-text">شکل ۱۰ـ۱۲. باقی‌ماندهٔ مبلغ از میانهٔ گروه مرجع؛ برخی موارد تزریق‌شده برجسته می‌شوند، اما همهٔ آن‌ها لزوماً در بالاترین رتبه نیستند.</span><a class="headerlink" href="#dm10-residual" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>نکتهٔ اخلاقی:</strong> گروه‌بندیِ مشتریان از لحاظ علمی یک «متغیر زمینه» است؛ کاربرد آن در تصمیم‌های حساس باید با قواعد حفاظت داده، محدودیت استفاده از ویژگی‌های حساس، بررسی تبعیض و حق اعتراض انسانی همراه باشد. امتیاز آزمایشگاهی را نباید برای محروم‌کردن خودکار افراد به کار برد.</p>
+</section>
+<section id="id14">
+<h2>۱۰ـ۱۵. ناهنجاری جمعی: چرا تشخیص تک‌نقطه‌ای کافی نیست؟<a class="headerlink" href="#id14" title="Link to this heading">#</a></h2>
+<p>در یک حسگر، یک قلهٔ بزرگ در یک لحظه شاید خطای لحظه‌ای باشد؛ ولی بالا رفتن دما به اندازهٔ ۱٫۵ واحد برای شش نوبت متوالی شاید مهم‌تر باشد. اگر آستانهٔ فردی ۳ واحد باشد، هیچ‌کدام از شش مشاهدهٔ دوم هشدار نمی‌گیرد. بااین‌حال میانگین یک پنجره یا انباشت شواهد می‌تواند آن تغییر تدریجی را نشان دهد. این مسئله را باید در قالب <strong>واحد توالی یا بازه</strong> تعریف کنیم؛ در غیر این صورت، ارزیابی و شمارش هشدار نادرست می‌شود.</p>
+<figure class="align-default" id="dm10-series">
+<a class="reference internal image-reference" href="../_images/fig10_13.png"><img alt="../_images/fig10_13.png" src="../_images/fig10_13.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 162 </span><span class="caption-text">شکل ۱۰ـ۱۳. یک قلهٔ تیز در برابر یک تغییر کوچک اما پایدار؛ ابزار مناسب برای این دو لزوماً یکسان نیست.</span><a class="headerlink" href="#dm10-series" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>روش پنجره‌ای ساده:</p>
+<div class="math notranslate nohighlight">
+\[
+s_t=\left|\frac{1}{w}\sum_{j=t-w+1}^{t}x_j-\mu_0\right|,\qquad t\ge w-1.
+\]</div>
+<p><span class="math notranslate nohighlight">\(w\)</span> طول پنجره و <span class="math notranslate nohighlight">\(\mu_0\)</span> مرجعِ دورهٔ عادی است. تعریف <strong>علّی (causal)</strong> فقط از <span class="math notranslate nohighlight">\(x_1,\ldots,x_t\)</span> در لحظهٔ <span class="math notranslate nohighlight">\(t\)</span> استفاده می‌کند. یک میانگین متقارن با دادهٔ آینده ممکن است برای تحلیل پس از واقعه مناسب باشد، اما نباید به‌عنوان سامانهٔ هشدار برخط آزموده شود. برای <span class="math notranslate nohighlight">\(t&lt;w-1\)</span> امتیاز هنوز تعریف نشده، نه اینکه «صفر و عادی» باشد؛ کد همراه مقدار <code class="docutils literal notranslate"><span class="pre">NaN</span></code> قرار می‌دهد.</p>
+<figure class="align-default" id="dm10-rolling">
+<a class="reference internal image-reference" href="../_images/fig10_14.png"><img alt="../_images/fig10_14.png" src="../_images/fig10_14.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 163 </span><span class="caption-text">شکل ۱۰ـ۱۴. مقایسهٔ سیگنال خام و امتیاز میانگینِ دنباله‌دارِ سه‌نمونه‌ای؛ هموارسازی می‌تواند قله‌های تک‌لحظه‌ای را نیز کوچک کند.</span><a class="headerlink" href="#dm10-rolling" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="cusum">
+<h2>۱۰ـ۱۶. CUSUM: جمع‌کردن شواهد کوچک در زمان<a class="headerlink" href="#cusum" title="Link to this heading">#</a></h2>
+<p>روش <strong>مجموع تجمعی یک‌طرفه (One-sided CUSUM)</strong> برای پایش افزایش پایدارِ یک متغیر قابل استفاده است. برای مقادیر با مقیاس معلوم و مرجع <span class="math notranslate nohighlight">\(\mu_0\)</span>، آمار مثبت را به شکل زیر می‌نویسیم:</p>
+<div class="math notranslate nohighlight">
+\[
+S_0=0,\qquad S_t=\max\{0,\;S_{t-1}+x_t-\mu_0-\delta\}.
+\]</div>
+<p><span class="math notranslate nohighlight">\(\delta\ge0\)</span> عدد تحملِ نوسان معمول است و آستانهٔ هشدار <span class="math notranslate nohighlight">\(h\)</span> باید براساس نرخ هشدار کاذب و هزینهٔ تأخیر تنظیم شود. در نمونهٔ دستی <span class="math notranslate nohighlight">\(x=[0,1,2]\)</span>، با <span class="math notranslate nohighlight">\(\mu_0=0\)</span> و <span class="math notranslate nohighlight">\(\delta=0.5\)</span> داریم <span class="math notranslate nohighlight">\(S_1=0\)</span>، <span class="math notranslate nohighlight">\(S_2=0.5\)</span> و <span class="math notranslate nohighlight">\(S_3=2\)</span>. به این ترتیب شواهد مثبتِ پیاپی جمع می‌شوند؛ اما در برابر تغییر رو به پایین باید نسخهٔ منفیِ مناسب یا تعریف متقارن استفاده کرد.</p>
+<figure class="align-default" id="dm10-cusum">
+<a class="reference internal image-reference" href="../_images/fig10_15.png"><img alt="../_images/fig10_15.png" src="../_images/fig10_15.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 164 </span><span class="caption-text">شکل ۱۰ـ۱۵. افزایش CUSUM در یک دنبالهٔ تغییر یافته و یک خط هشدارِ صرفاً نمایشی؛ آستانهٔ ۳ در این تصویر کالیبره نشده است.</span><a class="headerlink" href="#dm10-cusum" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>CUSUM و ابزارهای تغییرنقطه، مکمل تشخیص پرت‌اند؛ این بخش برای پیوند موضوع با پایش سامانه‌ها به جزوه افزوده شده و برگرفتهٔ مستقیمی از بخش‌های اصلی فصل ۱۱ Han یا فصل ۹ Tan نیست. در کاربرد صنعتی، وابستگی زمانی، روند، فصل‌مندی و تأخیر ثبت باید قبل از انتخاب <span class="math notranslate nohighlight">\(\delta\)</span> و <span class="math notranslate nohighlight">\(h\)</span> مدل‌سازی شوند.</p>
+</section>
+<section id="id15">
+<h2>۱۰ـ۱۷. روش‌های بازسازی: هرچه بد بازسازی می‌شود، غیرعادی‌تر است؟<a class="headerlink" href="#id15" title="Link to this heading">#</a></h2>
+<p>فرض کنیم بیشتر داده‌های عادی روی یک زیر‌فضای کم‌بعد قرار دارند. یک مدل مانند PCA یا تجزیهٔ ماتریس، ساختار غالب را می‌آموزد و مشاهدهٔ جدید را با بازسازی <span class="math notranslate nohighlight">\(\widehat x\)</span> تقریب می‌زند. امتیاز رایج:</p>
+<div class="math notranslate nohighlight">
+\[
+s_{rec}(x)=\|x-\widehat{x}\|_2^2.
+\]</div>
+<p>به‌طور شهودی، اگر نقطه‌ای از فضای آموخته‌شده بسیار دور باشد، خطای بازسازی بزرگ می‌شود. ولی <strong>خطای بازسازی بالا فقط یکی از تعریف‌های ناهنجاری است</strong>. بعضی نقاط غیرعادی ممکن است روی زیر‌فضای اصلی هم باشند و خوب بازسازی شوند؛ از سوی دیگر یک الگوی تازهٔ مجاز ممکن است خطای زیاد داشته باشد. ظرفیت مدل، انتخاب تعداد مؤلفه و آلودگی دادهٔ آموزش نیز بر خروجی مؤثر است.</p>
+<figure class="align-default" id="dm10-reconstruction">
+<a class="reference internal image-reference" href="../_images/fig10_16.png"><img alt="../_images/fig10_16.png" src="../_images/fig10_16.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 165 </span><span class="caption-text">شکل ۱۰ـ۱۶. زیر‌فضای یک‌بعدیِ مرجع و نقطه‌ای با خطای بازسازی زیاد؛ جهت خطا ممکن است از اندازهٔ خام ویژگی‌ها مهم‌تر باشد.</span><a class="headerlink" href="#dm10-reconstruction" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برخلاف فصل‌های یادگیری عمیق، اینجا هدف ساخت شبکهٔ پیچیده نیست؛ منظور فهم <strong>اصل کشف فشرده‌سازی یا بازسازی نامعمول</strong> است. یک Autoencoder عمیق نیز تنها در صورتی قابل دفاع است که دادهٔ کافی و آزمایش خارج از نمونه داشته باشد و نسبت به روش ساده‌تر مزیت پایدار نشان دهد.</p>
+</section>
+<section id="id16">
+<h2>۱۰ـ۱۸. روش‌های مبتنی بر خوشه و طبقه‌بندی یک‌کلاسه<a class="headerlink" href="#id16" title="Link to this heading">#</a></h2>
+<p>از فصل‌های هشتم و نهم آموختیم که برخی الگوریتم‌ها گروه‌های متراکم را کشف می‌کنند. یک برداشت ساده از ناهنجاری خوشه‌ای، «نقطهٔ بسیار دور از مرکز خوشه» یا «عضو خوشهٔ بسیار کوچک» است. اما <strong>خوشهٔ کوچک همیشه ناهنجار نیست</strong>؛ ممکن است یک زیرجمعیت اقلیتِ کاملاً معتبر باشد. همچنین DBSCAN برچسب نویز تولید می‌کند، ولی نویز آن نتیجهٔ انتخاب <span class="math notranslate nohighlight">\(\varepsilon\)</span> و <code class="docutils literal notranslate"><span class="pre">min_samples</span></code> است، نه تشخیص قطعیِ بدرفتاری.</p>
+<p>روش‌های <strong>طبقه‌بندی یک‌کلاسه (One-class classification)</strong> تلاش می‌کنند مرز منطقهٔ معمول را از نمونه‌های مرجع بیاموزند. One-class SVM نمونه‌ای از این خانواده است. مرز آموخته‌شده به نوع kernel، تنظیم منظم‌سازی و آلودگی دادهٔ مرجع حساس است. در این جزوه فرمول آموزشی نمره و ارزیابی را نگه می‌داریم و استفادهٔ تولیدی از این روش‌ها را به آزمایش جداگانه با کتابخانهٔ معتبر موکول می‌کنیم.</p>
+</section>
+<section id="isolation-forest">
+<h2>۱۰ـ۱۹. جداسازی تصادفی: ایدهٔ Isolation Forest<a class="headerlink" href="#isolation-forest" title="Link to this heading">#</a></h2>
+<p>در <strong>Isolation Forest</strong> ایده این است که نمونه‌ای که از سایر داده‌ها دورافتاده است، در درخت‌هایی با تقسیم‌های تصادفی ممکن است با تعداد تقسیم کمتری جدا شود. یک امتیاز استاندارد از طول مسیر متوسط <span class="math notranslate nohighlight">\(E[h(x)]\)</span> و ضریب نرمال‌سازی وابسته به اندازهٔ زیرنمونه استفاده می‌کند. به‌صورت شهودی، هرچه مسیر کوتاه‌تر، نمونه غیرعادی‌تر؛ ولی «کوتاه بودن» به هندسه، ویژگی‌های موجود، اندازهٔ نمونه و تصادفی‌سازی وابسته است.</p>
+<figure class="align-default" id="dm10-isolation">
+<a class="reference internal image-reference" href="../_images/fig10_17.png"><img alt="../_images/fig10_17.png" src="../_images/fig10_17.png" style="width: 91%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 166 </span><span class="caption-text">شکل ۱۰ـ۱۷. دو تقسیم تصادفیِ فرضی؛ هدف نمایش شهود مسیر جداسازی است، نه اجرای کامل الگوریتم جنگل.</span><a class="headerlink" href="#dm10-isolation" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>روش جداسازی برای دادهٔ عددی با حجم نسبتاً زیاد گزینهٔ عملی مشهوری است، اما تفسیر آن با یک مثال یک‌بعدی کافی نیست. بدون معیار ارزیابی مناسب، برتری پیش‌فرضی نسبت به روش فاصله‌ای یا مقاوم ندارد. <strong>کد پایهٔ این فصل Isolation Forest را از صفر پیاده نمی‌کند</strong>؛ اگر دانشجو از نسخهٔ کتابخانه‌ای استفاده کند باید قرارداد امتیازدهی (کدام جهت غیرعادی‌تر است) و مقدار تصادفی را به‌دقت ثبت کند.</p>
+</section>
+<section id="id17">
+<h2>۱۰ـ۲۰. وقتی داده بُعد بالا دارد<a class="headerlink" href="#id17" title="Link to this heading">#</a></h2>
+<p>در بُعد بالا، فاصلهٔ اقلیدسی می‌تواند تمایزبخشی خود را از دست بدهد، کوواریانس ناپایدار شود و نمونهٔ مرجع برای تخمین چگالی کافی نباشد. برای نمونهٔ <span class="math notranslate nohighlight">\(n\)</span> کوچک و بُعد <span class="math notranslate nohighlight">\(d\)</span> بزرگ، ماتریس کوواریانس نمونه‌ای می‌تواند تکین شود؛ به همین علت در کد فاصلهٔ ماهالانوبیس منظم‌سازی می‌کنیم. راهکارهای قابل بررسی: انتخاب ویژگی با دانش دامنه، زیر‌فضاهای مرتبط، نمایش‌های کم‌بعد با ارزیابی مستقل، اجماعِ چند امتیاز و مدل‌های ساختاری.</p>
+<p><strong>دام رایج:</strong> اگر ویژگی‌ها را با آگاهی از همهٔ داده‌های آزمون انتخاب کنیم و بعد روی همان آزمون روش را بسنجیم، حتی بدون برچسب نیز اطلاعات آینده را وارد آموزش کرده‌ایم. همچنین اگر رویداد نادر فقط در یک زیر‌فضا آشکار شود، مدل کلیِ تمامی ویژگی‌ها ممکن است آن را پنهان کند. این نکته پیوند مستقیمی با خوشه‌بندی زیر‌فضایی فصل نهم دارد.</p>
+</section>
+<section id="id18">
+<h2>۱۰ـ۲۱. ارزیابی عملی: معیارها باید با هزینه و ظرفیت سازگار باشند<a class="headerlink" href="#id18" title="Link to this heading">#</a></h2>
+<p>در سامانه‌های واقعی، فقط تعداد کمی از موارد امکان بررسی دستی دارند. در <strong>Precision&#64;<span class="math notranslate nohighlight">\(k\)</span></strong>، از میان <span class="math notranslate nohighlight">\(k\)</span> مورد بالای فهرست چند مورد حقیقتاً مربوط بوده‌اند؟ و در <strong>Recall&#64;<span class="math notranslate nohighlight">\(k\)</span></strong>، چند مورد از تمام موارد واقعی را یافته‌ایم؟</p>
+<div class="math notranslate nohighlight">
+\[
+Precision&#64;k=\frac{TP_k}{k},\qquad Recall&#64;k=\frac{TP_k}{P},
+\]</div>
+<p>که <span class="math notranslate nohighlight">\(P\)</span> تعداد کل موارد مثبت تأییدشده در مجموعهٔ ارزیابی است. اگر <span class="math notranslate nohighlight">\(P=0\)</span>، Recall تعریف‌پذیر نیست؛ کد ما <code class="docutils literal notranslate"><span class="pre">None</span></code> برمی‌گرداند تا وانمود نکند صفر یا یک است. در یک مثال چهاررکوردی با حقیقت <span class="math notranslate nohighlight">\([0,1,0,1]\)</span> و امتیاز <span class="math notranslate nohighlight">\([0.1,0.9,0.2,0.8]\)</span>، دو امتیاز نخست هر دو مثبت‌اند، پس <span class="math notranslate nohighlight">\(Precision&#64;2=1\)</span> و <span class="math notranslate nohighlight">\(Recall&#64;2=1\)</span>.</p>
+<figure class="align-default" id="dm10-precision">
+<a class="reference internal image-reference" href="../_images/fig10_18.png"><img alt="../_images/fig10_18.png" src="../_images/fig10_18.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 167 </span><span class="caption-text">شکل ۱۰ـ۱۸. تغییر Precision&#64;<span class="math notranslate nohighlight">\(k\)</span> با ظرفیت بررسی در دادهٔ ساختگیِ همین جزوه؛ نوسان به تعداد و ترتیب موارد تزریق‌شده وابسته است.</span><a class="headerlink" href="#dm10-precision" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در فایل ۳۰۰تایی ساخته‌شده، ۱۵ رویداد با برچسب ساختگیِ غیرعادی وجود دارد. امتیاز زمینه‌ای ساده با انتخاب ۱۵ مورد اول، در اجرای بذرِ ثبت‌شده <strong>۱۰ مورد از ۱۵ مورد</strong> را می‌یابد: <span class="math notranslate nohighlight">\(Precision&#64;15=10/15\approx0.667\)</span> و <span class="math notranslate nohighlight">\(Recall&#64;15=10/15\approx0.667\)</span>. این <strong>عملکرد واقعی بازار، صنعت یا روش LOF نیست</strong>؛ فقط نتیجهٔ دادهٔ همین مثال است. تفاوت دو شمارنده وقتی رخ می‌دهد که بودجهٔ بررسی با تعداد کل مثبت‌ها برابر نباشد.</p>
+</section>
+<section id="id19">
+<h2>۱۰ـ۲۲. ماتریس خطا، آستانه و هزینهٔ هشدار<a class="headerlink" href="#id19" title="Link to this heading">#</a></h2>
+<p>با انتخاب <span class="math notranslate nohighlight">\(\tau\)</span>، پیش‌بینی‌ها مثبت یا منفی می‌شوند؛ سپس چهار شمارش <span class="math notranslate nohighlight">\(TP,FP,FN,TN\)</span> را محاسبه می‌کنیم. در مسئلهٔ ناهنجاری‌های بسیار نادر، Accuracy می‌تواند کاملاً گمراه‌کننده باشد: سامانه‌ای که همه را عادی بداند و نرخ واقعی ناهنجاری یک درصد باشد، دقت ۹۹ درصدی ظاهری دارد و <strong>هیچ ناهنجاری را پیدا نمی‌کند</strong>. برای انتخاب آستانه لازم است نرخِ هشدار کاذب، نرخِ از دست‌دادن رویداد مهم، هزینهٔ بررسی، ظرفیت نیروی انسانی و تأخیر تشخیص را با هم ببینیم.</p>
+<p>مدل آموزشیِ هزینه را می‌توان به‌صورت <span class="math notranslate nohighlight">\(L(\tau)=c_{FP}FP(\tau)+c_{FN}FN(\tau)\)</span> نوشت. در شکل، برای نمایش مفهوم، <span class="math notranslate nohighlight">\(c_{FP}=1\)</span> و <span class="math notranslate nohighlight">\(c_{FN}=10\)</span> فرض شده‌اند؛ این اعداد <strong>سیاست واقعی یک سازمان نیستند</strong>. آستانه باید روی دادهٔ اعتبارسنجی انتخاب شود؛ بعد همان آستانه، بدون تنظیم مجدد، روی آزمون مستقل گزارش شود. اگر آستانه را با دیدن نتیجهٔ آزمون عوض کنیم، آزمون دیگر مستقل نیست.</p>
+<figure class="align-default" id="dm10-cost">
+<a class="reference internal image-reference" href="../_images/fig10_19.png"><img alt="../_images/fig10_19.png" src="../_images/fig10_19.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 168 </span><span class="caption-text">شکل ۱۰ـ۱۹. مثال هزینهٔ فرضی برای آستانه‌های مختلف؛ بهترین نقطه به وزن هزینه‌ها و فراوانی رویدادها وابسته است.</span><a class="headerlink" href="#dm10-cost" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در ارزیابی ناهنجاری، <strong>مبنای حقیقت</strong> خود یک مسئله است: هر پروندهٔ بررسی‌نشده نباید منفی تلقی شود و برچسبی که فقط برای موارد پرامتیاز جمع‌آوری شده، برای سنجش همهٔ جمعیت سوگیری انتخاب دارد. دادهٔ ارزیابی بهتر است نمونه‌برداری شفاف از موارد بررسی‌شده و بررسی‌نشده، بازهٔ زمانی و پروتکل کارشناسی را گزارش کند. در صورت امکان فاصلهٔ اطمینانِ معیارها را با بازنمونه‌گیریِ متناسب با وابستگی حساب‌ها برآورد کنیم.</p>
+</section>
+<section id="id20">
+<h2>۱۰ـ۲۳. طراحی آزمایش درست: زمان، حساب و آلودگی مرجع<a class="headerlink" href="#id20" title="Link to this heading">#</a></h2>
+<p>سه مرز را باید مشخص کنیم: <strong>دادهٔ مرجع برای یادگیری رفتار عادی</strong>، <strong>اعتبارسنجی برای انتخاب ویژگی/پارامتر/آستانه</strong> و <strong>آزمون مستقل برای گزارش عملکرد</strong>. اگر حسابی در چند تراکنش حضور دارد، جداسازی تصادفیِ تراکنش‌ها ممکن است ویژگیِ همان حساب را در دو سوی مرز وارد کند؛ برای ادعای تعمیم به حسابِ تازه، باید جداسازی در سطح حساب انجام شود. برای ادعای تشخیص آینده، مرز زمانی ضروری است و استانداردسازی نباید از دادهٔ آینده بیاموزد.</p>
+<p>همزمان باید دربارهٔ <strong>آلودگی مرجع</strong> صریح باشیم: اگر بخشی از دادهٔ آموزش خود شامل تخلف یا خرابی باشد، مدل ناهنجاری ممکن است آن رفتار را معمول یاد بگیرد. پیش‌پردازش مقاوم، ممیزی نمونه‌ای، استفاده از دورهٔ مطمئن‌تر، و ارزیابی حساسیت به میزان آلودگی راهکارهایی هستند؛ هیچ‌کدام تضمین مطلق نمی‌دهند.</p>
+<p><strong>دام ارزیابی با دادهٔ ساختگی:</strong> تزریق یک نمونهٔ بسیار بزرگ یا تیز اغلب مسئله را بیش‌ازحد آسان می‌کند. برای اعتبار واقعی باید علاوه بر قله‌های آشکار، موارد مرزی، تغییرات زمینه، رفتارهای جمعی و شکست‌های ناشی از تغییر رژیم را نیز در مجموعهٔ آزمایش لحاظ کنیم. ستون حقیقتِ ساختگی برای تولید شکل‌های آموزشی باقی می‌ماند و جزو ورودی محاسبهٔ امتیاز نیست.</p>
+</section>
+<section id="id21">
+<h2>۱۰ـ۲۴. پایش در طول زمان: رانش، بازآموزی و بازخورد<a class="headerlink" href="#id21" title="Link to this heading">#</a></h2>
+<p>مدلی که امروز مناسب است ممکن است پس از تغییر فصل، نرخ ارز، محصولات یا روش ثبت داده دیگر مناسب نباشد. <strong>رانش داده (Data drift)</strong> یعنی تغییر توزیع ورودی؛ این اتفاق ممکن است ناشی از تغییر کاملاً مجاز باشد. <strong>رانش مفهوم (Concept drift)</strong> یعنی تغییر رابطهٔ ورودی با مفهومِ مورد نظر یا برچسب. این دو همیشه یکی نیستند. باید نرخ هشدار، پراکندگی امتیازها، سهم هر زمینه، تأخیر تأیید و روند برچسب‌های کارشناسی‌شده پایش شود؛ نه اینکه هر افزایش هشدار را نشانهٔ افزایش تقلب فرض کنیم.</p>
+<figure class="align-default" id="dm10-drift">
+<a class="reference internal image-reference" href="../_images/fig10_20.png"><img alt="../_images/fig10_20.png" src="../_images/fig10_20.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 169 </span><span class="caption-text">شکل ۱۰ـ۲۰. تغییر فرضی سطح معمول داده پس از یک تغییر رژیم؛ ثابت ماندن مرجع قبلی می‌تواند هشدار کاذب زیاد ایجاد کند.</span><a class="headerlink" href="#dm10-drift" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>در به‌روزرسانی دوره‌ای، ابتدا دلیل تغییر را بررسی می‌کنیم و سپس مدل یا آستانهٔ جدید را با دادهٔ تازه اعتبارسنجی می‌کنیم. نباید خروجی همان مدل را بدون بازبینی به‌عنوان «برچسب صحیح» برای یادگیری بعدی مصرف کرد، زیرا حلقهٔ خودتأییدکننده شکل می‌گیرد. همچنین دادهٔ حساس، کنترل دسترسی و ثبت تصمیم انسانی باید در سامانهٔ واقعی از ابتدا طراحی شوند.</p>
+</section>
+<section id="python">
+<h2>۱۰ـ۲۵. کارگاه Python و راهنمای تفسیر خروجی‌ها<a class="headerlink" href="#python" title="Link to this heading">#</a></h2>
+<p>فایل <code class="docutils literal notranslate"><span class="pre">chapter10_examples.py</span></code> برای اجرای مستقل با NumPy تهیه شده است. این برنامه دارای توابع مقاوم، فاصله‌ای، LOF با قرارداد آموزشیِ دقیقاً <span class="math notranslate nohighlight">\(k\)</span> همسایه، فاصلهٔ ماهالانوبیسِ منظم‌شده، نمرهٔ زمینه‌ای، پنجرهٔ علّی، CUSUM و معیارهای Precision&#64;<span class="math notranslate nohighlight">\(k\)</span> و ماتریس خطاست. فایل <code class="docutils literal notranslate"><span class="pre">chapter10_examples.ipynb</span></code> همان محاسبات را در قالب بخش‌بندی‌شده همراه شکل و توضیح اجرا می‌کند. برنامه به شبکه، سرویس آنلاین یا مدل ازپیش‌دانلودشده نیاز ندارد.</p>
+<p>در آزمایش آموزشی با بذر ثابت، مقادیر زیر باید ظاهر شوند: <span class="math notranslate nohighlight">\(median=12.5\)</span>، <span class="math notranslate nohighlight">\(MAD=1.5\)</span>، <span class="math notranslate nohighlight">\(M(48)\approx15.9629\)</span>، حصار Tukey برابر <span class="math notranslate nohighlight">\([7.5,17.5]\)</span>، <span class="math notranslate nohighlight">\(LOF(1.8)\approx9.6667\)</span>، تعداد ۳۰۰ رویداد و ۱۵ موردِ تزریق‌شده؛ برای امتیاز زمینه‌ای ساده، در ۱۵ هشدار نخست ۱۰ مورد مطابق حقیقت ساختگی است. از این نتایج نباید ادعای بهینگی الگوریتم در یک مسئلهٔ واقعی استنتاج کرد.</p>
+<p><strong>تفاوت میان روش‌ها را آگاهانه حفظ کنید:</strong> <code class="docutils literal notranslate"><span class="pre">robust_z</span></code> برای مرجع با MAD صفر خطا می‌دهد؛ <code class="docutils literal notranslate"><span class="pre">lof_fixed_k</span></code> صرفاً دادهٔ موجود در آموزش را امتیاز می‌دهد؛ <code class="docutils literal notranslate"><span class="pre">contextual_score</span></code> برای گروه ندیده خطا می‌دهد؛ <code class="docutils literal notranslate"><span class="pre">scan_window_mean</span></code> برای سطرهای آغازین مقدار ناموجود دارد؛ و دادهٔ آزمون نباید برای تنظیم آستانه وارد شود. این تصمیم‌ها، محدودیت‌های صریح و قابل آزمون‌اند، نه خطاهای برنامه.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># After extracting the downloadable source ZIP (or placing the files together):
+python chapter10_examples.py
+python -m unittest -v test_chapter10_examples.py
+# Optional Jupyter notebook:
+jupyter notebook chapter10_examples.ipynb
+</pre></div>
+</div>
+</section>
+<section id="id22">
+<h2>۱۰ـ۲۶. تمرین‌های مفهومی، محاسباتی و پروژهٔ کوتاه<a class="headerlink" href="#id22" title="Link to this heading">#</a></h2>
+<p><strong>تمرین‌های مفهومی</strong></p>
+<ol class="arabic simple">
+<li><p>تفاوت ناهنجاری، دادهٔ غلط، رخداد نادر و تقلب را با چهار مثال متفاوت توضیح دهید.</p></li>
+<li><p>چرا در بسیاری از کاربردها انتخاب «واحد مشاهده» از انتخاب الگوریتم مهم‌تر است؟</p></li>
+<li><p>برای یک بانک، ناهنجاری تراکنش و ناهنجاری حساب چه تفاوتی دارند؟</p></li>
+<li><p>سه موقعیت واقعی پیشنهاد کنید که در آن یک نقطه در کل داده عادی ولی در زمینهٔ خودش غیرعادی باشد.</p></li>
+<li><p>چرا ناهنجاری جمعی ممکن است با آستانهٔ مستقل هر نمونه دیده نشود؟</p></li>
+<li><p>به چه دلیل امتیاز LOF و امتیاز Isolation Forest را نمی‌توان مستقیماً احتمال تقلب تعبیر کرد؟</p></li>
+<li><p>هنگام وجود دو گروهِ طبیعی با پراکندگی مختلف، روش kNN جهانی چه خطاهایی ایجاد می‌کند؟</p></li>
+<li><p>تفاوت Novelty detection با کشف Outlier در مرجعی که خودش آلوده است چیست؟</p></li>
+<li><p>چرا تنظیم آستانه روی دادهٔ آزمون موجب بیش‌برازشِ ارزیابی می‌شود؟</p></li>
+<li><p>در یک کاربرد حساس، چه شواهدی پیش از تصمیم خودکار دربارهٔ یک فرد لازم است؟</p></li>
+</ol>
+<p><strong>تمرین‌های عددی</strong></p>
+<ol class="arabic simple" start="11">
+<li><p>برای ده مقدار نمونهٔ ۱۰ـ۶، میانگین، میانه و MAD را دستی بازسازی کنید.</p></li>
+<li><p>برای همان داده، نمرهٔ مقاوم ۱۴ و ۴۸ را مقایسه کنید.</p></li>
+<li><p>چارک‌ها و حصارهای Tukey را با قرارداد NumPy و یک قرارداد دیگر محاسبه و تفاوت را توضیح دهید.</p></li>
+<li><p>برای مرجع <span class="math notranslate nohighlight">\(\{0,1,2,3,4\}\)</span>، امتیاز دومین همسایهٔ ۷ و ۲٫۵ را حساب کنید.</p></li>
+<li><p>برای نقاط <span class="math notranslate nohighlight">\(\{0,0.1,0.2,0.3,0.4,1.8\}\)</span> با <span class="math notranslate nohighlight">\(k=2\)</span>، فاصله‌های دسترسی و LOF نقطهٔ ۱٫۸ را بازسازی کنید.</p></li>
+<li><p>سه نقطهٔ دو‌بعدی با کوواریانس ناهمسان بسازید و تغییر رتبهٔ فاصلهٔ اقلیدسی و ماهالانوبیس را بررسی کنید.</p></li>
+<li><p>برای <span class="math notranslate nohighlight">\([0,1,2]\)</span>، CUSUM را با <span class="math notranslate nohighlight">\(\delta=0.5\)</span> و سپس <span class="math notranslate nohighlight">\(\delta=1.2\)</span> حساب و مقایسه کنید.</p></li>
+<li><p>برای دو پنجرهٔ علّی با طول ۳ و ۵، تأخیر آشکارسازی یک افزایش پایدار را مقایسه کنید.</p></li>
+<li><p>اگر <span class="math notranslate nohighlight">\(TP=6,FP=4,FN=3,TN=87\)</span> باشد، Precision، Recall، F1 و نرخ هشدار کاذب را محاسبه کنید.</p></li>
+<li><p>در مثال هزینه‌ای <span class="math notranslate nohighlight">\(c_{FP}=1,c_{FN}=10\)</span> دو آستانه با <span class="math notranslate nohighlight">\((FP,FN)=(10,1)\)</span> و <span class="math notranslate nohighlight">\((1,3)\)</span> را مقایسه کنید.</p></li>
+</ol>
+<p><strong>تمرین‌های کدنویسی و پژوهشی</strong></p>
+<ol class="arabic simple" start="21">
+<li><p>در فایل CSV، بررسی کنید کدام حساب‌ها چند رویداد دارند و چرا تقسیم سطرها به آموزش و آزمون می‌تواند نشت ایجاد کند.</p></li>
+<li><p>امتیاز زمینه‌ای را با MAD هر گروه مقیاس کنید؛ برای MAD صفر قرارداد منطقی و آزمون بنویسید.</p></li>
+<li><p>Precision&#64;<span class="math notranslate nohighlight">\(k\)</span> را برای <span class="math notranslate nohighlight">\(k=5,10,15,30,50\)</span> بسنجید و منحنی را تفسیر کنید.</p></li>
+<li><p>مقدار <span class="math notranslate nohighlight">\(k\)</span> را در LOF آموزشی از ۲ به ۳ افزایش دهید و تغییر رتبه‌ها را بررسی کنید.</p></li>
+<li><p>یک رویداد زمینه‌ای را به داده اضافه کنید که مبلغش از بسیاری رویدادها کمتر است ولی نسبت به گروهش دورافتاده است.</p></li>
+<li><p>در سیگنال‌های JSON، پنجرهٔ ۲، ۳ و ۴ را مقایسه کنید؛ تأخیر و هشدار کاذب را گزارش کنید.</p></li>
+<li><p>مرجع زمانی نخست را آلوده کنید و ببینید میانه و نمرهٔ زمینه‌ای چقدر تغییر می‌کنند.</p></li>
+<li><p>امتیاز فاصلهٔ ماهالانوبیس را برای چند مقدار منظم‌سازی محاسبه و پایداری رتبه را رسم کنید.</p></li>
+<li><p>یک طرح انتخاب آستانه با مجموعهٔ اعتبارسنجی مستقل و بودجهٔ ثابت بررسی روزانه پیشنهاد دهید.</p></li>
+<li><p>در یک گزارش یک‌صفحه‌ای، خروجی سیستم را نه به‌صورت «اثبات تخلف»، بلکه به‌صورت «پروندهٔ نیازمند بررسی همراه با دلایل و عدم‌قطعیت» بازنویسی کنید.</p></li>
+</ol>
+<p><strong>پروژهٔ کوتاه پیشنهادی:</strong> با استفاده از <code class="docutils literal notranslate"><span class="pre">events_synthetic.csv</span></code>، سه روش فاصله‌ای، مقاوم و زمینه‌ای را پیاده کنید؛ دادهٔ مرجع و ارزیابی را با مرز زمانی مشخص کنید، از برچسب تزریق‌شده در برازش امتیاز استفاده نکنید، ۱۵ مورد اولِ هر روش را استخراج کنید و برای یک پرونده توضیح دهید چرا رتبهٔ مدل با قضاوت کارشناسی یکسان نیست. گزارش باید دارای جدول مواردِ بازبینی، هشدارهای کاذب، محدودیت روش و یک آزمایش حساسیت باشد.</p>
+</section>
+<section id="id23">
+<h2>۱۰ـ۲۷. جمع‌بندی، ارتباط با فصل یازدهم و منابع<a class="headerlink" href="#id23" title="Link to this heading">#</a></h2>
+<p><strong>جمع‌بندی:</strong> کشف ناهنجاری فقط یافتن مقدار بزرگ یا فاصلهٔ زیاد نیست؛ نخست باید مرجع و زمینه تعریف شود و سپس نوع ناهنجاری، امتیاز، ظرفیت بررسی و سیاست آستانه روشن گردد. MAD و چارک، ابزار تک‌متغیرهٔ توضیح‌پذیرند؛ kNN و LOF بر هندسه و چگالی محلی تکیه می‌کنند؛ ماهالانوبیس ساختار کوواریانس را لحاظ می‌کند؛ بازسازی و جداسازی نمای دیگری از غیرعادی‌بودن ارائه می‌دهند. تحلیل زمانی و ارزیابی بدون نشت اطلاعات تعیین می‌کند کدام خروجی واقعاً به درد تصمیم می‌خورد.</p>
+<p><strong>پل به فصل یازدهم:</strong> هر الگوریتمی بالاخره تعدادی «کشف» اعلام می‌کند؛ اما اگر هزاران الگو، آستانه یا فرضیه را بیازماییم، چند کشف ظاهراً قوی می‌تواند صرفاً تصادفی باشد. فصل بعد به <strong>اعتبار آماری کشفیات، آزمون فرض، چندگانگی آزمون‌ها و پرهیز از کشفیات کاذب</strong> می‌پردازد؛ در Tan فصل ۱۰ این موضوع مستقلاً مطرح شده است.</p>
+<p><strong>منابع علمی اصلی:</strong></p>
+<ul class="simple">
+<li><p>Jiawei Han, Jian Pei, Hanghang Tong, <em>Data Mining: Concepts and Techniques</em>, 4th ed., Chapter 11, “Outlier Detection,” Sections 11.1–11.7, printed pp. 557–600.</p></li>
+<li><p>Pang-Ning Tan, Michael Steinbach, Anuj Karpatne, Vipin Kumar, <em>Introduction to Data Mining</em>, 2nd ed., Chapter 9, “Anomaly Detection,” Sections 9.1–9.9, printed pp. 703–742.</p></li>
+</ul>
+<p><strong>یادداشت بازتولید:</strong> تمام شکل‌ها و داده‌ها برای این فصل ایجاد شده‌اند؛ اختلاف ظاهری یا عددی با پیاده‌سازی‌های دیگر ممکن است از قرارداد انتخاب همسایه، روش محاسبهٔ چارک، برآورد مرجع یا پارامترها ناشی شود. نقش فصل آموزشی است و هیچ امتیاز آن مجوزِ تصمیم خودکار دربارهٔ انسان‌ها نیست.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-09.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل نهم — خوشه‌بندی پیشرفته: مدل‌های احتمالاتی، زیر‌فضاها و گراف‌ها</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="chapter-11.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">فصل یازدهم — اعتبار آماری کشفیات و پیشگیری از کشفیات کاذب</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">اهداف یادگیری و نقشهٔ استدلال</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">جایگاه موضوع در دو مرجع اصلی</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">۱۰ـ۱. آغاز با یک مسئلهٔ واقعی: آیا مبلغ بزرگ، مشکوک است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۱۰ـ۲. چه چیزی ناهنجاری است و چه چیزی نیست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۱۰ـ۳. گونه‌ها: نقطه‌ای، زمینه‌ای و جمعی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۱۰ـ۴. امتیاز، رتبه و آستانه سه مفهوم متفاوت‌اند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۱۰ـ۵. معیارهای آماری کلاسیک: میانگین و انحراف معیار</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mad">۱۰ـ۶. محاسبهٔ دستیِ میانه، MAD و نمرهٔ مقاوم</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tukey">۱۰ـ۷. چارک‌ها و حصارهای Tukey: یک مقایسهٔ مکمل</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۱۰ـ۸. مدل آماری و احتمال دُم: تحت چه فرضی؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">۱۰ـ۹. فاصلهٔ ماهالانوبیس و شکلِ بیضوی رفتار عادی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k">۱۰ـ۱۰. روش فاصله‌ای: فاصله تا همسایهٔ kام</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lof">۱۰ـ۱۱. از فاصله به چگالی محلی: چرا LOF لازم شد؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۱۰ـ۱۲. تعریف و حل دستی LOF با شش نقطه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۱۰ـ۱۳. انتخاب k و نقاط ضعفِ روش‌های مجاورت</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">۱۰ـ۱۴. ناهنجاری زمینه‌ای: «با چه گروهی مقایسه کنیم؟»</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id14">۱۰ـ۱۵. ناهنجاری جمعی: چرا تشخیص تک‌نقطه‌ای کافی نیست؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cusum">۱۰ـ۱۶. CUSUM: جمع‌کردن شواهد کوچک در زمان</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id15">۱۰ـ۱۷. روش‌های بازسازی: هرچه بد بازسازی می‌شود، غیرعادی‌تر است؟</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id16">۱۰ـ۱۸. روش‌های مبتنی بر خوشه و طبقه‌بندی یک‌کلاسه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#isolation-forest">۱۰ـ۱۹. جداسازی تصادفی: ایدهٔ Isolation Forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id17">۱۰ـ۲۰. وقتی داده بُعد بالا دارد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id18">۱۰ـ۲۱. ارزیابی عملی: معیارها باید با هزینه و ظرفیت سازگار باشند</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id19">۱۰ـ۲۲. ماتریس خطا، آستانه و هزینهٔ هشدار</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id20">۱۰ـ۲۳. طراحی آزمایش درست: زمان، حساب و آلودگی مرجع</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id21">۱۰ـ۲۴. پایش در طول زمان: رانش، بازآموزی و بازخورد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">۱۰ـ۲۵. کارگاه Python و راهنمای تفسیر خروجی‌ها</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id22">۱۰ـ۲۶. تمرین‌های مفهومی، محاسباتی و پروژهٔ کوتاه</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id23">۱۰ـ۲۷. جمع‌بندی، ارتباط با فصل یازدهم و منابع</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
