@@ -1,0 +1,27 @@
+{
+  "n": 4000,
+  "exact": {
+    "milk": 881,
+    "rice": 852,
+    "rare": 551,
+    "coffee": 873,
+    "bread": 843
+  },
+  "cms": {
+    "milk": 881,
+    "rice": 852,
+    "rare": 551,
+    "coffee": 873,
+    "bread": 843
+  },
+  "reservoir_rare_share": 0.138,
+  "true_rare_share": 0.13775,
+  "drift_window_rates": [
+    0.076,
+    0.076,
+    0.194,
+    0.205
+  ],
+  "bloom_known": true,
+  "bloom_absent_test": false
+}

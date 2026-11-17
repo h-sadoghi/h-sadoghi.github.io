@@ -1,0 +1,691 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>فصل دوازدهم — داده‌کاوی در مقیاس واقعی: جریان داده، تقریب، توزیع و داده‌های پیچیده &#8212; Data Mining Course Book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../_static/data-mining-rtl.css?v=0a14a926" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'course-notes/chapter-12';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="فصل یازدهم — اعتبار آماری کشفیات و پیشگیری از کشفیات کاذب" href="chapter-11.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Data Mining Course Book</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    داده‌کاوی | Data Mining
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">فصل‌های درس داده‌کاوی</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="chapter-01.html">مبانی داده‌کاوی و فرایند کشف دانش</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-02.html">بازنمایی داده، انواع ویژگی‌ها و کیفیت داده</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-03.html">معیارهای شباهت، فاصله و هندسهٔ داده‌ها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-04.html">پیش‌پردازش داده، نمونه‌گیری و کاهش بُعد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-05.html">الگوهای پرتکرار و قواعد انجمنی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-06.html">الگوهای پیشرفته، دنباله‌ها و ساختارهای گرافی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-07.html">طبقه‌بندی، انتخاب مدل و ارزیابی قابل اعتماد</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-08.html">خوشه‌بندی: کشف ساختار، الگوریتم‌ها و اعتبارسنجی</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-09.html">خوشه‌بندی پیشرفته: مدل‌های احتمالاتی، زیر‌فضاها و گراف‌ها</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-10.html">تشخیص ناهنجاری: از دادهٔ پرت تا تصمیم قابل دفاع</a></li>
+<li class="toctree-l2"><a class="reference internal" href="chapter-11.html">اعتبار آماری کشفیات و پیشگیری از کشفیات کاذب</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">داده‌کاوی در مقیاس واقعی: جریان داده، تقریب، توزیع و داده‌های پیچیده</a></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/course-notes/chapter-12.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>فصل دوازدهم — داده‌کاوی در مقیاس واقعی: جریان داده، تقریب، توزیع و داده‌های پیچیده</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">۱۲ـ۱. مسئلهٔ محوری: فروشگاه آنلاین با جریان رویداد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۱۲ـ۲. بودجهٔ محاسباتی: زمان، حافظه و کیفیت</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">تمرین سنجش هزینه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۱۲ـ۳. پردازش دسته‌ای، جریانی و پنجره‌ها</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reservoir-sampling">۱۲ـ۴. Reservoir Sampling: نمونهٔ یکنواخت بدون دانستن طول جریان</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#count-min-sketch">۱۲ـ۵. خلاصهٔ شمارش تقریبی: Count-Min Sketch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bloom-filter">۱۲ـ۶. آزمون عضویت احتمالی: Bloom Filter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۱۲ـ۷. توزیع داده و تجمیع درست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۱۲ـ۸. خوشه‌بندی مقیاس‌پذیر و بازنمایی داده‌های پیچیده</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۱۲ـ۹. تغییر توزیع و ارزیابی برخط</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۱۲ـ۱۰. انتخاب معماری و بازتولیدپذیری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">اجرای آزمایش همراه فصل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۱۲ـ۱۱. پروژهٔ جامع پایانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۱۲ـ۱۲. جمع‌بندی فصل و پیوند با درس</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">منابع و دامنهٔ انتساب</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1>فصل دوازدهم — داده‌کاوی در مقیاس واقعی: جریان داده، تقریب، توزیع و داده‌های پیچیده<a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+<p><strong>فصل پایانی درس داده‌کاوی — کارشناسی ارشد مهندسی کامپیوتر</strong></p>
+<p>این فصل مهارت «انتخاب الگوریتم متناسب با محدودیت‌های واقعی» را به مفاهیم یازده فصل قبل متصل می‌کند. موضوع اصلی، افزایش صرفِ اندازهٔ داده نیست؛ موضوع این است که آیا الگوی کشف‌شده، با بودجهٔ زمان، حافظه، ارتباطات و خطای مجاز، همچنان معتبر و قابل بازتولید است؟</p>
+<p><strong>فایل‌های دریافت:</strong> <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-12/DataMining_Chapter12.pdf"><span class="xref myst">PDF فارسی فصل</span></a> · <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-12/DataMining_Chapter12_TEX_PDF_SOURCE.zip"><span class="xref myst">سورس XeLaTeX و PDF</span></a> · <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-12/chapter12_examples.py"><span class="xref myst">کد اجرایی</span></a> · <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-12/chapter12_examples.ipynb"><span class="xref myst">دفترچهٔ Jupyter</span></a> · <a class="reference internal" href="#/assets/downloads/courses/data-mining/course-notes/chapter-12/TEST_RESULTS.json"><span class="xref myst">نتایج آزمون</span></a>.</p>
+<section id="id2">
+<h2>۱۲ـ۱. مسئلهٔ محوری: فروشگاه آنلاین با جریان رویداد<a class="headerlink" href="#id2" title="Link to this heading">#</a></h2>
+<p>فرض کنید سامانه‌ای در هر ثانیه هزار رویداد خرید، مشاهدهٔ کالا یا جست‌وجو ثبت می‌کند. مدیر سامانه می‌خواهد در پنجرهٔ ده‌دقیقه‌ای بداند کدام محصولات پرتکرارند، چه تغییر ناگهانی در الگوی خرید رخ داده و آیا یک کاربر یا کالا قبلاً دیده شده است. ثبت یک روز در این نرخ برابر ۸۶٬۴۰۰٬۰۰۰ رویداد است. اگر هر رخداد، بدون سربار پایگاه داده، ۱۰۰ بایت باشد، فقط دادهٔ خام یک روز تقریباً ۸٫۶۴ گیگابایت خواهد شد. نگهداری همیشگی همهٔ رویدادها در حافظه، پیش‌فرض قابل دفاعی نیست.</p>
+<p>سه پرسش از آغاز باید جدا شوند: (۱) چه <strong>کمیتی</strong> می‌خواهیم؟ شمارش دقیق، فراوانی نسبی، عضویت یا دسته‌بندی؟ (۲) چه <strong>خطایی</strong> مجاز است؟ خطای شمارش، خطای تصمیم، مثبت کاذب یا تأخیر؟ (۳) چه <strong>منبعی</strong> محدود است؟ حافظهٔ RAM، پردازنده، پهنای باند، یا زمان پاسخ؟ جواب این سه پرسش انتخاب روش را تعیین می‌کند.</p>
+<figure class="align-default" id="id14">
+<a class="reference internal image-reference" href="../_images/fig12_pipeline.png"><img alt="../_images/fig12_pipeline.png" src="../_images/fig12_pipeline.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 190 </span><span class="caption-text">چرخهٔ نمونهٔ فصل: دریافت جریان، خلاصه‌سازی، کشف و اعتبارسنجی؛ دادهٔ اصلی و دادهٔ آزمون مستقل می‌مانند.</span><a class="headerlink" href="#id14" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>این مثال تا انتهای فصل ادامه دارد. داده‌های آزمایشگاهی همراه فصل <strong>ساختگی</strong> هستند و برای اثبات توانایی یک سامانهٔ صنعتی کافی نیستند؛ مزیت آن‌ها آن است که نتیجه با بذر تصادفی ثابت تکرارپذیر است.</p>
+</section>
+<section id="id3">
+<h2>۱۲ـ۲. بودجهٔ محاسباتی: زمان، حافظه و کیفیت<a class="headerlink" href="#id3" title="Link to this heading">#</a></h2>
+<p>اگر تعداد رخدادها <span class="math notranslate nohighlight">\(n\)</span> و تعداد ویژگی‌ها <span class="math notranslate nohighlight">\(d\)</span> باشد، پیمایش تک‌گذر هزینهٔ زمانی <span class="math notranslate nohighlight">\(O(n)\)</span> دارد؛ اما نگهداری تمامی بردارها ممکن است <span class="math notranslate nohighlight">\(O(nd)\)</span> حافظه بخواهد. یک الگوریتم را نمی‌توان فقط با <span class="math notranslate nohighlight">\(O(\cdot)\)</span> توصیف کرد: هزینهٔ ورودی/خروجی، ارتباط شبکه، ظرفیت پایگاه داده، سربار ساختارهای شیء و حساسیت به توزیع ورودی نیز مهم‌اند.</p>
+<p>برای تحلیل عملی، به جای یک عدد، بردار هزینه را می‌سنجیم:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal C(A)=(T_A,M_A,B_A,L_A,E_A),\]</div>
+<p>که <span class="math notranslate nohighlight">\(T_A\)</span> زمان پردازش، <span class="math notranslate nohighlight">\(M_A\)</span> بیشینهٔ حافظه، <span class="math notranslate nohighlight">\(B_A\)</span> حجم ارتباطات، <span class="math notranslate nohighlight">\(L_A\)</span> تأخیر پاسخ و <span class="math notranslate nohighlight">\(E_A\)</span> خطا است. راهکاری که سریع‌تر ولی دارای خطای کنترل‌نشده باشد الزاماً بهتر نیست. «بهینه» فقط در نسبت با قیود مسئله معنی دارد.</p>
+<p><strong>مثال دستی.</strong> شمارش دقیق ۱۰۰۰ کلید یکتا با نگهداری جفتِ کلید/شمارنده ممکن است کم‌هزینه باشد، حتی برای میلیون‌ها رخداد. اما شمارش میلیون‌ها کلید متفاوت مسئلهٔ دیگری است: حافظه تابع تعداد کلیدهای یکتا <span class="math notranslate nohighlight">\(U\)</span> است، نه فقط طول جریان <span class="math notranslate nohighlight">\(n\)</span>. پیش از انتخاب Sketch باید <span class="math notranslate nohighlight">\(U\)</span> را تخمین زد.</p>
+<section id="id4">
+<h3>تمرین سنجش هزینه<a class="headerlink" href="#id4" title="Link to this heading">#</a></h3>
+<p>دو پیاده‌سازی را با داده و سخت‌افزار یکسان اجرا کنید، پیش از آزمون فرآیند را گرم کنید، چند تکرار مستقل انجام دهید و میانه و دامنهٔ تغییرات را گزارش کنید. زمان «ساخت داده» را از زمان «پردازش» جدا نگه دارید. مقایسهٔ حافظه باید با ابزار یکسان و تعریف روشن انجام گیرد.</p>
+</section>
+</section>
+<section id="id5">
+<h2>۱۲ـ۳. پردازش دسته‌ای، جریانی و پنجره‌ها<a class="headerlink" href="#id5" title="Link to this heading">#</a></h2>
+<p>در پردازش دسته‌ای (Batch) مجموعهٔ داده از ابتدا معلوم است؛ می‌توان آن را چندبار پیمود، مرتب کرد و خروجی دقیق ساخت. در جریان (Stream) رویدادها پیوسته می‌رسند و ممکن است بازخوانی همهٔ گذشته ممکن نباشد. الگوریتم جریانی غالباً وضعیت کوچکی را با هر رخداد به‌روز می‌کند:</p>
+<div class="math notranslate nohighlight">
+\[S_t = F(S_{t-1},x_t).\]</div>
+<p>برای تحلیل روند، پنجرهٔ زمانی تعریف می‌شود: پنجرهٔ <strong>غلتان</strong> (sliding) همواره آخرین <span class="math notranslate nohighlight">\(W\)</span> رخداد یا مدت را می‌بیند؛ پنجرهٔ <strong>ثابت</strong> (tumbling) بازه‌های غیرهم‌پوشان می‌سازد. <strong>زمان رویداد</strong> با <strong>زمان دریافت</strong> متفاوت است؛ تأخیر شبکه ممکن است رخداد قدیمی را پس از بسته‌شدن پنجره برساند. سیاست مدیریت رخداد دیررس باید در تعریف مسئله بیاید.</p>
+<p>در پنجرهٔ ۱۰ دقیقه‌ای و نرخ ۱۰۰۰ رخداد/ثانیه، حدود ۶۰۰٬۰۰۰ رخداد در پنجره حضور دارند. اگر فقط مجموع تعداد خرید لازم باشد، وضعیت یک شمارنده کافی است؛ اما اگر رخدادهای خروجی از پنجرهٔ لغزان را بخواهیم کم کنیم، برای حذف دقیق آن‌ها باید اطلاعات تکمیلی (صف، bucket یا نگهداری رکورد) داشته باشیم. «حافظهٔ ثابت» دربارهٔ همهٔ انواع پنجره خودبه‌خود برقرار نیست.</p>
+</section>
+<section id="reservoir-sampling">
+<h2>۱۲ـ۴. Reservoir Sampling: نمونهٔ یکنواخت بدون دانستن طول جریان<a class="headerlink" href="#reservoir-sampling" title="Link to this heading">#</a></h2>
+<p><strong>مسئله:</strong> از جریانی با طول نامعلوم، دقیقاً <span class="math notranslate nohighlight">\(k\)</span> رکورد را طوری نگه داریم که پس از دریافت <span class="math notranslate nohighlight">\(t\ge k\)</span> رکورد، احتمال حضور هر رکورد در مخزن برابر <span class="math notranslate nohighlight">\(k/t\)</span> باشد.</p>
+<p><strong>الگوریتم R:</strong> ابتدا <span class="math notranslate nohighlight">\(k\)</span> عضو نخست را در مخزن قرار دهید. وقتی عضو شمارهٔ <span class="math notranslate nohighlight">\(t&gt;k\)</span> رسید، عدد صحیح یکنواخت <span class="math notranslate nohighlight">\(j\)</span> از <span class="math notranslate nohighlight">\(\{1,\ldots,t\}\)</span> انتخاب کنید؛ اگر <span class="math notranslate nohighlight">\(j\le k\)</span> بود، خانهٔ <span class="math notranslate nohighlight">\(j\)</span> مخزن را با عضو جدید جایگزین کنید.</p>
+<p><strong>اثبات کوتاه.</strong> احتمال ورود عضو <span class="math notranslate nohighlight">\(t\)</span> برابر <span class="math notranslate nohighlight">\(k/t\)</span> است. یک عضو قدیمی که تا لحظهٔ <span class="math notranslate nohighlight">\(t-1\)</span> با احتمال <span class="math notranslate nohighlight">\(k/(t-1)\)</span> در مخزن بوده، در گام <span class="math notranslate nohighlight">\(t\)</span> با احتمال <span class="math notranslate nohighlight">\(1-1/t\)</span> باقی می‌ماند، زیرا احتمال جایگزین‌شدن خانهٔ خاص او <span class="math notranslate nohighlight">\(1/t\)</span> است. پس</p>
+<div class="math notranslate nohighlight">
+\[\Pr(i\in R_t)=\frac{k}{t-1}\left(1-\frac1t\right)=\frac{k}{t}.\]</div>
+<p>این استدلال به انتخاب تصادفی یکنواخت و نسخهٔ صحیح الگوریتم وابسته است. مخزن برای جریان‌هایی با <strong>وزن نمونه‌گیری</strong> یا <strong>تقدم زمانی</strong> به طور مستقیم نمونهٔ مطلوب را نمی‌دهد.</p>
+<p><strong>مثال دستی با <span class="math notranslate nohighlight">\(k=2\)</span>.</strong> بعد از سه رکورد <span class="math notranslate nohighlight">\(A,B,C\)</span>، هر یک با احتمال <span class="math notranslate nohighlight">\(2/3\)</span> انتخاب شده است. برای رخداد چهارم <span class="math notranslate nohighlight">\(D\)</span>، احتمال ورود آن <span class="math notranslate nohighlight">\(1/2\)</span> است؛ احتمال بقای هر عضو قبلی برابر <span class="math notranslate nohighlight">\((2/3)(3/4)=1/2\)</span> می‌شود. بدین ترتیب هر عضو از چهار عضو حضور یکسان دارد.</p>
+<figure class="align-default" id="id15">
+<a class="reference internal image-reference" href="../_images/fig12_reservoir.png"><img alt="../_images/fig12_reservoir.png" src="../_images/fig12_reservoir.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 191 </span><span class="caption-text">نمای شماتیک تصمیم جایگزینی عضو تازه در Reservoir Sampling.</span><a class="headerlink" href="#id15" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>محدودیت:</strong> نمونه‌گیری درست، به‌تنهایی تضمین نمی‌کند یک کلاس بسیار نادر در نمونه ظاهر شود. اگر احتمال رخداد نادر <span class="math notranslate nohighlight">\(p\)</span> باشد، احتمال ندیدن آن در <span class="math notranslate nohighlight">\(k\)</span> نمونهٔ مستقل تقریباً <span class="math notranslate nohighlight">\((1-p)^k\)</span> است. برای دادهٔ نامتوازن، نمونه‌گیری طبقه‌ای یا طراحی دقیق‌تری لازم است.</p>
+</section>
+<section id="count-min-sketch">
+<h2>۱۲ـ۵. خلاصهٔ شمارش تقریبی: Count-Min Sketch<a class="headerlink" href="#count-min-sketch" title="Link to this heading">#</a></h2>
+<p>وقتی تعداد کلیدهای یکتا زیاد است، می‌توان به جای ذخیرهٔ جدول کامل فراوانی، آرایه‌ای با <span class="math notranslate nohighlight">\(d\)</span> سطر و <span class="math notranslate nohighlight">\(w\)</span> ستون ساخت. هر سطر تابع هش مستقلی دارد و رخداد مربوط به کلید <span class="math notranslate nohighlight">\(a\)</span> یک خانهٔ متناظر در هر سطر را افزایش می‌دهد:</p>
+<div class="math notranslate nohighlight">
+\[C_{r,h_r(a)}\leftarrow C_{r,h_r(a)}+1.\]</div>
+<p>تخمین فراوانی کلید برابر است با</p>
+<div class="math notranslate nohighlight">
+\[\widehat f(a)=\min_{r=1}^{d} C_{r,h_r(a)}.\]</div>
+<p>با شمارنده‌های فقط افزایشی و هش مناسب، برخوردها به تخمین مقدار <strong>مثبت اضافی</strong> می‌دهند؛ بنابراین <span class="math notranslate nohighlight">\(\widehat f(a)\ge f(a)\)</span>. برای پارامترهای تقریبی <span class="math notranslate nohighlight">\(w=\lceil e/\varepsilon\rceil\)</span> و <span class="math notranslate nohighlight">\(d=\lceil\ln(1/\delta)\rceil\)</span>، تحت فرض‌های استاندارد هش، با احتمال حداقل <span class="math notranslate nohighlight">\(1-\delta\)</span> خطای افزوده حداکثر <span class="math notranslate nohighlight">\(\varepsilon N\)</span> است؛ <span class="math notranslate nohighlight">\(N\)</span> مجموع افزایش‌هاست. این <strong>کران احتمالاتی</strong> است، نه تضمین خطای صفر در یک اجرای مشخص.</p>
+<p><strong>مثال دستی.</strong> اگر دو کلید <span class="math notranslate nohighlight">\(A,B\)</span> به یک ستون از سطر اول برخورد کنند و فراوانی‌های واقعی آن‌ها به ترتیب ۳ و ۲ باشد، آن خانه مقدار ۵ می‌گیرد. در سطر دوم ممکن است برخورد رخ ندهد و مقدار خانهٔ <span class="math notranslate nohighlight">\(A\)</span> برابر ۳ باشد؛ عملگر کمینه برای <span class="math notranslate nohighlight">\(A\)</span> مقدار ۳ را برمی‌گرداند. بدون تعدد هش‌ها، جداکردن اثر برخورد ناممکن است.</p>
+<figure class="align-default" id="id16">
+<a class="reference internal image-reference" href="../_images/fig12_cms.png"><img alt="../_images/fig12_cms.png" src="../_images/fig12_cms.png" style="width: 90%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 192 </span><span class="caption-text">مثال آموزشی از برخورد هش در یک سطر و کاهش خطای تخمین با سطرهای مستقل.</span><a class="headerlink" href="#id16" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>هشدار:</strong> کمیت خطای فوق به شمارش درج‌ها وابسته است و حذف دلخواه، شمارنده‌های منفی یا وزن‌های منفی می‌تواند مفروضات نسخهٔ ساده را نقض کند. کد این فصل، نسخهٔ آموزشی شمارش‌های غیرمنفی را پیاده‌سازی کرده است.</p>
+</section>
+<section id="bloom-filter">
+<h2>۱۲ـ۶. آزمون عضویت احتمالی: Bloom Filter<a class="headerlink" href="#bloom-filter" title="Link to this heading">#</a></h2>
+<p>پرسش Bloom Filter از نوع شمارش نیست: «آیا این شناسه احتمالاً پیش‌تر دیده شده است؟» ساختار یک آرایهٔ <span class="math notranslate nohighlight">\(m\)</span> بیتی با <span class="math notranslate nohighlight">\(k\)</span> تابع هش دارد. با درج کلید، <span class="math notranslate nohighlight">\(k\)</span> بیت تنظیم می‌شوند. هنگام پرس‌وجو اگر حتی یک بیت صفر باشد، کلید قطعاً (در مدل بدون حذف) درج نشده است؛ اگر همه یک باشند، ممکن است برخورد کلیدهای دیگر موجب <strong>مثبت کاذب</strong> شده باشد.</p>
+<p>پس از درج <span class="math notranslate nohighlight">\(n\)</span> کلید و با مفروضات تقریبی هش مستقل و یکنواخت، احتمال مثبت کاذب نزدیک است به</p>
+<div class="math notranslate nohighlight">
+\[p_{FP}\approx \left(1-e^{-kn/m}\right)^k.\]</div>
+<p>مقدار تقریباً بهینهٔ تعداد هش‌ها <span class="math notranslate nohighlight">\(k\approx(m/n)\ln 2\)</span> است. در نسخهٔ استاندارد بدون حذف، منفی کاذب رخ نمی‌دهد؛ اما اگر داده یا فیلتر ناسازگار، خراب یا حذف شود چنین تضمینی برقرار نمی‌ماند.</p>
+<p><strong>مثال محاسباتی.</strong> برای <span class="math notranslate nohighlight">\(m=9600\)</span> بیت و <span class="math notranslate nohighlight">\(n=1000\)</span> کلید، <span class="math notranslate nohighlight">\(k\approx 9600\ln2/1000=6.65\)</span> و انتخاب ۷ تابع هش معقول است. حدود ۱٫۲ کیلوبایت بیتِ خام برای نمایش عضویت تقریبی کافی است؛ سربار پیاده‌سازی جداگانه حساب می‌شود. Bloom جایگزین پایگاه دادهٔ تراکنش نیست، زیرا نمی‌تواند عناصر را بازیابی کند.</p>
+</section>
+<section id="id6">
+<h2>۱۲ـ۷. توزیع داده و تجمیع درست<a class="headerlink" href="#id6" title="Link to this heading">#</a></h2>
+<p>وقتی چند ماشین، جریان را پردازش می‌کنند، شکستن داده و سپس تجمیع خروجی باید با ماهیت آماره سازگار باشد. برای شمارش دقیق، تجمیع مجموع شمارش‌های محلی است:</p>
+<div class="math notranslate nohighlight">
+\[f(a)=\sum_{s=1}^{P} f_s(a).\]</div>
+<p>برای Count-Min Sketch، اگر اندازه‌ها و خانوادهٔ هش یکسان باشند، می‌توان خانه‌به‌خانه آرایه‌ها را جمع کرد و Sketch ادغام‌شده ساخت. اما نمونه‌های Reservoir مستقلِ نابرابر را نمی‌توان بی‌ملاحظه به هم چسباند: هر جزء باید با وزن متناسب با تعداد رخدادهای منبع وارد نمونهٔ کل شود.</p>
+<p><strong>مورد خطای رایج:</strong> میانگین نرخ خطای دو سرور که یکی ۱۰۰ و دیگری ۱۰۰٬۰۰۰ رکورد دارد، نباید با میانگین سادهٔ دو نرخ محاسبه شود. باید تعداد رخدادها را در وزن‌دهی لحاظ کرد. در MapReduce، مسئلهٔ کلیدهای بسیار پرتکرار (skew) می‌تواند یک reducer را به گلوگاه تبدیل کند، حتی وقتی داده به‌ظاهر متوازن تقسیم شده باشد.</p>
+<p><strong>نکتهٔ سامانه‌ای:</strong> در یک پردازش توزیع‌شده، حداقل‌یک‌بار تحویل پیام ممکن است شمارش را تکراری کند. شناسهٔ رخداد، ثبت وضعیت پایدار، checkpoint و سیاست بازپخش باید با معنای محاسبه سازگار شوند. عبارت «دقیق» بدون مدل شکست و تکرار پیام ناقص است.</p>
+</section>
+<section id="id7">
+<h2>۱۲ـ۸. خوشه‌بندی مقیاس‌پذیر و بازنمایی داده‌های پیچیده<a class="headerlink" href="#id7" title="Link to this heading">#</a></h2>
+<p>روش BIRCH در کتاب Tan (§۸٫۵٫۲) و Han (§۸٫۳٫۴) در زمینهٔ خوشه‌بندی مقیاس‌پذیر بررسی می‌شود. ایدهٔ مرکزی BIRCH آن است که به جای نگهداری تمام نقاط در خوشه‌سازی اولیه، خلاصه‌هایی از زیربخش‌های داده نگه داریم. یک <strong>ویژگی خوشه</strong> یا Clustering Feature معمولاً به صورت سه‌تایی تعریف می‌شود:</p>
+<div class="math notranslate nohighlight">
+\[CF=(N,LS,SS),\quad LS=\sum_{i=1}^{N}x_i,\quad SS=\sum_{i=1}^{N}\|x_i\|^2.\]</div>
+<p>از این خلاصه، مرکز خوشه <span class="math notranslate nohighlight">\(\mu=LS/N\)</span> و مجموع مربع فاصله تا مرکز برابر <span class="math notranslate nohighlight">\(SS-\|LS\|^2/N\)</span> به دست می‌آید. دو خلاصهٔ مربوط به مجموعه‌های مجزا نیز با جمع مؤلفه‌ها ادغام می‌شوند. این ویژگی برای دادهٔ برداری عددی مناسب است؛ تعمیم بی‌تأمل آن به توالی‌های DNA یا گراف‌ها درست نیست.</p>
+<p><strong>مثال دستی.</strong> برای نقاط یک‌بعدی <span class="math notranslate nohighlight">\(2,4,6\)</span> داریم <span class="math notranslate nohighlight">\(N=3\)</span>، <span class="math notranslate nohighlight">\(LS=12\)</span> و <span class="math notranslate nohighlight">\(SS=56\)</span>. مرکز <span class="math notranslate nohighlight">\(4\)</span> و مجموع مربعات انحراف <span class="math notranslate nohighlight">\(56-12^2/3=8\)</span> است. این خلاصه بخشی از اطلاعات نقطه‌ای را حذف می‌کند؛ از آن نمی‌توان ترتیب ورود یا همهٔ نقاط را بازسازی کرد.</p>
+<p>در دادهٔ متنی ممکن است بردار شمارش واژگان یا embedding ساخته شود؛ در دادهٔ زمانی، ترتیب و وابستگی بین مشاهدات اهمیت دارد؛ در گراف، ساختار یال‌ها و نوع رابطه ضروری است. هر بار که دادهٔ غیرجدولی به بردار تبدیل می‌شود، باید روشن کرد چه اطلاعاتی حذف می‌شود و سنجهٔ شباهت مناسب چیست. کتاب Tan (§۲٫۱٫۲) گونه‌های رکوردی، گرافی و مرتب‌شده را تفکیک می‌کند.</p>
+</section>
+<section id="id8">
+<h2>۱۲ـ۹. تغییر توزیع و ارزیابی برخط<a class="headerlink" href="#id8" title="Link to this heading">#</a></h2>
+<p>مدلی که دیروز مناسب بوده است شاید امروز مناسب نباشد. <strong>تغییر توزیع</strong> به جابه‌جایی <span class="math notranslate nohighlight">\(P_t(X,Y)\)</span> در طول زمان اشاره دارد؛ <strong>concept drift</strong> در معنای دقیق‌تر معمولاً به تغییر رابطهٔ هدف با ویژگی‌ها، مانند <span class="math notranslate nohighlight">\(P_t(Y\mid X)\)</span>، مربوط می‌شود. افزایش فراوانی یک محصول لزوماً concept drift در طبقه‌بندی نیست؛ ممکن است صرفاً تغییر فراوانی ورودی یا روند فصلی باشد.</p>
+<p>در ارزیابی prequential یا «آزمون سپس آموزش»، هر رخداد برچسب‌دار ابتدا با مدل جاری پیش‌بینی می‌شود و سپس، در صورت مجاز بودن، به به‌روزرسانی آن کمک می‌کند. این ترتیب از نشت آینده به گذشته جلوگیری می‌کند. در عمل ممکن است برچسب با تأخیر برسد، پس سنجهٔ ارزیابی باید زمانِ دسترس‌بودن برچسب را نیز لحاظ کند.</p>
+<p>در دادهٔ ساختگی همراه فصل، احتمال رخداد کالای <code class="docutils literal notranslate"><span class="pre">rare</span></code> در نیمهٔ اول جریان ۰٫۰۸ و در نیمهٔ دوم ۰٫۱۹ است. این <strong>تغییر از پیش اعمال‌شده در مولد</strong> است؛ مشاهدهٔ روند در نمودار، اثبات یک آشکارساز drift روی دادهٔ واقعی نیست.</p>
+<figure class="align-default" id="id17">
+<a class="reference internal image-reference" href="../_images/fig12_drift.png"><img alt="../_images/fig12_drift.png" src="../_images/fig12_drift.png" style="width: 94%;" />
+</a>
+<figcaption>
+<p><span class="caption-number">Fig. 193 </span><span class="caption-text">فراوانی تجربی یک کالای ساختگی در پنجره‌های متوالی؛ تغییر فرض‌شده در میانهٔ جریان رخ می‌دهد.</span><a class="headerlink" href="#id17" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>برای قضاوت آماری دربارهٔ تغییر، باید فرض صفر، نرخ هشدار کاذب، تعدد پنجره‌ها، هم‌بستگی زمانی و سیاست بازآموزی روشن شوند؛ این همان پلی است که فصل یازدهم به فصل حاضر می‌سازد.</p>
+</section>
+<section id="id9">
+<h2>۱۲ـ۱۰. انتخاب معماری و بازتولیدپذیری<a class="headerlink" href="#id9" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>نیاز اصلی</p></th>
+<th class="head"><p>گزینهٔ اولیه</p></th>
+<th class="head"><p>پرسش پیش از استفاده</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>فراوانی دقیق کلیدها</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Counter</span></code> یا تجمیع پایگاه داده</p></td>
+<td><p>تعداد کلیدهای یکتا و حافظه کافی است؟</p></td>
+</tr>
+<tr class="row-odd"><td><p>فراوانی تقریبی</p></td>
+<td><p>Count-Min Sketch</p></td>
+<td><p>خطای یک‌طرفه و برخورد هش قابل قبول است؟</p></td>
+</tr>
+<tr class="row-even"><td><p>نمونهٔ یکنواخت از جریان</p></td>
+<td><p>Reservoir Sampling</p></td>
+<td><p>نمونهٔ کلاس‌های نادر کافی است؟</p></td>
+</tr>
+<tr class="row-odd"><td><p>عضویت سریع تقریبی</p></td>
+<td><p>Bloom Filter</p></td>
+<td><p>مثبت کاذب چه هزینه‌ای دارد؟</p></td>
+</tr>
+<tr class="row-even"><td><p>خوشه‌بندی بزرگ برداری</p></td>
+<td><p>BIRCH</p></td>
+<td><p>خلاصهٔ برداری ویژگی‌های ضروری را حفظ می‌کند؟</p></td>
+</tr>
+<tr class="row-odd"><td><p>پردازش چندگرهی</p></td>
+<td><p>MapReduce / تجمع توزیع‌شده</p></td>
+<td><p>skew، تکرار پیام و سربار ارتباط مدیریت شده‌اند؟</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>قبل از انتشار نتیجهٔ علمی باید بذر تصادفی، نسخهٔ داده، شیوهٔ تقسیم آموزش/آزمون، تنظیمات هش و پارامترها، نسخهٔ کد و وابستگی‌ها، تعریف سنجه‌ها و محیط اجرا ثبت شوند. صرف وجود فایل Notebook، نتیجه را بازتولیدپذیر نمی‌کند؛ Notebook باید از ابتدا و در محیط پاک اجرا شود.</p>
+<section id="id10">
+<h3>اجرای آزمایش همراه فصل<a class="headerlink" href="#id10" title="Link to this heading">#</a></h3>
+<p>کد همراه تنها به کتابخانهٔ استاندارد Python نیاز دارد. در پوشهٔ <code class="docutils literal notranslate"><span class="pre">downloads</span></code> اجرا کنید:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python chapter12_examples.py</span>
+</pre></div>
+</div>
+<p>ابتدا <code class="docutils literal notranslate"><span class="pre">SELF_TEST_OK</span></code> چاپ می‌شود؛ سپس نتایج شمارش دقیق، تخمینی، Reservoir و آزمون Bloom گزارش می‌شوند. این کد برای <strong>فهم مفاهیم</strong> است و ادعای پیاده‌سازی بهینهٔ صنعتی ندارد. هش‌های مثال از BLAKE2b با seedهای مستقل ظاهری ساخته شده‌اند؛ استقلال آماری کامل توابع هش از این روش اثبات نمی‌شود و کران نظری Sketch را نباید صرفاً با آن تضمین‌شده دانست.</p>
+</section>
+</section>
+<section id="id11">
+<h2>۱۲ـ۱۱. پروژهٔ جامع پایانی<a class="headerlink" href="#id11" title="Link to this heading">#</a></h2>
+<p>یک جریان رویداد با حداقل ۱۰۰٬۰۰۰ رخداد و یک تغییر توزیع قابل کنترل تولید کنید. سه تحلیل انجام دهید: (۱) شمارش دقیق و تقریبی فراوانی‌ها با برآورد خطای مثبت Sketch؛ (۲) بررسی کیفیت نمونهٔ Reservoir برای دسته‌های پرتکرار و نادر؛ (۳) تشخیص جابه‌جایی روند با پنجره‌های مختلف. آزمایش را حداقل در پنج بذر مستقل تکرار و نمودار پراکندگی نتایج ارائه کنید.</p>
+<p><strong>تحویل دانشجو:</strong> صورت مسئله، تعریف دقیق متغیرها، کد و Notebook قابل اجرا، نمودار زمان و حافظه، خطا برحسب پارامترهای Sketch، تحلیل عدم قطعیت و هشدارهای آماری، و یک تصمیم مهندسی مستند. کسب خطای کوچک روی یک بذر، به‌تنهایی دلیل کافی برای انتخاب روش نیست.</p>
+<p><strong>پرسش‌های تحلیل:</strong> اگر محصول نادر اهمیت اقتصادی زیادی داشته باشد، چه تغییری در روش نمونه‌گیری می‌دهید؟ اگر رویدادها تکراری به مقصد برسند، چه اتفاقی برای شمارش و Sketch رخ می‌دهد؟ اگر هدف برآورد تعداد اعضای متمایز باشد، چرا Bloom Filter جواب عددی مستقیم نمی‌دهد؟</p>
+</section>
+<section id="id12">
+<h2>۱۲ـ۱۲. جمع‌بندی فصل و پیوند با درس<a class="headerlink" href="#id12" title="Link to this heading">#</a></h2>
+<p>در فصل‌های نخست، داده را تعریف و آماده کردیم؛ سپس شباهت، الگو، طبقه‌بندی، خوشه، ناهنجاری و اعتبار آماری را آموختیم. اکنون می‌دانیم یک راه‌حل قابل اتکا، فقط «الگوریتم درست» نیست: به بازنمایی معنادار، محدودیت منابع، خطای کنترل‌شده، ارزیابی معتبر، و ثبت مسیر بازتولید نیاز دارد. فصل دوازدهم <strong>پایان برنامهٔ ۱۲فصلی فعلی</strong> است؛ مسیر پژوهش پس از آن با پروژه‌های عمیق‌تر ادامه پیدا می‌کند، نه با افزودن فصل سیزدهم بدون مصوبهٔ آموزشی.</p>
+</section>
+<section id="id13">
+<h2>منابع و دامنهٔ انتساب<a class="headerlink" href="#id13" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Han, J., Pei, J., and Tong, H. <em>Data Mining: Concepts and Techniques</em>, 4th ed., Elsevier, 2023. موضوعات مرتبط: §۵٫۴٫۲، §۷٫۶٫۱ و §۸٫۳٫۴؛ شمارهٔ دقیق صفحه باید با نسخهٔ چاپی تحویل‌شده کنترل شود.</p></li>
+<li><p>Tan, P.-N., Steinbach, M., Karpatne, A., and Kumar, V. <em>Introduction to Data Mining</em>, 2nd ed., Pearson, 2019. §۲٫۱٫۲ (انواع داده) و §۸٫۵ (مقیاس‌پذیری خوشه‌بندی)، به‌ویژه §۸٫۵٫۲ (BIRCH)، صفحات چاپی ۶۸۱–۶۸۹.</p></li>
+<li><p>Vitter, J. S. (1985). <em>Random Sampling with a Reservoir</em>. ACM Transactions on Mathematical Software, 11(1), 37–57.</p></li>
+<li><p>Cormode, G. and Muthukrishnan, S. (2005). <em>An Improved Data Stream Summary: The Count-Min Sketch and Its Applications</em>. Journal of Algorithms, 55(1), 58–75.</p></li>
+<li><p>Bloom, B. H. (1970). <em>Space/Time Trade-offs in Hash Coding with Allowable Errors</em>. Communications of the ACM, 13(7), 422–426.</p></li>
+</ol>
+<p><strong>شفاف‌سازی:</strong> Reservoir، Count-Min Sketch و Bloom Filter مکمل‌های آموزشی‌اند؛ انتساب مستقیم فرمول‌های این بخش‌ها به صفحات مشخص کتاب Tan/Han انجام نشده است. داده‌ها، نمودارها و پیاده‌سازی‌های این فصل مستقل و آموزشی‌اند.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./course-notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="chapter-11.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">فصل یازدهم — اعتبار آماری کشفیات و پیشگیری از کشفیات کاذب</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">۱۲ـ۱. مسئلهٔ محوری: فروشگاه آنلاین با جریان رویداد</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">۱۲ـ۲. بودجهٔ محاسباتی: زمان، حافظه و کیفیت</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">تمرین سنجش هزینه</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">۱۲ـ۳. پردازش دسته‌ای، جریانی و پنجره‌ها</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reservoir-sampling">۱۲ـ۴. Reservoir Sampling: نمونهٔ یکنواخت بدون دانستن طول جریان</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#count-min-sketch">۱۲ـ۵. خلاصهٔ شمارش تقریبی: Count-Min Sketch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bloom-filter">۱۲ـ۶. آزمون عضویت احتمالی: Bloom Filter</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">۱۲ـ۷. توزیع داده و تجمیع درست</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">۱۲ـ۸. خوشه‌بندی مقیاس‌پذیر و بازنمایی داده‌های پیچیده</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">۱۲ـ۹. تغییر توزیع و ارزیابی برخط</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">۱۲ـ۱۰. انتخاب معماری و بازتولیدپذیری</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">اجرای آزمایش همراه فصل</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">۱۲ـ۱۱. پروژهٔ جامع پایانی</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">۱۲ـ۱۲. جمع‌بندی فصل و پیوند با درس</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">منابع و دامنهٔ انتساب</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Hadi Sadoghi Yazdi
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026 Hadi Sadoghi Yazdi.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <p><a href="/teaching/">Back to teaching courses</a></p>
+
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
