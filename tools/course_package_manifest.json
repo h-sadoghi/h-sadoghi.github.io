@@ -14,6 +14,31 @@
         "assets/downloads/courses/data-mining/course-notes/chapter-09/network_synthetic.json",
         "assets/downloads/courses/data-mining/course-notes/chapter-09/overlap_synthetic.csv"
       ]
+    },
+    {
+      "course_id": "data-mining",
+      "markdown": "courses/data-mining/book/course-notes/chapter-10.md",
+      "downloads": [
+        "assets/downloads/courses/data-mining/course-notes/chapter-10/chapter10_examples.ipynb",
+        "assets/downloads/courses/data-mining/course-notes/chapter-10/chapter10_examples.py",
+        "assets/downloads/courses/data-mining/course-notes/chapter-10/DataMining_Chapter10.pdf",
+        "assets/downloads/courses/data-mining/course-notes/chapter-10/DataMining_Chapter10_TEX_PDF_SOURCE.zip",
+        "assets/downloads/courses/data-mining/course-notes/chapter-10/events_synthetic.csv",
+        "assets/downloads/courses/data-mining/course-notes/chapter-10/signals_synthetic.json"
+      ]
+    },
+    {
+      "course_id": "data-mining",
+      "markdown": "courses/data-mining/book/course-notes/chapter-11.md",
+      "downloads": [
+        "assets/downloads/courses/data-mining/course-notes/chapter-11/chapter11_examples.ipynb",
+        "assets/downloads/courses/data-mining/course-notes/chapter-11/chapter11_examples.py",
+        "assets/downloads/courses/data-mining/course-notes/chapter-11/DataMining_Chapter11.pdf",
+        "assets/downloads/courses/data-mining/course-notes/chapter-11/DataMining_Chapter11_TEX_PDF_SOURCE.zip",
+        "assets/downloads/courses/data-mining/course-notes/chapter-11/null_experiment_synthetic.json",
+        "assets/downloads/courses/data-mining/course-notes/chapter-11/paired_predictions_synthetic.csv",
+        "assets/downloads/courses/data-mining/course-notes/chapter-11/pvalues_synthetic.csv"
+      ]
     }
   ]
 }

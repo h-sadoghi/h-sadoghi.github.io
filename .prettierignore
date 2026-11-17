@@ -10,3 +10,7 @@ lighthouse_results/**
 _posts/2015-10-20-math.md
 _sass/font-awesome/*.scss
 _includes/teaching_course_materials.liquid
+
+# Data Mining generated MyST chapters and educational JSON: validated by book importer
+courses/data-mining/book/course-notes/chapter-*.md
+assets/downloads/courses/data-mining/course-notes/chapter-*/*.json

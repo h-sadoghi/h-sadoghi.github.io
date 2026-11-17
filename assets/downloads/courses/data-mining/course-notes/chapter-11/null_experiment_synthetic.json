@@ -1,0 +1,8 @@
+{
+  "description": "Reproducible synthetic, not observational human data",
+  "seed": 11,
+  "n_experiments": 1000,
+  "n_independent_null_tests": 50,
+  "alpha": 0.05,
+  "note": "Monte Carlo, no actual p-value validity guarantee under real dependence"
+}

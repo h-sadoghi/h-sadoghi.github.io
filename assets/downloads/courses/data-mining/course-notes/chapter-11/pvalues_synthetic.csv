@@ -1,0 +1,7 @@
+hypothesis_id,p_value,effect_size,scenario
+H01,0.001,0.16,synthetic_only
+H02,0.012,0.09,synthetic_only
+H03,0.021,0.11,synthetic_only
+H04,0.039,0.04,synthetic_only
+H05,0.2,0.03,synthetic_only
+H06,0.61,0.001,synthetic_only
